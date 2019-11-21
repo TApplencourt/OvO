@@ -1,0 +1,71 @@
+#include <stdlib.h>
+#include <numeric>
+#include <math.h>
+#include <cassert>
+#include <iostream>
+#include <cmath>
+
+void test_{{name}}(){
+
+    // Declare Size of array
+    {% for name, value in zip(l_var_array_size, l_array_size) %}
+    const int {{ name }} = {{value}};
+    {%- endfor %}
+
+    // Initialize array
+    {% if l_var_array_size | length %}
+        double A{{array_mapping(l_var_array_size,True)}};
+        double B{{array_mapping(l_var_array_size,True)}} = { {{array_init_value(l_array_size)}} };
+    {% endif %}
+
+    // Computation
+    {%- if l_var_array_size | length -%}
+        {%- set ns = namespace(iterated=0) -%}
+        {% for pragma, pragma_type in zip(l_pragma,l_pragma_type) -%}
+
+            {% if is_target(pragma) %}
+    #pragma omp {{pragma}} map(from: A{{array_mapping(l_var_array_size)}}) map(to: B{{array_mapping(l_var_array_size)}})
+            {% else %}
+    #pragma omp {{pragma}}
+            {% endif -%}   
+         
+            {% if pragma_type -%}
+                {%- set i = l_var_loop_idx[ns.iterated] -%}
+                {%- set v = l_var_array_size[ns.iterated] -%}
+    for (int {{i }} = 0 ; {{i}} < {{v}} ; {{i}}++ )
+                {%- set ns.iterated = ns.iterated + 1 -%}
+            {% endif %}
+            {
+        {% endfor %}
+        //#pragma omp atomic write
+        A{{ array_mapping(l_var_loop_idx,True)}} = B{{array_mapping(l_var_loop_idx,True)}};
+        {%- for _ in l_pragma %}
+        }
+        {%- endfor -%}
+    {% endif %}
+
+    // Validation
+    {%- if l_var_array_size | length -%}
+        {%- set ns = namespace(iterated=0) -%}
+        {% for pragma, pragma_type in zip(l_pragma,l_pragma_type) %}
+            {% if pragma_type %}
+                {%- set i = l_var_loop_idx[ns.iterated] -%}
+                {%- set v = l_var_array_size[ns.iterated] -%}
+            for (int {{i }} = 0 ; {{i}} < {{v}} ; {{i}}++ )
+                {%- set ns.iterated = ns.iterated + 1 -%}
+            {% endif %}
+            {
+        {% endfor %}
+        assert( std::fabs( A{{ array_mapping(l_var_loop_idx,True)}} - B{{array_mapping(l_var_loop_idx,True)}}) < 1E-9 );
+        {%- for _ in l_pragma %}
+        }
+        {%- endfor %}
+    std::cout << "OK" << std::endl ;
+    {%- endif %}
+}   
+
+int main()
+{
+    test_{{name}}();
+}
+

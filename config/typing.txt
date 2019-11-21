@@ -1,0 +1,8 @@
+{
+    "target": "structured-block",
+    "teams": "structured-block",
+    "distribute": "for-loops",
+    "parallel": "structured-block",
+    "for": "for-loops",
+    "simd": "for-loops"
+}

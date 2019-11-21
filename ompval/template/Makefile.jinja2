@@ -1,0 +1,16 @@
+CXX := g++
+CXXFLAGS := -O2
+
+TARGET := {{l_name_run|join(' ')}}
+
+all: $(TARGET)
+{% for name in l_name %}
+{{name}} : {{name}}.cpp
+	-$(CXX) $(CXXFLAGS)  {{name}}.cpp -o {{name}}
+
+run_{{name}} : {{name}}
+	-./{{name}}
+{% endfor %}
+
+clean:
+	rm -f {{l_name|join(' ')}}

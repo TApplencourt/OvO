@@ -1,0 +1,85 @@
+{
+    "root": [
+        "target",
+        "target parallel",
+        "target parallel for",
+        "target parallel for simd",
+        "target simd",
+        "target teams",
+        "target teams distribute",
+        "target teams distribute simd",
+        "target teams distribute parallel for",
+        "target teams distribute parallel for simd"
+    ],
+    "target": [
+        "parallel",
+        "parallel for",
+        "parallel for simd",
+        "simd",
+        "teams",
+        "teams distribute",
+        "teams distribute simd",
+        "teams distribute parallel for",
+        "teams distribute parallel for simd"
+    ],
+    "target parallel": [
+        "for",
+        "simd"
+    ],
+    "target parallel for": [
+        "simd"
+    ],
+    "target parallel for simd": [],
+    "target simd": [],
+    "target teams": [
+        "distribute",
+        "distribute simd",
+        "parallel",
+        "parallel for",
+        "parallel for simd"
+    ],
+    "target teams distribute": [
+        "parallel",
+        "parallel for",
+        "simd"
+    ],
+    "target teams distribute simd": [],
+    "target teams distribute parallel for": [
+        "simd"
+    ],
+    "target teams distribute parallel for simd": [],
+    "teams": [
+        "distribute",
+        "parallel",
+        "parallel for",
+        "parallel for simd"
+    ],
+    "distribute": [
+        "parallel",
+        "parallel for",
+        "simd"
+    ],
+    "teams distribute": [
+        "parallel",
+        "parallel for",
+        "simd"
+    ],
+    "parallel": [
+        "for",
+        "simd"
+    ],
+    "for": [
+        "simd"
+    ],
+    "teams distribute parallel for": [
+        "simd"
+    ],
+    "parallel for": [
+        "simd"
+    ],
+    "distribute simd": [],
+    "teams distribute parallel for simd": [],
+    "teams distribute simd": [],
+    "parallel for simd": [],
+    "simd": []
+}
