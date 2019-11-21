@@ -9,3 +9,7 @@
  - Modify the makefile with correct flags
  - Run tests [and check for error (not super robust)]
     - `make |& grep -B1 'make'`
+
+# Requirement
+ - python 3.
+ - jinja2
