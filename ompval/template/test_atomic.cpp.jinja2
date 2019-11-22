@@ -7,6 +7,12 @@
 
 void test_{{name}}(){
 
+    // Declare Size of array
+    {% for name, value in zip(l_var_array_size, l_array_size) %}
+    const int {{ name }} = {{value}};
+    {%- endfor %}
+
+    // Initialize array
     int A = 0;
 
     // Computation
