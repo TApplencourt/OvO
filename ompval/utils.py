@@ -89,6 +89,20 @@ def gen_test(path, omp_typing, ref_l_array_size, folder='tmp'):
 
     l_pragma_type= [omp_typing[ node.split().pop() ] == 'for-loops' for node in path]
 
+    i = 0
+    new_l = []
+    tmp_l = []
+    for pragma in path:
+    
+        *heads, tails = pragma.split()
+        if omp_typing[tails] == 'structured-block':
+          tmp_l.append(pragma)
+        else:
+
+            new_l.append( (tmp_l,(pragma, ref_l_var_loop_idx[i], ref_l_var_array_size[i]) ) )  
+            tmp_l = []
+            i+=1
+
     test = template.render(name=name,zip=zip,
                     array_mapping=array_mapping,
                     is_target=is_target,
@@ -97,6 +111,7 @@ def gen_test(path, omp_typing, ref_l_array_size, folder='tmp'):
                     l_var_loop_idx=l_var_loop_idx,
                     l_array_size=l_array_size,
                     l_pragma=path,
+                    l_pragma2=new_l,
                     l_pragma_type=l_pragma_type)
 
     import os

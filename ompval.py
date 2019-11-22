@@ -8,9 +8,11 @@ import argparse
 
 parser = argparse.ArgumentParser(description='OpenMP Validation (kinda).')
 parser.add_argument("--tree_config_path", help='''path the openmp pragma tree config file. (default: config/intel_oneapi_beta0.txt''' )
-parser.add_argument("--test_path", help='''path to the directory where the test will be generated. (default: omp_tests''' )
+parser.add_argument("--test_path", help='''path to the directory where the test will be generated. (default: tests''' )
 
 args = parser.parse_args()
+
+
 
 
 # Load configurations files.
@@ -24,6 +26,8 @@ with open(tree_config_path, 'r') as f:
 
 with open(typing_config_path, 'r') as f:
     omp_typing = json.load(f)
+
+
 
 output_folder = "omp_tests"
 
