@@ -19,12 +19,12 @@ void test_{{name}}(){
     {%- if l_var_array_size | length -%}
         {% for structured_block, (loop_pragma, i, N) in l_pragma2 %}
             {% for pragma in structured_block %}
-                #pragma omp {{pragma}} {% if is_target(pragma) %} map(from: A {% endif %}
+                #pragma omp {{pragma}} {% if is_target(pragma) %} map(from: A) {% endif %}
             {
             {% endfor %}
 
             {% if loop_pragma %}
-                #pragma omp {{loop_pragma}} {% if is_target(loop_pragma) %} map(from: A {% endif %}
+                #pragma omp {{loop_pragma}} {% if is_target(loop_pragma) %} map(from: A) {% endif %}
                 for (int {{i}} = 0 ; {{i}} < {{N}} ; {{i}}++ )
             {% endif %}
             {
