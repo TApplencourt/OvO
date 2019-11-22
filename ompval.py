@@ -34,14 +34,19 @@ output_folder = "omp_tests"
 
 paths = omp_walk(['root'],omp_tree)[1:] # Drop the 'root' path
 
-l_name = []
-for i, (_, *path) in enumerate(paths): # Drop the 'root' node
 
-    print (i,path)
+for test in ["memcopy","atomic"]:
 
-    # Generate test
-    name = gen_test(path, omp_typing, [10,10,10], test="test_atomic.cpp.jinja2", folder=output_folder)
-    l_name.append(name)
-
-gen_makefile(l_name,folder=output_folder)
+  test_folder=os.path.join(output_folder,test)
+  test_template=f"test_{test}.cpp.jinja2"
+  l_name = []
+  for i, (_, *path) in enumerate(paths): # Drop the 'root' node
+  
+      print (i,path)
+  
+      # Generate test
+      name = gen_test(path, omp_typing, [10,10,10], test=test_template, folder=test_folder)
+      l_name.append(name)
+  
+  gen_makefile(l_name,folder=test_folder)
 
