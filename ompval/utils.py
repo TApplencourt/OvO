@@ -74,8 +74,8 @@ def gen_makefile(l_name, folder='tmp'):
     with open(os.path.join(folder,'Makefile'), 'w') as f:
         f.write(makefile)
 
-def gen_test(path, omp_typing, ref_l_array_size, folder='tmp'):  
-    template = templateEnv.get_template("test.cpp.jinja2")
+def gen_test(path, omp_typing, ref_l_array_size,test, folder='tmp'):  
+    template = templateEnv.get_template(test)
 
     ref_l_var_array_size = "LMN"
     ref_l_var_loop_idx = "ijk"

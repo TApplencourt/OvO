@@ -40,7 +40,7 @@ for i, (_, *path) in enumerate(paths): # Drop the 'root' node
     print (i,path)
 
     # Generate test
-    name = gen_test(path, omp_typing, [10,10,10],folder=output_folder)
+    name = gen_test(path, omp_typing, [10,10,10], test="test_atomic.cpp.jinja2", folder=output_folder)
     l_name.append(name)
 
 gen_makefile(l_name,folder=output_folder)
