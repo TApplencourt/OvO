@@ -33,9 +33,13 @@ void test_{{name}}(){
         #pragma omp atomic update
         {% endif %}
         A++;
-        {%- for _ in l_pragma %}
-        }
-        {%- endfor -%}
+        
+        {% for structured_block, (loop_pragma, i, N) in l_pragma2 %}
+            {% for pragma in structured_block %}
+            }
+            {% endfor %}
+            }
+        {% endfor %}
     {% endif %}
 
     // Validation
