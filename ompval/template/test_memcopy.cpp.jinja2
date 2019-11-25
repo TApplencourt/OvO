@@ -34,13 +34,16 @@ void test_{{name}}(){
             {% endif %}
             {
         {% endfor %}
-        {%if not l_pragma2[-1][1][0].endswith("simd") %}
-        #pragma omp atomic write
-        {% endif %}
         A{{ array_mapping(l_var_loop_idx,True)}} = B{{array_mapping(l_var_loop_idx,True)}};
-        {%- for _ in l_pragma %}
-        }
-        {%- endfor -%}
+
+
+        {% for structured_block, (loop_pragma, i, N) in l_pragma2 %}
+            {% for pragma in structured_block %}
+            }
+            {% endfor %}
+            }
+        {% endfor %}
+
     {% endif %}
 
     // Validation
