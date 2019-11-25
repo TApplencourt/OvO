@@ -1,0 +1,15 @@
+language: python
+
+compiler:
+  - clang
+
+python:
+  - 3.8
+
+install:
+  - pip install jinja2
+
+scripts:
+	./ompval.py
+  ./run.sh
+	

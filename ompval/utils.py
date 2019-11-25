@@ -64,6 +64,33 @@ templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname,"templa
 templateEnv = jinja2.Environment(loader=templateLoader)
 
 
+# Need to check that for each "contruct" programa we have a "distribute" one.
+def memcopy_ub(path):
+    # Merge everything
+    l = []
+    for pragma in path:
+        l.extend(pragma.split())
+
+    #No check is teanm is followed by distribute
+    # And parrallel  by for
+    while l:
+        pragma = l.pop(0)
+        if pragma == 'teams':
+            if not l:
+                return True
+            else:
+                pragma = l.pop(0)
+                if pragma != 'distribute':
+                    return True
+        elif pragma == 'parallel':
+            if not l:
+                return True
+            else:
+                pragma = l.pop(0)
+                if pragma != 'for':
+                    return True
+
+
 def gen_makefile(l_name, folder='tmp'):
     import os
     l_name_run = [ f"run_{name}" for name in l_name]
@@ -71,10 +98,13 @@ def gen_makefile(l_name, folder='tmp'):
     makefile = t.render(l_name=l_name, l_name_run=l_name_run)
 
     os.makedirs(folder, exist_ok=True)
-    with open(os.path.join(folder,'Makefile'), 'w') as f:
-        f.write(makefile)
+    for t_ in ("ub","sound"):
+        with open(os.path.join(folder,t_,'Makefile'), 'w') as f:
+            f.write(makefile)
 
 def gen_test(path, omp_typing, ref_l_array_size,test, folder='tmp'):  
+    import os
+
     template = templateEnv.get_template(test)
 
     ref_l_var_array_size = "LMN"
@@ -102,6 +132,13 @@ def gen_test(path, omp_typing, ref_l_array_size,test, folder='tmp'):
             new_l.append( (tmp_l,(pragma, ref_l_var_loop_idx[i], ref_l_var_array_size[i]) ) )  
             tmp_l = []
             i+=1
+
+    if folder.endswith('atomic') and name.endswith('simd'):
+        folder = os.path.join(folder,'ub')
+    elif folder.endswith('memcopy') and memcopy_ub(path):
+        folder = os.path.join(folder,'ub')
+    else:
+        folder = os.path.join(folder,'sound')
 
     test = template.render(name=name,zip=zip,
                     array_mapping=array_mapping,

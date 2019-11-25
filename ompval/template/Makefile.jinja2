@@ -1,16 +1,21 @@
-CXX ?= g++
-CXXFLAGS ?= -O2
+#include $(CONFIG_FILE)
 
-TARGET := {{l_name_run|join(' ')}}
+SOURCES := $(wildcard *.cpp)
+EXE := $(SOURCES:%.cpp=%.exe)
 
-all: $(TARGET)
-{% for name in l_name %}
-{{name}} : {{name}}.cpp
-	-$(CXX) $(CXXFLAGS)  {{name}}.cpp -o {{name}}
+.PHONY: exe
+exe: $(EXE)
+%.exe: %.cpp
+	-$(CXX) $(CXXFLAGS) $< -o $@
 
-run_{{name}} : {{name}}
-	-./{{name}}
-{% endfor %}
+pEXE := $(wildcard *.exe)
+RUN := $(addprefix run_, $(basename $(pEXE)))
 
+.PHONY: run
+run: $(RUN)
+run_%: %.exe
+	-./$<
+
+.PHONY: clean
 clean:
-	rm -f {{l_name|join(' ')}}
+	rm -f -- $(pEXE)
