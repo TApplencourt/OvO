@@ -1,4 +1,33 @@
-atomic
-    Compile Error
-        target__teams 
-        target_teams
+====
+omp_tests/atomic/sound
+==== 
+Compilation
+
+[target_teams.exe]   Error  1  (ignored)
+[target__teams.exe]  Error  1  (ignored)
+Execution
+
+====
+omp_tests/memcopy/sound
+====
+
+Compilation
+
+Execution
+
+====
+omp_tests/memcopy/ub
+====
+
+Compilation
+
+Execution
+
+====
+omp_tests/reduction/sound
+====
+
+Compilation
+
+Execution
+
