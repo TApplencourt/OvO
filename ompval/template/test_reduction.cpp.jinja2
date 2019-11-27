@@ -7,7 +7,7 @@
 
 void test_{{name}}(){
 
-    // Declare Size of Loop
+    // Declare Size of array
     {% for name, value in zip(l_LMN, l_size) %}
     const int {{ name }} = {{value}};
     {%- endfor %}
@@ -18,19 +18,17 @@ void test_{{name}}(){
     // Computation
     {% for structured_block, (loop_pragma, i, N) in l_pragma %}
             {% for pragma in structured_block %}
-                #pragma omp {{pragma}} {% if is_target(pragma) %} map(from: A) {% endif %}
+                #pragma omp {{pragma}} {% if can_reduce(pragma) %} reduction(+:A) {%endif %} {% if is_target(pragma) %} defaultmap(tofrom:scalar) {% endif %}
             {
             {% endfor %}
 
             {% if loop_pragma %}
-                #pragma omp {{loop_pragma}} {% if is_target(loop_pragma) %} map(from: A) {% endif %}
+                #pragma omp {{loop_pragma}} {% if can_reduce(loop_pragma) %} reduction(+:A) {% endif %} {% if is_target(loop_pragma) %} defaultmap(tofrom:scalar) {% endif %}
                 for (int {{i}} = 0 ; {{i}} < {{N}} ; {{i}}++ )
             {% endif %}
             {
         {% endfor %}
-        #pragma omp atomic update
-        A++;
-        
+        A=A+1;        
         {% for structured_block, _ in l_pragma %}
             {% for pragma in structured_block %}
             }

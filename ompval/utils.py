@@ -65,11 +65,13 @@ templateEnv = jinja2.Environment(loader=templateLoader)
 
 
 # Need to check that for each "contruct" programa we have a "distribute" one.
-def memcopy_ub(path):
+def not_balenced(path):
     # Merge everything
     l = []
     for pragma in path:
         l.extend(pragma.split())
+
+    # Refractor to count 
 
     #No check is teanm is followed by distribute
     # And parrallel  by for
@@ -89,18 +91,49 @@ def memcopy_ub(path):
                 pragma = l.pop(0)
                 if pragma != 'for':
                     return True
+    return False
 
+def can_reduce(loop_pragma):
+    for pragma in loop_pragma.split():
+        if pragma in ("teams","parallel","simd"):
+            return True
+    return False            
 
-def gen_makefile(l_name, folder='tmp'):
+def gen_makefile(folder='tmp'):
     import os
-    l_name_run = [ f"run_{name}" for name in l_name]
     t = templateEnv.get_template("Makefile.jinja2")
-    makefile = t.render(l_name=l_name, l_name_run=l_name_run)
+    makefile = t.render()
 
-    os.makedirs(folder, exist_ok=True)
     for t_ in ("ub","sound"):
-        with open(os.path.join(folder,t_,'Makefile'), 'w') as f:
+        folder_t = os.path.join(folder,t_,)
+        os.makedirs(folder_t, exist_ok=True)
+        with open(os.path.join(folder_t,'Makefile'), 'w') as f:
             f.write(makefile)
+
+def parse_path(path,omp_typing, ref_l_var_loop_idx, ref_l_var_array_size):
+    l, l_structured_pragma, i_loop = [], [], 0
+    for pragma in path:
+    
+        *heads, tail = pragma.split()
+        if omp_typing[tail] == 'structured-block':
+            l_structured_pragma.append(pragma)
+        else:
+            l.append( (l_structured_pragma,(pragma, ref_l_var_loop_idx[i_loop], ref_l_var_array_size[i_loop]) ) )  
+            l_structured_pragma = []
+            i_loop+=1
+
+    if l_structured_pragma:
+        l.append( (l_structured_pragma, ("","","")) )
+
+    return l
+
+
+def have_loop(path):
+    for l_pragma in path:
+        for pragma in l_pragma.split():
+            if pragma in ('for','distribute','simd'):
+                return True
+    return False
 
 def gen_test(path, omp_typing, ref_l_array_size,test, folder='tmp'):  
     import os
@@ -117,40 +150,30 @@ def gen_test(path, omp_typing, ref_l_array_size,test, folder='tmp'):
     l_array_size = ref_l_array_size[:loop_count]
     l_var_loop_idx = ref_l_var_loop_idx[:loop_count]
 
-    l_pragma_type= [omp_typing[ node.split().pop() ] == 'for-loops' for node in path]
-
-    i = 0
-    new_l = []
-    tmp_l = []
-    for pragma in path:
-    
-        *heads, tails = pragma.split()
-        if omp_typing[tails] == 'structured-block':
-          tmp_l.append(pragma)
-        else:
-
-            new_l.append( (tmp_l,(pragma, ref_l_var_loop_idx[i], ref_l_var_array_size[i]) ) )  
-            tmp_l = []
-            i+=1
+    new_l = parse_path(path,omp_typing, ref_l_var_loop_idx, ref_l_var_array_size)
 
     if folder.endswith('atomic') and name.endswith('simd'):
-        folder = os.path.join(folder,'ub')
-    elif folder.endswith('memcopy') and memcopy_ub(path):
+        return
+    if folder.endswith('memcopy') and not have_loop(path):
+        return
+
+    if folder.endswith('memcopy') and not_balenced(path):
         folder = os.path.join(folder,'ub')
     else:
         folder = os.path.join(folder,'sound')
+
 
     test = template.render(name=name,zip=zip,
                     array_mapping=array_mapping,
                     is_target=is_target,
                     array_init_value=array_init_value,
-                    l_var_array_size=l_var_array_size,
-                    l_var_loop_idx=l_var_loop_idx,
-                    l_array_size=l_array_size,
-                    l_pragma=path,
-                    l_pragma2=new_l,
-                    l_pragma_type=l_pragma_type)
-
+                    l_LMN=l_var_array_size,
+                    l_ijk=l_var_loop_idx,
+                    l_size=l_array_size,
+                    l_pragma=new_l,
+                    can_reduce=can_reduce,
+                    fair=not not_balenced(path) and have_loop(path))
+    
     import os
     os.makedirs(folder, exist_ok=True)
     with open(os.path.join(folder,f'{name}.cpp'),'w') as f:
