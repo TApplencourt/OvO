@@ -106,9 +106,10 @@ def gen_makefile(folder='tmp'):
 
     for t_ in ("ub","sound"):
         folder_t = os.path.join(folder,t_,)
-        os.makedirs(folder_t, exist_ok=True)
-        with open(os.path.join(folder_t,'Makefile'), 'w') as f:
-            f.write(makefile)
+        if os.path.isdir(folder_t):
+            os.makedirs(folder_t, exist_ok=True)
+            with open(os.path.join(folder_t,'Makefile'), 'w') as f:
+                f.write(makefile)
 
 def parse_path(path,omp_typing, ref_l_var_loop_idx, ref_l_var_array_size):
     l, l_structured_pragma, i_loop = [], [], 0
