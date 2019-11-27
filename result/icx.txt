@@ -1,54 +1,81 @@
 CXX="icx" CXXFLAGS="-fiopenmp -fopenmp-targets=spir64=-fno-exceptions" make exe
 
-memcopy
-    Runtime Error
-        target_simd
+====
+omp_tests/atomic/sound
+====
+Compilation
 
-atomic
-    Compile Error
-        target__teams
-        target__teams__distribute
-        target_teams
-        target_teams__distribute
-    Wrong Value
-        target__teams__distribute__parallel_for
-        target__parallel__for
-        target_parallel__for
-        target_teams__distribute__parallel_for
-        target__teams_distribute__parallel__for
-        target__teams__distribute__parallel__for
-    Runtime: Segmentation Fault
-        target_teams_distribute__parallel
-        target_teams__parallel*
-    Hanging (or I was not so patient...)
-        target__teams_distribute
+[target_teams.exe]               Error  1  (ignored)
+[target__teams.exe]              Error  1  (ignored)
+[target_teams__distribute.exe]   Error  1  (ignored)
+[target__teams__distribute.exe]  Error  1  (ignored)
 
-reduction
-    Compile Error
-        target_teams__distribute_simd
-        target_teams_distribute_simd
-    Wrong Value
-        target__teams__distribute__parallel__for
-        target__teams_distribute__parallel__for
-        target_teams__distribute__parallel__for__simd
-        target__teams_distribute__parallel__for__simd   
-        target_teams__distribute__parallel_for__simd
-        teams__distribute__parallel_for
-        teams__distribute__parallel__for__simd
-        teams__distribute__parallel_for
-        teams_distribute__simd
-        teams_distribute__parallel__for
-        target__teams_distribute
-        target__teams__distribute__parallel_for__simd
-        target_teams__distribute__parallel__for
-    Runtime: Segmentation Fault
-        target_teams_distribute__parallel__simd
-        target_teams_distribute__parallel
-        target_teams__parallel__for
-        target_teams_distribute__parallel__for__simd
-        target_simd
-        teams_distribute
-    Cannot Offload:
-        target__teams__distribute 
-        target_teams__distribute
+Execution
 
+[run_target__teams__distribute__parallel__for]  Aborted
+[run_target__teams__distribute__parallel_for]   Aborted
+[run_target__teams_distribute__parallel__for]   Aborted
+[run_target_teams__distribute__parallel__for]   Aborted
+[run_target_teams__distribute__parallel_for]    Aborted
+[run_target__parallel__for]                     Aborted
+[run_target_parallel__for]                      Aborted
+[run_target__teams_distribute]                  Killed
+[run_target_teams__parallel__for]               Segmentation  fault
+[run_target__teams__parallel__for]              Segmentation  fault
+[run_target_teams_distribute__parallel__for]    Segmentation  fault
+
+====
+omp_tests/memcopy/sound
+====
+Compilation
+
+
+Execution
+
+[run_target_simd]  Segmentation  fault
+
+====
+omp_tests/memcopy/ub
+====
+Compilation
+
+
+Execution
+
+[run_target__teams__parallel__for]        Segmentation  fault
+[run_target__teams__parallel__simd]       Segmentation  fault
+[run_target_teams__parallel__for__simd]   Segmentation  fault
+[run_target__teams__parallel__for__simd]  Segmentation  fault
+
+====
+omp_tests/reduction/sound
+====
+Compilation
+
+[target_teams_distribute_simd.exe]   Error  1  (ignored)
+[target__teams_distribute_simd.exe]  Error  1  (ignored)
+[target_teams__distribute_simd.exe]  Error  1  (ignored)
+
+Execution
+
+[run_target__teams__distribute__parallel__for__simd]  Aborted
+[run_target__teams__distribute__parallel_for__simd]   Aborted
+[run_target__teams_distribute__parallel__for__simd]   Aborted
+[run_target_teams__distribute__parallel__for__simd]   Aborted
+[run_target_teams__distribute__parallel_for__simd]    Aborted
+[run_target__teams__distribute__parallel__for]        Aborted
+[run_target__teams__distribute__parallel_for]         Aborted
+[run_target__teams_distribute__parallel__for]         Aborted
+[run_target_teams__distribute__parallel__for]         Aborted
+[run_target_teams__distribute__parallel_for]          Aborted
+[run_target_teams_distribute__simd]                   Aborted
+[run_target__teams_distribute]                        Aborted
+[run_target_teams__distribute]                        Error         1      (ignored)
+[run_target__teams__distribute]                       Error         1      (ignored)
+[run_target_simd]                                     Segmentation  fault
+[run_target_teams_distribute]                         Segmentation  fault
+[run_target_teams__parallel__simd]                    Segmentation  fault
+[run_target_teams_distribute__parallel]               Segmentation  fault
+[run_target_teams__parallel__for__simd]               Segmentation  fault
+[run_target_teams_distribute__parallel__for]          Segmentation  fault
+[run_target_teams_distribute__parallel__for__simd]    Segmentation  fault
