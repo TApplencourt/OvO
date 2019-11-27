@@ -16,6 +16,7 @@ do
     echo "Compilation"
     echo ""
     cat $dir/exe.log |  grep make: | sed -r 's/\*{3}//g' |awk '{print substr($0, index($0, $2))}' | column -t | sort | uniq | sort -k2
+    echo ""
     echo "Execution"
     echo ""
     cat $dir/run.log |  grep make: | sed -r 's/\*{3}//g' |awk '{print substr($0, index($0, $2))}' | column -t | sort | uniq | sort -k2
