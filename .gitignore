@@ -1,1 +1,2 @@
-omp_tests/
+*.exe
+*.log
