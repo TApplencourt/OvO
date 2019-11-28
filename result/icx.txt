@@ -1,81 +1,41 @@
-CXX="icx" CXXFLAGS="-fiopenmp -fopenmp-targets=spir64=-fno-exceptions" make exe
-
-====
-omp_tests/atomic/sound
-====
-Compilation
-
-[target_teams.exe]               Error  1  (ignored)
-[target__teams.exe]              Error  1  (ignored)
-[target_teams__distribute.exe]   Error  1  (ignored)
-[target__teams__distribute.exe]  Error  1  (ignored)
-
-Execution
-
-[run_target__teams__distribute__parallel__for]  Aborted
-[run_target__teams__distribute__parallel_for]   Aborted
-[run_target__teams_distribute__parallel__for]   Aborted
-[run_target_teams__distribute__parallel__for]   Aborted
-[run_target_teams__distribute__parallel_for]    Aborted
-[run_target__parallel__for]                     Aborted
-[run_target_parallel__for]                      Aborted
-[run_target__teams_distribute]                  Killed
-[run_target_teams__parallel__for]               Segmentation  fault
-[run_target__teams__parallel__for]              Segmentation  fault
-[run_target_teams_distribute__parallel__for]    Segmentation  fault
-
-====
-omp_tests/memcopy/sound
-====
-Compilation
-
-
-Execution
-
-[run_target_simd]  Segmentation  fault
-
-====
-omp_tests/memcopy/ub
-====
-Compilation
-
-
-Execution
-
-[run_target__teams__parallel__for]        Segmentation  fault
-[run_target__teams__parallel__simd]       Segmentation  fault
-[run_target_teams__parallel__for__simd]   Segmentation  fault
-[run_target__teams__parallel__for__simd]  Segmentation  fault
-
-====
-omp_tests/reduction/sound
-====
-Compilation
-
-[target_teams_distribute_simd.exe]   Error  1  (ignored)
-[target__teams_distribute_simd.exe]  Error  1  (ignored)
-[target_teams__distribute_simd.exe]  Error  1  (ignored)
-
-Execution
-
-[run_target__teams__distribute__parallel__for__simd]  Aborted
-[run_target__teams__distribute__parallel_for__simd]   Aborted
-[run_target__teams_distribute__parallel__for__simd]   Aborted
-[run_target_teams__distribute__parallel__for__simd]   Aborted
-[run_target_teams__distribute__parallel_for__simd]    Aborted
-[run_target__teams__distribute__parallel__for]        Aborted
-[run_target__teams__distribute__parallel_for]         Aborted
-[run_target__teams_distribute__parallel__for]         Aborted
-[run_target_teams__distribute__parallel__for]         Aborted
-[run_target_teams__distribute__parallel_for]          Aborted
-[run_target_teams_distribute__simd]                   Aborted
-[run_target__teams_distribute]                        Aborted
-[run_target_teams__distribute]                        Error         1      (ignored)
-[run_target__teams__distribute]                       Error         1      (ignored)
-[run_target_simd]                                     Segmentation  fault
-[run_target_teams_distribute]                         Segmentation  fault
-[run_target_teams__parallel__simd]                    Segmentation  fault
-[run_target_teams_distribute__parallel]               Segmentation  fault
-[run_target_teams__parallel__for__simd]               Segmentation  fault
-[run_target_teams_distribute__parallel__for]          Segmentation  fault
-[run_target_teams_distribute__parallel__for__simd]    Segmentation  fault
+omp_tests/atomic/sound     compilation  [target__teams__distribute.exe]                       Error         1      (ignored)
+omp_tests/atomic/sound     compilation  [target_teams__distribute.exe]                        Error         1      (ignored)
+omp_tests/atomic/sound     compilation  [target__teams.exe]                                   Error         1      (ignored)
+omp_tests/atomic/sound     compilation  [target_teams.exe]                                    Error         1      (ignored)
+omp_tests/atomic/sound     runtime      [run_target__parallel__for]                           Aborted
+omp_tests/atomic/sound     runtime      [run_target_parallel__for]                            Aborted
+omp_tests/atomic/sound     runtime      [run_target__teams_distribute]                        Killed
+omp_tests/atomic/sound     runtime      [run_target__teams__distribute__parallel__for]        Aborted
+omp_tests/atomic/sound     runtime      [run_target__teams__distribute__parallel_for]         Aborted
+omp_tests/atomic/sound     runtime      [run_target__teams_distribute__parallel__for]         Aborted
+omp_tests/atomic/sound     runtime      [run_target_teams__distribute__parallel__for]         Aborted
+omp_tests/atomic/sound     runtime      [run_target_teams__distribute__parallel_for]          Aborted
+omp_tests/atomic/sound     runtime      [run_target_teams_distribute__parallel__for]          Aborted
+omp_tests/atomic/sound     runtime      [run_target_teams_distribute__parallel]               Segmentation  fault
+omp_tests/atomic/sound     runtime      [run_target__teams__parallel__for]                    Segmentation  fault
+omp_tests/atomic/sound     runtime      [run_target_teams__parallel]                          Segmentation  fault
+omp_tests/memcopy/sound    runtime      [run_target_simd]                                     Segmentation  fault
+omp_tests/memcopy/ub       runtime      [run_target_teams__parallel__for]                     Segmentation  fault
+omp_tests/memcopy/ub       runtime      [run_target__teams__parallel__for__simd]              Segmentation  fault
+omp_tests/reduction/sound  compilation  [target__teams_distribute_simd.exe]                   Error         1      (ignored)
+omp_tests/reduction/sound  compilation  [target_teams__distribute_simd.exe]                   Error         1      (ignored)
+omp_tests/reduction/sound  compilation  [target_teams_distribute_simd.exe]                    Error         1      (ignored)
+omp_tests/reduction/sound  runtime      [run_target_simd]                                     Segmentation  fault
+omp_tests/reduction/sound  runtime      [run_target__teams_distribute]                        Aborted
+omp_tests/reduction/sound  runtime      [run_target_teams_distribute]                         Aborted
+omp_tests/reduction/sound  runtime      [run_target__teams__distribute]                       Error         1      (ignored)
+omp_tests/reduction/sound  runtime      [run_target_teams__distribute]                        Error         1      (ignored)
+omp_tests/reduction/sound  runtime      [run_target__teams__distribute__parallel__for]        Aborted
+omp_tests/reduction/sound  runtime      [run_target__teams__distribute__parallel_for]         Aborted
+omp_tests/reduction/sound  runtime      [run_target__teams_distribute__parallel__for]         Aborted
+omp_tests/reduction/sound  runtime      [run_target_teams__distribute__parallel__for]         Aborted
+omp_tests/reduction/sound  runtime      [run_target_teams__distribute__parallel_for]          Aborted
+omp_tests/reduction/sound  runtime      [run_target_teams_distribute__parallel__for]          Segmentation  fault
+omp_tests/reduction/sound  runtime      [run_target__teams__distribute__parallel__for__simd]  Aborted
+omp_tests/reduction/sound  runtime      [run_target__teams__distribute__parallel_for__simd]   Aborted
+omp_tests/reduction/sound  runtime      [run_target__teams_distribute__parallel__for__simd]   Aborted
+omp_tests/reduction/sound  runtime      [run_target_teams__distribute__parallel__for__simd]   Aborted
+omp_tests/reduction/sound  runtime      [run_target_teams__distribute__parallel_for__simd]    Aborted
+omp_tests/reduction/sound  runtime      [run_target_teams_distribute__parallel__for__simd]    Segmentation  fault
+omp_tests/reduction/sound  runtime      [run_target_teams_distribute__parallel__simd]         Segmentation  fault
+omp_tests/reduction/sound  runtime      [run_target_teams_distribute__simd]                   Aborted
