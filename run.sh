@@ -17,8 +17,12 @@ display_help() {
     exit 1
 }
 
+l_folder() {
+    echo $(find omp_tests -type d | sort -r | awk 'a!~"^"$0{a=$0;print}' | sort)
+}
+
 run() {
-    for dir in $(find omp_tests -type d | sort -r | awk 'a!~"^"$0{a=$0;print}' | sort)
+    for dir in $(l_folder)
     do
         echo $dir
         # Carefull we append to the file! Indeed some of the error are stochastic. 
@@ -48,7 +52,7 @@ display() {
                                sort -k2
         fi
     }
-    for dir in $(find omp_tests -type d | sort -r | awk 'a!~"^"$0{a=$0;print}' | sort)
+    for dir in $(l_folder)
     do
         display_log $dir "compilation"
         display_log $dir "runtime"
@@ -56,7 +60,7 @@ display() {
 }
 
 clean() {
-    for dir in $(find omp_tests -type d | sort -r | awk 'a!~"^"$0{a=$0;print}' | sort)
+    for dir in $(l_folder)
     do
         make --no-print-directory -s -C $dir "clean"
         rm -f -- $dir/{compilation,runtime}.log
