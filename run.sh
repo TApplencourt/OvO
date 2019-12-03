@@ -23,8 +23,8 @@ run() {
         echo $dir
         # Carefull we append to the file! Indeed some of the error are stochastic. 
         # So this allow use to run multiple time.
-        make --no-print-directory -C $dir -j exe |& tee -a $dir/compilation.log
-        make --no-print-directory -C $dir -j run |& tee -a $dir/runtime.log
+        make --no-print-directory -C $dir exe |& tee -a $dir/compilation.log
+        make --no-print-directory -C $dir run |& tee -a $dir/runtime.log
     done
 }
 
