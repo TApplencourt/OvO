@@ -23,8 +23,8 @@ run() {
         echo $dir
         # Carefull we append to the file! Indeed some of the error are stochastic. 
         # So this allow use to run multiple time.
-        make --no-print-directory -C $dir -j exe |& tee -a $dir/compilation.log
-        make --no-print-directory -C $dir -j run |& tee -a $dir/runtime.log
+        make --no-print-directory -C $dir exe |& tee -a $dir/compilation.log
+        make --no-print-directory -C $dir run |& tee -a $dir/runtime.log
     done
 }
 
@@ -36,9 +36,16 @@ display() {
         then
             # Make print "***" when the error is fatal (https://www.gnu.org/software/make/manual/make.html#Error-Messages)
             # It make the parsing tedious, so we always removing it, then we remove the first 2 collumn thanks to awk.
+
+            # Some recent version of make print the error message with the line number. We remove it too.
+
             # We then sort uniq to remove this duplicate (see `run` ). 
             # The sort -k2 if just to sort by type of error.
-            grep make: $file | sed -r 's/\*{3}//g' | awk -v dir=$1 -v mode=$2 '{print dir " " mode " " substr($0, index($0, $2))}' | sort | uniq |sort -k2
+            grep make: $file | sed -r 's/\*{3}//g' |  \
+                               sed -r 's/Makefile:[0-9]+: //g' | \
+                               awk -v dir=$1 -v mode=$2 '{print dir " " mode " " substr($0, index($0, $2))}' | \
+                               sort | uniq |  \
+                               sort -k2
         fi
     }
     for dir in $(find omp_tests -type d | sort -r | awk 'a!~"^"$0{a=$0;print}' | sort)
