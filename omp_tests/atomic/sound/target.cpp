@@ -7,36 +7,21 @@
 
 void test_target(){
 
-    // Declare Size of Loop
-    
+
 
     // Initialize array
     int A = 0;
 
     // Computation
-    
-            
-                #pragma omp target  map(tofrom: A) 
-            {
-            
-
-            
-            {
-        
+    #pragma omp target  map(tofrom: A) 
+    {
         #pragma omp atomic update
         A++;
-        
-        
-            
-            }
-            
-            }
-    
+          
+    }
 
     // Validation
-    
     assert( A >= 0 );
-    
 
     std::cout << "OK" << std::endl ;
 }   

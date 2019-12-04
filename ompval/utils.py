@@ -53,6 +53,11 @@ def array_init_value(l_size):
 def is_target(pragma):
     return pragma.split()[0] == "target"
 
+def indent_gen(level, num_spaces=4):
+    ret = " " * num_spaces
+    ret = ret * level
+    return ret
+
 
 #~=~=~=~
 #~ Template
@@ -61,7 +66,7 @@ def is_target(pragma):
 # Setup jinja enviroement
 dirname = os.path.dirname(__file__)
 templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname,"template"))
-templateEnv = jinja2.Environment(loader=templateLoader)
+templateEnv = jinja2.Environment(loader=templateLoader, lstrip_blocks=True)
 
 
 # Need to check that for each "contruct" programa we have a "distribute" one.
@@ -112,21 +117,22 @@ def gen_makefile(folder='tmp'):
                 f.write(makefile)
 
 def parse_path(path,omp_typing, ref_l_var_loop_idx, ref_l_var_array_size):
-    l, l_structured_pragma, i_loop = [], [], 0
+    l, l_structured_pragma, i_loop, level = [], [], 0, 1
     for pragma in path:
     
         *heads, tail = pragma.split()
         if omp_typing[tail] == 'structured-block':
-            l_structured_pragma.append(pragma)
+            l_structured_pragma.append((pragma,level))
         else:
-            l.append( (l_structured_pragma,(pragma, ref_l_var_loop_idx[i_loop], ref_l_var_array_size[i_loop]) ) )  
+            l.append( (l_structured_pragma,((pragma,level), ref_l_var_loop_idx[i_loop], ref_l_var_array_size[i_loop]) ) )  
             l_structured_pragma = []
             i_loop+=1
+        level += 1
 
     if l_structured_pragma:
-        l.append( (l_structured_pragma, ("","","")) )
+        l.append( (l_structured_pragma, (("",0),"","")) )
 
-    return l
+    return l, level
 
 
 def have_loop(path):
@@ -151,7 +157,7 @@ def gen_test(path, omp_typing, ref_l_array_size,test, folder='tmp'):
     l_array_size = ref_l_array_size[:loop_count]
     l_var_loop_idx = ref_l_var_loop_idx[:loop_count]
 
-    new_l = parse_path(path,omp_typing, ref_l_var_loop_idx, ref_l_var_array_size)
+    new_l, max_level = parse_path(path,omp_typing, ref_l_var_loop_idx, ref_l_var_array_size)
 
     if folder.endswith('atomic') and name.endswith('simd'):
         return
@@ -165,8 +171,10 @@ def gen_test(path, omp_typing, ref_l_array_size,test, folder='tmp'):
 
 
     test = template.render(name=name,zip=zip,
+                    max_level=max_level,
                     array_mapping=array_mapping,
                     is_target=is_target,
+                    indent_gen=indent_gen,
                     array_init_value=array_init_value,
                     l_LMN=l_var_array_size,
                     l_ijk=l_var_loop_idx,

@@ -7,46 +7,29 @@
 
 void test_target__teams__parallel(){
 
-    // Declare Size of Loop
-    
+
 
     // Initialize array
     int A = 0;
 
     // Computation
-    
-            
-                #pragma omp target  map(tofrom: A) 
+    #pragma omp target  map(tofrom: A) 
+    {
+        #pragma omp teams 
+        {
+            #pragma omp parallel 
             {
-            
-                #pragma omp teams 
-            {
-            
-                #pragma omp parallel 
-            {
-            
-
-            
-            {
-        
-        #pragma omp atomic update
-        A++;
-        
-        
-            
+                #pragma omp atomic update
+                A++;
+          
             }
-            
-            }
-            
-            }
-            
-            }
-    
+          
+        }
+          
+    }
 
     // Validation
-    
     assert( A >= 0 );
-    
 
     std::cout << "OK" << std::endl ;
 }   

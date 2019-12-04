@@ -7,39 +7,24 @@
 
 void test_target_teams__parallel(){
 
-    // Declare Size of array
-    
+
 
     // Initialize array
     int A = 0;
 
     // Computation
-    
-            
-                #pragma omp target teams  reduction(+:A)   defaultmap(tofrom:scalar) 
-            {
-            
-                #pragma omp parallel  reduction(+:A)  
-            {
-            
-
-            
-            {
-        
-        A=A+1;        
-        
-            
-            }
-            
-            }
-            
-            }
-    
+    #pragma omp target teams  reduction(+:A)   defaultmap(tofrom:scalar) 
+    {
+        #pragma omp parallel  reduction(+:A)  
+        {
+            A=A+1;
+          
+        }
+          
+    }
 
     // Validation
-    
     assert( A >= 0 );
-    
 
     std::cout << "OK" << std::endl ;
 }   

@@ -7,34 +7,20 @@
 
 void test_target(){
 
-    // Declare Size of array
-    
+
 
     // Initialize array
     int A = 0;
 
     // Computation
-    
-            
-                #pragma omp target   defaultmap(tofrom:scalar) 
-            {
-            
-
-            
-            {
-        
-        A=A+1;        
-        
-            
-            }
-            
-            }
-    
+    #pragma omp target   defaultmap(tofrom:scalar) 
+    {
+        A=A+1;
+          
+    }
 
     // Validation
-    
     assert( A >= 0 );
-    
 
     std::cout << "OK" << std::endl ;
 }   

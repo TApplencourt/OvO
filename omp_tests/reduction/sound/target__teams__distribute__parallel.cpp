@@ -7,56 +7,36 @@
 
 void test_target__teams__distribute__parallel(){
 
+
     // Declare Size of array
-    
+
     const int L = 10;
+
 
     // Initialize array
     int A = 0;
 
     // Computation
-    
-            
-                #pragma omp target   defaultmap(tofrom:scalar) 
+    #pragma omp target   defaultmap(tofrom:scalar) 
+    {
+        #pragma omp teams  reduction(+:A)  
+        {
+            #pragma omp distribute  
+            for (int i = 0 ; i < L ; i++ )
             {
-            
-                #pragma omp teams  reduction(+:A)  
-            {
-            
-
-            
-                #pragma omp distribute  
-                for (int i = 0 ; i < L ; i++ )
-            
-            {
-        
-            
                 #pragma omp parallel  reduction(+:A)  
-            {
-            
-
-            
-            {
-        
-        A=A+1;        
-        
-            
+                {
+                    A=A+1;
+          
+                }
+          
             }
-            
-            }
-            
-            }
-    
-            
-            }
-            
-            }
-    
+        }
+          
+    }
 
     // Validation
-    
     assert( A >= 0 );
-    
 
     std::cout << "OK" << std::endl ;
 }   

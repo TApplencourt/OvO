@@ -7,36 +7,21 @@
 
 void test_target_teams(){
 
-    // Declare Size of Loop
-    
+
 
     // Initialize array
     int A = 0;
 
     // Computation
-    
-            
-                #pragma omp target teams  map(tofrom: A) 
-            {
-            
-
-            
-            {
-        
+    #pragma omp target teams  map(tofrom: A) 
+    {
         #pragma omp atomic update
         A++;
-        
-        
-            
-            }
-            
-            }
-    
+          
+    }
 
     // Validation
-    
     assert( A >= 0 );
-    
 
     std::cout << "OK" << std::endl ;
 }   

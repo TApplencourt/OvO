@@ -7,35 +7,25 @@
 
 void test_target_parallel_for(){
 
+
     // Declare Size of Loop
-    
+
     const int L = 10;
+
 
     // Initialize array
     int A = 0;
 
     // Computation
-    
-            
-
-            
-                #pragma omp target parallel for  map(tofrom: A) 
-                for (int i = 0 ; i < L ; i++ )
-            
-            {
-        
+    #pragma omp target parallel for map(tofrom: A) 
+    for (int i = 0 ; i < L ; i++ )
+    {
         #pragma omp atomic update
         A++;
-        
-        
-            
-            }
-    
+    }
 
     // Validation
-    
     assert( A == L );
-    
 
     std::cout << "OK" << std::endl ;
 }   
