@@ -6,8 +6,11 @@ compiler:
 python:
   - 3.8
 
+before_install:
+  export LD_LIBRARY_PATH=/usr/local/clang/lib:$LD_LIBRARY_PATH
+
 install:
   - pip install jinja2
 
 scripts:
-  - CXX="clang++" CXXFLAGS="-fopenmp" ./run.sh -c -g -r -d
+  - CXX="clang++" CXXFLAGS="-fopenmp=libiomp5" ./run.sh -c -g -r -d
