@@ -26,6 +26,7 @@ They correspond to the output of make for compiling (`exe.log`) and running (`ru
  
 Only the code who didn't compile or run are printed when using `./run.sh -d` (see `result/icx.txt` for one example).
 The error code repported are the one given by `make`. A quick tranlasion table is:
+
     - `Aborted` : Wrong value
     - `Killed` : Hanging, killed by `killall -9`
     - `Segmentation  fault` : ???
