@@ -10,4 +10,4 @@ install:
   - pip install jinja2
 
 scripts:
-  - ./run.sh -c -g -r -d
+  - CXX="clang++" CXXFLAGS="-fopenmp" ./run.sh -c -g -r -d
