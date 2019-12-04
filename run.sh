@@ -9,6 +9,7 @@ display_help() {
     echo "   -g, --gen          Generate the tests"
     echo "   -r, --run          Complile and run the tests"
     echo "   -d, --display      Display the summary of the test"
+    echo "   -c, --clean        Clean previously compiled tests"
     echo
     echo "Please use tradional flags to control the execusion (CXX, CXXFLAGS, MAKEFLAGS, OMP, OMP_TARGET_OFFLOAD, etc)"
     echo ""
