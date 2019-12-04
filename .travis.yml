@@ -10,5 +10,4 @@ install:
   - pip install jinja2
 
 scripts:
-  - ./ompval.py
-  - ./run.sh
+  - ./run.sh -c -g -r -d
