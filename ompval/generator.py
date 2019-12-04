@@ -29,7 +29,7 @@ with open(typing_config_path, 'r') as f:
 
 
 
-output_folder = os.path.join(dirname, "../omp_tests")
+output_folder = os.path.join(dirname, "../omp_tests") if not args.test_path else args.test_path
 
 
 paths = omp_walk(['root'],omp_tree)[1:] # Drop the 'root' path
