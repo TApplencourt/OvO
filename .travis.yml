@@ -13,4 +13,4 @@ install:
   - pip install jinja2
 
 scripts:
-  - CXX="clang++" CXXFLAGS="-fopenmp=libiomp5" ./run.sh -c -g -r -d
+  - CXX="clang++" CXXFLAGS="-fopenmp=libiomp5" bash -x ./run.sh -c -g -r -d
