@@ -1,0 +1,32 @@
+#include <cassert>
+
+void test_{{name}}(){
+
+ // Input and Outputs
+ {% for l in loops %}
+ const int {{ l.N }} = {{l.v}};
+ {%- endfor %}
+
+int counter = 0;
+
+// Main program
+{% for fat_pragma in fat_path %}
+#pragma omp {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} reduction(+:counter) {%endif%} {% if "target" in fat_pragma %} defaultmap(tofrom:scalar) {% endif %}
+{% if "loop" in fat_pragma %}
+    for (int {{fat_pragma["loop"].i}} = 0 ; {{fat_pragma["loop"].i}} < {{fat_pragma["loop"].N}} ; {{fat_pragma["loop"].i}}++ )
+{% endif %}
+{
+{% endfor %}
+
+counter++;
+
+{% for fat_pragma in fat_path %} } {% endfor %}
+
+// Validation
+assert( counter {{expected_value}} );
+
+}
+int main()
+{
+    test_{{name}}();
+}

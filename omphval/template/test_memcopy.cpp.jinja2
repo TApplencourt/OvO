@@ -1,0 +1,59 @@
+#include <cassert>
+#include <cmath>
+#include <limits>
+#include <iomanip>
+#include <iostream>
+#include <type_traits>
+#include <algorithm>
+#include <vector>
+
+//https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon
+template<class T>
+typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
+    almost_equal(T x, T y)
+{
+    //Let say 2 ulp is good enough...
+	  int ulp = 2;
+    // the machine epsilon has to be scaled to the magnitude of the values used
+    // and multiplied by the desired precision in ULPs (units in the last place)
+    return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp
+        // unless the result is subnormal
+        || std::fabs(x-y) < std::numeric_limits<T>::min();
+}
+
+template<class T>
+void test_{{name}}(){
+  // Input and Outputs
+  {% for l in loops %}
+  const int {{ l.N }} = {{l.v}};
+  {%- endfor %}
+  const int size = {{size}};
+  std::vector<T> A(size);
+  std::vector<T> B(size);
+  std::generate(B.begin(), B.end(), std::rand);
+
+  T *pA = A.data();
+  T *pB = B.data();
+
+// Main program
+{% for fat_pragma in fat_path %}
+#pragma omp {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %}  map(from: pA[0:{{size}}]) map(to: pB[0:{{size}}]) {% endif %}
+{% if "loop" in fat_pragma %}
+    for (int {{fat_pragma["loop"].i}} = 0 ; {{fat_pragma["loop"].i}} < {{fat_pragma["loop"].N}} ; {{fat_pragma["loop"].i}}++ )
+{% endif %}
+{
+{% endfor %}
+
+pA[ {{index}} ] = pB [ {{index}} ];
+
+{% for fat_pragma in fat_path %} } {% endfor %}
+
+// Validation
+assert(std::equal(A.begin(), A.end(), B.begin(), almost_equal<T>));
+ 
+}
+
+int main()
+{
+    test_{{name}}<double>();
+}
