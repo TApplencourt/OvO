@@ -1,0 +1,61 @@
+#include <cassert>
+
+#include <cmath>
+#include <limits>
+#include <iomanip>
+#include <iostream>
+#include <type_traits>
+#include <algorithm>
+ 
+template<class T>
+typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
+    almost_equal(T x, T y, int ulp)
+{
+    // the machine epsilon has to be scaled to the magnitude of the values used
+    // and multiplied by the desired precision in ULPs (units in the last place)
+    return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp
+        // unless the result is subnormal
+        || std::fabs(x-y) < std::numeric_limits<T>::min();
+}
+
+template<class T>
+typename std::enable_if<std::numeric_limits<T>::is_integer, bool>::type
+    almost_equal(T x, T y, int ulp)
+{
+    return x == y ;
+} 
+
+void test_{{name}}(){
+
+   {% for type, arg in zip(l_type, args) %}
+   {{type}} {{arg}} = 0.42;
+   {% endfor %} 
+
+   {{type_outout}} o = {{name}}( {{ args |join(', ') }});
+
+   {% for type, arg_t in zip(l_type, args_t) %}
+   {{type}} {{arg_t}} = 0.42;
+   {% endfor %}
+
+    {{type_outout}} o_t ; 
+    #pragma omp target defaultmap(tofrom:scalar)
+    {
+    o_t = {{name}}( {{ args_t |join(', ') }});
+    }
+
+    // Dont know if function are pure...
+    {% for arg, arg_t in zip(args, args_t) %}
+    assert ( almost_equal({{arg}},{{ arg_t }},1) );
+    {%endfor%}
+    if ( almost_equal(o,o_t,1) != true ) {
+        std::cerr.precision(std::numeric_limits<T>::digits);
+        std::cerr << "Host: " << o << " GPU: " << o_t << std::endl;
+        assert ( almost_equal(o,o_t,1) );
+    }
+}
+
+int main()
+{
+    test_{{name}}();
+}
+
