@@ -103,11 +103,11 @@ class AtomicReduction(Path):
     @property
     def expected_value(self):
         if self.only_target:
-            return " == 1"
+            return ("==", "1")
         elif self.balenced:
-            return f"== {'*'.join(l.N for l in self.loops)}"
+            return ("==", f"{'*'.join(l.N for l in self.loops)}")
         else:
-            return f" > 0"
+            return (">", "0")
 
 class Atomic(AtomicReduction):
 

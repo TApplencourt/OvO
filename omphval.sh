@@ -129,7 +129,7 @@ fclean() {
 eval "$(docopt "$@")"
 
 $gen && ./omphval/gtest.py
-$run && frun ${_test_folder_[@]} 
+$run && fclean && frun ${_test_folder_[@]} 
 $display && fdisplay ${_result_folder_[@]}
 $clean && fclean
 exit 0

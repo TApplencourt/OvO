@@ -1,5 +1,6 @@
 #include <cassert>
-
+#include <iostream>
+#
 void test_target_parallel(){
 
  // Input and Outputs
@@ -19,7 +20,11 @@ counter++;
  } 
 
 // Validation
-assert( counter  > 0 );
+auto bo = ( counter > 0 ) ;
+if ( bo != true) {
+    std::cerr << "Expected: " << 0 << " Get: " << counter << std::endl;
+    assert(bo);
+}
 
 }
 int main()

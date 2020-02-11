@@ -1,5 +1,6 @@
 #include <cassert>
-
+#include <iostream>
+#
 void test_{{name}}(){
 
  // Input and Outputs
@@ -23,7 +24,11 @@ counter++;
 {% for fat_pragma in fat_path %} } {% endfor %}
 
 // Validation
-assert( counter {{expected_value}} );
+auto bo = ( counter {{expected_value[0]}} {{expected_value[1]}} ) ;
+if ( bo != true) {
+    std::cerr << "Expected: " << {{expected_value[1]}} << " Get: " << counter << std::endl;
+    assert(bo);
+}
 
 }
 int main()

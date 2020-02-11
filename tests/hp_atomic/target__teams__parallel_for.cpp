@@ -1,4 +1,5 @@
 #include <cassert>
+#include <iostream>
 
 template<class T>
 void test_target__teams__parallel_for(){
@@ -38,7 +39,11 @@ counter++;
 
 
 // Validation
-assert( counter  > 0 );
+auto bo = ( counter > 0 ) ;
+if ( bo != true) {
+    std::cerr << "Expected: " << 0 << " Get: " << counter << std::endl;
+    assert(bo);
+}
 
 }
 int main()
