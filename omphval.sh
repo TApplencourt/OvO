@@ -126,7 +126,6 @@ fclean() {
 # |_) _. ._ _ o ._   _     /\  ._ _
 # |  (_| | _> | | | (_|   /--\ | (_| \/
 #                    _|           _|
-eval "$(docopt.sh --library=omphval/docopt-lib.sh --parser "$0")"
 eval "$(docopt "$@")"
 
 $gen && ./omphval/gtest.py
