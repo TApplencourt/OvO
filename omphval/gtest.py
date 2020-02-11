@@ -167,55 +167,56 @@ class Math():
 
     template = templateEnv.get_template(f"test_math.cpp.jinja2")
 
-    def __init__(self, name, t_arguments):
+    c = {'bool': [True],
+         'float': [0.42, 4.42],
+         'long int': [ 1 ], 
+         'unsigned': [ 1 ], 
+         'double': [ 0.42, 4.42] , 
+         'int': [ 1, 0, 2 ] , 
+         'long long int': [ 1] , 
+         'long double': [ 0.42, 4.42] }
+          
+
+    def __init__(self, name, d_argument, domain):
         self.name = name
-        self.type_output, self.n = t_arguments
+        self.input_name = d_argument['input_name']
+        self.input_types = d_argument['input_types']
+        self.output_type = d_argument['output_type']
+        self.domain = domain['domain']
 
     @property
-    def l_type(self):
-        l = [' '.join(i.split()[:-1]) for i in self.n]
-        q = []
-        for i in l:
-            q.extend(i.split())
-        return q
+    def uuid(self):
+         i = map(str.split, [self.name, self.output_type] + self.input_types )
+         from itertools import chain 
+         return '_'.join(chain.from_iterable(i))
+
 
     @property
     def template_rendered(self):
-        
-        l_name = [i.split()[-1] for i in self.n]
-        l_type = [' '.join(i.split()[:-1]) for i in self.n]
-        
 
-        args = [f'{i}' for i in l_name ]
-        args_t = [f'{i}_t' for i in l_name ]
-        
-        if any('*' in t for t in l_type):
+        # We don't handle pointer
+        if any('*' in t for t in self.input_types + [self.output_type] ):
             return None
 
+        l_input_values = ( Math.c[type_] for type_ in self.input_types )
+
+        
+        from itertools import product
+        for input_values  in product(*l_input_values):
+
+            d = {name:value for name,value in zip(self.input_name, input_values) }
+            from math import isinf, isnan
+            d['isinf'] = isinf
+            d['isnan'] = isnan
+            if self.domain == 'None' or self.domain == '' or eval(self.domain,d):
+                break 
+
         return Math.template.render(name=self.name,
-                                    args=args,
-                                    args_t=args_t,
-                                    l_type = l_type,
-                                    type_outout = self.type_output,
+                                    input_types = self.input_types,
+                                    input_names = self.input_name,
+                                    output_type = self.output_type,
+                                    input_values = input_values,
                                     zip=zip)
-
-def gen_math():
-    #path_ = "/soft/compilers/gcc/8.2.0/linux-rhel7-x86_64/include/c++/8.2.0/cmath"
-    path_ = "/home/tapplencourt/project/p19.21/OmpVal/config/cmath.synopsis.txt"
-    import re
-    regex = "^\s+(.*)\s+(\w+)\((.*)\)"
-
-    with open(path_) as f:
-        test_str = f.read()
-
-    from collections import defaultdict
-
-    d = defaultdict(list)
-    matches = re.finditer(regex, test_str, re.MULTILINE)
-    for match in matches:
-        d[ match.group(2).strip() ] .append( (match.group(1), match.group(3).split(',') )) 
- 
-    return d
 
 #  -                                                   
 # /   _   _|  _     _   _  ._   _  ._ _. _|_ o  _  ._  
@@ -225,30 +226,35 @@ def gen_math():
 
 if __name__ == '__main__':
     import json, os
-    with open(os.path.join(dirname,"..","config","omp_struct.json"), 'r') as f:
-        omp_tree = json.load(f)  
     makefile = templateEnv.get_template(f"Makefile.jinja2").render()
     
+    with open(os.path.join(dirname,"..","config","cmath_synopsis.json"), 'r') as f:
+        math_json = json.load(f)
+
+    for version, d_ in math_json.items():
+        folder = os.path.join("tests",f"math_{version}")
+        os.makedirs(folder, exist_ok=True)
+
+        with open(os.path.join(folder,'Makefile'),'w') as f:
+            f.write(makefile)
+
+        for name, ( l_set_argument, domain ) in d_.items():
+            for l_arguments in l_set_argument:
+
+                m = Math(name, l_arguments, domain)
+                if m.template_rendered:
+                    with open(os.path.join(folder,f'{m.uuid}.cpp'),'w') as f:
+                        f.write(m.template_rendered)
+
+    with open(os.path.join(dirname,"..","config","omp_struct.json"), 'r') as f:
+        omp_tree = json.load(f)
+
     d ={"memcopy":Memcopy,
         "atomic":Atomic,
         "reduction":Reduction}
 
-    test='math' 
-    folder = os.path.join("tests",test)
-    os.makedirs(folder, exist_ok=True)
-    d_ = gen_math()
-    for k,lv in d_.items():
-        # For now take the first.
-        for v in lv:
-            m = Math(k,v)
-            if m.template_rendered:
-                uuid = ['_'.join(m.type_output.split())] + m.l_type
-                name = f"{k}_{'_'.join(uuid)}.cpp"
-                with open(os.path.join(folder,name),'w') as f:
-                    f.write(m.template_rendered)
-
     for test, Constructor in d.items():
-        folder = os.path.join("tests",test)
+        folder = os.path.join("tests",f"hp_{test}")
         os.makedirs(folder, exist_ok=True)
 
         with open(os.path.join(folder,'Makefile'),'w') as f:
@@ -260,3 +266,4 @@ if __name__ == '__main__':
             if p.template_rendered: 
                 with open(os.path.join(folder,f'{p.filename}.cpp'),'w') as f:
                       f.write(p.template_rendered) 
+

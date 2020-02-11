@@ -6,6 +6,9 @@
 #include <iostream>
 #include <type_traits>
 #include <algorithm>
+
+// Some function, like "assoc_laguerre" need to be called with "std::" 
+using namespace std;
  
 template<class T>
 typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
@@ -26,31 +29,23 @@ typename std::enable_if<std::numeric_limits<T>::is_integer, bool>::type
 } 
 
 void test_{{name}}(){
-
-   {% for type, arg in zip(l_type, args) %}
-   {{type}} {{arg}} = 0.42;
-   {% endfor %} 
-
-   {{type_outout}} o = {{name}}( {{ args |join(', ') }});
-
-   {% for type, arg_t in zip(l_type, args_t) %}
-   {{type}} {{arg_t}} = 0.42;
+   {% for type, name, val in zip(input_types, input_names, input_values) %}
+   {{type}} {{name}} = {{val}};
    {% endfor %}
 
-    {{type_outout}} o_t ; 
-    #pragma omp target defaultmap(tofrom:scalar)
-    {
-    o_t = {{name}}( {{ args_t |join(', ') }});
-    }
+   {{output_type}} o_host = {{name}}( {{ input_names |join(', ') }});
 
-    // Dont know if function are pure...
-    {% for arg, arg_t in zip(args, args_t) %}
-    assert ( almost_equal({{arg}},{{ arg_t }},1) );
-    {%endfor%}
-    if ( almost_equal(o,o_t,1) != true ) {
-        std::cerr.precision(std::numeric_limits<T>::digits);
-        std::cerr << "Host: " << o << " GPU: " << o_t << std::endl;
-        assert ( almost_equal(o,o_t,1) );
+   {{output_type}} o_gpu ; 
+   #pragma omp target defaultmap(tofrom:scalar)
+   {
+   o_gpu = {{name}}( {{ input_names |join(', ') }});
+   }
+
+   auto bo = almost_equal(o_host,o_gpu,1) ;
+   if ( bo != true ) {
+        std::cerr.precision(std::numeric_limits<{{output_type}}>::digits);
+        std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
+        assert ( bo );
     }
 }
 
