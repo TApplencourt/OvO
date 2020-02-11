@@ -4,7 +4,10 @@ addons:
   apt:
     packages:
       - clang-9
-      
+          
+compiler:
+  - clang
+    
 python:
   - 3.8
 
