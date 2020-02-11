@@ -2,7 +2,6 @@ language: python
 
 compiler:
   - clang
-  - gcc
 
 python:
   - 3.8
