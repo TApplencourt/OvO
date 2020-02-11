@@ -14,6 +14,6 @@ install:
 
 scripts:
   - ./omphval.sh gen
-  - CXX="clang++" CXXFLAGS="-std=c++17" ./omphval.sh run test/hp_*
+  - CXX="clang++" CXXFLAGS="-std=c++17" ./omphval.sh run tests/hp_*
   - ./omphval.sh display
  
