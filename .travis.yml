@@ -4,9 +4,6 @@ os: linux
 
 dist: bionic
 
-git:
-  submodules: true
-
 addons:
   apt:
     sources:
