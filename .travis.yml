@@ -13,5 +13,7 @@ install:
   - pip install jinja2
 
 scripts:
-  - CXX="clang++" CXXFLAGS="-fopenmp=libiomp5" bash -x ./run.sh -c -g -r
-  - ./run.sh -d
+  - ./omphval.sh gen
+  - CXX="clang++" CXXFLAGS="-std=c++17" ./omphval.sh run test/hp_*
+  - ./omphval.sh display
+ 
