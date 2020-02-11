@@ -1,0 +1,5676 @@
+{
+    "cpp11": {
+        "abs": [
+            [
+                {
+                    "input_name": [
+                        "j"
+                    ],
+                    "input_types": [
+                        "int"
+                    ],
+                    "output_type": "int"
+                },
+                {
+                    "input_name": [
+                        "j"
+                    ],
+                    "input_types": [
+                        "long int"
+                    ],
+                    "output_type": "long int"
+                },
+                {
+                    "input_name": [
+                        "j"
+                    ],
+                    "input_types": [
+                        "long long int"
+                    ],
+                    "output_type": "long long int"
+                },
+                {
+                    "input_name": [
+                        "j"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "j"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "j"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "acos": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": " -1 <= x and  x <= 1"
+            }
+        ],
+        "acosf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": " -1 <= x and  x <= 1"
+            }
+        ],
+        "acosh": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": " x >= 1"
+            }
+        ],
+        "acoshf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": " x >= 1"
+            }
+        ],
+        "acoshl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": " x >= 1"
+            }
+        ],
+        "acosl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": " -1 <= x and  x <= 1"
+            }
+        ],
+        "asin": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "-1 <= x and x <= 1"
+            }
+        ],
+        "asinf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "-1 <= x and x <= 1"
+            }
+        ],
+        "asinh": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "-1 <= x and x <= 1"
+            }
+        ],
+        "asinhf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "-1 <= x and x <= 1"
+            }
+        ],
+        "asinhl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "-1 <= x and x <= 1"
+            }
+        ],
+        "asinl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "-1 <= x and x <= 1"
+            }
+        ],
+        "atan": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "atan2": [
+            [
+                {
+                    "input_name": [
+                        "y",
+                        "x"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "y",
+                        "x"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "y",
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x != 0 and  y != 0"
+            }
+        ],
+        "atan2f": [
+            [
+                {
+                    "input_name": [
+                        "y",
+                        "x"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "x != 0 and  y != 0"
+            }
+        ],
+        "atan2l": [
+            [
+                {
+                    "input_name": [
+                        "y",
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x != 0 and  y != 0"
+            }
+        ],
+        "atanf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "atanh": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "atanhf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "atanhl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "atanl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "cbrt": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cbrtf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cbrtl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ceil": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ceilf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ceill": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "copysign": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "copysignf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "copysignl": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cos": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cosf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cosh": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "coshf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "coshl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "cosl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "erf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "erfc": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "erfcf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "erfcl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "erff": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "erfl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "exp": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "exp2": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "exp2f": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "exp2l": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "expf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "expl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "expm1": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "expm1f": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "expm1l": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "fabs": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "fabsf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "fabsl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "fdim": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "fdimf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "fdiml": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "floor": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "floorf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "floorl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "fma": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "z"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "z"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "z"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "fmaf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "z"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "fmal": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "z"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "fmax": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "fmaxf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "fmaxl": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "fmin": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "fminf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "fminl": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "fmod": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "y != 0"
+            }
+        ],
+        "fmodf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "y != 0"
+            }
+        ],
+        "fmodl": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "y != 0"
+            }
+        ],
+        "fpclassify": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "int"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "int"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "int"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "frexp": [
+            [
+                {
+                    "input_name": [
+                        "value",
+                        "exp"
+                    ],
+                    "input_types": [
+                        "float",
+                        "int*"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "value",
+                        "exp"
+                    ],
+                    "input_types": [
+                        "double",
+                        "int*"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "value",
+                        "exp"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "int*"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "frexpf": [
+            [
+                {
+                    "input_name": [
+                        "value",
+                        "exp"
+                    ],
+                    "input_types": [
+                        "float",
+                        "int*"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "frexpl": [
+            [
+                {
+                    "input_name": [
+                        "value",
+                        "exp"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "int*"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "hypot": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "z"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "z"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "z"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "hypotf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "hypotl": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "ilogb": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "int"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "int"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "int"
+                }
+            ],
+            {
+                "domain": "x != 0 and not isinf(x) and not isnan(x)"
+            }
+        ],
+        "ilogbf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "int"
+                }
+            ],
+            {
+                "domain": "x != 0 and not isinf(x) and not isnan(x)"
+            }
+        ],
+        "ilogbl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "int"
+                }
+            ],
+            {
+                "domain": "x != 0 and not isinf(x) and not isnan(x)"
+            }
+        ],
+        "isfinite": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "bool"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "isgreater": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "bool"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "isgreaterequal": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "bool"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "isinf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "bool"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "isless": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "bool"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "islessequal": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "bool"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "islessgreater": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "bool"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "isnan": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "bool"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "isnormal": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "bool"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "isunordered": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "bool"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ldexp": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "exp"
+                    ],
+                    "input_types": [
+                        "float",
+                        "int"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "exp"
+                    ],
+                    "input_types": [
+                        "double",
+                        "int"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "exp"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "int"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "ldexpf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "exp"
+                    ],
+                    "input_types": [
+                        "float",
+                        "int"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "ldexpl": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "exp"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "int"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "lgamma": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x != 0 and not (x < 0 and  type(x) is int)"
+            }
+        ],
+        "lgammaf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "x != 0 and not (x < 0 and  type(x) is int)"
+            }
+        ],
+        "lgammal": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x != 0 and not (x < 0 and  type(x) is int)"
+            }
+        ],
+        "llrint": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "long long int"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "long long int"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long long int"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "llrintf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "long long int"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "llrintl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long long int"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "llround": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "long long int"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "long long int"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long long int"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "llroundf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "long long int"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "llroundl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long long int"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "log": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "log10": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "log10f": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "log10l": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "log1p": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x >= -1"
+            }
+        ],
+        "log1pf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "x >= -1"
+            }
+        ],
+        "log1pl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x >= -1"
+            }
+        ],
+        "log2": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "log2f": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "log2l": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "logb": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "logbf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "logbl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "logf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "logl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "lrint": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "long int"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "long int"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long int"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "lrintf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "long int"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "lrintl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long int"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "lround": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "long int"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "long int"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long int"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "lroundf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "long int"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "lroundl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long int"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "modf": [
+            [
+                {
+                    "input_name": [
+                        "value",
+                        "iptr"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float*"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "value",
+                        "iptr"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double*"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "value",
+                        "iptr"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double*"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "y != 0"
+            }
+        ],
+        "modff": [
+            [
+                {
+                    "input_name": [
+                        "value",
+                        "iptr"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float*"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "y != 0"
+            }
+        ],
+        "modfl": [
+            [
+                {
+                    "input_name": [
+                        "value",
+                        "iptr"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double*"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "y != 0"
+            }
+        ],
+        "nan": [
+            [
+                {
+                    "input_name": [
+                        "tagp"
+                    ],
+                    "input_types": [
+                        "const char*"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "nanf": [
+            [
+                {
+                    "input_name": [
+                        "tagp"
+                    ],
+                    "input_types": [
+                        "const char*"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "nanl": [
+            [
+                {
+                    "input_name": [
+                        "tagp"
+                    ],
+                    "input_types": [
+                        "const char*"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "nearbyint": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "nearbyintf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "nearbyintl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "nextafter": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "nextafterf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "nextafterl": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "nexttoward": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "long double"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "long double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "nexttowardf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "long double"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "nexttowardl": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "pow": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x > 0 or (x == 0 and y > 0) or (x < 0 and  type(y) is integer)"
+            }
+        ],
+        "powf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "x > 0 or (x == 0 and y > 0) or (x < 0 and  type(y) is integer)"
+            }
+        ],
+        "powl": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x > 0 or (x == 0 and y > 0) or (x < 0 and  type(y) is integer)"
+            }
+        ],
+        "remainder": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "y != 0"
+            }
+        ],
+        "remainderf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "y != 0"
+            }
+        ],
+        "remainderl": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "y != 0"
+            }
+        ],
+        "remquo": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "quo"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float",
+                        "int*"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "quo"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double",
+                        "int*"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "quo"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double",
+                        "int*"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "y != 0"
+            }
+        ],
+        "remquof": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "quo"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float",
+                        "int*"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "y != 0"
+            }
+        ],
+        "remquol": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "quo"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double",
+                        "int*"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "y != 0"
+            }
+        ],
+        "rint": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "rintf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "rintl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "round": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "roundf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "roundl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "scalbln": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "n"
+                    ],
+                    "input_types": [
+                        "float",
+                        "long int"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "n"
+                    ],
+                    "input_types": [
+                        "double",
+                        "long int"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "n"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long int"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "scalblnf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "n"
+                    ],
+                    "input_types": [
+                        "float",
+                        "long int"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "scalblnl": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "n"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long int"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "scalbn": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "n"
+                    ],
+                    "input_types": [
+                        "float",
+                        "int"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "n"
+                    ],
+                    "input_types": [
+                        "double",
+                        "int"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "n"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "int"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "scalbnf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "n"
+                    ],
+                    "input_types": [
+                        "float",
+                        "int"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "scalbnl": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "n"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "int"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "signbit": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "bool"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "bool"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sin": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sinf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sinh": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "sinhf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "sinhl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "sinl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sqrt": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "sqrtf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "sqrtl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x >= 0"
+            }
+        ],
+        "tan": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "tanf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "tanh": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "tanhf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "tanhl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "tanl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "tgamma": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x != 0 and not (x < 0 and  type(x) is int)"
+            }
+        ],
+        "tgammaf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "x != 0 and not (x < 0 and  type(x) is int)"
+            }
+        ],
+        "tgammal": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "x != 0 and not (x < 0 and  type(x) is int)"
+            }
+        ],
+        "trunc": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "truncf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "truncl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ]
+    },
+    "cpp17": {
+        "assoc_laguerre": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "m",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "unsigned",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "assoc_laguerref": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "m",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "unsigned",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "assoc_laguerrel": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "m",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "unsigned",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "assoc_legendre": [
+            [
+                {
+                    "input_name": [
+                        "l",
+                        "m",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "unsigned",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "assoc_legendref": [
+            [
+                {
+                    "input_name": [
+                        "l",
+                        "m",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "unsigned",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "assoc_legendrel": [
+            [
+                {
+                    "input_name": [
+                        "l",
+                        "m",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "unsigned",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "beta": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "betaf": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "betal": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "comp_ellint_1": [
+            [
+                {
+                    "input_name": [
+                        "k"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "comp_ellint_1f": [
+            [
+                {
+                    "input_name": [
+                        "k"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "comp_ellint_1l": [
+            [
+                {
+                    "input_name": [
+                        "k"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "comp_ellint_2": [
+            [
+                {
+                    "input_name": [
+                        "k"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "comp_ellint_2f": [
+            [
+                {
+                    "input_name": [
+                        "k"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "comp_ellint_2l": [
+            [
+                {
+                    "input_name": [
+                        "k"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "comp_ellint_3": [
+            [
+                {
+                    "input_name": [
+                        "k",
+                        "nu"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "comp_ellint_3f": [
+            [
+                {
+                    "input_name": [
+                        "k",
+                        "nu"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "comp_ellint_3l": [
+            [
+                {
+                    "input_name": [
+                        "k",
+                        "nu"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cyl_bessel_i": [
+            [
+                {
+                    "input_name": [
+                        "nu",
+                        "x"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cyl_bessel_if": [
+            [
+                {
+                    "input_name": [
+                        "nu",
+                        "x"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cyl_bessel_il": [
+            [
+                {
+                    "input_name": [
+                        "nu",
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cyl_bessel_j": [
+            [
+                {
+                    "input_name": [
+                        "nu",
+                        "x"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cyl_bessel_jf": [
+            [
+                {
+                    "input_name": [
+                        "nu",
+                        "x"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cyl_bessel_jl": [
+            [
+                {
+                    "input_name": [
+                        "nu",
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cyl_bessel_k": [
+            [
+                {
+                    "input_name": [
+                        "nu",
+                        "x"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cyl_bessel_kf": [
+            [
+                {
+                    "input_name": [
+                        "nu",
+                        "x"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cyl_bessel_kl": [
+            [
+                {
+                    "input_name": [
+                        "nu",
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cyl_neumann": [
+            [
+                {
+                    "input_name": [
+                        "nu",
+                        "x"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cyl_neumannf": [
+            [
+                {
+                    "input_name": [
+                        "nu",
+                        "x"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "cyl_neumannl": [
+            [
+                {
+                    "input_name": [
+                        "nu",
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ellint_1": [
+            [
+                {
+                    "input_name": [
+                        "k",
+                        "phi"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ellint_1f": [
+            [
+                {
+                    "input_name": [
+                        "k",
+                        "phi"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ellint_1l": [
+            [
+                {
+                    "input_name": [
+                        "k",
+                        "phi"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ellint_2": [
+            [
+                {
+                    "input_name": [
+                        "k",
+                        "phi"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ellint_2f": [
+            [
+                {
+                    "input_name": [
+                        "k",
+                        "phi"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ellint_2l": [
+            [
+                {
+                    "input_name": [
+                        "k",
+                        "phi"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ellint_3": [
+            [
+                {
+                    "input_name": [
+                        "k",
+                        "nu",
+                        "phi"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ellint_3f": [
+            [
+                {
+                    "input_name": [
+                        "k",
+                        "nu",
+                        "phi"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "ellint_3l": [
+            [
+                {
+                    "input_name": [
+                        "k",
+                        "nu",
+                        "phi"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "expint": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "expintf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "expintl": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
+            }
+        ],
+        "hermite": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "hermitef": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "hermitel": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "laguerre": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "laguerref": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "laguerrel": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "legendre": [
+            [
+                {
+                    "input_name": [
+                        "l",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "legendref": [
+            [
+                {
+                    "input_name": [
+                        "l",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "legendrel": [
+            [
+                {
+                    "input_name": [
+                        "l",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "riemann_zeta": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "riemann_zetaf": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "riemann_zetal": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sph_bessel": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sph_besself": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sph_bessell": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sph_legendre": [
+            [
+                {
+                    "input_name": [
+                        "l",
+                        "m",
+                        "theta"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "unsigned",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sph_legendref": [
+            [
+                {
+                    "input_name": [
+                        "l",
+                        "m",
+                        "theta"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "unsigned",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sph_legendrel": [
+            [
+                {
+                    "input_name": [
+                        "l",
+                        "m",
+                        "theta"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "unsigned",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sph_neumann": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "double"
+                    ],
+                    "output_type": "double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sph_neumannf": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "float"
+                    ],
+                    "output_type": "float"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ],
+        "sph_neumannl": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "unsigned",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ]
+    },
+    "cpp20": {
+        "lerp": [
+            [
+                {
+                    "input_name": [
+                        "a",
+                        "b",
+                        "t"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "a",
+                        "b",
+                        "t"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "a",
+                        "b",
+                        "t"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": ""
+            }
+        ]
+    }
+}

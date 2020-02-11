@@ -1,0 +1,19 @@
+SOURCES := $(wildcard *.cpp)
+EXE := $(SOURCES:%.cpp=%.exe)
+
+.PHONY: exe
+exe: $(EXE)
+%.exe: %.cpp
+	-$(CXX) $(CXXFLAGS) $< -o $@
+
+pEXE := $(wildcard *.exe)
+RUN := $(addprefix run_, $(basename $(pEXE)))
+
+.PHONY: run
+run: $(RUN)
+run_%: %.exe
+	-./$<
+
+.PHONY: clean
+clean:
+	rm -f -- $(pEXE)
