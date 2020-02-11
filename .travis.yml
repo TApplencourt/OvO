@@ -1,15 +1,27 @@
-language: python
+language: cpp
+
+os: linux
+
+dist: bionic
+
+git:
+  submodules: true
 
 addons:
   apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main'
+      key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
     packages:
-      - clang-9
-          
+    - python3.7
+    - clang-9
+
 compiler:
   - clang
     
 python:
-  - 3.8
+  - 3.7
 
 before_install:
   - export LD_LIBRARY_PATH=/usr/local/clang/lib:$LD_LIBRARY_PATH
