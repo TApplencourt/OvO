@@ -1,4 +1,5 @@
 #include <cassert>
+#include <iostream>
 
 template<class T>
 void test_target(){
@@ -23,7 +24,11 @@ counter++;
 
 
 // Validation
-assert( counter  == 1 );
+auto bo = ( counter == 1 ) ;
+if ( bo != true) {
+    std::cerr << "Expected: " << 1 << " Get: " << counter << std::endl;
+    assert(bo);
+}
 
 }
 int main()

@@ -1,5 +1,6 @@
 #include <cassert>
-
+#include <iostream>
+#
 void test_target__teams_distribute__parallel__for__simd(){
 
  // Input and Outputs
@@ -44,7 +45,11 @@ counter++;
  }  }  }  }  } 
 
 // Validation
-assert( counter == L*M*N );
+auto bo = ( counter == L*M*N ) ;
+if ( bo != true) {
+    std::cerr << "Expected: " << L*M*N << " Get: " << counter << std::endl;
+    assert(bo);
+}
 
 }
 int main()

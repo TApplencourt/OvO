@@ -1,5 +1,6 @@
 #include <cassert>
-
+#include <iostream>
+#
 void test_target_parallel_for__simd(){
 
  // Input and Outputs
@@ -29,7 +30,11 @@ counter++;
  }  } 
 
 // Validation
-assert( counter == L*M );
+auto bo = ( counter == L*M ) ;
+if ( bo != true) {
+    std::cerr << "Expected: " << L*M << " Get: " << counter << std::endl;
+    assert(bo);
+}
 
 }
 int main()

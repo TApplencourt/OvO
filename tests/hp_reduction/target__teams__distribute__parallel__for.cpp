@@ -1,5 +1,6 @@
 #include <cassert>
-
+#include <iostream>
+#
 void test_target__teams__distribute__parallel__for(){
 
  // Input and Outputs
@@ -41,7 +42,11 @@ counter++;
  }  }  }  }  } 
 
 // Validation
-assert( counter == L*M );
+auto bo = ( counter == L*M ) ;
+if ( bo != true) {
+    std::cerr << "Expected: " << L*M << " Get: " << counter << std::endl;
+    assert(bo);
+}
 
 }
 int main()

@@ -1,4 +1,5 @@
 #include <cassert>
+#include <iostream>
 
 template<class T>
 void test_target_teams_distribute(){
@@ -26,7 +27,11 @@ counter++;
 
 
 // Validation
-assert( counter == L );
+auto bo = ( counter == L ) ;
+if ( bo != true) {
+    std::cerr << "Expected: " << L << " Get: " << counter << std::endl;
+    assert(bo);
+}
 
 }
 int main()
