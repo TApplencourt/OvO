@@ -24,7 +24,7 @@ before_install:
   - export LD_LIBRARY_PATH=/usr/local/clang/lib:$LD_LIBRARY_PATH
 
 install:
-  - pip3 install jinja2
+  - pip3.7 install --user jinja2
 
 scripts:
   - ./omphval.sh gen
