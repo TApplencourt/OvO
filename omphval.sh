@@ -58,7 +58,7 @@ frun() {
     fi 
 
     uuid=$(date +"%Y-%m-%d_%H-%M")
-    result="results/$(hostname)_${uuid}"
+    result="results/${uuid}_$(hostname)"
 
     for dir in $folders
     do
