@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+from itertools import tee
+def pairwise(iterable):
+    "s -> (s0,s1), (s1,s2), (s2, s3), ..."
+    a, b = tee(iterable)
+    next(b, None)
+    return zip(a, b)
+
 #  _        _    ___          
 # / \ |\/| |_)    | ._ _   _  
 # \_/ |  | |      | | (/_ (/_ 
@@ -38,16 +45,22 @@ class Path():
         from itertools import chain
         return list(chain.from_iterable(map(str.split,self.path)))
 
+    def follow_by(self,a,b):
+        for i,j in pairwise(self.flatten_path):
+            if (i == a) and (j == b):
+                return True
+        return False
+
     def has(self,constructs):
         return constructs in self.flatten_path
 
     @property
     def only_teams(self):
-        return self.has("teams") and not self.has("distribute")
+        return self.has("teams") and not ( self.follow_by("teams","distribute") or self.follow_by("teams","loop") )
 
     @property
     def only_parallel(self):
-        return self.has("parallel") and not self.has("for")
+        return self.has("parallel") and not  ( self.follow_by("parallel", "for") or self.follow_by("teams","loop") )
 
     @property
     def only_target(self):
@@ -72,7 +85,7 @@ class Path():
         for pragma in self.path:
             d = {"pragma":pragma}
     
-            if any(p in pragma for p  in ("distribute","for","simd")):
+            if any(p in pragma for p  in ("distribute","for","simd","loop")):
                 d["loop"] = Path.idx_loop[n_loop]
                 n_loop+=1
 
@@ -85,7 +98,7 @@ class Path():
             if "parallel" in pragma and self.only_parallel:
                 d["only_parallel"] = True
 
-            if any(p in pragma for p in ("teams","parallel","simd")):
+            if any(p in pragma for p in ("teams","parallel","simd","loop")):
                 d["reduce"] = True
 
             l.append(d)
