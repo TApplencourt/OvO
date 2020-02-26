@@ -60,7 +60,7 @@ class Path():
 
     @property
     def only_parallel(self):
-        return self.has("parallel") and not  ( self.follow_by("parallel", "for") or self.follow_by("teams","loop") )
+        return self.has("parallel") and not  ( self.follow_by("parallel", "for") or self.follow_by("parallel","loop") )
 
     @property
     def only_target(self):
