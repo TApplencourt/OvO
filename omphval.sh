@@ -3,7 +3,7 @@ DOC="Omphval.sh a OpenMP test generator.
 Usage:
   omphval.sh gen
   omphval.sh run [<test_folder>...]
-  omphval.sh display [<result_folder>...]
+  omphval.sh display [--working] [<result_folder>...]
   omphval.sh clean
   
 Options:
@@ -17,21 +17,24 @@ Example:
 # docopt parser below, refresh this parser with `docopt.sh omphval.sh`
 # shellcheck disable=2016,1091,2034
 docopt() { source omphval/docopt-lib.sh '0.9.15' || { ret=$?
-printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:536}
-usage=${DOC:36:120}; digest=370b8; shorts=(); longs=(); argcounts=(); node_0(){
-value _test_folder_ a true; }; node_1(){ value _result_folder_ a true; }
-node_2(){ _command gen; }; node_3(){ _command run; }; node_4(){ _command display
-}; node_5(){ _command clean; }; node_6(){ required 2; }; node_7(){ oneormore 0
-}; node_8(){ optional 7; }; node_9(){ required 3 8; }; node_10(){ oneormore 1; }
-node_11(){ optional 10; }; node_12(){ required 4 11; }; node_13(){ required 5; }
-node_14(){ either 6 9 12 13; }; node_15(){ required 14; }
+printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:548}
+usage=${DOC:36:132}; digest=7480e; shorts=(''); longs=(--working); argcounts=(0)
+node_0(){ switch __working 0; }; node_1(){ value _test_folder_ a true; }
+node_2(){ value _result_folder_ a true; }; node_3(){ _command gen; }; node_4(){
+_command run; }; node_5(){ _command display; }; node_6(){ _command clean; }
+node_7(){ required 3; }; node_8(){ oneormore 1; }; node_9(){ optional 8; }
+node_10(){ required 4 9; }; node_11(){ optional 0; }; node_12(){ oneormore 2; }
+node_13(){ optional 12; }; node_14(){ required 5 11 13; }; node_15(){ required 6
+}; node_16(){ either 7 10 14 15; }; node_17(){ required 16; }
 cat <<<' docopt_exit() { [[ -n $1 ]] && printf "%s\n" "$1" >&2
-printf "%s\n" "${DOC:36:120}" >&2; exit 1; }'; unset var__test_folder_ \
-var__result_folder_ var_gen var_run var_display var_clean; parse 15 "$@"
-local prefix=${DOCOPT_PREFIX:-''}; local docopt_decl=1
-[[ $BASH_VERSION =~ ^4.3 ]] && docopt_decl=2; unset "${prefix}_test_folder_" \
-"${prefix}_result_folder_" "${prefix}gen" "${prefix}run" "${prefix}display" \
-"${prefix}clean"; if declare -p var__test_folder_ >/dev/null 2>&1; then
+printf "%s\n" "${DOC:36:132}" >&2; exit 1; }'; unset var___working \
+var__test_folder_ var__result_folder_ var_gen var_run var_display var_clean
+parse 17 "$@"; local prefix=${DOCOPT_PREFIX:-''}; local docopt_decl=1
+[[ $BASH_VERSION =~ ^4.3 ]] && docopt_decl=2; unset "${prefix}__working" \
+"${prefix}_test_folder_" "${prefix}_result_folder_" "${prefix}gen" \
+"${prefix}run" "${prefix}display" "${prefix}clean"
+eval "${prefix}"'__working=${var___working:-false}'
+if declare -p var__test_folder_ >/dev/null 2>&1; then
 eval "${prefix}"'_test_folder_=("${var__test_folder_[@]}")'; else
 eval "${prefix}"'_test_folder_=()'; fi
 if declare -p var__result_folder_ >/dev/null 2>&1; then
@@ -41,8 +44,9 @@ eval "${prefix}"'gen=${var_gen:-false}'; eval "${prefix}"'run=${var_run:-false}'
 eval "${prefix}"'display=${var_display:-false}'
 eval "${prefix}"'clean=${var_clean:-false}'; local docopt_i=0
 for ((docopt_i=0;docopt_i<docopt_decl;docopt_i++)); do
-declare -p "${prefix}_test_folder_" "${prefix}_result_folder_" "${prefix}gen" \
-"${prefix}run" "${prefix}display" "${prefix}clean"; done; }
+declare -p "${prefix}__working" "${prefix}_test_folder_" \
+"${prefix}_result_folder_" "${prefix}gen" "${prefix}run" "${prefix}display" \
+"${prefix}clean"; done; }
 # docopt parser above, complete command for generating this parser is `docopt.sh --library=omphval/docopt-lib.sh omphval.sh`
 
 l_folder() {
@@ -92,12 +96,12 @@ fdisplay() {
         fi
     }
 
-    if [ -z "$1" ]
+    if [ -z "$2" ]
     then
       folders=$( find results -maxdepth 1 -type d | sort -r | head -n 1)
       folders=$folders/*
     else
-      folders=$(find "$@" -type d -links 2)
+      folders=$(find "${@:2}" -type d -links 2)
     fi
 
   
@@ -108,8 +112,13 @@ fdisplay() {
         if [ ! -z "$compilation" ] || [ ! -z "$display" ]  
         then
             echo ">> $head_dir"
-            echo "$compilation" | column -t 
-            echo "$display" | column -t
+            if [ "$1" = true ]
+            then
+                ./omphval/display_pass.py $(basename $head_dir) $compilation $display
+            else
+                echo "$compilation" | column -t 
+                echo "$display" | column -t
+            fi
             echo ""
         fi
     done
@@ -130,6 +139,6 @@ eval "$(docopt "$@")"
 
 $gen && ./omphval/gtest.py
 $run && fclean && frun ${_test_folder_[@]} 
-$display && fdisplay ${_result_folder_[@]}
+$display && fdisplay ${__working} ${_result_folder_[@]}
 $clean && fclean
 exit 0
