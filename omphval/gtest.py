@@ -238,11 +238,19 @@ class Math():
 #
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Generate tests.')
+    parser.add_argument('ompv5', metavar='literal_bool', type=str,
+                   help='Generate OpenMP v5 construct (ie loop)')
+    args = parser.parse_args()
+
     import json, os
     makefile = templateEnv.get_template(f"Makefile.jinja2").render()
     
     with open(os.path.join(dirname,"..","config","cmath_synopsis.json"), 'r') as f:
         math_json = json.load(f)
+
+    ompv5 = False if args.ompv5 == 'false' else True
 
     for version, d_ in math_json.items():
         folder = os.path.join("tests",f"math_{version}")
@@ -275,8 +283,7 @@ if __name__ == '__main__':
  
         for path in combinations_construct(omp_tree):
             p = Constructor(path)
-            
-            if p.template_rendered: 
+            if ( ompv5 or not p.has("loop" ) ) and p.template_rendered:
                 with open(os.path.join(folder,f'{p.filename}.cpp'),'w') as f:
                       f.write(p.template_rendered) 
 
