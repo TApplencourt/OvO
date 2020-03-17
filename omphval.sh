@@ -12,13 +12,13 @@ Options:
    Use tradional flags to control the execusion (CXX, CXXFLAGS, MAKEFLAGS, OMP, OMP_TARGET_OFFLOAD, etc)
 
 Example:
-    CXX='icx' CXXFLAGS='-fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./run.sh run ./test/math*
+    CXX='icx' CXXFLAGS='-fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./omphval.sh run ./tests/hp_*
 "
 # docopt parser below, refresh this parser with `docopt.sh omphval.sh`
 # shellcheck disable=2016,1091,2034
 docopt() { source omphval/docopt-lib.sh '0.9.15' || { ret=$?
-printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:555}
-usage=${DOC:36:139}; digest=d9dd6; shorts=('' ''); longs=(--v5 --working)
+printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:559}
+usage=${DOC:36:139}; digest=f6c1f; shorts=('' ''); longs=(--v5 --working)
 argcounts=(0 0); node_0(){ switch __v5 0; }; node_1(){ switch __working 1; }
 node_2(){ value _test_folder_ a true; }; node_3(){ value _result_folder_ a true
 }; node_4(){ _command gen; }; node_5(){ _command run; }; node_6(){
