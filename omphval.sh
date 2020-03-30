@@ -3,13 +3,16 @@ DOC="Omphval.sh a OpenMP test generator.
 Usage:
   omphval.sh gen [--v5]
   omphval.sh run [<test_folder>...]
-  omphval.sh display [--working] [<result_folder>...]
+  omphval.sh display [--working] [--avoid_long_double] [<result_folder>...]
   omphval.sh clean
   
 Options:
-   <test_folder> Folder to execute [default: ./tests/ ]
+   <test_folder>    Folder to execute [default: ./tests/ ]
    <result_folder> Folder to display [default: ./result/ ]
-   Use tradional flags to control the execusion (CXX, CXXFLAGS, MAKEFLAGS, OMP, OMP_TARGET_OFFLOAD, etc)
+   working         Print only the tests who are passing
+   avoid_long_double Don't print long_double tests. If used in conjunction with working, will not print the working long double if they exit
+
+   Use tradional Flags to control the execusion (CXX, CXXFLAGS, MAKEFLAGS, OMP, OMP_TARGET_OFFLOAD, etc)
 
 Example:
     CXX='icx' CXXFLAGS='-fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./omphval.sh run ./tests/hp_*
@@ -17,25 +20,28 @@ Example:
 # docopt parser below, refresh this parser with `docopt.sh omphval.sh`
 # shellcheck disable=2016,1091,2034
 docopt() { source omphval/docopt-lib.sh '0.9.15' || { ret=$?
-printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:559}
-usage=${DOC:36:139}; digest=f6c1f; shorts=('' ''); longs=(--v5 --working)
-argcounts=(0 0); node_0(){ switch __v5 0; }; node_1(){ switch __working 1; }
-node_2(){ value _test_folder_ a true; }; node_3(){ value _result_folder_ a true
-}; node_4(){ _command gen; }; node_5(){ _command run; }; node_6(){
-_command display; }; node_7(){ _command clean; }; node_8(){ optional 0; }
-node_9(){ required 4 8; }; node_10(){ oneormore 2; }; node_11(){ optional 10; }
-node_12(){ required 5 11; }; node_13(){ optional 1; }; node_14(){ oneormore 3; }
-node_15(){ optional 14; }; node_16(){ required 6 13 15; }; node_17(){ required 7
-}; node_18(){ either 9 12 16 17; }; node_19(){ required 18; }
-cat <<<' docopt_exit() { [[ -n $1 ]] && printf "%s\n" "$1" >&2
-printf "%s\n" "${DOC:36:139}" >&2; exit 1; }'; unset var___v5 var___working \
-var__test_folder_ var__result_folder_ var_gen var_run var_display var_clean
-parse 19 "$@"; local prefix=${DOCOPT_PREFIX:-''}; local docopt_decl=1
+printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:782}
+usage=${DOC:36:161}; digest=9063c; shorts=('' '' '')
+longs=(--v5 --working --avoid_long_double); argcounts=(0 0 0); node_0(){
+switch __v5 0; }; node_1(){ switch __working 1; }; node_2(){
+switch __avoid_long_double 2; }; node_3(){ value _test_folder_ a true; }
+node_4(){ value _result_folder_ a true; }; node_5(){ _command gen; }; node_6(){
+_command run; }; node_7(){ _command display; }; node_8(){ _command clean; }
+node_9(){ optional 0; }; node_10(){ required 5 9; }; node_11(){ oneormore 3; }
+node_12(){ optional 11; }; node_13(){ required 6 12; }; node_14(){ optional 1; }
+node_15(){ optional 2; }; node_16(){ oneormore 4; }; node_17(){ optional 16; }
+node_18(){ required 7 14 15 17; }; node_19(){ required 8; }; node_20(){
+either 10 13 18 19; }; node_21(){ required 20; }; cat <<<' docopt_exit() {
+[[ -n $1 ]] && printf "%s\n" "$1" >&2; printf "%s\n" "${DOC:36:161}" >&2; exit 1
+}'; unset var___v5 var___working var___avoid_long_double var__test_folder_ \
+var__result_folder_ var_gen var_run var_display var_clean; parse 21 "$@"
+local prefix=${DOCOPT_PREFIX:-''}; local docopt_decl=1
 [[ $BASH_VERSION =~ ^4.3 ]] && docopt_decl=2; unset "${prefix}__v5" \
-"${prefix}__working" "${prefix}_test_folder_" "${prefix}_result_folder_" \
-"${prefix}gen" "${prefix}run" "${prefix}display" "${prefix}clean"
-eval "${prefix}"'__v5=${var___v5:-false}'
+"${prefix}__working" "${prefix}__avoid_long_double" "${prefix}_test_folder_" \
+"${prefix}_result_folder_" "${prefix}gen" "${prefix}run" "${prefix}display" \
+"${prefix}clean"; eval "${prefix}"'__v5=${var___v5:-false}'
 eval "${prefix}"'__working=${var___working:-false}'
+eval "${prefix}"'__avoid_long_double=${var___avoid_long_double:-false}'
 if declare -p var__test_folder_ >/dev/null 2>&1; then
 eval "${prefix}"'_test_folder_=("${var__test_folder_[@]}")'; else
 eval "${prefix}"'_test_folder_=()'; fi
@@ -46,9 +52,9 @@ eval "${prefix}"'gen=${var_gen:-false}'; eval "${prefix}"'run=${var_run:-false}'
 eval "${prefix}"'display=${var_display:-false}'
 eval "${prefix}"'clean=${var_clean:-false}'; local docopt_i=0
 for ((docopt_i=0;docopt_i<docopt_decl;docopt_i++)); do
-declare -p "${prefix}__v5" "${prefix}__working" "${prefix}_test_folder_" \
-"${prefix}_result_folder_" "${prefix}gen" "${prefix}run" "${prefix}display" \
-"${prefix}clean"; done; }
+declare -p "${prefix}__v5" "${prefix}__working" "${prefix}__avoid_long_double" \
+"${prefix}_test_folder_" "${prefix}_result_folder_" "${prefix}gen" \
+"${prefix}run" "${prefix}display" "${prefix}clean"; done; }
 # docopt parser above, complete command for generating this parser is `docopt.sh --library=omphval/docopt-lib.sh omphval.sh`
 
 l_folder() {
@@ -77,6 +83,10 @@ frun() {
     done
 }
 
+fdisplay_filter() {
+    if ${__avoid_long_double} ; then grep -v long_double $1 ;else cat $1; fi
+}
+
 fdisplay() {
 
     display_log() {
@@ -98,12 +108,12 @@ fdisplay() {
         fi
     }
 
-    if [ -z "$2" ]
+    if [ -z "$1" ]
     then
       folders=$( find results -maxdepth 1 -type d | sort -r | head -n 1)
       folders=$folders/*
     else
-      folders=$(find "${@:2}" -type d -links 2)
+      folders=$(find "${@:1}" -type d -links 2)
     fi
 
   
@@ -114,12 +124,12 @@ fdisplay() {
         if [ ! -z "$compilation" ] || [ ! -z "$display" ]  
         then
             echo ">> $head_dir"
-            if [ "$1" = true ]
+            if [ ${__working} ]
             then
-                ./omphval/display_pass.py $(basename $head_dir) $compilation $display
+                ./omphval/display_pass.py $(basename $head_dir) $compilation $display | fdisplay_filter
             else
-                echo "$compilation" | column -t 
-                echo "$display" | column -t
+                echo "$compilation" | column -t | fdisplay_filter 
+                echo "$display" | column -t | fdisplay_filter
             fi
             echo ""
         fi
@@ -141,6 +151,6 @@ eval "$(docopt "$@")"
 
 $gen && rm -rf tests && ./omphval/gtest.py ${__v5}
 $run && fclean && frun ${_test_folder_[@]} 
-$display && fdisplay ${__working} ${_result_folder_[@]}
+$display && fdisplay ${_result_folder_[@]}
 $clean && fclean
 exit 0
