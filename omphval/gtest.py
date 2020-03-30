@@ -260,8 +260,8 @@ if __name__ == '__main__':
             f.write(makefile)
 
         for name, ( l_set_argument, domain ) in d_.items():
-            for l_arguments in l_set_argument:
 
+            for l_arguments in l_set_argument:
                 m = Math(name, l_arguments, domain)
                 if m.template_rendered:
                     with open(os.path.join(folder,f'{m.uuid}.cpp'),'w') as f:
