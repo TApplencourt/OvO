@@ -1869,47 +1869,8 @@
                         "long double"
                     ],
                     "output_type": "long double"
-                },
-                {
-                    "input_name": [
-                        "x",
-                        "y",
-                        "z"
-                    ],
-                    "input_types": [
-                        "float",
-                        "float",
-                        "float"
-                    ],
-                    "output_type": "float"
-                },
-                {
-                    "input_name": [
-                        "x",
-                        "y",
-                        "z"
-                    ],
-                    "input_types": [
-                        "double",
-                        "double",
-                        "double"
-                    ],
-                    "output_type": "double"
-                },
-                {
-                    "input_name": [
-                        "x",
-                        "y",
-                        "z"
-                    ],
-                    "input_types": [
-                        "long double",
-                        "long double",
-                        "long double"
-                    ],
-                    "output_type": "long double"
                 }
-            ],
+             ],
             {
                 "domain": "None"
             }
@@ -5298,6 +5259,52 @@
             ],
             {
                 "domain": ""
+            }
+        ],
+        "hypot": [
+            [
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "z"
+                    ],
+                    "input_types": [
+                        "float",
+                        "float",
+                        "float"
+                    ],
+                    "output_type": "float"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "z"
+                    ],
+                    "input_types": [
+                        "double",
+                        "double",
+                        "double"
+                    ],
+                    "output_type": "double"
+                },
+                {
+                    "input_name": [
+                        "x",
+                        "y",
+                        "z"
+                    ],
+                    "input_types": [
+                        "long double",
+                        "long double",
+                        "long double"
+                    ],
+                    "output_type": "long double"
+                }
+            ],
+            {
+                "domain": "None"
             }
         ],
         "laguerre": [
