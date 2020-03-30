@@ -124,7 +124,7 @@ fdisplay() {
         if [ ! -z "$compilation" ] || [ ! -z "$display" ]  
         then
             echo ">> $head_dir"
-            if [ ${__working} ]
+            if ${__working}
             then
                 ./omphval/display_pass.py $(basename $head_dir) $compilation $display | fdisplay_filter
             else
