@@ -7,21 +7,32 @@ Usage:
   omphval.sh clean
   
 Options:
-   <test_folder>    Folder to execute [default: ./tests/ ]
-   <result_folder> Folder to display [default: ./result/ ]
-   working         Print only the tests who are passing
-   avoid_long_double Don't print long_double tests. If used in conjunction with working, will not print the working long double if they exit
+   gen                 Generate the ./tests directory containting all the tests
+     v5                  Generate openmp v5 tests (loop construct for example)
+   
+   run                 Will run all the test specifier by <test_folder>.
+                       The log are stored in the ./results/${uuid}_$(hostname)/<test_folder>/ directory
+                       More information are saved in '{compilation,runtime}.log' files of those result folder
+     <test_folder>       Folder containing the tests to run (default: ./tests/ ) 
+
+   display             Display the Error message of failling tests. 
+     <result_folder>     Folder to display (default: ./results/ ) 
+     working             Print only the tests who are passing
+     avoid_long_double   Don't print long_double tests. If used in conjunction with working, will not print the working long double if they exit
 
    Use tradional Flags to control the execusion (CXX, CXXFLAGS, MAKEFLAGS, OMP, OMP_TARGET_OFFLOAD, etc)
 
 Example:
+  - hierarchical parallelism tests
     CXX='icx' CXXFLAGS='-fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./omphval.sh run ./tests/hp_*
+  - Display all the non working c++11 math tests who are not of type long_double
+    ./omphval.sh diplay --avoid_long_double  results/*/math_cpp11
 "
 # docopt parser below, refresh this parser with `docopt.sh omphval.sh`
 # shellcheck disable=2016,1091,2034
 docopt() { source omphval/docopt-lib.sh '0.9.15' || { ret=$?
-printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:782}
-usage=${DOC:36:161}; digest=9063c; shorts=('' '' '')
+printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:1517}
+usage=${DOC:36:161}; digest=68f6b; shorts=('' '' '')
 longs=(--v5 --working --avoid_long_double); argcounts=(0 0 0); node_0(){
 switch __v5 0; }; node_1(){ switch __working 1; }; node_2(){
 switch __avoid_long_double 2; }; node_3(){ value _test_folder_ a true; }
