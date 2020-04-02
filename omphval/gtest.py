@@ -291,13 +291,12 @@ if __name__ == '__main__':
     import json, os
     makefile = templateEnv.get_template(f"Makefile.jinja2").render()
 
-    for p in ("cmath_synopsis.json", "cmath_complex_synopsis.json"):   
+    for hfolder, p in ( ("math","cmath_synopsis.json"), ("complex", "cmath_complex_synopsis.json") ):   
       with open(os.path.join(dirname,"..","config",p), 'r') as f:
-          print (p)
           math_json = json.load(f)
 
       for version, d_ in math_json.items():
-        folder = os.path.join("tests",f"math_{version}")
+        folder = os.path.join("tests",f"{hfolder}_{version}")
         os.makedirs(folder, exist_ok=True)
 
         with open(os.path.join(folder,'Makefile'),'w') as f:
