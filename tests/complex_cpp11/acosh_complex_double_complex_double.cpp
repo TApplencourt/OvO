@@ -3,7 +3,6 @@
 
 
 #include <limits>
-//#include <iomanip>
 #include <iostream>
 #include <stdexcept>
 
@@ -12,7 +11,7 @@ using namespace std;
 bool almost_equal(complex<double> x, complex<double> y, int ulp) {
 
     bool r = std::fabs(x.real()-y.real()) <= std::numeric_limits<double>::epsilon() * std::fabs(x.real()+y.real()) * ulp ||  std::fabs(x.real()-y.real()) < std::numeric_limits<double>::min();
-    bool i = std::fabs(x.imag()-y.real()) <= std::numeric_limits<double>::epsilon() * std::fabs(x.imag()+y.imag()) * ulp ||  std::fabs(x.imag()-y.imag()) < std::numeric_limits<double>::min();
+    bool i = std::fabs(x.imag()-y.imag()) <= std::numeric_limits<double>::epsilon() * std::fabs(x.imag()+y.imag()) * ulp ||  std::fabs(x.imag()-y.imag()) < std::numeric_limits<double>::min();
     return r && i;
 
 }

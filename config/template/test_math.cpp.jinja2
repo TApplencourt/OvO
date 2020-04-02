@@ -17,7 +17,7 @@ bool almost_equal({{output_type}} x, {{output_type}} y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<{{output_type}}>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<{{output_type}}>::min();
 {% elif output_type_category == "complex" %}
     bool r = std::fabs(x.real()-y.real()) <= std::numeric_limits<{{output_type_T}}>::epsilon() * std::fabs(x.real()+y.real()) * ulp ||  std::fabs(x.real()-y.real()) < std::numeric_limits<{{output_type_T}}>::min();
-    bool i = std::fabs(x.imag()-y.real()) <= std::numeric_limits<{{output_type_T}}>::epsilon() * std::fabs(x.imag()+y.imag()) * ulp ||  std::fabs(x.imag()-y.imag()) < std::numeric_limits<{{output_type_T}}>::min();
+    bool i = std::fabs(x.imag()-y.imag()) <= std::numeric_limits<{{output_type_T}}>::epsilon() * std::fabs(x.imag()+y.imag()) * ulp ||  std::fabs(x.imag()-y.imag()) < std::numeric_limits<{{output_type_T}}>::min();
     return r && i;
 {% endif %}
 }
