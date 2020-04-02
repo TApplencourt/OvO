@@ -5,7 +5,9 @@ Usage:
   omphval.sh run [<test_folder>...]
   omphval.sh display [--working] [--avoid_long_double] [<result_folder>...]
   omphval.sh clean
-  
+"
+
+ROGER="
 Options:
    gen                 Generate the ./tests directory containting all the tests
      v5                  Generate openmp v5 tests (loop construct for example)
@@ -27,11 +29,12 @@ Example:
   - Display all the non working c++11 math tests who are not of type long_double
       ./omphval.sh diplay --avoid_long_double  results/*/math_cpp11
 "
+
 # docopt parser below, refresh this parser with `docopt.sh omphval.sh`
 # shellcheck disable=2016,1091,2034
 docopt() { source omphval/docopt-lib.sh '0.9.15' || { ret=$?
-printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:1540}
-usage=${DOC:36:161}; digest=dfc3a; shorts=('' '' '')
+printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:197}
+usage=${DOC:36:161}; digest=3d39b; shorts=('' '' '')
 longs=(--v5 --working --avoid_long_double); argcounts=(0 0 0); node_0(){
 switch __v5 0; }; node_1(){ switch __working 1; }; node_2(){
 switch __avoid_long_double 2; }; node_3(){ value _test_folder_ a true; }
