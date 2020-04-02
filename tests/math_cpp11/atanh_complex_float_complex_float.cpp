@@ -19,26 +19,26 @@ bool almost_equal(complex<float> x, complex<float> y, int ulp) {
 
 }
 
-void test_acos(){
+void test_atanh(){
    
-   complex<float> x {  4.42, 0.0 };
+   complex<float> x {  0.42, 0.0 };
    
 
-   complex<float> o_host = acos( x);
+   complex<float> o_host = atanh( x);
 
    complex<float> o_gpu ; 
    #pragma omp target defaultmap(tofrom:scalar)
    {
-   o_gpu = acos( x);
+   o_gpu = atanh( x);
    }
 
    if ( !almost_equal(o_host,o_gpu,1) ) {
         std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
-        throw std::runtime_error( "acos give incorect value when offloaded");
+        throw std::runtime_error( "atanh give incorect value when offloaded");
     }
 }
 
 int main()
 {
-    test_acos();
+    test_atanh();
 }
