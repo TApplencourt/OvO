@@ -1,36 +1,31 @@
 #include <cassert>
-
+#include <complex>
 #include <cmath>
 #include <limits>
 #include <iomanip>
 #include <iostream>
 #include <type_traits>
 #include <algorithm>
-
+#include <stdexcept>
+#
 // Some function, like "assoc_laguerre" need to be called with "std::" 
 using namespace std;
- 
-template<class T>
-typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
-    almost_equal(T x, T y, int ulp)
-{
-    // the machine epsilon has to be scaled to the magnitude of the values used
-    // and multiplied by the desired precision in ULPs (units in the last place)
-    return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp
-        // unless the result is subnormal
-        || std::fabs(x-y) < std::numeric_limits<T>::min();
-}
 
-template<class T>
-typename std::enable_if<std::numeric_limits<T>::is_integer, bool>::type
-    almost_equal(T x, T y, int ulp)
-{
-    return x == y ;
-} 
+bool almost_equal({{output_type}} x, {{output_type}} y, int ulp) {
+{% if output_type_category == "integer"  %}
+    return x == y
+{% elif output_type_category == "float" %}
+     return std::fabs(x-y) <= std::numeric_limits<{{output_type}}>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<{{output_type}}>::min();
+{% elif output_type_category == "complex" %}
+    bool r = std::fabs(x.real()-y.real()) <= std::numeric_limits<{{output_type_T}}>::epsilon() * std::fabs(x.real()+y.real()) * ulp ||  std::fabs(x.real()-y.real()) < std::numeric_limits<{{output_type_T}}>::min();
+    bool i = std::fabs(x.imag()-y.real()) <= std::numeric_limits<{{output_type_T}}>::epsilon() * std::fabs(x.imag()+y.imag()) * ulp ||  std::fabs(x.imag()-y.imag()) < std::numeric_limits<{{output_type_T}}>::min();
+    return r && i;
+{% endif %}
+}
 
 void test_{{name}}(){
    {% for type, name, val in zip(input_types, input_names, input_values) %}
-   {{type}} {{name}} = {{val}};
+   {{type}} {{name}} = {{type}}  {  {{val}} };
    {% endfor %}
 
    {{output_type}} o_host = {{name}}( {{ input_names |join(', ') }});
@@ -41,11 +36,9 @@ void test_{{name}}(){
    o_gpu = {{name}}( {{ input_names |join(', ') }});
    }
 
-   auto bo = almost_equal(o_host,o_gpu,1) ;
-   if ( bo != true ) {
-        std::cerr.precision(std::numeric_limits<{{output_type}}>::digits);
+   if ( !almost_equal(o_host,o_gpu,1) ) {
         std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
-        assert ( bo );
+        throw std::runtime_error( "{{name}} give incorect value when offloaded");
     }
 }
 
