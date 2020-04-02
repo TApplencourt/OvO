@@ -177,6 +177,15 @@ class Memcopy(Path):
 
 
 #from cmath import complex
+class ccomplex(object):
+   
+    def __init__(self, a, b):
+        self.real = a
+        self.img = b
+
+    def __str__(self):
+        return f"{self.real}, {self.img}"
+
 class Math():
 
     template = templateEnv.get_template(f"test_math.cpp.jinja2")
@@ -189,9 +198,9 @@ class Math():
          'int': [ 1, 0, 2 ] , 
          'long long int': [ 1] , 
          'long double': [ 0.42, 4.42], 
-         'complex<float>' : [ complex(0.42, 0.) ,  complex(4.42, 0.) ],      
-         'complex<double>' : [ (0.42, 0.) , (4.42, 0.) ],
-         'complex<longe double>' : [ (0.42, 0.) , (4.42, 0.) ],
+         'complex<float>' : [ ccomplex(0.42, 0.) ,  ccomplex(4.42, 0.) ],      
+         'complex<double>' : [ ccomplex(0.42, 0.) , ccomplex(4.42, 0.) ],
+         'complex<long double>' : [ ccomplex(0.42, 0.) , ccomplex(4.42, 0.) ],
          }
 
     def __init__(self, name, d_argument, domain):
@@ -218,12 +227,14 @@ class Math():
             return 'integer'
         elif  self.output_type in ('float','double','long double'):
             return 'float'
-        elif self.output_type in ('complex<float>', 'complex<double>',  'complex<longe double>'):
+        elif self.output_type in ('complex<float>', 'complex<double>',  'complex<long double>'):
             return 'complex'
+        else: 
+            return self.output_type
 
     @property
     def uuid(self):
-         a =str.maketrans("<>", "__")
+         a =str.maketrans("<>", "  ")
 
          i = map(str.split, ( s.translate(a) for s in [self.name, self.output_type] + self.input_types ) )
          from itertools import chain 

@@ -98,6 +98,24 @@
                         "complex<float>"
                     ],
                     "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
                 }
             ],
             {
