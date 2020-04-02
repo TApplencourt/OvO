@@ -1,15 +1,14 @@
-#include <cassert>
+{% if output_type_category == "complex" %}
 #include <complex>
+{% else %}
 #include <cmath>
+{% endif %}
+
 #include <limits>
-#include <iomanip>
 #include <iostream>
-#include <type_traits>
-#include <algorithm>
 #include <stdexcept>
 
 using namespace std;
-using namespace std::complex_literals;
 
 bool almost_equal({{output_type}} x, {{output_type}} y, int ulp) {
 {% if output_type_category in ("integer","bool")  %}

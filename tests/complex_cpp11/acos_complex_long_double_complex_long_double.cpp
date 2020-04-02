@@ -1,15 +1,13 @@
-#include <cassert>
+
 #include <complex>
-#include <cmath>
+
+
 #include <limits>
-#include <iomanip>
+//#include <iomanip>
 #include <iostream>
-#include <type_traits>
-#include <algorithm>
 #include <stdexcept>
 
 using namespace std;
-using namespace std::complex_literals;
 
 bool almost_equal(complex<long double> x, complex<long double> y, int ulp) {
 
