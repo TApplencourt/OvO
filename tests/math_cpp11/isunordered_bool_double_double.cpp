@@ -7,19 +7,21 @@
 #include <type_traits>
 #include <algorithm>
 #include <stdexcept>
-#
-// Some function, like "assoc_laguerre" need to be called with "std::" 
+
 using namespace std;
+using namespace std::complex_literals;
 
 bool almost_equal(bool x, bool y, int ulp) {
+
+    return x == y ; 
 
 }
 
 void test_isunordered(){
    
-   double x = double  {  0.42 };
+   double x {  0.42 };
    
-   double y = double  {  0.42 };
+   double y {  0.42 };
    
 
    bool o_host = isunordered( x, y);

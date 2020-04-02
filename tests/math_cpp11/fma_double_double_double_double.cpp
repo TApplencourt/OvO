@@ -7,9 +7,9 @@
 #include <type_traits>
 #include <algorithm>
 #include <stdexcept>
-#
-// Some function, like "assoc_laguerre" need to be called with "std::" 
+
 using namespace std;
+using namespace std::complex_literals;
 
 bool almost_equal(double x, double y, int ulp) {
 
@@ -19,11 +19,11 @@ bool almost_equal(double x, double y, int ulp) {
 
 void test_fma(){
    
-   double x = double  {  0.42 };
+   double x {  0.42 };
    
-   double y = double  {  0.42 };
+   double y {  0.42 };
    
-   double z = double  {  0.42 };
+   double z {  0.42 };
    
 
    double o_host = fma( x, y, z);

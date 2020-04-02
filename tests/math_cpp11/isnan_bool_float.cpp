@@ -7,17 +7,19 @@
 #include <type_traits>
 #include <algorithm>
 #include <stdexcept>
-#
-// Some function, like "assoc_laguerre" need to be called with "std::" 
+
 using namespace std;
+using namespace std::complex_literals;
 
 bool almost_equal(bool x, bool y, int ulp) {
+
+    return x == y ; 
 
 }
 
 void test_isnan(){
    
-   float x = float  {  0.42 };
+   float x {  0.42 };
    
 
    bool o_host = isnan( x);

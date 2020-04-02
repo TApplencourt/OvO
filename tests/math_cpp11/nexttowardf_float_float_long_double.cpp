@@ -7,9 +7,9 @@
 #include <type_traits>
 #include <algorithm>
 #include <stdexcept>
-#
-// Some function, like "assoc_laguerre" need to be called with "std::" 
+
 using namespace std;
+using namespace std::complex_literals;
 
 bool almost_equal(float x, float y, int ulp) {
 
@@ -19,9 +19,9 @@ bool almost_equal(float x, float y, int ulp) {
 
 void test_nexttowardf(){
    
-   float x = float  {  0.42 };
+   float x {  0.42 };
    
-   long double y = long double  {  0.42 };
+   long double y {  0.42 };
    
 
    float o_host = nexttowardf( x, y);

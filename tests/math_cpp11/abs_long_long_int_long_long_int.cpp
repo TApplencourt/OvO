@@ -7,19 +7,19 @@
 #include <type_traits>
 #include <algorithm>
 #include <stdexcept>
-#
-// Some function, like "assoc_laguerre" need to be called with "std::" 
+
 using namespace std;
+using namespace std::complex_literals;
 
 bool almost_equal(long long int x, long long int y, int ulp) {
 
-    return x == y
+    return x == y ; 
 
 }
 
 void test_abs(){
    
-   long long int j = long long int  {  1 };
+   long long int j {  1 };
    
 
    long long int o_host = abs( j);

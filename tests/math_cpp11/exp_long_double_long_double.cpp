@@ -7,9 +7,9 @@
 #include <type_traits>
 #include <algorithm>
 #include <stdexcept>
-#
-// Some function, like "assoc_laguerre" need to be called with "std::" 
+
 using namespace std;
+using namespace std::complex_literals;
 
 bool almost_equal(long double x, long double y, int ulp) {
 
@@ -19,7 +19,7 @@ bool almost_equal(long double x, long double y, int ulp) {
 
 void test_exp(){
    
-   long double x = long double  {  0.42 };
+   long double x {  0.42 };
    
 
    long double o_host = exp( x);

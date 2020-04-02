@@ -7,9 +7,9 @@
 #include <type_traits>
 #include <algorithm>
 #include <stdexcept>
-#
-// Some function, like "assoc_laguerre" need to be called with "std::" 
+
 using namespace std;
+using namespace std::complex_literals;
 
 bool almost_equal(float x, float y, int ulp) {
 
@@ -19,11 +19,11 @@ bool almost_equal(float x, float y, int ulp) {
 
 void test_ellint_3f(){
    
-   float k = float  {  0.42 };
+   float k {  0.42 };
    
-   float nu = float  {  0.42 };
+   float nu {  0.42 };
    
-   float phi = float  {  0.42 };
+   float phi {  0.42 };
    
 
    float o_host = ellint_3f( k, nu, phi);
