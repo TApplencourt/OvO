@@ -176,6 +176,7 @@ class Memcopy(Path):
                                       size=self.size)
 
 
+#from cmath import complex
 class Math():
 
     template = templateEnv.get_template(f"test_math.cpp.jinja2")
@@ -187,8 +188,11 @@ class Math():
          'double': [ 0.42, 4.42] , 
          'int': [ 1, 0, 2 ] , 
          'long long int': [ 1] , 
-         'long double': [ 0.42, 4.42] }
-          
+         'long double': [ 0.42, 4.42], 
+         'complex<float>' : [ complex(0.42, 0.) ,  complex(4.42, 0.) ],      
+         'complex<double>' : [ (0.42, 0.) , (4.42, 0.) ],
+         'complex<longe double>' : [ (0.42, 0.) , (4.42, 0.) ],
+         }
 
     def __init__(self, name, d_argument, domain):
         self.name = name
@@ -196,10 +200,32 @@ class Math():
         self.input_types = d_argument['input_types']
         self.output_type = d_argument['output_type']
         self.domain = domain['domain']
+        try:
+            self.domain_complex = domain['domain_complex']
+        except:
+            self.domain_complex = None
+
+    @property
+    def output_type_T(self):
+        if self.output_type_category != "complex":
+            return None
+
+        return self.output_type.split('<')[1][:-1];
+    
+    @property
+    def output_type_category(self):
+        if self.output_type in ('long int', 'int','long long int','unsigned'):
+            return 'integer'
+        elif  self.output_type in ('float','double','long double'):
+            return 'float'
+        elif self.output_type in ('complex<float>', 'complex<double>',  'complex<longe double>'):
+            return 'complex'
 
     @property
     def uuid(self):
-         i = map(str.split, [self.name, self.output_type] + self.input_types )
+         a =str.maketrans("<>", "__")
+
+         i = map(str.split, ( s.translate(a) for s in [self.name, self.output_type] + self.input_types ) )
          from itertools import chain 
          return '_'.join(chain.from_iterable(i))
 
@@ -221,14 +247,22 @@ class Math():
             from math import isinf, isnan
             d['isinf'] = isinf
             d['isnan'] = isnan
-            if self.domain == 'None' or self.domain == '' or eval(self.domain,d):
+
+            if self.domain == 'None' or self.domain == '':
                 break 
+
+            if self.output_type_category == 'complex':
+                if eval(self.domain_complex,d): break
+            else:
+                if eval(self.domain,d): break
 
         return Math.template.render(name=self.name,
                                     input_types = self.input_types,
                                     input_names = self.input_name,
                                     output_type = self.output_type,
                                     input_values = input_values,
+                                    output_type_category = self.output_type_category,
+                                    output_type_T = self.output_type_T,
                                     zip=zip)
 
 #  -                                                   
@@ -259,7 +293,7 @@ if __name__ == '__main__':
         with open(os.path.join(folder,'Makefile'),'w') as f:
             f.write(makefile)
 
-        for name, ( l_set_argument, domain ) in d_.items():
+        for name, ( l_set_argument, domain) in d_.items():
 
             for l_arguments in l_set_argument:
                 m = Math(name, l_arguments, domain)
