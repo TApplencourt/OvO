@@ -1,0 +1,589 @@
+{
+    "cpp11": {
+        "acos": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": " -1 > x.real and  x.real > 1 "
+            }
+        ],
+        "asin": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": "-1 <= x.real and x.real <= 1"
+            }
+        ],
+        "atan": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ],
+        "acosh": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": " x.real >= 1"
+            }
+        ],
+        "asinh": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ],
+        "atanh": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": "None"
+            }
+        ],
+        "cos": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ],
+        "cosh": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ],
+        "exp": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ],
+        "log": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ],
+        "log10": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ],
+        "sin": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ],
+        "sinh": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ],
+        "sqrt": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ],
+        "tan": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ],
+        "tanh": [
+            [
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ],
+        "pow": [
+            [
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<float>",
+                        "complex<float>"
+                    ],
+                    "output_type": "complex<float>"
+                },
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<double>",
+                        "complex<double>"
+                    ],
+                    "output_type": "complex<double>"
+                },
+                {
+                    "input_name": [
+                        "n",
+                        "x"
+                    ],
+                    "input_types": [
+                        "complex<long double>",
+                        "complex<long double>"
+                    ],
+                    "output_type": "complex<long double>"
+                }
+            ],
+            {
+                "domain_complex": ""
+            }
+        ]
+    }
+}
+

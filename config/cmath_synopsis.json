@@ -89,38 +89,10 @@
                         "long double"
                     ],
                     "output_type": "long double"
-                },
-                {
-                    "input_name": [
-                        "x"
-                    ],
-                    "input_types": [
-                        "complex<float>"
-                    ],
-                    "output_type": "complex<float>"
-                },
-                {
-                    "input_name": [
-                        "x"
-                    ],
-                    "input_types": [
-                        "complex<double>"
-                    ],
-                    "output_type": "complex<double>"
-                },
-                {
-                    "input_name": [
-                        "x"
-                    ],
-                    "input_types": [
-                        "complex<long double>"
-                    ],
-                    "output_type": "complex<long double>"
                 }
             ],
             {
-                "domain": " -1 <= x and  x <= 1",
-                "domain_complex": " -1 <= x.real and  x.real <= 1"
+                "domain": " -1 <= x and  x <= 1"
             }
         ],
         "acosf": [

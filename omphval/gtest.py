@@ -208,11 +208,13 @@ class Math():
         self.input_name = d_argument['input_name']
         self.input_types = d_argument['input_types']
         self.output_type = d_argument['output_type']
-        self.domain = domain['domain']
-        try:
-            self.domain_complex = domain['domain_complex']
-        except:
+        
+        if "domain" in domain:
+            self.domain = domain['domain']
             self.domain_complex = None
+        else:
+            self.domain = None 
+            self.domain_complex = domain['domain_complex']
 
     @property
     def output_type_T(self):
@@ -259,13 +261,10 @@ class Math():
             d['isinf'] = isinf
             d['isnan'] = isnan
 
-            if self.domain == 'None' or self.domain == '':
-                break 
-
             if self.output_type_category == 'complex':
-                if eval(self.domain_complex,d): break
+                if self.domain_complex == 'None' or self.domain_complex == '' or eval(self.domain_complex,d): break
             else:
-                if eval(self.domain,d): break
+                if self.domain  == 'None' or self.domain == '' or eval(self.domain,d): break
 
         return Math.template.render(name=self.name,
                                     input_types = self.input_types,
@@ -291,13 +290,13 @@ if __name__ == '__main__':
 
     import json, os
     makefile = templateEnv.get_template(f"Makefile.jinja2").render()
-    
-    with open(os.path.join(dirname,"..","config","cmath_synopsis.json"), 'r') as f:
-        math_json = json.load(f)
 
-    ompv5 = False if args.ompv5 == 'false' else True
+    for p in ("cmath_synopsis.json", "cmath_complex_synopsis.json"):   
+      with open(os.path.join(dirname,"..","config",p), 'r') as f:
+          print (p)
+          math_json = json.load(f)
 
-    for version, d_ in math_json.items():
+      for version, d_ in math_json.items():
         folder = os.path.join("tests",f"math_{version}")
         os.makedirs(folder, exist_ok=True)
 
@@ -311,6 +310,10 @@ if __name__ == '__main__':
                 if m.template_rendered:
                     with open(os.path.join(folder,f'{m.uuid}.cpp'),'w') as f:
                         f.write(m.template_rendered)
+
+
+
+    ompv5 = False if args.ompv5 == 'false' else True
 
     with open(os.path.join(dirname,"..","config","omp_struct.json"), 'r') as f:
         omp_tree = json.load(f)

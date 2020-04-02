@@ -19,26 +19,26 @@ bool almost_equal(complex<double> x, complex<double> y, int ulp) {
 
 }
 
-void test_acos(){
+void test_asin(){
    
-   complex<double> x {  4.42, 0.0 };
+   complex<double> x {  0.42, 0.0 };
    
 
-   complex<double> o_host = acos( x);
+   complex<double> o_host = asin( x);
 
    complex<double> o_gpu ; 
    #pragma omp target defaultmap(tofrom:scalar)
    {
-   o_gpu = acos( x);
+   o_gpu = asin( x);
    }
 
    if ( !almost_equal(o_host,o_gpu,1) ) {
         std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
-        throw std::runtime_error( "acos give incorect value when offloaded");
+        throw std::runtime_error( "asin give incorect value when offloaded");
     }
 }
 
 int main()
 {
-    test_acos();
+    test_asin();
 }
