@@ -32,10 +32,11 @@ class Employee(NamedTuple):
 def parse_log(io_stream, mode, avoid_long_double):
     if mode == "compilation":
         regex_test = "\w+\.cpp -o (\w+)\.exe$"
-        regex_error = "make.*?(\w+)\.exe.*(Error.*)"
+        regex_error = "make.*?\[(\w+)\.exe\]\s*(.*)"
     elif mode == "runtime":
         regex_test = "^\./(\w+)\.exe$"
-        regex_error = "make.*?run_(\w+)(.*)(Error.*)"
+        #regex_error = "make.*?run_(\w+).*(Error.*)"
+        regex_error = "make.*?\[run_(\w+)\]\s*(.*)"
 
     s_test = set()
     d_failure = dict()
@@ -47,7 +48,7 @@ def parse_log(io_stream, mode, avoid_long_double):
         for m,error in re.findall(regex_error,line):
             if not (avoid_long_double and 'long_double' in m):
                 d_failure[m] = error
-
+    
     return Employee(s_test, d_failure)
 
 def display( complile, runtime,  mode=None):
@@ -73,7 +74,7 @@ def display( complile, runtime,  mode=None):
                 print (f"No {type_}")
     if mode=='pass':
         print ("-- Tests who passed:")
-        for k in runtime.test - set(runtime.failure):
+        for k in sorted(runtime.test - set(runtime.failure)):
             print (k)
 
 
@@ -92,8 +93,6 @@ if sys.argv[4] == 'true':
     avoid_long_double = True
 else:
     avoid_long_double = False
-
-print (sys.argv)
 
 l = []
 print (f'>> {folder}')
