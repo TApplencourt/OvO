@@ -3,7 +3,7 @@ DOC="Omphval.sh a OpenMP test generator.
 Usage:
   omphval.sh gen [--v5]
   omphval.sh run [<test_folder>...]
-  omphval.sh display [--working] [--avoid_long_double] [<result_folder>...]
+  omphval.sh display [--failure | --pass] [--avoid_long_double] [<result_folder>...]
   omphval.sh clean
 
   Options:
@@ -31,27 +31,30 @@ Example:
 # docopt parser below, refresh this parser with `docopt.sh omphval.sh`
 # shellcheck disable=2016,1091,2034
 docopt() { source omphval/docopt-lib.sh '0.9.15' || { ret=$?
-printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:1548}
-usage=${DOC:36:161}; digest=caaeb; shorts=('' '' '')
-longs=(--v5 --working --avoid_long_double); argcounts=(0 0 0); node_0(){
-switch __v5 0; }; node_1(){ switch __working 1; }; node_2(){
-switch __avoid_long_double 2; }; node_3(){ value _test_folder_ a true; }
-node_4(){ value _result_folder_ a true; }; node_5(){ _command gen; }; node_6(){
-_command run; }; node_7(){ _command display; }; node_8(){ _command clean; }
-node_9(){ optional 0; }; node_10(){ required 5 9; }; node_11(){ oneormore 3; }
-node_12(){ optional 11; }; node_13(){ required 6 12; }; node_14(){ optional 1; }
-node_15(){ optional 2; }; node_16(){ oneormore 4; }; node_17(){ optional 16; }
-node_18(){ required 7 14 15 17; }; node_19(){ required 8; }; node_20(){
-either 10 13 18 19; }; node_21(){ required 20; }; cat <<<' docopt_exit() {
-[[ -n $1 ]] && printf "%s\n" "$1" >&2; printf "%s\n" "${DOC:36:161}" >&2; exit 1
-}'; unset var___v5 var___working var___avoid_long_double var__test_folder_ \
-var__result_folder_ var_gen var_run var_display var_clean; parse 21 "$@"
-local prefix=${DOCOPT_PREFIX:-''}; local docopt_decl=1
+printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:1557}
+usage=${DOC:36:170}; digest=5d1ef; shorts=('' '' '' '')
+longs=(--v5 --failure --pass --avoid_long_double); argcounts=(0 0 0 0)
+node_0(){ switch __v5 0; }; node_1(){ switch __failure 1; }; node_2(){
+switch __pass 2; }; node_3(){ switch __avoid_long_double 3; }; node_4(){
+value _test_folder_ a true; }; node_5(){ value _result_folder_ a true; }
+node_6(){ _command gen; }; node_7(){ _command run; }; node_8(){ _command display
+}; node_9(){ _command clean; }; node_10(){ optional 0; }; node_11(){
+required 6 10; }; node_12(){ oneormore 4; }; node_13(){ optional 12; }
+node_14(){ required 7 13; }; node_15(){ either 1 2; }; node_16(){ optional 15; }
+node_17(){ optional 3; }; node_18(){ oneormore 5; }; node_19(){ optional 18; }
+node_20(){ required 8 16 17 19; }; node_21(){ required 9; }; node_22(){
+either 11 14 20 21; }; node_23(){ required 22; }; cat <<<' docopt_exit() {
+[[ -n $1 ]] && printf "%s\n" "$1" >&2; printf "%s\n" "${DOC:36:170}" >&2; exit 1
+}'; unset var___v5 var___failure var___pass var___avoid_long_double \
+var__test_folder_ var__result_folder_ var_gen var_run var_display var_clean
+parse 23 "$@"; local prefix=${DOCOPT_PREFIX:-''}; local docopt_decl=1
 [[ $BASH_VERSION =~ ^4.3 ]] && docopt_decl=2; unset "${prefix}__v5" \
-"${prefix}__working" "${prefix}__avoid_long_double" "${prefix}_test_folder_" \
-"${prefix}_result_folder_" "${prefix}gen" "${prefix}run" "${prefix}display" \
-"${prefix}clean"; eval "${prefix}"'__v5=${var___v5:-false}'
-eval "${prefix}"'__working=${var___working:-false}'
+"${prefix}__failure" "${prefix}__pass" "${prefix}__avoid_long_double" \
+"${prefix}_test_folder_" "${prefix}_result_folder_" "${prefix}gen" \
+"${prefix}run" "${prefix}display" "${prefix}clean"
+eval "${prefix}"'__v5=${var___v5:-false}'
+eval "${prefix}"'__failure=${var___failure:-false}'
+eval "${prefix}"'__pass=${var___pass:-false}'
 eval "${prefix}"'__avoid_long_double=${var___avoid_long_double:-false}'
 if declare -p var__test_folder_ >/dev/null 2>&1; then
 eval "${prefix}"'_test_folder_=("${var__test_folder_[@]}")'; else
@@ -63,9 +66,10 @@ eval "${prefix}"'gen=${var_gen:-false}'; eval "${prefix}"'run=${var_run:-false}'
 eval "${prefix}"'display=${var_display:-false}'
 eval "${prefix}"'clean=${var_clean:-false}'; local docopt_i=0
 for ((docopt_i=0;docopt_i<docopt_decl;docopt_i++)); do
-declare -p "${prefix}__v5" "${prefix}__working" "${prefix}__avoid_long_double" \
-"${prefix}_test_folder_" "${prefix}_result_folder_" "${prefix}gen" \
-"${prefix}run" "${prefix}display" "${prefix}clean"; done; }
+declare -p "${prefix}__v5" "${prefix}__failure" "${prefix}__pass" \
+"${prefix}__avoid_long_double" "${prefix}_test_folder_" \
+"${prefix}_result_folder_" "${prefix}gen" "${prefix}run" "${prefix}display" \
+"${prefix}clean"; done; }
 # docopt parser above, complete command for generating this parser is `docopt.sh --library=omphval/docopt-lib.sh omphval.sh`
 
 l_folder() {
@@ -100,25 +104,6 @@ fdisplay_filter() {
 
 fdisplay() {
 
-    display_log() {
-        file=$1
-        if [ -f "$file" ]
-        then
-            # Make print "***" when the error is fatal (https://www.gnu.org/software/make/manual/make.html#Error-Messages)
-            # It make the parsing tedious, so we always removing it, then we remove the first 2 collumn thanks to awk.
-
-            # Some recent version of make print the error message with the line number. We remove it too.
-
-            # We then sort uniq to remove this duplicate (see `run` ). 
-            # The sort if just to sort by type of error.
-            grep "make:" $file | sed -r 's/\*{3}//g' |  \
-                               sed -r 's/Makefile:[0-9]+: //g' | \
-                               awk -v dir=$1 -v mode=$2 '{print dir " " mode " " substr($0, index($0, $2))}' | \
-                               sort | uniq |  \
-                               sort -k3
-        fi
-    }
-
     if [ -z "$1" ]
     then
       folders=$( find results -maxdepth 1 -type d | sort -r | head -n 1)
@@ -130,20 +115,7 @@ fdisplay() {
   
     for head_dir in $folders
     do
-        compilation=$(display_log ${head_dir}/compilation.log)
-        display=$(display_log ${head_dir}/runtime.log)
-        if [ ! -z "$compilation" ] || [ ! -z "$display" ]  
-        then
-            echo ">> $head_dir"
-            if ${__working}
-            then
-                ./omphval/display_pass.py $(basename $head_dir) $compilation $display | fdisplay_filter
-            else
-                echo "$compilation" | column -t | fdisplay_filter 
-                echo "$display" | column -t | fdisplay_filter
-            fi
-            echo ""
-        fi
+        ./omphval/display.py $head_dir ${__failure} ${__pass} ${__avoid_long_double}
     done
 }
 
