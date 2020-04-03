@@ -109,10 +109,9 @@ fdisplay() {
       folders=$( find results -maxdepth 1 -type d | sort -r | head -n 1)
       folders=$folders/*
     else
-      folders=$(find "${@:1}" -type d -links 2)
+      folders=$(find "${@}" -type d -links 2)
     fi
-
-  
+      
     for head_dir in $folders
     do
         ./omphval/display.py $head_dir ${__failure} ${__pass} ${__avoid_long_double}
