@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 DOC="Omphval.sh a OpenMP test generator.
 Usage:
-  oho.sh gen [--v5]
-  oho.sh run [<test_folder>...]
-  oho.sh display [--failure | --pass] [--avoid_long_double] [<result_folder>...]
-  oho.sh clean
+  ovo.sh gen [--v5]
+  ovo.sh run [<test_folder>...]
+  ovo.sh display [--failure | --pass] [--avoid_long_double] [<result_folder>...]
+  ovo.sh clean
 
   Options:
    gen                 Generate the ./tests directory containting all the tests
@@ -22,16 +22,16 @@ Usage:
 
 Example:
   - hierarchical parallelism tests
-      CXX='icc' CXXFLAGS='-qnext-gen -fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./oho.sh run ./tests/hp_*
+      CXX='icc' CXXFLAGS='-qnext-gen -fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run ./tests/hp_*
   - Display a sumarry of result the result.
-      ./ohol.sh diplay --avoid_long_double  results/*/math_cpp11
+      ./ovol.sh diplay --avoid_long_double  results/*/math_cpp11
 "
 
-# docopt parser below, refresh this parser with `docopt.sh oho.sh`
+# docopt parser below, refresh this parser with `docopt.sh ovo.sh`
 # shellcheck disable=2016,1091,2034
 docopt() { source src/docopt-lib.sh '0.9.15' || { ret=$?
 printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:1446}
-usage=${DOC:36:154}; digest=f1b4f; shorts=('' '' '' '')
+usage=${DOC:36:154}; digest=4a24d; shorts=('' '' '' '')
 longs=(--v5 --failure --pass --avoid_long_double); argcounts=(0 0 0 0)
 node_0(){ switch __v5 0; }; node_1(){ switch __failure 1; }; node_2(){
 switch __pass 2; }; node_3(){ switch __avoid_long_double 3; }; node_4(){
@@ -69,7 +69,7 @@ declare -p "${prefix}__v5" "${prefix}__failure" "${prefix}__pass" \
 "${prefix}__avoid_long_double" "${prefix}_test_folder_" \
 "${prefix}_result_folder_" "${prefix}gen" "${prefix}run" "${prefix}display" \
 "${prefix}clean"; done; }
-# docopt parser above, complete command for generating this parser is `docopt.sh --library=src/docopt-lib.sh oho.sh`
+# docopt parser above, complete command for generating this parser is `docopt.sh --library=src/docopt-lib.sh ovo.sh`
 
 l_tests_src() {
     echo $(find tests -type d | sort -r | awk 'a!~"^"$0{a=$0;print}' | sort)
