@@ -24,7 +24,7 @@ void test_log10(){
    complex<float> o_host = log10( x);
 
    complex<float> o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = log10( x);
    }

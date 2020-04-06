@@ -24,7 +24,7 @@ void test_copysign(){
    long double o_host = copysign( x, y);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = copysign( x, y);
    }

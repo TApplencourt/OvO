@@ -22,7 +22,7 @@ void test_isnormal(){
    bool o_host = isnormal( x);
 
    bool o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = isnormal( x);
    }

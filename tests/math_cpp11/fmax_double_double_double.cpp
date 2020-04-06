@@ -24,7 +24,7 @@ void test_fmax(){
    double o_host = fmax( x, y);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = fmax( x, y);
    }

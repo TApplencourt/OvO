@@ -24,7 +24,7 @@ void test_isless(){
    bool o_host = isless( x, y);
 
    bool o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = isless( x, y);
    }

@@ -24,7 +24,7 @@ void test_powl(){
    long double o_host = powl( x, y);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = powl( x, y);
    }

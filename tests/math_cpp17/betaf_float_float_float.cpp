@@ -24,7 +24,7 @@ void test_betaf(){
    float o_host = betaf( x, y);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = betaf( x, y);
    }

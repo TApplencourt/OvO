@@ -22,7 +22,7 @@ void test_ilogbl(){
    int o_host = ilogbl( x);
 
    int o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = ilogbl( x);
    }

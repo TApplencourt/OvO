@@ -24,7 +24,7 @@ void test_cyl_neumann(){
    double o_host = cyl_neumann( nu, x);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = cyl_neumann( nu, x);
    }

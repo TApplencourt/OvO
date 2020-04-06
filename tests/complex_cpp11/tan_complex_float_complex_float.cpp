@@ -24,7 +24,7 @@ void test_tan(){
    complex<float> o_host = tan( x);
 
    complex<float> o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = tan( x);
    }

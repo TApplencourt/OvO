@@ -26,7 +26,7 @@ void test_assoc_legendrel(){
    long double o_host = assoc_legendrel( l, m, x);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = assoc_legendrel( l, m, x);
    }

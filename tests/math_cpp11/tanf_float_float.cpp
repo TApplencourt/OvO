@@ -22,7 +22,7 @@ void test_tanf(){
    float o_host = tanf( x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = tanf( x);
    }

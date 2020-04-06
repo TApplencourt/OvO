@@ -24,7 +24,7 @@ void test_sph_bessel(){
    double o_host = sph_bessel( n, x);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = sph_bessel( n, x);
    }

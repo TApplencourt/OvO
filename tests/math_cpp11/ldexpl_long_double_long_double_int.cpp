@@ -24,7 +24,7 @@ void test_ldexpl(){
    long double o_host = ldexpl( x, exp);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = ldexpl( x, exp);
    }

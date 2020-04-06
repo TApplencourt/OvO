@@ -26,7 +26,7 @@ void test_hypot(){
    double o_host = hypot( x, y, z);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = hypot( x, y, z);
    }

@@ -24,7 +24,7 @@ void test_nexttowardf(){
    float o_host = nexttowardf( x, y);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = nexttowardf( x, y);
    }

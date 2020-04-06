@@ -24,7 +24,7 @@ void test_atan(){
    complex<double> o_host = atan( x);
 
    complex<double> o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = atan( x);
    }

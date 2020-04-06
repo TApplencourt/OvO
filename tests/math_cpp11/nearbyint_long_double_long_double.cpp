@@ -22,7 +22,7 @@ void test_nearbyint(){
    long double o_host = nearbyint( x);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = nearbyint( x);
    }

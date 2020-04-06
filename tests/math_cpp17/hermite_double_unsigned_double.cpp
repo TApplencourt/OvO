@@ -24,7 +24,7 @@ void test_hermite(){
    double o_host = hermite( n, x);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = hermite( n, x);
    }

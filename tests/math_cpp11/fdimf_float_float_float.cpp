@@ -24,7 +24,7 @@ void test_fdimf(){
    float o_host = fdimf( x, y);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = fdimf( x, y);
    }

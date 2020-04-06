@@ -24,7 +24,7 @@ void test_sph_besself(){
    float o_host = sph_besself( n, x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = sph_besself( n, x);
    }

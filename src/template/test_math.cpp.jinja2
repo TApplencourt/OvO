@@ -30,7 +30,7 @@ void test_{{name}}(){
    {{output_type}} o_host = {{name}}( {{ input_names |join(', ') }});
 
    {{output_type}} o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = {{name}}( {{ input_names |join(', ') }});
    }

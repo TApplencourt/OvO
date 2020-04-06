@@ -24,7 +24,7 @@ void test_fmodl(){
    long double o_host = fmodl( x, y);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = fmodl( x, y);
    }

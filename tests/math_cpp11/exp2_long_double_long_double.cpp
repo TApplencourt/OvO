@@ -22,7 +22,7 @@ void test_exp2(){
    long double o_host = exp2( x);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = exp2( x);
    }

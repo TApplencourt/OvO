@@ -22,7 +22,7 @@ void test_cosh(){
    long double o_host = cosh( x);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = cosh( x);
    }

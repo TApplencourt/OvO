@@ -22,7 +22,7 @@ void test_abs(){
    int o_host = abs( j);
 
    int o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = abs( j);
    }

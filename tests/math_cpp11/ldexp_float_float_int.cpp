@@ -24,7 +24,7 @@ void test_ldexp(){
    float o_host = ldexp( x, exp);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = ldexp( x, exp);
    }

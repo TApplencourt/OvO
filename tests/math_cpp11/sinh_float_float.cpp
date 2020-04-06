@@ -22,7 +22,7 @@ void test_sinh(){
    float o_host = sinh( x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = sinh( x);
    }

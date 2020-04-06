@@ -24,7 +24,7 @@ void test_scalbln(){
    double o_host = scalbln( x, n);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = scalbln( x, n);
    }

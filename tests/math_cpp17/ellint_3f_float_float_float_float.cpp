@@ -26,7 +26,7 @@ void test_ellint_3f(){
    float o_host = ellint_3f( k, nu, phi);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = ellint_3f( k, nu, phi);
    }

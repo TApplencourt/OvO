@@ -22,7 +22,7 @@ void test_llrintl(){
    long long int o_host = llrintl( x);
 
    long long int o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = llrintl( x);
    }

@@ -26,7 +26,7 @@ void test_assoc_laguerref(){
    float o_host = assoc_laguerref( n, m, x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = assoc_laguerref( n, m, x);
    }

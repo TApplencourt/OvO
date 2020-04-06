@@ -26,7 +26,7 @@ void test_lerp(){
    float o_host = lerp( a, b, t);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = lerp( a, b, t);
    }

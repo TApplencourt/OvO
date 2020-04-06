@@ -24,7 +24,7 @@ void test_isunordered(){
    bool o_host = isunordered( x, y);
 
    bool o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = isunordered( x, y);
    }

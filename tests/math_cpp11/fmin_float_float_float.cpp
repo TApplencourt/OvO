@@ -24,7 +24,7 @@ void test_fmin(){
    float o_host = fmin( x, y);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = fmin( x, y);
    }

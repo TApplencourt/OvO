@@ -22,7 +22,7 @@ void test_truncf(){
    float o_host = truncf( x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = truncf( x);
    }

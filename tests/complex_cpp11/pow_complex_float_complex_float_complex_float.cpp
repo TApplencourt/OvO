@@ -26,7 +26,7 @@ void test_pow(){
    complex<float> o_host = pow( n, x);
 
    complex<float> o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = pow( n, x);
    }

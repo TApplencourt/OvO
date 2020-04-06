@@ -26,7 +26,7 @@ void test_assoc_laguerrel(){
    long double o_host = assoc_laguerrel( n, m, x);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = assoc_laguerrel( n, m, x);
    }

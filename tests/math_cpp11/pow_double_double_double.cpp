@@ -24,7 +24,7 @@ void test_pow(){
    double o_host = pow( x, y);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = pow( x, y);
    }

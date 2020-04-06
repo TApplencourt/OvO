@@ -22,7 +22,7 @@ void test_cos(){
    float o_host = cos( x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = cos( x);
    }

@@ -26,7 +26,7 @@ void test_fma(){
    double o_host = fma( x, y, z);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = fma( x, y, z);
    }

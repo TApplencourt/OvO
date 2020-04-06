@@ -24,7 +24,7 @@ void test_remainder(){
    float o_host = remainder( x, y);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = remainder( x, y);
    }

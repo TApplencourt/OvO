@@ -24,7 +24,7 @@ void test_cyl_bessel_i(){
    double o_host = cyl_bessel_i( nu, x);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = cyl_bessel_i( nu, x);
    }
