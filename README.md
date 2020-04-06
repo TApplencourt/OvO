@@ -9,12 +9,27 @@
 
 [![Build Status](https://travis-ci.org/TApplencourt/OvO.svg?branch=master)](https://travis-ci.org/TApplencourt/OvO)
 
-This repository containt a OpenMP offloading tests for most of the C++ Math Function (`cmath` and `complex`). For example see https://github.com/TApplencourt/OvO/tree/master/tests/math_cpp11 for the c++11 functions.
+This repository containt OpenMP offloading tests for most of the C++ Math Function (`cmath` and `complex`). For example see https://github.com/TApplencourt/OvO/tree/master/tests/math_cpp11 for the c++11 functions.
 
 It also containt a large set of tests for Hierarchical parralellism. For example, see https://github.com/TApplencourt/OvO/tree/master/tests/hp_reduction for the reductions testing.
 
-The test can be run using `ovo.sh run` with the CXX / CXXFLAGS you like.
+The test can be run using `ovo.sh run` with the CXX / CXXFLAGS you like to enable OpenMP offloading.
+
+```
+$ CXX="clang++" CXXFLAGS="-fopenmp -std=c++17" MAKEFLAGS='-j32 --output-sync=target' ./ovo.sh run tests/math_cpp11 tests/math_cpp17
+Running tests/math_cpp11 | Saving log in results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30/math_cpp11
+clang++ -std=c++17 isgreater_bool_float_float.cpp -o isgreater_bool_float_float.exe
+clang++ -std=c++17 isgreater_bool_double_double.cpp -o isgreater_bool_double_double.exe
+clang++ -std=c++17 truncf_float_float.cpp -o truncf_float_float.exe
+[...]
+```
 Result can be see wit `ovo.sh display`.
+
+```
+$ ./ovo.sh display
+>> results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30/math_cpp11
+307 / 307 ( 100% ) pass [ 0 compilation failures / 0 runtime failures ]
+```
 
 ## How to run
 
