@@ -46,7 +46,7 @@ class TestCompilationError(unittest.TestCase):
         self.assertEqual(error, "Error 1 (ignored)")
 
     def test_error02(self):
-        str_ = "***make: [lroundf_long_int_float.exe] Error 1 (ignored)"
+        str_ = "make: *** [lroundf_long_int_float.exe] Error 1 (ignored)"
         m, error  = re.findall(r_compilation.error, str_).pop()
         self.assertEqual(m, "lroundf_long_int_float")
         self.assertEqual(error, "Error 1 (ignored)")
