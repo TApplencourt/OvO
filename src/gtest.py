@@ -322,15 +322,26 @@ if __name__ == '__main__':
         "reduction":Reduction}
 
     for test, Constructor in d.items():
-        folder = os.path.join("tests",f"hp_{test}")
-        os.makedirs(folder, exist_ok=True)
 
-        with open(os.path.join(folder,'Makefile'),'w') as f:
+        folder_45 = os.path.join("tests","hp_omp45",f"{test}")
+        os.makedirs(folder_45, exist_ok=True)
+   
+        folder_50 = os.path.join("tests","hp_omp50",f"{test}")
+        os.makedirs(folder_50, exist_ok=True)
+
+        with open(os.path.join(folder_45,'Makefile'),'w') as f:
             f.write(makefile)
- 
+
+        with open(os.path.join(folder_50,'Makefile'),'w') as f:
+                        f.write(makefile)
+
         for path in combinations_construct(omp_tree):
-            p = Constructor(path)
-            if ( ompv5 or not p.has("loop" ) ) and p.template_rendered:
-                with open(os.path.join(folder,f'{p.filename}.cpp'),'w') as f:
-                      f.write(p.template_rendered) 
+            # Take only construct of `construct_uuid` for loop
+            p = Constructor([ ' '.join(pragma.split('_')[0] for pragma in path.split()) for path in path])
+            if p.template_rendered:
+                if not p.has("loop"):
+                    with open(os.path.join(folder_45,f'{p.filename}.cpp'),'w') as f:
+                              f.write(p.template_rendered) 
+                with open(os.path.join(folder_50,f'{p.filename}.cpp'),'w') as f:
+                    f.write(p.template_rendered)
 

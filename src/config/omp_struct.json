@@ -4,19 +4,19 @@
         "target parallel",
         "target parallel for",
         "target parallel for simd",
-        "target parallel loop",
+        "target parallel loop_for",
         "target simd",
         "target teams",
         "target teams distribute",
         "target teams distribute simd",
         "target teams distribute parallel for",
         "target teams distribute parallel for simd",
-        "target teams loop"
+        "target teams loop_distribute"
     ],
     "target": [
         "parallel",
         "parallel for",
-        "parallel loop",
+        "parallel loop_for",
         "parallel for simd",
         "simd",
         "teams",
@@ -24,11 +24,11 @@
         "teams distribute simd",
         "teams distribute parallel for",
         "teams distribute parallel for simd",
-        "teams loop"
+        "teams loop_distribute"
     ],
     "target parallel": [
         "for",
-        "loop",
+        "loop_for",
         "simd"
     ],
     "target parallel for": [
@@ -41,16 +41,16 @@
         "distribute simd",
         "parallel",
         "parallel for",
-        "parallel loop",
+        "parallel loop_for",
         "parallel for simd"
     ],
-    "target parallel loop": [
+    "target parallel loop_for": [
         "simd"
     ],
     "target teams distribute": [
         "parallel",
         "parallel for",
-        "parallel loop",
+        "parallel loop_for",
         "simd"
     ],
     "target teams distribute simd": [],
@@ -58,45 +58,53 @@
         "simd"
     ],
     "target teams distribute parallel for simd": [],
-    "target teams loop": [
+    "target teams loop_distribute": [
          "parallel",
          "parallel for",
-         "parallel loop",
+         "parallel loop_for",
          "simd"
     ],
     "teams": [
         "distribute",
-        "loop",
+        "loop_distribute",
         "parallel",
         "parallel for",
-        "parallel loop",
+        "parallel loop_for",
         "parallel for simd"
     ],
     "distribute": [
         "parallel",
         "parallel for",
-        "parallel loop",
+        "parallel loop_for",
+        "simd"
+    ],
+    "loop_distribute": [
+        "parallel",
+        "parallel for",
+        "parallel loop_for",
         "simd"
     ],
     "teams distribute": [
         "parallel",
         "parallel for",
+        "parallel loop_for",
         "simd"
     ],
-    "teams loop": [
+    "teams loop_distribute": [
         "parallel",
         "parallel for",
-        "parallel loop",
+        "parallel loop_for",
         "simd"
     ],
     "parallel": [
         "for",
+        "loop_for",
         "simd"
     ],
     "for": [
         "simd"
     ],
-    "loop":[
+    "loop_for":[
         "simd"
     ],
     "teams distribute parallel for": [
@@ -105,7 +113,7 @@
     "parallel for": [
         "simd"
     ],
-    "parallel loop": [
+    "parallel loop_for": [
         "simd"
     ],
     "distribute simd": [],

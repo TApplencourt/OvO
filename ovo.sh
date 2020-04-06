@@ -80,7 +80,7 @@ frun() {
     then
        folders=${l_tests_src}
     else
-       folders=$*
+       folders=$(find "${@}" -type d -links 2)
     fi
 
     uuid=$(date +"%Y-%m-%d_%H-%M")
@@ -88,17 +88,17 @@ frun() {
 
     for dir in $folders
     do
-        nresult=$result/$(basename "$dir")
+        nresult=$result/${dir#*/}
         echo "Running $dir | Saving log in $nresult"
         mkdir -p "$nresult"
         env > "$nresult"/env.log
-        if ${__avoid_long_double}
-        then
-            make --no-print-directory -C "$dir" exe_nlg |& tee "$nresult"/compilation.log
-        else
-            make --no-print-directory -C "$dir" exe |& tee "$nresult"/compilation.log
-        fi
-        make --no-print-directory -C "$dir" run |& tee "$nresult"/runtime.log
+        #if ${__avoid_long_double}
+        #then
+        #    make --no-print-directory -C "$dir" exe_nlg |& tee "$nresult"/compilation.log
+        #else
+        #    make --no-print-directory -C "$dir" exe |& tee "$nresult"/compilation.log
+        #fi
+        #make --no-print-directory -C "$dir" run |& tee "$nresult"/runtime.log
     done
 }
 
