@@ -27,9 +27,10 @@ install:
   - pip install --user jinja2
 
 scripts:
-  - ./omphval.sh gen
-  - CXX="clang++" CXXFLAGS="-std=c++17" MAKEFLAGS='-j64 --output-sync=target' ./omphval.sh run tests/hp_*
-  - ./omphval.sh display
-  - CXX="clang++" CXXFLAGS="-std=c++17" MAKEFLAGS='-j64 --output-sync=target' ./omphval.sh run tests/math_cpp11 tests/math_cpp17
-  - ./omphval.sh display
+  - python3 -m unittest src/display.py
+  - ./ovo.sh gen
+  - CXX="clang++" CXXFLAGS="-std=c++17" MAKEFLAGS='-j32 --output-sync=target' ./ovo.sh run tests/hp_*
+  - ./ovo.sh display
+  - CXX="clang++" CXXFLAGS="-std=c++17" MAKEFLAGS='-j32 --output-sync=target' ./ovo.sh run tests/math_cpp11 tests/math_cpp17
+  - ./ovo.sh display
  
