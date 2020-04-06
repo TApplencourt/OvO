@@ -1,5 +1,12 @@
 # OvO (OpenMP Validation for Offload)
 
+```
+  ___
+ (o,o)
+<  .  >
+--"-"---
+```
+
 [![Build Status](https://travis-ci.org/TApplencourt/OvO.svg?branch=master)](https://travis-ci.org/TApplencourt/OvO)
 
 This repository containt a OpenMP offloading tests for most of the C++ Math Function (`cmath` and `complex`). For example see https://github.com/TApplencourt/OvO/tree/master/tests/math_cpp11 for the c++11 functions.
