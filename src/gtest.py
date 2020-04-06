@@ -108,7 +108,7 @@ class Path():
 import os
 import jinja2
 dirname = os.path.dirname(__file__)
-templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname,"..","config","template"))
+templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname,"template"))
 templateEnv = jinja2.Environment(loader=templateLoader)
 
 class AtomicReduction(Path):
@@ -292,7 +292,7 @@ if __name__ == '__main__':
     makefile = templateEnv.get_template(f"Makefile.jinja2").render()
 
     for hfolder, p in ( ("math","cmath_synopsis.json"), ("complex", "cmath_complex_synopsis.json") ):   
-      with open(os.path.join(dirname,"..","config",p), 'r') as f:
+      with open(os.path.join(dirname,"config",p), 'r') as f:
           math_json = json.load(f)
 
       for version, d_ in math_json.items():
@@ -314,7 +314,7 @@ if __name__ == '__main__':
 
     ompv5 = False if args.ompv5 == 'false' else True
 
-    with open(os.path.join(dirname,"..","config","omp_struct.json"), 'r') as f:
+    with open(os.path.join(dirname,"config","omp_struct.json"), 'r') as f:
         omp_tree = json.load(f)
 
     d ={"memcopy":Memcopy,
