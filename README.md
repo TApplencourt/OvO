@@ -1,16 +1,23 @@
-# OmpVal
+# OvO (OpenMP Validation for Offload)
 
-[![Build Status](https://travis-ci.org/TApplencourt/OmpVal.svg?branch=master)](https://travis-ci.org/TApplencourt/OmpVal)
+[![Build Status](https://travis-ci.org/TApplencourt/OvO.svg?branch=master)](https://travis-ci.org/TApplencourt/OvO)
+
+This repository containt a OpenMP offloading tests for most of the C++ Math Function (`cmath` and `complex`). For example see https://github.com/TApplencourt/OvO/tree/master/tests/math_cpp11 for the c++11 functions.
+
+It also containt a large set of tests for Hierarchical parralellism. For example, see https://github.com/TApplencourt/OvO/tree/master/tests/hp_reduction for the reductions testing.
+
+The test can be run using `ovo.sh run` with the CXX / CXXFLAGS you like.
+Result can be see wit `ovo.sh display`.
 
 ## How to run
 
 ```
 Omphval.sh a OpenMP test generator.
 Usage:
-  omphval.sh gen [--v5]
-  omphval.sh run [<test_folder>...]
-  omphval.sh display [--working] [--avoid_long_double] [<result_folder>...]
-  omphval.sh clean
+  ovo.sh gen [--v5]
+  ovo.sh run [<test_folder>...]
+  ovo.sh display [--failure | --pass] [--avoid_long_double] [<result_folder>...]
+  ovo.sh clean
 
   Options:
    gen                 Generate the ./tests directory containting all the tests
@@ -24,14 +31,13 @@ Usage:
 
    display             Display the Error message of failling tests.
      <result_folder>     Folder to display (default: ./results/ )
-     working             Print only the tests who are passing
      avoid_long_double   Don't print long_double tests. If used in conjunction with working, will not print the working long double if they exit
 
 Example:
   - hierarchical parallelism tests
-      CXX='icx' CXXFLAGS='-fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./omphval.sh run ./tests/hp_*
-  - Display all the non working c++11 math tests who are not of type long_double
-      ./omphval.sh diplay --avoid_long_double  results/*/math_cpp11
+      CXX='icc' CXXFLAGS='-qnext-gen -fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run ./tests/hp_*
+  - Display a sumarry of result the result.
+      ./ovol.sh diplay --avoid_long_double  results/*/math_cpp11
 ```
 
 # How to read logs files.
