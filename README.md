@@ -34,10 +34,17 @@ $ ./ovo.sh display
 ## How to run
 
 ```
+$ ./ovo.sh -g
+Usage:
+  ovo.sh gen [--v5]
+  ovo.sh run [<test_folder>...] [--avoid_long_double]
+  ovo.sh display [--failure | --pass] [--avoid_long_double] [<result_folder>...]
+  ovo.sh clean
+(base) [tapplencourt@jlselogin2 OmpVal]$ ./ovo.sh -h
 Omphval.sh a OpenMP test generator.
 Usage:
   ovo.sh gen [--v5]
-  ovo.sh run [<test_folder>...]
+  ovo.sh run [<test_folder>...] [--avoid_long_double]
   ovo.sh display [--failure | --pass] [--avoid_long_double] [<result_folder>...]
   ovo.sh clean
 
@@ -57,7 +64,7 @@ Usage:
 
 Example:
   - hierarchical parallelism tests
-      CXX='icc' CXXFLAGS='-qnext-gen -fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run ./tests/hp_*
+       OMP_TARGET_OFFLOAD=mandatory CXX='icc' CXXFLAGS='-qnextgen -fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run ./tests/hp_*
   - Display a sumarry of result the result.
       ./ovol.sh diplay --avoid_long_double  results/*/math_cpp11
 ```
