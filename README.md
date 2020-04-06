@@ -18,9 +18,9 @@ The test can be run using `ovo.sh run` with the CXX / CXXFLAGS you like to enabl
 ```
 $ CXX="clang++" CXXFLAGS="-fopenmp -std=c++17" MAKEFLAGS='-j32 --output-sync=target' ./ovo.sh run tests/math_cpp11 tests/math_cpp17
 Running tests/math_cpp11 | Saving log in results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30/math_cpp11
-clang++ -std=c++17 isgreater_bool_float_float.cpp -o isgreater_bool_float_float.exe
-clang++ -std=c++17 isgreater_bool_double_double.cpp -o isgreater_bool_double_double.exe
-clang++ -std=c++17 truncf_float_float.cpp -o truncf_float_float.exe
+clang++ "-fopenmp -std=c++17 isgreater_bool_float_float.cpp -o isgreater_bool_float_float.exe
+clang++ "-fopenmp -std=c++17 isgreater_bool_double_double.cpp -o isgreater_bool_double_double.exe
+clang++ "-fopenmp -std=c++17 truncf_float_float.cpp -o truncf_float_float.exe
 [...]
 ```
 Result can be see wit `ovo.sh display`.
