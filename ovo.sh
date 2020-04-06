@@ -27,6 +27,7 @@ Example:
       ./ovol.sh diplay --avoid_long_double  results/*/math_cpp11
 "
 
+# You are Not Expected to Understand This
 # docopt parser below, refresh this parser with `docopt.sh ovo.sh`
 # shellcheck disable=2016,1091,2034
 docopt() { source src/docopt-lib.sh '0.9.15' || { ret=$?
@@ -70,34 +71,34 @@ declare -p "${prefix}__v5" "${prefix}__avoid_long_double" "${prefix}__failure" \
 "${prefix}gen" "${prefix}run" "${prefix}display" "${prefix}clean"; done; }
 # docopt parser above, complete command for generating this parser is `docopt.sh --library=src/docopt-lib.sh ovo.sh`
 
-l_tests_src() {
-    echo $(find tests -type d | sort -r | awk 'a!~"^"$0{a=$0;print}' | sort)
-}
+# May not work on macOS (https://stackoverflow.com/a/4269862/7674852)
+#!/bin/bash
+l_tests_src=$(find tests -type d -links 2)
 
 frun() {
     if [ -z "$1" ]
     then
-       folders=$(l_tests_src)
+       folders=${l_tests_src}
     else
-       folders="$@"
-    fi 
+       folders=$*
+    fi
 
     uuid=$(date +"%Y-%m-%d_%H-%M")
     result="results/${uuid}_$(hostname)"
 
     for dir in $folders
     do
-        nresult=$result/$(basename $dir)
+        nresult=$result/$(basename "$dir")
         echo "Running $dir | Saving log in $nresult"
-        mkdir -p $nresult
-        env > $nresult/env.log 
+        mkdir -p "$nresult"
+        env > "$nresult"/env.log
         if ${__avoid_long_double}
         then
-            make --no-print-directory -C $dir exe_nlg |& tee $nresult/compilation.log
+            make --no-print-directory -C "$dir" exe_nlg |& tee "$nresult"/compilation.log
         else
-            make --no-print-directory -C $dir exe |& tee $nresult/compilation.log
+            make --no-print-directory -C "$dir" exe |& tee "$nresult"/compilation.log
         fi
-        make --no-print-directory -C $dir run |& tee $nresult/runtime.log
+        make --no-print-directory -C "$dir" run |& tee "$nresult"/runtime.log
     done
 }
 
@@ -105,22 +106,22 @@ fdisplay() {
 
     if [ -z "$1" ]
     then
-      folders=$( find results -maxdepth 1 -type d | sort -r | head -n 1)
-      folders=$folders/*
+      # Get the last modified folder in results, then list all the tests avalaible inside.
+      folders="$(find results -maxdepth 1 -type d | tail -n 1)/*"
     else
       folders=$(find "${@}" -type d -links 2)
     fi
-      
+
     for head_dir in $folders
     do
-        ./src/display.py $head_dir ${__failure} ${__pass} ${__avoid_long_double}
+        ./src/display.py "$head_dir" "${__failure}" "${__pass}" "${__avoid_long_double}"
     done
 }
 
 fclean() {
-    for dir in $(l_tests_src)
+    for dir in ${l_tests_src}
     do
-        make --no-print-directory -s -C $dir "clean"
+        make --no-print-directory -s -C "$dir" "clean"
     done
 }
 
@@ -130,8 +131,8 @@ fclean() {
 #                    _|           _|
 eval "$(docopt "$@")"
 
-$gen && rm -rf -- tests && ./src/gtest.py ${__v5}
-$run && fclean && frun ${_test_folder_[@]} 
-$display && fdisplay ${_result_folder_[@]}
+$gen && rm -rf -- tests && ./src/gtest.py "${__v5}"
+$run && fclean && frun "${_test_folder_[@]}"
+$display && fdisplay "${_result_folder_[@]}"
 $clean && fclean
 exit 0
