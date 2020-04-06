@@ -35,7 +35,7 @@ $ ./ovo.sh display
  - bash >3.2 (bash 3.2 was realeased in 2006-10-12!)
  - python3
  - make
- - jinja2 (optiona, only needed to regenered the tests)
+ - [jinja](https://jinja.palletsprojects.com/en/2.11.x/) (optional,  needed to re-generate the tests if templates have been modifed)
  
 ## More information
 
