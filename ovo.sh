@@ -22,7 +22,7 @@ Usage:
 
 Example:
   - hierarchical parallelism tests
-      CXX='icc' CXXFLAGS='-qnext-gen -fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run ./tests/hp_*
+       OMP_TARGET_OFFLOAD=mandatory CXX='icc' CXXFLAGS='-qnextgen -fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run ./tests/hp_*
   - Display a sumarry of result the result.
       ./ovol.sh diplay --avoid_long_double  results/*/math_cpp11
 "
@@ -31,8 +31,8 @@ Example:
 # docopt parser below, refresh this parser with `docopt.sh ovo.sh`
 # shellcheck disable=2016,1091,2034
 docopt() { source src/docopt-lib.sh '0.9.15' || { ret=$?
-printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:1468}
-usage=${DOC:36:176}; digest=c091c; shorts=('' '' '' '')
+printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:1497}
+usage=${DOC:36:176}; digest=e621a; shorts=('' '' '' '')
 longs=(--v5 --avoid_long_double --failure --pass); argcounts=(0 0 0 0)
 node_0(){ switch __v5 0; }; node_1(){ switch __avoid_long_double 1; }; node_2(){
 switch __failure 2; }; node_3(){ switch __pass 3; }; node_4(){
