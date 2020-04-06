@@ -26,7 +26,7 @@ void test_sph_legendref(){
    float o_host = sph_legendref( l, m, theta);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = sph_legendref( l, m, theta);
    }

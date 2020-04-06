@@ -22,7 +22,7 @@ void test_lround(){
    long int o_host = lround( x);
 
    long int o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = lround( x);
    }

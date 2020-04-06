@@ -24,7 +24,7 @@ void test_ldexpf(){
    float o_host = ldexpf( x, exp);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = ldexpf( x, exp);
    }

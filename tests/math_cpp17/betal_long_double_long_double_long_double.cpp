@@ -24,7 +24,7 @@ void test_betal(){
    long double o_host = betal( x, y);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = betal( x, y);
    }

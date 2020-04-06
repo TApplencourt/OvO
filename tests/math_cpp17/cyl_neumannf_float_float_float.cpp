@@ -24,7 +24,7 @@ void test_cyl_neumannf(){
    float o_host = cyl_neumannf( nu, x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = cyl_neumannf( nu, x);
    }

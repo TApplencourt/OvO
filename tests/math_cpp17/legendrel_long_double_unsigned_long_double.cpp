@@ -24,7 +24,7 @@ void test_legendrel(){
    long double o_host = legendrel( l, x);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = legendrel( l, x);
    }

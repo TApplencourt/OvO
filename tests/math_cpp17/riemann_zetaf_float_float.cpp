@@ -22,7 +22,7 @@ void test_riemann_zetaf(){
    float o_host = riemann_zetaf( x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = riemann_zetaf( x);
    }

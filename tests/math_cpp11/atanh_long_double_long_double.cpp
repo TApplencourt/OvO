@@ -22,7 +22,7 @@ void test_atanh(){
    long double o_host = atanh( x);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = atanh( x);
    }

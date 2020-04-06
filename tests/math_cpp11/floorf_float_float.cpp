@@ -22,7 +22,7 @@ void test_floorf(){
    float o_host = floorf( x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = floorf( x);
    }

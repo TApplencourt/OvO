@@ -24,7 +24,7 @@ void test_sin(){
    complex<float> o_host = sin( x);
 
    complex<float> o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = sin( x);
    }

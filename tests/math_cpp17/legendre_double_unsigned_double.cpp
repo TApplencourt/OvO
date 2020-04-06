@@ -24,7 +24,7 @@ void test_legendre(){
    double o_host = legendre( l, x);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = legendre( l, x);
    }

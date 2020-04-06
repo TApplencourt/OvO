@@ -24,7 +24,7 @@ void test_exp(){
    complex<double> o_host = exp( x);
 
    complex<double> o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = exp( x);
    }

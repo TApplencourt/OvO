@@ -22,7 +22,7 @@ void test_acosh(){
    float o_host = acosh( x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = acosh( x);
    }

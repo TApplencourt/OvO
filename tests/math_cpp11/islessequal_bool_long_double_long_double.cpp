@@ -24,7 +24,7 @@ void test_islessequal(){
    bool o_host = islessequal( x, y);
 
    bool o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = islessequal( x, y);
    }

@@ -22,7 +22,7 @@ void test_rint(){
    long double o_host = rint( x);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = rint( x);
    }

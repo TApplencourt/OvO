@@ -24,7 +24,7 @@ void test_cyl_bessel_if(){
    float o_host = cyl_bessel_if( nu, x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = cyl_bessel_if( nu, x);
    }

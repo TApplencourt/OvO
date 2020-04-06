@@ -26,7 +26,7 @@ void test_assoc_legendre(){
    double o_host = assoc_legendre( l, m, x);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = assoc_legendre( l, m, x);
    }

@@ -22,7 +22,7 @@ void test_log10(){
    double o_host = log10( x);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = log10( x);
    }

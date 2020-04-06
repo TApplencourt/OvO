@@ -24,7 +24,7 @@ void test_asin(){
    complex<long double> o_host = asin( x);
 
    complex<long double> o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = asin( x);
    }

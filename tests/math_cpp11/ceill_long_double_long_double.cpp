@@ -22,7 +22,7 @@ void test_ceill(){
    long double o_host = ceill( x);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = ceill( x);
    }

@@ -22,7 +22,7 @@ void test_fpclassify(){
    int o_host = fpclassify( x);
 
    int o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = fpclassify( x);
    }

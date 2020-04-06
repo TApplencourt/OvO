@@ -22,7 +22,7 @@ void test_round(){
    float o_host = round( x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = round( x);
    }

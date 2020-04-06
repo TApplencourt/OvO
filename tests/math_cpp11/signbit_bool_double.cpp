@@ -22,7 +22,7 @@ void test_signbit(){
    bool o_host = signbit( x);
 
    bool o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = signbit( x);
    }

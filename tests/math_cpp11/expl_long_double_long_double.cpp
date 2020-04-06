@@ -22,7 +22,7 @@ void test_expl(){
    long double o_host = expl( x);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = expl( x);
    }

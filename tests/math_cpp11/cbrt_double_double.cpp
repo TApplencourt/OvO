@@ -22,7 +22,7 @@ void test_cbrt(){
    double o_host = cbrt( x);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = cbrt( x);
    }

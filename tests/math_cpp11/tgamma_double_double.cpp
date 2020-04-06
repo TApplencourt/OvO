@@ -22,7 +22,7 @@ void test_tgamma(){
    double o_host = tgamma( x);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = tgamma( x);
    }

@@ -24,7 +24,7 @@ void test_isgreaterequal(){
    bool o_host = isgreaterequal( x, y);
 
    bool o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = isgreaterequal( x, y);
    }

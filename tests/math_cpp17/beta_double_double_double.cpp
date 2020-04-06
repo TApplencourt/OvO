@@ -24,7 +24,7 @@ void test_beta(){
    double o_host = beta( x, y);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = beta( x, y);
    }

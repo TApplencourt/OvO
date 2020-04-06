@@ -22,7 +22,7 @@ void test_sqrtf(){
    float o_host = sqrtf( x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = sqrtf( x);
    }

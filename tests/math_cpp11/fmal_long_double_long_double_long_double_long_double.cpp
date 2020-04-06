@@ -26,7 +26,7 @@ void test_fmal(){
    long double o_host = fmal( x, y, z);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = fmal( x, y, z);
    }

@@ -24,7 +24,7 @@ void test_fdim(){
    double o_host = fdim( x, y);
 
    double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = fdim( x, y);
    }

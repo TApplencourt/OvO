@@ -22,7 +22,7 @@ void test_acosl(){
    long double o_host = acosl( x);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = acosl( x);
    }

@@ -22,7 +22,7 @@ void test_riemann_zetal(){
    long double o_host = riemann_zetal( x);
 
    long double o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = riemann_zetal( x);
    }

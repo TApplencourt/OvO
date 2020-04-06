@@ -22,7 +22,7 @@ void test_asinhf(){
    float o_host = asinhf( x);
 
    float o_gpu ; 
-   #pragma omp target defaultmap(tofrom:scalar)
+   #pragma omp target map(from:o_gpu)
    {
    o_gpu = asinhf( x);
    }
