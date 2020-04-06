@@ -9,9 +9,9 @@
 
 [![Build Status](https://travis-ci.org/TApplencourt/OvO.svg?branch=master)](https://travis-ci.org/TApplencourt/OvO)
 
-This repository containt OpenMP offloading tests for most of the C++ Math Function (`cmath` and `complex`). For example see [!this](https://github.com/TApplencourt/OvO/tree/master/tests/math_cpp11) directory for the c++11 functions.
+This repository containt OpenMP offloading tests for most of the C++ Math Function (`cmath` and `complex`). For example see [this](https://github.com/TApplencourt/OvO/tree/master/tests/math_cpp11) directory for the c++11 functions.
 
-It also containt a large set of tests for Hierarchical parralellism. For example, see [!this](https://github.com/TApplencourt/OvO/tree/master/tests/hp_reduction) for the tests regarding reduction.
+It also containt a large set of tests for Hierarchical parralellism. For example, see [this](https://github.com/TApplencourt/OvO/tree/master/tests/hp_reduction) for the tests regarding reduction.
 
 The test can be run using `./ovo.sh run` with the enviroment variable needed (e.g. `CXX` / `CXXFLAGS` / `OMP_TARGET_OFFLOAD`) 
 
