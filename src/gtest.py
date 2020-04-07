@@ -49,7 +49,13 @@ class Path():
         elif self.T in ('complex<float>', 'complex<double>',  'complex<long double>'):
             return 'complex'
         else:
-            return self.output_type
+            return self.T
+
+    @property
+    def T_serialized(self):
+         a =str.maketrans("<>", "  ")
+         return '_'.join(self.T.translate(a).split())
+  
 
     @property
     def filename(self):
@@ -350,16 +356,20 @@ if __name__ == '__main__':
 
     a =str.maketrans("<>", "  ")
     
-    for T in ("double","complex<double>"):
+    for T in ("double","complex<double>","float","complex<float>"):
 
-        T_serialized = '_'.join(T.translate(a).split())
-    
+        q = Path([], T)
+
         for test, Constructor in d.items():
 
-            if test == "memcopy" and T =="complex<double>":
+            if test == "memcopy" and q.T_category =="complex":
                 continue
 
-            folder = os.path.join("test_src",f"hp_{test}",T_serialized)
+            if test == "atomic" and  q.T_category =="complex":
+                continue
+
+            folder = os.path.join("test_src","hierarchical_parallelism",test,q.T_serialized)
+
             os.makedirs(folder, exist_ok=True)
             
             with open(os.path.join(folder,'Makefile'),'w') as f:
