@@ -115,12 +115,10 @@ class AtomicReduction(Path):
 
     @property
     def expected_value(self):
-        if self.only_target:
-            return ("==", "1")
-        elif self.balenced:
-            return ("==", f"{'*'.join(l.N for l in self.loops)}")
-        else:
-            return (">", "0")
+        if not self.loops:
+            return "1"
+
+        return f"{'*'.join(l.N for l in self.loops)}"
 
 class Atomic(AtomicReduction):
 
@@ -134,6 +132,9 @@ class Atomic(AtomicReduction):
         return Atomic.template.render(name=self.filename,
                                       fat_path=self.fat_path,
                                       loops=self.loops,
+                                      balenced=self.balenced,
+                                      only_teams=self.only_teams,
+                                      only_parallel=self.only_parallel,
                                       expected_value=self.expected_value)
 
 class Reduction(AtomicReduction):
@@ -146,6 +147,9 @@ class Reduction(AtomicReduction):
         return Reduction.template.render(name=self.filename,
                                         fat_path=self.fat_path,
                                         loops=self.loops,
+                                        balenced=self.balenced,
+                                        only_teams=self.only_teams,
+                                        only_parallel=self.only_parallel,
                                         expected_value=self.expected_value)
 class Memcopy(Path):
 
