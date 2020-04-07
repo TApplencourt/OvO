@@ -20,18 +20,16 @@ T counter{};
 
 // Main program
 
-#pragma omp target teams distribute  reduction(+:counter)   map(tofrom:counter) 
+#pragma omp target teams distribute  reduction(+:counter)   defaultmap(tofrom:scalar) 
 
     for (int i = 0 ; i < L ; i++ )
 
 {
 
 
-
 #pragma omp parallel  reduction(+:counter)  
 
 {
-
 
 const int num_threads = omp_get_num_threads();
 

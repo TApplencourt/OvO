@@ -19,10 +19,9 @@ T counter{};
 
 // Main program
 
-#pragma omp target   map(tofrom:counter) 
+#pragma omp target   defaultmap(tofrom:scalar) 
 
 {
-
 
 
 

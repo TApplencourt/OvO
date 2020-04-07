@@ -28,7 +28,6 @@ T counter{};
 
 
 
-
 #pragma omp atomic update
 
 counter = counter + 1;

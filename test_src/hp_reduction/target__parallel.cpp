@@ -19,16 +19,14 @@ T counter{};
 
 // Main program
 
-#pragma omp target   map(tofrom:counter) 
+#pragma omp target   defaultmap(tofrom:scalar) 
 
 {
-
 
 
 #pragma omp parallel  reduction(+:counter)  
 
 {
-
 
 const int num_threads = omp_get_num_threads();
 

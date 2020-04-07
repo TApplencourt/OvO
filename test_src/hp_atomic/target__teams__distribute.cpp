@@ -25,11 +25,9 @@ T counter{};
 {
 
 
-
 #pragma omp teams 
 
 {
-
 
 
 #pragma omp distribute 
@@ -37,7 +35,6 @@ T counter{};
     for (int i = 0 ; i < L ; i++ )
 
 {
-
 
 
 

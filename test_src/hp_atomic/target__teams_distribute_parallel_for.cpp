@@ -25,13 +25,11 @@ T counter{};
 {
 
 
-
 #pragma omp teams distribute parallel for 
 
     for (int i = 0 ; i < L ; i++ )
 
 {
-
 
 
 

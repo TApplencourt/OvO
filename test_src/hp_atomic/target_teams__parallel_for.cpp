@@ -27,13 +27,11 @@ T counter{};
 const int num_teams = omp_get_num_teams();
 
 
-
 #pragma omp parallel for 
 
     for (int i = 0 ; i < L ; i++ )
 
 {
-
 
 
 

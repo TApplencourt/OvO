@@ -22,10 +22,9 @@ T counter{};
 
 // Main program
 
-#pragma omp target teams  reduction(+:counter)   map(tofrom:counter) 
+#pragma omp target teams  reduction(+:counter)   defaultmap(tofrom:scalar) 
 
 {
-
 
 
 #pragma omp distribute  
@@ -35,7 +34,6 @@ T counter{};
 {
 
 
-
 #pragma omp parallel for  reduction(+:counter)  
 
     for (int j = 0 ; j < M ; j++ )
@@ -43,13 +41,11 @@ T counter{};
 {
 
 
-
 #pragma omp simd  reduction(+:counter)  
 
     for (int k = 0 ; k < N ; k++ )
 
 {
-
 
 
 

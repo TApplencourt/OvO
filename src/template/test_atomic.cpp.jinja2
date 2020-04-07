@@ -28,8 +28,7 @@ T counter{};
 {
 {% if "only_teams" in fat_pragma %}
 const int num_teams = omp_get_num_teams();
-{% endif %}
-{% if "only_parallel" in fat_pragma %}
+{% elif "only_parallel" in fat_pragma %}
 const int num_threads = omp_get_num_threads();
 {% endif %}
 {% endfor %}

@@ -28,13 +28,11 @@ T counter{};
 {
 
 
-
 #pragma omp parallel for 
 
     for (int j = 0 ; j < M ; j++ )
 
 {
-
 
 
 

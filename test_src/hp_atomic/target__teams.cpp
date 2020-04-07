@@ -24,13 +24,11 @@ T counter{};
 {
 
 
-
 #pragma omp teams 
 
 {
 
 const int num_teams = omp_get_num_teams();
-
 
 
 

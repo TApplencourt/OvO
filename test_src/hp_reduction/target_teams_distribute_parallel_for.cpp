@@ -20,12 +20,11 @@ T counter{};
 
 // Main program
 
-#pragma omp target teams distribute parallel for  reduction(+:counter)   map(tofrom:counter) 
+#pragma omp target teams distribute parallel for  reduction(+:counter)   defaultmap(tofrom:scalar) 
 
     for (int i = 0 ; i < L ; i++ )
 
 {
-
 
 
 

@@ -25,11 +25,9 @@ T counter{};
 {
 
 
-
 #pragma omp teams 
 
 {
-
 
 
 #pragma omp distribute 
@@ -39,11 +37,9 @@ T counter{};
 {
 
 
-
 #pragma omp parallel 
 
 {
-
 
 const int num_threads = omp_get_num_threads();
 

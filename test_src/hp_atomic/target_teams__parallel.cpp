@@ -26,11 +26,9 @@ T counter{};
 const int num_teams = omp_get_num_teams();
 
 
-
 #pragma omp parallel 
 
 {
-
 
 const int num_threads = omp_get_num_threads();
 

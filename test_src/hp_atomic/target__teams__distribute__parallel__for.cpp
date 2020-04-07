@@ -26,11 +26,9 @@ T counter{};
 {
 
 
-
 #pragma omp teams 
 
 {
-
 
 
 #pragma omp distribute 
@@ -40,11 +38,9 @@ T counter{};
 {
 
 
-
 #pragma omp parallel 
 
 {
-
 
 
 #pragma omp for 
@@ -52,7 +48,6 @@ T counter{};
     for (int j = 0 ; j < M ; j++ )
 
 {
-
 
 
 

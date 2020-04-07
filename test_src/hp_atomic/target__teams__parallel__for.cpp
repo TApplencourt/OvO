@@ -25,7 +25,6 @@ T counter{};
 {
 
 
-
 #pragma omp teams 
 
 {
@@ -33,11 +32,9 @@ T counter{};
 const int num_teams = omp_get_num_teams();
 
 
-
 #pragma omp parallel 
 
 {
-
 
 
 #pragma omp for 
@@ -45,7 +42,6 @@ const int num_teams = omp_get_num_teams();
     for (int i = 0 ; i < L ; i++ )
 
 {
-
 
 
 

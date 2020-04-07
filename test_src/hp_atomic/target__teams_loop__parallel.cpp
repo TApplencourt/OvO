@@ -25,7 +25,6 @@ T counter{};
 {
 
 
-
 #pragma omp teams loop 
 
     for (int i = 0 ; i < L ; i++ )
@@ -33,11 +32,9 @@ T counter{};
 {
 
 
-
 #pragma omp parallel 
 
 {
-
 
 const int num_threads = omp_get_num_threads();
 

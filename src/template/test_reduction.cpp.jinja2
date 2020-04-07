@@ -21,15 +21,14 @@ T counter{};
 
 // Main program
 {% for fat_pragma in fat_path %}
-#pragma omp {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} reduction(+:counter) {%endif%} {% if "target" in fat_pragma %} map(tofrom:counter) {% endif %}
+#pragma omp {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} reduction(+:counter) {%endif%} {% if "target" in fat_pragma %} defaultmap(tofrom:scalar) {% endif %}
 {% if "loop" in fat_pragma %}
     for (int {{fat_pragma["loop"].i}} = 0 ; {{fat_pragma["loop"].i}} < {{fat_pragma["loop"].N}} ; {{fat_pragma["loop"].i}}++ )
 {% endif %}
 {
 {% if "only_teams" in fat_pragma %}
 const int num_teams = omp_get_num_teams();
-{% endif %}
-{% if "only_parallel" in fat_pragma %}
+{% elif "only_parallel" in fat_pragma %}
 const int num_threads = omp_get_num_threads();
 {% endif %}
 {% endfor %}

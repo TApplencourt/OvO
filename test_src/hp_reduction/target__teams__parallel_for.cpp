@@ -20,10 +20,9 @@ T counter{};
 
 // Main program
 
-#pragma omp target   map(tofrom:counter) 
+#pragma omp target   defaultmap(tofrom:scalar) 
 
 {
-
 
 
 #pragma omp teams  reduction(+:counter)  
@@ -33,13 +32,11 @@ T counter{};
 const int num_teams = omp_get_num_teams();
 
 
-
 #pragma omp parallel for  reduction(+:counter)  
 
     for (int i = 0 ; i < L ; i++ )
 
 {
-
 
 
 

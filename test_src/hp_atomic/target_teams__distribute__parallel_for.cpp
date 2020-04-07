@@ -26,7 +26,6 @@ T counter{};
 {
 
 
-
 #pragma omp distribute 
 
     for (int i = 0 ; i < L ; i++ )
@@ -34,13 +33,11 @@ T counter{};
 {
 
 
-
 #pragma omp parallel for 
 
     for (int j = 0 ; j < M ; j++ )
 
 {
-
 
 
 

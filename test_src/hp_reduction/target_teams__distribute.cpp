@@ -20,10 +20,9 @@ T counter{};
 
 // Main program
 
-#pragma omp target teams  reduction(+:counter)   map(tofrom:counter) 
+#pragma omp target teams  reduction(+:counter)   defaultmap(tofrom:scalar) 
 
 {
-
 
 
 #pragma omp distribute  
@@ -31,7 +30,6 @@ T counter{};
     for (int i = 0 ; i < L ; i++ )
 
 {
-
 
 
 

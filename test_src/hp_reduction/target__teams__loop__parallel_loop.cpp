@@ -21,16 +21,14 @@ T counter{};
 
 // Main program
 
-#pragma omp target   map(tofrom:counter) 
+#pragma omp target   defaultmap(tofrom:scalar) 
 
 {
-
 
 
 #pragma omp teams  reduction(+:counter)  
 
 {
-
 
 
 #pragma omp loop  reduction(+:counter)  
@@ -40,13 +38,11 @@ T counter{};
 {
 
 
-
 #pragma omp parallel loop  reduction(+:counter)  
 
     for (int j = 0 ; j < M ; j++ )
 
 {
-
 
 
 

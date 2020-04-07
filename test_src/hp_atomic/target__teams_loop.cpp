@@ -25,13 +25,11 @@ T counter{};
 {
 
 
-
 #pragma omp teams loop 
 
     for (int i = 0 ; i < L ; i++ )
 
 {
-
 
 
 

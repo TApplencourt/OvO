@@ -20,12 +20,11 @@ T counter{};
 
 // Main program
 
-#pragma omp target teams loop  reduction(+:counter)   map(tofrom:counter) 
+#pragma omp target teams loop  reduction(+:counter)   defaultmap(tofrom:scalar) 
 
     for (int i = 0 ; i < L ; i++ )
 
 {
-
 
 
 

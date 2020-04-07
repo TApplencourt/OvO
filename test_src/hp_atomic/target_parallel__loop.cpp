@@ -25,13 +25,11 @@ T counter{};
 {
 
 
-
 #pragma omp loop 
 
     for (int i = 0 ; i < L ; i++ )
 
 {
-
 
 
 

@@ -20,10 +20,9 @@ T counter{};
 
 // Main program
 
-#pragma omp target   map(tofrom:counter) 
+#pragma omp target   defaultmap(tofrom:scalar) 
 
 {
-
 
 
 #pragma omp parallel for simd  reduction(+:counter)  
@@ -31,7 +30,6 @@ T counter{};
     for (int i = 0 ; i < L ; i++ )
 
 {
-
 
 
 
