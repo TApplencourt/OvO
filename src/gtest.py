@@ -30,8 +30,26 @@ class Path():
                  Idx('j','M',6), 
                  Idx('k','N',7)]
 
-    def __init__(self, path):
+    def __init__(self, path,T):
         self.path = path
+        self.T = T
+
+    @property
+    def T_type(self):
+        if self.T_category != "complex":
+            return self.T
+        return self.T.split('<')[1][:-1];
+
+    @property
+    def T_category(self):
+        if self.T in ('long int', 'int','long long int','unsigned'):
+            return 'integer'
+        elif  self.T in ('float','double','long double'):
+            return 'float'
+        elif self.T in ('complex<float>', 'complex<double>',  'complex<long double>'):
+            return 'complex'
+        else:
+            return self.output_type
 
     @property
     def filename(self):
@@ -135,8 +153,10 @@ class Atomic(AtomicReduction):
                                       balenced=self.balenced,
                                       only_teams=self.only_teams,
                                       only_parallel=self.only_parallel,
-                                      expected_value=self.expected_value)
-
+                                      expected_value=self.expected_value,
+                                      T_category=self.T_category,
+                                      T_type=self.T_type,
+                                      T=self.T)
 class Reduction(AtomicReduction):
 
     template = templateEnv.get_template(f"test_reduction.cpp.jinja2")
@@ -150,7 +170,10 @@ class Reduction(AtomicReduction):
                                         balenced=self.balenced,
                                         only_teams=self.only_teams,
                                         only_parallel=self.only_parallel,
-                                        expected_value=self.expected_value)
+                                        expected_value=self.expected_value,
+                                        T_category=self.T_category,
+                                        T_type=self.T_type,
+                                        T=self.T)
 class Memcopy(Path):
 
     template = templateEnv.get_template(f"test_memcopy.cpp.jinja2")
@@ -223,7 +246,7 @@ class Math():
     @property
     def output_type_T(self):
         if self.output_type_category != "complex":
-            return None
+            return self.output_type
 
         return self.output_type.split('<')[1][:-1];
     
@@ -325,18 +348,27 @@ if __name__ == '__main__':
         "atomic":Atomic,
         "reduction":Reduction}
 
-    for test, Constructor in d.items():
+    a =str.maketrans("<>", "  ")
+    
+    for T in ("double","complex<double>"):
 
-        folder = os.path.join("test_src",f"hp_{test}")
-        os.makedirs(folder, exist_ok=True)
-   
-        with open(os.path.join(folder,'Makefile'),'w') as f:
-            f.write(makefile)
+        T_serialized = '_'.join(T.translate(a).split())
+    
+        for test, Constructor in d.items():
 
-        for path in combinations_construct(omp_tree):
-            # Take only construct of `construct_uuid` for loop
-            p = Constructor([ ' '.join(pragma.split('_')[0] for pragma in path.split()) for path in path])
-            if p.template_rendered:
-                with open(os.path.join(folder,f'{p.filename}.cpp'),'w') as f:
-                    f.write(p.template_rendered)
+            if test == "memcopy" and T =="complex<double>":
+                continue
+
+            folder = os.path.join("test_src",f"hp_{test}",T_serialized)
+            os.makedirs(folder, exist_ok=True)
+            
+            with open(os.path.join(folder,'Makefile'),'w') as f:
+                f.write(makefile)
+
+            for path in combinations_construct(omp_tree):
+                # Take only construct of `construct_uuid` for loop
+                p = Constructor([ ' '.join(pragma.split('_')[0] for pragma in path.split()) for path in path],T)
+                if p.template_rendered:
+                    with open(os.path.join(folder,f'{p.filename}.cpp'),'w') as f:
+                        f.write(p.template_rendered)
 
