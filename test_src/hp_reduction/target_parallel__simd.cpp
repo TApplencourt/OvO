@@ -1,19 +1,32 @@
-#include <cassert>
 #include <iostream>
-#
+#include <stdexcept>
+#include <omp.h>
+
+#include <cmath>
+#include <limits>
+template<class T>
+bool almost_equal(T x, T y, int ulp) {
+    return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<T>::min();
+}
+
+template<class T>
 void test_target_parallel__simd(){
 
  // Input and Outputs
  
  const int L = 5;
 
-int counter = 0;
+T counter{};
 
 // Main program
 
-#pragma omp target parallel  reduction(+:counter)   defaultmap(tofrom:scalar) 
+#pragma omp target parallel  reduction(+:counter)   map(tofrom:counter) 
 
 {
+
+
+const int num_threads = omp_get_num_threads();
+
 
 #pragma omp simd  reduction(+:counter)  
 
@@ -22,19 +35,26 @@ int counter = 0;
 {
 
 
-counter++;
 
- }  } 
+
+
+counter = counter + 1./num_threads;
+
+
+
+}
+
+}
+
 
 // Validation
-auto bo = ( counter > 0 ) ;
-if ( bo != true) {
-    std::cerr << "Expected: " << 0 << " Get: " << counter << std::endl;
-    assert(bo);
+if ( !almost_equal(counter,T{ L }, 1)  ) {
+    std::cerr << "Expected: " << L << " Get: " << counter << std::endl;
+    throw std::runtime_error( "target_parallel__simd give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target_parallel__simd();
+    test_target_parallel__simd<double>();
 }

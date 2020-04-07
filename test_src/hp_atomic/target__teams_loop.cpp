@@ -1,5 +1,13 @@
-#include <cassert>
 #include <iostream>
+#include <stdexcept>
+#include <omp.h>
+
+#include <cmath>
+#include <limits>
+template<class T>
+bool almost_equal(T x, T y, int ulp) {
+    return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<T>::min();
+}
 
 template<class T>
 void test_target__teams_loop(){
@@ -16,6 +24,8 @@ T counter{};
 
 {
 
+
+
 #pragma omp teams loop 
 
     for (int i = 0 ; i < L ; i++ )
@@ -23,8 +33,12 @@ T counter{};
 {
 
 
+
+
 #pragma omp atomic update
-counter++;
+
+counter = counter + 1;
+
 
 
 }
@@ -33,10 +47,9 @@ counter++;
 
 
 // Validation
-auto bo = ( counter == L ) ;
-if ( bo != true) {
+if ( !almost_equal(counter,T{ L }, 1)  ) {
     std::cerr << "Expected: " << L << " Get: " << counter << std::endl;
-    assert(bo);
+    throw std::runtime_error( "target__teams_loop give incorect value when offloaded");
 }
 
 }

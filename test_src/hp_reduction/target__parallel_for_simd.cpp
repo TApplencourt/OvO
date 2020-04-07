@@ -1,19 +1,30 @@
-#include <cassert>
 #include <iostream>
-#
+#include <stdexcept>
+#include <omp.h>
+
+#include <cmath>
+#include <limits>
+template<class T>
+bool almost_equal(T x, T y, int ulp) {
+    return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<T>::min();
+}
+
+template<class T>
 void test_target__parallel_for_simd(){
 
  // Input and Outputs
  
  const int L = 5;
 
-int counter = 0;
+T counter{};
 
 // Main program
 
-#pragma omp target   defaultmap(tofrom:scalar) 
+#pragma omp target   map(tofrom:counter) 
 
 {
+
+
 
 #pragma omp parallel for simd  reduction(+:counter)  
 
@@ -22,19 +33,26 @@ int counter = 0;
 {
 
 
-counter++;
 
- }  } 
+
+
+counter = counter + 1;
+
+
+
+}
+
+}
+
 
 // Validation
-auto bo = ( counter == L ) ;
-if ( bo != true) {
+if ( !almost_equal(counter,T{ L }, 1)  ) {
     std::cerr << "Expected: " << L << " Get: " << counter << std::endl;
-    assert(bo);
+    throw std::runtime_error( "target__parallel_for_simd give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target__parallel_for_simd();
+    test_target__parallel_for_simd<double>();
 }

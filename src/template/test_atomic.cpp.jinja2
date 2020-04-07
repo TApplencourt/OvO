@@ -1,5 +1,13 @@
-#include <cassert>
 #include <iostream>
+#include <stdexcept>
+#include <omp.h>
+
+#include <cmath>
+#include <limits>
+template<class T>
+bool almost_equal(T x, T y, int ulp) {
+    return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<T>::min();
+}
 
 template<class T>
 void test_{{name}}(){
@@ -18,20 +26,33 @@ T counter{};
     for (int {{fat_pragma["loop"].i}} = 0 ; {{fat_pragma["loop"].i}} < {{fat_pragma["loop"].N}} ; {{fat_pragma["loop"].i}}++ )
 {% endif %}
 {
+{% if "only_teams" in fat_pragma %}
+const int num_teams = omp_get_num_teams();
+{% endif %}
+{% if "only_parallel" in fat_pragma %}
+const int num_threads = omp_get_num_threads();
+{% endif %}
 {% endfor %}
 
 #pragma omp atomic update
-counter++;
+{% if balenced %}
+counter = counter + 1;
+{% elif only_teams and only_parallel %}
+counter = counter + 1./(num_teams*num_threads);
+{% elif only_teams  %}
+counter = counter + 1./num_teams;
+{% elif only_parallel  %}
+counter = counter + 1./num_threads;
+{% endif %}
 
 {% for fat_pragma in fat_path %}
 }
 {% endfor %}
 
 // Validation
-auto bo = ( counter {{expected_value[0]}} {{expected_value[1]}} ) ;
-if ( bo != true) {
-    std::cerr << "Expected: " << {{expected_value[1]}} << " Get: " << counter << std::endl;
-    assert(bo);
+if ( !almost_equal(counter,T{ {{expected_value}} }, 1)  ) {
+    std::cerr << "Expected: " << {{expected_value}} << " Get: " << counter << std::endl;
+    throw std::runtime_error( "{{name}} give incorect value when offloaded");
 }
 
 }

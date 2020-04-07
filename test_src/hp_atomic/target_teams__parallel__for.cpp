@@ -1,5 +1,13 @@
-#include <cassert>
 #include <iostream>
+#include <stdexcept>
+#include <omp.h>
+
+#include <cmath>
+#include <limits>
+template<class T>
+bool almost_equal(T x, T y, int ulp) {
+    return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<T>::min();
+}
 
 template<class T>
 void test_target_teams__parallel__for(){
@@ -16,9 +24,15 @@ T counter{};
 
 {
 
+const int num_teams = omp_get_num_teams();
+
+
+
 #pragma omp parallel 
 
 {
+
+
 
 #pragma omp for 
 
@@ -27,8 +41,12 @@ T counter{};
 {
 
 
+
+
 #pragma omp atomic update
-counter++;
+
+counter = counter + 1./num_teams;
+
 
 
 }
@@ -39,10 +57,9 @@ counter++;
 
 
 // Validation
-auto bo = ( counter > 0 ) ;
-if ( bo != true) {
-    std::cerr << "Expected: " << 0 << " Get: " << counter << std::endl;
-    assert(bo);
+if ( !almost_equal(counter,T{ L }, 1)  ) {
+    std::cerr << "Expected: " << L << " Get: " << counter << std::endl;
+    throw std::runtime_error( "target_teams__parallel__for give incorect value when offloaded");
 }
 
 }

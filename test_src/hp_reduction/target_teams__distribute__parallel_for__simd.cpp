@@ -1,6 +1,15 @@
-#include <cassert>
 #include <iostream>
-#
+#include <stdexcept>
+#include <omp.h>
+
+#include <cmath>
+#include <limits>
+template<class T>
+bool almost_equal(T x, T y, int ulp) {
+    return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<T>::min();
+}
+
+template<class T>
 void test_target_teams__distribute__parallel_for__simd(){
 
  // Input and Outputs
@@ -9,13 +18,15 @@ void test_target_teams__distribute__parallel_for__simd(){
  const int M = 6;
  const int N = 7;
 
-int counter = 0;
+T counter{};
 
 // Main program
 
-#pragma omp target teams  reduction(+:counter)   defaultmap(tofrom:scalar) 
+#pragma omp target teams  reduction(+:counter)   map(tofrom:counter) 
 
 {
+
+
 
 #pragma omp distribute  
 
@@ -23,11 +34,15 @@ int counter = 0;
 
 {
 
+
+
 #pragma omp parallel for  reduction(+:counter)  
 
     for (int j = 0 ; j < M ; j++ )
 
 {
+
+
 
 #pragma omp simd  reduction(+:counter)  
 
@@ -36,19 +51,30 @@ int counter = 0;
 {
 
 
-counter++;
 
- }  }  }  } 
+
+
+counter = counter + 1;
+
+
+
+}
+
+}
+
+}
+
+}
+
 
 // Validation
-auto bo = ( counter == L*M*N ) ;
-if ( bo != true) {
+if ( !almost_equal(counter,T{ L*M*N }, 1)  ) {
     std::cerr << "Expected: " << L*M*N << " Get: " << counter << std::endl;
-    assert(bo);
+    throw std::runtime_error( "target_teams__distribute__parallel_for__simd give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target_teams__distribute__parallel_for__simd();
+    test_target_teams__distribute__parallel_for__simd<double>();
 }
