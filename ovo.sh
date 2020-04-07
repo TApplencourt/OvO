@@ -96,7 +96,6 @@ frun() {
     do
         nresult=$result/${dir#*/}
         echo "Running $dir | Saving log in $nresult"
-        continue
 
         mkdir -p "$nresult"
         env > "$nresult"/env.log
@@ -127,7 +126,7 @@ fdisplay() {
     fi
 
     folders_leaf=$(find "${folders}" -type d -links 2)
-    ./src/display.py "${__failure}" "${__pass}" "${__avoid_long_double}" $folders_leaf
+    ./src/display.py "${__failure}" "${__pass}" "${__no_long_double}" $folders_leaf
 }
 
 fclean() {
