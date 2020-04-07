@@ -90,7 +90,9 @@ frun() {
     uuid=$(date +"%Y-%m-%d_%H-%M")
     result="test_result/${uuid}_$(hostname)"
 
-    for dir in $folders
+    # Remove '.' in front of the path
+    # so `./ovo.sh run ./test_src/hp_*` and `./ovo.sh run test_src/hp_*` will work. 
+    for dir in $(realpath ${folders} --relative-to=.)
     do
         nresult=$result/${dir#*/}
         echo "Running $dir | Saving log in $nresult"
