@@ -296,7 +296,7 @@ if __name__ == '__main__':
           math_json = json.load(f)
 
       for version, d_ in math_json.items():
-        folder = os.path.join("tests",f"{hfolder}_{version}")
+        folder = os.path.join("test_src",f"{hfolder}_{version}")
         os.makedirs(folder, exist_ok=True)
 
         with open(os.path.join(folder,'Makefile'),'w') as f:
@@ -323,25 +323,16 @@ if __name__ == '__main__':
 
     for test, Constructor in d.items():
 
-        folder_45 = os.path.join("tests","hp_omp45",f"{test}")
-        os.makedirs(folder_45, exist_ok=True)
+        folder = os.path.join("test_src",f"hp_{test}")
+        os.makedirs(folder, exist_ok=True)
    
-        folder_50 = os.path.join("tests","hp_omp50",f"{test}")
-        os.makedirs(folder_50, exist_ok=True)
-
-        with open(os.path.join(folder_45,'Makefile'),'w') as f:
+        with open(os.path.join(folder,'Makefile'),'w') as f:
             f.write(makefile)
-
-        with open(os.path.join(folder_50,'Makefile'),'w') as f:
-                        f.write(makefile)
 
         for path in combinations_construct(omp_tree):
             # Take only construct of `construct_uuid` for loop
             p = Constructor([ ' '.join(pragma.split('_')[0] for pragma in path.split()) for path in path])
             if p.template_rendered:
-                if not p.has("loop"):
-                    with open(os.path.join(folder_45,f'{p.filename}.cpp'),'w') as f:
-                              f.write(p.template_rendered) 
-                with open(os.path.join(folder_50,f'{p.filename}.cpp'),'w') as f:
+                with open(os.path.join(folder,f'{p.filename}.cpp'),'w') as f:
                     f.write(p.template_rendered)
 
