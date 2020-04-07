@@ -103,12 +103,13 @@ class TestRuntimeError(unittest.TestCase):
         self.assertEqual(error, "Segfault")
 
 class Result(NamedTuple):
+    path: str
     test: set
     failure: dict
-
+    
 def parse_log(file_path, mode, avoid_long_double):
 
-    r = Result( set(), {} )
+    r = Result(file_path, set(), {} )
 
     if not os.path.exists(p):
         return r
@@ -151,9 +152,9 @@ def display(l_result,  mode=None):
         return
 
     if mode=='failure':
-        for type_, d in  ("# Compile error", compilation.failure), ("# Runtime error", runtime.failure):
+        for type_, d in  ("Compile error", compilation.failure), ("Runtime error", runtime.failure):
             if d:
-                print (type_)
+                print (f"# {type_}")
                 # Sort by error message
                 array = sorted(d.items(),key=itemgetter(1))
                 # Display taking care of alignement  
@@ -179,29 +180,49 @@ if __name__ == "__main__":
     # This function is called by a bach script, hence the quite non pythonic input convension.
     # It's easier to do the busness logic here than in bath
 
-    # First argument is the folder who may containt the {compilation,runtime}.log
-    folder = sys.argv[1]
-
     # The second and thirs arguments and sis the "mode" of display.
     # Should we print only the summary, the failed or the past tests.
-    if sys.argv[2] == 'true':
+    if sys.argv[1] == 'true':
         mode_display = "failure"
-    elif sys.argv[3] == 'true':
+    elif sys.argv[2] == 'true':
         mode_display = "pass"
     else:
         mode_display = None
 
     # The last arguments skip the long_double example. Indeed, GPUs have limited support for them
-    if sys.argv[4] == 'true':
+    if sys.argv[3] == 'true':
         avoid_long_double = True
     else:
         avoid_long_double = False
 
-    l_result = []
-    print (f'>> {folder}')
-    for mode in ("compilation","runtime"):
-        p = os.path.join(folder,f"{mode}.log")
-        l_result.append(parse_log(p,mode, avoid_long_double))
+    d_result = {}
+    for folder in sys.argv[4:]:
+        l_result = []
+        print (f'>> {folder}')
+        for mode in ("compilation","runtime"):
+            p = os.path.join(folder,f"{mode}.log")
+            l_result.append(parse_log(p,mode, avoid_long_double))
+            d_result[folder] = l_result[:]
+        display(l_result, mode_display)
+        print ('')
+    
+    # We agreage all the result,
+    # Test may have the same name in different folder
+    # Because we print only a summary, we just need the list of the name of the test who ffailed,
+    # not their error type 
+    test_c = set()
+    failure_c = set()
 
-    display(l_result, mode_display)
+    test_r = set()
+    failure_r = set()
 
+    for folder, (c,r) in d_result.items():
+        test_c |= set(f"{folder}_{p}" for p in c.test)
+        failure_c |= set(f"{folder}_{k}" for k in c.failure)
+    
+        test_r |= set(f"{folder}_{p}" for p in r.test)
+        failure_r |= set(f"{folder}_{k}" for k in  r.failure)
+
+    if len(sys.argv[4:]) > 1:
+        print ('>> Summary')
+        display([Result("", test_c, failure_c), Result("", test_r, failure_r)] )
