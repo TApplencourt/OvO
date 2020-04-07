@@ -122,10 +122,7 @@ fdisplay() {
       folders=$(find "${@}" -type d -links 2)
     fi
 
-    for head_dir in $folders
-    do
-        ./src/display.py "$head_dir" "${__failure}" "${__pass}" "${__avoid_long_double}"
-    done
+    ./src/display.py "${__failure}" "${__pass}" "${__avoid_long_double}" $folders
 }
 
 fclean() {
