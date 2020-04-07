@@ -96,6 +96,8 @@ frun() {
     do
         nresult=$result/${dir#*/}
         echo "Running $dir | Saving log in $nresult"
+        continue
+
         mkdir -p "$nresult"
         env > "$nresult"/env.log
         if ${__no_long_double} && ${__legacy_omp}
@@ -119,12 +121,13 @@ fdisplay() {
     if [ -z "$1" ]
     then
       # Get the last modified folder in results, then list all the tests avalaible inside.
-      folders="$(find test_result -maxdepth 1 -type d | tail -n 1)/*"
+      folders="$(find test_result -maxdepth 1 -type d | tail -n 1)"
     else
-      folders=$(find "${@}" -type d -links 2)
+      folders = "${@}"   
     fi
 
-    ./src/display.py "${__failure}" "${__pass}" "${__avoid_long_double}" $folders
+    folders_leaf=$(find "${folders}" -type d -links 2)
+    ./src/display.py "${__failure}" "${__pass}" "${__avoid_long_double}" $folders_leaf
 }
 
 fclean() {
