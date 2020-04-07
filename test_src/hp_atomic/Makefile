@@ -7,13 +7,19 @@ exe: $(EXE)
 pEXE := $(wildcard *.exe)
 RUN := $(addprefix run_, $(basename $(pEXE)))
 
-{% for name in ("long_double", "loop") %}
-SRC_NO_{{name|upper}} := $(filter-out $(wildcard *{{name}}*.cpp), $(SRC))
-EXE_NO_{{name|upper}} := $(SRC_NO_{{name|upper}}:%.cpp=%.exe)
 
-.PHONY: exe_no_{{name}}
-exe_no_{{name}}: $(EXE_NO_{{name|upper}})
-{% endfor %}
+SRC_NO_LONG_DOUBLE := $(filter-out $(wildcard *long_double*.cpp), $(SRC))
+EXE_NO_LONG_DOUBLE := $(SRC_NO_LONG_DOUBLE:%.cpp=%.exe)
+
+.PHONY: exe_no_long_double
+exe_no_long_double: $(EXE_NO_LONG_DOUBLE)
+
+SRC_NO_LOOP := $(filter-out $(wildcard *loop*.cpp), $(SRC))
+EXE_NO_LOOP := $(SRC_NO_LOOP:%.cpp=%.exe)
+
+.PHONY: exe_no_loop
+exe_no_loop: $(EXE_NO_LOOP)
+
 
 .PHONY: exe_no_long_double_no_loop
 exe_no_long_double_no_loop: $(EXE_NO_LONG_DOUBLE) $(EXE_NO_LOOP)
@@ -29,4 +35,3 @@ run_%: %.exe
 .PHONY: clean
 clean:
 	rm -f -- $(pEXE)
-
