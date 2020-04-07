@@ -64,7 +64,7 @@ counter += {{T}} { 1./num_threads };
 {% endfor %}
 
 // Validation
-if ( !almost_equal(counter,{{T}} { {{expected_value}} }, 1)  ) {
+if ( !almost_equal(counter,{{T}} { {{expected_value}} }, 10)  ) {
     std::cerr << "Expected: " << {{expected_value}} << " Get: " << counter << std::endl;
     throw std::runtime_error( "{{name}} give incorect value when offloaded");
 }
