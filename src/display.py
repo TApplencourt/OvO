@@ -15,7 +15,7 @@ class DRegex(NamedTuple):
     launch: str
     error: str
 
-r_compilation = DRegex("\w+\.cpp -o (\w+)\.exe$", "make.*?(\w+)\.exe\]\s+(.*)")
+r_compilation = DRegex("\w+\.(?:cpp|f90) -o (\w+)\.exe$", "make.*?(\w+)\.exe\]\s+(.*)")
 r_runtime = DRegex("^\./(\w+)\.exe$", "make.*?run_(\w+)\]\s+(.*)")
 
 import unittest
@@ -30,6 +30,11 @@ class TestCompilationLaunch(unittest.TestCase):
         str_ = "CC -h noacc -h omp lroundf_long_int_float.cpp -o lroundf_long_int_float.exe"
         m  = re.findall(r_compilation.launch, str_).pop()
         self.assertEqual(m, "lroundf_long_int_float")
+
+    def test_launch02(self):
+        str_ = "ifortran target_teams_distribute__parallel.f90 -o target_teams_distribute__parallel.exe"
+        m  = re.findall(r_compilation.launch, str_).pop()
+        self.assertEqual(m, "target_teams_distribute__parallel")
 
 class TestCompilationError(unittest.TestCase):
 
