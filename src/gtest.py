@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 from itertools import tee
+import json, os
+
 def pairwise(iterable):
     "s -> (s0,s1), (s1,s2), (s2, s3), ..."
     a, b = tee(iterable)
@@ -199,7 +201,7 @@ class Memcopy(Path):
 
     @property
     def template_rendered(self):
-        if not self.balenced or p.only_target:
+        if not self.balenced or self.only_target:
             return
 
         return Memcopy.template.render(name=self.filename,
@@ -313,18 +315,9 @@ class Math():
 # \_ (_) (_| (/_   (_| (/_ | | (/_ | (_|  |_ | (_) | | 
 #                   _|                                 
 #
+def gen_math(makefile):
 
-if __name__ == '__main__':
-    import argparse
-    parser = argparse.ArgumentParser(description='Generate tests.')
-    parser.add_argument('ompv5', metavar='literal_bool', type=str,
-                   help='Generate OpenMP v5 construct (ie loop)')
-    args = parser.parse_args()
-
-    import json, os
-    makefile = templateEnv.get_template(f"Makefile.jinja2").render()
-
-    for hfolder, p in ( ("math","cmath_synopsis.json"), ("complex", "cmath_complex_synopsis.json") ):   
+    for hfolder, p in ( ("math","cmath_synopsis.json"), ("complex", "cmath_complex_synopsis.json") ):
       with open(os.path.join(dirname,"config",p), 'r') as f:
           math_json = json.load(f)
 
@@ -344,18 +337,13 @@ if __name__ == '__main__':
                         f.write(m.template_rendered)
 
 
-
-    ompv5 = False if args.ompv5 == 'false' else True
-
-    with open(os.path.join(dirname,"config","omp_struct.json"), 'r') as f:
-        omp_tree = json.load(f)
-
+def gen_hp(makefile, omp_tree, ompv5):
     d ={"memcopy":Memcopy,
         "atomic":Atomic,
         "reduction":Reduction}
 
     a =str.maketrans("<>", "  ")
-    
+
     for T in ("double","complex<double>","float","complex<float>"):
 
         q = Path([], T)
@@ -371,7 +359,7 @@ if __name__ == '__main__':
             folder = os.path.join("test_src","hierarchical_parallelism",test,q.T_serialized)
 
             os.makedirs(folder, exist_ok=True)
-            
+
             with open(os.path.join(folder,'Makefile'),'w') as f:
                 f.write(makefile)
 
@@ -382,3 +370,20 @@ if __name__ == '__main__':
                     with open(os.path.join(folder,f'{p.filename}.cpp'),'w') as f:
                         f.write(p.template_rendered)
 
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description='Generate tests.')
+    parser.add_argument('ompv5', metavar='literal_bool', type=str,
+                   help='Generate OpenMP v5 construct (ie loop)')
+    args = parser.parse_args()
+
+    ompv5 = False if args.ompv5 == 'false' else True
+
+    makefile = templateEnv.get_template(f"Makefile.jinja2").render()
+
+    gen_math(makefile)
+
+    with open(os.path.join(dirname,"config","omp_struct.json"), 'r') as f:
+        omp_tree = json.load(f)
+
+    gen_hp(makefile, omp_tree, ompv5)
