@@ -156,14 +156,18 @@ class AtomicReduction(Path):
 
 class Atomic(AtomicReduction):
 
-    template = templateEnv.get_template(f"test_atomic.cpp.jinja2")
-
     @property
     def template_rendered(self):
+
+        if self.language == "cpp":
+            template = templateEnv.get_template(f"test_atomic.cpp.jinja2")
+        elif self.language == "fortran":
+            template = templateEnv.get_template(f"test_atomic.f90.jinja2")
+
         if self.has("simd"):
             return 
 
-        return Atomic.template.render(name=self.filename,
+        return template.render(name=self.filename,
                                       fat_path=self.fat_path,
                                       loops=self.loops,
                                       balenced=self.balenced,
@@ -175,12 +179,15 @@ class Atomic(AtomicReduction):
                                       T=self.T)
 class Reduction(AtomicReduction):
 
-    template = templateEnv.get_template(f"test_reduction.cpp.jinja2")
-
     @property
     def template_rendered(self):
 
-        return Reduction.template.render(name=self.filename,
+        if self.language == "cpp":
+            template = templateEnv.get_template(f"test_reduction.cpp.jinja2")
+        elif self.language == "fortran":
+            template = templateEnv.get_template(f"test_reduction.f90.jinja2")
+
+        return template.render(name=self.filename,
                                         fat_path=self.fat_path,
                                         loops=self.loops,
                                         balenced=self.balenced,
@@ -341,7 +348,7 @@ def gen_math(makefile):
           math_json = json.load(f)
 
       for version, d_ in math_json.items():
-        folder = os.path.join("test_src",f"{hfolder}_{version}")
+        folder = os.path.join("test_src","cpp",f"{hfolder}_{version}")
         os.makedirs(folder, exist_ok=True)
 
         with open(os.path.join(folder,'Makefile'),'w') as f:
@@ -375,7 +382,7 @@ def gen_hp(makefile, omp_tree, ompv5):
             if test == "atomic" and  q.T_category =="complex":
                 continue
 
-            folder = os.path.join("test_src","hierarchical_parallelism",test,q.T_serialized)
+            folder = os.path.join("test_src","cpp","hierarchical_parallelism",test,q.T_serialized)
 
             os.makedirs(folder, exist_ok=True)
 
@@ -390,15 +397,20 @@ def gen_hp(makefile, omp_tree, ompv5):
                         f.write(p.template_rendered)
 
 def gen_hp_fortran(makefile, omp_tree, ompv5):
-    test = "memcopy"
-    folder = os.path.join("test_src","fortran","hierarchical_parallelism",test)
-    os.makedirs(folder, exist_ok=True)
 
-    with open(os.path.join(folder,'Makefile'),'w') as f:
-        f.write(makefile)
+    d ={"memcopy":Memcopy,
+        "atomic":Atomic,
+        "reduction":Reduction}
 
-    for path in combinations_construct(omp_tree):
-            p = Memcopy(path,'REAL',language="fortran")
+    for test in ("memcopy","atomic","reduction"):
+        folder = os.path.join("test_src","fortran","hierarchical_parallelism",test)
+        os.makedirs(folder, exist_ok=True)
+
+        with open(os.path.join(folder,'Makefile'),'w') as f:
+            f.write(makefile)
+
+        for path in combinations_construct(omp_tree):
+            p = d[test](path,'REAL',language="fortran")
             if p.template_rendered:
                 with open(os.path.join(folder,f'{p.filename}.f90'),'w') as f:
                     f.write(p.template_rendered)

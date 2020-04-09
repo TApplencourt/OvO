@@ -142,7 +142,7 @@ fclean() {
 #                    _|           _|
 eval "$(docopt "$@")"
 
-$gen && rm -rf -- tests_src && ./src/gtest.py "${__v5}"
+$gen && rm -rf -- ./test_src && ./src/gtest.py "${__v5}"
 $run && fclean && frun "${_test_folder_[@]}"
 $display && fdisplay "${_result_folder_[@]}"
 $clean && fclean
