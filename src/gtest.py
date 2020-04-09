@@ -32,9 +32,10 @@ class Path():
                  Idx('j','M',6), 
                  Idx('k','N',7)]
 
-    def __init__(self, path,T):
+    def __init__(self, path,T, language='cpp'):
         self.path = path
         self.T = T
+        self.language = language
 
     @property
     def T_type(self):
@@ -106,12 +107,19 @@ class Path():
 
     @property
     def fat_path(self):
+
+        def to_fortran(pragma):
+            pragma = pragma.replace('for','do')
+            
         l, n_loop = [], 0
 
         for pragma in self.path:
-            d = {"pragma":pragma}
-    
-            if any(p in pragma for p  in ("distribute","for","simd","loop")):
+            if self.language == 'cpp':
+                d = {"pragma":pragma}   
+            elif self.language == 'fortran':
+                d = {"pragma":pragma.replace('for','do').upper()}
+
+            if any(p in pragma for p  in ("distribute","for","simd","loop","do")):
                 d["loop"] = Path.idx_loop[n_loop]
                 n_loop+=1
 
@@ -184,16 +192,22 @@ class Reduction(AtomicReduction):
                                         T=self.T)
 class Memcopy(Path):
 
-    template = templateEnv.get_template(f"test_memcopy.cpp.jinja2")
-
     @property
     def index(self):
-        if self.n_loop == 1:
-            return "i"
-        elif self.n_loop == 2:
-            return "j + i*M"
-        elif self.n_loop == 3:
-            return "k + j*N + i*N*M"
+        if self.language == "cpp":
+            if self.n_loop == 1:
+                return "i"
+            elif self.n_loop == 2:
+                return "j + i*M"
+            elif self.n_loop == 3:
+                return "k + j*N + i*N*M"
+        elif  self.language == "fortran":
+            if self.n_loop == 1:
+                return "i"
+            elif self.n_loop == 2:
+                return "j + (i-1)*M"
+            elif self.n_loop == 3:
+                return "k + (j-1)*N + (i-1)*N*M"
 
     @property
     def size(self):
@@ -204,11 +218,16 @@ class Memcopy(Path):
         if not self.balenced or self.only_target:
             return
 
-        return Memcopy.template.render(name=self.filename,
-                                      fat_path=self.fat_path,
-                                      loops=self.loops,
-                                      index=self.index,
-                                      size=self.size)
+        if self.language == "cpp":
+            template = templateEnv.get_template(f"test_memcopy.cpp.jinja2")
+        elif self.language == "fortran":
+            template = templateEnv.get_template(f"test_memcopy.f90.jinja2")
+
+        return template.render(name=self.filename,
+                               fat_path=self.fat_path,
+                               loops=self.loops,
+                               index=self.index,
+                               size=self.size)
 
 
 #from cmath import complex
@@ -370,6 +389,21 @@ def gen_hp(makefile, omp_tree, ompv5):
                     with open(os.path.join(folder,f'{p.filename}.cpp'),'w') as f:
                         f.write(p.template_rendered)
 
+def gen_hp_fortran(makefile, omp_tree, ompv5):
+    test = "memcopy"
+    folder = os.path.join("test_src","fortran","hierarchical_parallelism",test)
+    os.makedirs(folder, exist_ok=True)
+
+    with open(os.path.join(folder,'Makefile'),'w') as f:
+        f.write(makefile)
+
+    for path in combinations_construct(omp_tree):
+            p = Memcopy(path,'REAL',language="fortran")
+            if p.template_rendered:
+                with open(os.path.join(folder,f'{p.filename}.f90'),'w') as f:
+                    f.write(p.template_rendered)
+
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Generate tests.')
@@ -379,11 +413,15 @@ if __name__ == '__main__':
 
     ompv5 = False if args.ompv5 == 'false' else True
 
-    makefile = templateEnv.get_template(f"Makefile.jinja2").render()
+    makefile_cpp = templateEnv.get_template(f"Makefile.cpp.jinja2").render()
 
-    gen_math(makefile)
+    makefile_fortran = templateEnv.get_template(f"Makefile.f90.jinja2").render()
+
+    gen_math(makefile_cpp)
 
     with open(os.path.join(dirname,"config","omp_struct.json"), 'r') as f:
         omp_tree = json.load(f)
 
-    gen_hp(makefile, omp_tree, ompv5)
+    gen_hp(makefile_cpp, omp_tree, ompv5)
+    gen_hp_fortran(makefile_fortran, omp_tree, ompv5)
+

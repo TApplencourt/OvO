@@ -1,0 +1,42 @@
+program {{name}}
+
+    implicit none
+
+    REAL, ALLOCATABLE :: A(:)  
+    REAL, ALLOCATABLE :: B(:)
+  {% for l in loops %}
+    INTEGER :: {{ l.N }} = {{l.v}}
+    INTEGER :: {{ l.i }} 
+  {%- endfor %}
+
+    INTEGER :: S
+    S = {{size}}
+     
+    ALLOCATE(A(S), B(S) )
+    CALL RANDOM_NUMBER(B)
+  
+    {% for fat_pragma in fat_path %}
+    !$OMP {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %}  MAP(FROM: A) MAP(TO: B) {% endif %}
+
+{% if "loop" in fat_pragma %}
+    DO {{fat_pragma["loop"].i}} = 1 , {{fat_pragma["loop"].N}} 
+{% endif %}
+    {% endfor %}
+
+    A( {{index}} ) = B( {{index}} )
+ 
+    {% for fat_pragma in fat_path | reverse %} 
+{% if "loop" in fat_pragma %}
+    END DO
+{% endif %}
+    !$OMP END {{fat_pragma["pragma"]}}
+    {% endfor %}
+
+    IF (ANY(ABS(A - B) > EPSILON(A) )) THEN
+        write(*,*)  'Wrong value', MAXVAL(ABS(A-B)), 'max difference'
+        call exit(1)
+    ENDIF
+
+    DEALLOCATE(A,B)
+
+end program {{name}}

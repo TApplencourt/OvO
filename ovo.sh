@@ -122,7 +122,7 @@ fdisplay() {
       # Get the last modified folder in results, then list all the tests avalaible inside.
       folders="$(find test_result -maxdepth 1 -type d | tail -n 1)"
     else
-      folders = "${@}"   
+      folders="${@}"   
     fi
 
     folders_leaf=$(find "${folders}" -type d -links 2)
