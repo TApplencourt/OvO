@@ -17,7 +17,7 @@ program target_teams__distribute__parallel__for
     CALL RANDOM_NUMBER(B)
   
     
-    !$OMP TARGET TEAMS   MAP(FROM: A(1:S) ) MAP(TO: B(1:S) ) 
+    !$OMP TARGET TEAMS   MAP(FROM: A) MAP(TO: B) 
 
 
     

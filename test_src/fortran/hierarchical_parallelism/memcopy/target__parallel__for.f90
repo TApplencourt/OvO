@@ -15,7 +15,7 @@ program target__parallel__for
     CALL RANDOM_NUMBER(B)
   
     
-    !$OMP TARGET   MAP(FROM: A(1:S) ) MAP(TO: B(1:S) ) 
+    !$OMP TARGET   MAP(FROM: A) MAP(TO: B) 
 
 
     

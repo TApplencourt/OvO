@@ -19,7 +19,7 @@ program target_teams_distribute__parallel__for__simd
     CALL RANDOM_NUMBER(B)
   
     
-    !$OMP TARGET TEAMS DISTRIBUTE   MAP(FROM: A(1:S) ) MAP(TO: B(1:S) ) 
+    !$OMP TARGET TEAMS DISTRIBUTE   MAP(FROM: A) MAP(TO: B) 
 
 
     DO i = 1 , L 

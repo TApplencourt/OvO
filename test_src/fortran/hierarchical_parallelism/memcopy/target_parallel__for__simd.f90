@@ -17,7 +17,7 @@ program target_parallel__for__simd
     CALL RANDOM_NUMBER(B)
   
     
-    !$OMP TARGET PARALLEL   MAP(FROM: A(1:S) ) MAP(TO: B(1:S) ) 
+    !$OMP TARGET PARALLEL   MAP(FROM: A) MAP(TO: B) 
 
 
     
