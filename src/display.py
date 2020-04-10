@@ -112,7 +112,7 @@ class Result(NamedTuple):
     test: set
     failure: dict
     
-def parse_log(file_path, mode, avoid_long_double):
+def parse_log(file_path, mode, avoid_long_double, avoid_loop):
 
     r = Result(file_path, set(), {} )
 
@@ -127,10 +127,10 @@ def parse_log(file_path, mode, avoid_long_double):
     with open(p) as f:
         for line in f:
             for m in re.findall(regex.launch, line):
-                if not (avoid_long_double and 'long_double' in m):
+                if not (avoid_long_double and 'long_double' in m) and not (avoid_loop and 'loop' in m):
                     r.test.add(m)
             for m,error in re.findall(regex.error,line):
-                if not (avoid_long_double and 'long_double' in m):
+                if not (avoid_long_double and 'long_double' in m) and not (avoid_loop and 'loop' in m):
                     r.failure[m] = error
     
     return r
@@ -200,13 +200,18 @@ if __name__ == "__main__":
     else:
         avoid_long_double = False
 
+    if sys.argv[4] == 'true':
+        avoid_loop = True
+    else:
+        avoid_loop = False
+
     d_result = {}
-    for folder in sys.argv[4:]:
+    for folder in sys.argv[5:]:
         l_result = []
         print (f'>> {folder}')
         for mode in ("compilation","runtime"):
             p = os.path.join(folder,f"{mode}.log")
-            l_result.append(parse_log(p,mode, avoid_long_double))
+            l_result.append(parse_log(p,mode, avoid_long_double, avoid_loop))
             d_result[folder] = l_result[:]
         display(l_result, mode_display)
         print ('')
