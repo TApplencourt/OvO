@@ -15,8 +15,8 @@ scripts:
   - python3 -m unittest src/display.py
   - ./ovo.sh gen
 
-  - CXX="g++" CXXFLAGS="-std=c++11 -fopemmp" MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/hp_*
+  - CXX='g++' CXXFLAGS='-std=c++11 -fopenmp' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/hp_*
   - ./ovo.sh display
-  - CXX="g++" CXXFLAGS="-std=c++17 -fopemmp" MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/math_cpp{11,17}
+  - CXX='g++' CXXFLAGS='-std=c++17 -fopenmp' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/math_cpp{11,17}
   - ./ovo.sh display
  
