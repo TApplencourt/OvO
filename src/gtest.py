@@ -9,6 +9,50 @@ def pairwise(iterable):
     next(b, None)
     return zip(a, b)
 
+def sanitize_string(str_):
+    'DOUBLE PRECISION -> double_precision'
+    'complex<double> -> complex_double'
+    'REAL -> real'
+    return '_'.join(str_.lower().translate(str.maketrans("<>", "  ")).split())
+
+class TypeSystem():
+
+    def __init__(self,T):
+        self.T = T
+    
+    @property
+    def sezialized(self):
+        return '_'.join(str_.lower().translate(str.maketrans("<>", "  ")).split()) 
+
+    @property
+    def category(self):
+        if self.T in ('long int', 'int','long long int','unsigned'):
+            return 'integer'
+        elif  self.T in ('REAL','DOUBLE PRECISION', 'float','double','long double'):
+            return 'float'
+        elif self.T in ('COMPLEX', 'DOUBLE COMPLEX', 'complex<float>', 'complex<double>',  'complex<long double>'):
+            return 'complex'
+        elif self.T in ('bool',):
+            return 'bool'
+        raise NotImplementedError(f'Datatype ({self.T}) is not yet supported')
+
+    @property
+    def internal(self):
+        "For complex give the internval value, for the other give back thenself"
+        "complex<float> -> float"
+        " float -> float"
+        " COMPLEX -> REAL"
+        if self.category != 'complex':
+            return self.T
+        elif self.T == 'DOUBLE COMPLEX':
+            return 'DOUBLE'
+        elif self.T == 'COMPLEX':
+            return 'REAL'
+        elif self.category == 'complex': #Only the C++ type are left
+            return self.T.split('<')[1][:-1]
+        else:
+            raise NotImplementedError("Datatype ({self.T}) is not yet supported")
+
 #  _        _    ___          
 # / \ |\/| |_)    | ._ _   _  
 # \_/ |  | |      | | (/_ (/_ 
@@ -24,6 +68,7 @@ def combinations_construct(tree_config_path, path=['root']) -> List[List[str]]:
     return paths
 
 
+
 class Path():
 
     from collections import namedtuple
@@ -33,50 +78,32 @@ class Path():
                  Idx('k','N',7)]
 
     def __init__(self, path,T, language='cpp'):
-        self.path = path
-        self.T = T
+        # To facilitate the recursion. Loop are encoded as "loop_distribute" and "loop_for".
+        self.path = [ ' '.join(pragma.split('_')[0] for pragma in p.split()) for p in path]
+        self.T = TypeSystem(T)
         self.language = language
-
-    @property
-    def T_type(self):
-        if self.T_category != "complex":
-            return self.T
-        return self.T.split('<')[1][:-1];
-
-    @property
-    def T_category(self):
-        if self.T in ('long int', 'int','long long int','unsigned'):
-            return 'integer'
-        elif  self.T in ('float','double','long double'):
-            return 'float'
-        elif self.T in ('complex<float>', 'complex<double>',  'complex<long double>'):
-            return 'complex'
-        else:
-            return self.T
-
-    @property
-    def T_serialized(self):
-         a =str.maketrans("<>", "  ")
-         return '_'.join(self.T.translate(a).split())
-  
 
     @property
     def filename(self):
         # Some node in the path have space in their name. We will replace them with
         # one underscore. Level will be replaced with two.
+        # The path will always containt 'for'. If we are in fortran, for sanity, we shoud replace then with 'do'.
+        
         l_node_serialized = ("_".join(node.split()) for node in self.path)
-        return "__".join(l_node_serialized)
-    
+        f = "__".join(l_node_serialized)
+        if self.language == "cpp":
+            return f
+        else:
+            return f.replace("for","do")
+
     @property
     def flatten_path(self):
+        # [ "teams distribute", "parallel" ] -> [ "teams distribute parallel" ]
         from itertools import chain
         return list(chain.from_iterable(map(str.split,self.path)))
 
     def follow_by(self,a,b):
-        for i,j in pairwise(self.flatten_path):
-            if (i == a) and (j == b):
-                return True
-        return False
+        return any( (i == a) and (j == b) for i,j in pairwise(self.flatten_path))
 
     def has(self,constructs):
         return constructs in self.flatten_path
@@ -108,9 +135,6 @@ class Path():
     @property
     def fat_path(self):
 
-        def to_fortran(pragma):
-            pragma = pragma.replace('for','do')
-            
         l, n_loop = [], 0
 
         for pragma in self.path:
@@ -174,9 +198,9 @@ class Atomic(AtomicReduction):
                                       only_teams=self.only_teams,
                                       only_parallel=self.only_parallel,
                                       expected_value=self.expected_value,
-                                      T_category=self.T_category,
-                                      T_type=self.T_type,
-                                      T=self.T)
+                                      T_category=self.T.category,
+                                      T_type=self.T.internal,
+                                      T=self.T.T)
 class Reduction(AtomicReduction):
 
     @property
@@ -194,9 +218,9 @@ class Reduction(AtomicReduction):
                                         only_teams=self.only_teams,
                                         only_parallel=self.only_parallel,
                                         expected_value=self.expected_value,
-                                        T_category=self.T_category,
-                                        T_type=self.T_type,
-                                        T=self.T)
+                                        T_category=self.T.category,
+                                        T_type=self.T.internal,
+                                        T=self.T.T)
 class Memcopy(Path):
 
     @property
@@ -234,7 +258,9 @@ class Memcopy(Path):
                                fat_path=self.fat_path,
                                loops=self.loops,
                                index=self.index,
-                               size=self.size)
+                               size=self.size,
+                               T_category=self.T.category,
+                               T=self.T.T)
 
 
 #from cmath import complex
@@ -362,27 +388,14 @@ def gen_math(makefile):
                     with open(os.path.join(folder,f'{m.uuid}.cpp'),'w') as f:
                         f.write(m.template_rendered)
 
-
 def gen_hp(makefile, omp_tree, ompv5):
-    d ={"memcopy":Memcopy,
-        "atomic":Atomic,
-        "reduction":Reduction}
 
-    a =str.maketrans("<>", "  ")
 
-    for T in ("double","complex<double>","float","complex<float>"):
-
-        q = Path([], T)
-
-        for test, Constructor in d.items():
-
-            if test == "memcopy" and q.T_category =="complex":
-                continue
-
-            if test == "atomic" and  q.T_category =="complex":
-                continue
-
-            folder = os.path.join("test_src","cpp","hierarchical_parallelism",test,q.T_serialized)
+    for test,Constructor, l_T in( ("memcopy", Memcopy,     ['float', 'double']) ,
+                                  ("atomic" , Atomic,      ['float', 'double']) ,
+                                  ("reduction", Reduction, ["float","complex<float>","double","complex<double>"]) ):
+        for T in l_T:
+            folder = os.path.join("test_src","cpp","hierarchical_parallelism",test,sanitize_string(T))
 
             os.makedirs(folder, exist_ok=True)
 
@@ -391,29 +404,29 @@ def gen_hp(makefile, omp_tree, ompv5):
 
             for path in combinations_construct(omp_tree):
                 # Take only construct of `construct_uuid` for loop
-                p = Constructor([ ' '.join(pragma.split('_')[0] for pragma in path.split()) for path in path],T)
+                p = Constructor(path,T,"cpp")
                 if p.template_rendered:
                     with open(os.path.join(folder,f'{p.filename}.cpp'),'w') as f:
                         f.write(p.template_rendered)
 
 def gen_hp_fortran(makefile, omp_tree, ompv5):
 
-    d ={"memcopy":Memcopy,
-        "atomic":Atomic,
-        "reduction":Reduction}
+    for test,Constructor, l_T in( ("memcopy", Memcopy,     ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']) ,
+                                  ("atomic" , Atomic,      ['REAL','DOUBLE PRECISION']) ,
+                                  ("reduction", Reduction, ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']) ):
 
-    for test in ("memcopy","atomic","reduction"):
-        folder = os.path.join("test_src","fortran","hierarchical_parallelism",test)
-        os.makedirs(folder, exist_ok=True)
+        for T in l_T:
+            folder = os.path.join("test_src","fortran","hierarchical_parallelism",test,sanitize_string(T))
+            os.makedirs(folder, exist_ok=True)
 
-        with open(os.path.join(folder,'Makefile'),'w') as f:
-            f.write(makefile)
+            with open(os.path.join(folder,'Makefile'),'w') as f:
+                f.write(makefile)
 
-        for path in combinations_construct(omp_tree):
-            p = d[test](path,'REAL',language="fortran")
-            if p.template_rendered:
-                with open(os.path.join(folder,f'{p.filename}.f90'),'w') as f:
-                    f.write(p.template_rendered)
+            for path in combinations_construct(omp_tree):
+                p = Constructor(path,T, 'fortran')
+                if p.template_rendered:
+                    with open(os.path.join(folder,f'{p.filename}.f90'),'w') as f:
+                        f.write(p.template_rendered)
 
 
 if __name__ == '__main__':
