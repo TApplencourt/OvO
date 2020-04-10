@@ -11,12 +11,18 @@ addons:
 install:
   - pip3 install --user jinja2
 
+env:
+    - MAKEFLAGS='-j8 --output-sync=target'
+
 scripts:
   - python3 -m unittest src/display.py
   - ./ovo.sh gen
 
-  - CXX='g++' CXXFLAGS='-std=c++11 -fopenmp' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/hp_*
+  - export MAKEFLAGS='-j8 --output-sync=target'
+  - CXX='g++' CXXFLAGS='-std=c++11 -fopenmp' ./ovo.sh run test_src/cpp/hierarchical_parallelism/
   - ./ovo.sh display
-  - CXX='g++' CXXFLAGS='-std=c++17 -fopenmp' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/math_cpp{11,17}
+  - CXX='g++' CXXFLAGS='-std=c++17 -fopenmp' ./ovo.sh run test_src/cpp/math_cpp{11,17}
   - ./ovo.sh display
- 
+
+  - FX='gfortran' FFLAGS='-fopenmp' ./ovo.sh run test_src/fortran/hierarchical_parallelism/
+  - ./ovo.sh display
