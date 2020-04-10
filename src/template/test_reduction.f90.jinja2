@@ -1,6 +1,9 @@
 
 program {{name}}
+{% if not balenced %}
     USE OMP_LIB
+{% endif %}
+    {% set is_cmplx = (T_category == "complex") %}
 
     implicit none
   {% for l in loops %}
@@ -8,7 +11,7 @@ program {{name}}
     INTEGER :: {{ l.i }} 
   {%- endfor %}
     
-    {{T}} :: COUNTER = 0
+    {{T}} :: COUNTER = {% if is_cmplx %} (   {%endif%} 0  {% if is_cmplx %} ,0) {%endif%} 
 
     {% if only_teams %}
     INTEGER :: num_teams
@@ -33,13 +36,13 @@ program {{name}}
     {% endfor %}
 
 {% if balenced %}
-counter = counter + 1.
+counter = counter + {% if is_cmplx %} CMPLX(  {%endif%} 1. {% if is_cmplx %} ,0) {%endif%} 
 {% elif only_teams and only_parallel %}
-counter = counter + 1./(num_teams*num_threads)
+counter = counter + {% if is_cmplx %} CMPLX(  {%endif%} 1./(num_teams*num_threads)  {% if is_cmplx %} ,0) {%endif%}
 {% elif only_teams  %}
-counter = counter + 1./num_teams
+counter = counter + {% if is_cmplx %} CMPLX(  {%endif%} 1./num_teams  {% if is_cmplx %} ,0) {%endif%}
 {% elif only_parallel  %}
-counter =  counter +1./num_threads
+counter =  counter + {% if is_cmplx %} CMPLX( {%endif%} 1./num_threads  {% if is_cmplx %} ,0) {%endif%}
 {% endif %}
  
     {% for fat_pragma in fat_path | reverse %} 
@@ -49,7 +52,7 @@ counter =  counter +1./num_threads
     !$OMP END {{fat_pragma["pragma"]}}
     {% endfor %}
 
-    IF  ( ( ABS(COUNTER - {{expected_value}}) ) > 10*EPSILON(COUNTER) ) THEN
+    IF  ( ( ABS(COUNTER - {{expected_value}}) ) > 10*EPSILON({% if is_cmplx %} REAL( {%endif%} COUNTER {% if is_cmplx %} ) {%endif%}  ) ) THEN
         write(*,*)  'Expected {{expected_value}} Got', COUNTER
         call exit(1)
     ENDIF
