@@ -1,34 +1,49 @@
-os: linux
 dist: bionic
-addons:
-  apt:
-    sources:
+
+
+jobs:
+  include:
+   - stage: cpp
+     os: linux
+     addons:
+     apt:
+       sources:
         - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main'
           key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
+       packages:
+         - clang-9
+         - python3
+         - python3-pip 
 
-    packages:
-        - clang-9
-        - gcc-9
-        - python3
-        - python3-pip 
+     before_install:
+        - export LD_LIBRARY_PATH=/usr/local/clang/lib:$LD_LIBRARY_PATH
 
-before_install:
-  - export LD_LIBRARY_PATH=/usr/local/clang/lib:$LD_LIBRARY_PATH
+     install:
+        - pip3 install --user jinja2
 
-install:
-  - pip3 install --user jinja2
+     scripts:
+        - python3 -m unittest src/display.py
+        - ./ovo.sh gen
 
-scripts:
-  - python3 -m unittest src/display.py
-  - ./ovo.sh gen
-
-  - export MAKEFLAGS='-j8 --output-sync=target'
+        - export MAKEFLAGS='-j8 --output-sync=target'
   
-  - export CXX='clang++'
-  - CXXFLAGS='-std=c++11 -fopenmp -fopenmp-version=50' ./ovo.sh run test_src/cpp/hierarchical_parallelism/ 
-  - ./ovo.sh display
-  - CXXFLAGS='-std=c++17 -fopenmp -fopenmp-version=50' ./ovo.sh run test_src/cpp/math_cpp{11,17}
-  - ./ovo.sh display
+        - export CXX='clang++'
+        - CXXFLAGS='-std=c++11 -fopenmp -fopenmp-version=50' ./ovo.sh run test_src/cpp/hierarchical_parallelism/ 
+        - ./ovo.sh display
+        - CXXFLAGS='-std=c++17 -fopenmp -fopenmp-version=50' ./ovo.sh run test_src/cpp/math_cpp{11,17}
+        - ./ovo.sh display
 
-  - FC='gfortran' FFLAGS='-fopenmp' ./ovo.sh run test_src/fortran/hierarchical_parallelism/ --no_loop
-  - ./ovo.sh display
+   - stage: fortran
+     os: linux
+     addons:
+     apt:
+       sources:
+         - ubuntu-toolchain-r-test
+       packages:
+         - gcc-9
+         - python3
+         - python3-pip
+     scripts:
+        - ./ovo.sh gen
+        - FC='gfortran' FFLAGS='-fopenmp' ./ovo.sh run test_src/fortran/hierarchical_parallelism/ --no_loop
+        - ./ovo.sh display
