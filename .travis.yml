@@ -10,25 +10,29 @@ addons:
       - python3
       - python3-pip
 
+install:
+- pip3 install --user jinja2
+
 jobs:
   include:
-    -name: unittest
+  - name: unittest
     script:
     - python3 -m unittest src/display.py
 
-    -name: cpp hierarchical_parallelism
+  - name: cpp hierarchical_parallelism
     script:
     - ./ovo.sh gen
     - CXX='g++' CXXFLAGS='-std=c++11' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_omp_call test_src/cpp/hierarchical_parallelism/ 
     - ./ovo.sh display
 
-    -name: cpp math
+  - name: cpp math
     script:
     - ./ovo.sh gen
     - CXX='g++' CXXFLAGS='-std=c++17' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/math_cpp{11,17}
     - ./ovo.sh display
 
-    -name: fortran hierarchical_parallelism
+  - name: fortran hierarchical_parallelism
+    script:
     - ./ovo.sh gen
     - FC='gfortran' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_omp_call test_src/fortran/hierarchical_parallelism/
     - ./ovo.sh display
