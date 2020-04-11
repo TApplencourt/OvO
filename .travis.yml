@@ -5,6 +5,7 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
+      - gcc-9
       - python3
       - python3-pip
 
@@ -17,20 +18,76 @@ jobs:
     script:
     - python3 -m unittest src/display.py
 
-  - name: cpp hierarchical_parallelism
-    script:
+  - name: cpp hierarchical_parallelism no_omp_call
+    addons:
+      apt:
+       sources:
+         - ubuntu-toolchain-r-test
+       packages:
+        - gcc-9 
+    script:   
     - ./ovo.sh gen
     - CXX='g++' CXXFLAGS='-std=c++11' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_omp_call test_src/cpp/hierarchical_parallelism/ 
     - ./ovo.sh display
 
-  - name: cpp math
+  - name: cpp hierarchical_parallelism no_loop
+    addons:
+      apt:
+       sources:
+         - ubuntu-toolchain-r-test
+       packages:
+        - gcc-9 
+    script:   
+    - ./ovo.sh gen
+    - CXX='g++' CXXFLAGS='-std=c++11 -fopenmp' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
+    - ./ovo.sh display
+
+  - name: cpp hierarchical_parallelism host
+    addons:
+      apt:
+       sources:
+         - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main'
+           key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
+       packages:
+        - clang-9 
+    script:   
+    - ./ovo.sh gen
+    - CXX='clang++' CXXFLAGS='-std=c++11 -fopenmp  -fopenmp-version=50' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
+    - ./ovo.sh display
+
+  - name: cpp math host
+    addons:
+      apt:
+       sources:
+         - ubuntu-toolchain-r-test
+       packages:
+        - gcc-9 
     script:
     - ./ovo.sh gen
     - CXX='g++' CXXFLAGS='-std=c++17' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/math_cpp{11,17}
     - ./ovo.sh display
 
-  - name: fortran hierarchical_parallelism
+  - name: fortran hierarchical_parallelism no_omp_call
+    addons:
+      apt:
+       sources:
+         - ubuntu-toolchain-r-test
+       packages:
+        - gfortran-9    
     script:
     - ./ovo.sh gen
     - FC='gfortran' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_omp_call test_src/fortran/hierarchical_parallelism/
+    - ./ovo.sh display
+
+
+  - name: fortran hierarchical_parallelism no_loop
+    addons:
+      apt:
+       sources:
+         - ubuntu-toolchain-r-test
+       packages:
+        - gfortran-9    
+    script:
+    - ./ovo.sh gen
+    - FC='gfortran' FCFLAGS='-fopenmp' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_loop test_src/fortran/hierarchical_parallelism/
     - ./ovo.sh display
