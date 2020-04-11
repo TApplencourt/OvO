@@ -66,6 +66,18 @@ jobs:
     - CXX='clang++' CXXFLAGS='-std=c++11 -fopenmp  -fopenmp-version=50' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
     - ./ovo.sh display
 
+  - name: cpp hierarchical_parallelism host (power)
+    arch:
+    - ppc64le
+
+    install:
+    - pip3 install --user jinja2
+
+    script:   
+    - ./ovo.sh gen
+    - CXX='xlC' CXXFLAGS='-qlanglvl=c++11 -qsmp=omp' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
+    - ./ovo.sh display
+
   - name: cpp math host
     addons:
       apt:
