@@ -9,14 +9,15 @@ RUN := $(addprefix run_, $(basename $(pEXE)))
 
 {% for name in ("long_double", "loop") %}
 SRC_NO_{{name|upper}} := $(filter-out $(wildcard *{{name}}*.cpp), $(SRC))
+{% endfor %}
+SRC_NO_OMP_CALL := $(shell grep -L omp.h *.cpp)
+
+{% for name in ("long_double", "loop","omp_call") %}
 EXE_NO_{{name|upper}} := $(SRC_NO_{{name|upper}}:%.cpp=%.exe)
 
 .PHONY: exe_no_{{name}}
 exe_no_{{name}}: $(EXE_NO_{{name|upper}})
 {% endfor %}
-
-.PHONY: exe_no_long_double_no_loop
-exe_no_long_double_no_loop: $(EXE_NO_LONG_DOUBLE) $(EXE_NO_LOOP)
 
 %.exe: %.cpp
 	-$(CXX) $(CXXFLAGS) $< -o $@

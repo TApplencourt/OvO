@@ -1,6 +1,5 @@
-
 program target__parallel_loop
-    USE OMP_LIB
+
 
     implicit none
   

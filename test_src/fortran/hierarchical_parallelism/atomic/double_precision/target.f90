@@ -1,6 +1,5 @@
-
 program target
-    USE OMP_LIB
+
 
     implicit none
   

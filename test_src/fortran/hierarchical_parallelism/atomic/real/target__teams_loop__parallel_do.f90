@@ -1,6 +1,5 @@
-
 program target__teams_loop__parallel_do
-    USE OMP_LIB
+
 
     implicit none
   

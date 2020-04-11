@@ -1,6 +1,5 @@
-
 program target_teams__distribute
-    USE OMP_LIB
+
 
     implicit none
   

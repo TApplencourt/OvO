@@ -1,6 +1,7 @@
-
 program target__teams
+
     USE OMP_LIB
+
 
     implicit none
   

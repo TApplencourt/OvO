@@ -1,6 +1,5 @@
-
 program target_teams_loop
-    USE OMP_LIB
+
 
     implicit none
   

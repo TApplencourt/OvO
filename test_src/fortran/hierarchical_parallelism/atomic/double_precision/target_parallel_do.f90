@@ -1,6 +1,5 @@
-
 program target_parallel_do
-    USE OMP_LIB
+
 
     implicit none
   
