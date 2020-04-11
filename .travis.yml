@@ -55,6 +55,9 @@ jobs:
         - python3
         - python3-pip
 
+    before_install:
+    - export LD_LIBRARY_PATH=/usr/local/clang/lib:$LD_LIBRARY_PATH
+
     install:
     - pip3 install --user jinja2
 

@@ -86,7 +86,7 @@ frun() {
         elif ${__no_long_double}
         then
             make --no-print-directory -C "$dir" exe_no_long_double |& tee "$nresult"/compilation.log
-        elif ${__legacy_omp}
+        elif ${__no_loop}
         then
             make --no-print-directory -C "$dir" exe_no_loop |& tee "$nresult"/compilation.log
         else
