@@ -9,6 +9,11 @@ RUN := $(addprefix run_, $(basename $(pEXE)))
 
 {% for name in ("loop",) %}
 SRC_NO_{{name|upper}} := $(filter-out $(wildcard *{{name}}*.f90), $(SRC))
+{% endfor %}
+
+SRC_NO_OMP_CALL := $(shell grep -L OMP_LIB *.f90)
+
+{% for name in ("loop","omp_call") %}
 EXE_NO_{{name|upper}} := $(SRC_NO_{{name|upper}}:%.f90=%.exe)
 
 .PHONY: exe_no_{{name}}

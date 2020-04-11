@@ -1,6 +1,7 @@
-
 program {{name}}
+{% if not balenced %}
     USE OMP_LIB
+{% endif %}
 
     implicit none
   {% for l in loops %}
