@@ -10,17 +10,25 @@ addons:
       - python3
       - python3-pip
 
-scripts:
-  - python3 -m unittest src/display.py
-  - ./ovo.sh gen
+jobs:
+  include:
+    -name: unittest
+    script:
+    - python3 -m unittest src/display.py
 
-  - export MAKEFLAGS='-j8 --output-sync=target'
-  
-  - export CXX='g++'
-  - CXXFLAGS='-std=c++11' ./ovo.sh run --no_omp_call test_src/cpp/hierarchical_parallelism/ 
-  - ./ovo.sh display
-  - CXXFLAGS='-std=c++17' ./ovo.sh run test_src/cpp/math_cpp{11,17}
-  - ./ovo.sh display
+    -name: cpp hierarchical_parallelism
+    script:
+    - ./ovo.sh gen
+    - CXX='g++' CXXFLAGS='-std=c++11' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_omp_call test_src/cpp/hierarchical_parallelism/ 
+    - ./ovo.sh display
 
-  - FC='gfortran' ./ovo.sh run --no_omp_call test_src/fortran/hierarchical_parallelism/
-  - ./ovo.sh display
+    -name: cpp math
+    script:
+    - ./ovo.sh gen
+    - CXX='g++' CXXFLAGS='-std=c++17' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/math_cpp{11,17}
+    - ./ovo.sh display
+
+    -name: fortran hierarchical_parallelism
+    - ./ovo.sh gen
+    - FC='gfortran' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_omp_call test_src/fortran/hierarchical_parallelism/
+    - ./ovo.sh display
