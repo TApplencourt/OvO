@@ -80,7 +80,7 @@ frun() {
 
         mkdir -p "$nresult"
         env > "$nresult"/env.log
-        if ${exe_no_omp_call}
+        if ${__no_omp_call}
         then
             make --no-print-directory -C "$dir" exe_no_omp_call |& tee "$nresult"/compilation.log
         elif ${__no_long_double}
