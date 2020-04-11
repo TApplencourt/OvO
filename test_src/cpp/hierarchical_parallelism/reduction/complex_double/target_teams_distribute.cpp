@@ -41,7 +41,7 @@ complex<double> counter{};
 
 
 
-counter += complex<double> { 1 };
+counter += complex<double> { 1.0f };
 
 
 

@@ -55,7 +55,7 @@ double counter{};
 
 
 
-counter += double { 1 };
+counter += double { 1.0f };
 
 
 

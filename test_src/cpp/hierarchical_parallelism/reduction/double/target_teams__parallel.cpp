@@ -42,7 +42,7 @@ const int num_threads = omp_get_num_threads();
 
 
 
-counter += double { 1./(num_teams*num_threads) } ;
+counter += double { 1.0f/(num_teams*num_threads) } ;
 
 
 

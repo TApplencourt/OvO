@@ -55,7 +55,7 @@ float counter{};
 
 
 
-counter += float { 1 };
+counter += float { 1.0f };
 
 
 

@@ -51,7 +51,7 @@ complex<float> counter{};
 
 
 
-counter += complex<float> { 1 };
+counter += complex<float> { 1.0f };
 
 
 

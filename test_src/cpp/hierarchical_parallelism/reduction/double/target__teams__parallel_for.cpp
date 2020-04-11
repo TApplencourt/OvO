@@ -48,7 +48,7 @@ const int num_teams = omp_get_num_teams();
 
 
 
-counter += double { 1./num_teams } ;
+counter += double { 1.0f/num_teams } ;
 
 
 

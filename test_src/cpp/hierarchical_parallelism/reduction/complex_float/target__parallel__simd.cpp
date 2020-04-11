@@ -55,7 +55,7 @@ const int num_threads = omp_get_num_threads();
 
 
 
-counter += complex<float> { 1./num_threads };
+counter += complex<float> { 1.0f/num_threads };
 
 
 
