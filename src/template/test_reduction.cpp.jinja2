@@ -50,13 +50,13 @@ const int num_threads = omp_get_num_threads();
 {% endfor %}
 
 {% if balenced %}
-counter += {{T}} { 1 };
+counter += {{T}} { 1.0f };
 {% elif only_teams and only_parallel %}
-counter += {{T}} { 1./(num_teams*num_threads) } ;
+counter += {{T}} { 1.0f/(num_teams*num_threads) } ;
 {% elif only_teams  %}
-counter += {{T}} { 1./num_teams } ;
+counter += {{T}} { 1.0f/num_teams } ;
 {% elif only_parallel  %}
-counter += {{T}} { 1./num_threads };
+counter += {{T}} { 1.0f/num_threads };
 {% endif %}
 
 {% for fat_pragma in fat_path %}
