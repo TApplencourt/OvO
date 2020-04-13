@@ -1,19 +1,18 @@
 #include <iostream>
-#include <stdexcept>
-{% if not balenced %}
-#include <omp.h>
-{% endif %}
-
-{% if T_category == "complex" %}
-#include <complex>
-{% endif %}
-
-#include <cmath>
 #include <limits>
 
 {% if T_category == "complex" %}
 #include <complex>
 using namespace std;
+{% endif %}
+
+{% if not balenced %}
+#ifdef _OPENMP
+#include <omp.h>
+#else
+int omp_get_num_teams() {return 1;}
+int omp_get_num_threads() {return 1;}
+#endif
 {% endif %}
 
 bool almost_equal({{T}} x, {{T}} y, int ulp) {
@@ -66,7 +65,7 @@ counter += {{T}} { 1.0f } / num_threads ;
 
 // Validation
 if ( !almost_equal(counter,{{T}} { {{expected_value}} }, 10)  ) {
-    std::cerr << "Expected: " << {{expected_value}} << " Get: " << counter << std::endl;
+    std::cerr << "Expected: " << {{expected_value}} << " Got: " << counter << std::endl;
     throw std::runtime_error( "{{name}} give incorect value when offloaded");
 }
 

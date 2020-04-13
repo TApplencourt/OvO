@@ -1,6 +1,29 @@
+{% if not balenced %}
+#ifndef _OPENMP
+
+MODULE OMP_LIB_STUB
+implicit none
+
+CONTAINS
+
+{% for name in "teams","threads" %}
+FUNCTION omp_get_num_{{name}}() RESULT(i)
+    INTEGER :: i
+    i = 1
+END FUNCTION omp_get_num_{{name}}
+{% endfor %}
+
+END MODULE OMP_LIB_STUB
+#endif
+{% endif %}
+
 program {{name}}
 {% if not balenced %}
+#ifdef _OPENMP
     USE OMP_LIB
+#else
+    USE OMP_LIB_STUB
+#endif
 {% endif %}
 
     implicit none

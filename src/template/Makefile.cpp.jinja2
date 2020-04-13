@@ -1,19 +1,19 @@
-SRC := $(wildcard *.cpp)
-EXE := $(SRC:%.cpp=%.exe)
+SRC = $(wildcard *.cpp)
+EXE = $(SRC:%.cpp=%.exe)
 
 .PHONY: exe
 exe: $(EXE)
 
-pEXE := $(wildcard *.exe)
-RUN := $(addprefix run_, $(basename $(pEXE)))
+pEXE = $(wildcard *.exe)
+RUN = $(addprefix run_, $(basename $(pEXE)))
 
 {% for name in ("long_double", "loop") %}
-SRC_NO_{{name|upper}} := $(filter-out $(wildcard *{{name}}*.cpp), $(SRC))
+SRC_NO_{{name|upper}} = $(filter-out $(wildcard *{{name}}*.cpp), $(SRC))
 {% endfor %}
-SRC_NO_OMP_CALL := $(shell grep -L omp.h *.cpp)
+SRC_NO_OMP_CALL = $(shell grep -L omp.h *.cpp)
 
-{% for name in ("long_double", "loop","omp_call") %}
-EXE_NO_{{name|upper}} := $(SRC_NO_{{name|upper}}:%.cpp=%.exe)
+{% for name in ("long_double", "loop") %}
+EXE_NO_{{name|upper}} = $(SRC_NO_{{name|upper}}:%.cpp=%.exe)
 
 .PHONY: exe_no_{{name}}
 exe_no_{{name}}: $(EXE_NO_{{name|upper}})

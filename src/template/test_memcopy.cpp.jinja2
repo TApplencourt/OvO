@@ -1,38 +1,35 @@
-#include <cassert>
-#include <cmath>
-#include <limits>
-#include <iomanip>
 #include <iostream>
-#include <type_traits>
-#include <algorithm>
-#include <vector>
+#include <limits>
 
-template<class T>
-typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
-    almost_equal(T x, T y)
-{
-    //Let say 2 ulp is good enough...
-	  int ulp = 2;
-    // the machine epsilon has to be scaled to the magnitude of the values used
-    // and multiplied by the desired precision in ULPs (units in the last place)
-    return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp
-        // unless the result is subnormal
-        || std::fabs(x-y) < std::numeric_limits<T>::min();
+{% if T_category == "complex" %}
+#include <complex>
+using namespace std;
+{% endif %}
+#include <vector>
+#include <algorithm>
+
+bool almost_equal({{T}} x, {{T}} y, int ulp) {
+{% if T_category == "float" %}
+     return std::fabs(x-y) <= std::numeric_limits<{{T}}>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<{{T}}>::min();
+{% elif T_category == "complex" %}
+    bool r = std::fabs(x.real()-y.real()) <= std::numeric_limits<{{T_type}}>::epsilon() * std::fabs(x.real()+y.real()) * ulp ||  std::fabs(x.real()-y.real()) < std::numeric_limits<{{T_type}}>::min();
+    bool i = std::fabs(x.imag()-y.imag()) <= std::numeric_limits<{{T_type}}>::epsilon() * std::fabs(x.imag()+y.imag()) * ulp ||  std::fabs(x.imag()-y.imag()) < std::numeric_limits<{{T_type}}>::min();
+    return r && i;
+{% endif %}
 }
 
-template<class T>
 void test_{{name}}(){
   // Input and Outputs
   {% for l in loops %}
   const int {{ l.N }} = {{l.v}};
   {%- endfor %}
   const int size = {{size}};
-  std::vector<T> A(size);
-  std::vector<T> B(size);
+  std::vector<{{T}}> A(size);
+  std::vector<{{T}}> B(size);
   std::generate(B.begin(), B.end(), std::rand);
 
-  T *pA = A.data();
-  T *pB = B.data();
+  {{T}} *pA = A.data();
+  {{T}} *pB = B.data();
 
 // Main program
 {% for fat_pragma in fat_path %}
@@ -48,11 +45,16 @@ pA[ {{index}} ] = pB [ {{index}} ];
 {% for fat_pragma in fat_path %} } {% endfor %}
 
 // Validation
-assert(std::equal(A.begin(), A.end(), B.begin(), almost_equal<T>));
+for (int i = 0 ;  i < size ; i++) {
+    if ( !almost_equal(A[i],B[i],1) ) {
+         std::cerr << "Expected: " << B[i] << " Got: " << A[i] << std::endl;
+        throw std::runtime_error( "{{name}} give incorect value when offloaded");
+    }
+}
  
 }
 
 int main()
 {
-    test_{{name}}<double>();
+    test_{{name}}();
 }

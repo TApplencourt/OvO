@@ -158,8 +158,8 @@ def display(l_result,  mode=None):
 
     if mode=='failure':
         for type_, d in  ("Compile error", compilation.failure), ("Runtime error", runtime.failure):
+            print (f"# {type_}")
             if d:
-                print (f"# {type_}")
                 # Sort by error message
                 array = sorted(d.items(),key=itemgetter(1))
                 # Display taking care of alignement  
@@ -167,7 +167,7 @@ def display(l_result,  mode=None):
                 for test, error in array:
                     print(f"{test:{max_width}} {error} ")
             else:
-                print (f"No {type_}")
+                print (f"No error")
     elif mode=='pass':
         print ("# Tests who passed")
         for k in sorted(runtime.test - set(runtime.failure)):
