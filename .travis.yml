@@ -23,7 +23,7 @@ jobs:
 
     script:   
     - ./ovo.sh gen
-    - CXX='g++' CXXFLAGS='-std=c++11 -Wall -Wno-unknown-pragmas' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_omp_call test_src/cpp/hierarchical_parallelism/ 
+    - CXX='g++' CXXFLAGS='-std=c++11 -Wall -Wno-unknown-pragmas' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/hierarchical_parallelism/ 
     - ./ovo.sh display
 
   - name: cpp hierarchical_parallelism no_loop
@@ -107,7 +107,7 @@ jobs:
 
     script:
     - ./ovo.sh gen
-    - FC='gfortran' FCFLAGS='-Wall -Wno-unknown-pragmas' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_omp_call test_src/fortran/hierarchical_parallelism/
+    - FC='gfortran' FCFLAGS='-Wall -Wno-unknown-pragmas' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/fortran/hierarchical_parallelism/
     - ./ovo.sh display
 
 
