@@ -53,9 +53,9 @@ declare -p "${prefix}__no_long_double" "${prefix}__no_loop" \
 # docopt parser above, complete command for generating this parser is `docopt.sh --library=src/docopt-lib.sh ovo.sh`
 
 #We don't use the most straitforward `find . -type d -links 2`
-#Because on MaxOS and the Travis PowerPC links includes current,parent and sub directories but also files.
+#Because on MaxOS and the Travis PowerPC links includes current,parent and sub directories but also files.  
 fl_folder(){
-    find "${@}" -type d | sort | awk '$0 !~ last "/" {print last} {last=$0} END {print last}'
+    find $(realpath ${@}) -type d | sort | uniq | awk '$0 !~ last "/" {print last} {last=$0} END {print last}'
 }
 
 fl_test_src() {
@@ -69,12 +69,10 @@ fl_test_src() {
 }
 
 frun() {
-    uuid=$(date +"%Y-%m-%d_%H-%M")
-    result="test_result/${uuid}_$(hostname)"
+    local uuid=$(date +"%Y-%m-%d_%H-%M")
+    local result="test_result/${uuid}_$(hostname)"
 
-    # Remove '.' in front of the path
-    # so `./ovo.sh run ./test_src/hp_*` and `./ovo.sh run test_src/hp_*` will work. 
-    for dir in $(realpath $(fl_test_src $@)  --relative-to=.)
+    for dir in $(fl_test_src $@)
     do
         nresult=$result/${dir#*/}
         echo "Running $dir | Saving log in $nresult"
@@ -99,9 +97,9 @@ fdisplay() {
     if [ -z "$1" ]
     then
       # Get the last modified folder in results, then list all the tests avalaible inside.
-      folders="$(find test_result -maxdepth 1 -type d | tail -n 1)"
+      local folders="$(find test_result -maxdepth 1 -type d | tail -n 1)"
     else
-      folders="${@}"   
+      local folders="${@}"   
     fi
 
     ./src/display.py "${__failure}" "${__pass}" "${__no_long_double}" "${__no_loop}" $(fl_folder ${folders})
