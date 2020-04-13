@@ -71,9 +71,6 @@ frun() {
     # so `./ovo.sh run ./test_src/hp_*` and `./ovo.sh run test_src/hp_*` will work. 
     for dir in $(realpath $(fl_test_src $@)  --relative-to=.)
     do
-        echo $dir
-        continue
-
         nresult=$result/${dir#*/}
         echo "Running $dir | Saving log in $nresult"
 
