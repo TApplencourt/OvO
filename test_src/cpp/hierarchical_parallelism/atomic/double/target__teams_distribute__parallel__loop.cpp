@@ -1,11 +1,7 @@
 #include <iostream>
-#include <stdexcept>
-
-
-
-
-#include <cmath>
 #include <limits>
+
+
 
 
 
@@ -68,7 +64,7 @@ counter += double { 1 };
 
 // Validation
 if ( !almost_equal(counter,double { L*M }, 10)  ) {
-    std::cerr << "Expected: " << L*M << " Get: " << counter << std::endl;
+    std::cerr << "Expected: " << L*M << " Got: " << counter << std::endl;
     throw std::runtime_error( "target__teams_distribute__parallel__loop give incorect value when offloaded");
 }
 

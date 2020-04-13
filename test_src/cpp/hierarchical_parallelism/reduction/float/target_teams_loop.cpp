@@ -1,9 +1,7 @@
 #include <iostream>
-#include <stdexcept>
-
-
-#include <cmath>
 #include <limits>
+
+
 
 
 
@@ -43,7 +41,7 @@ counter += float { 1.0f };
 
 // Validation
 if ( !almost_equal(counter,float { L }, 10)  ) {
-    std::cerr << "Expected: " << L << " Get: " << counter << std::endl;
+    std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
     throw std::runtime_error( "target_teams_loop give incorect value when offloaded");
 }
 

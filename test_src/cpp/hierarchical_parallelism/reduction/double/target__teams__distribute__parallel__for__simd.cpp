@@ -1,9 +1,7 @@
 #include <iostream>
-#include <stdexcept>
-
-
-#include <cmath>
 #include <limits>
+
+
 
 
 
@@ -84,7 +82,7 @@ counter += double { 1.0f };
 
 // Validation
 if ( !almost_equal(counter,double { L*M*N }, 10)  ) {
-    std::cerr << "Expected: " << L*M*N << " Get: " << counter << std::endl;
+    std::cerr << "Expected: " << L*M*N << " Got: " << counter << std::endl;
     throw std::runtime_error( "target__teams__distribute__parallel__for__simd give incorect value when offloaded");
 }
 

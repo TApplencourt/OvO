@@ -1,26 +1,16 @@
-#include <cassert>
-#include <cmath>
-#include <limits>
-#include <iomanip>
 #include <iostream>
-#include <type_traits>
-#include <algorithm>
-#include <vector>
+#include <limits>
 
-template<class T>
-typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
-    almost_equal(T x, T y)
-{
-    //Let say 2 ulp is good enough...
-	  int ulp = 2;
-    // the machine epsilon has to be scaled to the magnitude of the values used
-    // and multiplied by the desired precision in ULPs (units in the last place)
-    return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp
-        // unless the result is subnormal
-        || std::fabs(x-y) < std::numeric_limits<T>::min();
+
+#include <vector>
+#include <algorithm>
+
+bool almost_equal(double x, double y, int ulp) {
+
+     return std::fabs(x-y) <= std::numeric_limits<double>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<double>::min();
+
 }
 
-template<class T>
 void test_target__teams__loop__parallel_for__simd(){
   // Input and Outputs
   
@@ -28,12 +18,12 @@ void test_target__teams__loop__parallel_for__simd(){
   const int M = 6;
   const int N = 7;
   const int size = L*M*N;
-  std::vector<T> A(size);
-  std::vector<T> B(size);
+  std::vector<double> A(size);
+  std::vector<double> B(size);
   std::generate(B.begin(), B.end(), std::rand);
 
-  T *pA = A.data();
-  T *pB = B.data();
+  double *pA = A.data();
+  double *pB = B.data();
 
 // Main program
 
@@ -69,11 +59,16 @@ pA[ k + j*N + i*N*M ] = pB [ k + j*N + i*N*M ];
  }  }  }  }  } 
 
 // Validation
-assert(std::equal(A.begin(), A.end(), B.begin(), almost_equal<T>));
+for (int i = 0 ;  i < size ; i++) {
+    if ( !almost_equal(A[i],B[i],1) ) {
+         std::cerr << "Expected: " << B[i] << " Got: " << A[i] << std::endl;
+        throw std::runtime_error( "target__teams__loop__parallel_for__simd give incorect value when offloaded");
+    }
+}
  
 }
 
 int main()
 {
-    test_target__teams__loop__parallel_for__simd<double>();
+    test_target__teams__loop__parallel_for__simd();
 }

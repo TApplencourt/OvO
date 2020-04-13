@@ -1,13 +1,11 @@
 #include <iostream>
-#include <stdexcept>
-
-
-#include <cmath>
 #include <limits>
 
 
 #include <complex>
 using namespace std;
+
+
 
 
 bool almost_equal(complex<float> x, complex<float> y, int ulp) {
@@ -74,7 +72,7 @@ counter += complex<float> { 1.0f };
 
 // Validation
 if ( !almost_equal(counter,complex<float> { L*M }, 10)  ) {
-    std::cerr << "Expected: " << L*M << " Get: " << counter << std::endl;
+    std::cerr << "Expected: " << L*M << " Got: " << counter << std::endl;
     throw std::runtime_error( "target__teams__distribute__parallel_loop give incorect value when offloaded");
 }
 

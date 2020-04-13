@@ -1,13 +1,11 @@
 #include <iostream>
-#include <stdexcept>
-
-
-#include <cmath>
 #include <limits>
 
 
 #include <complex>
 using namespace std;
+
+
 
 
 bool almost_equal(complex<double> x, complex<double> y, int ulp) {
@@ -60,7 +58,7 @@ counter += complex<double> { 1.0f };
 
 // Validation
 if ( !almost_equal(counter,complex<double> { L*M }, 10)  ) {
-    std::cerr << "Expected: " << L*M << " Get: " << counter << std::endl;
+    std::cerr << "Expected: " << L*M << " Got: " << counter << std::endl;
     throw std::runtime_error( "target_teams_distribute__simd give incorect value when offloaded");
 }
 

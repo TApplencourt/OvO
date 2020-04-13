@@ -260,6 +260,7 @@ class Memcopy(Path):
                                index=self.index,
                                size=self.size,
                                T_category=self.T.category,
+                               T_type=self.T.internal,
                                T=self.T.T)
 
 
@@ -391,9 +392,9 @@ def gen_math(makefile):
 def gen_hp(makefile, omp_tree, ompv5):
 
 
-    for test,Constructor, l_T in( ("memcopy", Memcopy,     ['float', 'double']) ,
+    for test,Constructor, l_T in( ("memcopy", Memcopy,     ['float', 'complex<float>', 'double','complex<double>']) ,
                                   ("atomic" , Atomic,      ['float', 'double']) ,
-                                  ("reduction", Reduction, ["float","complex<float>","double","complex<double>"]) ):
+                                  ("reduction", Reduction, ["float",'complex<float>','double','complex<double>']) ):
         for T in l_T:
             folder = os.path.join("test_src","cpp","hierarchical_parallelism",test,sanitize_string(T))
 

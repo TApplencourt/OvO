@@ -1,13 +1,11 @@
 #include <iostream>
-#include <stdexcept>
-
-
-#include <cmath>
 #include <limits>
 
 
 #include <complex>
 using namespace std;
+
+
 
 
 bool almost_equal(complex<float> x, complex<float> y, int ulp) {
@@ -50,7 +48,7 @@ counter += complex<float> { 1.0f };
 
 // Validation
 if ( !almost_equal(counter,complex<float> { L }, 10)  ) {
-    std::cerr << "Expected: " << L << " Get: " << counter << std::endl;
+    std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
     throw std::runtime_error( "target_teams_distribute_parallel_for_simd give incorect value when offloaded");
 }
 

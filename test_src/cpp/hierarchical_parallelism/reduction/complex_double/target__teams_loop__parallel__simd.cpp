@@ -1,15 +1,18 @@
 #include <iostream>
-#include <stdexcept>
-
-#include <omp.h>
-
-
-#include <cmath>
 #include <limits>
 
 
 #include <complex>
 using namespace std;
+
+
+
+#ifdef _OPENMP
+#include <omp.h>
+#else
+int omp_get_num_teams() {return 1;}
+int omp_get_num_threads() {return 1;}
+#endif
 
 
 bool almost_equal(complex<double> x, complex<double> y, int ulp) {
@@ -78,7 +81,7 @@ counter += complex<double> { 1.0f/num_threads };
 
 // Validation
 if ( !almost_equal(counter,complex<double> { L*M }, 10)  ) {
-    std::cerr << "Expected: " << L*M << " Get: " << counter << std::endl;
+    std::cerr << "Expected: " << L*M << " Got: " << counter << std::endl;
     throw std::runtime_error( "target__teams_loop__parallel__simd give incorect value when offloaded");
 }
 
