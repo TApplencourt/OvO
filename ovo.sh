@@ -104,8 +104,7 @@ fdisplay() {
       folders="${@}"   
     fi
 
-    folders_leaf=$(find "${folders}" -type d -links 2)
-    ./src/display.py "${__failure}" "${__pass}" "${__no_long_double}" "${__no_loop}" $folders_leaf
+    ./src/display.py "${__failure}" "${__pass}" "${__no_long_double}" "${__no_loop}" $(fl_folder ${folders})
 }
 
 fclean() {

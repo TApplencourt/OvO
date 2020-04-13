@@ -71,7 +71,7 @@ jobs:
     - ppc64le
 
     script:   
-    - CXX='xlC' CXXFLAGS='-qlanglvl=c++11 -qsmp=omp' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
+    - CXX='xlc++' CXXFLAGS='-qlanglvl=c++11 -qsmp=omp' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
     - ./ovo.sh display
 
   - name: cpp math host
