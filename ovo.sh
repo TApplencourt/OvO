@@ -52,13 +52,18 @@ declare -p "${prefix}__no_long_double" "${prefix}__no_loop" \
 "${prefix}clean"; done; }
 # docopt parser above, complete command for generating this parser is `docopt.sh --library=src/docopt-lib.sh ovo.sh`
 
-# May not work on macOS (https://stackoverflow.com/a/4269862/7674852)
+#We don't use the most straitforward `find . -type d -links 2`
+#Because on MaxOS and the Travis PowerPC links includes current,parent and sub directories but also files.
+fl_folder(){
+    find "${@}" -type d | sort | awk '$0 !~ last "/" {print last} {last=$0} END {print last}'
+}
+
 fl_test_src() {
     if [ -z "$1" ]
     then
-       local folders=$(find test_src -type d -links 2)
+        local folders=$(fl_folder "test_src")
     else
-       local folders=$(find "${@}" -type d -links 2)
+        local folders=$(fl_folder "${@}")
     fi
     echo $(realpath ${folders}  --relative-to=$PWD)
 }
