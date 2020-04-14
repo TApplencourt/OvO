@@ -55,16 +55,19 @@ declare -p "${prefix}__no_long_double" "${prefix}__no_loop" \
 #We don't use the most straitforward `find . -type d -links 2`
 #Because on MaxOS and the Travis PowerPC links includes current,parent and sub directories but also files.  
 fl_folder(){
-    find $(realpath ${@}) -type d | sort | uniq | awk '$0 !~ last "/" {print last} {last=$0} END {print last}'
+    find $(realpath "${@}") -type d | sort | uniq | awk '$0 !~ last "/" {print last} {last=$0} END {print last}'
 }
 
 fl_test_src() {
+
     if [ -z "$1" ]
     then
         local folders=$(fl_folder "test_src")
     else
         local folders=$(fl_folder "${@}")
     fi
+    echo $folders
+    exit
     echo $(realpath ${folders}  --relative-to=$PWD)
 }
 
@@ -118,7 +121,7 @@ fclean() {
 #                    _|           _|
 eval "$(docopt "$@")"
 
-$gen && rm -rf -- ./test_src && ./src/gtest.py "${__v5}"
+$gen && rm -rf -- ./test_src && ./src/gtest.py 
 $run && fclean "${_result_folder_[@]}" && frun "${_test_folder_[@]}"
 $display && fdisplay "${_result_folder_[@]}"
 $clean && fclean

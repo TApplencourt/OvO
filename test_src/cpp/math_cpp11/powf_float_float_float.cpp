@@ -1,18 +1,19 @@
 
 #include <cmath>
 
-
 #include <limits>
 #include <iostream>
 #include <stdexcept>
 
 using namespace std;
 
+ 
 bool almost_equal(float x, float y, int ulp) {
 
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
 
 }
+
 
 void test_powf(){
    
@@ -21,18 +22,24 @@ void test_powf(){
    float y {  0.42 };
    
 
-   float o_host = powf( x, y);
+   
+   float o_host ;
+   float o_gpu ;
+   
 
-   float o_gpu ; 
-   #pragma omp target map(from:o_gpu)
+   o_host = powf( x, y, &o_host);
+
+   #pragma omp target map(from: o_gpu )
    {
-   o_gpu = powf( x, y);
+   o_gpu = powf( x, y, &o_gpu);
    }
 
+   
    if ( !almost_equal(o_host,o_gpu,1) ) {
         std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
         throw std::runtime_error( "powf give incorect value when offloaded");
     }
+    
 }
 
 int main()

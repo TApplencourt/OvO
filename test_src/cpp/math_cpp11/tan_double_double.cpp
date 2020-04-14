@@ -1,36 +1,43 @@
 
 #include <cmath>
 
-
 #include <limits>
 #include <iostream>
 #include <stdexcept>
 
 using namespace std;
 
+ 
 bool almost_equal(double x, double y, int ulp) {
 
      return std::fabs(x-y) <= std::numeric_limits<double>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<double>::min();
 
 }
 
+
 void test_tan(){
    
-   double x {  0.42 };
+   double in0 {  0.42 };
    
 
-   double o_host = tan( x);
+   
+   double out1_host ;
+   double out1_gpu ;
+   
 
-   double o_gpu ; 
-   #pragma omp target map(from:o_gpu)
+   out1_host = tan( in0, &out1_host);
+
+   #pragma omp target map(from: out1_gpu )
    {
-   o_gpu = tan( x);
+   out1_gpu = tan( in0, &out1_gpu);
    }
 
-   if ( !almost_equal(o_host,o_gpu,1) ) {
-        std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
+   
+   if ( !almost_equal(out1_host,out1_gpu,1) ) {
+        std::cerr << "Host: " << out1_host << " GPU: " << out1_gpu << std::endl;
         throw std::runtime_error( "tan give incorect value when offloaded");
     }
+    
 }
 
 int main()

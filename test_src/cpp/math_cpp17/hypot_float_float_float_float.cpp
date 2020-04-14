@@ -1,40 +1,47 @@
 
 #include <cmath>
 
-
 #include <limits>
 #include <iostream>
 #include <stdexcept>
 
 using namespace std;
 
+ 
 bool almost_equal(float x, float y, int ulp) {
 
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
 
 }
 
+
 void test_hypot(){
    
-   float x {  0.42 };
+   float in0 {  0.42 };
    
-   float y {  0.42 };
+   float in1 {  0.42 };
    
-   float z {  0.42 };
+   float in2 {  0.42 };
    
 
-   float o_host = hypot( x, y, z);
+   
+   float out3_host ;
+   float out3_gpu ;
+   
 
-   float o_gpu ; 
-   #pragma omp target map(from:o_gpu)
+   out3_host = hypot( in0, in1, in2, &out3_host);
+
+   #pragma omp target map(from: out3_gpu )
    {
-   o_gpu = hypot( x, y, z);
+   out3_gpu = hypot( in0, in1, in2, &out3_gpu);
    }
 
-   if ( !almost_equal(o_host,o_gpu,1) ) {
-        std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
+   
+   if ( !almost_equal(out3_host,out3_gpu,1) ) {
+        std::cerr << "Host: " << out3_host << " GPU: " << out3_gpu << std::endl;
         throw std::runtime_error( "hypot give incorect value when offloaded");
     }
+    
 }
 
 int main()

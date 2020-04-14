@@ -1,36 +1,41 @@
 
 #include <cmath>
 
-
 #include <limits>
 #include <iostream>
 #include <stdexcept>
 
 using namespace std;
 
+ 
 bool almost_equal(long int x, long int y, int ulp) {
-
-    return x == y ; 
 
 }
 
+
 void test_abs(){
    
-   long int j {  1 };
+   long int in0 {  1 };
    
 
-   long int o_host = abs( j);
+   
+   long int out1_host ;
+   long int out1_gpu ;
+   
 
-   long int o_gpu ; 
-   #pragma omp target map(from:o_gpu)
+   out1_host = abs( in0, &out1_host);
+
+   #pragma omp target map(from: out1_gpu )
    {
-   o_gpu = abs( j);
+   out1_gpu = abs( in0, &out1_gpu);
    }
 
-   if ( !almost_equal(o_host,o_gpu,1) ) {
-        std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
+   
+   if ( !almost_equal(out1_host,out1_gpu,1) ) {
+        std::cerr << "Host: " << out1_host << " GPU: " << out1_gpu << std::endl;
         throw std::runtime_error( "abs give incorect value when offloaded");
     }
+    
 }
 
 int main()

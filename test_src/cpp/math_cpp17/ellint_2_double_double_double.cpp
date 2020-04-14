@@ -1,38 +1,45 @@
 
 #include <cmath>
 
-
 #include <limits>
 #include <iostream>
 #include <stdexcept>
 
 using namespace std;
 
+ 
 bool almost_equal(double x, double y, int ulp) {
 
      return std::fabs(x-y) <= std::numeric_limits<double>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<double>::min();
 
 }
 
+
 void test_ellint_2(){
    
-   double k {  0.42 };
+   double in0 {  0.42 };
    
-   double phi {  0.42 };
+   double in1 {  0.42 };
    
 
-   double o_host = ellint_2( k, phi);
+   
+   double out2_host ;
+   double out2_gpu ;
+   
 
-   double o_gpu ; 
-   #pragma omp target map(from:o_gpu)
+   out2_host = ellint_2( in0, in1, &out2_host);
+
+   #pragma omp target map(from: out2_gpu )
    {
-   o_gpu = ellint_2( k, phi);
+   out2_gpu = ellint_2( in0, in1, &out2_gpu);
    }
 
-   if ( !almost_equal(o_host,o_gpu,1) ) {
-        std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
+   
+   if ( !almost_equal(out2_host,out2_gpu,1) ) {
+        std::cerr << "Host: " << out2_host << " GPU: " << out2_gpu << std::endl;
         throw std::runtime_error( "ellint_2 give incorect value when offloaded");
     }
+    
 }
 
 int main()

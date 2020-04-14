@@ -1,38 +1,45 @@
 
 #include <cmath>
 
-
 #include <limits>
 #include <iostream>
 #include <stdexcept>
 
 using namespace std;
 
+ 
 bool almost_equal(long double x, long double y, int ulp) {
 
      return std::fabs(x-y) <= std::numeric_limits<long double>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<long double>::min();
 
 }
 
+
 void test_fdiml(){
    
-   long double x {  0.42 };
+   long double in0 {  0.42 };
    
-   long double y {  0.42 };
+   long double in1 {  0.42 };
    
 
-   long double o_host = fdiml( x, y);
+   
+   long double out2_host ;
+   long double out2_gpu ;
+   
 
-   long double o_gpu ; 
-   #pragma omp target map(from:o_gpu)
+   out2_host = fdiml( in0, in1, &out2_host);
+
+   #pragma omp target map(from: out2_gpu )
    {
-   o_gpu = fdiml( x, y);
+   out2_gpu = fdiml( in0, in1, &out2_gpu);
    }
 
-   if ( !almost_equal(o_host,o_gpu,1) ) {
-        std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
+   
+   if ( !almost_equal(out2_host,out2_gpu,1) ) {
+        std::cerr << "Host: " << out2_host << " GPU: " << out2_gpu << std::endl;
         throw std::runtime_error( "fdiml give incorect value when offloaded");
     }
+    
 }
 
 int main()
