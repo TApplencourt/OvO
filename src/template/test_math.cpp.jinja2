@@ -1,8 +1,7 @@
-{% if output_type_category == "complex" %}
+{% if have_complex == "complex" %}
 #include <complex>
-{% else %}
-#include <cmath>
 {% endif %}
+#include <cmath>
 
 #include <limits>
 #include <iostream>
@@ -10,35 +9,41 @@
 
 using namespace std;
 
-bool almost_equal({{output_type}} x, {{output_type}} y, int ulp) {
-{% if output_type_category in ("integer","bool")  %}
+{% for output_type in l_output | unique(attribute='T.no_pt') %} 
+bool almost_equal({{output_type.T.no_pt}} x, {{output_type.T.no_pt}} y, int ulp) {
+{% if output_type.category in ("integer","bool")  %}
     return x == y ; 
-{% elif output_type_category == "float" %}
-     return std::fabs(x-y) <= std::numeric_limits<{{output_type_T}}>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<{{output_type_T}}>::min();
-{% elif output_type_category == "complex" %}
-    bool r = std::fabs(x.real()-y.real()) <= std::numeric_limits<{{output_type_T}}>::epsilon() * std::fabs(x.real()+y.real()) * ulp ||  std::fabs(x.real()-y.real()) < std::numeric_limits<{{output_type_T}}>::min();
-    bool i = std::fabs(x.imag()-y.imag()) <= std::numeric_limits<{{output_type_T}}>::epsilon() * std::fabs(x.imag()+y.imag()) * ulp ||  std::fabs(x.imag()-y.imag()) < std::numeric_limits<{{output_type_T}}>::min();
-    return r && i;
+{% elif output_type.T.category == "float" %}
+     return std::fabs(x-y) <= std::numeric_limits<{{output_type.T.no_pt}}>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<{{output_type.T.no_pt}}>::min();
+{% elif output_type.T.category == "complex" %}
+    return std::abs(x-y) <= 2*std::numeric_limits<{{output_type.T.no_pt}}>::epsilon() * std::abs(x+y.real) * ulp ||  std::abs(x-y) < std::numeric_limits<{{output_type.T.no_pt}}>::min();
 {% endif %}
 }
+{% endfor %}
 
 void test_{{name}}(){
-   {% for type, name, val in zip(input_types, input_names, input_values) %}
-   {{type}} {{name}} {  {{val}} };
+   {% for input in l_input %}
+   {{input.T}} {{input.name}} {  {{input.val}} };
    {% endfor %}
 
-   {{output_type}} o_host = {{name}}( {{ input_names |join(', ') }});
+   {% for output in l_output %}
+   {{output.T.no_pt}} {{output.name}}_host ;
+   {{output.T.no_pt}} {{output.name}}_gpu ;
+   {% endfor %}
 
-   {{output_type}} o_gpu ; 
-   #pragma omp target map(from:o_gpu)
+   {{scalar_output}}_host = {{name}}( {{ l_argv_host | join(', ') }});
+
+   #pragma omp target map(from: {{ l_output_gpu | join(', ')  }} )
    {
-   o_gpu = {{name}}( {{ input_names |join(', ') }});
+   {{scalar_output}}_gpu = {{name}}( {{ l_argv_gpu | join(', ') }});
    }
 
-   if ( !almost_equal(o_host,o_gpu,1) ) {
-        std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
+   {% for output in l_output %}
+   if ( !almost_equal({{output.name}}_host,{{output.name}}_gpu,1) ) {
+        std::cerr << "Host: " << {{output.name}}_host << " GPU: " << {{output.name}}_gpu << std::endl;
         throw std::runtime_error( "{{name}} give incorect value when offloaded");
     }
+    {% endfor %}
 }
 
 int main()

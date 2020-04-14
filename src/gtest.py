@@ -21,18 +21,18 @@ class TypeSystem():
         self.T = T
     
     @property
-    def sezialized(self):
-        return '_'.join(str_.lower().translate(str.maketrans("<>", "  ")).split()) 
+    def serialized(self):
+        return '_'.join(self.T.lower().translate(str.maketrans("<>*", "   ")).split()) 
 
     @property
     def category(self):
-        if self.T in ('long int', 'int','long long int','unsigned'):
+        if self.no_pt in ('long int', 'int','long long int','unsigned','INTEGER'):
             return 'integer'
-        elif  self.T in ('REAL','DOUBLE PRECISION', 'float','double','long double'):
+        elif  self.no_pt in ('REAL','DOUBLE PRECISION', 'float','double','long double'):
             return 'float'
-        elif self.T in ('COMPLEX', 'DOUBLE COMPLEX', 'complex<float>', 'complex<double>',  'complex<long double>'):
+        elif self.no_pt in ('COMPLEX', 'DOUBLE COMPLEX', 'complex<float>', 'complex<double>',  'complex<long double>'):
             return 'complex'
-        elif self.T in ('bool',):
+        elif self.no_pt in ('bool',):
             return 'bool'
         raise NotImplementedError(f'Datatype ({self.T}) is not yet supported')
 
@@ -43,15 +43,26 @@ class TypeSystem():
         " float -> float"
         " COMPLEX -> REAL"
         if self.category != 'complex':
-            return self.T
+            return self.no_pt
         elif self.T == 'DOUBLE COMPLEX':
             return 'DOUBLE'
         elif self.T == 'COMPLEX':
             return 'REAL'
         elif self.category == 'complex': #Only the C++ type are left
-            return self.T.split('<')[1][:-1]
+            return self.no_pt.split('<')[1][:-1]
         else:
             raise NotImplementedError("Datatype ({self.T}) is not yet supported")
+
+    @property
+    def is_pointer(self):
+        return '*' in self.T
+
+    @property
+    def no_pt(self):
+        return self.T.replace('*','')
+
+    def __str__(self):
+        return self.T
 
 #  _        _    ___          
 # / \ |\/| |_)    | ._ _   _  
@@ -274,94 +285,95 @@ class ccomplex(object):
     def __str__(self):
         return f"{self.real}, {self.img}"
 
-class Math():
+class MathVar:
 
-    template = templateEnv.get_template(f"test_math.cpp.jinja2")
+    def __init__(self, t, attr, argv):
+        self.T = TypeSystem(t)
+        self.attr = attr
+        self.name = argv
+        self.val = None
+         
+class Math():
 
     c = {'bool': [True],
          'float': [0.42, 4.42],
+         'REAL': [0.42, 4.42],
          'long int': [ 1 ], 
          'unsigned': [ 1 ], 
-         'double': [ 0.42, 4.42] , 
-         'int': [ 1, 0, 2 ] , 
+         'double': [ 0.42, 4.42],
+         'DOUBLE PRECISION': [ 0.42, 4.42],
+         'int': [ 1, 0, 2 ] ,
+         'INTEGER': [1, 0, 2 ],
          'long long int': [ 1] , 
          'long double': [ 0.42, 4.42], 
-         'complex<float>' : [ ccomplex(0.42, 0.) ,  ccomplex(4.42, 0.) ],      
+         'complex<float>' : [ ccomplex(0.42, 0.) ,  ccomplex(4.42, 0.) ],
+         'COMPLEX':  [ ccomplex(0.42, 0.) ,  ccomplex(4.42, 0.) ],
          'complex<double>' : [ ccomplex(0.42, 0.) , ccomplex(4.42, 0.) ],
+         'DOUBLE COMPLEX':  [ ccomplex(0.42, 0.) , ccomplex(4.42, 0.) ],
          'complex<long double>' : [ ccomplex(0.42, 0.) , ccomplex(4.42, 0.) ],
          }
 
-    def __init__(self, name, d_argument, domain):
+    def __init__(self, name, T, attr, argv, domain, language="cpp"):
         self.name = name
-        self.input_name = d_argument['input_name']
-        self.input_types = d_argument['input_types']
-        self.output_type = d_argument['output_type']
-        
-        if "domain" in domain:
-            self.domain = domain['domain']
-            self.domain_complex = None
-        else:
-            self.domain = None 
-            self.domain_complex = domain['domain_complex']
+        if not argv:
+            argv = [f'{j}{i}'  for i,j in enumerate(attr) ]
+        self.l = [MathVar(t,a,b) for t,a,b in zip(T,attr, argv)]
 
-    @property
-    def output_type_T(self):
-        if self.output_type_category != "complex":
-            return self.output_type
+        self.l_input =  [t for t in self.l if 'in' == t.attr ]
+        self.l_output = [t for t in self.l if 'out' ==  t.attr ]
 
-        return self.output_type.split('<')[1][:-1];
-    
-    @property
-    def output_type_category(self):
-        if self.output_type in ('long int', 'int','long long int','unsigned'):
-            return 'integer'
-        elif  self.output_type in ('float','double','long double'):
-            return 'float'
-        elif self.output_type in ('complex<float>', 'complex<double>',  'complex<long double>'):
-            return 'complex'
-        else: 
-            return self.output_type
+        self.domain = domain
+        self.language = language
 
     @property
     def uuid(self):
-         a =str.maketrans("<>", "  ")
-
-         i = map(str.split, ( s.translate(a) for s in [self.name, self.output_type] + self.input_types ) )
-         from itertools import chain 
-         return '_'.join(chain.from_iterable(i))
-
+         return '_'.join([self.name] + [ t.T.serialized for t in self.l])
 
     @property
     def template_rendered(self):
 
         # We don't handle pointer
-        if any('*' in t for t in self.input_types + [self.output_type] ):
+        if any(t.T.is_pointer and t.attr == 'in' for t in self.l ):
             return None
 
-        l_input_values = ( Math.c[type_] for type_ in self.input_types )
-
-        
+        # Got all the possible value of the input
+        l_input_name = [ t.name for t in self.l_input ]
         from itertools import product
-        for input_values  in product(*l_input_values):
+        for l_input_value  in product(*[Math.c[t.T.T] for t in self.l_input]):
 
-            d = {name:value for name,value in zip(self.input_name, input_values) }
+            d = {name:value for name,value in zip(l_input_name, l_input_value) }
             from math import isinf, isnan
             d['isinf'] = isinf
             d['isnan'] = isnan
 
-            if self.output_type_category == 'complex':
-                if self.domain_complex == 'None' or self.domain_complex == '' or eval(self.domain_complex,d): break
-            else:
-                if self.domain  == 'None' or self.domain == '' or eval(self.domain,d): break
+            print (self.name)
+            if not self.domain or eval(self.domain,d): break
+       
+        for t,v in zip(self.l_input, l_input_value):
+            t.val = v 
+            
+        l_argv_host = []
+        l_argv_gpu = []
+        for t in self.l:
+                 if t.attr == 'in':
+                    l_argv_host.append(t.name)
+                    l_argv_gpu.append(t.name)
+                 elif t.attr == 'out' and not t.T.is_pointer:
+                    l_argv_host.append(f'&{t.name}_host')
+                    l_argv_gpu.append(f'&{t.name}_gpu')
 
-        return Math.template.render(name=self.name,
-                                    input_types = self.input_types,
-                                    input_names = self.input_name,
-                                    output_type = self.output_type,
-                                    input_values = input_values,
-                                    output_type_category = self.output_type_category,
-                                    output_type_T = self.output_type_T,
-                                    zip=zip)
+        l_output_gpu = [ f'{t.name}_gpu' for t in self.l_output]
+
+        
+        scalar_output = [ l.name for l in self.l_output if not l.T.is_pointer ].pop()
+
+        have_complex = any(t.T.category == 'complex' for t in self.l)
+        if self.language == "cpp":
+            template = templateEnv.get_template(f"test_math.cpp.jinja2")
+        elif self.language == "fortran":
+            template = templateEnv.get_template(f"test_math.f90.jinja2")
+        return template.render(name=self.name, l_input = self.l_input, l_output = self.l_output, l_argv_host = l_argv_host, l_argv_gpu=l_argv_gpu, l_output_gpu=l_output_gpu, 
+                               scalar_output= scalar_output, have_complex=have_complex)
 
 #  -                                                   
 # /   _   _|  _     _   _  ._   _  ._ _. _|_ o  _  ._  
@@ -369,13 +381,40 @@ class Math():
 #                   _|                                 
 #
 def gen_math(makefile):
+    from itertools import zip_longest
 
-    for hfolder, p in ( ("math","cmath_synopsis.json"), ("complex", "cmath_complex_synopsis.json") ):
+    for hfolder, p in ( ("math","cmath_synopsis_new.json"), ): #("complex", "cmath_complex_synopsis.json") ):
+      with open(os.path.join(dirname,"config",p), 'r') as f:
+          math_json = json.load(f)
+
+      for category, X in math_json.items():
+        folder = os.path.join("test_src","cpp",f"{category}")
+        os.makedirs(folder, exist_ok=True)
+
+        with open(os.path.join(folder,'Makefile'),'w') as f:
+            f.write(makefile)
+
+        for name, Y in X.items():
+
+           lattribute = Y['attribute']
+           lT = Y['type']
+           largv = Y['name'] if 'name' in Y else []
+           ldomain = Y['domain'] if 'domain' in Y else []
+            
+           for T, attr, argv, domain in zip_longest(lT,lattribute,largv, ldomain):
+                    m = Math(name,T, attr, argv, domain)
+                    if m.template_rendered:
+                        with open(os.path.join(folder,f'{m.uuid}.cpp'),'w') as f:
+                            f.write(m.template_rendered)
+
+def gen_math_fortran(makefile):
+
+    for hfolder, p in ( ("math","f90math_synopsis.json"), ):
       with open(os.path.join(dirname,"config",p), 'r') as f:
           math_json = json.load(f)
 
       for version, d_ in math_json.items():
-        folder = os.path.join("test_src","cpp",f"{hfolder}_{version}")
+        folder = os.path.join("test_src","fortran",f"{hfolder}_{version}")
         os.makedirs(folder, exist_ok=True)
 
         with open(os.path.join(folder,'Makefile'),'w') as f:
@@ -384,12 +423,12 @@ def gen_math(makefile):
         for name, ( l_set_argument, domain) in d_.items():
 
             for l_arguments in l_set_argument:
-                m = Math(name, l_arguments, domain)
+                m = Math(name, l_arguments, domain, "fortran")
                 if m.template_rendered:
-                    with open(os.path.join(folder,f'{m.uuid}.cpp'),'w') as f:
+                    with open(os.path.join(folder,f'{m.uuid}.f90'),'w') as f:
                         f.write(m.template_rendered)
 
-def gen_hp(makefile, omp_tree, ompv5):
+def gen_hp(makefile, omp_tree):
 
 
     for test,Constructor, l_T in( ("memcopy", Memcopy,     ['float', 'complex<float>', 'double','complex<double>']) ,
@@ -410,7 +449,7 @@ def gen_hp(makefile, omp_tree, ompv5):
                     with open(os.path.join(folder,f'{p.filename}.cpp'),'w') as f:
                         f.write(p.template_rendered)
 
-def gen_hp_fortran(makefile, omp_tree, ompv5):
+def gen_hp_fortran(makefile, omp_tree):
 
     for test,Constructor, l_T in( ("memcopy", Memcopy,     ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']) ,
                                   ("atomic" , Atomic,      ['REAL','DOUBLE PRECISION']) ,
@@ -433,21 +472,18 @@ def gen_hp_fortran(makefile, omp_tree, ompv5):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Generate tests.')
-    parser.add_argument('ompv5', metavar='literal_bool', type=str,
-                   help='Generate OpenMP v5 construct (ie loop)')
     args = parser.parse_args()
-
-    ompv5 = False if args.ompv5 == 'false' else True
 
     makefile_cpp = templateEnv.get_template(f"Makefile.cpp.jinja2").render()
 
     makefile_fortran = templateEnv.get_template(f"Makefile.f90.jinja2").render()
 
     gen_math(makefile_cpp)
+    #gen_math_fortran(makefile_fortran)
 
     with open(os.path.join(dirname,"config","omp_struct.json"), 'r') as f:
         omp_tree = json.load(f)
 
-    gen_hp(makefile_cpp, omp_tree, ompv5)
-    gen_hp_fortran(makefile_fortran, omp_tree, ompv5)
+    gen_hp(makefile_cpp, omp_tree)
+    gen_hp_fortran(makefile_fortran, omp_tree)
 
