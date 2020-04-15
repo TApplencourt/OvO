@@ -1,6 +1,6 @@
 
 
-program target_parallel_do
+program target_parallel_do.f90
 
 
     implicit none
@@ -43,4 +43,4 @@ counter = counter + 1.
         call exit(1)
     ENDIF
 
-end program target_parallel_do
+end program target_parallel_do.f90

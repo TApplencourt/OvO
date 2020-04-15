@@ -20,7 +20,7 @@ bool almost_equal(complex<float> x, complex<float> y, int ulp) {
 #pragma omp declare reduction(ComplexReduction: complex<float>:   omp_out += omp_in) 
 
 
-void test_target__teams__distribute(){
+void test_target__teams__distribute.cpp(){
 
  // Input and Outputs
  
@@ -63,11 +63,11 @@ counter += complex<float> { 1.0f };
 // Validation
 if ( !almost_equal(counter,complex<float> { L }, 10)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target__teams__distribute give incorect value when offloaded");
+    throw std::runtime_error( "target__teams__distribute.cpp give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target__teams__distribute();
+    test_target__teams__distribute.cpp();
 }

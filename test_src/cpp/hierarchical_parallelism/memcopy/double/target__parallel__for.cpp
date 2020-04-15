@@ -11,7 +11,7 @@ bool almost_equal(double x, double y, int ulp) {
 
 }
 
-void test_target__parallel__for(){
+void test_target__parallel__for.cpp(){
   // Input and Outputs
   
   const int L = 5;
@@ -48,7 +48,7 @@ pA[ i ] = pB [ i ];
 for (int i = 0 ;  i < size ; i++) {
     if ( !almost_equal(A[i],B[i],1) ) {
          std::cerr << "Expected: " << B[i] << " Got: " << A[i] << std::endl;
-        throw std::runtime_error( "target__parallel__for give incorect value when offloaded");
+        throw std::runtime_error( "target__parallel__for.cpp give incorect value when offloaded");
     }
 }
  
@@ -56,5 +56,5 @@ for (int i = 0 ;  i < size ; i++) {
 
 int main()
 {
-    test_target__parallel__for();
+    test_target__parallel__for.cpp();
 }

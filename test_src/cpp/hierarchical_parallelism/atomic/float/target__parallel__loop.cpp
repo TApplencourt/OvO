@@ -12,7 +12,7 @@ bool almost_equal(float x, float y, int ulp) {
 
 }
 
-void test_target__parallel__loop(){
+void test_target__parallel__loop.cpp(){
 
  // Input and Outputs
  
@@ -56,11 +56,11 @@ counter += float { 1 };
 // Validation
 if ( !almost_equal(counter,float { L }, 10)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target__parallel__loop give incorect value when offloaded");
+    throw std::runtime_error( "target__parallel__loop.cpp give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target__parallel__loop();
+    test_target__parallel__loop.cpp();
 }

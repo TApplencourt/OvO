@@ -1,6 +1,6 @@
 
 
-program target__teams_distribute_simd
+program target__teams_distribute_simd.f90
 
 
     
@@ -52,4 +52,4 @@ counter = counter +  1.
         call exit(1)
     ENDIF
 
-end program target__teams_distribute_simd
+end program target__teams_distribute_simd.f90

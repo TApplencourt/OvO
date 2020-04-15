@@ -1,6 +1,6 @@
 
 
-program target_teams_distribute__parallel__loop__simd
+program target_teams_distribute__parallel__loop__simd.f90
 
 
     
@@ -84,4 +84,4 @@ counter = counter +  1.
         call exit(1)
     ENDIF
 
-end program target_teams_distribute__parallel__loop__simd
+end program target_teams_distribute__parallel__loop__simd.f90

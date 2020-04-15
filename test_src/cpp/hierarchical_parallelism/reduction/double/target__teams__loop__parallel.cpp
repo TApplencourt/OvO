@@ -20,7 +20,7 @@ bool almost_equal(double x, double y, int ulp) {
 
 
 
-void test_target__teams__loop__parallel(){
+void test_target__teams__loop__parallel.cpp(){
 
  // Input and Outputs
  
@@ -72,11 +72,11 @@ counter += double { 1.0f/num_threads };
 // Validation
 if ( !almost_equal(counter,double { L }, 10)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target__teams__loop__parallel give incorect value when offloaded");
+    throw std::runtime_error( "target__teams__loop__parallel.cpp give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target__teams__loop__parallel();
+    test_target__teams__loop__parallel.cpp();
 }

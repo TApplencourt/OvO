@@ -11,7 +11,7 @@ bool almost_equal(float x, float y, int ulp) {
 
 }
 
-void test_target_teams_loop__parallel__loop(){
+void test_target_teams_loop__parallel__loop.cpp(){
   // Input and Outputs
   
   const int L = 5;
@@ -51,7 +51,7 @@ pA[ j + i*M ] = pB [ j + i*M ];
 for (int i = 0 ;  i < size ; i++) {
     if ( !almost_equal(A[i],B[i],1) ) {
          std::cerr << "Expected: " << B[i] << " Got: " << A[i] << std::endl;
-        throw std::runtime_error( "target_teams_loop__parallel__loop give incorect value when offloaded");
+        throw std::runtime_error( "target_teams_loop__parallel__loop.cpp give incorect value when offloaded");
     }
 }
  
@@ -59,5 +59,5 @@ for (int i = 0 ;  i < size ; i++) {
 
 int main()
 {
-    test_target_teams_loop__parallel__loop();
+    test_target_teams_loop__parallel__loop.cpp();
 }

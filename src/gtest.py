@@ -116,9 +116,9 @@ class Path():
         l_node_serialized = ("_".join(node.split()) for node in self.path)
         f = "__".join(l_node_serialized)
         if self.language == "cpp":
-            return f"{{f}}.cpp"
+            return f"{f}.cpp"
         else:
-            return f"{{f.replace('for','do')}}.f90"
+            return f"{f.replace('for','do')}.f90"
 
     @cached_property
     def flatten_path(self):

@@ -1,6 +1,6 @@
 
 
-program target
+program target.f90
 
 
     
@@ -36,4 +36,4 @@ counter = counter +  1.
         call exit(1)
     ENDIF
 
-end program target
+end program target.f90

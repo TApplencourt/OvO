@@ -1,4 +1,4 @@
-program target__teams_loop__simd
+program target__teams_loop__simd.f90
 
     
 
@@ -65,4 +65,4 @@ program target__teams_loop__simd
 
     DEALLOCATE(A,B)
 
-end program target__teams_loop__simd
+end program target__teams_loop__simd.f90

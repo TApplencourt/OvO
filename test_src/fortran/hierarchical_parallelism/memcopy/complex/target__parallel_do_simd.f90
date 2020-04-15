@@ -1,4 +1,4 @@
-program target__parallel_do_simd
+program target__parallel_do_simd.f90
 
     
 
@@ -58,4 +58,4 @@ program target__parallel_do_simd
 
     DEALLOCATE(A,B)
 
-end program target__parallel_do_simd
+end program target__parallel_do_simd.f90

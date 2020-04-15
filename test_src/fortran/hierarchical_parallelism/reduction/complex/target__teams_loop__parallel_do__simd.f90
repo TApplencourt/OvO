@@ -1,6 +1,6 @@
 
 
-program target__teams_loop__parallel_do__simd
+program target__teams_loop__parallel_do__simd.f90
 
 
     
@@ -84,4 +84,4 @@ counter = counter +  CMPLX(   1.  ,0)
         call exit(1)
     ENDIF
 
-end program target__teams_loop__parallel_do__simd
+end program target__teams_loop__parallel_do__simd.f90

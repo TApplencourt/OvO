@@ -22,7 +22,7 @@ END MODULE OMP_LIB_STUB
 #endif
 
 
-program target__parallel
+program target__parallel.f90
 
 #ifdef _OPENMP
     USE OMP_LIB
@@ -78,4 +78,4 @@ counter =  counter +  1./num_threads
         call exit(1)
     ENDIF
 
-end program target__parallel
+end program target__parallel.f90

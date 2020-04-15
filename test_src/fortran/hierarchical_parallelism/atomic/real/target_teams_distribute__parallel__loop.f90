@@ -1,6 +1,6 @@
 
 
-program target_teams_distribute__parallel__loop
+program target_teams_distribute__parallel__loop.f90
 
 
     implicit none
@@ -69,4 +69,4 @@ counter = counter + 1.
         call exit(1)
     ENDIF
 
-end program target_teams_distribute__parallel__loop
+end program target_teams_distribute__parallel__loop.f90

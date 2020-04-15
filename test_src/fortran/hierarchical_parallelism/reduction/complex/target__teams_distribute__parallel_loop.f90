@@ -1,6 +1,6 @@
 
 
-program target__teams_distribute__parallel_loop
+program target__teams_distribute__parallel_loop.f90
 
 
     
@@ -68,4 +68,4 @@ counter = counter +  CMPLX(   1.  ,0)
         call exit(1)
     ENDIF
 
-end program target__teams_distribute__parallel_loop
+end program target__teams_distribute__parallel_loop.f90

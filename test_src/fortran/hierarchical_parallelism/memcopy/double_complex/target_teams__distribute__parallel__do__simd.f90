@@ -1,4 +1,4 @@
-program target_teams__distribute__parallel__do__simd
+program target_teams__distribute__parallel__do__simd.f90
 
     
 
@@ -91,4 +91,4 @@ program target_teams__distribute__parallel__do__simd
 
     DEALLOCATE(A,B)
 
-end program target_teams__distribute__parallel__do__simd
+end program target_teams__distribute__parallel__do__simd.f90

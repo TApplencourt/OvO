@@ -1,6 +1,6 @@
 
 
-program target__parallel_do_simd
+program target__parallel_do_simd.f90
 
 
     
@@ -52,4 +52,4 @@ counter = counter +  1.
         call exit(1)
     ENDIF
 
-end program target__parallel_do_simd
+end program target__parallel_do_simd.f90

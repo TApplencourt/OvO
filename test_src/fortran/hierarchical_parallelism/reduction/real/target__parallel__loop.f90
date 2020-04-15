@@ -1,6 +1,6 @@
 
 
-program target__parallel__loop
+program target__parallel__loop.f90
 
 
     
@@ -62,4 +62,4 @@ counter = counter +  1.
         call exit(1)
     ENDIF
 
-end program target__parallel__loop
+end program target__parallel__loop.f90

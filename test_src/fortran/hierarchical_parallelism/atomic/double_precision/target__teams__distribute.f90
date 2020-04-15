@@ -1,6 +1,6 @@
 
 
-program target__teams__distribute
+program target__teams__distribute.f90
 
 
     implicit none
@@ -63,4 +63,4 @@ counter = counter + 1.
         call exit(1)
     ENDIF
 
-end program target__teams__distribute
+end program target__teams__distribute.f90

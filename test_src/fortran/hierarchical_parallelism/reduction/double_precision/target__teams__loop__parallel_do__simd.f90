@@ -1,6 +1,6 @@
 
 
-program target__teams__loop__parallel_do__simd
+program target__teams__loop__parallel_do__simd.f90
 
 
     
@@ -94,4 +94,4 @@ counter = counter +  1.
         call exit(1)
     ENDIF
 
-end program target__teams__loop__parallel_do__simd
+end program target__teams__loop__parallel_do__simd.f90

@@ -22,7 +22,7 @@ END MODULE OMP_LIB_STUB
 #endif
 
 
-program target__teams
+program target__teams.f90
 
 #ifdef _OPENMP
     USE OMP_LIB
@@ -78,4 +78,4 @@ counter = counter +  CMPLX(   1./num_teams   ,0)
         call exit(1)
     ENDIF
 
-end program target__teams
+end program target__teams.f90

@@ -1,4 +1,4 @@
-program target_teams__distribute
+program target_teams__distribute.f90
 
     
 
@@ -52,4 +52,4 @@ program target_teams__distribute
 
     DEALLOCATE(A,B)
 
-end program target_teams__distribute
+end program target_teams__distribute.f90

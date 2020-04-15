@@ -1,6 +1,6 @@
 
 
-program target_simd
+program target_simd.f90
 
 
     
@@ -42,4 +42,4 @@ counter = counter +  1.
         call exit(1)
     ENDIF
 
-end program target_simd
+end program target_simd.f90

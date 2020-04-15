@@ -1,4 +1,4 @@
-program target_simd
+program target_simd.f90
 
     
 
@@ -45,4 +45,4 @@ program target_simd
 
     DEALLOCATE(A,B)
 
-end program target_simd
+end program target_simd.f90

@@ -22,7 +22,7 @@ END MODULE OMP_LIB_STUB
 #endif
 
 
-program target__teams__parallel_loop
+program target__teams__parallel_loop.f90
 
 #ifdef _OPENMP
     USE OMP_LIB
@@ -94,4 +94,4 @@ counter = counter +  1./num_teams
         call exit(1)
     ENDIF
 
-end program target__teams__parallel_loop
+end program target__teams__parallel_loop.f90

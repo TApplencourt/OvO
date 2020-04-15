@@ -1,4 +1,4 @@
-program target_teams__distribute_simd
+program target_teams__distribute_simd.f90
 
     
 
@@ -52,4 +52,4 @@ program target_teams__distribute_simd
 
     DEALLOCATE(A,B)
 
-end program target_teams__distribute_simd
+end program target_teams__distribute_simd.f90

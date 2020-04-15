@@ -1,6 +1,6 @@
 
 
-program target_teams_distribute_parallel_do_simd
+program target_teams_distribute_parallel_do_simd.f90
 
 
     
@@ -42,4 +42,4 @@ counter = counter +  CMPLX(   1.  ,0)
         call exit(1)
     ENDIF
 
-end program target_teams_distribute_parallel_do_simd
+end program target_teams_distribute_parallel_do_simd.f90

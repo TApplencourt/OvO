@@ -1,4 +1,4 @@
-program target__teams_loop__parallel__loop
+program target__teams_loop__parallel__loop.f90
 
     
 
@@ -78,4 +78,4 @@ program target__teams_loop__parallel__loop
 
     DEALLOCATE(A,B)
 
-end program target__teams_loop__parallel__loop
+end program target__teams_loop__parallel__loop.f90

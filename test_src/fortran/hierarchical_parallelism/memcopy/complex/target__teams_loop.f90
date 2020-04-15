@@ -1,4 +1,4 @@
-program target__teams_loop
+program target__teams_loop.f90
 
     
 
@@ -58,4 +58,4 @@ program target__teams_loop
 
     DEALLOCATE(A,B)
 
-end program target__teams_loop
+end program target__teams_loop.f90
