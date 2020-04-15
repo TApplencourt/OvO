@@ -30,11 +30,11 @@ void test_{{name}}(){
    {{output.T.no_pt}} {{output.name_device}};
    {% endfor %}
 
-   {{scalar_output.name_host}} = {{name}}( {{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_host') }});
-
+   {%if scalar_output %} {{scalar_output.name_host}} = {% endif %} {{name}}( {{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_host') }});
+   
    #pragma omp target map(from: {{ l_argv | selectattr('is_output') | join(', ', attribute='name_device')  }} )
    {
-   {{scalar_output.name_device}} = {{name}}( {{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
+    {%if scalar_output %} {{scalar_output.name_device}} = {% endif %} {{name}}( {{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
    }
 
    {% for output in l_argv | selectattr('is_output')  %}
