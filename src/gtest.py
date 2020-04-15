@@ -108,17 +108,25 @@ class Path():
         self.language = language
 
     @cached_property
+    def name(self):
+        l_node_serialized = ("_".join(node.split()) for node in self.path)
+        
+        n =  "__".join(l_node_serialized)
+        if self.language == "cpp":
+            return n
+        elif self.language == "fortran":
+            return n.replace('for','do')
+
+    @cached_property
     def filename(self):
         # Some node in the path have space in their name. We will replace them with
         # one underscore. Level will be replaced with two.
         # The path will always containt 'for'. If we are in fortran, for sanity, we shoud replace then with 'do'.
         
-        l_node_serialized = ("_".join(node.split()) for node in self.path)
-        f = "__".join(l_node_serialized)
         if self.language == "cpp":
-            return f"{f}.cpp"
+            return f"{self.name}.cpp"
         else:
-            return f"{f.replace('for','do')}.f90"
+            return f"{self.name}.f90"
 
     @cached_property
     def flatten_path(self):
@@ -215,7 +223,7 @@ class Atomic(AtomicReduction):
         if self.has("simd"):
             return 
 
-        return template.render(name=self.filename,
+        return template.render(name=self.name,
                                       fat_path=self.fat_path,
                                       loops=self.loops,
                                       balenced=self.balenced,
@@ -235,7 +243,7 @@ class Reduction(AtomicReduction):
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_reduction.f90.jinja2")
 
-        return template.render(name=self.filename,
+        return template.render(name=self.name,
                                         fat_path=self.fat_path,
                                         loops=self.loops,
                                         balenced=self.balenced,
@@ -278,7 +286,7 @@ class Memcopy(Path):
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_memcopy.f90.jinja2")
 
-        return template.render(name=self.filename,
+        return template.render(name=self.name,
                                fat_path=self.fat_path,
                                loops=self.loops,
                                index=self.index,
@@ -397,12 +405,12 @@ class Math():
 
     @cached_property
     def filename(self):
-         f = '_'.join([self.name] + [ t.T.serialized for t in self.l])
+         n = '_'.join([self.name] + [ t.T.serialized for t in self.l])
          if self.language == "cpp":
-            return f'{f}.cpp'
+            return f'{n}.cpp'
          elif self.language == "fortran":
-            return f'{f}.f90'
-    
+            return f'{n}.f90'
+ 
     @cached_property
     def scalar_output(self):
         return [ l for l in self.l if l.is_output and not l.T.is_pointer ].pop()
