@@ -24,11 +24,11 @@ void test_lgammal(){
    long double o_device;
    
 
-   o_host = lgammal( x);
-
+    o_host =  lgammal( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = lgammal( x);
+     o_device =  lgammal( x);
    }
 
    

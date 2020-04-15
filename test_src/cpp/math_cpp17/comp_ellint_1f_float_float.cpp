@@ -24,11 +24,11 @@ void test_comp_ellint_1f(){
    float out1_device;
    
 
-   out1_host = comp_ellint_1f( in0);
-
+    out1_host =  comp_ellint_1f( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = comp_ellint_1f( in0);
+     out1_device =  comp_ellint_1f( in0);
    }
 
    

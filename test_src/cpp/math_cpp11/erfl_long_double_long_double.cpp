@@ -24,11 +24,11 @@ void test_erfl(){
    long double out1_device;
    
 
-   out1_host = erfl( in0);
-
+    out1_host =  erfl( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = erfl( in0);
+     out1_device =  erfl( in0);
    }
 
    

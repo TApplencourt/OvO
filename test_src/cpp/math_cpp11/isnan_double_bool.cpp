@@ -24,11 +24,11 @@ void test_isnan(){
    bool out1_device;
    
 
-   out1_host = isnan( in0);
-
+    out1_host =  isnan( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = isnan( in0);
+     out1_device =  isnan( in0);
    }
 
    

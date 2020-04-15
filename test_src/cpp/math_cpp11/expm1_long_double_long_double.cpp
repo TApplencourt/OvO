@@ -24,11 +24,11 @@ void test_expm1(){
    long double out1_device;
    
 
-   out1_host = expm1( in0);
-
+    out1_host =  expm1( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = expm1( in0);
+     out1_device =  expm1( in0);
    }
 
    

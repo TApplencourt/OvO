@@ -26,11 +26,11 @@ void test_scalbln(){
    long double out2_device;
    
 
-   out2_host = scalbln( in0, in1);
-
+    out2_host =  scalbln( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = scalbln( in0, in1);
+     out2_device =  scalbln( in0, in1);
    }
 
    

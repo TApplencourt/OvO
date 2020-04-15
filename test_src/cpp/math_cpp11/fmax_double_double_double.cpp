@@ -26,11 +26,11 @@ void test_fmax(){
    double out2_device;
    
 
-   out2_host = fmax( in0, in1);
-
+    out2_host =  fmax( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = fmax( in0, in1);
+     out2_device =  fmax( in0, in1);
    }
 
    

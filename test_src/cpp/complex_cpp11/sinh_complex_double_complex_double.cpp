@@ -26,11 +26,11 @@ void test_sinh(){
    complex<double> out1_device;
    
 
-   out1_host = sinh( in0);
-
+    out1_host =  sinh( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = sinh( in0);
+     out1_device =  sinh( in0);
    }
 
    

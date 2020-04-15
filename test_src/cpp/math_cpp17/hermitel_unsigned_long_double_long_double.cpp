@@ -26,11 +26,11 @@ void test_hermitel(){
    long double out2_device;
    
 
-   out2_host = hermitel( in0, in1);
-
+    out2_host =  hermitel( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = hermitel( in0, in1);
+     out2_device =  hermitel( in0, in1);
    }
 
    

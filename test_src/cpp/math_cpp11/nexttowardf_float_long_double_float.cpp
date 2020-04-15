@@ -26,11 +26,11 @@ void test_nexttowardf(){
    float out2_device;
    
 
-   out2_host = nexttowardf( in0, in1);
-
+    out2_host =  nexttowardf( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = nexttowardf( in0, in1);
+     out2_device =  nexttowardf( in0, in1);
    }
 
    

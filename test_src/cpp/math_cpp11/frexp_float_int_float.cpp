@@ -33,11 +33,11 @@ void test_frexp(){
    float out2_device;
    
 
-   out2_host = frexp( in0, &out1_host);
-
+    out2_host =  frexp( in0, &out1_host);
+   
    #pragma omp target map(from: out1_device, out2_device )
    {
-   out2_device = frexp( in0, &out1_device);
+     out2_device =  frexp( in0, &out1_device);
    }
 
    

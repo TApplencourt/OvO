@@ -26,11 +26,11 @@ void test_isless(){
    bool out2_device;
    
 
-   out2_host = isless( in0, in1);
-
+    out2_host =  isless( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = isless( in0, in1);
+     out2_device =  isless( in0, in1);
    }
 
    

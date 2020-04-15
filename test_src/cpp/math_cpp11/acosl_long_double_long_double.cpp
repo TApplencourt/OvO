@@ -24,11 +24,11 @@ void test_acosl(){
    long double o_device;
    
 
-   o_host = acosl( x);
-
+    o_host =  acosl( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = acosl( x);
+     o_device =  acosl( x);
    }
 
    

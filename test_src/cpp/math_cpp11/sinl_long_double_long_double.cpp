@@ -24,11 +24,11 @@ void test_sinl(){
    long double out1_device;
    
 
-   out1_host = sinl( in0);
-
+    out1_host =  sinl( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = sinl( in0);
+     out1_device =  sinl( in0);
    }
 
    

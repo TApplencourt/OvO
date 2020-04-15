@@ -24,11 +24,11 @@ void test_erfc(){
    float out1_device;
    
 
-   out1_host = erfc( in0);
-
+    out1_host =  erfc( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = erfc( in0);
+     out1_device =  erfc( in0);
    }
 
    

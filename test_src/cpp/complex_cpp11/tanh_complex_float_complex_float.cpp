@@ -26,11 +26,11 @@ void test_tanh(){
    complex<float> out1_device;
    
 
-   out1_host = tanh( in0);
-
+    out1_host =  tanh( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = tanh( in0);
+     out1_device =  tanh( in0);
    }
 
    

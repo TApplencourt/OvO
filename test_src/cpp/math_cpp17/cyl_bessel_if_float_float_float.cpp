@@ -26,11 +26,11 @@ void test_cyl_bessel_if(){
    float out2_device;
    
 
-   out2_host = cyl_bessel_if( in0, in1);
-
+    out2_host =  cyl_bessel_if( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = cyl_bessel_if( in0, in1);
+     out2_device =  cyl_bessel_if( in0, in1);
    }
 
    

@@ -24,11 +24,11 @@ void test_atanhl(){
    long double out1_device;
    
 
-   out1_host = atanhl( in0);
-
+    out1_host =  atanhl( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = atanhl( in0);
+     out1_device =  atanhl( in0);
    }
 
    

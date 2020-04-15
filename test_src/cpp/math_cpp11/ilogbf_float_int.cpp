@@ -24,11 +24,11 @@ void test_ilogbf(){
    int o_device;
    
 
-   o_host = ilogbf( x);
-
+    o_host =  ilogbf( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = ilogbf( x);
+     o_device =  ilogbf( x);
    }
 
    

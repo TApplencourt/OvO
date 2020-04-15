@@ -24,11 +24,11 @@ void test_truncf(){
    float out1_device;
    
 
-   out1_host = truncf( in0);
-
+    out1_host =  truncf( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = truncf( in0);
+     out1_device =  truncf( in0);
    }
 
    

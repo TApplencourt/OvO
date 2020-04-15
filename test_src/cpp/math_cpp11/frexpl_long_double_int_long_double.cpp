@@ -33,11 +33,11 @@ void test_frexpl(){
    long double out2_device;
    
 
-   out2_host = frexpl( in0, &out1_host);
-
+    out2_host =  frexpl( in0, &out1_host);
+   
    #pragma omp target map(from: out1_device, out2_device )
    {
-   out2_device = frexpl( in0, &out1_device);
+     out2_device =  frexpl( in0, &out1_device);
    }
 
    

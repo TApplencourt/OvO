@@ -24,11 +24,11 @@ void test_asinh(){
    long double o_device;
    
 
-   o_host = asinh( x);
-
+    o_host =  asinh( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = asinh( x);
+     o_device =  asinh( x);
    }
 
    

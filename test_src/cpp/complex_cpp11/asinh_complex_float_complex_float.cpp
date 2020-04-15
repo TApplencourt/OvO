@@ -26,11 +26,11 @@ void test_asinh(){
    complex<float> out1_device;
    
 
-   out1_host = asinh( in0);
-
+    out1_host =  asinh( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = asinh( in0);
+     out1_device =  asinh( in0);
    }
 
    

@@ -24,11 +24,11 @@ void test_abs(){
    long double out1_device;
    
 
-   out1_host = abs( in0);
-
+    out1_host =  abs( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = abs( in0);
+     out1_device =  abs( in0);
    }
 
    

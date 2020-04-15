@@ -24,11 +24,11 @@ void test_fabsl(){
    long double out1_device;
    
 
-   out1_host = fabsl( in0);
-
+    out1_host =  fabsl( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = fabsl( in0);
+     out1_device =  fabsl( in0);
    }
 
    

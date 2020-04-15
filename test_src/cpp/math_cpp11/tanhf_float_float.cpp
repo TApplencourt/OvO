@@ -24,11 +24,11 @@ void test_tanhf(){
    float out1_device;
    
 
-   out1_host = tanhf( in0);
-
+    out1_host =  tanhf( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = tanhf( in0);
+     out1_device =  tanhf( in0);
    }
 
    

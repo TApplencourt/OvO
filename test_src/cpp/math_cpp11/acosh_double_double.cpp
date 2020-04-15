@@ -24,11 +24,11 @@ void test_acosh(){
    double o_device;
    
 
-   o_host = acosh( x);
-
+    o_host =  acosh( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = acosh( x);
+     o_device =  acosh( x);
    }
 
    

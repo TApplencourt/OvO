@@ -28,11 +28,11 @@ void test_sph_legendref(){
    float out3_device;
    
 
-   out3_host = sph_legendref( in0, in1, in2);
-
+    out3_host =  sph_legendref( in0, in1, in2);
+   
    #pragma omp target map(from: out3_device )
    {
-   out3_device = sph_legendref( in0, in1, in2);
+     out3_device =  sph_legendref( in0, in1, in2);
    }
 
    

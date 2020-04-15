@@ -24,11 +24,11 @@ void test_isnormal(){
    bool out1_device;
    
 
-   out1_host = isnormal( in0);
-
+    out1_host =  isnormal( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = isnormal( in0);
+     out1_device =  isnormal( in0);
    }
 
    

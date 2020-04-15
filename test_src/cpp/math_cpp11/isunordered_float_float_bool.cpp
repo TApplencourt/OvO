@@ -26,11 +26,11 @@ void test_isunordered(){
    bool out2_device;
    
 
-   out2_host = isunordered( in0, in1);
-
+    out2_host =  isunordered( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = isunordered( in0, in1);
+     out2_device =  isunordered( in0, in1);
    }
 
    

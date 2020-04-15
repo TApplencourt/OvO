@@ -24,11 +24,11 @@ void test_riemann_zeta(){
    double out1_device;
    
 
-   out1_host = riemann_zeta( in0);
-
+    out1_host =  riemann_zeta( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = riemann_zeta( in0);
+     out1_device =  riemann_zeta( in0);
    }
 
    

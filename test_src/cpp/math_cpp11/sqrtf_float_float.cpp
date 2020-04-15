@@ -24,11 +24,11 @@ void test_sqrtf(){
    float o_device;
    
 
-   o_host = sqrtf( x);
-
+    o_host =  sqrtf( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = sqrtf( x);
+     o_device =  sqrtf( x);
    }
 
    

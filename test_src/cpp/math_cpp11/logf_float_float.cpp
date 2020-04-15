@@ -24,11 +24,11 @@ void test_logf(){
    float o_device;
    
 
-   o_host = logf( x);
-
+    o_host =  logf( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = logf( x);
+     o_device =  logf( x);
    }
 
    

@@ -24,11 +24,11 @@ void test_nearbyintf(){
    float out1_device;
    
 
-   out1_host = nearbyintf( in0);
-
+    out1_host =  nearbyintf( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = nearbyintf( in0);
+     out1_device =  nearbyintf( in0);
    }
 
    

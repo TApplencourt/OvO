@@ -24,11 +24,11 @@ void test_exp2f(){
    float out1_device;
    
 
-   out1_host = exp2f( in0);
-
+    out1_host =  exp2f( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = exp2f( in0);
+     out1_device =  exp2f( in0);
    }
 
    

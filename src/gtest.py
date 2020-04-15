@@ -413,7 +413,12 @@ class Math():
  
     @cached_property
     def scalar_output(self):
-        return [ l for l in self.l if l.is_output and not l.T.is_pointer ].pop()
+        os = [ l for l in self.l if l.is_output and not l.T.is_pointer ]
+        if os:
+            assert (len(os) == 1)
+            return [ l for l in self.l if l.is_output and not l.T.is_pointer ].pop()
+        else:
+            return None
 
     @cached_property
     def have_complex(self):

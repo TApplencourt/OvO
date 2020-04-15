@@ -28,11 +28,11 @@ void test_hypot(){
    long double out3_device;
    
 
-   out3_host = hypot( in0, in1, in2);
-
+    out3_host =  hypot( in0, in1, in2);
+   
    #pragma omp target map(from: out3_device )
    {
-   out3_device = hypot( in0, in1, in2);
+     out3_device =  hypot( in0, in1, in2);
    }
 
    

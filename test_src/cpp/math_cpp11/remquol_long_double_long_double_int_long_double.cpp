@@ -35,11 +35,11 @@ void test_remquol(){
    long double out3_device;
    
 
-   out3_host = remquol( in0, in1, &out2_host);
-
+    out3_host =  remquol( in0, in1, &out2_host);
+   
    #pragma omp target map(from: out2_device, out3_device )
    {
-   out3_device = remquol( in0, in1, &out2_device);
+     out3_device =  remquol( in0, in1, &out2_device);
    }
 
    

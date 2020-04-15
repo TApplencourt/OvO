@@ -26,11 +26,11 @@ void test_hermitef(){
    float out2_device;
    
 
-   out2_host = hermitef( in0, in1);
-
+    out2_host =  hermitef( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = hermitef( in0, in1);
+     out2_device =  hermitef( in0, in1);
    }
 
    

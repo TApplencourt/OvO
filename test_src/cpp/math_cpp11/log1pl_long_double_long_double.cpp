@@ -24,11 +24,11 @@ void test_log1pl(){
    long double o_device;
    
 
-   o_host = log1pl( x);
-
+    o_host =  log1pl( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = log1pl( x);
+     o_device =  log1pl( x);
    }
 
    

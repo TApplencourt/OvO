@@ -26,11 +26,11 @@ void test_cos(){
    complex<float> out1_device;
    
 
-   out1_host = cos( in0);
-
+    out1_host =  cos( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = cos( in0);
+     out1_device =  cos( in0);
    }
 
    

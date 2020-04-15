@@ -24,11 +24,11 @@ void test_isfinite(){
    bool out1_device;
    
 
-   out1_host = isfinite( in0);
-
+    out1_host =  isfinite( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = isfinite( in0);
+     out1_device =  isfinite( in0);
    }
 
    

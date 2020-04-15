@@ -26,11 +26,11 @@ void test_powf(){
    float o_device;
    
 
-   o_host = powf( x, y);
-
+    o_host =  powf( x, y);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = powf( x, y);
+     o_device =  powf( x, y);
    }
 
    

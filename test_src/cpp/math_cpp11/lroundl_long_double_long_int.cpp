@@ -24,11 +24,11 @@ void test_lroundl(){
    long int out1_device;
    
 
-   out1_host = lroundl( in0);
-
+    out1_host =  lroundl( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = lroundl( in0);
+     out1_device =  lroundl( in0);
    }
 
    

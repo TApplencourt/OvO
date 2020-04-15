@@ -24,11 +24,11 @@ void test_acoshf(){
    float o_device;
    
 
-   o_host = acoshf( x);
-
+    o_host =  acoshf( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = acoshf( x);
+     o_device =  acoshf( x);
    }
 
    

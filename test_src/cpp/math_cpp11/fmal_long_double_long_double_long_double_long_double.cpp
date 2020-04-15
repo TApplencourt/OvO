@@ -28,11 +28,11 @@ void test_fmal(){
    long double out3_device;
    
 
-   out3_host = fmal( in0, in1, in2);
-
+    out3_host =  fmal( in0, in1, in2);
+   
    #pragma omp target map(from: out3_device )
    {
-   out3_device = fmal( in0, in1, in2);
+     out3_device =  fmal( in0, in1, in2);
    }
 
    

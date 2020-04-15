@@ -24,11 +24,11 @@ void test_expint(){
    double out1_device;
    
 
-   out1_host = expint( in0);
-
+    out1_host =  expint( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = expint( in0);
+     out1_device =  expint( in0);
    }
 
    

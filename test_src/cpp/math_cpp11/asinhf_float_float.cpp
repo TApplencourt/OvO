@@ -24,11 +24,11 @@ void test_asinhf(){
    float o_device;
    
 
-   o_host = asinhf( x);
-
+    o_host =  asinhf( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = asinhf( x);
+     o_device =  asinhf( x);
    }
 
    

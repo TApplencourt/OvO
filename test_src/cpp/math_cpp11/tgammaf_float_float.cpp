@@ -24,11 +24,11 @@ void test_tgammaf(){
    float o_device;
    
 
-   o_host = tgammaf( x);
-
+    o_host =  tgammaf( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = tgammaf( x);
+     o_device =  tgammaf( x);
    }
 
    

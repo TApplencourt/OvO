@@ -26,11 +26,11 @@ void test_hypotf(){
    float out2_device;
    
 
-   out2_host = hypotf( in0, in1);
-
+    out2_host =  hypotf( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = hypotf( in0, in1);
+     out2_device =  hypotf( in0, in1);
    }
 
    

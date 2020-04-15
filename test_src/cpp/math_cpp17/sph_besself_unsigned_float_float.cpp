@@ -26,11 +26,11 @@ void test_sph_besself(){
    float out2_device;
    
 
-   out2_host = sph_besself( in0, in1);
-
+    out2_host =  sph_besself( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = sph_besself( in0, in1);
+     out2_device =  sph_besself( in0, in1);
    }
 
    

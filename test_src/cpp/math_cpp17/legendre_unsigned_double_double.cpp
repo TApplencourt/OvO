@@ -26,11 +26,11 @@ void test_legendre(){
    double out2_device;
    
 
-   out2_host = legendre( in0, in1);
-
+    out2_host =  legendre( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = legendre( in0, in1);
+     out2_device =  legendre( in0, in1);
    }
 
    

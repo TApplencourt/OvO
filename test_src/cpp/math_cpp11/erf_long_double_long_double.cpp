@@ -24,11 +24,11 @@ void test_erf(){
    long double out1_device;
    
 
-   out1_host = erf( in0);
-
+    out1_host =  erf( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = erf( in0);
+     out1_device =  erf( in0);
    }
 
    

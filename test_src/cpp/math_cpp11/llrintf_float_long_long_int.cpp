@@ -24,11 +24,11 @@ void test_llrintf(){
    long long int out1_device;
    
 
-   out1_host = llrintf( in0);
-
+    out1_host =  llrintf( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = llrintf( in0);
+     out1_device =  llrintf( in0);
    }
 
    

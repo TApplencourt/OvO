@@ -26,11 +26,11 @@ void test_atan(){
    complex<float> out1_device;
    
 
-   out1_host = atan( in0);
-
+    out1_host =  atan( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = atan( in0);
+     out1_device =  atan( in0);
    }
 
    

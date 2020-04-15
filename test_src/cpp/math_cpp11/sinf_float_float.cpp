@@ -24,11 +24,11 @@ void test_sinf(){
    float out1_device;
    
 
-   out1_host = sinf( in0);
-
+    out1_host =  sinf( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = sinf( in0);
+     out1_device =  sinf( in0);
    }
 
    

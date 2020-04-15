@@ -26,11 +26,11 @@ void test_laguerref(){
    float out2_device;
    
 
-   out2_host = laguerref( in0, in1);
-
+    out2_host =  laguerref( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = laguerref( in0, in1);
+     out2_device =  laguerref( in0, in1);
    }
 
    

@@ -24,11 +24,11 @@ void test_cbrtf(){
    float out1_device;
    
 
-   out1_host = cbrtf( in0);
-
+    out1_host =  cbrtf( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = cbrtf( in0);
+     out1_device =  cbrtf( in0);
    }
 
    

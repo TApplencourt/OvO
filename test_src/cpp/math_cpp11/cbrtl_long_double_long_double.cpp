@@ -24,11 +24,11 @@ void test_cbrtl(){
    long double out1_device;
    
 
-   out1_host = cbrtl( in0);
-
+    out1_host =  cbrtl( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = cbrtl( in0);
+     out1_device =  cbrtl( in0);
    }
 
    

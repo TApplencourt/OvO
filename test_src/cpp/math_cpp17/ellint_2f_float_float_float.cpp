@@ -26,11 +26,11 @@ void test_ellint_2f(){
    float out2_device;
    
 
-   out2_host = ellint_2f( in0, in1);
-
+    out2_host =  ellint_2f( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = ellint_2f( in0, in1);
+     out2_device =  ellint_2f( in0, in1);
    }
 
    

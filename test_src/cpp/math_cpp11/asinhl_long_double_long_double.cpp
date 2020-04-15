@@ -24,11 +24,11 @@ void test_asinhl(){
    long double o_device;
    
 
-   o_host = asinhl( x);
-
+    o_host =  asinhl( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = asinhl( x);
+     o_device =  asinhl( x);
    }
 
    

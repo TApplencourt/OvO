@@ -24,11 +24,11 @@ void test_cosf(){
    float out1_device;
    
 
-   out1_host = cosf( in0);
-
+    out1_host =  cosf( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = cosf( in0);
+     out1_device =  cosf( in0);
    }
 
    

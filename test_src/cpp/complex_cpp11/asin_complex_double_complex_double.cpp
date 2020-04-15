@@ -26,11 +26,11 @@ void test_asin(){
    complex<double> o_device;
    
 
-   o_host = asin( x);
-
+    o_host =  asin( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = asin( x);
+     o_device =  asin( x);
    }
 
    

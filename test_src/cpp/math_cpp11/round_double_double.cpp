@@ -24,11 +24,11 @@ void test_round(){
    double out1_device;
    
 
-   out1_host = round( in0);
-
+    out1_host =  round( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = round( in0);
+     out1_device =  round( in0);
    }
 
    

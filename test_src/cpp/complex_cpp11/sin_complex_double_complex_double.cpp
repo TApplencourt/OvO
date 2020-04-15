@@ -26,11 +26,11 @@ void test_sin(){
    complex<double> out1_device;
    
 
-   out1_host = sin( in0);
-
+    out1_host =  sin( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = sin( in0);
+     out1_device =  sin( in0);
    }
 
    

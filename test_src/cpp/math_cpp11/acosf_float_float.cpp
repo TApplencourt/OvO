@@ -24,11 +24,11 @@ void test_acosf(){
    float o_device;
    
 
-   o_host = acosf( x);
-
+    o_host =  acosf( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = acosf( x);
+     o_device =  acosf( x);
    }
 
    

@@ -26,11 +26,11 @@ void test_fmod(){
    double o_device;
    
 
-   o_host = fmod( x, y);
-
+    o_host =  fmod( x, y);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = fmod( x, y);
+     o_device =  fmod( x, y);
    }
 
    

@@ -24,11 +24,11 @@ void test_riemann_zetaf(){
    float out1_device;
    
 
-   out1_host = riemann_zetaf( in0);
-
+    out1_host =  riemann_zetaf( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = riemann_zetaf( in0);
+     out1_device =  riemann_zetaf( in0);
    }
 
    

@@ -24,11 +24,11 @@ void test_coshl(){
    long double out1_device;
    
 
-   out1_host = coshl( in0);
-
+    out1_host =  coshl( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = coshl( in0);
+     out1_device =  coshl( in0);
    }
 
    

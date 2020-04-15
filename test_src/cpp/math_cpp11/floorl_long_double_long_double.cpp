@@ -24,11 +24,11 @@ void test_floorl(){
    long double out1_device;
    
 
-   out1_host = floorl( in0);
-
+    out1_host =  floorl( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = floorl( in0);
+     out1_device =  floorl( in0);
    }
 
    

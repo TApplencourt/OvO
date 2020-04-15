@@ -27,11 +27,11 @@ void test_modf(){
    double out2_device;
    
 
-   out2_host = modf( in0, &out1_host);
-
+    out2_host =  modf( in0, &out1_host);
+   
    #pragma omp target map(from: out1_device, out2_device )
    {
-   out2_device = modf( in0, &out1_device);
+     out2_device =  modf( in0, &out1_device);
    }
 
    

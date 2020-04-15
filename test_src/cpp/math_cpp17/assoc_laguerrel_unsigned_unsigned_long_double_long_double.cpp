@@ -28,11 +28,11 @@ void test_assoc_laguerrel(){
    long double out3_device;
    
 
-   out3_host = assoc_laguerrel( in0, in1, in2);
-
+    out3_host =  assoc_laguerrel( in0, in1, in2);
+   
    #pragma omp target map(from: out3_device )
    {
-   out3_device = assoc_laguerrel( in0, in1, in2);
+     out3_device =  assoc_laguerrel( in0, in1, in2);
    }
 
    

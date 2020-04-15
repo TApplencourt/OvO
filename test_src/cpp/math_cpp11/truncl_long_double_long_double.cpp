@@ -24,11 +24,11 @@ void test_truncl(){
    long double out1_device;
    
 
-   out1_host = truncl( in0);
-
+    out1_host =  truncl( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = truncl( in0);
+     out1_device =  truncl( in0);
    }
 
    

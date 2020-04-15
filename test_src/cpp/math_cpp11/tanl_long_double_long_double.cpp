@@ -24,11 +24,11 @@ void test_tanl(){
    long double out1_device;
    
 
-   out1_host = tanl( in0);
-
+    out1_host =  tanl( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = tanl( in0);
+     out1_device =  tanl( in0);
    }
 
    

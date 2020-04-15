@@ -26,11 +26,11 @@ void test_atanh(){
    complex<float> out1_device;
    
 
-   out1_host = atanh( in0);
-
+    out1_host =  atanh( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = atanh( in0);
+     out1_device =  atanh( in0);
    }
 
    

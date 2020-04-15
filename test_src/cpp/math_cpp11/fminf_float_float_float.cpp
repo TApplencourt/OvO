@@ -26,11 +26,11 @@ void test_fminf(){
    float out2_device;
    
 
-   out2_host = fminf( in0, in1);
-
+    out2_host =  fminf( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = fminf( in0, in1);
+     out2_device =  fminf( in0, in1);
    }
 
    

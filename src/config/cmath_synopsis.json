@@ -1,4 +1,18 @@
 {
+    "math_gnu": {
+        "sincos" : {
+             "attribute": [ ["in","out","out"] ],
+             "type": [ ["double", "double*", "double*"] ]
+                },
+        "sincosf" : {
+             "attribute": [ ["in","out","out"] ],
+             "type": [ ["float", "float*", "float*"] ]
+                },
+        "sincosl" : {
+             "attribute": [ ["in","out","out"] ],
+             "type": [ ["long double", "long double*", "long double*"] ]
+                }        
+    },
     "math_cpp11": {
         "abs": {
             "attribute": [

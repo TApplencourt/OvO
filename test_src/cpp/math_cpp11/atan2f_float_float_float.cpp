@@ -26,11 +26,11 @@ void test_atan2f(){
    float o_device;
    
 
-   o_host = atan2f( y, x);
-
+    o_host =  atan2f( y, x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = atan2f( y, x);
+     o_device =  atan2f( y, x);
    }
 
    

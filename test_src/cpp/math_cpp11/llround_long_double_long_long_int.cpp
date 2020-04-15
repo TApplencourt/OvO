@@ -24,11 +24,11 @@ void test_llround(){
    long long int out1_device;
    
 
-   out1_host = llround( in0);
-
+    out1_host =  llround( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = llround( in0);
+     out1_device =  llround( in0);
    }
 
    

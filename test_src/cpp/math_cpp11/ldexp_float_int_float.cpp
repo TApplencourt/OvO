@@ -26,11 +26,11 @@ void test_ldexp(){
    float out2_device;
    
 
-   out2_host = ldexp( in0, in1);
-
+    out2_host =  ldexp( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = ldexp( in0, in1);
+     out2_device =  ldexp( in0, in1);
    }
 
    

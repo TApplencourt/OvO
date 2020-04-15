@@ -26,11 +26,11 @@ void test_tan(){
    complex<double> out1_device;
    
 
-   out1_host = tan( in0);
-
+    out1_host =  tan( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = tan( in0);
+     out1_device =  tan( in0);
    }
 
    

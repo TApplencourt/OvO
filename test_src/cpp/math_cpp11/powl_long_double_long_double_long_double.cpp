@@ -26,11 +26,11 @@ void test_powl(){
    long double o_device;
    
 
-   o_host = powl( x, y);
-
+    o_host =  powl( x, y);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = powl( x, y);
+     o_device =  powl( x, y);
    }
 
    

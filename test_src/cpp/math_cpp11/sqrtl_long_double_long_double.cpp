@@ -24,11 +24,11 @@ void test_sqrtl(){
    long double o_device;
    
 
-   o_host = sqrtl( x);
-
+    o_host =  sqrtl( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = sqrtl( x);
+     o_device =  sqrtl( x);
    }
 
    

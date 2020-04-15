@@ -24,11 +24,11 @@ void test_ceill(){
    long double out1_device;
    
 
-   out1_host = ceill( in0);
-
+    out1_host =  ceill( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = ceill( in0);
+     out1_device =  ceill( in0);
    }
 
    

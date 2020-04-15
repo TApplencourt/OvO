@@ -35,11 +35,11 @@ void test_remquo(){
    long double out3_device;
    
 
-   out3_host = remquo( in0, in1, &out2_host);
-
+    out3_host =  remquo( in0, in1, &out2_host);
+   
    #pragma omp target map(from: out2_device, out3_device )
    {
-   out3_device = remquo( in0, in1, &out2_device);
+     out3_device =  remquo( in0, in1, &out2_device);
    }
 
    

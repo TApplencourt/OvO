@@ -24,11 +24,11 @@ void test_floorf(){
    float out1_device;
    
 
-   out1_host = floorf( in0);
-
+    out1_host =  floorf( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = floorf( in0);
+     out1_device =  floorf( in0);
    }
 
    

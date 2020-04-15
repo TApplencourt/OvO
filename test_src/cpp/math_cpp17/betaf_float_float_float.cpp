@@ -26,11 +26,11 @@ void test_betaf(){
    float out2_device;
    
 
-   out2_host = betaf( in0, in1);
-
+    out2_host =  betaf( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = betaf( in0, in1);
+     out2_device =  betaf( in0, in1);
    }
 
    

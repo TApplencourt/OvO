@@ -26,11 +26,11 @@ void test_remainderl(){
    long double o_device;
    
 
-   o_host = remainderl( x, y);
-
+    o_host =  remainderl( x, y);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = remainderl( x, y);
+     o_device =  remainderl( x, y);
    }
 
    

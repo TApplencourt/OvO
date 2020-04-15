@@ -26,11 +26,11 @@ void test_cyl_neumannf(){
    float out2_device;
    
 
-   out2_host = cyl_neumannf( in0, in1);
-
+    out2_host =  cyl_neumannf( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = cyl_neumannf( in0, in1);
+     out2_device =  cyl_neumannf( in0, in1);
    }
 
    

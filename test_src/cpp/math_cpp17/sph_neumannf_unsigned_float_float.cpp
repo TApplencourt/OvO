@@ -26,11 +26,11 @@ void test_sph_neumannf(){
    float out2_device;
    
 
-   out2_host = sph_neumannf( in0, in1);
-
+    out2_host =  sph_neumannf( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = sph_neumannf( in0, in1);
+     out2_device =  sph_neumannf( in0, in1);
    }
 
    

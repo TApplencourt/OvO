@@ -24,11 +24,11 @@ void test_sinhl(){
    long double out1_device;
    
 
-   out1_host = sinhl( in0);
-
+    out1_host =  sinhl( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = sinhl( in0);
+     out1_device =  sinhl( in0);
    }
 
    

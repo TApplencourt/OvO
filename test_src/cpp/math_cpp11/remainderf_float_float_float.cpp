@@ -26,11 +26,11 @@ void test_remainderf(){
    float o_device;
    
 
-   o_host = remainderf( x, y);
-
+    o_host =  remainderf( x, y);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = remainderf( x, y);
+     o_device =  remainderf( x, y);
    }
 
    

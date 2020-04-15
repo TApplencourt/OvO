@@ -24,11 +24,11 @@ void test_cosh(){
    double out1_device;
    
 
-   out1_host = cosh( in0);
-
+    out1_host =  cosh( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = cosh( in0);
+     out1_device =  cosh( in0);
    }
 
    

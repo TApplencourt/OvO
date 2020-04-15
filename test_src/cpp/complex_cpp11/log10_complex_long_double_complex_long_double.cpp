@@ -26,11 +26,11 @@ void test_log10(){
    complex<long double> out1_device;
    
 
-   out1_host = log10( in0);
-
+    out1_host =  log10( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = log10( in0);
+     out1_device =  log10( in0);
    }
 
    

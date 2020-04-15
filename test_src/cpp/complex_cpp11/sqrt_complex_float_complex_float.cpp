@@ -26,11 +26,11 @@ void test_sqrt(){
    complex<float> out1_device;
    
 
-   out1_host = sqrt( in0);
-
+    out1_host =  sqrt( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = sqrt( in0);
+     out1_device =  sqrt( in0);
    }
 
    

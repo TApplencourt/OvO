@@ -26,11 +26,11 @@ void test_nexttowardl(){
    long double out2_device;
    
 
-   out2_host = nexttowardl( in0, in1);
-
+    out2_host =  nexttowardl( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = nexttowardl( in0, in1);
+     out2_device =  nexttowardl( in0, in1);
    }
 
    

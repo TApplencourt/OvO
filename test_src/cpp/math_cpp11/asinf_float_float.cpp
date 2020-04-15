@@ -24,11 +24,11 @@ void test_asinf(){
    float o_device;
    
 
-   o_host = asinf( x);
-
+    o_host =  asinf( x);
+   
    #pragma omp target map(from: o_device )
    {
-   o_device = asinf( x);
+     o_device =  asinf( x);
    }
 
    

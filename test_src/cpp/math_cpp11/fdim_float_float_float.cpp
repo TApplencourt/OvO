@@ -26,11 +26,11 @@ void test_fdim(){
    float out2_device;
    
 
-   out2_host = fdim( in0, in1);
-
+    out2_host =  fdim( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = fdim( in0, in1);
+     out2_device =  fdim( in0, in1);
    }
 
    

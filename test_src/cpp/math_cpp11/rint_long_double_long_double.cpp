@@ -24,11 +24,11 @@ void test_rint(){
    long double out1_device;
    
 
-   out1_host = rint( in0);
-
+    out1_host =  rint( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = rint( in0);
+     out1_device =  rint( in0);
    }
 
    

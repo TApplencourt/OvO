@@ -33,11 +33,11 @@ void test_frexpf(){
    float out2_device;
    
 
-   out2_host = frexpf( in0, &out1_host);
-
+    out2_host =  frexpf( in0, &out1_host);
+   
    #pragma omp target map(from: out1_device, out2_device )
    {
-   out2_device = frexpf( in0, &out1_device);
+     out2_device =  frexpf( in0, &out1_device);
    }
 
    

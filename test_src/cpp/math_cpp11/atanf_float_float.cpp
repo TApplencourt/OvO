@@ -24,11 +24,11 @@ void test_atanf(){
    float out1_device;
    
 
-   out1_host = atanf( in0);
-
+    out1_host =  atanf( in0);
+   
    #pragma omp target map(from: out1_device )
    {
-   out1_device = atanf( in0);
+     out1_device =  atanf( in0);
    }
 
    

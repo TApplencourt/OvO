@@ -26,11 +26,11 @@ void test_beta(){
    double out2_device;
    
 
-   out2_host = beta( in0, in1);
-
+    out2_host =  beta( in0, in1);
+   
    #pragma omp target map(from: out2_device )
    {
-   out2_device = beta( in0, in1);
+     out2_device =  beta( in0, in1);
    }
 
    
