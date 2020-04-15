@@ -1,1437 +1,994 @@
 {
-    "numerical": {
-        "INT": [
-            [
-                {
-                    "input_name": [
-                        "I0"
-                    ],
-                    "input_types": [
-                        "INTEGER"
-                    ],
-                    "output_type": "INTEGER"
-                },
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "INTEGER"
-                },
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "INTEGER"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "INTEGER"
-                },
-                {
-                    "input_name": [
-                        "C0"
-                    ],
-                    "input_types": [
-                        "COMPLEX"
-                    ],
-                    "output_type": "INTEGER"
-                }
+    "complex": {
+        "ABS": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "IFIX": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "INTEGER"
-                }
+            "type": [
+                [
+                    "COMPLEX",
+                    "REAL"
+                ]
+            ]
+        },
+        "AIMAG": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "IDINT": [
-            [
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "INTEGER"
-                }
+            "type": [
+                [
+                    "COMPLEX",
+                    "REAL"
+                ]
+            ]
+        },
+        "CMPLX": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "REAL": [
-            [
-                {
-                    "input_name": [
-                        "I0"
-                    ],
-                    "input_types": [
-                        "INTEGER"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "I0"
-                    ],
-                    "input_types": [
-                        "INTEGER"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "C0"
-                    ],
-                    "input_types": [
-                        "COMPLEX"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "CD0"
-                    ],
-                    "input_types": [
-                        "DOUBLE COMPLEX"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "COMPLEX"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "COMPLEX"
+                ],
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "CONJG": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "FLOAT": [
-            [
-                {
-                    "input_name": [
-                        "I0"
-                    ],
-                    "input_types": [
-                        "INTEGER"
-                    ],
-                    "output_type": "REAL"
-                }
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "COS": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "SNGL": [
-            [
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "REAL"
-                }
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "DBLE": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "DBLE": [
-            [
-                {
-                    "input_name": [
-                        "I0"
-                    ],
-                    "input_types": [
-                        "INTEGER"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                },
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                },
-                {
-                    "input_name": [
-                        "C0"
-                    ],
-                    "input_types": [
-                        "COMPLEX"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "COMPLEX",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "EXP": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "CMPLX": [
-            [
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "COMPLEX"
-                },
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "COMPLEX"
-                },
-                {
-                    "input_name": [
-                        "D0",
-                        "D1"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION",
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE COMPLEX"
-                },
-                {
-                    "input_name": [
-                        "C0"
-                    ],
-                    "input_types": [
-                        "COMPLEX"
-                    ],
-                    "output_type": "COMPLEX"
-                },
-                {
-                    "input_name": [
-                        "CD0"
-                    ],
-                    "input_types": [
-                        "DOUBLE COMPLEX"
-                    ],
-                    "output_type": "DOUBLE COMPLEX"
-                }
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "INT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "AINT": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "COMPLEX",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "LOG": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "ANINT": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "REAL": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "NINT": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "INTEGER"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "INTEGER"
-                }
+            "type": [
+                [
+                    "COMPLEX",
+                    "REAL"
+                ]
+            ]
+        },
+        "SIN": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "ABS": [
-            [
-                {
-                    "input_name": [
-                        "I0"
-                    ],
-                    "input_types": [
-                        "INTEGER"
-                    ],
-                    "output_type": "INTEGER"
-                },
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                },
-                {
-                    "input_name": [
-                        "C0"
-                    ],
-                    "input_types": [
-                        "COMPLEX"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "CD0"
-                    ],
-                    "input_types": [
-                        "DOUBLE COMPLEX"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "SQRT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "MOD": [
-            [
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "INTEGER"
-                },
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0",
-                        "D1"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION",
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "MODULO": [
-            [
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "INTEGER"
-                },
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0",
-                        "D1"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION",
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "FLOOR": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "CEILING": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "SIGN": [
-            [
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "INTEGER"
-                },
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0",
-                        "D1"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION",
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "DIM": [
-            [
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "INTEGER"
-                },
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0",
-                        "D1"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION",
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "DPROD": [
-            [
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "MAX": [
-            [
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "INTEGER"
-                },
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0",
-                        "D1"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION",
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                },
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "INTEGER"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "MAX0": [
-            [
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "INTEGER"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "AMAX1": [
-            [
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "DMAX1": [
-            [
-                {
-                    "input_name": [
-                        "D0",
-                        "D1"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION",
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "AMAX0": [
-            [
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "REAL"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "MAX1": [
-            [
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "INTEGER"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "MIN": [
-            [
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "INTEGER"
-                },
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0",
-                        "D1"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION",
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                },
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "INTEGER"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "MIN0": [
-            [
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "INTEGER"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "AMIN1": [
-            [
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "DMIN1": [
-            [
-                {
-                    "input_name": [
-                        "D0",
-                        "D1"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION",
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "AMIN0": [
-            [
-                {
-                    "input_name": [
-                        "I0",
-                        "I1"
-                    ],
-                    "input_types": [
-                        "INTEGER",
-                        "INTEGER"
-                    ],
-                    "output_type": "REAL"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "MIN1": [
-            [
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "INTEGER"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "AIMAG": [
-            [
-                {
-                    "input_name": [
-                        "C0"
-                    ],
-                    "input_types": [
-                        "COMPLEX"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "CD0"
-                    ],
-                    "input_types": [
-                        "DOUBLE COMPLEX"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ],
-        "CONJG": [
-            [
-                {
-                    "input_name": [
-                        "C0"
-                    ],
-                    "input_types": [
-                        "COMPLEX"
-                    ],
-                    "output_type": "COMPLEX"
-                },
-                {
-                    "input_name": [
-                        "CD0"
-                    ],
-                    "input_types": [
-                        "DOUBLE COMPLEX"
-                    ],
-                    "output_type": "DOUBLE COMPLEX"
-                }
-            ],
-            {
-                "domain": ""
-            }
-        ]
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        }
     },
-    "mathematical": {
-        "SQRT": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                },
-                {
-                    "input_name": [
-                        "C0"
-                    ],
-                    "input_types": [
-                        "COMPLEX"
-                    ],
-                    "output_type": "COMPLEX"
-                },
-                {
-                    "input_name": [
-                        "CD0"
-                    ],
-                    "input_types": [
-                        "DOUBLE COMPLEX"
-                    ],
-                    "output_type": "DOUBLE COMPLEX"
-                }
+    "math": {
+        "ACOS": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "EXP": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                },
-                {
-                    "input_name": [
-                        "C0"
-                    ],
-                    "input_types": [
-                        "COMPLEX"
-                    ],
-                    "output_type": "COMPLEX"
-                },
-                {
-                    "input_name": [
-                        "CD0"
-                    ],
-                    "input_types": [
-                        "DOUBLE COMPLEX"
-                    ],
-                    "output_type": "DOUBLE COMPLEX"
-                }
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "AINT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "LOG": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                },
-                {
-                    "input_name": [
-                        "C0"
-                    ],
-                    "input_types": [
-                        "COMPLEX"
-                    ],
-                    "output_type": "COMPLEX"
-                },
-                {
-                    "input_name": [
-                        "CD0"
-                    ],
-                    "input_types": [
-                        "DOUBLE COMPLEX"
-                    ],
-                    "output_type": "DOUBLE COMPLEX"
-                }
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "AMAX0": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "LOG10": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "REAL"
+                ]
+            ]
+        },
+        "AMAX1": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "SIN": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                },
-                {
-                    "input_name": [
-                        "C0"
-                    ],
-                    "input_types": [
-                        "COMPLEX"
-                    ],
-                    "output_type": "COMPLEX"
-                },
-                {
-                    "input_name": [
-                        "CD0"
-                    ],
-                    "input_types": [
-                        "DOUBLE COMPLEX"
-                    ],
-                    "output_type": "DOUBLE COMPLEX"
-                }
+            "type": [
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ]
+            ]
+        },
+        "AMIN0": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "COS": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                },
-                {
-                    "input_name": [
-                        "C0"
-                    ],
-                    "input_types": [
-                        "COMPLEX"
-                    ],
-                    "output_type": "COMPLEX"
-                },
-                {
-                    "input_name": [
-                        "CD0"
-                    ],
-                    "input_types": [
-                        "DOUBLE COMPLEX"
-                    ],
-                    "output_type": "DOUBLE COMPLEX"
-                }
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "REAL"
+                ]
+            ]
+        },
+        "AMIN1": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "TAN": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ]
+            ]
+        },
+        "ANINT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "ASIN": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "ASIN": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "ACOS": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "ATAN": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "ATAN": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "ATAN2": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "ATAN2": [
-            [
-                {
-                    "input_name": [
-                        "R0",
-                        "R1"
-                    ],
-                    "input_types": [
-                        "REAL",
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0",
-                        "D1"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION",
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "CEILING": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "SINH": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "COSH": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "COSH": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "DIM": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ],
-        "TANH": [
-            [
-                {
-                    "input_name": [
-                        "R0"
-                    ],
-                    "input_types": [
-                        "REAL"
-                    ],
-                    "output_type": "REAL"
-                },
-                {
-                    "input_name": [
-                        "D0"
-                    ],
-                    "input_types": [
-                        "DOUBLE PRECISION"
-                    ],
-                    "output_type": "DOUBLE PRECISION"
-                }
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "DMAX1": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
             ],
-            {
-                "domain": ""
-            }
-        ]
+            "type": [
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "DMIN1": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "DPROD": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "FLOAT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "REAL"
+                ]
+            ]
+        },
+        "FLOOR": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "IDINT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "DOUBLE PRECISION",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "IFIX": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "LOG10": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "MAX": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ],
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "REAL"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "MAX0": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "MAX1": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "MIN": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ],
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "REAL"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "MIN0": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "MIN1": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "MOD": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "MODULO": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "NINT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "INTEGER"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "SIGN": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "SINH": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "SNGL": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "DOUBLE PRECISION",
+                    "REAL"
+                ]
+            ]
+        },
+        "TAN": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "TANH": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        }
     }
 }
