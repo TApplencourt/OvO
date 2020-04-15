@@ -3,7 +3,6 @@
 
 #include <limits>
 #include <iostream>
-#include <stdexcept>
 
 using namespace std;
 
@@ -17,26 +16,26 @@ bool almost_equal(long double x, long double y, int ulp) {
 
 void test_fmodl(){
    
-   long double x {  0.42 };
+   long double in0 {  0.42 };
    
-   long double y {  0.42 };
-   
-
-   
-   long double o_host ;
-   long double o_gpu ;
+   long double in1 {  0.42 };
    
 
-   o_host = fmodl( x, y, &o_host);
+   
+   long double out2_host;
+   long double out2_device;
+   
 
-   #pragma omp target map(from: o_gpu )
+   out2_host = fmodl( in0, in1);
+
+   #pragma omp target map(from: out2_device )
    {
-   o_gpu = fmodl( x, y, &o_gpu);
+   out2_device = fmodl( in0, in1);
    }
 
    
-   if ( !almost_equal(o_host,o_gpu,1) ) {
-        std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
+   if ( !almost_equal(out2_host,out2_device,1) ) {
+        std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "fmodl give incorect value when offloaded");
     }
     

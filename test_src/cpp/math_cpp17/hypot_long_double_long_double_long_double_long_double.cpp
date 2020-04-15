@@ -3,7 +3,6 @@
 
 #include <limits>
 #include <iostream>
-#include <stdexcept>
 
 using namespace std;
 
@@ -25,20 +24,20 @@ void test_hypot(){
    
 
    
-   long double out3_host ;
-   long double out3_gpu ;
+   long double out3_host;
+   long double out3_device;
    
 
-   out3_host = hypot( in0, in1, in2, &out3_host);
+   out3_host = hypot( in0, in1, in2);
 
-   #pragma omp target map(from: out3_gpu )
+   #pragma omp target map(from: out3_device )
    {
-   out3_gpu = hypot( in0, in1, in2, &out3_gpu);
+   out3_device = hypot( in0, in1, in2);
    }
 
    
-   if ( !almost_equal(out3_host,out3_gpu,1) ) {
-        std::cerr << "Host: " << out3_host << " GPU: " << out3_gpu << std::endl;
+   if ( !almost_equal(out3_host,out3_device,1) ) {
+        std::cerr << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
         throw std::runtime_error( "hypot give incorect value when offloaded");
     }
     

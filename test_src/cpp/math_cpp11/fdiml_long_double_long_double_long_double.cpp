@@ -3,7 +3,6 @@
 
 #include <limits>
 #include <iostream>
-#include <stdexcept>
 
 using namespace std;
 
@@ -23,20 +22,20 @@ void test_fdiml(){
    
 
    
-   long double out2_host ;
-   long double out2_gpu ;
+   long double out2_host;
+   long double out2_device;
    
 
-   out2_host = fdiml( in0, in1, &out2_host);
+   out2_host = fdiml( in0, in1);
 
-   #pragma omp target map(from: out2_gpu )
+   #pragma omp target map(from: out2_device )
    {
-   out2_gpu = fdiml( in0, in1, &out2_gpu);
+   out2_device = fdiml( in0, in1);
    }
 
    
-   if ( !almost_equal(out2_host,out2_gpu,1) ) {
-        std::cerr << "Host: " << out2_host << " GPU: " << out2_gpu << std::endl;
+   if ( !almost_equal(out2_host,out2_device,1) ) {
+        std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "fdiml give incorect value when offloaded");
     }
     

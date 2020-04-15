@@ -3,7 +3,6 @@
 
 #include <limits>
 #include <iostream>
-#include <stdexcept>
 
 using namespace std;
 
@@ -23,20 +22,20 @@ void test_powl(){
    
 
    
-   long double o_host ;
-   long double o_gpu ;
+   long double o_host;
+   long double o_device;
    
 
-   o_host = powl( x, y, &o_host);
+   o_host = powl( x, y);
 
-   #pragma omp target map(from: o_gpu )
+   #pragma omp target map(from: o_device )
    {
-   o_gpu = powl( x, y, &o_gpu);
+   o_device = powl( x, y);
    }
 
    
-   if ( !almost_equal(o_host,o_gpu,1) ) {
-        std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
+   if ( !almost_equal(o_host,o_device,1) ) {
+        std::cerr << "Host: " << o_host << " GPU: " << o_device << std::endl;
         throw std::runtime_error( "powl give incorect value when offloaded");
     }
     

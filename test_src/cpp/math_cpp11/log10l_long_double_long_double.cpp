@@ -3,7 +3,6 @@
 
 #include <limits>
 #include <iostream>
-#include <stdexcept>
 
 using namespace std;
 
@@ -21,20 +20,20 @@ void test_log10l(){
    
 
    
-   long double o_host ;
-   long double o_gpu ;
+   long double o_host;
+   long double o_device;
    
 
-   o_host = log10l( x, &o_host);
+   o_host = log10l( x);
 
-   #pragma omp target map(from: o_gpu )
+   #pragma omp target map(from: o_device )
    {
-   o_gpu = log10l( x, &o_gpu);
+   o_device = log10l( x);
    }
 
    
-   if ( !almost_equal(o_host,o_gpu,1) ) {
-        std::cerr << "Host: " << o_host << " GPU: " << o_gpu << std::endl;
+   if ( !almost_equal(o_host,o_device,1) ) {
+        std::cerr << "Host: " << o_host << " GPU: " << o_device << std::endl;
         throw std::runtime_error( "log10l give incorect value when offloaded");
     }
     

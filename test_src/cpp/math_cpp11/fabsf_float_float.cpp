@@ -3,7 +3,6 @@
 
 #include <limits>
 #include <iostream>
-#include <stdexcept>
 
 using namespace std;
 
@@ -21,20 +20,20 @@ void test_fabsf(){
    
 
    
-   float out1_host ;
-   float out1_gpu ;
+   float out1_host;
+   float out1_device;
    
 
-   out1_host = fabsf( in0, &out1_host);
+   out1_host = fabsf( in0);
 
-   #pragma omp target map(from: out1_gpu )
+   #pragma omp target map(from: out1_device )
    {
-   out1_gpu = fabsf( in0, &out1_gpu);
+   out1_device = fabsf( in0);
    }
 
    
-   if ( !almost_equal(out1_host,out1_gpu,1) ) {
-        std::cerr << "Host: " << out1_host << " GPU: " << out1_gpu << std::endl;
+   if ( !almost_equal(out1_host,out1_device,1) ) {
+        std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         throw std::runtime_error( "fabsf give incorect value when offloaded");
     }
     

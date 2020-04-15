@@ -1,0 +1,29 @@
+program test_{{name}}
+
+   {% set is_cmplx = ( scalar_output.T.category == "complex") %}
+
+   implicit none
+
+   {% for input in l_argv | selectattr('is_input')  %}
+   {{input.T}} :: {{input.name}} = ( {{input.val}} )
+   {% endfor %}
+ 
+   {{scalar_output.T}} :: o_host, o_device 
+
+    o_host = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name') }})
+
+    !$OMP target map(from:o_device)
+    o_device = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name') }})
+    !$OMP END TARGET
+
+    {% if scalar_output.T.category in ("integer","bool")  %}
+    IF  ( o_host .ne. o_device)  THEN
+    {% else %}
+    IF ( ABS(o_host-o_device) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} o_host {% if is_cmplx %} ) {%endif%}  ) ) THEN
+    {% endif %}
+        write(*,*)  'Expected ', o_host, ' Got ', o_device
+        call exit(1)
+    ENDIF
+
+end program test_{{name}}
+
