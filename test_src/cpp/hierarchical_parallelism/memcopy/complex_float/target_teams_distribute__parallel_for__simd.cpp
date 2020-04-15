@@ -16,7 +16,7 @@ bool almost_equal(complex<float> x, complex<float> y, int ulp) {
 
 }
 
-void test_target_teams_distribute__parallel_for__simd.cpp(){
+void test_target_teams_distribute__parallel_for__simd(){
   // Input and Outputs
   
   const int L = 5;
@@ -59,7 +59,7 @@ pA[ k + j*N + i*N*M ] = pB [ k + j*N + i*N*M ];
 for (int i = 0 ;  i < size ; i++) {
     if ( !almost_equal(A[i],B[i],1) ) {
          std::cerr << "Expected: " << B[i] << " Got: " << A[i] << std::endl;
-        throw std::runtime_error( "target_teams_distribute__parallel_for__simd.cpp give incorect value when offloaded");
+        throw std::runtime_error( "target_teams_distribute__parallel_for__simd give incorect value when offloaded");
     }
 }
  
@@ -67,5 +67,5 @@ for (int i = 0 ;  i < size ; i++) {
 
 int main()
 {
-    test_target_teams_distribute__parallel_for__simd.cpp();
+    test_target_teams_distribute__parallel_for__simd();
 }

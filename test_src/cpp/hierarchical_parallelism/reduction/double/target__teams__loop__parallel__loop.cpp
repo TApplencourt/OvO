@@ -13,7 +13,7 @@ bool almost_equal(double x, double y, int ulp) {
 
 
 
-void test_target__teams__loop__parallel__loop.cpp(){
+void test_target__teams__loop__parallel__loop(){
 
  // Input and Outputs
  
@@ -73,11 +73,11 @@ counter += double { 1.0f };
 // Validation
 if ( !almost_equal(counter,double { L*M }, 10)  ) {
     std::cerr << "Expected: " << L*M << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target__teams__loop__parallel__loop.cpp give incorect value when offloaded");
+    throw std::runtime_error( "target__teams__loop__parallel__loop give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target__teams__loop__parallel__loop.cpp();
+    test_target__teams__loop__parallel__loop();
 }

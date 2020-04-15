@@ -27,7 +27,7 @@ bool almost_equal(complex<double> x, complex<double> y, int ulp) {
 #pragma omp declare reduction(ComplexReduction: complex<double>:   omp_out += omp_in) 
 
 
-void test_target_teams_distribute__parallel.cpp(){
+void test_target_teams_distribute__parallel(){
 
  // Input and Outputs
  
@@ -65,11 +65,11 @@ counter += complex<double> { 1.0f/num_threads };
 // Validation
 if ( !almost_equal(counter,complex<double> { L }, 10)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target_teams_distribute__parallel.cpp give incorect value when offloaded");
+    throw std::runtime_error( "target_teams_distribute__parallel give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target_teams_distribute__parallel.cpp();
+    test_target_teams_distribute__parallel();
 }

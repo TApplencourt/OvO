@@ -1,6 +1,6 @@
 
 
-program target__teams_distribute_parallel_do.f90
+program target__teams_distribute_parallel_do
 
 
     
@@ -52,4 +52,4 @@ counter = counter +  1.
         call exit(1)
     ENDIF
 
-end program target__teams_distribute_parallel_do.f90
+end program target__teams_distribute_parallel_do

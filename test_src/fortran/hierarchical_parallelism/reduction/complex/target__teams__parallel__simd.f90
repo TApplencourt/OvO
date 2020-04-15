@@ -22,7 +22,7 @@ END MODULE OMP_LIB_STUB
 #endif
 
 
-program target__teams__parallel__simd.f90
+program target__teams__parallel__simd
 
 #ifdef _OPENMP
     USE OMP_LIB
@@ -108,4 +108,4 @@ counter = counter +  CMPLX(   1./(num_teams*num_threads)   ,0)
         call exit(1)
     ENDIF
 
-end program target__teams__parallel__simd.f90
+end program target__teams__parallel__simd

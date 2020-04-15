@@ -27,7 +27,7 @@ bool almost_equal(complex<float> x, complex<float> y, int ulp) {
 #pragma omp declare reduction(ComplexReduction: complex<float>:   omp_out += omp_in) 
 
 
-void test_target__teams__parallel__for.cpp(){
+void test_target__teams__parallel__for(){
 
  // Input and Outputs
  
@@ -79,11 +79,11 @@ counter += complex<float> { 1.0f/num_teams } ;
 // Validation
 if ( !almost_equal(counter,complex<float> { L }, 10)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target__teams__parallel__for.cpp give incorect value when offloaded");
+    throw std::runtime_error( "target__teams__parallel__for give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target__teams__parallel__for.cpp();
+    test_target__teams__parallel__for();
 }

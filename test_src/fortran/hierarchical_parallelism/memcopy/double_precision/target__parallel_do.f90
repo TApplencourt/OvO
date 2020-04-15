@@ -1,4 +1,4 @@
-program target__parallel_do.f90
+program target__parallel_do
 
     
 
@@ -52,4 +52,4 @@ program target__parallel_do.f90
 
     DEALLOCATE(A,B)
 
-end program target__parallel_do.f90
+end program target__parallel_do

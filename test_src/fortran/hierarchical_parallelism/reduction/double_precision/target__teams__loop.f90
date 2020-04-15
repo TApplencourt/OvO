@@ -1,6 +1,6 @@
 
 
-program target__teams__loop.f90
+program target__teams__loop
 
 
     
@@ -62,4 +62,4 @@ counter = counter +  1.
         call exit(1)
     ENDIF
 
-end program target__teams__loop.f90
+end program target__teams__loop

@@ -1,4 +1,4 @@
-program target__parallel__loop.f90
+program target__parallel__loop
 
     
 
@@ -65,4 +65,4 @@ program target__parallel__loop.f90
 
     DEALLOCATE(A,B)
 
-end program target__parallel__loop.f90
+end program target__parallel__loop

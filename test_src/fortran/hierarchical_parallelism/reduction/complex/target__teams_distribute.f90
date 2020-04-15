@@ -1,6 +1,6 @@
 
 
-program target__teams_distribute.f90
+program target__teams_distribute
 
 
     
@@ -52,4 +52,4 @@ counter = counter +  CMPLX(   1.  ,0)
         call exit(1)
     ENDIF
 
-end program target__teams_distribute.f90
+end program target__teams_distribute

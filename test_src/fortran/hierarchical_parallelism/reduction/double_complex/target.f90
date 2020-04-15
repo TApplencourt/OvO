@@ -1,6 +1,6 @@
 
 
-program target.f90
+program target
 
 
     
@@ -36,4 +36,4 @@ counter = counter +  CMPLX(   1.  ,0)
         call exit(1)
     ENDIF
 
-end program target.f90
+end program target

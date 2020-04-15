@@ -12,7 +12,7 @@ bool almost_equal(double x, double y, int ulp) {
 
 }
 
-void test_target.cpp(){
+void test_target(){
 
  // Input and Outputs
  
@@ -39,11 +39,11 @@ counter += double { 1 };
 // Validation
 if ( !almost_equal(counter,double { 1 }, 10)  ) {
     std::cerr << "Expected: " << 1 << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target.cpp give incorect value when offloaded");
+    throw std::runtime_error( "target give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target.cpp();
+    test_target();
 }

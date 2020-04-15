@@ -20,7 +20,7 @@ bool almost_equal(complex<float> x, complex<float> y, int ulp) {
 #pragma omp declare reduction(ComplexReduction: complex<float>:   omp_out += omp_in) 
 
 
-void test_target_simd.cpp(){
+void test_target_simd(){
 
  // Input and Outputs
  
@@ -49,11 +49,11 @@ counter += complex<float> { 1.0f };
 // Validation
 if ( !almost_equal(counter,complex<float> { L }, 10)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target_simd.cpp give incorect value when offloaded");
+    throw std::runtime_error( "target_simd give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target_simd.cpp();
+    test_target_simd();
 }

@@ -1,4 +1,4 @@
-program target_teams_distribute_parallel_do.f90
+program target_teams_distribute_parallel_do
 
     
 
@@ -45,4 +45,4 @@ program target_teams_distribute_parallel_do.f90
 
     DEALLOCATE(A,B)
 
-end program target_teams_distribute_parallel_do.f90
+end program target_teams_distribute_parallel_do

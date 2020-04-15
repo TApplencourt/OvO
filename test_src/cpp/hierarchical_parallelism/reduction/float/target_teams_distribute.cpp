@@ -13,7 +13,7 @@ bool almost_equal(float x, float y, int ulp) {
 
 
 
-void test_target_teams_distribute.cpp(){
+void test_target_teams_distribute(){
 
  // Input and Outputs
  
@@ -42,11 +42,11 @@ counter += float { 1.0f };
 // Validation
 if ( !almost_equal(counter,float { L }, 10)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target_teams_distribute.cpp give incorect value when offloaded");
+    throw std::runtime_error( "target_teams_distribute give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target_teams_distribute.cpp();
+    test_target_teams_distribute();
 }

@@ -20,7 +20,7 @@ bool almost_equal(double x, double y, int ulp) {
 
 
 
-void test_target__teams__parallel__simd.cpp(){
+void test_target__teams__parallel__simd(){
 
  // Input and Outputs
  
@@ -74,11 +74,11 @@ counter += double { 1.0f/(num_teams*num_threads) } ;
 // Validation
 if ( !almost_equal(counter,double { L }, 10)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target__teams__parallel__simd.cpp give incorect value when offloaded");
+    throw std::runtime_error( "target__teams__parallel__simd give incorect value when offloaded");
 }
 
 }
 int main()
 {
-    test_target__teams__parallel__simd.cpp();
+    test_target__teams__parallel__simd();
 }
