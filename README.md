@@ -1,4 +1,4 @@
-# OvO (OpenMP Validation for Offload)
+# OvO (OpenMP validator for Offload)
 
 ```
   ___
