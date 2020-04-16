@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 
 
 
@@ -36,21 +37,21 @@ double counter{};
 {
 
 
-#pragma omp teams  reduction(  +  :counter)  
+#pragma omp teams  reduction(+: counter)  
 
 {
 
 const int num_teams = omp_get_num_teams();
 
 
-#pragma omp parallel loop  reduction(  +  :counter)  
+#pragma omp parallel loop  reduction(+: counter)  
 
     for (int i = 0 ; i < L ; i++ )
 
 {
 
 
-#pragma omp simd  reduction(  +  :counter)  
+#pragma omp simd  reduction(+: counter)  
 
     for (int j = 0 ; j < M ; j++ )
 

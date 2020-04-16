@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 
 
 
@@ -28,12 +29,12 @@ double counter{};
 {
 
 
-#pragma omp parallel  reduction(  +  :counter)  
+#pragma omp parallel  reduction(+: counter)  
 
 {
 
 
-#pragma omp loop  reduction(  +  :counter)  
+#pragma omp loop  reduction(+: counter)  
 
     for (int i = 0 ; i < L ; i++ )
 

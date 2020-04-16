@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 
 
 
@@ -34,14 +35,14 @@ float counter{};
 {
 
 
-#pragma omp teams  reduction(  +  :counter)  
+#pragma omp teams  reduction(+: counter)  
 
 {
 
 const int num_teams = omp_get_num_teams();
 
 
-#pragma omp parallel  reduction(  +  :counter)  
+#pragma omp parallel  reduction(+: counter)  
 
 {
 

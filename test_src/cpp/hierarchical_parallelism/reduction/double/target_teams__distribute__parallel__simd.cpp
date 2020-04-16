@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 
 
 
@@ -31,7 +32,7 @@ double counter{};
 
 // Main program
 
-#pragma omp target teams  reduction(  +  :counter)   map(tofrom:counter) 
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
 
 {
 
@@ -43,14 +44,14 @@ double counter{};
 {
 
 
-#pragma omp parallel  reduction(  +  :counter)  
+#pragma omp parallel  reduction(+: counter)  
 
 {
 
 const int num_threads = omp_get_num_threads();
 
 
-#pragma omp simd  reduction(  +  :counter)  
+#pragma omp simd  reduction(+: counter)  
 
     for (int j = 0 ; j < M ; j++ )
 

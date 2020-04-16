@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 
 
 
@@ -30,14 +31,14 @@ float counter{};
 {
 
 
-#pragma omp teams loop  reduction(  +  :counter)  
+#pragma omp teams loop  reduction(+: counter)  
 
     for (int i = 0 ; i < L ; i++ )
 
 {
 
 
-#pragma omp parallel  reduction(  +  :counter)  
+#pragma omp parallel  reduction(+: counter)  
 
 {
 
@@ -49,7 +50,7 @@ float counter{};
 {
 
 
-#pragma omp simd  reduction(  +  :counter)  
+#pragma omp simd  reduction(+: counter)  
 
     for (int k = 0 ; k < N ; k++ )
 

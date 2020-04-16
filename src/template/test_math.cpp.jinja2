@@ -5,7 +5,8 @@
 
 #include <limits>
 #include <iostream>
-
+#include <stdexcept>
+#
 using namespace std;
 
 {% for output_type in l_argv | selectattr('is_output') | unique(attribute='T.no_pt') %} 

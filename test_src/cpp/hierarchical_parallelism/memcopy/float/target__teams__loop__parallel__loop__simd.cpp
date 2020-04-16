@@ -4,7 +4,8 @@
 
 #include <vector>
 #include <algorithm>
-
+#include <stdexcept>
+    
 bool almost_equal(float x, float y, int ulp) {
 
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();

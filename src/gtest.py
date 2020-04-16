@@ -126,7 +126,7 @@ class Path():
         if self.language == "cpp":
             return f"{self.name}.cpp"
         else:
-            return f"{self.name}.f90"
+            return f"{self.name}.F90"
 
     @cached_property
     def flatten_path(self):
@@ -409,7 +409,7 @@ class Math():
          if self.language == "cpp":
             return f'{n}.cpp'
          elif self.language == "fortran":
-            return f'{n}.f90'
+            return f'{n}.F90'
  
     @cached_property
     def scalar_output(self):

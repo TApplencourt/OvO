@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 
 
 
@@ -23,12 +24,12 @@ float counter{};
 
 // Main program
 
-#pragma omp target parallel  reduction(  +  :counter)   map(tofrom:counter) 
+#pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
 
 {
 
 
-#pragma omp loop  reduction(  +  :counter)  
+#pragma omp loop  reduction(+: counter)  
 
     for (int i = 0 ; i < L ; i++ )
 

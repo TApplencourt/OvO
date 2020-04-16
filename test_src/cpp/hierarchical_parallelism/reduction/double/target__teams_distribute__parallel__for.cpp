@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 
 
 
@@ -29,14 +30,14 @@ double counter{};
 {
 
 
-#pragma omp teams distribute  reduction(  +  :counter)  
+#pragma omp teams distribute  reduction(+: counter)  
 
     for (int i = 0 ; i < L ; i++ )
 
 {
 
 
-#pragma omp parallel  reduction(  +  :counter)  
+#pragma omp parallel  reduction(+: counter)  
 
 {
 

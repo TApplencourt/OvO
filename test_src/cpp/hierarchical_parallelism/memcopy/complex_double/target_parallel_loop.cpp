@@ -7,7 +7,8 @@ using namespace std;
 
 #include <vector>
 #include <algorithm>
-
+#include <stdexcept>
+    
 bool almost_equal(complex<double> x, complex<double> y, int ulp) {
 
     bool r = std::fabs(x.real()-y.real()) <= std::numeric_limits<double>::epsilon() * std::fabs(x.real()+y.real()) * ulp ||  std::fabs(x.real()-y.real()) < std::numeric_limits<double>::min();

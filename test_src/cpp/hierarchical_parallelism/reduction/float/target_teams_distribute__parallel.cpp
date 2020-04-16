@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 
 
 
@@ -30,14 +31,14 @@ float counter{};
 
 // Main program
 
-#pragma omp target teams distribute  reduction(  +  :counter)   map(tofrom:counter) 
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
 
     for (int i = 0 ; i < L ; i++ )
 
 {
 
 
-#pragma omp parallel  reduction(  +  :counter)  
+#pragma omp parallel  reduction(+: counter)  
 
 {
 

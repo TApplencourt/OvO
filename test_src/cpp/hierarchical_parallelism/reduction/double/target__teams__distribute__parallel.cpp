@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 
 
 
@@ -35,7 +36,7 @@ double counter{};
 {
 
 
-#pragma omp teams  reduction(  +  :counter)  
+#pragma omp teams  reduction(+: counter)  
 
 {
 
@@ -47,7 +48,7 @@ double counter{};
 {
 
 
-#pragma omp parallel  reduction(  +  :counter)  
+#pragma omp parallel  reduction(+: counter)  
 
 {
 

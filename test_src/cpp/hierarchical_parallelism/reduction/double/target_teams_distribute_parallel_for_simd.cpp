@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 
 
 
@@ -23,7 +24,7 @@ double counter{};
 
 // Main program
 
-#pragma omp target teams distribute parallel for simd  reduction(  +  :counter)   map(tofrom:counter) 
+#pragma omp target teams distribute parallel for simd  reduction(+: counter)   map(tofrom:counter) 
 
     for (int i = 0 ; i < L ; i++ )
 

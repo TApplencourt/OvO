@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 
 #include <complex>
 using namespace std;
@@ -24,7 +25,7 @@ bool almost_equal(complex<double> x, complex<double> y, int ulp) {
 }
 
 
-#pragma omp declare reduction(ComplexReduction: complex<double>:   omp_out += omp_in) 
+#pragma omp declare reduction(+: complex<double>:   omp_out += omp_in) 
 
 
 void test_target_teams_distribute__parallel(){
@@ -37,14 +38,14 @@ complex<double> counter{};
 
 // Main program
 
-#pragma omp target teams distribute  reduction(  ComplexReduction  :counter)   map(tofrom:counter) 
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
 
     for (int i = 0 ; i < L ; i++ )
 
 {
 
 
-#pragma omp parallel  reduction(  ComplexReduction  :counter)  
+#pragma omp parallel  reduction(+: counter)  
 
 {
 
