@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <stdexcept>
 {% if T_category == "complex" %}
 #include <complex>
 using namespace std;
@@ -26,7 +27,7 @@ bool almost_equal({{T}} x, {{T}} y, int ulp) {
 }
 
 {% if T_category == "complex" %}
-#pragma omp declare reduction(ComplexReduction: {{T}}:   omp_out += omp_in) 
+#pragma omp declare reduction(+: {{T}}:   omp_out += omp_in) 
 {% endif %}
 
 void test_{{name}}(){
@@ -40,7 +41,7 @@ void test_{{name}}(){
 
 // Main program
 {% for fat_pragma in fat_path %}
-#pragma omp {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} reduction( {% if T_category == "complex" %} ComplexReduction {%else%} + {%endif%} :counter) {%endif%} {% if "target" in fat_pragma %} map(tofrom:counter) {% endif %}
+#pragma omp {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} reduction(+: counter) {%endif%} {% if "target" in fat_pragma %} map(tofrom:counter) {% endif %}
 {% if "loop" in fat_pragma %}
     for (int {{fat_pragma["loop"].i}} = 0 ; {{fat_pragma["loop"].i}} < {{fat_pragma["loop"].N}} ; {{fat_pragma["loop"].i}}++ )
 {% endif %}

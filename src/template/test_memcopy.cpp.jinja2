@@ -7,7 +7,8 @@ using namespace std;
 {% endif %}
 #include <vector>
 #include <algorithm>
-
+#include <stdexcept>
+    
 bool almost_equal({{T}} x, {{T}} y, int ulp) {
 {% if T_category == "float" %}
      return std::fabs(x-y) <= std::numeric_limits<{{T}}>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<{{T}}>::min();
