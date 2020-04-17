@@ -25,4 +25,4 @@ run_%: %.exe
 
 .PHONY: clean
 clean:
-	rm -f -- $(pEXE) *.mod
+	rm -f -- $(pEXE) 

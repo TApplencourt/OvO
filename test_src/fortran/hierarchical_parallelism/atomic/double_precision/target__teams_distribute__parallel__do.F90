@@ -10,7 +10,6 @@ FUNCTION almost_equal(x, gold, tol) result(b)
 END FUNCTION almost_equal
 
 program target__teams_distribute__parallel__do
-    implicit none
 
 
     LOGICAL :: almost_equal

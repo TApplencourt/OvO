@@ -24,11 +24,12 @@ FUNCTION almost_equal(x, gold, tol) result(b)
 END FUNCTION almost_equal
 
 program target_teams__parallel_do
-    implicit none
 
 #ifdef _OPENMP
     USE OMP_LIB
+    implicit none
 #else
+    implicit none
     INTEGER:: omp_get_num_teams, omp_get_num_threads
 #endif
 

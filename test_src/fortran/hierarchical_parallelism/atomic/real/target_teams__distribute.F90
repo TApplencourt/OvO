@@ -10,7 +10,6 @@ FUNCTION almost_equal(x, gold, tol) result(b)
 END FUNCTION almost_equal
 
 program target_teams__distribute
-    implicit none
 
 
     LOGICAL :: almost_equal

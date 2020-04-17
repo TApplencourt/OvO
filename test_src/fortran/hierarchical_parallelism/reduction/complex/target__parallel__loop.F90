@@ -14,7 +14,6 @@ FUNCTION almost_equal(x, gold, tol) result(b)
 END FUNCTION almost_equal
 
 program target__parallel__loop
-    implicit none
 
 
     LOGICAL :: almost_equal
