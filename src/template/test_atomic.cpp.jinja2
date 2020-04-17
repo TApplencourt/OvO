@@ -1,5 +1,4 @@
 #include <iostream>
-#include <limits>
 #include <cmath>
 #include <stdexcept>
 #
@@ -17,14 +16,12 @@ int omp_get_num_threads() {return 1;}
 #endif
 {% endif %}
 
-bool almost_equal({{T}} x, {{T}} y, int ulp) {
-{% if T_category == "float" %}
-     return std::fabs(x-y) <= std::numeric_limits<{{T}}>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<{{T}}>::min();
-{% elif T_category == "complex" %}
-    bool r = std::fabs(x.real()-y.real()) <= std::numeric_limits<{{T_type}}>::epsilon() * std::fabs(x.real()+y.real()) * ulp ||  std::fabs(x.real()-y.real()) < std::numeric_limits<{{T_type}}>::min();
-    bool i = std::fabs(x.imag()-y.imag()) <= std::numeric_limits<{{T_type}}>::epsilon() * std::fabs(x.imag()+y.imag()) * ulp ||  std::fabs(x.imag()-y.imag()) < std::numeric_limits<{{T_type}}>::min();
-    return r && i;
-{% endif %}
+bool almost_equal({{T}} x, {{T}} gold, float tol) {
+    {% if T_category == "float" %}
+        return gold * (1-tol) <= x && x <= gold * ( 1+tol );
+    {% elif T_category == "complex" %}
+        return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol );
+    {% endif %}
 }
 
 void test_{{name}}(){
@@ -66,7 +63,7 @@ counter += {{T}} { 1.0f } / num_threads ;
 {% endfor %}
 
 // Validation
-if ( !almost_equal(counter,{{T}} { {{expected_value}} }, 10)  ) {
+if ( !almost_equal(counter,{{T}} { {{expected_value}} }, 0.1)  ) {
     std::cerr << "Expected: " << {{expected_value}} << " Got: " << counter << std::endl;
     throw std::runtime_error( "{{name}} give incorect value when offloaded");
 }
