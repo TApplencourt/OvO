@@ -188,33 +188,50 @@ if __name__ == "__main__":
     # The second and thirs arguments and sis the "mode" of display.
     # Should we print only the summary, the failed or the past tests.
     if sys.argv[1] == 'true':
+        detailed = True
+    else:
+        detailed = False
+
+    if sys.argv[2] == 'true':
         mode_display = "failure"
-    elif sys.argv[2] == 'true':
+    elif sys.argv[3] == 'true':
         mode_display = "pass"
     else:
         mode_display = None
 
+    if mode_display:
+        detailed = True
+
     # The last arguments skip the long_double example. Indeed, GPUs have limited support for them
-    if sys.argv[3] == 'true':
+    if sys.argv[4] == 'true':
         avoid_long_double = True
     else:
         avoid_long_double = False
 
-    if sys.argv[4] == 'true':
+    if sys.argv[5] == 'true':
         avoid_loop = True
     else:
         avoid_loop = False
 
+    paths =  sys.argv[7:]
+
+    if sys.argv[6] != '0':
+        print_dir = ''
+    else:
+        print_dir =  os.path.dirname(os.path.commonprefix(paths))
+    
     d_result = {}
-    for folder in sys.argv[5:]:
+    for folder in paths:
         l_result = []
-        print (f'>> {folder}')
         for mode in ("compilation","runtime"):
             p = os.path.join(folder,f"{mode}.log")
             l_result.append(parse_log(p,mode, avoid_long_double, avoid_loop))
             d_result[folder] = l_result[:]
-        display(l_result, mode_display)
-        print ('')
+
+        if detailed:
+            print (f'>> {folder}')
+            display(l_result, mode_display)
+            print ('')
     
     # We agreage all the result,
     # Test may have the same name in different folder
@@ -234,5 +251,6 @@ if __name__ == "__main__":
         failure_r |= set(f"{folder}_{k}" for k in  r.failure)
 
     if len(sys.argv[4:]) > 1:
-        print ('>> Summary')
+        print (f'>> Summary {print_dir}')
         display([Result("", test_c, failure_c), Result("", test_r, failure_r)] )
+
