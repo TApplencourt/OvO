@@ -1,11 +1,24 @@
 
 
-program target_simd
 
 
-    
-
+FUNCTION almost_equal(x, gold, tol) result(b)
     implicit none
+    COMPLEX, intent(in) :: x
+    INTEGER,  intent(in) ::gold
+    REAL, intent(in)  :: tol
+    LOGICAL          :: b
+    
+    b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol)  )
+    
+END FUNCTION almost_equal
+
+program target_simd
+    implicit none
+
+
+    LOGICAL :: almost_equal
+
   
     INTEGER :: L = 5
     INTEGER :: i
@@ -37,8 +50,8 @@ counter = counter +  CMPLX(   1.  ,0)
     !$OMP END TARGET SIMD
     
 
-    IF  ( ( ABS(COUNTER - L) ) > 10*EPSILON( REAL(  COUNTER  )   ) ) THEN
-        write(*,*)  'Expected L Got', COUNTER
+    IF  ( .NOT.almost_equal(COUNTER, L, 0.1) ) THEN
+        write(*,*)  'Expected', L,  'Got', COUNTER
         call exit(1)
     ENDIF
 

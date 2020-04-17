@@ -1,11 +1,24 @@
 
 
-program target
 
 
-    
-
+FUNCTION almost_equal(x, gold, tol) result(b)
     implicit none
+    DOUBLE COMPLEX, intent(in) :: x
+    INTEGER,  intent(in) ::gold
+    REAL, intent(in)  :: tol
+    LOGICAL          :: b
+    
+    b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol)  )
+    
+END FUNCTION almost_equal
+
+program target
+    implicit none
+
+
+    LOGICAL :: almost_equal
+
   
     
     DOUBLE COMPLEX :: COUNTER =  (    0   ,0)  
@@ -31,8 +44,8 @@ counter = counter +  CMPLX(   1.  ,0)
     !$OMP END TARGET
     
 
-    IF  ( ( ABS(COUNTER - 1) ) > 10*EPSILON( REAL(  COUNTER  )   ) ) THEN
-        write(*,*)  'Expected 1 Got', COUNTER
+    IF  ( .NOT.almost_equal(COUNTER, 1, 0.1) ) THEN
+        write(*,*)  'Expected', 1,  'Got', COUNTER
         call exit(1)
     ENDIF
 

@@ -1,34 +1,41 @@
+{% set is_cmplx = (T_category == "complex") %}
+
 {% if not balenced %}
 #ifndef _OPENMP
-
-MODULE OMP_LIB_STUB
-implicit none
-
-CONTAINS
-
-{% for name in "teams","threads" %}
-FUNCTION omp_get_num_{{name}}() RESULT(i) 
+{% for n in ("teams","threads") %}
+FUNCTION omp_get_num_{{n}}() RESULT(i) 
     INTEGER :: i
     i = 1
-END FUNCTION omp_get_num_{{name}}
+END FUNCTION omp_get_num_{{n}}
 {% endfor %}
-
-END MODULE OMP_LIB_STUB
 #endif
 {% endif %}
 
+FUNCTION almost_equal(x, gold, tol) result(b)
+    implicit none
+    {{T}}, intent(in) :: x
+    INTEGER,  intent(in) ::gold
+    REAL, intent(in)  :: tol
+    LOGICAL          :: b
+    {%if is_cmplx %}
+    b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol)  )
+    {%else%}
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
+    {%endif%}
+END FUNCTION almost_equal
+
 program {{name}}
+    implicit none
 {% if not balenced %}
 #ifdef _OPENMP
     USE OMP_LIB
 #else
-    USE OMP_LIB_STUB
+    INTEGER:: omp_get_num_teams, omp_get_num_threads
 #endif
 {% endif %}
 
-    {% set is_cmplx = (T_category == "complex") %}
+    LOGICAL :: almost_equal
 
-    implicit none
   {% for l in loops %}
     INTEGER :: {{ l.N }} = {{l.v}}
     INTEGER :: {{ l.i }} 
@@ -75,8 +82,8 @@ counter =  counter + {% if is_cmplx %} CMPLX( {%endif%} 1./num_threads  {% if is
     !$OMP END {{fat_pragma["pragma"]}}
     {% endfor %}
 
-    IF  ( ( ABS(COUNTER - {{expected_value}}) ) > 10*EPSILON({% if is_cmplx %} REAL( {%endif%} COUNTER {% if is_cmplx %} ) {%endif%}  ) ) THEN
-        write(*,*)  'Expected {{expected_value}} Got', COUNTER
+    IF  ( .NOT.almost_equal(COUNTER, {{expected_value}}, 0.1) ) THEN
+        write(*,*)  'Expected', {{expected_value}},  'Got', COUNTER
         call exit(1)
     ENDIF
 

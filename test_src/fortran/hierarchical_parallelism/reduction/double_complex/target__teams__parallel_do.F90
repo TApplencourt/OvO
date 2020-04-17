@@ -1,11 +1,7 @@
 
+
+
 #ifndef _OPENMP
-
-MODULE OMP_LIB_STUB
-implicit none
-
-CONTAINS
-
 
 FUNCTION omp_get_num_teams() RESULT(i) 
     INTEGER :: i
@@ -17,23 +13,32 @@ FUNCTION omp_get_num_threads() RESULT(i)
     i = 1
 END FUNCTION omp_get_num_threads
 
-
-END MODULE OMP_LIB_STUB
 #endif
 
 
+FUNCTION almost_equal(x, gold, tol) result(b)
+    implicit none
+    DOUBLE COMPLEX, intent(in) :: x
+    INTEGER,  intent(in) ::gold
+    REAL, intent(in)  :: tol
+    LOGICAL          :: b
+    
+    b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol)  )
+    
+END FUNCTION almost_equal
+
 program target__teams__parallel_do
+    implicit none
 
 #ifdef _OPENMP
     USE OMP_LIB
 #else
-    USE OMP_LIB_STUB
+    INTEGER:: omp_get_num_teams, omp_get_num_threads
 #endif
 
 
-    
+    LOGICAL :: almost_equal
 
-    implicit none
   
     INTEGER :: L = 5
     INTEGER :: i
@@ -89,8 +94,8 @@ counter = counter +  CMPLX(   1./num_teams   ,0)
     !$OMP END TARGET
     
 
-    IF  ( ( ABS(COUNTER - L) ) > 10*EPSILON( REAL(  COUNTER  )   ) ) THEN
-        write(*,*)  'Expected L Got', COUNTER
+    IF  ( .NOT.almost_equal(COUNTER, L, 0.1) ) THEN
+        write(*,*)  'Expected', L,  'Got', COUNTER
         call exit(1)
     ENDIF
 

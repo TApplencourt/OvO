@@ -1,5 +1,4 @@
 #include <iostream>
-#include <limits>
 #include <cmath>
 #include <stdexcept>
 
@@ -13,10 +12,10 @@ int omp_get_num_threads() {return 1;}
 #endif
 
 
-bool almost_equal(double x, double y, int ulp) {
-
-     return std::fabs(x-y) <= std::numeric_limits<double>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<double>::min();
-
+bool almost_equal(double x, double gold, float tol) {
+    
+        return gold * (1-tol) <= x && x <= gold * ( 1+tol );
+    
 }
 
 
@@ -74,7 +73,7 @@ counter += double { 1.0f/num_threads };
 
 
 // Validation
-if ( !almost_equal(counter,double { L*M }, 10)  ) {
+if ( !almost_equal(counter,double { L*M }, 0.1)  ) {
     std::cerr << "Expected: " << L*M << " Got: " << counter << std::endl;
     throw std::runtime_error( "target__teams_distribute__parallel__simd give incorect value when offloaded");
 }

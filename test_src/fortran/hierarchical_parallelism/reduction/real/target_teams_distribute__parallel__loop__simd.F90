@@ -1,11 +1,24 @@
 
 
-program target_teams_distribute__parallel__loop__simd
 
 
-    
-
+FUNCTION almost_equal(x, gold, tol) result(b)
     implicit none
+    REAL, intent(in) :: x
+    INTEGER,  intent(in) ::gold
+    REAL, intent(in)  :: tol
+    LOGICAL          :: b
+    
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
+    
+END FUNCTION almost_equal
+
+program target_teams_distribute__parallel__loop__simd
+    implicit none
+
+
+    LOGICAL :: almost_equal
+
   
     INTEGER :: L = 5
     INTEGER :: i
@@ -79,8 +92,8 @@ counter = counter +  1.
     !$OMP END TARGET TEAMS DISTRIBUTE
     
 
-    IF  ( ( ABS(COUNTER - L*M*N) ) > 10*EPSILON( COUNTER   ) ) THEN
-        write(*,*)  'Expected L*M*N Got', COUNTER
+    IF  ( .NOT.almost_equal(COUNTER, L*M*N, 0.1) ) THEN
+        write(*,*)  'Expected', L*M*N,  'Got', COUNTER
         call exit(1)
     ENDIF
 

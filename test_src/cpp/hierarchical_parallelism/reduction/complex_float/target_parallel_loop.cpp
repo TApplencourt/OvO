@@ -1,5 +1,4 @@
 #include <iostream>
-#include <limits>
 #include <cmath>
 #include <stdexcept>
 
@@ -9,12 +8,10 @@ using namespace std;
 
 
 
-bool almost_equal(complex<float> x, complex<float> y, int ulp) {
-
-    bool r = std::fabs(x.real()-y.real()) <= std::numeric_limits<float>::epsilon() * std::fabs(x.real()+y.real()) * ulp ||  std::fabs(x.real()-y.real()) < std::numeric_limits<float>::min();
-    bool i = std::fabs(x.imag()-y.imag()) <= std::numeric_limits<float>::epsilon() * std::fabs(x.imag()+y.imag()) * ulp ||  std::fabs(x.imag()-y.imag()) < std::numeric_limits<float>::min();
-    return r && i;
-
+bool almost_equal(complex<float> x, complex<float> gold, float tol) {
+    
+        return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol ); 
+    
 }
 
 
@@ -48,7 +45,7 @@ counter += complex<float> { 1.0f };
 
 
 // Validation
-if ( !almost_equal(counter,complex<float> { L }, 10)  ) {
+if ( !almost_equal(counter,complex<float> { L }, 0.1)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
     throw std::runtime_error( "target_parallel_loop give incorect value when offloaded");
 }

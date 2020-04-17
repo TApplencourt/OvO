@@ -1,5 +1,4 @@
 #include <iostream>
-#include <limits>
 #include <cmath>
 #include <stdexcept>
 
@@ -13,10 +12,10 @@ int omp_get_num_threads() {return 1;}
 #endif
 
 
-bool almost_equal(float x, float y, int ulp) {
-
-     return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
-
+bool almost_equal(float x, float gold, float tol) {
+    
+        return gold * (1-tol) <= x && x <= gold * ( 1+tol );
+    
 }
 
 
@@ -56,7 +55,7 @@ counter += float { 1.0f/(num_teams*num_threads) } ;
 
 
 // Validation
-if ( !almost_equal(counter,float { 1 }, 10)  ) {
+if ( !almost_equal(counter,float { 1 }, 0.1)  ) {
     std::cerr << "Expected: " << 1 << " Got: " << counter << std::endl;
     throw std::runtime_error( "target_teams__parallel give incorect value when offloaded");
 }
