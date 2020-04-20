@@ -12,12 +12,12 @@ PROGRAM target_teams__distribute__parallel_do
     INTEGER :: i
     INTEGER :: M = 6
     INTEGER :: j
-    DOUBLE PRECISION :: counter =  0.   
-    DOUBLE PRECISION :: partial_COUNTER 
+    DOUBLE PRECISION :: counter = 0. 
+    DOUBLE PRECISION :: partial_counter = 0.
     !$OMP TARGET TEAMS  MAP(TOFROM: counter) 
     !$OMP DISTRIBUTE 
     DO i = 1 , L 
-    partial_counter  = 0.
+    partial_counter = 0.
     !$OMP PARALLEL DO  REDUCTION(+:partial_counter)  
     DO j = 1 , M 
 partial_counter = partial_counter + 1.

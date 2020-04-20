@@ -27,12 +27,12 @@ PROGRAM target_teams_distribute__parallel
     LOGICAL :: almost_equal
     INTEGER :: L = 5
     INTEGER :: i
-    DOUBLE PRECISION :: counter =  0.   
-    DOUBLE PRECISION :: partial_COUNTER 
+    DOUBLE PRECISION :: counter = 0. 
+    DOUBLE PRECISION :: partial_counter = 0.
     INTEGER :: num_threads
     !$OMP TARGET TEAMS DISTRIBUTE  MAP(TOFROM: counter) 
     DO i = 1 , L 
-    partial_counter  = 0.
+    partial_counter = 0.
     !$OMP PARALLEL  REDUCTION(+:partial_counter)  
     num_threads = omp_get_num_threads()
 partial_counter =  partial_counter + 1./num_threads  

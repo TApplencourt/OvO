@@ -37,8 +37,8 @@ PROGRAM {{name}}
     INTEGER :: {{ l.i }} 
   {%- endfor %}
     
-    {{T}} :: counter = {% if is_cmplx %} (   {%endif%} 0.  {% if is_cmplx %} ,0.) {%endif%} 
-    {{T}} :: partial_COUNTER 
+    {{T}} :: counter = 0. 
+    {{T}} :: partial_counter = 0.
 
     {% if only_teams %}
     INTEGER :: num_teams
@@ -48,8 +48,8 @@ PROGRAM {{name}}
     {% endif %}
      
     {% for fat_pragma in fat_path %}
-    {%if "PARALLEL" in fat_pragma["pragma"] %}
-    partial_counter  = 0.
+    {%if "PARALLEL" in fat_pragma["pragma"]%}
+    partial_counter = 0.
     !$OMP {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} REDUCTION(+:partial_counter) {% endif %} {% if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
     {%else %}
     !$OMP {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
@@ -79,6 +79,7 @@ partial_counter =  partial_counter + 1./num_threads
 {% endif %}
  
     {% for fat_pragma in fat_path | reverse %} 
+
 {% if "loop" in fat_pragma %}
     END DO
 {% endif %}

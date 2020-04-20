@@ -27,13 +27,13 @@ PROGRAM target__teams__parallel_loop
     LOGICAL :: almost_equal
     INTEGER :: L = 5
     INTEGER :: i
-    REAL :: counter =  0.   
-    REAL :: partial_COUNTER 
+    REAL :: counter = 0. 
+    REAL :: partial_counter = 0.
     INTEGER :: num_teams
     !$OMP TARGET  MAP(TOFROM: counter) 
     !$OMP TEAMS 
     num_teams = omp_get_num_teams()
-    partial_counter  = 0.
+    partial_counter = 0.
     !$OMP PARALLEL LOOP  REDUCTION(+:partial_counter)  
     DO i = 1 , L 
 partial_counter = partial_counter + 1./num_teams 

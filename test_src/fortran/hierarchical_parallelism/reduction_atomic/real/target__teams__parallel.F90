@@ -25,14 +25,14 @@ PROGRAM target__teams__parallel
     INTEGER:: omp_get_num_teams, omp_get_num_threads
 #endif
     LOGICAL :: almost_equal
-    REAL :: counter =  0.   
-    REAL :: partial_COUNTER 
+    REAL :: counter = 0. 
+    REAL :: partial_counter = 0.
     INTEGER :: num_teams
     INTEGER :: num_threads
     !$OMP TARGET  MAP(TOFROM: counter) 
     !$OMP TEAMS 
     num_teams = omp_get_num_teams()
-    partial_counter  = 0.
+    partial_counter = 0.
     !$OMP PARALLEL  REDUCTION(+:partial_counter)  
     num_threads = omp_get_num_threads()
 partial_counter = partial_counter + 1./(num_teams*num_threads) 

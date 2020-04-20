@@ -27,12 +27,12 @@ PROGRAM target_teams__parallel_do
     LOGICAL :: almost_equal
     INTEGER :: L = 5
     INTEGER :: i
-    DOUBLE PRECISION :: counter =  0.   
-    DOUBLE PRECISION :: partial_COUNTER 
+    DOUBLE PRECISION :: counter = 0. 
+    DOUBLE PRECISION :: partial_counter = 0.
     INTEGER :: num_teams
     !$OMP TARGET TEAMS  MAP(TOFROM: counter) 
     num_teams = omp_get_num_teams()
-    partial_counter  = 0.
+    partial_counter = 0.
     !$OMP PARALLEL DO  REDUCTION(+:partial_counter)  
     DO i = 1 , L 
 partial_counter = partial_counter + 1./num_teams 
