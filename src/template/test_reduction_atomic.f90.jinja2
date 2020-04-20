@@ -1,7 +1,7 @@
 {% if not balenced %}
 #ifndef _OPENMP
 {% for n in ("teams","threads") %}
-FUNCTION omp_get_num_{{n}}() RESULT(i)
+FUNCTION omp_get_num_{{n}}() RESULT(i) 
     INTEGER :: i
     i = 1
 END FUNCTION omp_get_num_{{n}}
@@ -12,13 +12,14 @@ END FUNCTION omp_get_num_{{n}}
 FUNCTION almost_equal(x, gold, tol) result(b)
     implicit none
     {{T}}, intent(in) :: x
-    INTEGER,  intent(in) ::gold
+    INTEGER,  intent(in) :: gold
     REAL, intent(in)  :: tol
     LOGICAL          :: b
-    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  ) 
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
 END FUNCTION almost_equal
 
-program {{name}}
+
+PROGRAM {{name}}
 {% if not balenced %}
 #ifdef _OPENMP
     USE OMP_LIB
@@ -36,7 +37,8 @@ program {{name}}
     INTEGER :: {{ l.i }} 
   {%- endfor %}
     
-    {{T}} :: COUNTER = 0
+    {{T}} :: counter = {% if is_cmplx %} (   {%endif%} 0.  {% if is_cmplx %} ,0.) {%endif%} 
+    {{T}} :: partial_COUNTER 
 
     {% if only_teams %}
     INTEGER :: num_teams
@@ -44,10 +46,15 @@ program {{name}}
     {% if only_parallel %}
     INTEGER :: num_threads
     {% endif %}
-
      
     {% for fat_pragma in fat_path %}
-    !$OMP {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %}  MAP(TOFROM: COUNTER) {% endif %}
+    {%if "PARALLEL" in fat_pragma["pragma"] %}
+    partial_counter  = 0.
+    !$OMP {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} REDUCTION(+:partial_counter) {% endif %} {% if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
+    {%else %}
+    !$OMP {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
+    {%endif%}
+
 
 {% if "loop" in fat_pragma %}
     DO {{fat_pragma["loop"].i}} = 1 , {{fat_pragma["loop"].N}} 
@@ -61,23 +68,28 @@ program {{name}}
 
     {% endfor %}
 
-!$OMP ATOMIC UPDATE
 {% if balenced %}
-counter = counter + 1.
+partial_counter = partial_counter + 1.
 {% elif only_teams and only_parallel %}
-counter = counter + 1./(num_teams*num_threads)
+partial_counter = partial_counter + 1./(num_teams*num_threads) 
 {% elif only_teams  %}
-counter = counter + 1./num_teams
+partial_counter = partial_counter + 1./num_teams 
 {% elif only_parallel  %}
-counter =  counter +1./num_threads
+partial_counter =  partial_counter + 1./num_threads  
 {% endif %}
-
  
     {% for fat_pragma in fat_path | reverse %} 
 {% if "loop" in fat_pragma %}
     END DO
 {% endif %}
+
     !$OMP END {{fat_pragma["pragma"]}}
+
+{%if "PARALLEL" in fat_pragma["pragma"] %}
+!$OMP ATOMIC UPDATE
+counter = counter + partial_counter
+{% endif %}
+
     {% endfor %}
 
     IF  ( .NOT.almost_equal(COUNTER, {{expected_value}}, 0.1) ) THEN
@@ -85,5 +97,5 @@ counter =  counter +1./num_threads
         call exit(1)
     ENDIF
 
-end program {{name}}
+END PROGRAM {{name}}
 

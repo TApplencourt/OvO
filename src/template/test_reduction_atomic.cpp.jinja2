@@ -1,0 +1,81 @@
+#include <iostream>
+#include <cmath>
+#include <stdexcept>
+{% if T_category == "complex" %}
+#include <complex>
+using namespace std;
+{% endif %}
+
+{% if not balenced %}
+#ifdef _OPENMP
+#include <omp.h>
+#else
+int omp_get_num_teams() {return 1;}
+int omp_get_num_threads() {return 1;}
+#endif
+{% endif %}
+
+bool almost_equal({{T}} x, {{T}} gold, float tol) {
+        return gold * (1-tol) <= x && x <= gold * ( 1+tol );
+}
+
+void test_{{name}}(){
+
+ // Input and Outputs
+ {% for l in loops %}
+ const int {{ l.N }} = {{l.v}};
+ {%- endfor %}
+
+{{T}} counter{};
+
+// Main program
+{% for fat_pragma in fat_path %}
+{% if "parallel" in fat_pragma["pragma"] %}
+ {{T}} partial_counter{};
+#pragma omp {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} reduction(+: counter) {%endif%} {% if "target" in fat_pragma %} map(tofrom:counter) {% endif %}
+{% else %}
+#pragma omp {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %} map(tofrom:counter) {% endif %}
+{% endif %}
+
+{% if "loop" in fat_pragma %}
+    for (int {{fat_pragma["loop"].i}} = 0 ; {{fat_pragma["loop"].i}} < {{fat_pragma["loop"].N}} ; {{fat_pragma["loop"].i}}++ )
+{% endif %}
+{
+{% if "only_teams" in fat_pragma %}
+const int num_teams = omp_get_num_teams();
+{% elif "only_parallel" in fat_pragma %}
+const int num_threads = omp_get_num_threads();
+{% endif %}
+{% endfor %}
+
+{% if balenced %}
+partial_counter += {{T}} { 1.0f };
+{% elif only_teams and only_parallel %}
+partial_counter += {{T}} { 1.0f/(num_teams*num_threads) } ;
+{% elif only_teams  %}
+partial_counter += {{T}} { 1.0f/num_teams } ;
+{% elif only_parallel  %}
+partial_counter += {{T}} { 1.0f/num_threads };
+{% endif %}
+
+{% for fat_pragma in fat_path|reverse %}
+}
+{%if "parallel" in fat_pragma["pragma"] %}
+#pragma omp atomic update
+counter += partial_counter;
+{% endif %}
+
+{% endfor %}
+
+// Validation
+if ( !almost_equal(counter,{{T}} { {{expected_value}} }, 0.1)  ) {
+    std::cerr << "Expected: " << {{expected_value}} << " Got: " << counter << std::endl;
+    throw std::runtime_error( "{{name}} give incorect value when offloaded");
+}
+
+}
+int main()
+{
+    test_{{name}}();
+}
+

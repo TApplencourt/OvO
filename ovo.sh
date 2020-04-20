@@ -58,8 +58,9 @@ declare -p "${prefix}__no_long_double" "${prefix}__no_loop" \
 
 #We don't use the most straitforward `find . -type d -links 2`
 #Because on MaxOS and the Travis PowerPC links includes current,parent and sub directories but also files.  
+#  LC_ALL=C is to get the tradional  sort order. Solve issue with reduction , reduction_atomic
 fl_folder(){
-    local folders=$(find $(realpath "${@}") -type d | sort | uniq | awk '$0 !~ last "/" {print last} {last=$0} END {print last}')
+    local folders=$(find $(realpath "${@}") -type d |  LC_ALL=C sort | uniq | awk '$0 !~ last "/" {print last} {last=$0} END {print last}')
     echo $(realpath ${folders}  --relative-to=$PWD)
 }
 
@@ -112,7 +113,7 @@ fdisplay() {
 fclean() {
     for dir in $(fl_test_src $@)
     do
-        make -s -C "$dir" clean
+        make -s -C "$dir" "clean"
     done
 }
 
