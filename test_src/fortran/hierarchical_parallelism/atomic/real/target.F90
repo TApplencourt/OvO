@@ -1,5 +1,3 @@
-
-
 FUNCTION almost_equal(x, gold, tol) result(b)
     implicit none
     REAL, intent(in) :: x
@@ -8,43 +6,15 @@ FUNCTION almost_equal(x, gold, tol) result(b)
     LOGICAL          :: b
     b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  ) 
 END FUNCTION almost_equal
-
 program target
-
-
     LOGICAL :: almost_equal
-
-  
-    
     REAL :: COUNTER = 0
-
-    
-    
-
-     
-    
     !$OMP TARGET   MAP(TOFROM: COUNTER) 
-
-
-
-    
-
-    
-
 !$OMP ATOMIC UPDATE
-
 counter = counter + 1.
-
-
- 
-     
-
     !$OMP END TARGET
-    
-
     IF  ( .NOT.almost_equal(COUNTER, 1, 0.1) ) THEN
         write(*,*)  'Expected', 1,  'Got', COUNTER
         call exit(1)
     ENDIF
-
 end program target

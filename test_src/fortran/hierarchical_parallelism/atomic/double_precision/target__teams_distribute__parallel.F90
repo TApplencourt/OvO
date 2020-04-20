@@ -1,19 +1,13 @@
-
 #ifndef _OPENMP
-
 FUNCTION omp_get_num_teams() RESULT(i)
     INTEGER :: i
     i = 1
 END FUNCTION omp_get_num_teams
-
 FUNCTION omp_get_num_threads() RESULT(i)
     INTEGER :: i
     i = 1
 END FUNCTION omp_get_num_threads
-
 #endif
-
-
 FUNCTION almost_equal(x, gold, tol) result(b)
     implicit none
     DOUBLE PRECISION, intent(in) :: x
@@ -22,9 +16,7 @@ FUNCTION almost_equal(x, gold, tol) result(b)
     LOGICAL          :: b
     b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  ) 
 END FUNCTION almost_equal
-
 program target__teams_distribute__parallel
-
 #ifdef _OPENMP
     USE OMP_LIB
     implicit none
@@ -32,71 +24,24 @@ program target__teams_distribute__parallel
     implicit none
     INTEGER:: omp_get_num_teams, omp_get_num_threads
 #endif
-
-
     LOGICAL :: almost_equal
-
-  
     INTEGER :: L = 5
     INTEGER :: i
-    
     DOUBLE PRECISION :: COUNTER = 0
-
-    
-    
     INTEGER :: num_threads
-    
-
-     
-    
     !$OMP TARGET   MAP(TOFROM: COUNTER) 
-
-
-
-    
-
-    
     !$OMP TEAMS DISTRIBUTE 
-
-
     DO i = 1 , L 
-
-
-    
-
-    
     !$OMP PARALLEL 
-
-
-
-    
     num_threads = omp_get_num_threads()
-    
-
-    
-
 !$OMP ATOMIC UPDATE
-
 counter =  counter +1./num_threads
-
-
- 
-     
-
     !$OMP END PARALLEL
-     
-
     END DO
-
     !$OMP END TEAMS DISTRIBUTE
-     
-
     !$OMP END TARGET
-    
-
     IF  ( .NOT.almost_equal(COUNTER, L, 0.1) ) THEN
         write(*,*)  'Expected', L,  'Got', COUNTER
         call exit(1)
     ENDIF
-
 end program target__teams_distribute__parallel

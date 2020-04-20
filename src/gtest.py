@@ -201,7 +201,11 @@ dirname = os.path.dirname(__file__)
 templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname,"template"))
 templateEnv = jinja2.Environment(loader=templateLoader)
 
-class AtomicReduction(Path):
+
+def format_template(str_):
+    return '\n'.join(line for line in str_.split('\n') if line.strip() ) + '\n'
+
+class OmpReduce(Path):
 
     @cached_property
     def expected_value(self):
@@ -210,7 +214,7 @@ class AtomicReduction(Path):
 
         return f"{'*'.join(l.N for l in self.loops)}"
 
-class Atomic(AtomicReduction):
+class Atomic(OmpReduce):
 
     @cached_property
     def template_rendered(self):
@@ -223,7 +227,7 @@ class Atomic(AtomicReduction):
         if self.has("simd"):
             return 
 
-        return template.render(name=self.name,
+        str_ = template.render(name=self.name,
                                       fat_path=self.fat_path,
                                       loops=self.loops,
                                       balenced=self.balenced,
@@ -233,7 +237,10 @@ class Atomic(AtomicReduction):
                                       T_category=self.T.category,
                                       T_type=self.T.internal,
                                       T=self.T.T)
-class Reduction(AtomicReduction):
+
+        return format_template(str_)
+
+class Reduction(OmpReduce):
 
     @cached_property
     def template_rendered(self):
@@ -243,7 +250,7 @@ class Reduction(AtomicReduction):
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_reduction.f90.jinja2")
 
-        return template.render(name=self.name,
+        str_ =  template.render(name=self.name,
                                         fat_path=self.fat_path,
                                         loops=self.loops,
                                         balenced=self.balenced,
@@ -253,6 +260,35 @@ class Reduction(AtomicReduction):
                                         T_category=self.T.category,
                                         T_type=self.T.internal,
                                         T=self.T.T)
+
+        return format_template(str_)
+
+class ReductionAtomic(OmpReduce):
+
+    @cached_property
+    def template_rendered(self):
+
+        if self.language == "cpp":
+            template = templateEnv.get_template(f"test_reduction_atomic.cpp.jinja2")
+        elif self.language == "fortran":
+            template = templateEnv.get_template(f"test_reduction_atomic.f90.jinja2")
+
+        if self.has("simd") or not self.has("parallel") or not self.has("teams"):
+            return 
+
+        str_ = template.render(name=self.name,
+                                      fat_path=self.fat_path,
+                                      loops=self.loops,
+                                      balenced=self.balenced,
+                                      only_teams=self.only_teams,
+                                      only_parallel=self.only_parallel,
+                                      expected_value=self.expected_value,
+                                      T_category=self.T.category,
+                                      T_type=self.T.internal,
+                                      T=self.T.T)
+
+        return format_template(str_)
+    
 class Memcopy(Path):
 
     @cached_property
@@ -286,7 +322,7 @@ class Memcopy(Path):
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_memcopy.f90.jinja2")
 
-        return template.render(name=self.name,
+        str_ = template.render(name=self.name,
                                fat_path=self.fat_path,
                                loops=self.loops,
                                index=self.index,
@@ -295,6 +331,7 @@ class Memcopy(Path):
                                T_type=self.T.internal,
                                T=self.T.T)
 
+        return format_template(str_)
 
 #from cmath import complex
 class ccomplex(object):
@@ -435,7 +472,8 @@ class Math():
             template = templateEnv.get_template(f"test_math.cpp.jinja2")
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_math.f90.jinja2")
-        return template.render(name=self.name, l_argv=self.l, scalar_output= self.scalar_output, have_complex=self.have_complex)
+        str_ = template.render(name=self.name, l_argv=self.l, scalar_output= self.scalar_output, have_complex=self.have_complex)
+        return format_template(str_)
 
 #  -                                                   
 # /   _   _|  _     _   _  ._   _  ._ _. _|_ o  _  ._  
@@ -504,8 +542,12 @@ if __name__ == '__main__':
 
     gen_hp(makefile_cpp, omp_tree,( ("memcopy", Memcopy,     ['float', 'complex<float>', 'double','complex<double>']) ,
                                     ("atomic" , Atomic,      ['float', 'double']) ,
-                                    ("reduction", Reduction, ["float",'complex<float>','double','complex<double>'])), "cpp" ) 
+                                    ("reduction", Reduction, ["float",'complex<float>','double','complex<double>']), 
+                                    ("reduction_atomic", ReductionAtomic, ['float','double'] )),
+                                    "cpp" ) 
     gen_hp(makefile_fortran, omp_tree, (  ("memcopy", Memcopy,     ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']) ,
                                           ("atomic" , Atomic,      ['REAL','DOUBLE PRECISION']) ,
-                                          ("reduction", Reduction, ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX'])), "fortran" )
-
+                                          ("reduction", Reduction, ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']), 
+                                          ("reduction_atomic", ReductionAtomic, ['REAL','DOUBLE PRECISION'] )),
+                                          "fortran" )
+                    

@@ -1,19 +1,13 @@
-
 #ifndef _OPENMP
-
 FUNCTION omp_get_num_teams() RESULT(i)
     INTEGER :: i
     i = 1
 END FUNCTION omp_get_num_teams
-
 FUNCTION omp_get_num_threads() RESULT(i)
     INTEGER :: i
     i = 1
 END FUNCTION omp_get_num_threads
-
 #endif
-
-
 FUNCTION almost_equal(x, gold, tol) result(b)
     implicit none
     REAL, intent(in) :: x
@@ -22,9 +16,7 @@ FUNCTION almost_equal(x, gold, tol) result(b)
     LOGICAL          :: b
     b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  ) 
 END FUNCTION almost_equal
-
 program target_teams
-
 #ifdef _OPENMP
     USE OMP_LIB
     implicit none
@@ -32,45 +24,16 @@ program target_teams
     implicit none
     INTEGER:: omp_get_num_teams, omp_get_num_threads
 #endif
-
-
     LOGICAL :: almost_equal
-
-  
-    
     REAL :: COUNTER = 0
-
-    
     INTEGER :: num_teams
-    
-    
-
-     
-    
     !$OMP TARGET TEAMS   MAP(TOFROM: COUNTER) 
-
-
-
-    
     num_teams = omp_get_num_teams()
-    
-
-    
-
 !$OMP ATOMIC UPDATE
-
 counter = counter + 1./num_teams
-
-
- 
-     
-
     !$OMP END TARGET TEAMS
-    
-
     IF  ( .NOT.almost_equal(COUNTER, 1, 0.1) ) THEN
         write(*,*)  'Expected', 1,  'Got', COUNTER
         call exit(1)
     ENDIF
-
 end program target_teams

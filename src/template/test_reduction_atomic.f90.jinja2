@@ -1,0 +1,101 @@
+{% if not balenced %}
+#ifndef _OPENMP
+{% for n in ("teams","threads") %}
+FUNCTION omp_get_num_{{n}}() RESULT(i) 
+    INTEGER :: i
+    i = 1
+END FUNCTION omp_get_num_{{n}}
+{% endfor %}
+#endif
+{% endif %}
+
+FUNCTION almost_equal(x, gold, tol) result(b)
+    implicit none
+    {{T}}, intent(in) :: x
+    INTEGER,  intent(in) :: gold
+    REAL, intent(in)  :: tol
+    LOGICAL          :: b
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
+END FUNCTION almost_equal
+
+
+PROGRAM {{name}}
+{% if not balenced %}
+#ifdef _OPENMP
+    USE OMP_LIB
+    implicit none
+#else
+    implicit none
+    INTEGER:: omp_get_num_teams, omp_get_num_threads
+#endif
+{% endif %}
+
+    LOGICAL :: almost_equal
+
+  {% for l in loops %}
+    INTEGER :: {{ l.N }} = {{l.v}}
+    INTEGER :: {{ l.i }} 
+  {%- endfor %}
+    
+    {{T}} :: counter = {% if is_cmplx %} (   {%endif%} 0.  {% if is_cmplx %} ,0.) {%endif%} 
+    {{T}} :: partial_COUNTER 
+
+    {% if only_teams %}
+    INTEGER :: num_teams
+    {% endif %}
+    {% if only_parallel %}
+    INTEGER :: num_threads
+    {% endif %}
+     
+    {% for fat_pragma in fat_path %}
+    {%if "PARALLEL" in fat_pragma["pragma"] %}
+    partial_counter  = 0.
+    !$OMP {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} REDUCTION(+:partial_counter) {% endif %} {% if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
+    {%else %}
+    !$OMP {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
+    {%endif%}
+
+
+{% if "loop" in fat_pragma %}
+    DO {{fat_pragma["loop"].i}} = 1 , {{fat_pragma["loop"].N}} 
+{% endif %}
+
+    {% if "only_teams" in fat_pragma %}
+    num_teams = omp_get_num_teams()
+    {% elif "only_parallel" in fat_pragma %}
+    num_threads = omp_get_num_threads()
+    {% endif %}
+
+    {% endfor %}
+
+{% if balenced %}
+partial_counter = partial_counter + 1.
+{% elif only_teams and only_parallel %}
+partial_counter = partial_counter + 1./(num_teams*num_threads) 
+{% elif only_teams  %}
+partial_counter = partial_counter + 1./num_teams 
+{% elif only_parallel  %}
+partial_counter =  partial_counter + 1./num_threads  
+{% endif %}
+ 
+    {% for fat_pragma in fat_path | reverse %} 
+{% if "loop" in fat_pragma %}
+    END DO
+{% endif %}
+
+    !$OMP END {{fat_pragma["pragma"]}}
+
+{%if "PARALLEL" in fat_pragma["pragma"] %}
+!$OMP ATOMIC UPDATE
+counter = counter + partial_counter
+{% endif %}
+
+    {% endfor %}
+
+    IF  ( .NOT.almost_equal(COUNTER, {{expected_value}}, 0.1) ) THEN
+        write(*,*)  'Expected', {{expected_value}},  'Got', COUNTER
+        call exit(1)
+    ENDIF
+
+END PROGRAM {{name}}
+
