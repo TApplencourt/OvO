@@ -188,7 +188,7 @@ class Path():
             if "parallel" in pragma and self.only_parallel:
                 d["only_parallel"] = True
             
-            if any(p in pragma for p in ("teams","parallel","simd","loop")):
+            if any(p in pragma for p in ("teams","parallel","simd")):
                 d["reduce"] = True
             
             l.append(d)
@@ -266,10 +266,6 @@ class Reduction(OmpReduce):
 class ReductionAtomic(OmpReduce):
 
     @cached_property
-    def target_teams(self,):
-       return any("teams distribute parallel for" in p for p in self.path )
-
-    @cached_property
     def template_rendered(self):
 
         if self.language == "cpp":
@@ -294,7 +290,6 @@ class ReductionAtomic(OmpReduce):
                                       only_teams=self.only_teams,
                                       only_parallel=self.only_parallel,
                                       expected_value=self.expected_value,
-                                      target_teams=self.target_teams,
                                       T_category=self.T.category,
                                       T_type=self.T.internal,
                                       T=self.T.T)
