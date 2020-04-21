@@ -12,7 +12,7 @@ program target_parallel__loop
     INTEGER :: i
     REAL :: COUNTER =  0   
     !$OMP TARGET PARALLEL   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO i = 1 , L 
 counter = counter +  1.  
     END DO

@@ -15,7 +15,7 @@ program target__teams__loop__parallel_do
     DOUBLE COMPLEX :: COUNTER =  (    0   ,0)  
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO i = 1 , L 
     !$OMP PARALLEL DO   REDUCTION(+:COUNTER)  
     DO j = 1 , M 

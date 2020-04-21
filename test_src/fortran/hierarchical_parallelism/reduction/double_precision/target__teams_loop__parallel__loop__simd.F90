@@ -19,7 +19,7 @@ program target__teams_loop__parallel__loop__simd
     !$OMP TEAMS LOOP   REDUCTION(+:COUNTER)  
     DO i = 1 , L 
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO j = 1 , M 
     !$OMP SIMD   REDUCTION(+:COUNTER)  
     DO k = 1 , N 

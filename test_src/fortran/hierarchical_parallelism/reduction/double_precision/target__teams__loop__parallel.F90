@@ -31,7 +31,7 @@ program target__teams__loop__parallel
     INTEGER :: num_threads
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO i = 1 , L 
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
     num_threads = omp_get_num_threads()

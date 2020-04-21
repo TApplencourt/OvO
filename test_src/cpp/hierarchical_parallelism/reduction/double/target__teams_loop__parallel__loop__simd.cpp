@@ -18,7 +18,7 @@ double counter{};
 {
 #pragma omp parallel  reduction(+: counter)  
 {
-#pragma omp loop  reduction(+: counter)  
+#pragma omp loop  
     for (int j = 0 ; j < M ; j++ )
 {
 #pragma omp simd  reduction(+: counter)  

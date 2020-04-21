@@ -16,7 +16,7 @@ complex<float> counter{};
 {
 #pragma omp teams  reduction(+: counter)  
 {
-#pragma omp loop  reduction(+: counter)  
+#pragma omp loop  
     for (int i = 0 ; i < L ; i++ )
 {
 counter += complex<float> { 1.0f };

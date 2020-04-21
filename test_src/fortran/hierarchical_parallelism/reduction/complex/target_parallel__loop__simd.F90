@@ -14,7 +14,7 @@ program target_parallel__loop__simd
     INTEGER :: j
     COMPLEX :: COUNTER =  (    0   ,0)  
     !$OMP TARGET PARALLEL   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO i = 1 , L 
     !$OMP SIMD   REDUCTION(+:COUNTER)  
     DO j = 1 , M 

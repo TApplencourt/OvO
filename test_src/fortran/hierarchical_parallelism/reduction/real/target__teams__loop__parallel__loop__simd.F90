@@ -17,10 +17,10 @@ program target__teams__loop__parallel__loop__simd
     REAL :: COUNTER =  0   
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO i = 1 , L 
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO j = 1 , M 
     !$OMP SIMD   REDUCTION(+:COUNTER)  
     DO k = 1 , N 

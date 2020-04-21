@@ -16,7 +16,7 @@ program target_teams_loop__parallel__loop
     !$OMP TARGET TEAMS LOOP   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
     DO i = 1 , L 
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO j = 1 , M 
 counter = counter +  CMPLX(   1.  ,0)  
     END DO

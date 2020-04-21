@@ -24,7 +24,7 @@ complex<float> counter{};
 const int num_teams = omp_get_num_teams();
 #pragma omp parallel  reduction(+: counter)  
 {
-#pragma omp loop  reduction(+: counter)  
+#pragma omp loop  
     for (int i = 0 ; i < L ; i++ )
 {
 #pragma omp simd  reduction(+: counter)  

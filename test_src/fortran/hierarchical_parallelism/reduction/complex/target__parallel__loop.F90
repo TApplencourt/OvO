@@ -13,7 +13,7 @@ program target__parallel__loop
     COMPLEX :: COUNTER =  (    0   ,0)  
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO i = 1 , L 
 counter = counter +  CMPLX(   1.  ,0)  
     END DO

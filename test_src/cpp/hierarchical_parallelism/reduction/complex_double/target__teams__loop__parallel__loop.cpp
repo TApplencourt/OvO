@@ -17,12 +17,12 @@ complex<double> counter{};
 {
 #pragma omp teams  reduction(+: counter)  
 {
-#pragma omp loop  reduction(+: counter)  
+#pragma omp loop  
     for (int i = 0 ; i < L ; i++ )
 {
 #pragma omp parallel  reduction(+: counter)  
 {
-#pragma omp loop  reduction(+: counter)  
+#pragma omp loop  
     for (int j = 0 ; j < M ; j++ )
 {
 counter += complex<double> { 1.0f };

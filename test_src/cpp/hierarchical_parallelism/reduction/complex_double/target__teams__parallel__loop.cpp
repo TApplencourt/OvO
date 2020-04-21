@@ -25,7 +25,7 @@ complex<double> counter{};
 const int num_teams = omp_get_num_teams();
 #pragma omp parallel  reduction(+: counter)  
 {
-#pragma omp loop  reduction(+: counter)  
+#pragma omp loop  
     for (int i = 0 ; i < L ; i++ )
 {
 counter += complex<double> { 1.0f/num_teams } ;

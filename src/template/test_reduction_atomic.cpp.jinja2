@@ -32,7 +32,7 @@ void test_{{name}}(){
 {% for fat_pragma in fat_path %}
 {% if "parallel" in fat_pragma["pragma"] %}
 {{T}} partial_counter{};
-#pragma omp {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} reduction(+: counter) {%endif%} {% if "target" in fat_pragma %} map(tofrom:counter) {% endif %}
+#pragma omp {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} reduction(+: counter) {%endif%} {% if "target" in fat_pragma %} map(tofrom:partial_counter) {% endif %}
 {% else %}
 #pragma omp {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %} map(tofrom:counter) {% endif %}
 {% endif %}

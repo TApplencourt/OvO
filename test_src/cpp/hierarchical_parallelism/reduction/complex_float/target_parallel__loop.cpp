@@ -14,7 +14,7 @@ complex<float> counter{};
 // Main program
 #pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
 {
-#pragma omp loop  reduction(+: counter)  
+#pragma omp loop  
     for (int i = 0 ; i < L ; i++ )
 {
 counter += complex<float> { 1.0f };

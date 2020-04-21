@@ -13,7 +13,7 @@ program target__teams__loop
     DOUBLE PRECISION :: COUNTER =  0   
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO i = 1 , L 
 counter = counter +  1.  
     END DO

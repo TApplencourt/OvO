@@ -17,7 +17,7 @@ program target__teams_distribute__parallel__loop
     !$OMP TEAMS DISTRIBUTE   REDUCTION(+:COUNTER)  
     DO i = 1 , L 
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO j = 1 , M 
 counter = counter +  1.  
     END DO

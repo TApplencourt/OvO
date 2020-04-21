@@ -17,7 +17,7 @@ program target__teams__loop__parallel__do__simd
     COMPLEX :: COUNTER =  (    0   ,0)  
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO i = 1 , L 
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
     !$OMP DO   

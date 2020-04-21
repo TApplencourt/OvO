@@ -22,7 +22,7 @@ complex<double> counter{};
 {
 #pragma omp parallel  reduction(+: counter)  
 {
-#pragma omp loop  reduction(+: counter)  
+#pragma omp loop  
     for (int j = 0 ; j < M ; j++ )
 {
 counter += complex<double> { 1.0f };

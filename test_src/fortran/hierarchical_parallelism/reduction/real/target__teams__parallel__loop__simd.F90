@@ -35,7 +35,7 @@ program target__teams__parallel__loop__simd
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
     num_teams = omp_get_num_teams()
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO i = 1 , L 
     !$OMP SIMD   REDUCTION(+:COUNTER)  
     DO j = 1 , M 

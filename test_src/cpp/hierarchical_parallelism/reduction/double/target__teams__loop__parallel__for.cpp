@@ -14,7 +14,7 @@ double counter{};
 {
 #pragma omp teams  reduction(+: counter)  
 {
-#pragma omp loop  reduction(+: counter)  
+#pragma omp loop  
     for (int i = 0 ; i < L ; i++ )
 {
 #pragma omp parallel  reduction(+: counter)  

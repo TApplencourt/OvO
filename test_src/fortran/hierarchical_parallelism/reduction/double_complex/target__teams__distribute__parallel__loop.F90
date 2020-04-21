@@ -18,7 +18,7 @@ program target__teams__distribute__parallel__loop
     !$OMP DISTRIBUTE   
     DO i = 1 , L 
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO j = 1 , M 
 counter = counter +  CMPLX(   1.  ,0)  
     END DO

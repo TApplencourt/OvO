@@ -15,7 +15,7 @@ program target__teams__loop__simd
     COMPLEX :: COUNTER =  (    0   ,0)  
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   REDUCTION(+:COUNTER)  
+    !$OMP LOOP   
     DO i = 1 , L 
     !$OMP SIMD   REDUCTION(+:COUNTER)  
     DO j = 1 , M 
