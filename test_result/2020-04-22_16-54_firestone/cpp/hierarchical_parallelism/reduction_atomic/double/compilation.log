@@ -1,0 +1,202 @@
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute__parallel__for.cpp -o target__teams__distribute__parallel__for.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__parallel_for__simd.cpp -o target_teams__parallel_for__simd.exe
+target_teams__parallel_for__simd.cpp:30:9: error: region cannot be closely nested inside 'target teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target_teams__parallel_for__simd.cpp.
+make: [target_teams__parallel_for__simd.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target_parallel__for__simd.cpp -o target_parallel__for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute__parallel__for__simd.cpp -o target_teams_distribute__parallel__for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute__parallel.cpp -o target_teams_distribute__parallel.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__parallel.cpp -o target_teams__parallel.exe
+target_teams__parallel.cpp:24:9: error: region cannot be closely nested inside 'target teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target_teams__parallel.cpp.
+make: [target_teams__parallel.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute_parallel_for_simd.cpp -o target_teams_distribute_parallel_for_simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute__parallel__for.cpp -o target_teams_distribute__parallel__for.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute__parallel_for__simd.cpp -o target_teams__distribute__parallel_for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__parallel_for_simd.cpp -o target__teams__parallel_for_simd.exe
+target__teams__parallel_for_simd.cpp:27:9: error: region cannot be closely nested inside 'teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target__teams__parallel_for_simd.cpp.
+make: [target__teams__parallel_for_simd.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute__parallel__for__simd.cpp -o target__teams_distribute__parallel__for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute_parallel_for.cpp -o target__teams_distribute_parallel_for.exe
+target__teams_distribute_parallel_for.cpp:10:9: error: target construct with nested teams region contains statements outside of the teams construct
+#pragma omp target  map(tofrom:counter) 
+        ^
+target__teams_distribute_parallel_for.cpp:13:9: note: nested teams construct here
+#pragma omp teams distribute parallel for  reduction(+: counter)  
+        ^
+target__teams_distribute_parallel_for.cpp:12:1: note: statement outside teams construct here
+double partial_counter{};
+^
+1 error generated.
+Error while processing target__teams_distribute_parallel_for.cpp.
+make: [target__teams_distribute_parallel_for.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute__parallel__simd.cpp -o target_teams__distribute__parallel__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute__parallel_for__simd.cpp -o target__teams__distribute__parallel_for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute__parallel_for.cpp -o target__teams_distribute__parallel_for.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__parallel_for_simd.cpp -o target_teams__parallel_for_simd.exe
+target_teams__parallel_for_simd.cpp:25:9: error: region cannot be closely nested inside 'target teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target_teams__parallel_for_simd.cpp.
+make: [target_teams__parallel_for_simd.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target_parallel__simd.cpp -o target_parallel__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute_parallel_for_simd.cpp -o target__teams_distribute_parallel_for_simd.exe
+target__teams_distribute_parallel_for_simd.cpp:10:9: error: target construct with nested teams region contains statements outside of the teams construct
+#pragma omp target  map(tofrom:counter) 
+        ^
+target__teams_distribute_parallel_for_simd.cpp:13:9: note: nested teams construct here
+#pragma omp teams distribute parallel for simd  reduction(+: counter)  
+        ^
+target__teams_distribute_parallel_for_simd.cpp:12:1: note: statement outside teams construct here
+double partial_counter{};
+^
+1 error generated.
+Error while processing target__teams_distribute_parallel_for_simd.cpp.
+make: [target__teams_distribute_parallel_for_simd.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute_parallel_for.cpp -o target_teams_distribute_parallel_for.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute_parallel_for__simd.cpp -o target_teams_distribute_parallel_for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute_simd.cpp -o target_teams_distribute_simd.exe
+1586-511 (I) Loop (loop index 1) at target_teams_distribute_simd.cpp <line 12> was not SIMD vectorized despite OMP SIMD pragma.
+xlC_r -std=c++11 -qsmp=omp -qoffload target__parallel__for__simd.cpp -o target__parallel__for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__parallel.cpp -o target__teams__parallel.exe
+target__teams__parallel.cpp:26:9: error: region cannot be closely nested inside 'teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target__teams__parallel.cpp.
+make: [target__teams__parallel.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__parallel__for.cpp -o target_teams__parallel__for.exe
+target_teams__parallel__for.cpp:28:9: error: region cannot be closely nested inside 'target teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target_teams__parallel__for.cpp.
+make: [target_teams__parallel__for.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute__parallel_for.cpp -o target__teams__distribute__parallel_for.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute__parallel__simd.cpp -o target__teams_distribute__parallel__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute__simd.cpp -o target_teams__distribute__simd.exe
+1586-511 (I) Loop (loop index 3) at target_teams__distribute__simd.cpp <line 18> was not SIMD vectorized despite OMP SIMD pragma.
+xlC_r -std=c++11 -qsmp=omp -qoffload target__parallel__simd.cpp -o target__parallel__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__parallel__simd.cpp -o target__teams__parallel__simd.exe
+target__teams__parallel__simd.cpp:31:9: error: region cannot be closely nested inside 'teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target__teams__parallel__simd.cpp.
+make: [target__teams__parallel__simd.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute__parallel.cpp -o target__teams__distribute__parallel.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__parallel_for_simd.cpp -o target__parallel_for_simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__parallel__for__simd.cpp -o target_teams__parallel__for__simd.exe
+target_teams__parallel__for__simd.cpp:33:9: error: region cannot be closely nested inside 'target teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target_teams__parallel__for__simd.cpp.
+make: [target_teams__parallel__for__simd.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute__parallel_for.cpp -o target_teams__distribute__parallel_for.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute__parallel_for__simd.cpp -o target_teams_distribute__parallel_for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute__parallel_for__simd.cpp -o target__teams_distribute__parallel_for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute__parallel__for.cpp -o target_teams__distribute__parallel__for.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__parallel__for.cpp -o target__teams__parallel__for.exe
+target__teams__parallel__for.cpp:30:9: error: region cannot be closely nested inside 'teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target__teams__parallel__for.cpp.
+make: [target__teams__parallel__for.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__parallel_for.cpp -o target_teams__parallel_for.exe
+target_teams__parallel_for.cpp:25:9: error: region cannot be closely nested inside 'target teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target_teams__parallel_for.cpp.
+make: [target_teams__parallel_for.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute__parallel.cpp -o target_teams__distribute__parallel.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute_parallel_for__simd.cpp -o target__teams_distribute_parallel_for__simd.exe
+target__teams_distribute_parallel_for__simd.cpp:11:9: error: target construct with nested teams region contains statements outside of the teams construct
+#pragma omp target  map(tofrom:counter) 
+        ^
+target__teams_distribute_parallel_for__simd.cpp:14:9: note: nested teams construct here
+#pragma omp teams distribute parallel for  reduction(+: counter)  
+        ^
+target__teams_distribute_parallel_for__simd.cpp:13:1: note: statement outside teams construct here
+double partial_counter{};
+^
+1 error generated.
+Error while processing target__teams_distribute_parallel_for__simd.cpp.
+make: [target__teams_distribute_parallel_for__simd.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__parallel__simd.cpp -o target_teams__parallel__simd.exe
+target_teams__parallel__simd.cpp:29:9: error: region cannot be closely nested inside 'target teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target_teams__parallel__simd.cpp.
+make: [target_teams__parallel__simd.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute__parallel.cpp -o target__teams_distribute__parallel.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__parallel_for__simd.cpp -o target__teams__parallel_for__simd.exe
+target__teams__parallel_for__simd.cpp:32:9: error: region cannot be closely nested inside 'teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target__teams__parallel_for__simd.cpp.
+make: [target__teams__parallel_for__simd.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute__parallel__simd.cpp -o target_teams_distribute__parallel__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute__parallel_for.cpp -o target_teams_distribute__parallel_for.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__parallel_for__simd.cpp -o target__parallel_for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute__parallel__for__simd.cpp -o target__teams__distribute__parallel__for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute_simd.cpp -o target__teams_distribute_simd.exe
+target__teams_distribute_simd.cpp:10:9: error: target construct with nested teams region contains statements outside of the teams construct
+#pragma omp target  map(tofrom:counter) 
+        ^
+target__teams_distribute_simd.cpp:13:9: note: nested teams construct here
+#pragma omp teams distribute simd  reduction(+: counter)  
+        ^
+target__teams_distribute_simd.cpp:12:1: note: statement outside teams construct here
+double partial_counter{};
+^
+1 error generated.
+Error while processing target__teams_distribute_simd.cpp.
+make: [target__teams_distribute_simd.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__parallel__for__simd.cpp -o target__teams__parallel__for__simd.exe
+target__teams__parallel__for__simd.cpp:35:9: error: region cannot be closely nested inside 'teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target__teams__parallel__for__simd.cpp.
+make: [target__teams__parallel__for__simd.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute__parallel__for.cpp -o target__teams_distribute__parallel__for.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_parallel_for__simd.cpp -o target_parallel_for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute__simd.cpp -o target_teams_distribute__simd.exe
+1586-511 (I) Loop (loop index 3) at target_teams_distribute__simd.cpp <line 16> was not SIMD vectorized despite OMP SIMD pragma.
+xlC_r -std=c++11 -qsmp=omp -qoffload target_parallel_for_simd.cpp -o target_parallel_for_simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__parallel_for.cpp -o target__teams__parallel_for.exe
+target__teams__parallel_for.cpp:27:9: error: region cannot be closely nested inside 'teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target__teams__parallel_for.cpp.
+make: [target__teams__parallel_for.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute__simd.cpp -o target__teams_distribute__simd.exe
+1586-511 (I) Loop (loop index 3) at target__teams_distribute__simd.cpp <line 18> was not SIMD vectorized despite OMP SIMD pragma.
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute__parallel__simd.cpp -o target__teams__distribute__parallel__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute__simd.cpp -o target__teams__distribute__simd.exe
+1586-511 (I) Loop (loop index 3) at target__teams__distribute__simd.cpp <line 20> was not SIMD vectorized despite OMP SIMD pragma.
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute__parallel__for__simd.cpp -o target_teams__distribute__parallel__for__simd.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute_simd.cpp -o target_teams__distribute_simd.exe
+target_teams__distribute_simd.cpp:18:9: error: region cannot be closely nested inside 'target teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+        ^
+1 error generated.
+Error while processing target_teams__distribute_simd.cpp.
+make: [target_teams__distribute_simd.exe] Error 1 (ignored)

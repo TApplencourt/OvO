@@ -1,0 +1,7 @@
+./target__teams__parallel_for_simd.exe
+Expected: 5 Got: (-1.07951e+27,96.0238)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__parallel_for_simd give incorect value when offloaded
+make: *** [run_target__teams__parallel_for_simd] Aborted
+./target__parallel__for__simd.exe
+./target_teams__distribute__parallel_for__simd.exe

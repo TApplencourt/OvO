@@ -1,0 +1,20 @@
+xlC_r -std=c++11 -qsmp=omp -qoffload lerp_float_float_float_float.cpp -o lerp_float_float_float_float.exe
+lerp_float_float_float_float.cpp:16:18: error: use of undeclared identifier 'lerp'
+    out3_host =  lerp( in0, in1, in2);
+                 ^
+lerp_float_float_float_float.cpp:19:21: error: use of undeclared identifier 'lerp'
+     out3_device =  lerp( in0, in1, in2);
+                    ^
+2 errors generated.
+Error while processing lerp_float_float_float_float.cpp.
+make: [lerp_float_float_float_float.exe] Error 1 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload lerp_double_double_double_double.cpp -o lerp_double_double_double_double.exe
+lerp_double_double_double_double.cpp:16:18: error: use of undeclared identifier 'lerp'
+    out3_host =  lerp( in0, in1, in2);
+                 ^
+lerp_double_double_double_double.cpp:19:21: error: use of undeclared identifier 'lerp'
+     out3_device =  lerp( in0, in1, in2);
+                    ^
+2 errors generated.
+Error while processing lerp_double_double_double_double.cpp.
+make: [lerp_double_double_double_double.exe] Error 1 (ignored)
