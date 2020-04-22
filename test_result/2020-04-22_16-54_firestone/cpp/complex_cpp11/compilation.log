@@ -1,0 +1,66 @@
+xlC_r -std=c++11 -qsmp=omp -qoffload sqrt_complex_float_complex_float.cpp -o sqrt_complex_float_complex_float.exe
+nvlink error   : Undefined reference to '__xl_xlcsqrtv' in '/tmp/35211_0.o'
+make: [sqrt_complex_float_complex_float.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload log_complex_float_complex_float.cpp -o log_complex_float_complex_float.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload log10_complex_float_complex_float.cpp -o log10_complex_float_complex_float.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload tanh_complex_float_complex_float.cpp -o tanh_complex_float_complex_float.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload cosh_complex_double_complex_double.cpp -o cosh_complex_double_complex_double.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload tanh_complex_double_complex_double.cpp -o tanh_complex_double_complex_double.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload acosh_complex_float_complex_float.cpp -o acosh_complex_float_complex_float.exe
+nvlink error   : Undefined reference to '__xl_xlcacoshv' in '/tmp/35388_0.o'
+make: [acosh_complex_float_complex_float.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload cos_complex_float_complex_float.cpp -o cos_complex_float_complex_float.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload exp_complex_double_complex_double.cpp -o exp_complex_double_complex_double.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload asin_complex_float_complex_float.cpp -o asin_complex_float_complex_float.exe
+nvlink error   : Undefined reference to '__xl_xlcasinv' in '/tmp/35472_0.o'
+make: [asin_complex_float_complex_float.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload cosh_complex_float_complex_float.cpp -o cosh_complex_float_complex_float.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload acos_complex_float_complex_float.cpp -o acos_complex_float_complex_float.exe
+nvlink error   : Undefined reference to '__xl_xlcacosv' in '/tmp/35527_0.o'
+make: [acos_complex_float_complex_float.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload exp_complex_float_complex_float.cpp -o exp_complex_float_complex_float.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload atan_complex_float_complex_float.cpp -o atan_complex_float_complex_float.exe
+nvlink error   : Undefined reference to '__xl_xlcatanv' in '/tmp/35581_0.o'
+make: [atan_complex_float_complex_float.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload pow_complex_double_complex_double_complex_double.cpp -o pow_complex_double_complex_double_complex_double.exe
+nvlink error   : Undefined reference to '__xl_xlzpowv' in '/tmp/35606_0.o'
+make: [pow_complex_double_complex_double_complex_double.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload asin_complex_double_complex_double.cpp -o asin_complex_double_complex_double.exe
+nvlink error   : Undefined reference to '__xl_xlzasinv' in '/tmp/35633_0.o'
+make: [asin_complex_double_complex_double.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload pow_complex_float_complex_float_complex_float.cpp -o pow_complex_float_complex_float_complex_float.exe
+nvlink error   : Undefined reference to '__xl_xlcpowv' in '/tmp/35658_0.o'
+make: [pow_complex_float_complex_float_complex_float.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload acos_complex_double_complex_double.cpp -o acos_complex_double_complex_double.exe
+nvlink error   : Undefined reference to '__xl_xlzacosv' in '/tmp/35682_0.o'
+make: [acos_complex_double_complex_double.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload log10_complex_double_complex_double.cpp -o log10_complex_double_complex_double.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload tan_complex_float_complex_float.cpp -o tan_complex_float_complex_float.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload atan_complex_double_complex_double.cpp -o atan_complex_double_complex_double.exe
+nvlink error   : Undefined reference to '__xl_xlzatanv' in '/tmp/35768_0.o'
+make: [atan_complex_double_complex_double.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload sin_complex_double_complex_double.cpp -o sin_complex_double_complex_double.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload asinh_complex_double_complex_double.cpp -o asinh_complex_double_complex_double.exe
+nvlink error   : Undefined reference to '__xl_xlzasinhv' in '/tmp/35827_0.o'
+make: [asinh_complex_double_complex_double.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload atanh_complex_double_complex_double.cpp -o atanh_complex_double_complex_double.exe
+nvlink error   : Undefined reference to '__xl_xlzatanhv' in '/tmp/35852_0.o'
+make: [atanh_complex_double_complex_double.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload tan_complex_double_complex_double.cpp -o tan_complex_double_complex_double.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload sinh_complex_double_complex_double.cpp -o sinh_complex_double_complex_double.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload sin_complex_float_complex_float.cpp -o sin_complex_float_complex_float.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload asinh_complex_float_complex_float.cpp -o asinh_complex_float_complex_float.exe
+nvlink error   : Undefined reference to '__xl_xlcasinhv' in '/tmp/35971_0.o'
+make: [asinh_complex_float_complex_float.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload atanh_complex_float_complex_float.cpp -o atanh_complex_float_complex_float.exe
+nvlink error   : Undefined reference to '__xl_xlcatanhv' in '/tmp/35996_0.o'
+make: [atanh_complex_float_complex_float.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload log_complex_double_complex_double.cpp -o log_complex_double_complex_double.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload sinh_complex_float_complex_float.cpp -o sinh_complex_float_complex_float.exe
+xlC_r -std=c++11 -qsmp=omp -qoffload sqrt_complex_double_complex_double.cpp -o sqrt_complex_double_complex_double.exe
+nvlink error   : Undefined reference to '__xl_xlzsqrtv' in '/tmp/36080_0.o'
+make: [sqrt_complex_double_complex_double.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload acosh_complex_double_complex_double.cpp -o acosh_complex_double_complex_double.exe
+nvlink error   : Undefined reference to '__xl_xlzacoshv' in '/tmp/36105_0.o'
+make: [acosh_complex_double_complex_double.exe] Error 255 (ignored)
+xlC_r -std=c++11 -qsmp=omp -qoffload cos_complex_double_complex_double.cpp -o cos_complex_double_complex_double.exe

@@ -1,0 +1,195 @@
+xlf90_r -qsmp=omp -qoffload ASIN_real_real.F90 -o ASIN_real_real.exe
+** test_asin   === End of Compilation 1 ===
+1501-510  Compilation successful for file ASIN_real_real.F90.
+xlf90_r -qsmp=omp -qoffload DIM_real_real_real.F90 -o DIM_real_real_real.exe
+** test_dim   === End of Compilation 1 ===
+1501-510  Compilation successful for file DIM_real_real_real.F90.
+xlf90_r -qsmp=omp -qoffload DIM_integer_integer_integer.F90 -o DIM_integer_integer_integer.exe
+** test_dim   === End of Compilation 1 ===
+1501-510  Compilation successful for file DIM_integer_integer_integer.F90.
+xlf90_r -qsmp=omp -qoffload TAN_double_precision_double_precision.F90 -o TAN_double_precision_double_precision.exe
+** test_tan   === End of Compilation 1 ===
+1501-510  Compilation successful for file TAN_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload MAX0_integer_integer_integer.F90 -o MAX0_integer_integer_integer.exe
+** test_max0   === End of Compilation 1 ===
+1501-510  Compilation successful for file MAX0_integer_integer_integer.F90.
+xlf90_r -qsmp=omp -qoffload ACOS_real_real.F90 -o ACOS_real_real.exe
+** test_acos   === End of Compilation 1 ===
+1501-510  Compilation successful for file ACOS_real_real.F90.
+xlf90_r -qsmp=omp -qoffload CEILING_double_precision_double_precision.F90 -o CEILING_double_precision_double_precision.exe
+** test_ceiling   === End of Compilation 1 ===
+1501-510  Compilation successful for file CEILING_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload ANINT_real_real.F90 -o ANINT_real_real.exe
+** test_anint   === End of Compilation 1 ===
+1501-510  Compilation successful for file ANINT_real_real.F90.
+xlf90_r -qsmp=omp -qoffload FLOAT_integer_real.F90 -o FLOAT_integer_real.exe
+** test_float   === End of Compilation 1 ===
+1501-510  Compilation successful for file FLOAT_integer_real.F90.
+xlf90_r -qsmp=omp -qoffload COSH_real_real.F90 -o COSH_real_real.exe
+** test_cosh   === End of Compilation 1 ===
+1501-510  Compilation successful for file COSH_real_real.F90.
+xlf90_r -qsmp=omp -qoffload ATAN2_real_real_real.F90 -o ATAN2_real_real_real.exe
+** test_atan2   === End of Compilation 1 ===
+1501-510  Compilation successful for file ATAN2_real_real_real.F90.
+xlf90_r -qsmp=omp -qoffload AMIN0_integer_integer_real.F90 -o AMIN0_integer_integer_real.exe
+** test_amin0   === End of Compilation 1 ===
+1501-510  Compilation successful for file AMIN0_integer_integer_real.F90.
+xlf90_r -qsmp=omp -qoffload MAX_real_real_integer.F90 -o MAX_real_real_integer.exe
+** test_max   === End of Compilation 1 ===
+1501-510  Compilation successful for file MAX_real_real_integer.F90.
+xlf90_r -qsmp=omp -qoffload MODULO_real_real_real.F90 -o MODULO_real_real_real.exe
+** test_modulo   === End of Compilation 1 ===
+1501-510  Compilation successful for file MODULO_real_real_real.F90.
+xlf90_r -qsmp=omp -qoffload DMIN1_double_precision_double_precision_double_precision.F90 -o DMIN1_double_precision_double_precision_double_precision.exe
+** test_dmin1   === End of Compilation 1 ===
+1501-510  Compilation successful for file DMIN1_double_precision_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload DPROD_real_real_double_precision.F90 -o DPROD_real_real_double_precision.exe
+** test_dprod   === End of Compilation 1 ===
+1501-510  Compilation successful for file DPROD_real_real_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload MOD_double_precision_double_precision_double_precision.F90 -o MOD_double_precision_double_precision_double_precision.exe
+** test_mod   === End of Compilation 1 ===
+1501-510  Compilation successful for file MOD_double_precision_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload SNGL_double_precision_real.F90 -o SNGL_double_precision_real.exe
+** test_sngl   === End of Compilation 1 ===
+1501-510  Compilation successful for file SNGL_double_precision_real.F90.
+xlf90_r -qsmp=omp -qoffload ASIN_double_precision_double_precision.F90 -o ASIN_double_precision_double_precision.exe
+** test_asin   === End of Compilation 1 ===
+1501-510  Compilation successful for file ASIN_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload AINT_real_real.F90 -o AINT_real_real.exe
+** test_aint   === End of Compilation 1 ===
+1501-510  Compilation successful for file AINT_real_real.F90.
+xlf90_r -qsmp=omp -qoffload ACOS_double_precision_double_precision.F90 -o ACOS_double_precision_double_precision.exe
+** test_acos   === End of Compilation 1 ===
+1501-510  Compilation successful for file ACOS_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload MIN1_real_real_integer.F90 -o MIN1_real_real_integer.exe
+** test_min1   === End of Compilation 1 ===
+1501-510  Compilation successful for file MIN1_real_real_integer.F90.
+xlf90_r -qsmp=omp -qoffload TANH_real_real.F90 -o TANH_real_real.exe
+** test_tanh   === End of Compilation 1 ===
+1501-510  Compilation successful for file TANH_real_real.F90.
+xlf90_r -qsmp=omp -qoffload SINH_real_real.F90 -o SINH_real_real.exe
+** test_sinh   === End of Compilation 1 ===
+1501-510  Compilation successful for file SINH_real_real.F90.
+xlf90_r -qsmp=omp -qoffload MIN_real_real_integer.F90 -o MIN_real_real_integer.exe
+** test_min   === End of Compilation 1 ===
+1501-510  Compilation successful for file MIN_real_real_integer.F90.
+xlf90_r -qsmp=omp -qoffload CEILING_real_real.F90 -o CEILING_real_real.exe
+** test_ceiling   === End of Compilation 1 ===
+1501-510  Compilation successful for file CEILING_real_real.F90.
+xlf90_r -qsmp=omp -qoffload COSH_double_precision_double_precision.F90 -o COSH_double_precision_double_precision.exe
+** test_cosh   === End of Compilation 1 ===
+1501-510  Compilation successful for file COSH_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload AMAX1_real_real_real.F90 -o AMAX1_real_real_real.exe
+** test_amax1   === End of Compilation 1 ===
+1501-510  Compilation successful for file AMAX1_real_real_real.F90.
+xlf90_r -qsmp=omp -qoffload SINH_double_precision_double_precision.F90 -o SINH_double_precision_double_precision.exe
+** test_sinh   === End of Compilation 1 ===
+1501-510  Compilation successful for file SINH_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload DIM_double_precision_double_precision_double_precision.F90 -o DIM_double_precision_double_precision_double_precision.exe
+** test_dim   === End of Compilation 1 ===
+1501-510  Compilation successful for file DIM_double_precision_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload MAX_integer_integer_real.F90 -o MAX_integer_integer_real.exe
+** test_max   === End of Compilation 1 ===
+1501-510  Compilation successful for file MAX_integer_integer_real.F90.
+xlf90_r -qsmp=omp -qoffload MIN_integer_integer_real.F90 -o MIN_integer_integer_real.exe
+** test_min   === End of Compilation 1 ===
+1501-510  Compilation successful for file MIN_integer_integer_real.F90.
+xlf90_r -qsmp=omp -qoffload SIGN_integer_integer_integer.F90 -o SIGN_integer_integer_integer.exe
+** test_sign   === End of Compilation 1 ===
+1501-510  Compilation successful for file SIGN_integer_integer_integer.F90.
+xlf90_r -qsmp=omp -qoffload SIGN_real_real_real.F90 -o SIGN_real_real_real.exe
+** test_sign   === End of Compilation 1 ===
+1501-510  Compilation successful for file SIGN_real_real_real.F90.
+xlf90_r -qsmp=omp -qoffload LOG10_real_real.F90 -o LOG10_real_real.exe
+** test_log10   === End of Compilation 1 ===
+1501-510  Compilation successful for file LOG10_real_real.F90.
+xlf90_r -qsmp=omp -qoffload MIN0_integer_integer_integer.F90 -o MIN0_integer_integer_integer.exe
+** test_min0   === End of Compilation 1 ===
+1501-510  Compilation successful for file MIN0_integer_integer_integer.F90.
+xlf90_r -qsmp=omp -qoffload ATAN2_double_precision_double_precision_double_precision.F90 -o ATAN2_double_precision_double_precision_double_precision.exe
+** test_atan2   === End of Compilation 1 ===
+1501-510  Compilation successful for file ATAN2_double_precision_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload FLOOR_real_real.F90 -o FLOOR_real_real.exe
+** test_floor   === End of Compilation 1 ===
+1501-510  Compilation successful for file FLOOR_real_real.F90.
+xlf90_r -qsmp=omp -qoffload MOD_integer_integer_integer.F90 -o MOD_integer_integer_integer.exe
+** test_mod   === End of Compilation 1 ===
+1501-510  Compilation successful for file MOD_integer_integer_integer.F90.
+xlf90_r -qsmp=omp -qoffload AINT_double_precision_double_precision.F90 -o AINT_double_precision_double_precision.exe
+** test_aint   === End of Compilation 1 ===
+1501-510  Compilation successful for file AINT_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload ATAN_real_real.F90 -o ATAN_real_real.exe
+** test_atan   === End of Compilation 1 ===
+1501-510  Compilation successful for file ATAN_real_real.F90.
+xlf90_r -qsmp=omp -qoffload MIN_integer_integer_integer.F90 -o MIN_integer_integer_integer.exe
+** test_min   === End of Compilation 1 ===
+1501-510  Compilation successful for file MIN_integer_integer_integer.F90.
+xlf90_r -qsmp=omp -qoffload MAX_double_precision_double_precision_double_precision.F90 -o MAX_double_precision_double_precision_double_precision.exe
+** test_max   === End of Compilation 1 ===
+1501-510  Compilation successful for file MAX_double_precision_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload TAN_real_real.F90 -o TAN_real_real.exe
+** test_tan   === End of Compilation 1 ===
+1501-510  Compilation successful for file TAN_real_real.F90.
+xlf90_r -qsmp=omp -qoffload NINT_real_integer.F90 -o NINT_real_integer.exe
+** test_nint   === End of Compilation 1 ===
+1501-510  Compilation successful for file NINT_real_integer.F90.
+xlf90_r -qsmp=omp -qoffload IDINT_double_precision_integer.F90 -o IDINT_double_precision_integer.exe
+** test_idint   === End of Compilation 1 ===
+1501-510  Compilation successful for file IDINT_double_precision_integer.F90.
+xlf90_r -qsmp=omp -qoffload ANINT_double_precision_double_precision.F90 -o ANINT_double_precision_double_precision.exe
+** test_anint   === End of Compilation 1 ===
+1501-510  Compilation successful for file ANINT_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload MIN_real_real_real.F90 -o MIN_real_real_real.exe
+** test_min   === End of Compilation 1 ===
+1501-510  Compilation successful for file MIN_real_real_real.F90.
+xlf90_r -qsmp=omp -qoffload SIGN_double_precision_double_precision_double_precision.F90 -o SIGN_double_precision_double_precision_double_precision.exe
+** test_sign   === End of Compilation 1 ===
+1501-510  Compilation successful for file SIGN_double_precision_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload MODULO_double_precision_double_precision_double_precision.F90 -o MODULO_double_precision_double_precision_double_precision.exe
+** test_modulo   === End of Compilation 1 ===
+1501-510  Compilation successful for file MODULO_double_precision_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload AMIN1_real_real_real.F90 -o AMIN1_real_real_real.exe
+** test_amin1   === End of Compilation 1 ===
+1501-510  Compilation successful for file AMIN1_real_real_real.F90.
+xlf90_r -qsmp=omp -qoffload TANH_double_precision_double_precision.F90 -o TANH_double_precision_double_precision.exe
+** test_tanh   === End of Compilation 1 ===
+1501-510  Compilation successful for file TANH_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload MAX_real_real_real.F90 -o MAX_real_real_real.exe
+** test_max   === End of Compilation 1 ===
+1501-510  Compilation successful for file MAX_real_real_real.F90.
+xlf90_r -qsmp=omp -qoffload MAX1_real_real_integer.F90 -o MAX1_real_real_integer.exe
+** test_max1   === End of Compilation 1 ===
+1501-510  Compilation successful for file MAX1_real_real_integer.F90.
+xlf90_r -qsmp=omp -qoffload MOD_real_real_real.F90 -o MOD_real_real_real.exe
+** test_mod   === End of Compilation 1 ===
+1501-510  Compilation successful for file MOD_real_real_real.F90.
+xlf90_r -qsmp=omp -qoffload NINT_double_precision_integer.F90 -o NINT_double_precision_integer.exe
+** test_nint   === End of Compilation 1 ===
+1501-510  Compilation successful for file NINT_double_precision_integer.F90.
+xlf90_r -qsmp=omp -qoffload MIN_double_precision_double_precision_double_precision.F90 -o MIN_double_precision_double_precision_double_precision.exe
+** test_min   === End of Compilation 1 ===
+1501-510  Compilation successful for file MIN_double_precision_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload LOG10_double_precision_double_precision.F90 -o LOG10_double_precision_double_precision.exe
+** test_log10   === End of Compilation 1 ===
+1501-510  Compilation successful for file LOG10_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload DMAX1_double_precision_double_precision_double_precision.F90 -o DMAX1_double_precision_double_precision_double_precision.exe
+** test_dmax1   === End of Compilation 1 ===
+1501-510  Compilation successful for file DMAX1_double_precision_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload FLOOR_double_precision_double_precision.F90 -o FLOOR_double_precision_double_precision.exe
+** test_floor   === End of Compilation 1 ===
+1501-510  Compilation successful for file FLOOR_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload AMAX0_integer_integer_real.F90 -o AMAX0_integer_integer_real.exe
+** test_amax0   === End of Compilation 1 ===
+1501-510  Compilation successful for file AMAX0_integer_integer_real.F90.
+xlf90_r -qsmp=omp -qoffload ATAN_double_precision_double_precision.F90 -o ATAN_double_precision_double_precision.exe
+** test_atan   === End of Compilation 1 ===
+1501-510  Compilation successful for file ATAN_double_precision_double_precision.F90.
+xlf90_r -qsmp=omp -qoffload IFIX_real_integer.F90 -o IFIX_real_integer.exe
+** test_ifix   === End of Compilation 1 ===
+1501-510  Compilation successful for file IFIX_real_integer.F90.
+xlf90_r -qsmp=omp -qoffload MODULO_integer_integer_integer.F90 -o MODULO_integer_integer_integer.exe
+** test_modulo   === End of Compilation 1 ===
+1501-510  Compilation successful for file MODULO_integer_integer_integer.F90.
+xlf90_r -qsmp=omp -qoffload MAX_integer_integer_integer.F90 -o MAX_integer_integer_integer.exe
+** test_max   === End of Compilation 1 ===
+1501-510  Compilation successful for file MAX_integer_integer_integer.F90.

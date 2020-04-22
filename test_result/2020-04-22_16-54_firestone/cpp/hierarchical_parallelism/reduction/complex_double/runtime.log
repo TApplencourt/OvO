@@ -1,0 +1,346 @@
+./target_teams_distribute.exe
+./target_teams_distribute__parallel__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams_distribute__parallel__simd give incorect value when offloaded
+make: *** [run_target_teams_distribute__parallel__simd] Aborted
+./target__teams__distribute__parallel__for__simd.exe
+Expected: 210 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__distribute__parallel__for__simd give incorect value when offloaded
+make: *** [run_target__teams__distribute__parallel__for__simd] Aborted
+./target_teams__parallel__simd.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__parallel__simd give incorect value when offloaded
+make: *** [run_target_teams__parallel__simd] Aborted
+./target__parallel_for.exe
+Expected: 5 Got: (5,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__parallel_for give incorect value when offloaded
+make: *** [run_target__parallel_for] Aborted
+./target_teams__distribute__parallel_for.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__distribute__parallel_for give incorect value when offloaded
+make: *** [run_target_teams__distribute__parallel_for] Aborted
+./target_teams__parallel_for_simd.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__parallel_for_simd give incorect value when offloaded
+make: *** [run_target_teams__parallel_for_simd] Aborted
+./target__parallel_for__simd.exe
+./target_teams_distribute__parallel.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams_distribute__parallel give incorect value when offloaded
+make: *** [run_target_teams_distribute__parallel] Aborted
+./target__simd.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__simd give incorect value when offloaded
+make: *** [run_target__simd] Aborted
+./target_teams__parallel.exe
+Expected: 1 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__parallel give incorect value when offloaded
+make: *** [run_target_teams__parallel] Aborted
+./target__teams_distribute__parallel_for.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams_distribute__parallel_for give incorect value when offloaded
+make: *** [run_target__teams_distribute__parallel_for] Aborted
+./target__teams__parallel__for.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__parallel__for give incorect value when offloaded
+make: *** [run_target__teams__parallel__for] Aborted
+./target_teams__parallel__for.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__parallel__for give incorect value when offloaded
+make: *** [run_target_teams__parallel__for] Aborted
+./target__teams__parallel.exe
+Expected: 1 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__parallel give incorect value when offloaded
+make: *** [run_target__teams__parallel] Aborted
+./target_parallel__simd.exe
+Expected: 5 Got: (320,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_parallel__simd give incorect value when offloaded
+make: *** [run_target_parallel__simd] Aborted
+./target__teams_distribute__parallel.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams_distribute__parallel give incorect value when offloaded
+make: *** [run_target__teams_distribute__parallel] Aborted
+./target_teams__distribute__parallel__for__simd.exe
+Expected: 210 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__distribute__parallel__for__simd give incorect value when offloaded
+make: *** [run_target_teams__distribute__parallel__for__simd] Aborted
+./target__teams_distribute_parallel_for__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams_distribute_parallel_for__simd give incorect value when offloaded
+make: *** [run_target__teams_distribute_parallel_for__simd] Aborted
+./target__teams__parallel__for__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__parallel__for__simd give incorect value when offloaded
+make: *** [run_target__teams__parallel__for__simd] Aborted
+./target_teams__parallel_for__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__parallel_for__simd give incorect value when offloaded
+make: *** [run_target_teams__parallel_for__simd] Aborted
+./target__teams__distribute.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__distribute give incorect value when offloaded
+make: *** [run_target__teams__distribute] Aborted
+./target__teams_distribute_parallel_for_simd.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams_distribute_parallel_for_simd give incorect value when offloaded
+make: *** [run_target__teams_distribute_parallel_for_simd] Aborted
+./target_simd.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_simd give incorect value when offloaded
+make: *** [run_target_simd] Aborted
+./target.exe
+./target_teams__distribute__parallel__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__distribute__parallel__simd give incorect value when offloaded
+make: *** [run_target_teams__distribute__parallel__simd] Aborted
+./target__parallel__for__simd.exe
+./target_teams_distribute__parallel__for.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams_distribute__parallel__for give incorect value when offloaded
+make: *** [run_target_teams_distribute__parallel__for] Aborted
+./target_teams_distribute__parallel__for__simd.exe
+Expected: 210 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams_distribute__parallel__for__simd give incorect value when offloaded
+make: *** [run_target_teams_distribute__parallel__for__simd] Aborted
+./target__teams__parallel_for_simd.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__parallel_for_simd give incorect value when offloaded
+make: *** [run_target__teams__parallel_for_simd] Aborted
+./target__teams__distribute__parallel__for.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__distribute__parallel__for give incorect value when offloaded
+make: *** [run_target__teams__distribute__parallel__for] Aborted
+./target__teams_distribute__parallel__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams_distribute__parallel__simd give incorect value when offloaded
+make: *** [run_target__teams_distribute__parallel__simd] Aborted
+./target__teams_distribute__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams_distribute__simd give incorect value when offloaded
+make: *** [run_target__teams_distribute__simd] Aborted
+./target_parallel__for.exe
+Expected: 5 Got: (5.04808,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_parallel__for give incorect value when offloaded
+make: *** [run_target_parallel__for] Aborted
+./target__teams__parallel_for.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__parallel_for give incorect value when offloaded
+make: *** [run_target__teams__parallel_for] Aborted
+./target_parallel.exe
+Expected: 1 Got: (1,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_parallel give incorect value when offloaded
+make: *** [run_target_parallel] Aborted
+./target_teams_distribute__parallel_for__simd.exe
+Expected: 210 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams_distribute__parallel_for__simd give incorect value when offloaded
+make: *** [run_target_teams_distribute__parallel_for__simd] Aborted
+./target__parallel.exe
+Expected: 1 Got: (1,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__parallel give incorect value when offloaded
+make: *** [run_target__parallel] Aborted
+./target__teams_distribute__parallel_for__simd.exe
+Expected: 210 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams_distribute__parallel_for__simd give incorect value when offloaded
+make: *** [run_target__teams_distribute__parallel_for__simd] Aborted
+./target__teams__parallel__simd.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__parallel__simd give incorect value when offloaded
+make: *** [run_target__teams__parallel__simd] Aborted
+./target__parallel__for.exe
+Expected: 5 Got: (5.04808,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__parallel__for give incorect value when offloaded
+make: *** [run_target__parallel__for] Aborted
+./target_teams_distribute__parallel_for.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams_distribute__parallel_for give incorect value when offloaded
+make: *** [run_target_teams_distribute__parallel_for] Aborted
+./target_teams__distribute__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__distribute__simd give incorect value when offloaded
+make: *** [run_target_teams__distribute__simd] Aborted
+./target_teams__distribute__parallel.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__distribute__parallel give incorect value when offloaded
+make: *** [run_target_teams__distribute__parallel] Aborted
+./target__teams__distribute__parallel_for.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__distribute__parallel_for give incorect value when offloaded
+make: *** [run_target__teams__distribute__parallel_for] Aborted
+./target__teams__parallel_for__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__parallel_for__simd give incorect value when offloaded
+make: *** [run_target__teams__parallel_for__simd] Aborted
+./target__teams__distribute__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__distribute__simd give incorect value when offloaded
+make: *** [run_target__teams__distribute__simd] Aborted
+./target__teams_distribute_parallel_for.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams_distribute_parallel_for give incorect value when offloaded
+make: *** [run_target__teams_distribute_parallel_for] Aborted
+./target__teams__distribute__parallel_for__simd.exe
+Expected: 210 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__distribute__parallel_for__simd give incorect value when offloaded
+make: *** [run_target__teams__distribute__parallel_for__simd] Aborted
+./target__teams.exe
+Expected: 1 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams give incorect value when offloaded
+make: *** [run_target__teams] Aborted
+./target__teams_distribute_simd.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams_distribute_simd give incorect value when offloaded
+make: *** [run_target__teams_distribute_simd] Aborted
+./target_teams__parallel__for__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__parallel__for__simd give incorect value when offloaded
+make: *** [run_target_teams__parallel__for__simd] Aborted
+./target_teams__distribute__parallel_for__simd.exe
+Expected: 210 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__distribute__parallel_for__simd give incorect value when offloaded
+make: *** [run_target_teams__distribute__parallel_for__simd] Aborted
+./target__parallel__simd.exe
+Expected: 5 Got: (320,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__parallel__simd give incorect value when offloaded
+make: *** [run_target__parallel__simd] Aborted
+./target__teams_distribute__parallel__for.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams_distribute__parallel__for give incorect value when offloaded
+make: *** [run_target__teams_distribute__parallel__for] Aborted
+./target__parallel_for_simd.exe
+Expected: 5 Got: (nan,0.0480769)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__parallel_for_simd give incorect value when offloaded
+make: *** [run_target__parallel_for_simd] Aborted
+./target_teams_distribute_simd.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams_distribute_simd give incorect value when offloaded
+make: *** [run_target_teams_distribute_simd] Aborted
+./target_teams_distribute_parallel_for.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams_distribute_parallel_for give incorect value when offloaded
+make: *** [run_target_teams_distribute_parallel_for] Aborted
+./target_parallel_for.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_parallel_for give incorect value when offloaded
+make: *** [run_target_parallel_for] Aborted
+./target_teams__distribute.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__distribute give incorect value when offloaded
+make: *** [run_target_teams__distribute] Aborted
+./target__teams_distribute.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams_distribute give incorect value when offloaded
+make: *** [run_target__teams_distribute] Aborted
+./target_teams_distribute_parallel_for_simd.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams_distribute_parallel_for_simd give incorect value when offloaded
+make: *** [run_target_teams_distribute_parallel_for_simd] Aborted
+./target_teams.exe
+Expected: 1 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams give incorect value when offloaded
+make: *** [run_target_teams] Aborted
+./target_parallel_for_simd.exe
+Expected: 5 Got: (nan,9.00489e-306)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_parallel_for_simd give incorect value when offloaded
+make: *** [run_target_parallel_for_simd] Aborted
+./target__teams__distribute__parallel__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__distribute__parallel__simd give incorect value when offloaded
+make: *** [run_target__teams__distribute__parallel__simd] Aborted
+./target_teams__distribute_simd.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__distribute_simd give incorect value when offloaded
+make: *** [run_target_teams__distribute_simd] Aborted
+./target_parallel_for__simd.exe
+./target_teams_distribute_parallel_for__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams_distribute_parallel_for__simd give incorect value when offloaded
+make: *** [run_target_teams_distribute_parallel_for__simd] Aborted
+./target_parallel__for__simd.exe
+./target_teams__parallel_for.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__parallel_for give incorect value when offloaded
+make: *** [run_target_teams__parallel_for] Aborted
+./target_teams__distribute__parallel__for.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams__distribute__parallel__for give incorect value when offloaded
+make: *** [run_target_teams__distribute__parallel__for] Aborted
+./target__teams_distribute__parallel__for__simd.exe
+Expected: 210 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams_distribute__parallel__for__simd give incorect value when offloaded
+make: *** [run_target__teams_distribute__parallel__for__simd] Aborted
+./target__teams__distribute__parallel.exe
+Expected: 5 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target__teams__distribute__parallel give incorect value when offloaded
+make: *** [run_target__teams__distribute__parallel] Aborted
+./target_teams_distribute__simd.exe
+Expected: 30 Got: (nan,nan)
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target_teams_distribute__simd give incorect value when offloaded
+make: *** [run_target_teams_distribute__simd] Aborted
