@@ -16,7 +16,7 @@ void test_log10(){
    {
      o_device =  log10( x);
    }
-   if ( !almost_equal(o_host,o_device,1) ) {
+   if ( !almost_equal(o_host,o_device,4) ) {
         std::cerr << "Host: " << o_host << " GPU: " << o_device << std::endl;
         throw std::runtime_error( "log10 give incorect value when offloaded");
     }

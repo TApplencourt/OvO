@@ -17,7 +17,7 @@ void test_sph_neumann(){
    {
      out2_device =  sph_neumann( in0, in1);
    }
-   if ( !almost_equal(out2_host,out2_device,1) ) {
+   if ( !almost_equal(out2_host,out2_device,4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "sph_neumann give incorect value when offloaded");
     }

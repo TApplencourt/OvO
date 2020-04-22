@@ -1,3 +1,8 @@
+TIMEOUT = $(shell command -v timeout 2> /dev/null)
+ifdef TIMEOUT
+	TIMEOUT = timeout 45s
+endif
+
 SRC = $(wildcard *.F90)
 EXE = $(SRC:%.F90=%.exe)
 
@@ -19,12 +24,12 @@ exe_no_{{name}}: $(EXE_NO_{{name|upper}})
 exe_no_long_double_no_loop: $(EXE_NO_LOOP)
 
 %.exe: %.F90
-	-$(FC) $(FFLAGS) $< -o $@
+	-$(TIMEOUT) $(FC) $(FFLAGS) $< -o $@
 
 .PHONY: run
 run: $(RUN)
 run_%: %.exe
-	-./$<
+	-$(TIMEOUT) ./$<
 
 .PHONY: clean
 clean:

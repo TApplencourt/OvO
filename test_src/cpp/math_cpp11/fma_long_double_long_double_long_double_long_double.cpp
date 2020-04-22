@@ -18,7 +18,7 @@ void test_fma(){
    {
      out3_device =  fma( in0, in1, in2);
    }
-   if ( !almost_equal(out3_host,out3_device,1) ) {
+   if ( !almost_equal(out3_host,out3_device,4) ) {
         std::cerr << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
         throw std::runtime_error( "fma give incorect value when offloaded");
     }

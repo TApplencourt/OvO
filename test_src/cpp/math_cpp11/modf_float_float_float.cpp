@@ -18,11 +18,11 @@ void test_modf(){
    {
      out2_device =  modf( in0, &out1_device);
    }
-   if ( !almost_equal(out1_host,out1_device,1) ) {
+   if ( !almost_equal(out1_host,out1_device,4) ) {
         std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         throw std::runtime_error( "modf give incorect value when offloaded");
     }
-   if ( !almost_equal(out2_host,out2_device,1) ) {
+   if ( !almost_equal(out2_host,out2_device,4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "modf give incorect value when offloaded");
     }

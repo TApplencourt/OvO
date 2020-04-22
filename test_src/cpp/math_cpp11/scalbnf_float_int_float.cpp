@@ -17,7 +17,7 @@ void test_scalbnf(){
    {
      out2_device =  scalbnf( in0, in1);
    }
-   if ( !almost_equal(out2_host,out2_device,1) ) {
+   if ( !almost_equal(out2_host,out2_device,4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "scalbnf give incorect value when offloaded");
     }

@@ -17,7 +17,7 @@ void test_legendref(){
    {
      out2_device =  legendref( in0, in1);
    }
-   if ( !almost_equal(out2_host,out2_device,1) ) {
+   if ( !almost_equal(out2_host,out2_device,4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "legendref give incorect value when offloaded");
     }

@@ -16,7 +16,7 @@ void test_lroundf(){
    {
      out1_device =  lroundf( in0);
    }
-   if ( !almost_equal(out1_host,out1_device,1) ) {
+   if ( !almost_equal(out1_host,out1_device,4) ) {
         std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         throw std::runtime_error( "lroundf give incorect value when offloaded");
     }

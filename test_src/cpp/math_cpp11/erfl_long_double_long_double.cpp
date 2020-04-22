@@ -16,7 +16,7 @@ void test_erfl(){
    {
      out1_device =  erfl( in0);
    }
-   if ( !almost_equal(out1_host,out1_device,1) ) {
+   if ( !almost_equal(out1_host,out1_device,4) ) {
         std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         throw std::runtime_error( "erfl give incorect value when offloaded");
     }

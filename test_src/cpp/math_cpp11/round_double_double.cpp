@@ -16,7 +16,7 @@ void test_round(){
    {
      out1_device =  round( in0);
    }
-   if ( !almost_equal(out1_host,out1_device,1) ) {
+   if ( !almost_equal(out1_host,out1_device,4) ) {
         std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         throw std::runtime_error( "round give incorect value when offloaded");
     }

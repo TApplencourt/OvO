@@ -17,7 +17,7 @@ void test_remainderf(){
    {
      o_device =  remainderf( x, y);
    }
-   if ( !almost_equal(o_host,o_device,1) ) {
+   if ( !almost_equal(o_host,o_device,4) ) {
         std::cerr << "Host: " << o_host << " GPU: " << o_device << std::endl;
         throw std::runtime_error( "remainderf give incorect value when offloaded");
     }

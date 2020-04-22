@@ -17,7 +17,7 @@ void test_nexttowardl(){
    {
      out2_device =  nexttowardl( in0, in1);
    }
-   if ( !almost_equal(out2_host,out2_device,1) ) {
+   if ( !almost_equal(out2_host,out2_device,4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "nexttowardl give incorect value when offloaded");
     }

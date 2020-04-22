@@ -17,7 +17,7 @@ void test_ldexpf(){
    {
      out2_device =  ldexpf( in0, in1);
    }
-   if ( !almost_equal(out2_host,out2_device,1) ) {
+   if ( !almost_equal(out2_host,out2_device,4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "ldexpf give incorect value when offloaded");
     }

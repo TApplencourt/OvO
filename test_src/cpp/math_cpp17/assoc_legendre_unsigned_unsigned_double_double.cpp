@@ -18,7 +18,7 @@ void test_assoc_legendre(){
    {
      out3_device =  assoc_legendre( in0, in1, in2);
    }
-   if ( !almost_equal(out3_host,out3_device,1) ) {
+   if ( !almost_equal(out3_host,out3_device,4) ) {
         std::cerr << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
         throw std::runtime_error( "assoc_legendre give incorect value when offloaded");
     }

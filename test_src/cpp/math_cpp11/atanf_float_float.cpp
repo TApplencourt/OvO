@@ -16,7 +16,7 @@ void test_atanf(){
    {
      out1_device =  atanf( in0);
    }
-   if ( !almost_equal(out1_host,out1_device,1) ) {
+   if ( !almost_equal(out1_host,out1_device,4) ) {
         std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         throw std::runtime_error( "atanf give incorect value when offloaded");
     }

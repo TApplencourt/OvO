@@ -17,7 +17,7 @@ void test_copysignl(){
    {
      out2_device =  copysignl( in0, in1);
    }
-   if ( !almost_equal(out2_host,out2_device,1) ) {
+   if ( !almost_equal(out2_host,out2_device,4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "copysignl give incorect value when offloaded");
     }

@@ -16,7 +16,7 @@ void test_exp2(){
    {
      out1_device =  exp2( in0);
    }
-   if ( !almost_equal(out1_host,out1_device,1) ) {
+   if ( !almost_equal(out1_host,out1_device,4) ) {
         std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         throw std::runtime_error( "exp2 give incorect value when offloaded");
     }

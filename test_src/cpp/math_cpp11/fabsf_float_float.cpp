@@ -16,7 +16,7 @@ void test_fabsf(){
    {
      out1_device =  fabsf( in0);
    }
-   if ( !almost_equal(out1_host,out1_device,1) ) {
+   if ( !almost_equal(out1_host,out1_device,4) ) {
         std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         throw std::runtime_error( "fabsf give incorect value when offloaded");
     }

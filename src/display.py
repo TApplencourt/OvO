@@ -16,7 +16,7 @@ class DRegex(NamedTuple):
     error: str
 
 r_compilation = DRegex("\w+\.(?:cpp|f90) -o (\w+)\.exe$", "make.*?(\w+)\.exe\]\s+(.*)")
-r_runtime = DRegex("^\./(\w+)\.exe$", "make.*?run_(\w+)\]\s+(.*)")
+r_runtime = DRegex("\./(\w+)\.exe$", "make.*?run_(\w+)\]\s+(.*)")
 
 import unittest
 class TestCompilationLaunch(unittest.TestCase):
