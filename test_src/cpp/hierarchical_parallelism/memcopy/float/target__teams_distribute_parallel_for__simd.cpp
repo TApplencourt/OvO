@@ -19,15 +19,15 @@ void test_target__teams_distribute_parallel_for__simd(){
   float *pB = B.data();
 // Main program
 #pragma omp target   map(from: pA[0:L*M]) map(to: pB[0:L*M]) 
-{
 #pragma omp teams distribute parallel for 
     for (int i = 0 ; i < L ; i++ )
-{
+    {
 #pragma omp simd 
     for (int j = 0 ; j < M ; j++ )
-{
+    {
 pA[ j + i*M ] = pB [ j + i*M ];
- }  }  } 
+    } 
+    } 
 // Validation
 for (int i = 0 ;  i < size ; i++) {
     if ( !almost_equal(A[i],B[i],1) ) {

@@ -13,7 +13,7 @@ float counter{};
     for (int i = 0 ; i < L ; i++ )
 {
 counter += float { 1.0f };
-}
+    }
 // Validation
 if ( !almost_equal(counter,float { L }, 0.1)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;

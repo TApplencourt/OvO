@@ -26,10 +26,10 @@ float counter{};
 {
 const int num_threads = omp_get_num_threads();
 counter += float { 1.0f/num_threads };
-}
-}
-}
-}
+    }
+    }
+    }
+    }
 // Validation
 if ( !almost_equal(counter,float { L }, 0.1)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;

@@ -21,7 +21,7 @@ complex<float> counter{};
 {
 const int num_teams = omp_get_num_teams();
 counter += complex<float> { 1.0f/num_teams } ;
-}
+    }
 // Validation
 if ( !almost_equal(counter,complex<float> { 1 }, 0.1)  ) {
     std::cerr << "Expected: " << 1 << " Got: " << counter << std::endl;

@@ -19,19 +19,17 @@ void test_target__teams__distribute__parallel__for(){
   float *pB = B.data();
 // Main program
 #pragma omp target   map(from: pA[0:L*M]) map(to: pB[0:L*M]) 
-{
 #pragma omp teams 
-{
 #pragma omp distribute 
     for (int i = 0 ; i < L ; i++ )
-{
+    {
 #pragma omp parallel 
-{
 #pragma omp for 
     for (int j = 0 ; j < M ; j++ )
-{
+    {
 pA[ j + i*M ] = pB [ j + i*M ];
- }  }  }  }  } 
+    } 
+    } 
 // Validation
 for (int i = 0 ;  i < size ; i++) {
     if ( !almost_equal(A[i],B[i],1) ) {

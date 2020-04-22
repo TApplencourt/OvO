@@ -13,7 +13,7 @@ float counter{};
 {
 #pragma omp atomic update
 counter += float { 1 };
-}
+    } 
 // Validation
 if ( !almost_equal(counter,float { 1 }, 0.1)  ) {
     std::cerr << "Expected: " << 1 << " Got: " << counter << std::endl;

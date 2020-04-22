@@ -29,10 +29,10 @@ const int num_teams = omp_get_num_teams();
     for (int i = 0 ; i < L ; i++ )
 {
 counter += complex<float> { 1.0f/num_teams } ;
-}
-}
-}
-}
+    }
+    }
+    }
+    }
 // Validation
 if ( !almost_equal(counter,complex<float> { L }, 0.1)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;

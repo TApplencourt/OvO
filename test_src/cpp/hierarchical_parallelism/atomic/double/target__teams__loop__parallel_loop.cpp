@@ -23,10 +23,10 @@ double counter{};
 {
 #pragma omp atomic update
 counter += double { 1 };
-}
-}
-}
-}
+    } 
+    } 
+    } 
+    } 
 // Validation
 if ( !almost_equal(counter,double { L*M }, 0.1)  ) {
     std::cerr << "Expected: " << L*M << " Got: " << counter << std::endl;

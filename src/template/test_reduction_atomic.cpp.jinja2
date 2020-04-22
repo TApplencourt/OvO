@@ -1,10 +1,6 @@
 #include <iostream>
 #include <cmath>
 #include <stdexcept>
-{% if T_category == "complex" %}
-#include <complex>
-using namespace std;
-{% endif %}
 
 {% if not balenced %}
 #ifdef _OPENMP
@@ -30,7 +26,7 @@ void test_{{name}}(){
   {% if target_teams %} {{T}} partial_counter{}; {%endif%}
 
 {% for fat_pragma in fat_path %}
-{% if "parallel" in fat_pragma["pragma"] %}
+{% if "partial" in fat_pragma%}
 {{T}} partial_counter{};
 #pragma omp {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} reduction(+: counter) {%endif%} {% if "target" in fat_pragma %} map(tofrom:partial_counter) {% endif %}
 {% else %}
@@ -40,7 +36,7 @@ void test_{{name}}(){
 {% if "loop" in fat_pragma %}
     for (int {{fat_pragma["loop"].i}} = 0 ; {{fat_pragma["loop"].i}} < {{fat_pragma["loop"].N}} ; {{fat_pragma["loop"].i}}++ )
 {% endif %}
-{
+    {
 
 {% if "only_teams" in fat_pragma %}
 const int num_teams = omp_get_num_teams();
@@ -60,8 +56,8 @@ partial_counter += {{T}} { 1.0f/num_threads };
 {% endif %}
 
 {% for fat_pragma in fat_path|reverse %}
-}
-{%if "parallel" in fat_pragma["pragma"] %}
+   } 
+{%if "partial" in fat_pragma%}
 #pragma omp atomic update
 counter += partial_counter;
 {% endif %}

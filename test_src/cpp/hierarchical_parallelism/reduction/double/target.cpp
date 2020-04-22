@@ -11,7 +11,7 @@ double counter{};
 #pragma omp target   map(tofrom:counter) 
 {
 counter += double { 1.0f };
-}
+    }
 // Validation
 if ( !almost_equal(counter,double { 1 }, 0.1)  ) {
     std::cerr << "Expected: " << 1 << " Got: " << counter << std::endl;

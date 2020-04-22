@@ -15,6 +15,9 @@ EXE_NO_LOOP = $(SRC_NO_LOOP:%.F90=%.exe)
 exe_no_loop: $(EXE_NO_LOOP)
 
 
+.PHONY: exe_no_long_double_no_loop
+exe_no_long_double_no_loop: $(EXE_NO_LOOP)
+
 %.exe: %.F90
 	-$(FC) $(FFLAGS) $< -o $@
 

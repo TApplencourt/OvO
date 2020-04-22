@@ -25,11 +25,11 @@ double counter{};
     for (int k = 0 ; k < N ; k++ )
 {
 counter += double { 1.0f };
-}
-}
-}
-}
-}
+    }
+    }
+    }
+    }
+    }
 // Validation
 if ( !almost_equal(counter,double { L*M*N }, 0.1)  ) {
     std::cerr << "Expected: " << L*M*N << " Got: " << counter << std::endl;

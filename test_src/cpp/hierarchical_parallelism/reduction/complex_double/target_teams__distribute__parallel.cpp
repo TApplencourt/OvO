@@ -27,9 +27,9 @@ complex<double> counter{};
 {
 const int num_threads = omp_get_num_threads();
 counter += complex<double> { 1.0f/num_threads };
-}
-}
-}
+    }
+    }
+    }
 // Validation
 if ( !almost_equal(counter,complex<double> { L }, 0.1)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;

@@ -25,11 +25,11 @@ float counter{};
     for (int k = 0 ; k < N ; k++ )
 {
 counter += float { 1.0f };
-}
-}
-}
-}
-}
+    }
+    }
+    }
+    }
+    }
 // Validation
 if ( !almost_equal(counter,float { L*M*N }, 0.1)  ) {
     std::cerr << "Expected: " << L*M*N << " Got: " << counter << std::endl;

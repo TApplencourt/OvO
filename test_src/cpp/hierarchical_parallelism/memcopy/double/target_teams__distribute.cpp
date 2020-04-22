@@ -18,12 +18,11 @@ void test_target_teams__distribute(){
   double *pB = B.data();
 // Main program
 #pragma omp target teams   map(from: pA[0:L]) map(to: pB[0:L]) 
-{
 #pragma omp distribute 
     for (int i = 0 ; i < L ; i++ )
-{
+    {
 pA[ i ] = pB [ i ];
- }  } 
+    } 
 // Validation
 for (int i = 0 ;  i < size ; i++) {
     if ( !almost_equal(A[i],B[i],1) ) {

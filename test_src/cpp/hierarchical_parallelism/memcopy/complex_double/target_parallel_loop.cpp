@@ -23,9 +23,9 @@ void test_target_parallel_loop(){
 // Main program
 #pragma omp target parallel loop   map(from: pA[0:L]) map(to: pB[0:L]) 
     for (int i = 0 ; i < L ; i++ )
-{
+    {
 pA[ i ] = pB [ i ];
- } 
+    } 
 // Validation
 for (int i = 0 ;  i < size ; i++) {
     if ( !almost_equal(A[i],B[i],1) ) {

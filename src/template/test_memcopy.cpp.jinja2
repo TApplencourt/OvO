@@ -37,13 +37,15 @@ void test_{{name}}(){
 #pragma omp {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %}  map(from: pA[0:{{size}}]) map(to: pB[0:{{size}}]) {% endif %}
 {% if "loop" in fat_pragma %}
     for (int {{fat_pragma["loop"].i}} = 0 ; {{fat_pragma["loop"].i}} < {{fat_pragma["loop"].N}} ; {{fat_pragma["loop"].i}}++ )
+    {
 {% endif %}
-{
 {% endfor %}
 
 pA[ {{index}} ] = pB [ {{index}} ];
 
-{% for fat_pragma in fat_path %} } {% endfor %}
+{% for l in loops %} 
+    } 
+{% endfor %}
 
 // Validation
 for (int i = 0 ;  i < size ; i++) {

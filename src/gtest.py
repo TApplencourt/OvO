@@ -190,7 +190,12 @@ class Path():
             
             if any(p in pragma for p in ("teams","parallel","simd")):
                 d["reduce"] = True
-            
+
+            if self.has("parallel") and "parallel" in pragma:
+                d["partial"] = True
+            elif not self.has("parallel") and "simd" in pragma:
+                d["partial"] = True
+
             l.append(d)
 
         return l
@@ -273,15 +278,8 @@ class ReductionAtomic(OmpReduce):
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_reduction_atomic.f90.jinja2")
 
-        if self.has("simd") or not self.has("parallel") or not self.has("teams"):
+        if sum(self.has(p) for p in ("teams","parallel","simd") ) < 2:
             return 
-
-        if any("distribute parallel" in p for p in self.path):
-            return
- 
-        if any("loop parallel" in p for p in self.path):
-            return
-
 
         str_ = template.render(name=self.name,
                                       fat_path=self.fat_path,

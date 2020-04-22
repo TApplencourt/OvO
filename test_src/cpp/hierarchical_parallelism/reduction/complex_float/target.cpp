@@ -14,7 +14,7 @@ complex<float> counter{};
 #pragma omp target   map(tofrom:counter) 
 {
 counter += complex<float> { 1.0f };
-}
+    }
 // Validation
 if ( !almost_equal(counter,complex<float> { 1 }, 0.1)  ) {
     std::cerr << "Expected: " << 1 << " Got: " << counter << std::endl;

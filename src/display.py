@@ -140,9 +140,8 @@ def parse_log(file_path, mode, avoid_long_double, avoid_loop):
 # |_/ | _> |_) | (_| \/ 
 #          |         /  
 #
-def display(l_result,  mode=None):
+def display(name, l_result,  mode=None):
     from operator import itemgetter
-
     compilation, runtime = l_result
     # Total number of test run.
     total_test = len(compilation.test | runtime.test ) 
@@ -150,28 +149,34 @@ def display(l_result,  mode=None):
     total_fail = len( set(compilation.failure) | set(runtime.failure) )
     total_success = total_test - total_fail
     
-    if total_test != 0: 
-        print (f'{total_success} / {total_test} ( {total_success/total_test :.0%} ) pass [ {len(set(compilation.failure)) } compilation failures / {len(set(runtime.failure))} runtime failures ]')
-    else:
-        print ("No tests where run in this directory")
+    if total_test == 0: 
         return
 
-    if mode=='failure':
+    l_to_print=[]
+
+    if mode=='failed':
         for type_, d in  ("Compile error", compilation.failure), ("Runtime error", runtime.failure):
-            print (f"# {type_}")
             if d:
+                l_to_print.append(f"# {type_}")
                 # Sort by error message
                 array = sorted(d.items(),key=itemgetter(1))
                 # Display taking care of alignement  
                 max_width = max(len(test) for test, _ in array)
                 for test, error in array:
-                    print(f"{test:{max_width}} {error} ")
-            else:
-                print (f"No error")
-    elif mode=='pass':
-        print ("# Tests who passed")
+                    l_to_print.append(f"{test:{max_width}} {error}")
+                l_to_print.append('')
+
+    elif mode=='passed':
+        l_to_print.append("# Tests who passed")
         for k in sorted(runtime.test - set(runtime.failure)):
-            print (k)
+            l_to_print.append(k)
+        l_to_print.append('')
+    
+    if mode=='detailed' or l_to_print:
+        if name:
+            print (f'>> {name}')
+        print (f'{total_success} / {total_test} ( {total_success/total_test :.0%} ) pass [ {len(set(compilation.failure)) } compilation failures / {len(set(runtime.failure))} runtime failures ]')
+        print ('\n'.join(l_to_print) )
 
 #                
 # |\/|  _. o ._  
@@ -187,61 +192,40 @@ if __name__ == "__main__":
 
     # The second and thirs arguments and sis the "mode" of display.
     # Should we print only the summary, the failed or the past tests.
-    if sys.argv[1] == 'true':
-        detailed = True
-    else:
-        detailed = False
+    name = sys.argv[1]
 
     if sys.argv[2] == 'true':
-        mode_display = "failure"
+        mode_display = "detailed"
     elif sys.argv[3] == 'true':
-        mode_display = "pass"
+        mode_display = "failed"
+    elif sys.argv[4] == 'true':
+        mode_display = "passed"
     else:
-        mode_display = None
-
-    if mode_display:
-        detailed = True
+        mode_display = 'summary'
 
     # The last arguments skip the long_double example. Indeed, GPUs have limited support for them
-    if sys.argv[4] == 'true':
-        avoid_long_double = True
-    else:
-        avoid_long_double = False
-
-    if sys.argv[5] == 'true':
-        avoid_loop = True
-    else:
-        avoid_loop = False
+    avoid_long_double = True if sys.argv[5] == 'true' else False
+    avoid_loop = True if sys.argv[6] == 'true' else False
 
     paths =  sys.argv[7:]
 
-    if sys.argv[6] != '0':
-        print_dir = ''
-    else:
-        print_dir =  os.path.dirname(os.path.commonprefix(paths))
-    
     d_result = {}
     for folder in paths:
         l_result = []
         for mode in ("compilation","runtime"):
             p = os.path.join(folder,f"{mode}.log")
             l_result.append(parse_log(p,mode, avoid_long_double, avoid_loop))
-            d_result[folder] = l_result[:]
+            
+        d_result[folder] = l_result[:]
+        if mode_display != 'summary':
+            display(folder, l_result, mode_display) 
 
-        if detailed:
-            print (f'>> {folder}')
-            display(l_result, mode_display)
-            print ('')
-    
     # We agreage all the result,
     # Test may have the same name in different folder
     # Because we print only a summary, we just need the list of the name of the test who ffailed,
     # not their error type 
-    test_c = set()
-    failure_c = set()
-
-    test_r = set()
-    failure_r = set()
+    test_c = set(); failure_c = set()
+    test_r = set(); failure_r = set()
 
     for folder, (c,r) in d_result.items():
         test_c |= set(f"{folder}_{p}" for p in c.test)
@@ -250,7 +234,6 @@ if __name__ == "__main__":
         test_r |= set(f"{folder}_{p}" for p in r.test)
         failure_r |= set(f"{folder}_{k}" for k in  r.failure)
 
-    if len(sys.argv[4:]) > 1:
-        print (f'>> Summary {print_dir}')
-        display([Result("", test_c, failure_c), Result("", test_r, failure_r)] )
-
+    if mode_display == 'summary':
+        display(name,  [Result("", test_c, failure_c), Result("", test_r, failure_r)], 'detailed' )
+        

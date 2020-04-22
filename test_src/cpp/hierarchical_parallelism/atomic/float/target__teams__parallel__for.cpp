@@ -28,10 +28,10 @@ const int num_teams = omp_get_num_teams();
 {
 #pragma omp atomic update
 counter += float { 1.0f } / num_teams  ;
-}
-}
-}
-}
+    } 
+    } 
+    } 
+    } 
 // Validation
 if ( !almost_equal(counter,float { L }, 0.1)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;

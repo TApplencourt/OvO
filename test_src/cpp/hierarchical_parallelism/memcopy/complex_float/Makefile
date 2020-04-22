@@ -21,6 +21,9 @@ EXE_NO_LOOP = $(SRC_NO_LOOP:%.cpp=%.exe)
 exe_no_loop: $(EXE_NO_LOOP)
 
 
+.PHONY: exe_no_long_double_no_loop
+exe_no_long_double_no_loop: $(filter $(EXE_NO_LONG_DOUBLE), $(EXE_NO_LOOP))
+
 %.exe: %.cpp
 	-$(CXX) $(CXXFLAGS) $< -o $@
 

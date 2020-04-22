@@ -23,8 +23,8 @@ const int num_teams = omp_get_num_teams();
 const int num_threads = omp_get_num_threads();
 #pragma omp atomic update
 counter += float { 1.0f } / (num_teams*num_threads)  ;
-}
-}
+    } 
+    } 
 // Validation
 if ( !almost_equal(counter,float { 1 }, 0.1)  ) {
     std::cerr << "Expected: " << 1 << " Got: " << counter << std::endl;
