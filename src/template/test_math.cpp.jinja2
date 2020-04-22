@@ -39,7 +39,7 @@ void test_{{name}}(){
    }
 
    {% for output in l_argv | selectattr('is_output')  %}
-   if ( !almost_equal({{output.name_host}},{{output.name_device}},1) ) {
+   if ( !almost_equal({{output.name_host}},{{output.name_device}},4) ) {
         std::cerr << "Host: " << {{output.name_host}} << " GPU: " << {{output.name_device}} << std::endl;
         throw std::runtime_error( "{{name}} give incorect value when offloaded");
     }
