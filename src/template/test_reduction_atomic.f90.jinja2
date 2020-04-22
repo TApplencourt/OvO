@@ -48,7 +48,7 @@ PROGRAM {{name}}
     {% endif %}
      
     {% for fat_pragma in fat_path %}
-    {%if "PARALLEL" in fat_pragma["pragma"]%}
+    {%if "partial" in fat_pragma%}
     partial_counter = 0.
     !$OMP {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} REDUCTION(+:partial_counter) {% endif %} {% if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
     {%else %}
@@ -86,7 +86,7 @@ partial_counter =  partial_counter + 1./num_threads
 
     !$OMP END {{fat_pragma["pragma"]}}
 
-{%if "PARALLEL" in fat_pragma["pragma"] %}
+{%if "partial" in fat_pragma %}
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
 {% endif %}

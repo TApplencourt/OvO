@@ -15,6 +15,9 @@ EXE_NO_{{name|upper}} = $(SRC_NO_{{name|upper}}:%.F90=%.exe)
 exe_no_{{name}}: $(EXE_NO_{{name|upper}})
 {% endfor %}
 
+.PHONY: exe_no_long_double_no_loop
+exe_no_long_double_no_loop: $(EXE_NO_LOOP)
+
 %.exe: %.F90
 	-$(FC) $(FFLAGS) $< -o $@
 

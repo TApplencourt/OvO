@@ -58,8 +58,8 @@ counter += {{T}} { 1.0f } / num_teams  ;
 counter += {{T}} { 1.0f } / num_threads ;
 {% endif %}
 
-{% for fat_pragma in fat_path %}
-}
+{% for _ in fat_path %}
+    } 
 {% endfor %}
 
 // Validation
