@@ -147,6 +147,7 @@ fclean() {
 # |_) _. ._ _ o ._   _     /\  ._ _
 # |  (_| | _> | | | (_|   /--\ | (_| \/
 #                    _|           _|
+DOCOPT_DOC_CHECK=false
 eval "$(docopt "$@")"
 
 $gen && rm -rf -- ./test_src && ./src/gtest.py 
