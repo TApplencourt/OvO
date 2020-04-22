@@ -278,8 +278,15 @@ class ReductionAtomic(OmpReduce):
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_reduction_atomic.f90.jinja2")
 
+        # Need 2 layers minimun
         if sum(self.has(p) for p in ("teams","parallel","simd") ) < 2:
-            return 
+            return
+
+        if len(self.path) < 2:
+            return
+
+        if len(self.path[1].split() ) >= 3:
+            return
 
         str_ = template.render(name=self.name,
                                       fat_path=self.fat_path,
