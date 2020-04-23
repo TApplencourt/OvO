@@ -1,0 +1,136 @@
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 sqrt_complex_float_complex_float.cpp -o sqrt_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'csqrtf' in '/tmp/sqrt_complex_float_complex_float-bb9751.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [sqrt_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 log_complex_float_complex_float.cpp -o log_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'clogf' in '/tmp/log_complex_float_complex_float-1a98b5.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [log_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 log10_complex_float_complex_float.cpp -o log10_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'clogf' in '/tmp/log10_complex_float_complex_float-155caa.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [log10_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 tanh_complex_float_complex_float.cpp -o tanh_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'ctanhf' in '/tmp/tanh_complex_float_complex_float-5d6307.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [tanh_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 cosh_complex_double_complex_double.cpp -o cosh_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'ccosh' in '/tmp/cosh_complex_double_complex_double-7c561a.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [cosh_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 tanh_complex_double_complex_double.cpp -o tanh_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'ctanh' in '/tmp/tanh_complex_double_complex_double-6d0154.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [tanh_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 acosh_complex_float_complex_float.cpp -o acosh_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'cacoshf' in '/tmp/acosh_complex_float_complex_float-1c447d.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [acosh_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 cos_complex_float_complex_float.cpp -o cos_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'ccosf' in '/tmp/cos_complex_float_complex_float-a6ad24.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [cos_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 exp_complex_double_complex_double.cpp -o exp_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'cexp' in '/tmp/exp_complex_double_complex_double-f97919.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [exp_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 asin_complex_float_complex_float.cpp -o asin_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'casinf' in '/tmp/asin_complex_float_complex_float-1a15ef.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [asin_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 cosh_complex_float_complex_float.cpp -o cosh_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'ccoshf' in '/tmp/cosh_complex_float_complex_float-5f334f.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [cosh_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 acos_complex_float_complex_float.cpp -o acos_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'cacosf' in '/tmp/acos_complex_float_complex_float-59148e.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [acos_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 exp_complex_float_complex_float.cpp -o exp_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'cexpf' in '/tmp/exp_complex_float_complex_float-df9e02.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [exp_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 atan_complex_float_complex_float.cpp -o atan_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'catanf' in '/tmp/atan_complex_float_complex_float-d9e1a0.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [atan_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 pow_complex_double_complex_double_complex_double.cpp -o pow_complex_double_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'cpow' in '/tmp/pow_complex_double_complex_double_complex_double-a4abea.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [pow_complex_double_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 asin_complex_double_complex_double.cpp -o asin_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'casin' in '/tmp/asin_complex_double_complex_double-aabf9f.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [asin_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 pow_complex_float_complex_float_complex_float.cpp -o pow_complex_float_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'cpowf' in '/tmp/pow_complex_float_complex_float_complex_float-3a5335.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [pow_complex_float_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 acos_complex_double_complex_double.cpp -o acos_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'cacos' in '/tmp/acos_complex_double_complex_double-521342.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [acos_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 log10_complex_double_complex_double.cpp -o log10_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'clog' in '/tmp/log10_complex_double_complex_double-4119bc.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [log10_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 tan_complex_float_complex_float.cpp -o tan_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'ctanf' in '/tmp/tan_complex_float_complex_float-464d6d.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [tan_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 atan_complex_double_complex_double.cpp -o atan_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'catan' in '/tmp/atan_complex_double_complex_double-524d9c.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [atan_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 sin_complex_double_complex_double.cpp -o sin_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'csin' in '/tmp/sin_complex_double_complex_double-257773.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [sin_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 asinh_complex_double_complex_double.cpp -o asinh_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'casinh' in '/tmp/asinh_complex_double_complex_double-d55ccf.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [asinh_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 atanh_complex_double_complex_double.cpp -o atanh_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'catanh' in '/tmp/atanh_complex_double_complex_double-1200d5.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [atanh_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 tan_complex_double_complex_double.cpp -o tan_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'ctan' in '/tmp/tan_complex_double_complex_double-5f73ef.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [tan_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 sinh_complex_double_complex_double.cpp -o sinh_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'csinh' in '/tmp/sinh_complex_double_complex_double-da14db.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [sinh_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 sin_complex_float_complex_float.cpp -o sin_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'csinf' in '/tmp/sin_complex_float_complex_float-ef246d.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [sin_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 asinh_complex_float_complex_float.cpp -o asinh_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'casinhf' in '/tmp/asinh_complex_float_complex_float-e6c6a9.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [asinh_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 atanh_complex_float_complex_float.cpp -o atanh_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'catanhf' in '/tmp/atanh_complex_float_complex_float-7c1c09.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [atanh_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 log_complex_double_complex_double.cpp -o log_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'clog' in '/tmp/log_complex_double_complex_double-2d5d93.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [log_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 sinh_complex_float_complex_float.cpp -o sinh_complex_float_complex_float.exe
+nvlink error   : Undefined reference to 'csinhf' in '/tmp/sinh_complex_float_complex_float-e037b7.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [sinh_complex_float_complex_float.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 sqrt_complex_double_complex_double.cpp -o sqrt_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'csqrt' in '/tmp/sqrt_complex_double_complex_double-373588.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [sqrt_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 acosh_complex_double_complex_double.cpp -o acosh_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'cacosh' in '/tmp/acosh_complex_double_complex_double-37a380.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [acosh_complex_double_complex_double.exe] Error 255 (ignored)
+timeout 45s clang++ -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda -Xopenmp-target -march=sm_60  -fopenmp-version=50 cos_complex_double_complex_double.cpp -o cos_complex_double_complex_double.exe
+nvlink error   : Undefined reference to 'ccos' in '/tmp/cos_complex_double_complex_double-e82add.cubin'
+clang-11: error: nvlink command failed with exit code 255 (use -v to see invocation)
+make: [cos_complex_double_complex_double.exe] Error 255 (ignored)
