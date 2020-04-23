@@ -1,0 +1,404 @@
+timeout 45s g++ -fopenmp cyl_bessel_i_double_double_double.cpp -o cyl_bessel_i_double_double_double.exe
+cyl_bessel_i_double_double_double.cpp: In function 'void test_cyl_bessel_i()':
+cyl_bessel_i_double_double_double.cpp:15:18: error: 'cyl_bessel_i' was not declared in this scope; did you mean 'test_cyl_bessel_i'?
+   15 |     out2_host =  cyl_bessel_i( in0, in1);
+      |                  ^~~~~~~~~~~~
+      |                  test_cyl_bessel_i
+make: [cyl_bessel_i_double_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp hermitef_unsigned_float_float.cpp -o hermitef_unsigned_float_float.exe
+hermitef_unsigned_float_float.cpp: In function 'void test_hermitef()':
+hermitef_unsigned_float_float.cpp:15:18: error: 'hermitef' was not declared in this scope
+   15 |     out2_host =  hermitef( in0, in1);
+      |                  ^~~~~~~~
+make: [hermitef_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp cyl_neumannf_float_float_float.cpp -o cyl_neumannf_float_float_float.exe
+cyl_neumannf_float_float_float.cpp: In function 'void test_cyl_neumannf()':
+cyl_neumannf_float_float_float.cpp:15:18: error: 'cyl_neumannf' was not declared in this scope; did you mean 'test_cyl_neumannf'?
+   15 |     out2_host =  cyl_neumannf( in0, in1);
+      |                  ^~~~~~~~~~~~
+      |                  test_cyl_neumannf
+make: [cyl_neumannf_float_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp betaf_float_float_float.cpp -o betaf_float_float_float.exe
+betaf_float_float_float.cpp: In function 'void test_betaf()':
+betaf_float_float_float.cpp:15:18: error: 'betaf' was not declared in this scope
+   15 |     out2_host =  betaf( in0, in1);
+      |                  ^~~~~
+make: [betaf_float_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp cyl_bessel_kf_float_float_float.cpp -o cyl_bessel_kf_float_float_float.exe
+cyl_bessel_kf_float_float_float.cpp: In function 'void test_cyl_bessel_kf()':
+cyl_bessel_kf_float_float_float.cpp:15:18: error: 'cyl_bessel_kf' was not declared in this scope; did you mean 'test_cyl_bessel_kf'?
+   15 |     out2_host =  cyl_bessel_kf( in0, in1);
+      |                  ^~~~~~~~~~~~~
+      |                  test_cyl_bessel_kf
+make: [cyl_bessel_kf_float_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp riemann_zeta_double_double.cpp -o riemann_zeta_double_double.exe
+riemann_zeta_double_double.cpp: In function 'void test_riemann_zeta()':
+riemann_zeta_double_double.cpp:14:18: error: 'riemann_zeta' was not declared in this scope; did you mean 'test_riemann_zeta'?
+   14 |     out1_host =  riemann_zeta( in0);
+      |                  ^~~~~~~~~~~~
+      |                  test_riemann_zeta
+make: [riemann_zeta_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp legendre_unsigned_double_double.cpp -o legendre_unsigned_double_double.exe
+legendre_unsigned_double_double.cpp: In function 'void test_legendre()':
+legendre_unsigned_double_double.cpp:15:18: error: 'legendre' was not declared in this scope; did you mean 'test_legendre'?
+   15 |     out2_host =  legendre( in0, in1);
+      |                  ^~~~~~~~
+      |                  test_legendre
+make: [legendre_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp sph_legendre_unsigned_unsigned_double_double.cpp -o sph_legendre_unsigned_unsigned_double_double.exe
+sph_legendre_unsigned_unsigned_double_double.cpp: In function 'void test_sph_legendre()':
+sph_legendre_unsigned_unsigned_double_double.cpp:16:18: error: 'sph_legendre' was not declared in this scope; did you mean 'test_sph_legendre'?
+   16 |     out3_host =  sph_legendre( in0, in1, in2);
+      |                  ^~~~~~~~~~~~
+      |                  test_sph_legendre
+make: [sph_legendre_unsigned_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp expintf_float_float.cpp -o expintf_float_float.exe
+expintf_float_float.cpp: In function 'void test_expintf()':
+expintf_float_float.cpp:14:18: error: 'expintf' was not declared in this scope
+   14 |     out1_host =  expintf( in0);
+      |                  ^~~~~~~
+make: [expintf_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp comp_ellint_1_double_double.cpp -o comp_ellint_1_double_double.exe
+comp_ellint_1_double_double.cpp: In function 'void test_comp_ellint_1()':
+comp_ellint_1_double_double.cpp:14:18: error: 'comp_ellint_1' was not declared in this scope; did you mean 'test_comp_ellint_1'?
+   14 |     out1_host =  comp_ellint_1( in0);
+      |                  ^~~~~~~~~~~~~
+      |                  test_comp_ellint_1
+make: [comp_ellint_1_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp assoc_legendre_unsigned_unsigned_double_double.cpp -o assoc_legendre_unsigned_unsigned_double_double.exe
+assoc_legendre_unsigned_unsigned_double_double.cpp: In function 'void test_assoc_legendre()':
+assoc_legendre_unsigned_unsigned_double_double.cpp:16:18: error: 'assoc_legendre' was not declared in this scope; did you mean 'test_assoc_legendre'?
+   16 |     out3_host =  assoc_legendre( in0, in1, in2);
+      |                  ^~~~~~~~~~~~~~
+      |                  test_assoc_legendre
+make: [assoc_legendre_unsigned_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp ellint_2f_float_float_float.cpp -o ellint_2f_float_float_float.exe
+ellint_2f_float_float_float.cpp: In function 'void test_ellint_2f()':
+ellint_2f_float_float_float.cpp:15:18: error: 'ellint_2f' was not declared in this scope
+   15 |     out2_host =  ellint_2f( in0, in1);
+      |                  ^~~~~~~~~
+make: [ellint_2f_float_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp cyl_bessel_if_float_float_float.cpp -o cyl_bessel_if_float_float_float.exe
+cyl_bessel_if_float_float_float.cpp: In function 'void test_cyl_bessel_if()':
+cyl_bessel_if_float_float_float.cpp:15:18: error: 'cyl_bessel_if' was not declared in this scope; did you mean 'test_cyl_bessel_if'?
+   15 |     out2_host =  cyl_bessel_if( in0, in1);
+      |                  ^~~~~~~~~~~~~
+      |                  test_cyl_bessel_if
+make: [cyl_bessel_if_float_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp hypot_float_float_float_float.cpp -o hypot_float_float_float_float.exe
+hypot_float_float_float_float.cpp: In function 'void test_hypot()':
+hypot_float_float_float_float.cpp:16:38: error: no matching function for call to 'hypot(float&, float&, float&)'
+   16 |     out3_host =  hypot( in0, in1, in2);
+      |                                      ^
+In file included from /usr/include/features.h:375,
+                 from /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/x86_64-pc-linux-gnu/bits/os_defines.h:39,
+                 from /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/x86_64-pc-linux-gnu/bits/c++config.h:518,
+                 from /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:41,
+                 from hypot_float_float_float_float.cpp:1:
+/usr/include/bits/mathcalls.h:163:1: note: candidate: 'double hypot(double, double)'
+  163 | __MATHCALL (hypot,, (_Mdouble_ __x, _Mdouble_ __y));
+      | ^~~~~~~~~~
+/usr/include/bits/mathcalls.h:163:1: note:   candidate expects 2 arguments, 3 provided
+In file included from hypot_float_float_float_float.cpp:1:
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1469:5: note: candidate: 'template<class _Tp, class _Up> constexpr typename __gnu_cxx::__promote_2<_Tp, _Up>::__type std::hypot(_Tp, _Up)'
+ 1469 |     hypot(_Tp __x, _Up __y)
+      |     ^~~~~
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1469:5: note:   template argument deduction/substitution failed:
+hypot_float_float_float_float.cpp:16:38: note:   candidate expects 2 arguments, 3 provided
+   16 |     out3_host =  hypot( in0, in1, in2);
+      |                                      ^
+In file included from hypot_float_float_float_float.cpp:1:
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1462:3: note: candidate: 'constexpr long double std::hypot(long double, long double)'
+ 1462 |   hypot(long double __x, long double __y)
+      |   ^~~~~
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1462:3: note:   candidate expects 2 arguments, 3 provided
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1458:3: note: candidate: 'constexpr float std::hypot(float, float)'
+ 1458 |   hypot(float __x, float __y)
+      |   ^~~~~
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1458:3: note:   candidate expects 2 arguments, 3 provided
+hypot_float_float_float_float.cpp:19:41: error: no matching function for call to 'hypot(float&, float&, float&)'
+   19 |      out3_device =  hypot( in0, in1, in2);
+      |                                         ^
+In file included from /usr/include/features.h:375,
+                 from /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/x86_64-pc-linux-gnu/bits/os_defines.h:39,
+                 from /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/x86_64-pc-linux-gnu/bits/c++config.h:518,
+                 from /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:41,
+                 from hypot_float_float_float_float.cpp:1:
+/usr/include/bits/mathcalls.h:163:1: note: candidate: 'double hypot(double, double)'
+  163 | __MATHCALL (hypot,, (_Mdouble_ __x, _Mdouble_ __y));
+      | ^~~~~~~~~~
+/usr/include/bits/mathcalls.h:163:1: note:   candidate expects 2 arguments, 3 provided
+In file included from hypot_float_float_float_float.cpp:1:
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1469:5: note: candidate: 'template<class _Tp, class _Up> constexpr typename __gnu_cxx::__promote_2<_Tp, _Up>::__type std::hypot(_Tp, _Up)'
+ 1469 |     hypot(_Tp __x, _Up __y)
+      |     ^~~~~
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1469:5: note:   template argument deduction/substitution failed:
+hypot_float_float_float_float.cpp:19:41: note:   candidate expects 2 arguments, 3 provided
+   19 |      out3_device =  hypot( in0, in1, in2);
+      |                                         ^
+In file included from hypot_float_float_float_float.cpp:1:
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1462:3: note: candidate: 'constexpr long double std::hypot(long double, long double)'
+ 1462 |   hypot(long double __x, long double __y)
+      |   ^~~~~
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1462:3: note:   candidate expects 2 arguments, 3 provided
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1458:3: note: candidate: 'constexpr float std::hypot(float, float)'
+ 1458 |   hypot(float __x, float __y)
+      |   ^~~~~
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1458:3: note:   candidate expects 2 arguments, 3 provided
+make: [hypot_float_float_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp expint_double_double.cpp -o expint_double_double.exe
+expint_double_double.cpp: In function 'void test_expint()':
+expint_double_double.cpp:14:18: error: 'expint' was not declared in this scope; did you mean 'exit'?
+   14 |     out1_host =  expint( in0);
+      |                  ^~~~~~
+      |                  exit
+make: [expint_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp laguerre_unsigned_double_double.cpp -o laguerre_unsigned_double_double.exe
+laguerre_unsigned_double_double.cpp: In function 'void test_laguerre()':
+laguerre_unsigned_double_double.cpp:15:18: error: 'laguerre' was not declared in this scope
+   15 |     out2_host =  laguerre( in0, in1);
+      |                  ^~~~~~~~
+make: [laguerre_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp cyl_neumann_double_double_double.cpp -o cyl_neumann_double_double_double.exe
+cyl_neumann_double_double_double.cpp: In function 'void test_cyl_neumann()':
+cyl_neumann_double_double_double.cpp:15:18: error: 'cyl_neumann' was not declared in this scope; did you mean 'test_cyl_neumann'?
+   15 |     out2_host =  cyl_neumann( in0, in1);
+      |                  ^~~~~~~~~~~
+      |                  test_cyl_neumann
+make: [cyl_neumann_double_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp assoc_laguerre_unsigned_unsigned_double_double.cpp -o assoc_laguerre_unsigned_unsigned_double_double.exe
+assoc_laguerre_unsigned_unsigned_double_double.cpp: In function 'void test_assoc_laguerre()':
+assoc_laguerre_unsigned_unsigned_double_double.cpp:16:18: error: 'assoc_laguerre' was not declared in this scope; did you mean 'test_assoc_laguerre'?
+   16 |     out3_host =  assoc_laguerre( in0, in1, in2);
+      |                  ^~~~~~~~~~~~~~
+      |                  test_assoc_laguerre
+make: [assoc_laguerre_unsigned_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp comp_ellint_3_double_double_double.cpp -o comp_ellint_3_double_double_double.exe
+comp_ellint_3_double_double_double.cpp: In function 'void test_comp_ellint_3()':
+comp_ellint_3_double_double_double.cpp:15:18: error: 'comp_ellint_3' was not declared in this scope; did you mean 'test_comp_ellint_3'?
+   15 |     out2_host =  comp_ellint_3( in0, in1);
+      |                  ^~~~~~~~~~~~~
+      |                  test_comp_ellint_3
+make: [comp_ellint_3_double_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp riemann_zetaf_float_float.cpp -o riemann_zetaf_float_float.exe
+riemann_zetaf_float_float.cpp: In function 'void test_riemann_zetaf()':
+riemann_zetaf_float_float.cpp:14:18: error: 'riemann_zetaf' was not declared in this scope; did you mean 'test_riemann_zetaf'?
+   14 |     out1_host =  riemann_zetaf( in0);
+      |                  ^~~~~~~~~~~~~
+      |                  test_riemann_zetaf
+make: [riemann_zetaf_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp legendref_unsigned_float_float.cpp -o legendref_unsigned_float_float.exe
+legendref_unsigned_float_float.cpp: In function 'void test_legendref()':
+legendref_unsigned_float_float.cpp:15:18: error: 'legendref' was not declared in this scope; did you mean 'test_legendref'?
+   15 |     out2_host =  legendref( in0, in1);
+      |                  ^~~~~~~~~
+      |                  test_legendref
+make: [legendref_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp ellint_2_double_double_double.cpp -o ellint_2_double_double_double.exe
+ellint_2_double_double_double.cpp: In function 'void test_ellint_2()':
+ellint_2_double_double_double.cpp:15:18: error: 'ellint_2' was not declared in this scope
+   15 |     out2_host =  ellint_2( in0, in1);
+      |                  ^~~~~~~~
+make: [ellint_2_double_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp ellint_1_double_double_double.cpp -o ellint_1_double_double_double.exe
+ellint_1_double_double_double.cpp: In function 'void test_ellint_1()':
+ellint_1_double_double_double.cpp:15:18: error: 'ellint_1' was not declared in this scope
+   15 |     out2_host =  ellint_1( in0, in1);
+      |                  ^~~~~~~~
+make: [ellint_1_double_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp comp_ellint_1f_float_float.cpp -o comp_ellint_1f_float_float.exe
+comp_ellint_1f_float_float.cpp: In function 'void test_comp_ellint_1f()':
+comp_ellint_1f_float_float.cpp:14:18: error: 'comp_ellint_1f' was not declared in this scope; did you mean 'test_comp_ellint_1f'?
+   14 |     out1_host =  comp_ellint_1f( in0);
+      |                  ^~~~~~~~~~~~~~
+      |                  test_comp_ellint_1f
+make: [comp_ellint_1f_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp comp_ellint_2f_float_float.cpp -o comp_ellint_2f_float_float.exe
+comp_ellint_2f_float_float.cpp: In function 'void test_comp_ellint_2f()':
+comp_ellint_2f_float_float.cpp:14:18: error: 'comp_ellint_2f' was not declared in this scope; did you mean 'test_comp_ellint_2f'?
+   14 |     out1_host =  comp_ellint_2f( in0);
+      |                  ^~~~~~~~~~~~~~
+      |                  test_comp_ellint_2f
+make: [comp_ellint_2f_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp assoc_legendref_unsigned_unsigned_float_float.cpp -o assoc_legendref_unsigned_unsigned_float_float.exe
+assoc_legendref_unsigned_unsigned_float_float.cpp: In function 'void test_assoc_legendref()':
+assoc_legendref_unsigned_unsigned_float_float.cpp:16:18: error: 'assoc_legendref' was not declared in this scope; did you mean 'test_assoc_legendref'?
+   16 |     out3_host =  assoc_legendref( in0, in1, in2);
+      |                  ^~~~~~~~~~~~~~~
+      |                  test_assoc_legendref
+make: [assoc_legendref_unsigned_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp cyl_bessel_k_double_double_double.cpp -o cyl_bessel_k_double_double_double.exe
+cyl_bessel_k_double_double_double.cpp: In function 'void test_cyl_bessel_k()':
+cyl_bessel_k_double_double_double.cpp:15:18: error: 'cyl_bessel_k' was not declared in this scope; did you mean 'test_cyl_bessel_k'?
+   15 |     out2_host =  cyl_bessel_k( in0, in1);
+      |                  ^~~~~~~~~~~~
+      |                  test_cyl_bessel_k
+make: [cyl_bessel_k_double_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp cyl_bessel_j_double_double_double.cpp -o cyl_bessel_j_double_double_double.exe
+cyl_bessel_j_double_double_double.cpp: In function 'void test_cyl_bessel_j()':
+cyl_bessel_j_double_double_double.cpp:15:18: error: 'cyl_bessel_j' was not declared in this scope; did you mean 'test_cyl_bessel_j'?
+   15 |     out2_host =  cyl_bessel_j( in0, in1);
+      |                  ^~~~~~~~~~~~
+      |                  test_cyl_bessel_j
+make: [cyl_bessel_j_double_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp hypot_double_double_double_double.cpp -o hypot_double_double_double_double.exe
+hypot_double_double_double_double.cpp: In function 'void test_hypot()':
+hypot_double_double_double_double.cpp:16:38: error: no matching function for call to 'hypot(double&, double&, double&)'
+   16 |     out3_host =  hypot( in0, in1, in2);
+      |                                      ^
+In file included from /usr/include/features.h:375,
+                 from /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/x86_64-pc-linux-gnu/bits/os_defines.h:39,
+                 from /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/x86_64-pc-linux-gnu/bits/c++config.h:518,
+                 from /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:41,
+                 from hypot_double_double_double_double.cpp:1:
+/usr/include/bits/mathcalls.h:163:1: note: candidate: 'double hypot(double, double)'
+  163 | __MATHCALL (hypot,, (_Mdouble_ __x, _Mdouble_ __y));
+      | ^~~~~~~~~~
+/usr/include/bits/mathcalls.h:163:1: note:   candidate expects 2 arguments, 3 provided
+In file included from hypot_double_double_double_double.cpp:1:
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1469:5: note: candidate: 'template<class _Tp, class _Up> constexpr typename __gnu_cxx::__promote_2<_Tp, _Up>::__type std::hypot(_Tp, _Up)'
+ 1469 |     hypot(_Tp __x, _Up __y)
+      |     ^~~~~
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1469:5: note:   template argument deduction/substitution failed:
+hypot_double_double_double_double.cpp:16:38: note:   candidate expects 2 arguments, 3 provided
+   16 |     out3_host =  hypot( in0, in1, in2);
+      |                                      ^
+In file included from hypot_double_double_double_double.cpp:1:
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1462:3: note: candidate: 'constexpr long double std::hypot(long double, long double)'
+ 1462 |   hypot(long double __x, long double __y)
+      |   ^~~~~
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1462:3: note:   candidate expects 2 arguments, 3 provided
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1458:3: note: candidate: 'constexpr float std::hypot(float, float)'
+ 1458 |   hypot(float __x, float __y)
+      |   ^~~~~
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1458:3: note:   candidate expects 2 arguments, 3 provided
+hypot_double_double_double_double.cpp:19:41: error: no matching function for call to 'hypot(double&, double&, double&)'
+   19 |      out3_device =  hypot( in0, in1, in2);
+      |                                         ^
+In file included from /usr/include/features.h:375,
+                 from /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/x86_64-pc-linux-gnu/bits/os_defines.h:39,
+                 from /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/x86_64-pc-linux-gnu/bits/c++config.h:518,
+                 from /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:41,
+                 from hypot_double_double_double_double.cpp:1:
+/usr/include/bits/mathcalls.h:163:1: note: candidate: 'double hypot(double, double)'
+  163 | __MATHCALL (hypot,, (_Mdouble_ __x, _Mdouble_ __y));
+      | ^~~~~~~~~~
+/usr/include/bits/mathcalls.h:163:1: note:   candidate expects 2 arguments, 3 provided
+In file included from hypot_double_double_double_double.cpp:1:
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1469:5: note: candidate: 'template<class _Tp, class _Up> constexpr typename __gnu_cxx::__promote_2<_Tp, _Up>::__type std::hypot(_Tp, _Up)'
+ 1469 |     hypot(_Tp __x, _Up __y)
+      |     ^~~~~
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1469:5: note:   template argument deduction/substitution failed:
+hypot_double_double_double_double.cpp:19:41: note:   candidate expects 2 arguments, 3 provided
+   19 |      out3_device =  hypot( in0, in1, in2);
+      |                                         ^
+In file included from hypot_double_double_double_double.cpp:1:
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1462:3: note: candidate: 'constexpr long double std::hypot(long double, long double)'
+ 1462 |   hypot(long double __x, long double __y)
+      |   ^~~~~
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1462:3: note:   candidate expects 2 arguments, 3 provided
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1458:3: note: candidate: 'constexpr float std::hypot(float, float)'
+ 1458 |   hypot(float __x, float __y)
+      |   ^~~~~
+/soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/include/c++/10.0.0/cmath:1458:3: note:   candidate expects 2 arguments, 3 provided
+make: [hypot_double_double_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp sph_bessel_unsigned_double_double.cpp -o sph_bessel_unsigned_double_double.exe
+sph_bessel_unsigned_double_double.cpp: In function 'void test_sph_bessel()':
+sph_bessel_unsigned_double_double.cpp:15:18: error: 'sph_bessel' was not declared in this scope; did you mean 'test_sph_bessel'?
+   15 |     out2_host =  sph_bessel( in0, in1);
+      |                  ^~~~~~~~~~
+      |                  test_sph_bessel
+make: [sph_bessel_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp comp_ellint_2_double_double.cpp -o comp_ellint_2_double_double.exe
+comp_ellint_2_double_double.cpp: In function 'void test_comp_ellint_2()':
+comp_ellint_2_double_double.cpp:14:18: error: 'comp_ellint_2' was not declared in this scope; did you mean 'test_comp_ellint_2'?
+   14 |     out1_host =  comp_ellint_2( in0);
+      |                  ^~~~~~~~~~~~~
+      |                  test_comp_ellint_2
+make: [comp_ellint_2_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp laguerref_unsigned_float_float.cpp -o laguerref_unsigned_float_float.exe
+laguerref_unsigned_float_float.cpp: In function 'void test_laguerref()':
+laguerref_unsigned_float_float.cpp:15:18: error: 'laguerref' was not declared in this scope; did you mean 'test_laguerref'?
+   15 |     out2_host =  laguerref( in0, in1);
+      |                  ^~~~~~~~~
+      |                  test_laguerref
+make: [laguerref_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp comp_ellint_3f_float_float_float.cpp -o comp_ellint_3f_float_float_float.exe
+comp_ellint_3f_float_float_float.cpp: In function 'void test_comp_ellint_3f()':
+comp_ellint_3f_float_float_float.cpp:15:18: error: 'comp_ellint_3f' was not declared in this scope; did you mean 'test_comp_ellint_3f'?
+   15 |     out2_host =  comp_ellint_3f( in0, in1);
+      |                  ^~~~~~~~~~~~~~
+      |                  test_comp_ellint_3f
+make: [comp_ellint_3f_float_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp ellint_3_double_double_double_double.cpp -o ellint_3_double_double_double_double.exe
+ellint_3_double_double_double_double.cpp: In function 'void test_ellint_3()':
+ellint_3_double_double_double_double.cpp:16:18: error: 'ellint_3' was not declared in this scope
+   16 |     out3_host =  ellint_3( in0, in1, in2);
+      |                  ^~~~~~~~
+make: [ellint_3_double_double_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp sph_neumannf_unsigned_float_float.cpp -o sph_neumannf_unsigned_float_float.exe
+sph_neumannf_unsigned_float_float.cpp: In function 'void test_sph_neumannf()':
+sph_neumannf_unsigned_float_float.cpp:15:18: error: 'sph_neumannf' was not declared in this scope; did you mean 'test_sph_neumannf'?
+   15 |     out2_host =  sph_neumannf( in0, in1);
+      |                  ^~~~~~~~~~~~
+      |                  test_sph_neumannf
+make: [sph_neumannf_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp assoc_laguerref_unsigned_unsigned_float_float.cpp -o assoc_laguerref_unsigned_unsigned_float_float.exe
+assoc_laguerref_unsigned_unsigned_float_float.cpp: In function 'void test_assoc_laguerref()':
+assoc_laguerref_unsigned_unsigned_float_float.cpp:16:18: error: 'assoc_laguerref' was not declared in this scope; did you mean 'test_assoc_laguerref'?
+   16 |     out3_host =  assoc_laguerref( in0, in1, in2);
+      |                  ^~~~~~~~~~~~~~~
+      |                  test_assoc_laguerref
+make: [assoc_laguerref_unsigned_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp cyl_bessel_jf_float_float_float.cpp -o cyl_bessel_jf_float_float_float.exe
+cyl_bessel_jf_float_float_float.cpp: In function 'void test_cyl_bessel_jf()':
+cyl_bessel_jf_float_float_float.cpp:15:18: error: 'cyl_bessel_jf' was not declared in this scope; did you mean 'test_cyl_bessel_jf'?
+   15 |     out2_host =  cyl_bessel_jf( in0, in1);
+      |                  ^~~~~~~~~~~~~
+      |                  test_cyl_bessel_jf
+make: [cyl_bessel_jf_float_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp beta_double_double_double.cpp -o beta_double_double_double.exe
+beta_double_double_double.cpp: In function 'void test_beta()':
+beta_double_double_double.cpp:15:18: error: 'beta' was not declared in this scope
+   15 |     out2_host =  beta( in0, in1);
+      |                  ^~~~
+make: [beta_double_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp sph_legendref_unsigned_unsigned_float_float.cpp -o sph_legendref_unsigned_unsigned_float_float.exe
+sph_legendref_unsigned_unsigned_float_float.cpp: In function 'void test_sph_legendref()':
+sph_legendref_unsigned_unsigned_float_float.cpp:16:18: error: 'sph_legendref' was not declared in this scope; did you mean 'test_sph_legendref'?
+   16 |     out3_host =  sph_legendref( in0, in1, in2);
+      |                  ^~~~~~~~~~~~~
+      |                  test_sph_legendref
+make: [sph_legendref_unsigned_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp sph_besself_unsigned_float_float.cpp -o sph_besself_unsigned_float_float.exe
+sph_besself_unsigned_float_float.cpp: In function 'void test_sph_besself()':
+sph_besself_unsigned_float_float.cpp:15:18: error: 'sph_besself' was not declared in this scope; did you mean 'test_sph_besself'?
+   15 |     out2_host =  sph_besself( in0, in1);
+      |                  ^~~~~~~~~~~
+      |                  test_sph_besself
+make: [sph_besself_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp sph_neumann_unsigned_double_double.cpp -o sph_neumann_unsigned_double_double.exe
+sph_neumann_unsigned_double_double.cpp: In function 'void test_sph_neumann()':
+sph_neumann_unsigned_double_double.cpp:15:18: error: 'sph_neumann' was not declared in this scope; did you mean 'test_sph_neumann'?
+   15 |     out2_host =  sph_neumann( in0, in1);
+      |                  ^~~~~~~~~~~
+      |                  test_sph_neumann
+make: [sph_neumann_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp ellint_3f_float_float_float_float.cpp -o ellint_3f_float_float_float_float.exe
+ellint_3f_float_float_float_float.cpp: In function 'void test_ellint_3f()':
+ellint_3f_float_float_float_float.cpp:16:18: error: 'ellint_3f' was not declared in this scope
+   16 |     out3_host =  ellint_3f( in0, in1, in2);
+      |                  ^~~~~~~~~
+make: [ellint_3f_float_float_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp hermite_unsigned_double_double.cpp -o hermite_unsigned_double_double.exe
+hermite_unsigned_double_double.cpp: In function 'void test_hermite()':
+hermite_unsigned_double_double.cpp:15:18: error: 'hermite' was not declared in this scope
+   15 |     out2_host =  hermite( in0, in1);
+      |                  ^~~~~~~
+make: [hermite_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp ellint_1f_float_float_float.cpp -o ellint_1f_float_float_float.exe
+ellint_1f_float_float_float.cpp: In function 'void test_ellint_1f()':
+ellint_1f_float_float_float.cpp:15:18: error: 'ellint_1f' was not declared in this scope
+   15 |     out2_host =  ellint_1f( in0, in1);
+      |                  ^~~~~~~~~
+make: [ellint_1f_float_float_float.exe] Error 1 (ignored)

@@ -1,0 +1,12 @@
+timeout 45s g++ -fopenmp lerp_float_float_float_float.cpp -o lerp_float_float_float_float.exe
+lerp_float_float_float_float.cpp: In function 'void test_lerp()':
+lerp_float_float_float_float.cpp:16:18: error: 'lerp' was not declared in this scope
+   16 |     out3_host =  lerp( in0, in1, in2);
+      |                  ^~~~
+make: [lerp_float_float_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp lerp_double_double_double_double.cpp -o lerp_double_double_double_double.exe
+lerp_double_double_double_double.cpp: In function 'void test_lerp()':
+lerp_double_double_double_double.cpp:16:18: error: 'lerp' was not declared in this scope
+   16 |     out3_host =  lerp( in0, in1, in2);
+      |                  ^~~~
+make: [lerp_double_double_double_double.exe] Error 1 (ignored)

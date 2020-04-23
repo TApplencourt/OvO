@@ -1,0 +1,962 @@
+timeout 45s g++ -fopenmp target_parallel.cpp -o target_parallel.exe
+ptxas /tmp/ccupDdu4.o, line 170; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccupDdu4.o, line 170; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccupDdu4.o, line 170; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_parallel.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__parallel.cpp -o target_teams__parallel.exe
+ptxas /tmp/cc2RGpdF.o, line 116; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc2RGpdF.o, line 116; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cc2RGpdF.o, line 116; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__parallel.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute__parallel__for__simd.cpp -o target__teams_distribute__parallel__for__simd.exe
+ptxas /tmp/ccEqWmIl.o, line 137; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccEqWmIl.o, line 137; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccEqWmIl.o, line 137; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams_distribute__parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute__parallel_for.cpp -o target__teams_distribute__parallel_for.exe
+ptxas /tmp/ccUUlqB8.o, line 135; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccUUlqB8.o, line 135; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccUUlqB8.o, line 135; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams_distribute__parallel_for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute__parallel_for__simd.cpp -o target__teams_distribute__parallel_for__simd.exe
+ptxas /tmp/ccBD9BoI.o, line 135; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccBD9BoI.o, line 135; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccBD9BoI.o, line 135; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams_distribute__parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_parallel__for__simd.cpp -o target_parallel__for__simd.exe
+ptxas /tmp/ccrB0Hiz.o, line 199; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccrB0Hiz.o, line 199; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccrB0Hiz.o, line 199; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__parallel_for_simd.cpp -o target_teams__parallel_for_simd.exe
+ptxas /tmp/ccPiE6ub.o, line 118; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccPiE6ub.o, line 118; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccPiE6ub.o, line 118; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__parallel_for_simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute_parallel_for_simd.cpp -o target_teams_distribute_parallel_for_simd.exe
+ptxas /tmp/ccsVgUsM.o, line 130; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccsVgUsM.o, line 130; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccsVgUsM.o, line 130; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams_distribute_parallel_for_simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute_parallel_for.cpp -o target__teams_distribute_parallel_for.exe
+ptxas /tmp/ccMlMxcz.o, line 130; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccMlMxcz.o, line 130; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccMlMxcz.o, line 130; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams_distribute_parallel_for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute__parallel.cpp -o target_teams_distribute__parallel.exe
+ptxas /tmp/ccF7fwYe.o, line 133; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccF7fwYe.o, line 133; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccF7fwYe.o, line 133; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams_distribute__parallel.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_simd.cpp -o target_simd.exe
+ptxas /tmp/cc2YgxQ0.o, line 106; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc2YgxQ0.o, line 106; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cc2YgxQ0.o, line 106; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute__parallel__simd.cpp -o target_teams_distribute__parallel__simd.exe
+ptxas /tmp/cc2qMcSC.o, line 133; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc2qMcSC.o, line 133; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cc2qMcSC.o, line 133; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams_distribute__parallel__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__distribute__parallel_for__simd.cpp -o target__teams__distribute__parallel_for__simd.exe
+ptxas /tmp/ccyYuLup.o, line 135; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccyYuLup.o, line 135; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccyYuLup.o, line 135; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__distribute__parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute__parallel__for.cpp -o target_teams_distribute__parallel__for.exe
+ptxas /tmp/ccG9NB74.o, line 137; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccG9NB74.o, line 137; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccG9NB74.o, line 137; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams_distribute__parallel__for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__distribute.cpp -o target__teams__distribute.exe
+ptxas /tmp/cchnpE5E.o, line 130; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cchnpE5E.o, line 130; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cchnpE5E.o, line 130; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__distribute.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__parallel_for__simd.cpp -o target__teams__parallel_for__simd.exe
+ptxas /tmp/ccMV2XSr.o, line 118; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccMV2XSr.o, line 118; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccMV2XSr.o, line 118; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute_parallel_for_simd.cpp -o target__teams_distribute_parallel_for_simd.exe
+ptxas /tmp/cceLH8n8.o, line 130; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cceLH8n8.o, line 130; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cceLH8n8.o, line 130; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams_distribute_parallel_for_simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__distribute__parallel_for.cpp -o target_teams__distribute__parallel_for.exe
+ptxas /tmp/cch6P3bV.o, line 135; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cch6P3bV.o, line 135; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cch6P3bV.o, line 135; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__distribute__parallel_for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute__parallel_for__simd.cpp -o target_teams_distribute__parallel_for__simd.exe
+ptxas /tmp/ccVT2YZv.o, line 135; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccVT2YZv.o, line 135; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccVT2YZv.o, line 135; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams_distribute__parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute__simd.cpp -o target__teams_distribute__simd.exe
+ptxas /tmp/ccsuc8Ab.o, line 144; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccsuc8Ab.o, line 144; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccsuc8Ab.o, line 144; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams_distribute__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_parallel_for__simd.cpp -o target_parallel_for__simd.exe
+ptxas /tmp/ccsnOEyY.o, line 197; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccsnOEyY.o, line 197; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccsnOEyY.o, line 197; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__parallel.cpp -o target__teams__parallel.exe
+ptxas /tmp/cceRI9vz.o, line 116; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cceRI9vz.o, line 116; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cceRI9vz.o, line 116; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__parallel.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__simd.cpp -o target__simd.exe
+ptxas /tmp/cc3o7Jvl.o, line 106; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc3o7Jvl.o, line 106; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cc3o7Jvl.o, line 106; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__parallel__for.cpp -o target_teams__parallel__for.exe
+ptxas /tmp/ccCVped1.o, line 120; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccCVped1.o, line 120; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccCVped1.o, line 120; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__parallel__for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute__parallel_for.cpp -o target_teams_distribute__parallel_for.exe
+ptxas /tmp/cckUFxtD.o, line 135; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cckUFxtD.o, line 135; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cckUFxtD.o, line 135; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams_distribute__parallel_for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute__parallel__simd.cpp -o target__teams_distribute__parallel__simd.exe
+ptxas /tmp/ccV15Z8p.o, line 133; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccV15Z8p.o, line 133; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccV15Z8p.o, line 133; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams_distribute__parallel__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__distribute__simd.cpp -o target_teams__distribute__simd.exe
+ptxas /tmp/cccTBEj1.o, line 144; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cccTBEj1.o, line 144; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cccTBEj1.o, line 144; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__distribute__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_parallel__simd.cpp -o target_parallel__simd.exe
+ptxas /tmp/ccO7WWiR.o, line 184; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccO7WWiR.o, line 184; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccO7WWiR.o, line 184; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_parallel__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__parallel__simd.cpp -o target__teams__parallel__simd.exe
+ptxas /tmp/cc4rUJ1r.o, line 116; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc4rUJ1r.o, line 116; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cc4rUJ1r.o, line 116; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__parallel__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_parallel__for.cpp -o target_parallel__for.exe
+ptxas /tmp/ccUdAdp8.o, line 185; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccUdAdp8.o, line 185; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccUdAdp8.o, line 185; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_parallel__for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__distribute__parallel.cpp -o target__teams__distribute__parallel.exe
+ptxas /tmp/ccHYiYaV.o, line 133; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccHYiYaV.o, line 133; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccHYiYaV.o, line 133; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__distribute__parallel.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__parallel__for__simd.cpp -o target_teams__parallel__for__simd.exe
+ptxas /tmp/ccnwdE4v.o, line 120; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccnwdE4v.o, line 120; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccnwdE4v.o, line 120; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute_parallel_for.cpp -o target_teams_distribute_parallel_for.exe
+ptxas /tmp/ccJYgA0i.o, line 130; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccJYgA0i.o, line 130; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccJYgA0i.o, line 130; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams_distribute_parallel_for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__distribute__parallel__for__simd.cpp -o target_teams__distribute__parallel__for__simd.exe
+ptxas /tmp/ccB0HPxY.o, line 137; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccB0HPxY.o, line 137; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccB0HPxY.o, line 137; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__distribute__parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__distribute__parallel.cpp -o target_teams__distribute__parallel.exe
+ptxas /tmp/ccTvsyiK.o, line 133; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccTvsyiK.o, line 133; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccTvsyiK.o, line 133; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__distribute__parallel.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__parallel_for.cpp -o target__parallel_for.exe
+ptxas /tmp/ccAR3Bsl.o, line 183; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccAR3Bsl.o, line 183; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccAR3Bsl.o, line 183; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__parallel_for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams.cpp -o target_teams.exe
+ptxas /tmp/ccCpBDRX.o, line 117; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccCpBDRX.o, line 117; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccCpBDRX.o, line 117; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__distribute__parallel__for__simd.cpp -o target__teams__distribute__parallel__for__simd.exe
+ptxas /tmp/ccWjmMEK.o, line 137; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccWjmMEK.o, line 137; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccWjmMEK.o, line 137; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__distribute__parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__distribute__parallel__for.cpp -o target_teams__distribute__parallel__for.exe
+ptxas /tmp/ccjhKJwq.o, line 137; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccjhKJwq.o, line 137; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccjhKJwq.o, line 137; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__distribute__parallel__for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__parallel__for.cpp -o target__teams__parallel__for.exe
+ptxas /tmp/ccpDZVnc.o, line 120; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccpDZVnc.o, line 120; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccpDZVnc.o, line 120; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__parallel__for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__parallel_for.cpp -o target_teams__parallel_for.exe
+ptxas /tmp/ccjneKtN.o, line 118; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccjneKtN.o, line 118; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccjneKtN.o, line 118; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__parallel_for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute__parallel.cpp -o target__teams_distribute__parallel.exe
+ptxas /tmp/ccPS5R7s.o, line 133; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccPS5R7s.o, line 133; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccPS5R7s.o, line 133; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams_distribute__parallel.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams.cpp -o target__teams.exe
+ptxas /tmp/ccYIJc0f.o, line 117; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccYIJc0f.o, line 117; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccYIJc0f.o, line 117; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__parallel__simd.cpp -o target_teams__parallel__simd.exe
+ptxas /tmp/ccIkamkS.o, line 116; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccIkamkS.o, line 116; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccIkamkS.o, line 116; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__parallel__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute.cpp -o target__teams_distribute.exe
+ptxas /tmp/ccCvwZgE.o, line 130; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccCvwZgE.o, line 130; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccCvwZgE.o, line 130; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams_distribute.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute_parallel_for__simd.cpp -o target_teams_distribute_parallel_for__simd.exe
+ptxas /tmp/cc289qsf.o, line 130; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc289qsf.o, line 130; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cc289qsf.o, line 130; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams_distribute_parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__parallel__simd.cpp -o target__parallel__simd.exe
+ptxas /tmp/ccxsuHOV.o, line 184; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccxsuHOV.o, line 184; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccxsuHOV.o, line 184; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__parallel__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__distribute__parallel__simd.cpp -o target_teams__distribute__parallel__simd.exe
+ptxas /tmp/ccmE5gAI.o, line 133; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccmE5gAI.o, line 133; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccmE5gAI.o, line 133; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__distribute__parallel__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute__parallel__for.cpp -o target__teams_distribute__parallel__for.exe
+ptxas /tmp/ccY84acj.o, line 137; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccY84acj.o, line 137; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccY84acj.o, line 137; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams_distribute__parallel__for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__distribute.cpp -o target_teams__distribute.exe
+ptxas /tmp/cczgEQl9.o, line 130; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cczgEQl9.o, line 130; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cczgEQl9.o, line 130; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__distribute.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__parallel__for__simd.cpp -o target__teams__parallel__for__simd.exe
+ptxas /tmp/cc4QQwyL.o, line 120; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc4QQwyL.o, line 120; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cc4QQwyL.o, line 120; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__parallel_for__simd.cpp -o target__parallel_for__simd.exe
+ptxas /tmp/ccuKQGty.o, line 197; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccuKQGty.o, line 197; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccuKQGty.o, line 197; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute.cpp -o target_teams_distribute.exe
+ptxas /tmp/ccLJioH8.o, line 130; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccLJioH8.o, line 130; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccLJioH8.o, line 130; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams_distribute.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__parallel__for.cpp -o target__parallel__for.exe
+ptxas /tmp/ccJ6enBO.o, line 185; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccJ6enBO.o, line 185; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccJ6enBO.o, line 185; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__parallel__for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute__parallel__for__simd.cpp -o target_teams_distribute__parallel__for__simd.exe
+ptxas /tmp/ccYqeiWx.o, line 137; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccYqeiWx.o, line 137; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccYqeiWx.o, line 137; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams_distribute__parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute_simd.cpp -o target__teams_distribute_simd.exe
+ptxas /tmp/ccM7FoMd.o, line 159; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccM7FoMd.o, line 159; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccM7FoMd.o, line 159; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams_distribute_simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__parallel.cpp -o target__parallel.exe
+ptxas /tmp/ccyjsNHZ.o, line 170; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccyjsNHZ.o, line 170; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccyjsNHZ.o, line 170; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__parallel.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__parallel_for__simd.cpp -o target_teams__parallel_for__simd.exe
+ptxas /tmp/cc9lyQQA.o, line 118; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc9lyQQA.o, line 118; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cc9lyQQA.o, line 118; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__distribute__parallel_for.cpp -o target__teams__distribute__parallel_for.exe
+ptxas /tmp/ccgkbdbd.o, line 135; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccgkbdbd.o, line 135; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccgkbdbd.o, line 135; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__distribute__parallel_for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__parallel_for_simd.cpp -o target__parallel_for_simd.exe
+ptxas /tmp/ccooaxSZ.o, line 192; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccooaxSZ.o, line 192; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccooaxSZ.o, line 192; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__parallel_for_simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target.cpp -o target.exe
+ptxas /tmp/cci1VuUF.o, line 89; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cci1VuUF.o, line 89; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cci1VuUF.o, line 89; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__distribute_simd.cpp -o target_teams__distribute_simd.exe
+ptxas /tmp/cc4wk3Tr.o, line 139; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc4wk3Tr.o, line 139; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cc4wk3Tr.o, line 139; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__distribute_simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_parallel_for_simd.cpp -o target_parallel_for_simd.exe
+ptxas /tmp/ccACx6g4.o, line 192; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccACx6g4.o, line 192; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccACx6g4.o, line 192; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_parallel_for_simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__parallel_for.cpp -o target__teams__parallel_for.exe
+ptxas /tmp/ccc4DD2Q.o, line 118; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccc4DD2Q.o, line 118; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccc4DD2Q.o, line 118; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__parallel_for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__distribute__simd.cpp -o target__teams__distribute__simd.exe
+ptxas /tmp/ccHdKCis.o, line 144; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccHdKCis.o, line 144; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccHdKCis.o, line 144; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__distribute__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__distribute__parallel__simd.cpp -o target__teams__distribute__parallel__simd.exe
+ptxas /tmp/cccLMsM6.o, line 133; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cccLMsM6.o, line 133; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cccLMsM6.o, line 133; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__distribute__parallel__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute__simd.cpp -o target_teams_distribute__simd.exe
+ptxas /tmp/ccBDvkJT.o, line 144; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccBDvkJT.o, line 144; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccBDvkJT.o, line 144; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams_distribute__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_parallel_for.cpp -o target_parallel_for.exe
+ptxas /tmp/ccYvBEdw.o, line 183; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccYvBEdw.o, line 183; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccYvBEdw.o, line 183; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_parallel_for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute_parallel_for__simd.cpp -o target__teams_distribute_parallel_for__simd.exe
+ptxas /tmp/cci9R68i.o, line 130; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cci9R68i.o, line 130; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cci9R68i.o, line 130; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams_distribute_parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute_simd.cpp -o target_teams_distribute_simd.exe
+ptxas /tmp/cctZwS9S.o, line 159; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cctZwS9S.o, line 159; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/cctZwS9S.o, line 159; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams_distribute_simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__distribute__parallel__for.cpp -o target__teams__distribute__parallel__for.exe
+ptxas /tmp/ccHNujXy.o, line 137; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccHNujXy.o, line 137; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccHNujXy.o, line 137; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__distribute__parallel__for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__parallel_for_simd.cpp -o target__teams__parallel_for_simd.exe
+ptxas /tmp/ccxgLTPl.o, line 118; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccxgLTPl.o, line 118; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccxgLTPl.o, line 118; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__teams__parallel_for_simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__parallel__for__simd.cpp -o target__parallel__for__simd.exe
+ptxas /tmp/ccMRrzdY.o, line 199; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccMRrzdY.o, line 199; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccMRrzdY.o, line 199; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target__parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__distribute__parallel_for__simd.cpp -o target_teams__distribute__parallel_for__simd.exe
+ptxas /tmp/ccn2vkXK.o, line 135; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccn2vkXK.o, line 135; error   : Function '_ZNSt7complexIdEC1Edd' not declared in this scope
+ptxas /tmp/ccn2vkXK.o, line 135; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [target_teams__distribute__parallel_for__simd.exe] Error 1 (ignored)
