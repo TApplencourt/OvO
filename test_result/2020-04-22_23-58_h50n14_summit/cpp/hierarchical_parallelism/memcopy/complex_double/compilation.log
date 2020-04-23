@@ -1,0 +1,52 @@
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute__parallel_for__simd.cpp -o target_teams_distribute__parallel_for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute_parallel_for.cpp -o target_teams_distribute_parallel_for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute.cpp -o target_teams_distribute.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute_parallel_for__simd.cpp -o target_teams_distribute_parallel_for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__parallel__for__simd.cpp -o target__parallel__for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute__parallel__for.cpp -o target__teams__distribute__parallel__for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute.cpp -o target_teams__distribute.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__parallel__for.cpp -o target__parallel__for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute_parallel_for__simd.cpp -o target__teams_distribute_parallel_for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute_parallel_for_simd.cpp -o target__teams_distribute_parallel_for_simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_parallel_for_simd.cpp -o target_parallel_for_simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute__simd.cpp -o target__teams__distribute__simd.exe
+1586-511 (I) Loop (loop index 3) at target__teams__distribute__simd.cpp <line 31> was not SIMD vectorized despite OMP SIMD pragma.
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute__parallel__for.cpp -o target__teams_distribute__parallel__for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute__parallel__for__simd.cpp -o target_teams_distribute__parallel__for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute_simd.cpp -o target_teams__distribute_simd.exe
+1586-511 (I) Loop (loop index 1) at target_teams__distribute_simd.cpp <line 26> was not SIMD vectorized despite OMP SIMD pragma.
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_parallel_for__simd.cpp -o target_parallel_for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute.cpp -o target__teams_distribute.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__simd.cpp -o target__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute__parallel_for__simd.cpp -o target_teams__distribute__parallel_for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute_simd.cpp -o target_teams_distribute_simd.exe
+1586-511 (I) Loop (loop index 1) at target_teams_distribute_simd.cpp <line 25> was not SIMD vectorized despite OMP SIMD pragma.
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute__parallel_for.cpp -o target__teams__distribute__parallel_for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute__parallel__for__simd.cpp -o target_teams__distribute__parallel__for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_simd.cpp -o target_simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute_simd.cpp -o target__teams_distribute_simd.exe
+1586-511 (I) Loop (loop index 1) at target__teams_distribute_simd.cpp <line 26> was not SIMD vectorized despite OMP SIMD pragma.
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__parallel_for.cpp -o target__parallel_for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_parallel__for__simd.cpp -o target_parallel__for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute__parallel_for__simd.cpp -o target__teams__distribute__parallel_for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute__simd.cpp -o target__teams_distribute__simd.exe
+1586-511 (I) Loop (loop index 3) at target__teams_distribute__simd.cpp <line 30> was not SIMD vectorized despite OMP SIMD pragma.
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute_parallel_for.cpp -o target__teams_distribute_parallel_for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__parallel_for_simd.cpp -o target__parallel_for_simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute__parallel_for.cpp -o target__teams_distribute__parallel_for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute__parallel__for__simd.cpp -o target__teams_distribute__parallel__for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute__simd.cpp -o target_teams_distribute__simd.exe
+1586-511 (I) Loop (loop index 3) at target_teams_distribute__simd.cpp <line 29> was not SIMD vectorized despite OMP SIMD pragma.
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_parallel__for.cpp -o target_parallel__for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams_distribute__parallel_for__simd.cpp -o target__teams_distribute__parallel_for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute__parallel__for__simd.cpp -o target__teams__distribute__parallel__for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute__parallel_for.cpp -o target_teams__distribute__parallel_for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__teams__distribute.cpp -o target__teams__distribute.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute__parallel__for.cpp -o target_teams__distribute__parallel__for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams__distribute__simd.cpp -o target_teams__distribute__simd.exe
+1586-511 (I) Loop (loop index 3) at target_teams__distribute__simd.cpp <line 30> was not SIMD vectorized despite OMP SIMD pragma.
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_parallel_for.cpp -o target_parallel_for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target__parallel_for__simd.cpp -o target__parallel_for__simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute_parallel_for_simd.cpp -o target_teams_distribute_parallel_for_simd.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute__parallel_for.cpp -o target_teams_distribute__parallel_for.exe
+timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload target_teams_distribute__parallel__for.cpp -o target_teams_distribute__parallel__for.exe

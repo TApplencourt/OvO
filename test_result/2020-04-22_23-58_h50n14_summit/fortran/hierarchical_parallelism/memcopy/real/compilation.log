@@ -1,0 +1,156 @@
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams_distribute__parallel__do.F90 -o target_teams_distribute__parallel__do.exe
+** target_teams_distribute__parallel__do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target_teams_distribute__parallel__do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams_distribute__parallel_do.F90 -o target__teams_distribute__parallel_do.exe
+** target__teams_distribute__parallel_do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target__teams_distribute__parallel_do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_simd.F90 -o target_simd.exe
+** target_simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 1) at target_simd.F90 <line 12> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target_simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams_distribute_parallel_do__simd.F90 -o target_teams_distribute_parallel_do__simd.exe
+** target_teams_distribute_parallel_do__simd   === End of Compilation 1 ===
+1501-510  Compilation successful for file target_teams_distribute_parallel_do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__parallel_do_simd.F90 -o target__parallel_do_simd.exe
+** target__parallel_do_simd   === End of Compilation 1 ===
+1501-510  Compilation successful for file target__parallel_do_simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams_distribute.F90 -o target__teams_distribute.exe
+** target__teams_distribute   === End of Compilation 1 ===
+1501-510  Compilation successful for file target__teams_distribute.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams__distribute.F90 -o target_teams__distribute.exe
+** target_teams__distribute   === End of Compilation 1 ===
+1501-510  Compilation successful for file target_teams__distribute.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams__distribute__parallel_do.F90 -o target_teams__distribute__parallel_do.exe
+** target_teams__distribute__parallel_do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target_teams__distribute__parallel_do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams_distribute_parallel_do__simd.F90 -o target__teams_distribute_parallel_do__simd.exe
+** target__teams_distribute_parallel_do__simd   === End of Compilation 1 ===
+1501-510  Compilation successful for file target__teams_distribute_parallel_do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_parallel_do.F90 -o target_parallel_do.exe
+** target_parallel_do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target_parallel_do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__parallel__do__simd.F90 -o target__parallel__do__simd.exe
+** target__parallel__do__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 2) at target__parallel__do__simd.F90 <line 18> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target__parallel__do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams_distribute_simd.F90 -o target__teams_distribute_simd.exe
+** target__teams_distribute_simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 1) at target__teams_distribute_simd.F90 <line 13> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target__teams_distribute_simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams_distribute_parallel_do.F90 -o target__teams_distribute_parallel_do.exe
+** target__teams_distribute_parallel_do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target__teams_distribute_parallel_do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams_distribute__parallel_do__simd.F90 -o target_teams_distribute__parallel_do__simd.exe
+** target_teams_distribute__parallel_do__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 2) at target_teams_distribute__parallel_do__simd.F90 <line 20> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target_teams_distribute__parallel_do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_parallel__do.F90 -o target_parallel__do.exe
+** target_parallel__do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target_parallel__do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams_distribute_parallel_do_simd.F90 -o target__teams_distribute_parallel_do_simd.exe
+** target__teams_distribute_parallel_do_simd   === End of Compilation 1 ===
+1501-510  Compilation successful for file target__teams_distribute_parallel_do_simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__parallel__do.F90 -o target__parallel__do.exe
+** target__parallel__do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target__parallel__do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams_distribute__parallel_do.F90 -o target_teams_distribute__parallel_do.exe
+** target_teams_distribute__parallel_do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target_teams_distribute__parallel_do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams_distribute__parallel__do__simd.F90 -o target_teams_distribute__parallel__do__simd.exe
+** target_teams_distribute__parallel__do__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 2) at target_teams_distribute__parallel__do__simd.F90 <line 21> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target_teams_distribute__parallel__do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams__distribute.F90 -o target__teams__distribute.exe
+** target__teams__distribute   === End of Compilation 1 ===
+1501-510  Compilation successful for file target__teams__distribute.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams_distribute__simd.F90 -o target_teams_distribute__simd.exe
+** target_teams_distribute__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 3) at target_teams_distribute__simd.F90 <line 16> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target_teams_distribute__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams_distribute.F90 -o target_teams_distribute.exe
+** target_teams_distribute   === End of Compilation 1 ===
+1501-510  Compilation successful for file target_teams_distribute.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__parallel_do.F90 -o target__parallel_do.exe
+** target__parallel_do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target__parallel_do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams__distribute__parallel_do.F90 -o target__teams__distribute__parallel_do.exe
+** target__teams__distribute__parallel_do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target__teams__distribute__parallel_do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__simd.F90 -o target__simd.exe
+** target__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 1) at target__simd.F90 <line 13> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams_distribute__parallel__do__simd.F90 -o target__teams_distribute__parallel__do__simd.exe
+** target__teams_distribute__parallel__do__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 2) at target__teams_distribute__parallel__do__simd.F90 <line 22> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target__teams_distribute__parallel__do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams_distribute_simd.F90 -o target_teams_distribute_simd.exe
+** target_teams_distribute_simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 1) at target_teams_distribute_simd.F90 <line 12> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target_teams_distribute_simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams_distribute__simd.F90 -o target__teams_distribute__simd.exe
+** target__teams_distribute__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 3) at target__teams_distribute__simd.F90 <line 17> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target__teams_distribute__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams_distribute_parallel_do.F90 -o target_teams_distribute_parallel_do.exe
+** target_teams_distribute_parallel_do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target_teams_distribute_parallel_do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_parallel_do__simd.F90 -o target_parallel_do__simd.exe
+** target_parallel_do__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 2) at target_parallel_do__simd.F90 <line 16> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target_parallel_do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams_distribute_parallel_do_simd.F90 -o target_teams_distribute_parallel_do_simd.exe
+** target_teams_distribute_parallel_do_simd   === End of Compilation 1 ===
+1501-510  Compilation successful for file target_teams_distribute_parallel_do_simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams__distribute_simd.F90 -o target_teams__distribute_simd.exe
+** target_teams__distribute_simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 1) at target_teams__distribute_simd.F90 <line 13> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target_teams__distribute_simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams_distribute__parallel_do__simd.F90 -o target__teams_distribute__parallel_do__simd.exe
+** target__teams_distribute__parallel_do__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 2) at target__teams_distribute__parallel_do__simd.F90 <line 21> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target__teams_distribute__parallel_do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams__distribute__parallel__do__simd.F90 -o target_teams__distribute__parallel__do__simd.exe
+** target_teams__distribute__parallel__do__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 2) at target_teams__distribute__parallel__do__simd.F90 <line 22> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target_teams__distribute__parallel__do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams__distribute__parallel__do.F90 -o target__teams__distribute__parallel__do.exe
+** target__teams__distribute__parallel__do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target__teams__distribute__parallel__do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__parallel_do__simd.F90 -o target__parallel_do__simd.exe
+** target__parallel_do__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 2) at target__parallel_do__simd.F90 <line 17> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target__parallel_do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams__distribute__parallel_do__simd.F90 -o target__teams__distribute__parallel_do__simd.exe
+** target__teams__distribute__parallel_do__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 2) at target__teams__distribute__parallel_do__simd.F90 <line 22> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target__teams__distribute__parallel_do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams__distribute__simd.F90 -o target__teams__distribute__simd.exe
+** target__teams__distribute__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 3) at target__teams__distribute__simd.F90 <line 18> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target__teams__distribute__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_parallel_do_simd.F90 -o target_parallel_do_simd.exe
+** target_parallel_do_simd   === End of Compilation 1 ===
+1501-510  Compilation successful for file target_parallel_do_simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams__distribute__parallel_do__simd.F90 -o target_teams__distribute__parallel_do__simd.exe
+** target_teams__distribute__parallel_do__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 2) at target_teams__distribute__parallel_do__simd.F90 <line 21> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target_teams__distribute__parallel_do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams__distribute__simd.F90 -o target_teams__distribute__simd.exe
+** target_teams__distribute__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 3) at target_teams__distribute__simd.F90 <line 17> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target_teams__distribute__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_teams__distribute__parallel__do.F90 -o target_teams__distribute__parallel__do.exe
+** target_teams__distribute__parallel__do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target_teams__distribute__parallel__do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target_parallel__do__simd.F90 -o target_parallel__do__simd.exe
+** target_parallel__do__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 2) at target_parallel__do__simd.F90 <line 17> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target_parallel__do__simd.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams_distribute__parallel__do.F90 -o target__teams_distribute__parallel__do.exe
+** target__teams_distribute__parallel__do   === End of Compilation 1 ===
+1501-510  Compilation successful for file target__teams_distribute__parallel__do.F90.
+timeout 45s xlf90_r -qsmp=omp -qoffload target__teams__distribute__parallel__do__simd.F90 -o target__teams__distribute__parallel__do__simd.exe
+** target__teams__distribute__parallel__do__simd   === End of Compilation 1 ===
+1586-511 (I) Loop (loop index 2) at target__teams__distribute__parallel__do__simd.F90 <line 23> was not SIMD vectorized despite OMP SIMD pragma.
+1501-510  Compilation successful for file target__teams__distribute__parallel__do__simd.F90.
