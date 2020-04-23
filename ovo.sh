@@ -87,6 +87,11 @@ frun() {
 
         mkdir -p "$nresult"
         env > "$nresult"/env.log
+        echo $(${CXX:-c++} --version) > "$nresult"/compilers.log
+        echo $(${FC:-gfortran} --version) >> "$nresult"/compilers.log
+        echo $dir
+        return
+
         if [[ ${__no_long_double} && ${__no_loop} ]]
         then
             make --no-print-directory -C "$dir" exe_no_long_double_no_loop |& tee "$nresult"/compilation.log
