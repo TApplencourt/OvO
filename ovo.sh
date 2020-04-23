@@ -89,8 +89,6 @@ frun() {
         env > "$nresult"/env.log
         echo $(${CXX:-c++} --version) > "$nresult"/compilers.log
         echo $(${FC:-gfortran} --version) >> "$nresult"/compilers.log
-        echo $dir
-        return
 
         if [[ ${__no_long_double} && ${__no_loop} ]]
         then
