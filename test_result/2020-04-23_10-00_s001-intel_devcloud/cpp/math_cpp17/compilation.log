@@ -1,0 +1,546 @@
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cyl_bessel_i_double_double_double.cpp -o cyl_bessel_i_double_double_double.exe
+cyl_bessel_i_double_double_double.cpp:15:18: error: use of undeclared identifier 'cyl_bessel_i'
+    out2_host =  cyl_bessel_i( in0, in1);
+                 ^
+cyl_bessel_i_double_double_double.cpp:18:21: error: use of undeclared identifier 'cyl_bessel_i'
+     out2_device =  cyl_bessel_i( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for cyl_bessel_i_double_double_double.cpp (code 1)
+Makefile:33: recipe for target 'cyl_bessel_i_double_double_double.exe' failed
+make: [cyl_bessel_i_double_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 hermitef_unsigned_float_float.cpp -o hermitef_unsigned_float_float.exe
+hermitef_unsigned_float_float.cpp:15:18: error: use of undeclared identifier 'hermitef'
+    out2_host =  hermitef( in0, in1);
+                 ^
+hermitef_unsigned_float_float.cpp:18:21: error: use of undeclared identifier 'hermitef'
+     out2_device =  hermitef( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for hermitef_unsigned_float_float.cpp (code 1)
+Makefile:33: recipe for target 'hermitef_unsigned_float_float.exe' failed
+make: [hermitef_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cyl_neumannf_float_float_float.cpp -o cyl_neumannf_float_float_float.exe
+cyl_neumannf_float_float_float.cpp:15:18: error: use of undeclared identifier 'cyl_neumannf'
+    out2_host =  cyl_neumannf( in0, in1);
+                 ^
+cyl_neumannf_float_float_float.cpp:18:21: error: use of undeclared identifier 'cyl_neumannf'
+     out2_device =  cyl_neumannf( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for cyl_neumannf_float_float_float.cpp (code 1)
+Makefile:33: recipe for target 'cyl_neumannf_float_float_float.exe' failed
+make: [cyl_neumannf_float_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 betaf_float_float_float.cpp -o betaf_float_float_float.exe
+betaf_float_float_float.cpp:15:18: error: use of undeclared identifier 'betaf'
+    out2_host =  betaf( in0, in1);
+                 ^
+betaf_float_float_float.cpp:18:21: error: use of undeclared identifier 'betaf'
+     out2_device =  betaf( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for betaf_float_float_float.cpp (code 1)
+Makefile:33: recipe for target 'betaf_float_float_float.exe' failed
+make: [betaf_float_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cyl_bessel_kf_float_float_float.cpp -o cyl_bessel_kf_float_float_float.exe
+cyl_bessel_kf_float_float_float.cpp:15:18: error: use of undeclared identifier 'cyl_bessel_kf'
+    out2_host =  cyl_bessel_kf( in0, in1);
+                 ^
+cyl_bessel_kf_float_float_float.cpp:18:21: error: use of undeclared identifier 'cyl_bessel_kf'
+     out2_device =  cyl_bessel_kf( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for cyl_bessel_kf_float_float_float.cpp (code 1)
+Makefile:33: recipe for target 'cyl_bessel_kf_float_float_float.exe' failed
+make: [cyl_bessel_kf_float_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 legendre_unsigned_double_double.cpp -o legendre_unsigned_double_double.exe
+legendre_unsigned_double_double.cpp:15:18: error: use of undeclared identifier 'legendre'
+    out2_host =  legendre( in0, in1);
+                 ^
+legendre_unsigned_double_double.cpp:18:21: error: use of undeclared identifier 'legendre'
+     out2_device =  legendre( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for legendre_unsigned_double_double.cpp (code 1)
+Makefile:33: recipe for target 'legendre_unsigned_double_double.exe' failed
+make: [legendre_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sph_legendre_unsigned_unsigned_double_double.cpp -o sph_legendre_unsigned_unsigned_double_double.exe
+sph_legendre_unsigned_unsigned_double_double.cpp:16:18: error: use of undeclared identifier 'sph_legendre'
+    out3_host =  sph_legendre( in0, in1, in2);
+                 ^
+sph_legendre_unsigned_unsigned_double_double.cpp:19:21: error: use of undeclared identifier 'sph_legendre'
+     out3_device =  sph_legendre( in0, in1, in2);
+                    ^
+2 errors generated.
+compilation aborted for sph_legendre_unsigned_unsigned_double_double.cpp (code 1)
+Makefile:33: recipe for target 'sph_legendre_unsigned_unsigned_double_double.exe' failed
+make: [sph_legendre_unsigned_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 expintf_float_float.cpp -o expintf_float_float.exe
+expintf_float_float.cpp:14:18: error: use of undeclared identifier 'expintf'
+    out1_host =  expintf( in0);
+                 ^
+expintf_float_float.cpp:17:21: error: use of undeclared identifier 'expintf'
+     out1_device =  expintf( in0);
+                    ^
+2 errors generated.
+compilation aborted for expintf_float_float.cpp (code 1)
+Makefile:33: recipe for target 'expintf_float_float.exe' failed
+make: [expintf_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 comp_ellint_1_double_double.cpp -o comp_ellint_1_double_double.exe
+comp_ellint_1_double_double.cpp:14:18: error: use of undeclared identifier 'comp_ellint_1'
+    out1_host =  comp_ellint_1( in0);
+                 ^
+comp_ellint_1_double_double.cpp:17:21: error: use of undeclared identifier 'comp_ellint_1'
+     out1_device =  comp_ellint_1( in0);
+                    ^
+2 errors generated.
+compilation aborted for comp_ellint_1_double_double.cpp (code 1)
+Makefile:33: recipe for target 'comp_ellint_1_double_double.exe' failed
+make: [comp_ellint_1_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 assoc_legendre_unsigned_unsigned_double_double.cpp -o assoc_legendre_unsigned_unsigned_double_double.exe
+assoc_legendre_unsigned_unsigned_double_double.cpp:16:18: error: use of undeclared identifier 'assoc_legendre'
+    out3_host =  assoc_legendre( in0, in1, in2);
+                 ^
+assoc_legendre_unsigned_unsigned_double_double.cpp:19:21: error: use of undeclared identifier 'assoc_legendre'
+     out3_device =  assoc_legendre( in0, in1, in2);
+                    ^
+2 errors generated.
+compilation aborted for assoc_legendre_unsigned_unsigned_double_double.cpp (code 1)
+Makefile:33: recipe for target 'assoc_legendre_unsigned_unsigned_double_double.exe' failed
+make: [assoc_legendre_unsigned_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ellint_2f_float_float_float.cpp -o ellint_2f_float_float_float.exe
+ellint_2f_float_float_float.cpp:15:18: error: use of undeclared identifier 'ellint_2f'
+    out2_host =  ellint_2f( in0, in1);
+                 ^
+ellint_2f_float_float_float.cpp:18:21: error: use of undeclared identifier 'ellint_2f'
+     out2_device =  ellint_2f( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for ellint_2f_float_float_float.cpp (code 1)
+Makefile:33: recipe for target 'ellint_2f_float_float_float.exe' failed
+make: [ellint_2f_float_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cyl_bessel_if_float_float_float.cpp -o cyl_bessel_if_float_float_float.exe
+cyl_bessel_if_float_float_float.cpp:15:18: error: use of undeclared identifier 'cyl_bessel_if'
+    out2_host =  cyl_bessel_if( in0, in1);
+                 ^
+cyl_bessel_if_float_float_float.cpp:18:21: error: use of undeclared identifier 'cyl_bessel_if'
+     out2_device =  cyl_bessel_if( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for cyl_bessel_if_float_float_float.cpp (code 1)
+Makefile:33: recipe for target 'cyl_bessel_if_float_float_float.exe' failed
+make: [cyl_bessel_if_float_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 hypot_float_float_float_float.cpp -o hypot_float_float_float_float.exe
+hypot_float_float_float_float.cpp:16:18: error: no matching function for call to 'hypot'
+    out3_host =  hypot( in0, in1, in2);
+                 ^~~~~
+/usr/include/x86_64-linux-gnu/bits/mathcalls.h:147:13: note: candidate function not viable: requires 2 arguments, but 3 were provided
+__MATHCALL (hypot,, (_Mdouble_ __x, _Mdouble_ __y));
+            ^
+/usr/include/c++/7.4.0/cmath:1484:5: note: candidate function template not viable: requires 2 arguments, but 3 were provided
+    hypot(_Tp __x, _Up __y)
+    ^
+/usr/include/c++/7.4.0/cmath:1477:3: note: candidate function not viable: requires 2 arguments, but 3 were provided
+  hypot(long double __x, long double __y)
+  ^
+/usr/include/c++/7.4.0/cmath:1473:3: note: candidate function not viable: requires 2 arguments, but 3 were provided
+  hypot(float __x, float __y)
+  ^
+hypot_float_float_float_float.cpp:19:21: error: no matching function for call to 'hypot'
+     out3_device =  hypot( in0, in1, in2);
+                    ^~~~~
+/usr/include/x86_64-linux-gnu/bits/mathcalls.h:147:13: note: candidate function not viable: requires 2 arguments, but 3 were provided
+__MATHCALL (hypot,, (_Mdouble_ __x, _Mdouble_ __y));
+            ^
+/usr/include/c++/7.4.0/cmath:1484:5: note: candidate function template not viable: requires 2 arguments, but 3 were provided
+    hypot(_Tp __x, _Up __y)
+    ^
+/usr/include/c++/7.4.0/cmath:1477:3: note: candidate function not viable: requires 2 arguments, but 3 were provided
+  hypot(long double __x, long double __y)
+  ^
+/usr/include/c++/7.4.0/cmath:1473:3: note: candidate function not viable: requires 2 arguments, but 3 were provided
+  hypot(float __x, float __y)
+  ^
+2 errors generated.
+compilation aborted for hypot_float_float_float_float.cpp (code 1)
+Makefile:33: recipe for target 'hypot_float_float_float_float.exe' failed
+make: [hypot_float_float_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 expint_double_double.cpp -o expint_double_double.exe
+expint_double_double.cpp:14:18: error: use of undeclared identifier 'expint'; did you mean 'exit'?
+    out1_host =  expint( in0);
+                 ^~~~~~
+                 exit
+/usr/include/stdlib.h:614:13: note: 'exit' declared here
+extern void exit (int __status) __THROW __attribute__ ((__noreturn__));
+            ^
+expint_double_double.cpp:14:18: error: assigning to 'double' from incompatible type 'void'
+    out1_host =  expint( in0);
+                 ^~~~~~~~~~~~
+expint_double_double.cpp:17:21: error: use of undeclared identifier 'expint'; did you mean 'exit'?
+     out1_device =  expint( in0);
+                    ^~~~~~
+                    exit
+/usr/include/stdlib.h:614:13: note: 'exit' declared here
+extern void exit (int __status) __THROW __attribute__ ((__noreturn__));
+            ^
+expint_double_double.cpp:17:21: error: assigning to 'double' from incompatible type 'void'
+     out1_device =  expint( in0);
+                    ^~~~~~~~~~~~
+4 errors generated.
+compilation aborted for expint_double_double.cpp (code 1)
+Makefile:33: recipe for target 'expint_double_double.exe' failed
+make: [expint_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 laguerre_unsigned_double_double.cpp -o laguerre_unsigned_double_double.exe
+laguerre_unsigned_double_double.cpp:15:18: error: use of undeclared identifier 'laguerre'
+    out2_host =  laguerre( in0, in1);
+                 ^
+laguerre_unsigned_double_double.cpp:18:21: error: use of undeclared identifier 'laguerre'
+     out2_device =  laguerre( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for laguerre_unsigned_double_double.cpp (code 1)
+Makefile:33: recipe for target 'laguerre_unsigned_double_double.exe' failed
+make: [laguerre_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cyl_neumann_double_double_double.cpp -o cyl_neumann_double_double_double.exe
+cyl_neumann_double_double_double.cpp:15:18: error: use of undeclared identifier 'cyl_neumann'
+    out2_host =  cyl_neumann( in0, in1);
+                 ^
+cyl_neumann_double_double_double.cpp:18:21: error: use of undeclared identifier 'cyl_neumann'
+     out2_device =  cyl_neumann( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for cyl_neumann_double_double_double.cpp (code 1)
+Makefile:33: recipe for target 'cyl_neumann_double_double_double.exe' failed
+make: [cyl_neumann_double_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 assoc_laguerre_unsigned_unsigned_double_double.cpp -o assoc_laguerre_unsigned_unsigned_double_double.exe
+assoc_laguerre_unsigned_unsigned_double_double.cpp:16:18: error: use of undeclared identifier 'assoc_laguerre'
+    out3_host =  assoc_laguerre( in0, in1, in2);
+                 ^
+assoc_laguerre_unsigned_unsigned_double_double.cpp:19:21: error: use of undeclared identifier 'assoc_laguerre'
+     out3_device =  assoc_laguerre( in0, in1, in2);
+                    ^
+2 errors generated.
+compilation aborted for assoc_laguerre_unsigned_unsigned_double_double.cpp (code 1)
+Makefile:33: recipe for target 'assoc_laguerre_unsigned_unsigned_double_double.exe' failed
+make: [assoc_laguerre_unsigned_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 comp_ellint_3_double_double_double.cpp -o comp_ellint_3_double_double_double.exe
+comp_ellint_3_double_double_double.cpp:15:18: error: use of undeclared identifier 'comp_ellint_3'
+    out2_host =  comp_ellint_3( in0, in1);
+                 ^
+comp_ellint_3_double_double_double.cpp:18:21: error: use of undeclared identifier 'comp_ellint_3'
+     out2_device =  comp_ellint_3( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for comp_ellint_3_double_double_double.cpp (code 1)
+Makefile:33: recipe for target 'comp_ellint_3_double_double_double.exe' failed
+make: [comp_ellint_3_double_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 riemann_zetaf_float_float.cpp -o riemann_zetaf_float_float.exe
+riemann_zetaf_float_float.cpp:14:18: error: use of undeclared identifier 'riemann_zetaf'
+    out1_host =  riemann_zetaf( in0);
+                 ^
+riemann_zetaf_float_float.cpp:17:21: error: use of undeclared identifier 'riemann_zetaf'
+     out1_device =  riemann_zetaf( in0);
+                    ^
+2 errors generated.
+compilation aborted for riemann_zetaf_float_float.cpp (code 1)
+Makefile:33: recipe for target 'riemann_zetaf_float_float.exe' failed
+make: [riemann_zetaf_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 legendref_unsigned_float_float.cpp -o legendref_unsigned_float_float.exe
+legendref_unsigned_float_float.cpp:15:18: error: use of undeclared identifier 'legendref'
+    out2_host =  legendref( in0, in1);
+                 ^
+legendref_unsigned_float_float.cpp:18:21: error: use of undeclared identifier 'legendref'
+     out2_device =  legendref( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for legendref_unsigned_float_float.cpp (code 1)
+Makefile:33: recipe for target 'legendref_unsigned_float_float.exe' failed
+make: [legendref_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ellint_2_double_double_double.cpp -o ellint_2_double_double_double.exe
+ellint_2_double_double_double.cpp:15:18: error: use of undeclared identifier 'ellint_2'
+    out2_host =  ellint_2( in0, in1);
+                 ^
+ellint_2_double_double_double.cpp:18:21: error: use of undeclared identifier 'ellint_2'
+     out2_device =  ellint_2( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for ellint_2_double_double_double.cpp (code 1)
+Makefile:33: recipe for target 'ellint_2_double_double_double.exe' failed
+make: [ellint_2_double_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ellint_1_double_double_double.cpp -o ellint_1_double_double_double.exe
+ellint_1_double_double_double.cpp:15:18: error: use of undeclared identifier 'ellint_1'
+    out2_host =  ellint_1( in0, in1);
+                 ^
+ellint_1_double_double_double.cpp:18:21: error: use of undeclared identifier 'ellint_1'
+     out2_device =  ellint_1( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for ellint_1_double_double_double.cpp (code 1)
+Makefile:33: recipe for target 'ellint_1_double_double_double.exe' failed
+make: [ellint_1_double_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 comp_ellint_1f_float_float.cpp -o comp_ellint_1f_float_float.exe
+comp_ellint_1f_float_float.cpp:14:18: error: use of undeclared identifier 'comp_ellint_1f'
+    out1_host =  comp_ellint_1f( in0);
+                 ^
+comp_ellint_1f_float_float.cpp:17:21: error: use of undeclared identifier 'comp_ellint_1f'
+     out1_device =  comp_ellint_1f( in0);
+                    ^
+2 errors generated.
+compilation aborted for comp_ellint_1f_float_float.cpp (code 1)
+Makefile:33: recipe for target 'comp_ellint_1f_float_float.exe' failed
+make: [comp_ellint_1f_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 comp_ellint_2f_float_float.cpp -o comp_ellint_2f_float_float.exe
+comp_ellint_2f_float_float.cpp:14:18: error: use of undeclared identifier 'comp_ellint_2f'
+    out1_host =  comp_ellint_2f( in0);
+                 ^
+comp_ellint_2f_float_float.cpp:17:21: error: use of undeclared identifier 'comp_ellint_2f'
+     out1_device =  comp_ellint_2f( in0);
+                    ^
+2 errors generated.
+compilation aborted for comp_ellint_2f_float_float.cpp (code 1)
+Makefile:33: recipe for target 'comp_ellint_2f_float_float.exe' failed
+make: [comp_ellint_2f_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 assoc_legendref_unsigned_unsigned_float_float.cpp -o assoc_legendref_unsigned_unsigned_float_float.exe
+assoc_legendref_unsigned_unsigned_float_float.cpp:16:18: error: use of undeclared identifier 'assoc_legendref'
+    out3_host =  assoc_legendref( in0, in1, in2);
+                 ^
+assoc_legendref_unsigned_unsigned_float_float.cpp:19:21: error: use of undeclared identifier 'assoc_legendref'
+     out3_device =  assoc_legendref( in0, in1, in2);
+                    ^
+2 errors generated.
+compilation aborted for assoc_legendref_unsigned_unsigned_float_float.cpp (code 1)
+Makefile:33: recipe for target 'assoc_legendref_unsigned_unsigned_float_float.exe' failed
+make: [assoc_legendref_unsigned_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cyl_bessel_k_double_double_double.cpp -o cyl_bessel_k_double_double_double.exe
+cyl_bessel_k_double_double_double.cpp:15:18: error: use of undeclared identifier 'cyl_bessel_k'
+    out2_host =  cyl_bessel_k( in0, in1);
+                 ^
+cyl_bessel_k_double_double_double.cpp:18:21: error: use of undeclared identifier 'cyl_bessel_k'
+     out2_device =  cyl_bessel_k( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for cyl_bessel_k_double_double_double.cpp (code 1)
+Makefile:33: recipe for target 'cyl_bessel_k_double_double_double.exe' failed
+make: [cyl_bessel_k_double_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cyl_bessel_j_double_double_double.cpp -o cyl_bessel_j_double_double_double.exe
+cyl_bessel_j_double_double_double.cpp:15:18: error: use of undeclared identifier 'cyl_bessel_j'
+    out2_host =  cyl_bessel_j( in0, in1);
+                 ^
+cyl_bessel_j_double_double_double.cpp:18:21: error: use of undeclared identifier 'cyl_bessel_j'
+     out2_device =  cyl_bessel_j( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for cyl_bessel_j_double_double_double.cpp (code 1)
+Makefile:33: recipe for target 'cyl_bessel_j_double_double_double.exe' failed
+make: [cyl_bessel_j_double_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 hypot_double_double_double_double.cpp -o hypot_double_double_double_double.exe
+hypot_double_double_double_double.cpp:16:18: error: no matching function for call to 'hypot'
+    out3_host =  hypot( in0, in1, in2);
+                 ^~~~~
+/usr/include/x86_64-linux-gnu/bits/mathcalls.h:147:13: note: candidate function not viable: requires 2 arguments, but 3 were provided
+__MATHCALL (hypot,, (_Mdouble_ __x, _Mdouble_ __y));
+            ^
+/usr/include/c++/7.4.0/cmath:1484:5: note: candidate function template not viable: requires 2 arguments, but 3 were provided
+    hypot(_Tp __x, _Up __y)
+    ^
+/usr/include/c++/7.4.0/cmath:1477:3: note: candidate function not viable: requires 2 arguments, but 3 were provided
+  hypot(long double __x, long double __y)
+  ^
+/usr/include/c++/7.4.0/cmath:1473:3: note: candidate function not viable: requires 2 arguments, but 3 were provided
+  hypot(float __x, float __y)
+  ^
+hypot_double_double_double_double.cpp:19:21: error: no matching function for call to 'hypot'
+     out3_device =  hypot( in0, in1, in2);
+                    ^~~~~
+/usr/include/x86_64-linux-gnu/bits/mathcalls.h:147:13: note: candidate function not viable: requires 2 arguments, but 3 were provided
+__MATHCALL (hypot,, (_Mdouble_ __x, _Mdouble_ __y));
+            ^
+/usr/include/c++/7.4.0/cmath:1484:5: note: candidate function template not viable: requires 2 arguments, but 3 were provided
+    hypot(_Tp __x, _Up __y)
+    ^
+/usr/include/c++/7.4.0/cmath:1477:3: note: candidate function not viable: requires 2 arguments, but 3 were provided
+  hypot(long double __x, long double __y)
+  ^
+/usr/include/c++/7.4.0/cmath:1473:3: note: candidate function not viable: requires 2 arguments, but 3 were provided
+  hypot(float __x, float __y)
+  ^
+2 errors generated.
+compilation aborted for hypot_double_double_double_double.cpp (code 1)
+Makefile:33: recipe for target 'hypot_double_double_double_double.exe' failed
+make: [hypot_double_double_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sph_bessel_unsigned_double_double.cpp -o sph_bessel_unsigned_double_double.exe
+sph_bessel_unsigned_double_double.cpp:15:18: error: use of undeclared identifier 'sph_bessel'
+    out2_host =  sph_bessel( in0, in1);
+                 ^
+sph_bessel_unsigned_double_double.cpp:18:21: error: use of undeclared identifier 'sph_bessel'
+     out2_device =  sph_bessel( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for sph_bessel_unsigned_double_double.cpp (code 1)
+Makefile:33: recipe for target 'sph_bessel_unsigned_double_double.exe' failed
+make: [sph_bessel_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 comp_ellint_2_double_double.cpp -o comp_ellint_2_double_double.exe
+comp_ellint_2_double_double.cpp:14:18: error: use of undeclared identifier 'comp_ellint_2'
+    out1_host =  comp_ellint_2( in0);
+                 ^
+comp_ellint_2_double_double.cpp:17:21: error: use of undeclared identifier 'comp_ellint_2'
+     out1_device =  comp_ellint_2( in0);
+                    ^
+2 errors generated.
+compilation aborted for comp_ellint_2_double_double.cpp (code 1)
+Makefile:33: recipe for target 'comp_ellint_2_double_double.exe' failed
+make: [comp_ellint_2_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 laguerref_unsigned_float_float.cpp -o laguerref_unsigned_float_float.exe
+laguerref_unsigned_float_float.cpp:15:18: error: use of undeclared identifier 'laguerref'
+    out2_host =  laguerref( in0, in1);
+                 ^
+laguerref_unsigned_float_float.cpp:18:21: error: use of undeclared identifier 'laguerref'
+     out2_device =  laguerref( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for laguerref_unsigned_float_float.cpp (code 1)
+Makefile:33: recipe for target 'laguerref_unsigned_float_float.exe' failed
+make: [laguerref_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 comp_ellint_3f_float_float_float.cpp -o comp_ellint_3f_float_float_float.exe
+comp_ellint_3f_float_float_float.cpp:15:18: error: use of undeclared identifier 'comp_ellint_3f'
+    out2_host =  comp_ellint_3f( in0, in1);
+                 ^
+comp_ellint_3f_float_float_float.cpp:18:21: error: use of undeclared identifier 'comp_ellint_3f'
+     out2_device =  comp_ellint_3f( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for comp_ellint_3f_float_float_float.cpp (code 1)
+Makefile:33: recipe for target 'comp_ellint_3f_float_float_float.exe' failed
+make: [comp_ellint_3f_float_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 riemann_zeta_double_double.cpp -o riemann_zeta_double_double.exe
+riemann_zeta_double_double.cpp:14:18: error: use of undeclared identifier 'riemann_zeta'
+    out1_host =  riemann_zeta( in0);
+                 ^
+riemann_zeta_double_double.cpp:17:21: error: use of undeclared identifier 'riemann_zeta'
+     out1_device =  riemann_zeta( in0);
+                    ^
+2 errors generated.
+compilation aborted for riemann_zeta_double_double.cpp (code 1)
+Makefile:33: recipe for target 'riemann_zeta_double_double.exe' failed
+make: [riemann_zeta_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ellint_3_double_double_double_double.cpp -o ellint_3_double_double_double_double.exe
+ellint_3_double_double_double_double.cpp:16:18: error: use of undeclared identifier 'ellint_3'
+    out3_host =  ellint_3( in0, in1, in2);
+                 ^
+ellint_3_double_double_double_double.cpp:19:21: error: use of undeclared identifier 'ellint_3'
+     out3_device =  ellint_3( in0, in1, in2);
+                    ^
+2 errors generated.
+compilation aborted for ellint_3_double_double_double_double.cpp (code 1)
+Makefile:33: recipe for target 'ellint_3_double_double_double_double.exe' failed
+make: [ellint_3_double_double_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sph_neumannf_unsigned_float_float.cpp -o sph_neumannf_unsigned_float_float.exe
+sph_neumannf_unsigned_float_float.cpp:15:18: error: use of undeclared identifier 'sph_neumannf'
+    out2_host =  sph_neumannf( in0, in1);
+                 ^
+sph_neumannf_unsigned_float_float.cpp:18:21: error: use of undeclared identifier 'sph_neumannf'
+     out2_device =  sph_neumannf( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for sph_neumannf_unsigned_float_float.cpp (code 1)
+Makefile:33: recipe for target 'sph_neumannf_unsigned_float_float.exe' failed
+make: [sph_neumannf_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 assoc_laguerref_unsigned_unsigned_float_float.cpp -o assoc_laguerref_unsigned_unsigned_float_float.exe
+assoc_laguerref_unsigned_unsigned_float_float.cpp:16:18: error: use of undeclared identifier 'assoc_laguerref'
+    out3_host =  assoc_laguerref( in0, in1, in2);
+                 ^
+assoc_laguerref_unsigned_unsigned_float_float.cpp:19:21: error: use of undeclared identifier 'assoc_laguerref'
+     out3_device =  assoc_laguerref( in0, in1, in2);
+                    ^
+2 errors generated.
+compilation aborted for assoc_laguerref_unsigned_unsigned_float_float.cpp (code 1)
+Makefile:33: recipe for target 'assoc_laguerref_unsigned_unsigned_float_float.exe' failed
+make: [assoc_laguerref_unsigned_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cyl_bessel_jf_float_float_float.cpp -o cyl_bessel_jf_float_float_float.exe
+cyl_bessel_jf_float_float_float.cpp:15:18: error: use of undeclared identifier 'cyl_bessel_jf'
+    out2_host =  cyl_bessel_jf( in0, in1);
+                 ^
+cyl_bessel_jf_float_float_float.cpp:18:21: error: use of undeclared identifier 'cyl_bessel_jf'
+     out2_device =  cyl_bessel_jf( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for cyl_bessel_jf_float_float_float.cpp (code 1)
+Makefile:33: recipe for target 'cyl_bessel_jf_float_float_float.exe' failed
+make: [cyl_bessel_jf_float_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 beta_double_double_double.cpp -o beta_double_double_double.exe
+beta_double_double_double.cpp:15:18: error: use of undeclared identifier 'beta'
+    out2_host =  beta( in0, in1);
+                 ^
+beta_double_double_double.cpp:18:21: error: use of undeclared identifier 'beta'
+     out2_device =  beta( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for beta_double_double_double.cpp (code 1)
+Makefile:33: recipe for target 'beta_double_double_double.exe' failed
+make: [beta_double_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sph_legendref_unsigned_unsigned_float_float.cpp -o sph_legendref_unsigned_unsigned_float_float.exe
+sph_legendref_unsigned_unsigned_float_float.cpp:16:18: error: use of undeclared identifier 'sph_legendref'
+    out3_host =  sph_legendref( in0, in1, in2);
+                 ^
+sph_legendref_unsigned_unsigned_float_float.cpp:19:21: error: use of undeclared identifier 'sph_legendref'
+     out3_device =  sph_legendref( in0, in1, in2);
+                    ^
+2 errors generated.
+compilation aborted for sph_legendref_unsigned_unsigned_float_float.cpp (code 1)
+Makefile:33: recipe for target 'sph_legendref_unsigned_unsigned_float_float.exe' failed
+make: [sph_legendref_unsigned_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sph_besself_unsigned_float_float.cpp -o sph_besself_unsigned_float_float.exe
+sph_besself_unsigned_float_float.cpp:15:18: error: use of undeclared identifier 'sph_besself'
+    out2_host =  sph_besself( in0, in1);
+                 ^
+sph_besself_unsigned_float_float.cpp:18:21: error: use of undeclared identifier 'sph_besself'
+     out2_device =  sph_besself( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for sph_besself_unsigned_float_float.cpp (code 1)
+Makefile:33: recipe for target 'sph_besself_unsigned_float_float.exe' failed
+make: [sph_besself_unsigned_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sph_neumann_unsigned_double_double.cpp -o sph_neumann_unsigned_double_double.exe
+sph_neumann_unsigned_double_double.cpp:15:18: error: use of undeclared identifier 'sph_neumann'
+    out2_host =  sph_neumann( in0, in1);
+                 ^
+sph_neumann_unsigned_double_double.cpp:18:21: error: use of undeclared identifier 'sph_neumann'
+     out2_device =  sph_neumann( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for sph_neumann_unsigned_double_double.cpp (code 1)
+Makefile:33: recipe for target 'sph_neumann_unsigned_double_double.exe' failed
+make: [sph_neumann_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ellint_3f_float_float_float_float.cpp -o ellint_3f_float_float_float_float.exe
+ellint_3f_float_float_float_float.cpp:16:18: error: use of undeclared identifier 'ellint_3f'
+    out3_host =  ellint_3f( in0, in1, in2);
+                 ^
+ellint_3f_float_float_float_float.cpp:19:21: error: use of undeclared identifier 'ellint_3f'
+     out3_device =  ellint_3f( in0, in1, in2);
+                    ^
+2 errors generated.
+compilation aborted for ellint_3f_float_float_float_float.cpp (code 1)
+Makefile:33: recipe for target 'ellint_3f_float_float_float_float.exe' failed
+make: [ellint_3f_float_float_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 hermite_unsigned_double_double.cpp -o hermite_unsigned_double_double.exe
+hermite_unsigned_double_double.cpp:15:18: error: use of undeclared identifier 'hermite'
+    out2_host =  hermite( in0, in1);
+                 ^
+hermite_unsigned_double_double.cpp:18:21: error: use of undeclared identifier 'hermite'
+     out2_device =  hermite( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for hermite_unsigned_double_double.cpp (code 1)
+Makefile:33: recipe for target 'hermite_unsigned_double_double.exe' failed
+make: [hermite_unsigned_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ellint_1f_float_float_float.cpp -o ellint_1f_float_float_float.exe
+ellint_1f_float_float_float.cpp:15:18: error: use of undeclared identifier 'ellint_1f'
+    out2_host =  ellint_1f( in0, in1);
+                 ^
+ellint_1f_float_float_float.cpp:18:21: error: use of undeclared identifier 'ellint_1f'
+     out2_device =  ellint_1f( in0, in1);
+                    ^
+2 errors generated.
+compilation aborted for ellint_1f_float_float_float.cpp (code 1)
+Makefile:33: recipe for target 'ellint_1f_float_float_float.exe' failed
+make: [ellint_1f_float_float_float.exe] Error 1 (ignored)

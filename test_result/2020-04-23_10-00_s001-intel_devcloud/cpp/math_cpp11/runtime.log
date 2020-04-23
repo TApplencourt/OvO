@@ -1,0 +1,495 @@
+timeout 45s ./nextafter_double_double_double.exe
+timeout 45s ./remainderf_float_float_float.exe
+timeout 45s ./fmax_double_double_double.exe
+timeout 45s ./llround_float_long_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_llround_float_long_long_int' failed
+make: [run_llround_float_long_long_int] Error 1 (ignored)
+timeout 45s ./atanh_double_double.exe
+timeout 45s ./fpclassify_float_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_fpclassify_float_int' failed
+make: [run_fpclassify_float_int] Error 1 (ignored)
+timeout 45s ./tan_double_double.exe
+timeout 45s ./sinf_float_float.exe
+timeout 45s ./sqrt_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_sqrt_float_float' failed
+make: [run_sqrt_float_float] Error 1 (ignored)
+timeout 45s ./lrint_float_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_lrint_float_long_int' failed
+make: [run_lrint_float_long_int] Error 1 (ignored)
+timeout 45s ./roundf_float_float.exe
+timeout 45s ./floor_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_floor_float_float' failed
+make: [run_floor_float_float] Error 1 (ignored)
+timeout 45s ./round_double_double.exe
+timeout 45s ./log10_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_log10_float_float' failed
+make: [run_log10_float_float] Error 1 (ignored)
+timeout 45s ./fmod_float_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_fmod_float_float_float' failed
+make: [run_fmod_float_float_float] Error 1 (ignored)
+timeout 45s ./isnan_float_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isnan_float_bool' failed
+make: [run_isnan_float_bool] Error 1 (ignored)
+timeout 45s ./isnormal_float_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isnormal_float_bool' failed
+make: [run_isnormal_float_bool] Error 1 (ignored)
+timeout 45s ./rint_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_rint_float_float' failed
+make: [run_rint_float_float] Error 1 (ignored)
+timeout 45s ./isnan_double_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isnan_double_bool' failed
+make: [run_isnan_double_bool] Error 1 (ignored)
+timeout 45s ./fma_double_double_double_double.exe
+timeout 45s ./abs_double_double.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_abs_double_double' failed
+make: [run_abs_double_double] Error 1 (ignored)
+timeout 45s ./exp2_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_exp2_float_float' failed
+make: [run_exp2_float_float] Error 1 (ignored)
+timeout 45s ./exp_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_exp_float_float' failed
+make: [run_exp_float_float] Error 1 (ignored)
+timeout 45s ./scalblnf_float_long_int_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_scalblnf_float_long_int_float' failed
+make: [run_scalblnf_float_long_int_float] Error 1 (ignored)
+timeout 45s ./log1p_double_double.exe
+timeout 45s ./frexp_float_int_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_frexp_float_int_float' failed
+make: [run_frexp_float_int_float] Error 1 (ignored)
+timeout 45s ./copysign_float_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_copysign_float_float_float' failed
+make: [run_copysign_float_float_float] Error 1 (ignored)
+timeout 45s ./ceilf_float_float.exe
+timeout 45s ./abs_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_abs_float_float' failed
+make: [run_abs_float_float] Error 1 (ignored)
+timeout 45s ./logf_float_float.exe
+timeout 45s ./log_double_double.exe
+timeout 45s ./tanh_double_double.exe
+timeout 45s ./sinhf_float_float.exe
+timeout 45s ./llrint_double_long_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_llrint_double_long_long_int' failed
+make: [run_llrint_double_long_long_int] Error 1 (ignored)
+timeout 45s ./fmaxf_float_float_float.exe
+timeout 45s ./remainder_float_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_remainder_float_float_float' failed
+make: [run_remainder_float_float_float] Error 1 (ignored)
+timeout 45s ./log2_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_log2_float_float' failed
+make: [run_log2_float_float] Error 1 (ignored)
+timeout 45s ./scalbn_float_int_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_scalbn_float_int_float' failed
+make: [run_scalbn_float_int_float] Error 1 (ignored)
+timeout 45s ./isgreater_float_float_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isgreater_float_float_bool' failed
+make: [run_isgreater_float_float_bool] Error 1 (ignored)
+timeout 45s ./nextafterf_float_float_float.exe
+timeout 45s ./asin_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_asin_float_float' failed
+make: [run_asin_float_float] Error 1 (ignored)
+timeout 45s ./isless_float_float_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isless_float_float_bool' failed
+make: [run_isless_float_float_bool] Error 1 (ignored)
+timeout 45s ./expf_float_float.exe
+timeout 45s ./scalbln_double_long_int_double.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_scalbln_double_long_int_double' failed
+make: [run_scalbln_double_long_int_double] Error 1 (ignored)
+timeout 45s ./atanh_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_atanh_float_float' failed
+make: [run_atanh_float_float] Error 1 (ignored)
+timeout 45s ./fmax_float_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_fmax_float_float_float' failed
+make: [run_fmax_float_float_float] Error 1 (ignored)
+timeout 45s ./sinh_double_double.exe
+timeout 45s ./tan_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_tan_float_float' failed
+make: [run_tan_float_float] Error 1 (ignored)
+timeout 45s ./copysignf_float_float_float.exe
+timeout 45s ./islessgreater_float_float_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_islessgreater_float_float_bool' failed
+make: [run_islessgreater_float_float_bool] Error 1 (ignored)
+timeout 45s ./lrintf_float_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_lrintf_float_long_int' failed
+make: [run_lrintf_float_long_int] Error 1 (ignored)
+timeout 45s ./log1pf_float_float.exe
+timeout 45s ./fmod_double_double_double.exe
+timeout 45s ./llrint_float_long_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_llrint_float_long_long_int' failed
+make: [run_llrint_float_long_long_int] Error 1 (ignored)
+timeout 45s ./round_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_round_float_float' failed
+make: [run_round_float_float] Error 1 (ignored)
+timeout 45s ./atan_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_atan_float_float' failed
+make: [run_atan_float_float] Error 1 (ignored)
+timeout 45s ./fmin_float_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_fmin_float_float_float' failed
+make: [run_fmin_float_float_float] Error 1 (ignored)
+timeout 45s ./log10f_float_float.exe
+timeout 45s ./lroundf_float_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_lroundf_float_long_int' failed
+make: [run_lroundf_float_long_int] Error 1 (ignored)
+timeout 45s ./cos_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_cos_float_float' failed
+make: [run_cos_float_float] Error 1 (ignored)
+timeout 45s ./tgamma_double_double.exe
+Host: 2.11037 GPU: 2.11037
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  tgamma give incorect value when offloaded
+Makefile:38: recipe for target 'run_tgamma_double_double' failed
+make: [run_tgamma_double_double] Aborted (ignored)
+timeout 45s ./nextafter_float_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_nextafter_float_float_float' failed
+make: [run_nextafter_float_float_float] Error 1 (ignored)
+timeout 45s ./fmodf_float_float_float.exe
+timeout 45s ./log1p_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_log1p_float_float' failed
+make: [run_log1p_float_float] Error 1 (ignored)
+timeout 45s ./coshf_float_float.exe
+timeout 45s ./trunc_double_double.exe
+timeout 45s ./frexpf_float_int_float.exe
+timeout 45s ./tanf_float_float.exe
+timeout 45s ./cos_double_double.exe
+timeout 45s ./isfinite_double_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isfinite_double_bool' failed
+make: [run_isfinite_double_bool] Error 1 (ignored)
+timeout 45s ./lround_float_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_lround_float_long_int' failed
+make: [run_lround_float_long_int] Error 1 (ignored)
+timeout 45s ./fdimf_float_float_float.exe
+timeout 45s ./atan2_double_double_double.exe
+timeout 45s ./truncf_float_float.exe
+timeout 45s ./ldexp_float_int_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_ldexp_float_int_float' failed
+make: [run_ldexp_float_int_float] Error 1 (ignored)
+timeout 45s ./cosf_float_float.exe
+timeout 45s ./tgamma_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_tgamma_float_float' failed
+make: [run_tgamma_float_float] Error 1 (ignored)
+timeout 45s ./expm1f_float_float.exe
+timeout 45s ./fminf_float_float_float.exe
+timeout 45s ./isgreaterequal_double_double_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isgreaterequal_double_double_bool' failed
+make: [run_isgreaterequal_double_double_bool] Error 1 (ignored)
+timeout 45s ./exp2_double_double.exe
+timeout 45s ./log2f_float_float.exe
+timeout 45s ./lround_double_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_lround_double_long_int' failed
+make: [run_lround_double_long_int] Error 1 (ignored)
+timeout 45s ./abs_long_long_int_long_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_abs_long_long_int_long_long_int' failed
+make: [run_abs_long_long_int_long_long_int] Error 1 (ignored)
+timeout 45s ./isinf_double_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isinf_double_bool' failed
+make: [run_isinf_double_bool] Error 1 (ignored)
+timeout 45s ./lgamma_double_double.exe
+Host: 0.746864 GPU: 0.746864
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  lgamma give incorect value when offloaded
+Makefile:38: recipe for target 'run_lgamma_double_double' failed
+make: [run_lgamma_double_double] Aborted (ignored)
+timeout 45s ./sinh_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_sinh_float_float' failed
+make: [run_sinh_float_float] Error 1 (ignored)
+timeout 45s ./isunordered_double_double_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isunordered_double_double_bool' failed
+make: [run_isunordered_double_double_bool] Error 1 (ignored)
+timeout 45s ./asinh_double_double.exe
+timeout 45s ./powf_float_float_float.exe
+timeout 45s ./lgammaf_float_float.exe
+timeout 45s ./isfinite_float_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isfinite_float_bool' failed
+make: [run_isfinite_float_bool] Error 1 (ignored)
+timeout 45s ./atan_double_double.exe
+timeout 45s ./logb_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_logb_float_float' failed
+make: [run_logb_float_float] Error 1 (ignored)
+timeout 45s ./atan2f_float_float_float.exe
+timeout 45s ./asinf_float_float.exe
+timeout 45s ./scalbn_double_int_double.exe
+timeout 45s ./ilogbf_float_int.exe
+timeout 45s ./modf_float_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_modf_float_float_float' failed
+make: [run_modf_float_float_float] Error 1 (ignored)
+timeout 45s ./log10_double_double.exe
+timeout 45s ./exp2f_float_float.exe
+timeout 45s ./acoshf_float_float.exe
+timeout 45s ./lgamma_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_lgamma_float_float' failed
+make: [run_lgamma_float_float] Error 1 (ignored)
+timeout 45s ./llroundf_float_long_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_llroundf_float_long_long_int' failed
+make: [run_llroundf_float_long_long_int] Error 1 (ignored)
+timeout 45s ./isinf_float_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isinf_float_bool' failed
+make: [run_isinf_float_bool] Error 1 (ignored)
+timeout 45s ./erff_float_float.exe
+timeout 45s ./pow_double_double_double.exe
+timeout 45s ./fdim_float_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_fdim_float_float_float' failed
+make: [run_fdim_float_float_float] Error 1 (ignored)
+timeout 45s ./trunc_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_trunc_float_float' failed
+make: [run_trunc_float_float] Error 1 (ignored)
+timeout 45s ./remquo_double_double_int_double.exe
+timeout 45s ./isnormal_double_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isnormal_double_bool' failed
+make: [run_isnormal_double_bool] Error 1 (ignored)
+timeout 45s ./acos_double_double.exe
+timeout 45s ./cosh_double_double.exe
+timeout 45s ./atan2_float_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_atan2_float_float_float' failed
+make: [run_atan2_float_float_float] Error 1 (ignored)
+timeout 45s ./abs_int_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_abs_int_int' failed
+make: [run_abs_int_int] Error 1 (ignored)
+timeout 45s ./ilogb_float_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_ilogb_float_int' failed
+make: [run_ilogb_float_int] Error 1 (ignored)
+timeout 45s ./ceil_double_double.exe
+timeout 45s ./asinhf_float_float.exe
+timeout 45s ./hypot_double_double_double.exe
+timeout 45s ./acosf_float_float.exe
+timeout 45s ./expm1_double_double.exe
+timeout 45s ./sqrtf_float_float.exe
+timeout 45s ./islessequal_float_float_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_islessequal_float_float_bool' failed
+make: [run_islessequal_float_float_bool] Error 1 (ignored)
+timeout 45s ./tgammaf_float_float.exe
+timeout 45s ./remquof_float_float_int_float.exe
+timeout 45s ./cbrtf_float_float.exe
+timeout 45s ./cbrt_double_double.exe
+timeout 45s ./isgreaterequal_float_float_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isgreaterequal_float_float_bool' failed
+make: [run_isgreaterequal_float_float_bool] Error 1 (ignored)
+timeout 45s ./frexp_double_int_double.exe
+timeout 45s ./llround_double_long_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_llround_double_long_long_int' failed
+make: [run_llround_double_long_long_int] Error 1 (ignored)
+timeout 45s ./hypotf_float_float_float.exe
+timeout 45s ./remquo_float_float_int_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_remquo_float_float_int_float' failed
+make: [run_remquo_float_float_int_float] Error 1 (ignored)
+timeout 45s ./asinh_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_asinh_float_float' failed
+make: [run_asinh_float_float] Error 1 (ignored)
+timeout 45s ./modf_double_double_double.exe
+timeout 45s ./erf_double_double.exe
+Host: 0.447468 GPU: 0.447468
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  erf give incorect value when offloaded
+Makefile:38: recipe for target 'run_erf_double_double' failed
+make: [run_erf_double_double] Aborted (ignored)
+timeout 45s ./abs_long_int_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_abs_long_int_long_int' failed
+make: [run_abs_long_int_long_int] Error 1 (ignored)
+timeout 45s ./sin_double_double.exe
+timeout 45s ./tanh_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_tanh_float_float' failed
+make: [run_tanh_float_float] Error 1 (ignored)
+timeout 45s ./fabs_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_fabs_float_float' failed
+make: [run_fabs_float_float] Error 1 (ignored)
+timeout 45s ./logbf_float_float.exe
+timeout 45s ./atanf_float_float.exe
+timeout 45s ./log_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_log_float_float' failed
+make: [run_log_float_float] Error 1 (ignored)
+timeout 45s ./acosh_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_acosh_float_float' failed
+make: [run_acosh_float_float] Error 1 (ignored)
+timeout 45s ./copysign_double_double_double.exe
+timeout 45s ./modff_float_float_float.exe
+timeout 45s ./nearbyint_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_nearbyint_float_float' failed
+make: [run_nearbyint_float_float] Error 1 (ignored)
+timeout 45s ./erfc_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_erfc_float_float' failed
+make: [run_erfc_float_float] Error 1 (ignored)
+timeout 45s ./isgreater_double_double_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isgreater_double_double_bool' failed
+make: [run_isgreater_double_double_bool] Error 1 (ignored)
+timeout 45s ./floor_double_double.exe
+timeout 45s ./isunordered_float_float_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isunordered_float_float_bool' failed
+make: [run_isunordered_float_float_bool] Error 1 (ignored)
+timeout 45s ./ldexp_double_int_double.exe
+timeout 45s ./acos_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_acos_float_float' failed
+make: [run_acos_float_float] Error 1 (ignored)
+timeout 45s ./ldexpf_float_int_float.exe
+timeout 45s ./cosh_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_cosh_float_float' failed
+make: [run_cosh_float_float] Error 1 (ignored)
+timeout 45s ./fmaf_float_float_float_float.exe
+timeout 45s ./fdim_double_double_double.exe
+timeout 45s ./scalbnf_float_int_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_scalbnf_float_int_float' failed
+make: [run_scalbnf_float_int_float] Error 1 (ignored)
+timeout 45s ./acosh_double_double.exe
+timeout 45s ./exp_double_double.exe
+timeout 45s ./ceil_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_ceil_float_float' failed
+make: [run_ceil_float_float] Error 1 (ignored)
+timeout 45s ./sqrt_double_double.exe
+timeout 45s ./expm1_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_expm1_float_float' failed
+make: [run_expm1_float_float] Error 1 (ignored)
+timeout 45s ./ilogb_double_int.exe
+timeout 45s ./signbit_float_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_signbit_float_bool' failed
+make: [run_signbit_float_bool] Error 1 (ignored)
+timeout 45s ./fabs_double_double.exe
+timeout 45s ./fpclassify_double_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_fpclassify_double_int' failed
+make: [run_fpclassify_double_int] Error 1 (ignored)
+timeout 45s ./floorf_float_float.exe
+timeout 45s ./islessgreater_double_double_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_islessgreater_double_double_bool' failed
+make: [run_islessgreater_double_double_bool] Error 1 (ignored)
+timeout 45s ./lrint_double_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_lrint_double_long_int' failed
+make: [run_lrint_double_long_int] Error 1 (ignored)
+timeout 45s ./fma_float_float_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_fma_float_float_float_float' failed
+make: [run_fma_float_float_float_float] Error 1 (ignored)
+timeout 45s ./cbrt_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_cbrt_float_float' failed
+make: [run_cbrt_float_float] Error 1 (ignored)
+timeout 45s ./erfc_double_double.exe
+Host: 0.552532 GPU: 0.552532
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  erfc give incorect value when offloaded
+Makefile:38: recipe for target 'run_erfc_double_double' failed
+make: [run_erfc_double_double] Aborted (ignored)
+timeout 45s ./pow_float_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_pow_float_float_float' failed
+make: [run_pow_float_float_float] Error 1 (ignored)
+timeout 45s ./tanhf_float_float.exe
+timeout 45s ./fabsf_float_float.exe
+timeout 45s ./islessequal_double_double_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_islessequal_double_double_bool' failed
+make: [run_islessequal_double_double_bool] Error 1 (ignored)
+timeout 45s ./remainder_double_double_double.exe
+timeout 45s ./hypot_float_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_hypot_float_float_float' failed
+make: [run_hypot_float_float_float] Error 1 (ignored)
+timeout 45s ./erf_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_erf_float_float' failed
+make: [run_erf_float_float] Error 1 (ignored)
+timeout 45s ./atanhf_float_float.exe
+timeout 45s ./fmin_double_double_double.exe
+timeout 45s ./llrintf_float_long_long_int.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_llrintf_float_long_long_int' failed
+make: [run_llrintf_float_long_long_int] Error 1 (ignored)
+timeout 45s ./signbit_double_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_signbit_double_bool' failed
+make: [run_signbit_double_bool] Error 1 (ignored)
+timeout 45s ./logb_double_double.exe
+timeout 45s ./erfcf_float_float.exe
+timeout 45s ./sin_float_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_sin_float_float' failed
+make: [run_sin_float_float] Error 1 (ignored)
+timeout 45s ./log2_double_double.exe
+timeout 45s ./asin_double_double.exe
+timeout 45s ./isless_double_double_bool.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_isless_double_double_bool' failed
+make: [run_isless_double_double_bool] Error 1 (ignored)
+timeout 45s ./scalbln_float_long_int_float.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_scalbln_float_long_int_float' failed
+make: [run_scalbln_float_long_int_float] Error 1 (ignored)

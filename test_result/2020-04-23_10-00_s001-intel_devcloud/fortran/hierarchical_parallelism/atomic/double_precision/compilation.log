@@ -1,0 +1,326 @@
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_parallel.F90 -o target_parallel.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Never resolved value found in function (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target_parallel.exe' failed
+make: [target_parallel.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute__parallel__do.F90 -o target__teams_distribute__parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifx9dAFc9.o: In function `MAIN__.DIR.OMP.PARALLEL.10':
+ifxdJIQ8s.bc:(.text+0x2e0): undefined reference to `__atomic_load'
+ifxdJIQ8s.bc:(.text+0x30f): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target__teams_distribute__parallel__do.exe' failed
+make: [target__teams_distribute__parallel__do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute__parallel.F90 -o target__teams_distribute__parallel.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Invalid record (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target__teams_distribute__parallel.exe' failed
+make: [target__teams_distribute__parallel.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute__parallel_do.F90 -o target_teams_distribute__parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+Instruction does not dominate all uses!
+
+
+Instruction does not dominate all uses!
+
+
+/home/u36574/tmp/ifx5Z4rN6.bc(1): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifx5Z4rN6.bc (code 1)
+Makefile:27: recipe for target 'target_teams_distribute__parallel_do.exe' failed
+make: [target_teams_distribute__parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__parallel_do.F90 -o target_teams__parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifx07LtwU.o: In function `MAIN__.DIR.OMP.PARALLEL.LOOP.8.split56':
+ifxotfUQ9.bc:(.text+0x360): undefined reference to `__atomic_load'
+ifxotfUQ9.bc:(.text+0x3a5): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target_teams__parallel_do.exe' failed
+make: [target_teams__parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute.F90 -o target__teams_distribute.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxE0VMxT.o: In function `MAIN__.DIR.OMP.TEAMS.533':
+ifxypj1tA.bc:(.text+0x290): undefined reference to `__atomic_load'
+ifxypj1tA.bc:(.text+0x2bf): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target__teams_distribute.exe' failed
+make: [target__teams_distribute.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute__parallel_do.F90 -o target_teams__distribute__parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+Instruction does not dominate all uses!
+
+
+Instruction does not dominate all uses!
+
+
+/home/u36574/tmp/ifxHaGVKU.bc(1): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifxHaGVKU.bc (code 1)
+Makefile:27: recipe for target 'target_teams__distribute__parallel_do.exe' failed
+make: [target_teams__distribute__parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_parallel_do.F90 -o target_parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifx5Gd9F6.o: In function `MAIN__.DIR.OMP.PARALLEL.LOOP.5.split36':
+ifxN1pxk1.bc:(.text+0x340): undefined reference to `__atomic_load'
+ifxN1pxk1.bc:(.text+0x36f): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target_parallel_do.exe' failed
+make: [target_parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute_parallel_do.F90 -o target_teams_distribute_parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxPuljI0.o: In function `MAIN__.DIR.OMP.DISTRIBUTE.PARLOOP.8.split50':
+ifxDbhZWp.bc:(.text+0x350): undefined reference to `__atomic_load'
+ifxDbhZWp.bc:(.text+0x37f): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target_teams_distribute_parallel_do.exe' failed
+make: [target_teams_distribute_parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__parallel__do.F90 -o target_teams__parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxOalhpJ.o: In function `MAIN__.DIR.OMP.PARALLEL.8':
+ifxQdXisB.bc:(.text+0x2b0): undefined reference to `__atomic_load'
+ifxQdXisB.bc:(.text+0x2f5): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target_teams__parallel__do.exe' failed
+make: [target_teams__parallel__do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute__parallel_do.F90 -o target__teams_distribute__parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+Instruction does not dominate all uses!
+
+
+Instruction does not dominate all uses!
+
+
+/home/u36574/tmp/ifxcAgKrS.bc(1): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifxcAgKrS.bc (code 1)
+Makefile:27: recipe for target 'target__teams_distribute__parallel_do.exe' failed
+make: [target__teams_distribute__parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__parallel.F90 -o target__teams__parallel.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Never resolved value found in function (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target__teams__parallel.exe' failed
+make: [target__teams__parallel.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams.F90 -o target_teams.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxjMSp4u.o: In function `MAIN__.DIR.OMP.TEAMS.5':
+ifxtLdeVh.bc:(.text+0x1f0): undefined reference to `__atomic_load'
+ifxtLdeVh.bc:(.text+0x235): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target_teams.exe' failed
+make: [target_teams.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_parallel__do.F90 -o target_parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxzMrDRo.o: In function `MAIN__.DIR.OMP.PARALLEL.533':
+ifxV6LfOF.bc:(.text+0x290): undefined reference to `__atomic_load'
+ifxV6LfOF.bc:(.text+0x2bf): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target_parallel__do.exe' failed
+make: [target_parallel__do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute.F90 -o target_teams_distribute.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifx7ggNZj.o: In function `MAIN__.DIR.OMP.TEAMS.533':
+ifx9IDnc4.bc:(.text+0x290): undefined reference to `__atomic_load'
+ifx9IDnc4.bc:(.text+0x2bf): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target_teams_distribute.exe' failed
+make: [target_teams_distribute.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__parallel__do.F90 -o target__teams__parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifx2qZE62.o: In function `MAIN__.DIR.OMP.PARALLEL.8':
+ifxGxl08f.bc:(.text+0x2b0): undefined reference to `__atomic_load'
+ifxGxl08f.bc:(.text+0x2f5): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target__teams__parallel__do.exe' failed
+make: [target__teams__parallel__do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute__parallel.F90 -o target__teams__distribute__parallel.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Invalid record (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target__teams__distribute__parallel.exe' failed
+make: [target__teams__distribute__parallel.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__parallel.F90 -o target__parallel.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Never resolved value found in function (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target__parallel.exe' failed
+make: [target__parallel.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute__parallel__do.F90 -o target__teams__distribute__parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxUh3clv.o: In function `MAIN__.DIR.OMP.PARALLEL.10':
+ifxCvstow.bc:(.text+0x2e0): undefined reference to `__atomic_load'
+ifxCvstow.bc:(.text+0x30f): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target__teams__distribute__parallel__do.exe' failed
+make: [target__teams__distribute__parallel__do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams.F90 -o target__teams.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxDRaqyn.o: In function `MAIN__.DIR.OMP.TEAMS.5':
+ifxxw03yS.bc:(.text+0x1f0): undefined reference to `__atomic_load'
+ifxxw03yS.bc:(.text+0x235): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target__teams.exe' failed
+make: [target__teams.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__parallel_do.F90 -o target__parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxxG6Nqm.o: In function `MAIN__.DIR.OMP.PARALLEL.LOOP.5.split36':
+ifx7B7VXj.bc:(.text+0x340): undefined reference to `__atomic_load'
+ifx7B7VXj.bc:(.text+0x36f): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target__parallel_do.exe' failed
+make: [target__parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute__parallel.F90 -o target_teams__distribute__parallel.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Invalid record (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target_teams__distribute__parallel.exe' failed
+make: [target_teams__distribute__parallel.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__parallel__do.F90 -o target__parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxn4qjVO.o: In function `MAIN__.DIR.OMP.PARALLEL.533':
+ifx5y36lV.bc:(.text+0x290): undefined reference to `__atomic_load'
+ifx5y36lV.bc:(.text+0x2bf): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target__parallel__do.exe' failed
+make: [target__parallel__do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute_parallel_do.F90 -o target__teams_distribute_parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxWbHfbC.o: In function `MAIN__.DIR.OMP.DISTRIBUTE.PARLOOP.8.split50':
+ifxmZPWOc.bc:(.text+0x350): undefined reference to `__atomic_load'
+ifxmZPWOc.bc:(.text+0x37f): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target__teams_distribute_parallel_do.exe' failed
+make: [target__teams_distribute_parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute.F90 -o target_teams__distribute.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifx2SuqsQ.o: In function `MAIN__.DIR.OMP.TEAMS.533':
+ifx6V3hkQ.bc:(.text+0x290): undefined reference to `__atomic_load'
+ifx6V3hkQ.bc:(.text+0x2bf): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target_teams__distribute.exe' failed
+make: [target_teams__distribute.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute.F90 -o target__teams__distribute.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifx5ZaTMM.o: In function `MAIN__.DIR.OMP.TEAMS.533':
+ifx7flNAd.bc:(.text+0x290): undefined reference to `__atomic_load'
+ifx7flNAd.bc:(.text+0x2bf): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target__teams__distribute.exe' failed
+make: [target__teams__distribute.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute__parallel_do.F90 -o target__teams__distribute__parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+Instruction does not dominate all uses!
+
+
+Instruction does not dominate all uses!
+
+
+/home/u36574/tmp/ifxpC90S3.bc(1): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifxpC90S3.bc (code 1)
+Makefile:27: recipe for target 'target__teams__distribute__parallel_do.exe' failed
+make: [target__teams__distribute__parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__parallel_do.F90 -o target__teams__parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxa2JmG5.o: In function `MAIN__.DIR.OMP.PARALLEL.LOOP.8.split56':
+ifxODYiGx.bc:(.text+0x360): undefined reference to `__atomic_load'
+ifxODYiGx.bc:(.text+0x3a5): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target__teams__parallel_do.exe' failed
+make: [target__teams__parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute__parallel__do.F90 -o target_teams_distribute__parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxBqLPjR.o: In function `MAIN__.DIR.OMP.PARALLEL.10':
+ifxBCJhHB.bc:(.text+0x2e0): undefined reference to `__atomic_load'
+ifxBCJhHB.bc:(.text+0x30f): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target_teams_distribute__parallel__do.exe' failed
+make: [target_teams_distribute__parallel__do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute__parallel.F90 -o target_teams_distribute__parallel.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Invalid record (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target_teams_distribute__parallel.exe' failed
+make: [target_teams_distribute__parallel.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target.F90 -o target.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifx04o9XZ.o: In function `__omp_offloading_36_80fb6a94_MAIN___l12':
+ifxyl0wON.bc:(.text+0x1ce): undefined reference to `__atomic_load'
+ifxyl0wON.bc:(.text+0x1fa): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target.exe' failed
+make: [target.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__parallel.F90 -o target_teams__parallel.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Never resolved value found in function (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target_teams__parallel.exe' failed
+make: [target_teams__parallel.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute__parallel__do.F90 -o target_teams__distribute__parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxM0xUwO.o: In function `MAIN__.DIR.OMP.PARALLEL.10':
+ifx0JUxrJ.bc:(.text+0x2e0): undefined reference to `__atomic_load'
+ifx0JUxrJ.bc:(.text+0x30f): undefined reference to `__atomic_compare_exchange'
+Makefile:27: recipe for target 'target_teams__distribute__parallel__do.exe' failed
+make: [target_teams__distribute__parallel__do.exe] Error 1 (ignored)

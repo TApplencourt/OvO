@@ -1,0 +1,325 @@
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ASIN_real_real.F90 -o ASIN_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 DIM_real_real_real.F90 -o DIM_real_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 DIM_integer_integer_integer.F90 -o DIM_integer_integer_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 TANH_double_precision_double_precision.F90 -o TANH_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MAX0_integer_integer_integer.F90 -o MAX0_integer_integer_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ACOS_real_real.F90 -o ACOS_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 CEILING_double_precision_double_precision.F90 -o CEILING_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ANINT_real_real.F90 -o ANINT_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 FLOAT_integer_real.F90 -o FLOAT_integer_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 COSH_real_real.F90 -o COSH_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ATAN2_real_real_real.F90 -o ATAN2_real_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 AMIN0_integer_integer_real.F90 -o AMIN0_integer_integer_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MAX_real_real_integer.F90 -o MAX_real_real_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MODULO_real_real_real.F90 -o MODULO_real_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 DMIN1_double_precision_double_precision_double_precision.F90 -o DMIN1_double_precision_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 DPROD_real_real_double_precision.F90 -o DPROD_real_real_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MOD_double_precision_double_precision_double_precision.F90 -o MOD_double_precision_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 SNGL_double_precision_real.F90 -o SNGL_double_precision_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ASIN_double_precision_double_precision.F90 -o ASIN_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 AINT_real_real.F90 -o AINT_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 TAN_double_precision_double_precision.F90 -o TAN_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ACOS_double_precision_double_precision.F90 -o ACOS_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MIN1_real_real_integer.F90 -o MIN1_real_real_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 TANH_real_real.F90 -o TANH_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 SINH_real_real.F90 -o SINH_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MIN_real_real_integer.F90 -o MIN_real_real_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 CEILING_real_real.F90 -o CEILING_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 COSH_double_precision_double_precision.F90 -o COSH_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 AMAX1_real_real_real.F90 -o AMAX1_real_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 SINH_double_precision_double_precision.F90 -o SINH_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 DIM_double_precision_double_precision_double_precision.F90 -o DIM_double_precision_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MAX_integer_integer_real.F90 -o MAX_integer_integer_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MIN_integer_integer_real.F90 -o MIN_integer_integer_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 SIGN_integer_integer_integer.F90 -o SIGN_integer_integer_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 SIGN_real_real_real.F90 -o SIGN_real_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 LOG10_real_real.F90 -o LOG10_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MIN0_integer_integer_integer.F90 -o MIN0_integer_integer_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ATAN2_double_precision_double_precision_double_precision.F90 -o ATAN2_double_precision_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 FLOOR_real_real.F90 -o FLOOR_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MOD_integer_integer_integer.F90 -o MOD_integer_integer_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 AINT_double_precision_double_precision.F90 -o AINT_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ATAN_real_real.F90 -o ATAN_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MIN_integer_integer_integer.F90 -o MIN_integer_integer_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MAX_double_precision_double_precision_double_precision.F90 -o MAX_double_precision_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 TAN_real_real.F90 -o TAN_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 NINT_real_integer.F90 -o NINT_real_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 IDINT_double_precision_integer.F90 -o IDINT_double_precision_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ANINT_double_precision_double_precision.F90 -o ANINT_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MIN_real_real_real.F90 -o MIN_real_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 SIGN_double_precision_double_precision_double_precision.F90 -o SIGN_double_precision_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MODULO_double_precision_double_precision_double_precision.F90 -o MODULO_double_precision_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 AMIN1_real_real_real.F90 -o AMIN1_real_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MAX_real_real_real.F90 -o MAX_real_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MAX1_real_real_integer.F90 -o MAX1_real_real_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MOD_real_real_real.F90 -o MOD_real_real_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 NINT_double_precision_integer.F90 -o NINT_double_precision_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MIN_double_precision_double_precision_double_precision.F90 -o MIN_double_precision_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 LOG10_double_precision_double_precision.F90 -o LOG10_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 DMAX1_double_precision_double_precision_double_precision.F90 -o DMAX1_double_precision_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 FLOOR_double_precision_double_precision.F90 -o FLOOR_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 AMAX0_integer_integer_real.F90 -o AMAX0_integer_integer_real.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ATAN_double_precision_double_precision.F90 -o ATAN_double_precision_double_precision.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 IFIX_real_integer.F90 -o IFIX_real_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MODULO_integer_integer_integer.F90 -o MODULO_integer_integer_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 MAX_integer_integer_integer.F90 -o MAX_integer_integer_integer.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
