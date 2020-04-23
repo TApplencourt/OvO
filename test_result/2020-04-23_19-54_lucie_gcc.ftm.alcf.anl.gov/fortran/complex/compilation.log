@@ -1,0 +1,68 @@
+timeout 45s gfortran -fopenmp LOG_complex_complex.F90 -o LOG_complex_complex.exe
+unresolved symbol clogf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [LOG_complex_complex.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp AIMAG_complex_real.F90 -o AIMAG_complex_real.exe
+timeout 45s gfortran -fopenmp ABS_complex_real.F90 -o ABS_complex_real.exe
+unresolved symbol cabsf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [ABS_complex_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp SIN_complex_complex.F90 -o SIN_complex_complex.exe
+unresolved symbol csinf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [SIN_complex_complex.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp DBLE_complex_double_precision.F90 -o DBLE_complex_double_precision.exe
+timeout 45s gfortran -fopenmp CMPLX_integer_integer_complex.F90 -o CMPLX_integer_integer_complex.exe
+timeout 45s gfortran -fopenmp SQRT_complex_complex.F90 -o SQRT_complex_complex.exe
+unresolved symbol csqrtf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [SQRT_complex_complex.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp CONJG_complex_complex.F90 -o CONJG_complex_complex.exe
+timeout 45s gfortran -fopenmp COS_complex_complex.F90 -o COS_complex_complex.exe
+unresolved symbol ccosf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [COS_complex_complex.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp CMPLX_real_real_complex.F90 -o CMPLX_real_real_complex.exe
+timeout 45s gfortran -fopenmp REAL_complex_real.F90 -o REAL_complex_real.exe
+timeout 45s gfortran -fopenmp EXP_complex_complex.F90 -o EXP_complex_complex.exe
+unresolved symbol cexpf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [EXP_complex_complex.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp INT_complex_integer.F90 -o INT_complex_integer.exe
+timeout 45s gfortran -fopenmp CMPLX_complex_complex.F90 -o CMPLX_complex_complex.exe

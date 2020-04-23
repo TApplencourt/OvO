@@ -1,0 +1,133 @@
+timeout 45s g++ -fopenmp target__teams__distribute__parallel__simd.cpp -o target__teams__distribute__parallel__simd.exe
+timeout 45s g++ -fopenmp target_teams__distribute__parallel__simd.cpp -o target_teams__distribute__parallel__simd.exe
+timeout 45s g++ -fopenmp target__teams__distribute__parallel__for__simd.cpp -o target__teams__distribute__parallel__for__simd.exe
+timeout 45s g++ -fopenmp target__teams_distribute__parallel_for.cpp -o target__teams_distribute__parallel_for.exe
+timeout 45s g++ -fopenmp target_teams_distribute__parallel__simd.cpp -o target_teams_distribute__parallel__simd.exe
+timeout 45s g++ -fopenmp target_teams__parallel__for__simd.cpp -o target_teams__parallel__for__simd.exe
+target_teams__parallel__for__simd.cpp: In function 'void test_target_teams__parallel__for__simd()':
+target_teams__parallel__for__simd.cpp:33:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   33 | #pragma omp atomic update
+      |         ^~~
+target_teams__parallel__for__simd.cpp:33:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target_teams__parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__parallel__simd.cpp -o target__parallel__simd.exe
+timeout 45s g++ -fopenmp target_teams__parallel_for.cpp -o target_teams__parallel_for.exe
+target_teams__parallel_for.cpp: In function 'void test_target_teams__parallel_for()':
+target_teams__parallel_for.cpp:25:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   25 | #pragma omp atomic update
+      |         ^~~
+target_teams__parallel_for.cpp:25:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target_teams__parallel_for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__parallel__for__simd.cpp -o target__parallel__for__simd.exe
+timeout 45s g++ -fopenmp target_teams_distribute__parallel_for.cpp -o target_teams_distribute__parallel_for.exe
+timeout 45s g++ -fopenmp target__teams_distribute__parallel_for__simd.cpp -o target__teams_distribute__parallel_for__simd.exe
+timeout 45s g++ -fopenmp target_teams_distribute__simd.cpp -o target_teams_distribute__simd.exe
+timeout 45s g++ -fopenmp target_teams__distribute__parallel_for__simd.cpp -o target_teams__distribute__parallel_for__simd.exe
+timeout 45s g++ -fopenmp target__teams__distribute__simd.cpp -o target__teams__distribute__simd.exe
+timeout 45s g++ -fopenmp target__teams__parallel_for_simd.cpp -o target__teams__parallel_for_simd.exe
+target__teams__parallel_for_simd.cpp: In function 'void test_target__teams__parallel_for_simd()':
+target__teams__parallel_for_simd.cpp:27:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   27 | #pragma omp atomic update
+      |         ^~~
+target__teams__parallel_for_simd.cpp:27:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target__teams__parallel_for_simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__distribute__parallel__for.cpp -o target_teams__distribute__parallel__for.exe
+timeout 45s g++ -fopenmp target_teams_distribute__parallel_for__simd.cpp -o target_teams_distribute__parallel_for__simd.exe
+timeout 45s g++ -fopenmp target__teams_distribute__simd.cpp -o target__teams_distribute__simd.exe
+timeout 45s g++ -fopenmp target__parallel_for__simd.cpp -o target__parallel_for__simd.exe
+timeout 45s g++ -fopenmp target__teams__parallel.cpp -o target__teams__parallel.exe
+target__teams__parallel.cpp: In function 'void test_target__teams__parallel()':
+target__teams__parallel.cpp:26:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   26 | #pragma omp atomic update
+      |         ^~~
+target__teams__parallel.cpp:26:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target__teams__parallel.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__parallel__for.cpp -o target__teams__parallel__for.exe
+target__teams__parallel__for.cpp: In function 'void test_target__teams__parallel__for()':
+target__teams__parallel__for.cpp:30:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   30 | #pragma omp atomic update
+      |         ^~~
+target__teams__parallel__for.cpp:30:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target__teams__parallel__for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__parallel_for.cpp -o target__teams__parallel_for.exe
+target__teams__parallel_for.cpp: In function 'void test_target__teams__parallel_for()':
+target__teams__parallel_for.cpp:27:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   27 | #pragma omp atomic update
+      |         ^~~
+target__teams__parallel_for.cpp:27:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target__teams__parallel_for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__distribute__parallel_for.cpp -o target_teams__distribute__parallel_for.exe
+timeout 45s g++ -fopenmp target_teams_distribute__parallel.cpp -o target_teams_distribute__parallel.exe
+timeout 45s g++ -fopenmp target__teams_distribute__parallel__simd.cpp -o target__teams_distribute__parallel__simd.exe
+timeout 45s g++ -fopenmp target_teams__distribute__simd.cpp -o target_teams__distribute__simd.exe
+timeout 45s g++ -fopenmp target__teams__distribute__parallel.cpp -o target__teams__distribute__parallel.exe
+timeout 45s g++ -fopenmp target__teams__distribute__parallel_for__simd.cpp -o target__teams__distribute__parallel_for__simd.exe
+timeout 45s g++ -fopenmp target_parallel__simd.cpp -o target_parallel__simd.exe
+timeout 45s g++ -fopenmp target__teams__distribute__parallel__for.cpp -o target__teams__distribute__parallel__for.exe
+timeout 45s g++ -fopenmp target__teams__parallel_for__simd.cpp -o target__teams__parallel_for__simd.exe
+target__teams__parallel_for__simd.cpp: In function 'void test_target__teams__parallel_for__simd()':
+target__teams__parallel_for__simd.cpp:32:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   32 | #pragma omp atomic update
+      |         ^~~
+target__teams__parallel_for__simd.cpp:32:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target__teams__parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_parallel__for__simd.cpp -o target_parallel__for__simd.exe
+timeout 45s g++ -fopenmp target_teams_distribute__parallel__for.cpp -o target_teams_distribute__parallel__for.exe
+timeout 45s g++ -fopenmp target__teams_distribute__parallel__for__simd.cpp -o target__teams_distribute__parallel__for__simd.exe
+timeout 45s g++ -fopenmp target_teams__distribute_simd.cpp -o target_teams__distribute_simd.exe
+target_teams__distribute_simd.cpp: In function 'void test_target_teams__distribute_simd()':
+target_teams__distribute_simd.cpp:18:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   18 | #pragma omp atomic update
+      |         ^~~
+target_teams__distribute_simd.cpp:18:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target_teams__distribute_simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__parallel.cpp -o target_teams__parallel.exe
+target_teams__parallel.cpp: In function 'void test_target_teams__parallel()':
+target_teams__parallel.cpp:24:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   24 | #pragma omp atomic update
+      |         ^~~
+target_teams__parallel.cpp:24:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target_teams__parallel.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__distribute__parallel__for__simd.cpp -o target_teams__distribute__parallel__for__simd.exe
+timeout 45s g++ -fopenmp target__teams__distribute__parallel_for.cpp -o target__teams__distribute__parallel_for.exe
+timeout 45s g++ -fopenmp target_teams__parallel__for.cpp -o target_teams__parallel__for.exe
+target_teams__parallel__for.cpp: In function 'void test_target_teams__parallel__for()':
+target_teams__parallel__for.cpp:28:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   28 | #pragma omp atomic update
+      |         ^~~
+target_teams__parallel__for.cpp:28:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target_teams__parallel__for.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams_distribute__parallel.cpp -o target__teams_distribute__parallel.exe
+timeout 45s g++ -fopenmp target_teams_distribute__parallel__for__simd.cpp -o target_teams_distribute__parallel__for__simd.exe
+timeout 45s g++ -fopenmp target_parallel_for__simd.cpp -o target_parallel_for__simd.exe
+timeout 45s g++ -fopenmp target__teams__parallel__simd.cpp -o target__teams__parallel__simd.exe
+target__teams__parallel__simd.cpp: In function 'void test_target__teams__parallel__simd()':
+target__teams__parallel__simd.cpp:31:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   31 | #pragma omp atomic update
+      |         ^~~
+target__teams__parallel__simd.cpp:31:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target__teams__parallel__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target__teams__parallel__for__simd.cpp -o target__teams__parallel__for__simd.exe
+target__teams__parallel__for__simd.cpp: In function 'void test_target__teams__parallel__for__simd()':
+target__teams__parallel__for__simd.cpp:35:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   35 | #pragma omp atomic update
+      |         ^~~
+target__teams__parallel__for__simd.cpp:35:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target__teams__parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams_distribute_parallel_for__simd.cpp -o target_teams_distribute_parallel_for__simd.exe
+timeout 45s g++ -fopenmp target__teams_distribute__parallel__for.cpp -o target__teams_distribute__parallel__for.exe
+timeout 45s g++ -fopenmp target_teams__distribute__parallel.cpp -o target_teams__distribute__parallel.exe
+timeout 45s g++ -fopenmp target_teams__parallel__simd.cpp -o target_teams__parallel__simd.exe
+target_teams__parallel__simd.cpp: In function 'void test_target_teams__parallel__simd()':
+target_teams__parallel__simd.cpp:29:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   29 | #pragma omp atomic update
+      |         ^~~
+target_teams__parallel__simd.cpp:29:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target_teams__parallel__simd.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp target_teams__parallel_for__simd.cpp -o target_teams__parallel_for__simd.exe
+target_teams__parallel_for__simd.cpp: In function 'void test_target_teams__parallel_for__simd()':
+target_teams__parallel_for__simd.cpp:30:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+   30 | #pragma omp atomic update
+      |         ^~~
+target_teams__parallel_for__simd.cpp:30:9: error: only 'distribute', 'parallel' or 'loop' regions are allowed to be strictly nested inside 'teams' region
+make: [target_teams__parallel_for__simd.exe] Error 1 (ignored)

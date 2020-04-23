@@ -64,7 +64,7 @@ declare -p "${prefix}__no_long_double" "${prefix}__no_loop" \
 #  LC_ALL=C is to get the tradional  sort order. Solve issue with reduction , reduction_atomic
 fl_folder(){
     local folders=$(find $(realpath "${@}") -type d |  LC_ALL=C sort | uniq | awk '$0 !~ last "/" {print last} {last=$0} END {print last}')
-    echo $(realpath ${folders}  --relative-to=$PWD)
+    echo $(realpath ${folders} --relative-to=$PWD)
 }
 
 fl_test_src() {
@@ -111,7 +111,7 @@ fdisplay() {
     if [ -z "$1" ]
     then
       # Get the last modified folder in results, then list all the tests avalaible inside.
-      local folder="$(find test_result -maxdepth 1 -type d | tail -n 1)"
+      local folder="$(ls test_result | sort | tail -n 1)"
       local name=$folder
     else
       local folder="${@}" 
@@ -120,22 +120,29 @@ fdisplay() {
     ./src/display.py "${name}" "${__detailed}" "${__failed}" "${__passed}" "${__no_long_double}" "${__no_loop}" $(fl_folder ${folder})
 }
 
+fdisplayc() {
+    #Print only if one folder exist
+    local folders=( $(realpath -qe ${@:2}) )
+    if [[ ${#folders} -ne 0 ]]; then
+        echo $1 && fdisplay ${folders[@]}
+    fi
+}
+
 freport() {
     if [ -z "$1" ]
     then
       # Get the last modified folder in results, then list all the tests avalaible inside.
-      local folder="$(find test_result -maxdepth 1 -type d | tail -n 1)"
+      local folder="$(ls -d test_result/* | sort | tail -n 1)"
    else
       local folder="$1"
     fi
 
     echo ">> $folder"
 
-    echo "cpp math" && fdisplay $folder/cpp/{math,complex}_*
-    echo "cpp hierarchical parallelism" && fdisplay $folder/cpp/hierarchical_parallelism/
-
-    echo "fortran math" && fdisplay $folder/fortran/{math,complex}
-    echo "fortran hierarchical parallelism" && fdisplay $folder/fortran/hierarchical_parallelism/
+    fdisplayc "cpp math"  $folder/cpp/{math,complex}_*
+    fdisplayc "cpp hierarchical parallelism" $folder/cpp/hierarchical_parallelism/
+    fdisplayc "fortran math" $folder/fortran/{math,complex}
+    fdisplayc "fortran hierarchical parallelism" $folder/fortran/hierarchical_parallelism/
 	
     echo "Summary" && fdisplay $folder
 }

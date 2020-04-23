@@ -1,0 +1,299 @@
+timeout 45s gfortran -fopenmp ASIN_real_real.F90 -o ASIN_real_real.exe
+unresolved symbol asinf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [ASIN_real_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp DIM_real_real_real.F90 -o DIM_real_real_real.exe
+timeout 45s gfortran -fopenmp DIM_integer_integer_integer.F90 -o DIM_integer_integer_integer.exe
+timeout 45s gfortran -fopenmp TAN_double_precision_double_precision.F90 -o TAN_double_precision_double_precision.exe
+unresolved symbol tan
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [TAN_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp MAX0_integer_integer_integer.F90 -o MAX0_integer_integer_integer.exe
+timeout 45s gfortran -fopenmp ACOS_real_real.F90 -o ACOS_real_real.exe
+unresolved symbol acosf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [ACOS_real_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp CEILING_double_precision_double_precision.F90 -o CEILING_double_precision_double_precision.exe
+timeout 45s gfortran -fopenmp ANINT_real_real.F90 -o ANINT_real_real.exe
+unresolved symbol roundf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [ANINT_real_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp FLOAT_integer_real.F90 -o FLOAT_integer_real.exe
+timeout 45s gfortran -fopenmp COSH_real_real.F90 -o COSH_real_real.exe
+unresolved symbol coshf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [COSH_real_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp ATAN2_real_real_real.F90 -o ATAN2_real_real_real.exe
+unresolved symbol atan2f
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [ATAN2_real_real_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp AMIN0_integer_integer_real.F90 -o AMIN0_integer_integer_real.exe
+timeout 45s gfortran -fopenmp MAX_real_real_integer.F90 -o MAX_real_real_integer.exe
+timeout 45s gfortran -fopenmp MODULO_real_real_real.F90 -o MODULO_real_real_real.exe
+unresolved symbol fmodf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [MODULO_real_real_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp DMIN1_double_precision_double_precision_double_precision.F90 -o DMIN1_double_precision_double_precision_double_precision.exe
+timeout 45s gfortran -fopenmp DPROD_real_real_double_precision.F90 -o DPROD_real_real_double_precision.exe
+timeout 45s gfortran -fopenmp MOD_double_precision_double_precision_double_precision.F90 -o MOD_double_precision_double_precision_double_precision.exe
+unresolved symbol fmod
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [MOD_double_precision_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp SNGL_double_precision_real.F90 -o SNGL_double_precision_real.exe
+timeout 45s gfortran -fopenmp ASIN_double_precision_double_precision.F90 -o ASIN_double_precision_double_precision.exe
+unresolved symbol asin
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [ASIN_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp AINT_real_real.F90 -o AINT_real_real.exe
+timeout 45s gfortran -fopenmp ACOS_double_precision_double_precision.F90 -o ACOS_double_precision_double_precision.exe
+unresolved symbol acos
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [ACOS_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp MIN1_real_real_integer.F90 -o MIN1_real_real_integer.exe
+timeout 45s gfortran -fopenmp TANH_real_real.F90 -o TANH_real_real.exe
+unresolved symbol tanhf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [TANH_real_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp SINH_real_real.F90 -o SINH_real_real.exe
+unresolved symbol sinhf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [SINH_real_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp MIN_real_real_integer.F90 -o MIN_real_real_integer.exe
+timeout 45s gfortran -fopenmp CEILING_real_real.F90 -o CEILING_real_real.exe
+timeout 45s gfortran -fopenmp COSH_double_precision_double_precision.F90 -o COSH_double_precision_double_precision.exe
+unresolved symbol cosh
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [COSH_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp AMAX1_real_real_real.F90 -o AMAX1_real_real_real.exe
+timeout 45s gfortran -fopenmp SINH_double_precision_double_precision.F90 -o SINH_double_precision_double_precision.exe
+unresolved symbol sinh
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [SINH_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp DIM_double_precision_double_precision_double_precision.F90 -o DIM_double_precision_double_precision_double_precision.exe
+timeout 45s gfortran -fopenmp MAX_integer_integer_real.F90 -o MAX_integer_integer_real.exe
+timeout 45s gfortran -fopenmp MIN_integer_integer_real.F90 -o MIN_integer_integer_real.exe
+timeout 45s gfortran -fopenmp SIGN_integer_integer_integer.F90 -o SIGN_integer_integer_integer.exe
+timeout 45s gfortran -fopenmp SIGN_real_real_real.F90 -o SIGN_real_real_real.exe
+timeout 45s gfortran -fopenmp LOG10_real_real.F90 -o LOG10_real_real.exe
+unresolved symbol log10f
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [LOG10_real_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp MIN0_integer_integer_integer.F90 -o MIN0_integer_integer_integer.exe
+timeout 45s gfortran -fopenmp ATAN2_double_precision_double_precision_double_precision.F90 -o ATAN2_double_precision_double_precision_double_precision.exe
+unresolved symbol atan2
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [ATAN2_double_precision_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp FLOOR_real_real.F90 -o FLOOR_real_real.exe
+timeout 45s gfortran -fopenmp MOD_integer_integer_integer.F90 -o MOD_integer_integer_integer.exe
+timeout 45s gfortran -fopenmp AINT_double_precision_double_precision.F90 -o AINT_double_precision_double_precision.exe
+timeout 45s gfortran -fopenmp ATAN_real_real.F90 -o ATAN_real_real.exe
+unresolved symbol atanf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [ATAN_real_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp MIN_integer_integer_integer.F90 -o MIN_integer_integer_integer.exe
+timeout 45s gfortran -fopenmp MAX_double_precision_double_precision_double_precision.F90 -o MAX_double_precision_double_precision_double_precision.exe
+timeout 45s gfortran -fopenmp TAN_real_real.F90 -o TAN_real_real.exe
+unresolved symbol tanf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [TAN_real_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp NINT_real_integer.F90 -o NINT_real_integer.exe
+unresolved symbol lroundf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [NINT_real_integer.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp IDINT_double_precision_integer.F90 -o IDINT_double_precision_integer.exe
+timeout 45s gfortran -fopenmp ANINT_double_precision_double_precision.F90 -o ANINT_double_precision_double_precision.exe
+unresolved symbol round
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [ANINT_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp MIN_real_real_real.F90 -o MIN_real_real_real.exe
+timeout 45s gfortran -fopenmp SIGN_double_precision_double_precision_double_precision.F90 -o SIGN_double_precision_double_precision_double_precision.exe
+timeout 45s gfortran -fopenmp MODULO_double_precision_double_precision_double_precision.F90 -o MODULO_double_precision_double_precision_double_precision.exe
+unresolved symbol fmod
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [MODULO_double_precision_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp AMIN1_real_real_real.F90 -o AMIN1_real_real_real.exe
+timeout 45s gfortran -fopenmp TANH_double_precision_double_precision.F90 -o TANH_double_precision_double_precision.exe
+unresolved symbol tanh
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [TANH_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp MAX_real_real_real.F90 -o MAX_real_real_real.exe
+timeout 45s gfortran -fopenmp MAX1_real_real_integer.F90 -o MAX1_real_real_integer.exe
+timeout 45s gfortran -fopenmp MOD_real_real_real.F90 -o MOD_real_real_real.exe
+unresolved symbol fmodf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [MOD_real_real_real.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp NINT_double_precision_integer.F90 -o NINT_double_precision_integer.exe
+unresolved symbol lround
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [NINT_double_precision_integer.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp MIN_double_precision_double_precision_double_precision.F90 -o MIN_double_precision_double_precision_double_precision.exe
+timeout 45s gfortran -fopenmp LOG10_double_precision_double_precision.F90 -o LOG10_double_precision_double_precision.exe
+unresolved symbol log10
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [LOG10_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp DMAX1_double_precision_double_precision_double_precision.F90 -o DMAX1_double_precision_double_precision_double_precision.exe
+timeout 45s gfortran -fopenmp FLOOR_double_precision_double_precision.F90 -o FLOOR_double_precision_double_precision.exe
+timeout 45s gfortran -fopenmp AMAX0_integer_integer_real.F90 -o AMAX0_integer_integer_real.exe
+timeout 45s gfortran -fopenmp ATAN_double_precision_double_precision.F90 -o ATAN_double_precision_double_precision.exe
+unresolved symbol atan
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [ATAN_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s gfortran -fopenmp IFIX_real_integer.F90 -o IFIX_real_integer.exe
+timeout 45s gfortran -fopenmp MODULO_integer_integer_integer.F90 -o MODULO_integer_integer_integer.exe
+timeout 45s gfortran -fopenmp MAX_integer_integer_integer.F90 -o MAX_integer_integer_integer.exe

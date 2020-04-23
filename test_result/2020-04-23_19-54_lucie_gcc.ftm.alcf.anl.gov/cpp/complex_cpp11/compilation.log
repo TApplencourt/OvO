@@ -1,0 +1,442 @@
+timeout 45s g++ -fopenmp sqrt_complex_float_complex_float.cpp -o sqrt_complex_float_complex_float.exe
+ptxas /tmp/ccxL9KLF.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccxL9KLF.o, line 92; error   : Function '_ZSt4sqrtIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccxL9KLF.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [sqrt_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp log_complex_float_complex_float.cpp -o log_complex_float_complex_float.exe
+ptxas /tmp/cchRc0bl.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cchRc0bl.o, line 92; error   : Function '_ZSt3logIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cchRc0bl.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [log_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp log10_complex_float_complex_float.cpp -o log10_complex_float_complex_float.exe
+ptxas /tmp/cc13TVT9.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc13TVT9.o, line 92; error   : Function '_ZSt5log10IfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cc13TVT9.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [log10_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp tanh_complex_float_complex_float.cpp -o tanh_complex_float_complex_float.exe
+ptxas /tmp/ccnoMgpO.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccnoMgpO.o, line 92; error   : Function '_ZSt4tanhIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccnoMgpO.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [tanh_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp cosh_complex_double_complex_double.cpp -o cosh_complex_double_complex_double.exe
+ptxas /tmp/ccfLRG1w.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccfLRG1w.o, line 92; error   : Function '_ZSt4coshIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccfLRG1w.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [cosh_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp tanh_complex_double_complex_double.cpp -o tanh_complex_double_complex_double.exe
+ptxas /tmp/cc3T9vui.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc3T9vui.o, line 92; error   : Function '_ZSt4tanhIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cc3T9vui.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [tanh_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp acosh_complex_float_complex_float.cpp -o acosh_complex_float_complex_float.exe
+ptxas /tmp/ccpXIVXX.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccpXIVXX.o, line 92; error   : Function '_ZSt5acoshIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccpXIVXX.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [acosh_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp cos_complex_float_complex_float.cpp -o cos_complex_float_complex_float.exe
+ptxas /tmp/cclUBTTM.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cclUBTTM.o, line 92; error   : Function '_ZSt3cosIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cclUBTTM.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [cos_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp exp_complex_double_complex_double.cpp -o exp_complex_double_complex_double.exe
+ptxas /tmp/cc7eWuks.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc7eWuks.o, line 92; error   : Function '_ZSt3expIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cc7eWuks.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [exp_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp asin_complex_float_complex_float.cpp -o asin_complex_float_complex_float.exe
+ptxas /tmp/cclPNjw6.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cclPNjw6.o, line 92; error   : Function '_ZSt4asinIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cclPNjw6.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [asin_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp cosh_complex_float_complex_float.cpp -o cosh_complex_float_complex_float.exe
+ptxas /tmp/cc9ZiEdZ.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc9ZiEdZ.o, line 92; error   : Function '_ZSt4coshIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cc9ZiEdZ.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [cosh_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp acos_complex_float_complex_float.cpp -o acos_complex_float_complex_float.exe
+ptxas /tmp/ccDbg6EE.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccDbg6EE.o, line 92; error   : Function '_ZSt4acosIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccDbg6EE.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [acos_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp exp_complex_float_complex_float.cpp -o exp_complex_float_complex_float.exe
+ptxas /tmp/cc0mrVqt.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc0mrVqt.o, line 92; error   : Function '_ZSt3expIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cc0mrVqt.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [exp_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp atan_complex_float_complex_float.cpp -o atan_complex_float_complex_float.exe
+ptxas /tmp/ccVRr5O8.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccVRr5O8.o, line 92; error   : Function '_ZSt4atanIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccVRr5O8.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [atan_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp pow_complex_double_complex_double_complex_double.cpp -o pow_complex_double_complex_double_complex_double.exe
+ptxas /tmp/ccLzfB0M.o, line 100; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccLzfB0M.o, line 100; error   : Function '_ZSt3powIdESt7complexIT_ERKS2_S4_' not declared in this scope
+ptxas /tmp/ccLzfB0M.o, line 100; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [pow_complex_double_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp asin_complex_double_complex_double.cpp -o asin_complex_double_complex_double.exe
+ptxas /tmp/ccvcPxtC.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccvcPxtC.o, line 92; error   : Function '_ZSt4asinIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccvcPxtC.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [asin_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp pow_complex_float_complex_float_complex_float.cpp -o pow_complex_float_complex_float_complex_float.exe
+ptxas /tmp/ccWfXYqg.o, line 100; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccWfXYqg.o, line 100; error   : Function '_ZSt3powIfESt7complexIT_ERKS2_S4_' not declared in this scope
+ptxas /tmp/ccWfXYqg.o, line 100; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [pow_complex_float_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp acos_complex_double_complex_double.cpp -o acos_complex_double_complex_double.exe
+ptxas /tmp/cc5Jf14X.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc5Jf14X.o, line 92; error   : Function '_ZSt4acosIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cc5Jf14X.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [acos_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp log10_complex_double_complex_double.cpp -o log10_complex_double_complex_double.exe
+ptxas /tmp/ccQRJCfK.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccQRJCfK.o, line 92; error   : Function '_ZSt5log10IdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccQRJCfK.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [log10_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp tan_complex_float_complex_float.cpp -o tan_complex_float_complex_float.exe
+ptxas /tmp/ccCQTF9r.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccCQTF9r.o, line 92; error   : Function '_ZSt3tanIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccCQTF9r.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [tan_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp atan_complex_double_complex_double.cpp -o atan_complex_double_complex_double.exe
+ptxas /tmp/ccWHSkqh.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccWHSkqh.o, line 92; error   : Function '_ZSt4atanIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccWHSkqh.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [atan_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp sin_complex_double_complex_double.cpp -o sin_complex_double_complex_double.exe
+ptxas /tmp/ccBQQ8kV.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccBQQ8kV.o, line 92; error   : Function '_ZSt3sinIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccBQQ8kV.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [sin_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp asinh_complex_double_complex_double.cpp -o asinh_complex_double_complex_double.exe
+ptxas /tmp/cc1KNjlA.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc1KNjlA.o, line 92; error   : Function '_ZSt5asinhIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cc1KNjlA.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [asinh_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp atanh_complex_double_complex_double.cpp -o atanh_complex_double_complex_double.exe
+ptxas /tmp/ccyg835o.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccyg835o.o, line 92; error   : Function '_ZSt5atanhIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccyg835o.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [atanh_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp tan_complex_double_complex_double.cpp -o tan_complex_double_complex_double.exe
+ptxas /tmp/cc1eSbl4.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc1eSbl4.o, line 92; error   : Function '_ZSt3tanIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cc1eSbl4.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [tan_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp sinh_complex_double_complex_double.cpp -o sinh_complex_double_complex_double.exe
+ptxas /tmp/cc6LAzpT.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cc6LAzpT.o, line 92; error   : Function '_ZSt4sinhIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cc6LAzpT.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [sinh_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp sin_complex_float_complex_float.cpp -o sin_complex_float_complex_float.exe
+ptxas /tmp/ccM6gGKy.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccM6gGKy.o, line 92; error   : Function '_ZSt3sinIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccM6gGKy.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [sin_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp asinh_complex_float_complex_float.cpp -o asinh_complex_float_complex_float.exe
+ptxas /tmp/ccLKeY8g.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccLKeY8g.o, line 92; error   : Function '_ZSt5asinhIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccLKeY8g.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [asinh_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp atanh_complex_float_complex_float.cpp -o atanh_complex_float_complex_float.exe
+ptxas /tmp/ccDMsUV5.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccDMsUV5.o, line 92; error   : Function '_ZSt5atanhIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccDMsUV5.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [atanh_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp log_complex_double_complex_double.cpp -o log_complex_double_complex_double.exe
+ptxas /tmp/ccT1E1eK.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccT1E1eK.o, line 92; error   : Function '_ZSt3logIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccT1E1eK.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [log_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp sinh_complex_float_complex_float.cpp -o sinh_complex_float_complex_float.exe
+ptxas /tmp/cckQ4DSn.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cckQ4DSn.o, line 92; error   : Function '_ZSt4sinhIfESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cckQ4DSn.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [sinh_complex_float_complex_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp sqrt_complex_double_complex_double.cpp -o sqrt_complex_double_complex_double.exe
+ptxas /tmp/ccMv17yd.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccMv17yd.o, line 92; error   : Function '_ZSt4sqrtIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccMv17yd.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [sqrt_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp acosh_complex_double_complex_double.cpp -o acosh_complex_double_complex_double.exe
+ptxas /tmp/ccpbjUOS.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/ccpbjUOS.o, line 92; error   : Function '_ZSt5acoshIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/ccpbjUOS.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [acosh_complex_double_complex_double.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp cos_complex_double_complex_double.cpp -o cos_complex_double_complex_double.exe
+ptxas /tmp/cccl6NOH.o, line 92; error   : Label expected for argument 0 of instruction 'call'
+ptxas /tmp/cccl6NOH.o, line 92; error   : Function '_ZSt3cosIdESt7complexIT_ERKS2_' not declared in this scope
+ptxas /tmp/cccl6NOH.o, line 92; fatal   : Call target not recognized
+ptxas fatal   : Ptx assembly aborted due to errors
+nvptx-as: ptxas returned 255 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [cos_complex_double_complex_double.exe] Error 1 (ignored)

@@ -1,0 +1,20 @@
+timeout 45s g++ -fopenmp sincosf_float_float_float.cpp -o sincosf_float_float_float.exe
+unresolved symbol cexpf
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [sincosf_float_float_float.exe] Error 1 (ignored)
+timeout 45s g++ -fopenmp sincos_double_double_double.cpp -o sincos_double_double_double.exe
+unresolved symbol cexp
+collect2: error: ld returned 1 exit status
+mkoffload: fatal error: x86_64-pc-linux-gnu-accel-nvptx-none-gcc returned 1 exit status
+compilation terminated.
+lto-wrapper: fatal error: /soft/packaging/spack-builds/linux-rhel7-x86_64/gcc-9.3.0/gcc-develop-42htf6epvpvtyxml575eslwb5u23pj2y/libexec/gcc/x86_64-pc-linux-gnu/10.0.0//accel/nvptx-none/mkoffload returned 1 exit status
+compilation terminated.
+/usr/bin/ld: error: lto-wrapper failed
+collect2: error: ld returned 1 exit status
+make: [sincos_double_double_double.exe] Error 1 (ignored)
