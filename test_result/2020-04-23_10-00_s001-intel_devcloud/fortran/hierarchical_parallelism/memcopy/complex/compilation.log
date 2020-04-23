@@ -1,0 +1,370 @@
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute__parallel_do__simd.F90 -o target__teams__distribute__parallel_do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+Instruction does not dominate all uses!
+
+
+Instruction does not dominate all uses!
+
+
+/home/u36574/tmp/ifxlL34sy.bc(1): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifxlL34sy.bc (code 1)
+Makefile:27: recipe for target 'target__teams__distribute__parallel_do__simd.exe' failed
+make: [target__teams__distribute__parallel_do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute__parallel_do.F90 -o target__teams_distribute__parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+Instruction does not dominate all uses!
+
+
+Instruction does not dominate all uses!
+
+
+/home/u36574/tmp/ifxgmfQ6x.bc(1): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifxgmfQ6x.bc (code 1)
+Makefile:27: recipe for target 'target__teams_distribute__parallel_do.exe' failed
+make: [target__teams_distribute__parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute__parallel_do.F90 -o target_teams__distribute__parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+Instruction does not dominate all uses!
+
+
+Instruction does not dominate all uses!
+
+
+/home/u36574/tmp/ifxF3ty0v.bc(1): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifxF3ty0v.bc (code 1)
+Makefile:27: recipe for target 'target_teams__distribute__parallel_do.exe' failed
+make: [target_teams__distribute__parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__simd.F90 -o target__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Never resolved value found in function (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target__simd.exe' failed
+make: [target__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute_parallel_do_simd.F90 -o target_teams_distribute_parallel_do_simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+target_teams_distribute_parallel_do_simd.F90(16): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for target_teams_distribute_parallel_do_simd.F90 (code 1)
+Makefile:27: recipe for target 'target_teams_distribute_parallel_do_simd.exe' failed
+make: [target_teams_distribute_parallel_do_simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute__parallel__do__simd.F90 -o target__teams_distribute__parallel__do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+double free or corruption (fasttop)
+/home/u36574/tmp/ifxaqeGly.i90: catastrophic error: **Internal compiler error: abort signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for target__teams_distribute__parallel__do__simd.F90 (code 1)
+Makefile:27: recipe for target 'target__teams_distribute__parallel__do__simd.exe' failed
+make: [target__teams_distribute__parallel__do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_parallel__do.F90 -o target_parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute.F90 -o target_teams__distribute.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute.F90 -o target__teams_distribute.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute__parallel_do.F90 -o target_teams_distribute__parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+Instruction does not dominate all uses!
+
+
+Instruction does not dominate all uses!
+
+
+/home/u36574/tmp/ifxzTXQYK.bc(1): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifxzTXQYK.bc (code 1)
+Makefile:27: recipe for target 'target_teams_distribute__parallel_do.exe' failed
+make: [target_teams_distribute__parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute__parallel_do__simd.F90 -o target__teams_distribute__parallel_do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+Instruction does not dominate all uses!
+
+
+Instruction does not dominate all uses!
+
+
+/home/u36574/tmp/ifxRPsBKS.bc(1): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifxRPsBKS.bc (code 1)
+Makefile:27: recipe for target 'target__teams_distribute__parallel_do__simd.exe' failed
+make: [target__teams_distribute__parallel_do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_parallel_do_simd.F90 -o target_parallel_do_simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifx69OfCU.bc: catastrophic error: **Internal compiler error: segmentation violation signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifx69OfCU.bc (code 1)
+Makefile:27: recipe for target 'target_parallel_do_simd.exe' failed
+make: [target_parallel_do_simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute_simd.F90 -o target_teams__distribute_simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+target_teams__distribute_simd.F90(17): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for target_teams__distribute_simd.F90 (code 1)
+Makefile:27: recipe for target 'target_teams__distribute_simd.exe' failed
+make: [target_teams__distribute_simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute__parallel__do.F90 -o target__teams__distribute__parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxGkrK2m.i90: catastrophic error: **Internal compiler error: segmentation violation signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+ifort (NextGen): error #10106: Fatal error in /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/xfortcom, terminated by segmentation violation
+compilation aborted for target__teams__distribute__parallel__do.F90 (code 1)
+Makefile:27: recipe for target 'target__teams__distribute__parallel__do.exe' failed
+make: [target__teams__distribute__parallel__do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute_parallel_do__simd.F90 -o target__teams_distribute_parallel_do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Never resolved value found in function (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target__teams_distribute_parallel_do__simd.exe' failed
+make: [target__teams_distribute_parallel_do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__parallel_do.F90 -o target__parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute__simd.F90 -o target_teams_distribute__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+double free or corruption (fasttop)
+/home/u36574/tmp/ifxvlrn6C.i90: catastrophic error: **Internal compiler error: abort signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for target_teams_distribute__simd.F90 (code 3)
+Makefile:27: recipe for target 'target_teams_distribute__simd.exe' failed
+make: [target_teams_distribute__simd.exe] Error 3 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute__parallel__do__simd.F90 -o target_teams__distribute__parallel__do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxwumBoT.i90: catastrophic error: **Internal compiler error: segmentation violation signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+ifort (NextGen): error #10106: Fatal error in /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/xfortcom, terminated by segmentation violation
+compilation aborted for target_teams__distribute__parallel__do__simd.F90 (code 1)
+Makefile:27: recipe for target 'target_teams__distribute__parallel__do__simd.exe' failed
+make: [target_teams__distribute__parallel__do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__parallel__do.F90 -o target__parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute_parallel_do.F90 -o target__teams_distribute_parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute_parallel_do_simd.F90 -o target__teams_distribute_parallel_do_simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+target__teams_distribute_parallel_do_simd.F90(17): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for target__teams_distribute_parallel_do_simd.F90 (code 1)
+Makefile:27: recipe for target 'target__teams_distribute_parallel_do_simd.exe' failed
+make: [target__teams_distribute_parallel_do_simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute_simd.F90 -o target_teams_distribute_simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+target_teams_distribute_simd.F90(16): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for target_teams_distribute_simd.F90 (code 1)
+Makefile:27: recipe for target 'target_teams_distribute_simd.exe' failed
+make: [target_teams_distribute_simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute__simd.F90 -o target__teams_distribute__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxE4Cib3.i90: catastrophic error: **Internal compiler error: segmentation violation signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+ifort (NextGen): error #10106: Fatal error in /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/xfortcom, terminated by segmentation violation
+compilation aborted for target__teams_distribute__simd.F90 (code 1)
+Makefile:27: recipe for target 'target__teams_distribute__simd.exe' failed
+make: [target__teams_distribute__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute.F90 -o target__teams__distribute.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__parallel_do_simd.F90 -o target__parallel_do_simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxbo2wrP.bc: catastrophic error: **Internal compiler error: segmentation violation signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifxbo2wrP.bc (code 1)
+Makefile:27: recipe for target 'target__parallel_do_simd.exe' failed
+make: [target__parallel_do_simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute__parallel_do__simd.F90 -o target_teams__distribute__parallel_do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+Instruction does not dominate all uses!
+
+
+Instruction does not dominate all uses!
+
+
+/home/u36574/tmp/ifxerkt4R.bc(1): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifxerkt4R.bc (code 1)
+Makefile:27: recipe for target 'target_teams__distribute__parallel_do__simd.exe' failed
+make: [target_teams__distribute__parallel_do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute__parallel_do.F90 -o target__teams__distribute__parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+Instruction does not dominate all uses!
+
+
+Instruction does not dominate all uses!
+
+
+/home/u36574/tmp/ifxV8YmvR.bc(1): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifxV8YmvR.bc (code 1)
+Makefile:27: recipe for target 'target__teams__distribute__parallel_do.exe' failed
+make: [target__teams__distribute__parallel_do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_simd.F90 -o target_simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Load/Store operand is not a pointer type (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target_simd.exe' failed
+make: [target_simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute_simd.F90 -o target__teams_distribute_simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+target__teams_distribute_simd.F90(17): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for target__teams_distribute_simd.F90 (code 1)
+Makefile:27: recipe for target 'target__teams_distribute_simd.exe' failed
+make: [target__teams_distribute_simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute_parallel_do.F90 -o target_teams_distribute_parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute__parallel__do__simd.F90 -o target_teams_distribute__parallel__do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxj2e7a2.i90: catastrophic error: **Internal compiler error: segmentation violation signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+ifort (NextGen): error #10106: Fatal error in /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/xfortcom, terminated by segmentation violation
+compilation aborted for target_teams_distribute__parallel__do__simd.F90 (code 1)
+Makefile:27: recipe for target 'target_teams_distribute__parallel__do__simd.exe' failed
+make: [target_teams_distribute__parallel__do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__parallel_do__simd.F90 -o target__parallel_do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Never resolved value found in function (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target__parallel_do__simd.exe' failed
+make: [target__parallel_do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute__simd.F90 -o target_teams__distribute__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+double free or corruption (fasttop)
+/home/u36574/tmp/ifxiSGJ9z.i90: catastrophic error: **Internal compiler error: abort signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for target_teams__distribute__simd.F90 (code 3)
+Makefile:27: recipe for target 'target_teams__distribute__simd.exe' failed
+make: [target_teams__distribute__simd.exe] Error 3 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_parallel_do.F90 -o target_parallel_do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute__parallel_do__simd.F90 -o target_teams_distribute__parallel_do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+Instruction does not dominate all uses!
+
+
+Instruction does not dominate all uses!
+
+
+/home/u36574/tmp/ifxRZ1Dmt.bc(1): catastrophic error: **Internal compiler error: internal abort** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for /home/u36574/tmp/ifxRZ1Dmt.bc (code 1)
+Makefile:27: recipe for target 'target_teams_distribute__parallel_do__simd.exe' failed
+make: [target_teams_distribute__parallel_do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute__parallel__do__simd.F90 -o target__teams__distribute__parallel__do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxWkG3T1.i90: catastrophic error: **Internal compiler error: segmentation violation signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+ifort (NextGen): error #10106: Fatal error in /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/xfortcom, terminated by segmentation violation
+compilation aborted for target__teams__distribute__parallel__do__simd.F90 (code 1)
+Makefile:27: recipe for target 'target__teams__distribute__parallel__do__simd.exe' failed
+make: [target__teams__distribute__parallel__do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute__parallel__do.F90 -o target__teams_distribute__parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifx4LRxzg.i90: catastrophic error: **Internal compiler error: segmentation violation signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+ifort (NextGen): error #10106: Fatal error in /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/xfortcom, terminated by segmentation violation
+compilation aborted for target__teams_distribute__parallel__do.F90 (code 1)
+Makefile:27: recipe for target 'target__teams_distribute__parallel__do.exe' failed
+make: [target__teams_distribute__parallel__do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_parallel_do__simd.F90 -o target_parallel_do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Never resolved value found in function (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target_parallel_do__simd.exe' failed
+make: [target_parallel_do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute__parallel__do.F90 -o target_teams__distribute__parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxfsLKas.i90: catastrophic error: **Internal compiler error: segmentation violation signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+ifort (NextGen): error #10106: Fatal error in /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/xfortcom, terminated by segmentation violation
+compilation aborted for target_teams__distribute__parallel__do.F90 (code 1)
+Makefile:27: recipe for target 'target_teams__distribute__parallel__do.exe' failed
+make: [target_teams__distribute__parallel__do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute.F90 -o target_teams_distribute.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__parallel__do__simd.F90 -o target__parallel__do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Never resolved value found in function (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target__parallel__do__simd.exe' failed
+make: [target__parallel__do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute__simd.F90 -o target__teams__distribute__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+double free or corruption (fasttop)
+/home/u36574/tmp/ifxvDSLxt.i90: catastrophic error: **Internal compiler error: abort signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+compilation aborted for target__teams__distribute__simd.F90 (code 3)
+Makefile:27: recipe for target 'target__teams__distribute__simd.exe' failed
+make: [target__teams__distribute__simd.exe] Error 3 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute__parallel__do.F90 -o target_teams_distribute__parallel__do.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+/home/u36574/tmp/ifxKpWgFx.i90: catastrophic error: **Internal compiler error: segmentation violation signal raised** Please report this error along with the circumstances in which it occurred in a Software Problem Report.  Note: File and line given may not be explicit cause of this error.
+ifort (NextGen): error #10106: Fatal error in /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/xfortcom, terminated by segmentation violation
+compilation aborted for target_teams_distribute__parallel__do.F90 (code 1)
+Makefile:27: recipe for target 'target_teams_distribute__parallel__do.exe' failed
+make: [target_teams_distribute__parallel__do.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_parallel__do__simd.F90 -o target_parallel__do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Never resolved value found in function (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target_parallel__do__simd.exe' failed
+make: [target_parallel__do__simd.exe] Error 1 (ignored)
+timeout 45s ifort -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute_parallel_do__simd.F90 -o target_teams_distribute_parallel_do__simd.exe
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+ifort (NextGen): command line warning #10034: Unrecognized keyword '-version=50' for option '-fopenmp'
+error: Never resolved value found in function (Producer: 'LLVM11.0.0git' Reader: 'LLVM 11.0.0git')
+ifort (NextGen): error #10401: error running 'llvm-link'
+Makefile:27: recipe for target 'target_teams_distribute_parallel_do__simd.exe' failed
+make: [target_teams_distribute_parallel_do__simd.exe] Error 1 (ignored)

@@ -1,0 +1,2 @@
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sincosf_float_float_float.cpp -o sincosf_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sincos_double_double_double.cpp -o sincos_double_double_double.exe

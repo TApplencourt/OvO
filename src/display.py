@@ -15,7 +15,7 @@ class DRegex(NamedTuple):
     launch: str
     error: str
 
-r_compilation = DRegex("\w+\.(?:cpp|f90) -o (\w+)\.exe$", "make.*?(\w+)\.exe\]\s+(.*)")
+r_compilation = DRegex("\w+\.(?:cpp|F90) -o (\w+)\.exe$", "make.*?(\w+)\.exe\]\s+(.*)")
 r_runtime = DRegex("\./(\w+)\.exe$", "make.*?run_(\w+)\]\s+(.*)")
 
 import unittest
@@ -32,9 +32,15 @@ class TestCompilationLaunch(unittest.TestCase):
         self.assertEqual(m, "lroundf_long_int_float")
 
     def test_launch02(self):
-        str_ = "ifortran target_teams_distribute__parallel.f90 -o target_teams_distribute__parallel.exe"
+        str_ = "fortran target_teams_distribute__parallel.f90 -o target_teams_distribute__parallel.exe"
         m  = re.findall(r_compilation.launch, str_).pop()
         self.assertEqual(m, "target_teams_distribute__parallel")
+
+    def test_launch02(self):
+        str_ = "timeout 45s fortran target_teams_distribute__parallel.f90 -o target_teams_distribute__parallel.exe"
+        m  = re.findall(r_compilation.launch, str_).pop()
+        self.assertEqual(m, "target_teams_distribute__parallel")
+
 
 class TestCompilationError(unittest.TestCase):
 
@@ -148,7 +154,7 @@ def display(name, l_result,  mode=None):
     # Total failure 
     total_fail = len( set(compilation.failure) | set(runtime.failure) )
     total_success = total_test - total_fail
-    
+   
     if total_test == 0: 
         return
 

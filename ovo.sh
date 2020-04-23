@@ -136,6 +136,8 @@ freport() {
 
     echo "fortran math" && fdisplay $folder/fortran/{math,complex}
     echo "fortran hierarchical parallelism" && fdisplay $folder/fortran/hierarchical_parallelism/
+	
+    echo "Summary" && fdisplay $folder
 }
 
 fclean() {

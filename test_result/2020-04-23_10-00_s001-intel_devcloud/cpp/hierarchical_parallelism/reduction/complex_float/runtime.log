@@ -1,0 +1,4 @@
+timeout 45s ./target.exe
+Libomptarget fatal error 1: failure of target construct while offloading is mandatory
+Makefile:38: recipe for target 'run_target' failed
+make: [run_target] Error 1 (ignored)

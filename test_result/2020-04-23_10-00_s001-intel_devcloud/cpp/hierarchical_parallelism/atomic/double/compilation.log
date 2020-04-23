@@ -1,0 +1,61 @@
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__parallel__for.cpp -o target__parallel__for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams.cpp -o target__teams.exe
+target__teams.cpp:23:1: error: region cannot be closely nested inside 'teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+^
+1 error generated.
+compilation aborted for target__teams.cpp (code 1)
+Makefile:33: recipe for target 'target__teams.exe' failed
+make: [target__teams.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute__parallel_for.cpp -o target__teams__distribute__parallel_for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute.cpp -o target_teams_distribute.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__parallel_for.cpp -o target__teams__parallel_for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__parallel__for.cpp -o target_teams__parallel__for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute__parallel.cpp -o target__teams_distribute__parallel.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_parallel_for.cpp -o target_parallel_for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute__parallel.cpp -o target_teams__distribute__parallel.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute__parallel__for.cpp -o target_teams_distribute__parallel__for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute_parallel_for.cpp -o target_teams_distribute_parallel_for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target.cpp -o target.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__parallel.cpp -o target_teams__parallel.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute__parallel.cpp -o target_teams_distribute__parallel.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute__parallel__for.cpp -o target__teams_distribute__parallel__for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute.cpp -o target__teams__distribute.exe
+target__teams__distribute.cpp:20:1: error: region cannot be closely nested inside 'teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+^
+1 error generated.
+compilation aborted for target__teams__distribute.cpp (code 1)
+Makefile:33: recipe for target 'target__teams__distribute.exe' failed
+make: [target__teams__distribute.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__parallel_for.cpp -o target_teams__parallel_for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute__parallel_for.cpp -o target__teams_distribute__parallel_for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute.cpp -o target__teams_distribute.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_parallel__for.cpp -o target_parallel__for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams_distribute_parallel_for.cpp -o target__teams_distribute_parallel_for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__parallel.cpp -o target__teams__parallel.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_parallel.cpp -o target_parallel.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__parallel__for.cpp -o target__teams__parallel__for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams.cpp -o target_teams.exe
+target_teams.cpp:21:1: error: region cannot be closely nested inside 'target teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+^
+1 error generated.
+compilation aborted for target_teams.cpp (code 1)
+Makefile:33: recipe for target 'target_teams.exe' failed
+make: [target_teams.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute__parallel__for.cpp -o target_teams__distribute__parallel__for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams_distribute__parallel_for.cpp -o target_teams_distribute__parallel_for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__parallel_for.cpp -o target__parallel_for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute__parallel.cpp -o target__teams__distribute__parallel.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute.cpp -o target_teams__distribute.exe
+target_teams__distribute.cpp:18:1: error: region cannot be closely nested inside 'target teams' region; perhaps you forget to enclose 'omp atomic' directive into a parallel region?
+#pragma omp atomic update
+^
+1 error generated.
+compilation aborted for target_teams__distribute.cpp (code 1)
+Makefile:33: recipe for target 'target_teams__distribute.exe' failed
+make: [target_teams__distribute.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__teams__distribute__parallel__for.cpp -o target__teams__distribute__parallel__for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target_teams__distribute__parallel_for.cpp -o target_teams__distribute__parallel_for.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 target__parallel.cpp -o target__parallel.exe

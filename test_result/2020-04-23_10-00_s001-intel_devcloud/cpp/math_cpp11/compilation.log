@@ -1,0 +1,294 @@
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fmaxf_float_float_float.cpp -o fmaxf_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ceil_float_float.cpp -o ceil_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 tgammaf_float_float.cpp -o tgammaf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isfinite_double_bool.cpp -o isfinite_double_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isgreater_float_float_bool.cpp -o isgreater_float_float_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 tgamma_double_double.cpp -o tgamma_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 expm1_float_float.cpp -o expm1_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 scalbn_double_int_double.cpp -o scalbn_double_int_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fdimf_float_float_float.cpp -o fdimf_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 lround_double_long_int.cpp -o lround_double_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 lrint_float_long_int.cpp -o lrint_float_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sqrt_double_double.cpp -o sqrt_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 floorf_float_float.cpp -o floorf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 frexp_double_int_double.cpp -o frexp_double_int_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 scalbn_float_int_float.cpp -o scalbn_float_int_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fma_float_float_float_float.cpp -o fma_float_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 llrint_float_long_long_int.cpp -o llrint_float_long_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cbrt_float_float.cpp -o cbrt_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 remquof_float_float_int_float.cpp -o remquof_float_float_int_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 frexpf_float_int_float.cpp -o frexpf_float_int_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 modf_double_double_double.cpp -o modf_double_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fminf_float_float_float.cpp -o fminf_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 roundf_float_float.cpp -o roundf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 remquo_double_double_int_double.cpp -o remquo_double_double_int_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fabs_double_double.cpp -o fabs_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 exp_float_float.cpp -o exp_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fabsf_float_float.cpp -o fabsf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 modff_float_float_float.cpp -o modff_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 hypot_float_float_float.cpp -o hypot_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 erf_float_float.cpp -o erf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fmin_double_double_double.cpp -o fmin_double_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sin_double_double.cpp -o sin_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isinf_double_bool.cpp -o isinf_double_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 pow_float_float_float.cpp -o pow_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sinh_double_double.cpp -o sinh_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 scalbln_float_long_int_float.cpp -o scalbln_float_long_int_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 log2_double_double.cpp -o log2_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 logbf_float_float.cpp -o logbf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 erfcf_float_float.cpp -o erfcf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sin_float_float.cpp -o sin_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 asin_double_double.cpp -o asin_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cbrt_double_double.cpp -o cbrt_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 logb_double_double.cpp -o logb_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 log_float_float.cpp -o log_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 log1p_float_float.cpp -o log1p_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 llround_double_long_long_int.cpp -o llround_double_long_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 hypotf_float_float_float.cpp -o hypotf_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 llround_float_long_long_int.cpp -o llround_float_long_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fdim_float_float_float.cpp -o fdim_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isless_double_double_bool.cpp -o isless_double_double_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 asin_float_float.cpp -o asin_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 log2_float_float.cpp -o log2_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 asinf_float_float.cpp -o asinf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isless_float_float_bool.cpp -o isless_float_float_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 erf_double_double.cpp -o erf_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 atan_float_float.cpp -o atan_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 remainder_double_double_double.cpp -o remainder_double_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 abs_int_int.cpp -o abs_int_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 tan_double_double.cpp -o tan_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 signbit_double_bool.cpp -o signbit_double_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isnan_float_bool.cpp -o isnan_float_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 islessequal_float_float_bool.cpp -o islessequal_float_float_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 coshf_float_float.cpp -o coshf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ceilf_float_float.cpp -o ceilf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 tan_float_float.cpp -o tan_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 copysignf_float_float_float.cpp -o copysignf_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 trunc_double_double.cpp -o trunc_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 rint_float_float.cpp -o rint_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 truncf_float_float.cpp -o truncf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 logb_float_float.cpp -o logb_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 scalbln_double_long_int_double.cpp -o scalbln_double_long_int_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 log10_double_double.cpp -o log10_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 log10_float_float.cpp -o log10_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 pow_double_double_double.cpp -o pow_double_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 copysign_double_double_double.cpp -o copysign_double_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sinh_float_float.cpp -o sinh_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 acoshf_float_float.cpp -o acoshf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 atan2_double_double_double.cpp -o atan2_double_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cosf_float_float.cpp -o cosf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 abs_long_int_long_int.cpp -o abs_long_int_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 exp2_double_double.cpp -o exp2_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 remainder_float_float_float.cpp -o remainder_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 nearbyint_float_float.cpp -o nearbyint_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isgreater_double_double_bool.cpp -o isgreater_double_double_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isunordered_double_double_bool.cpp -o isunordered_double_double_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isnormal_float_bool.cpp -o isnormal_float_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fma_double_double_double_double.cpp -o fma_double_double_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 nextafterf_float_float_float.cpp -o nextafterf_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 floor_double_double.cpp -o floor_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isunordered_float_float_bool.cpp -o isunordered_float_float_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 lroundf_float_long_int.cpp -o lroundf_float_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 lround_float_long_int.cpp -o lround_float_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 modf_float_float_float.cpp -o modf_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ilogb_float_int.cpp -o ilogb_float_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sqrt_float_float.cpp -o sqrt_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 frexp_float_int_float.cpp -o frexp_float_int_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 expm1f_float_float.cpp -o expm1f_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 abs_double_double.cpp -o abs_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 nextafter_float_float_float.cpp -o nextafter_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fmax_float_float_float.cpp -o fmax_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 atanh_double_double.cpp -o atanh_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 acos_float_float.cpp -o acos_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 log10f_float_float.cpp -o log10f_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 tanhf_float_float.cpp -o tanhf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 atanf_float_float.cpp -o atanf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 abs_float_float.cpp -o abs_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fmaf_float_float_float_float.cpp -o fmaf_float_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 asinhf_float_float.cpp -o asinhf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fdim_double_double_double.cpp -o fdim_double_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 scalbnf_float_int_float.cpp -o scalbnf_float_int_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 atanh_float_float.cpp -o atanh_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sinf_float_float.cpp -o sinf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 log_double_double.cpp -o log_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fmin_float_float_float.cpp -o fmin_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 exp_double_double.cpp -o exp_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 islessgreater_double_double_bool.cpp -o islessgreater_double_double_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fmod_double_double_double.cpp -o fmod_double_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 powf_float_float_float.cpp -o powf_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 nextafter_double_double_double.cpp -o nextafter_double_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isgreaterequal_double_double_bool.cpp -o isgreaterequal_double_double_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fmax_double_double_double.cpp -o fmax_double_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 lgammaf_float_float.cpp -o lgammaf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 acos_double_double.cpp -o acos_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isfinite_float_bool.cpp -o isfinite_float_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 atan_double_double.cpp -o atan_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 rintf_float_float.cpp -o rintf_float_float.exe
+InvalidFunctionCall: Unexpected llvm intrinsic: llvm.rint.f32 [Src: /netbatch/donb26784_00/runDir/23/20200304_000000/llvm/llvm-spirv/lib/SPIRV/SPIRVWriter.cpp:1771  ]
+Stack dump:
+0.	Program arguments: /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv @/home/u36574/tmp/icxargIsx4OL 
+1.	Running pass 'LLVMToSPIRV' on module '/home/u36574/tmp/icxspvoutN4vQnG'.
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x2c2287)[0x5614eca93287]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x2c0e80)[0x5614eca91e80]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x2c248a)[0x5614eca9348a]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x12890)[0x7f8d5dacd890]
+/lib/x86_64-linux-gnu/libc.so.6(gsignal+0xc7)[0x7f8d5d708e97]
+/lib/x86_64-linux-gnu/libc.so.6(abort+0x141)[0x7f8d5d70a801]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x4e6f1a)[0x5614eccb7f1a]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52b9e7)[0x5614eccfc9e7]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52a33f)[0x5614eccfb33f]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52508a)[0x5614eccf608a]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x530523)[0x5614ecd01523]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52150b)[0x5614eccf250b]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x520ee8)[0x5614eccf1ee8]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x6b94fb)[0x5614ece8a4fb]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x5349ca)[0x5614ecd059ca]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x4c6ec7)[0x5614ecc97ec7]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xe7)[0x7f8d5d6ebb97]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x4c26e4)[0x5614ecc936e4]
+icc (NextGen): error #10106: Fatal error in /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv, terminated by IOT instruction
+Makefile:33: recipe for target 'rintf_float_float.exe' failed
+make: [rintf_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 tanf_float_float.cpp -o tanf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 atan2f_float_float_float.cpp -o atan2f_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 log1p_double_double.cpp -o log1p_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 acosh_double_double.cpp -o acosh_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fpclassify_float_int.cpp -o fpclassify_float_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ilogbf_float_int.cpp -o ilogbf_float_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 rint_double_double.cpp -o rint_double_double.exe
+InvalidFunctionCall: Unexpected llvm intrinsic: llvm.rint.f64 [Src: /netbatch/donb26784_00/runDir/23/20200304_000000/llvm/llvm-spirv/lib/SPIRV/SPIRVWriter.cpp:1771  ]
+Stack dump:
+0.	Program arguments: /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv @/home/u36574/tmp/icxarga8cJcs 
+1.	Running pass 'LLVMToSPIRV' on module '/home/u36574/tmp/icxspvout6bT8XC'.
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x2c2287)[0x559187153287]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x2c0e80)[0x559187151e80]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x2c248a)[0x55918715348a]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x12890)[0x7f7e898e3890]
+/lib/x86_64-linux-gnu/libc.so.6(gsignal+0xc7)[0x7f7e8951ee97]
+/lib/x86_64-linux-gnu/libc.so.6(abort+0x141)[0x7f7e89520801]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x4e6f1a)[0x559187377f1a]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52b9e7)[0x5591873bc9e7]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52a33f)[0x5591873bb33f]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52508a)[0x5591873b608a]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x530523)[0x5591873c1523]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52150b)[0x5591873b250b]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x520ee8)[0x5591873b1ee8]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x6b94fb)[0x55918754a4fb]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x5349ca)[0x5591873c59ca]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x4c6ec7)[0x559187357ec7]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xe7)[0x7f7e89501b97]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x4c26e4)[0x5591873536e4]
+icc (NextGen): error #10106: Fatal error in /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv, terminated by IOT instruction
+Makefile:33: recipe for target 'rint_double_double.exe' failed
+make: [rint_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cosh_double_double.cpp -o cosh_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ilogb_double_int.cpp -o ilogb_double_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 llrintf_float_long_long_int.cpp -o llrintf_float_long_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cos_float_float.cpp -o cos_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 floor_float_float.cpp -o floor_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 log1pf_float_float.cpp -o log1pf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 exp2f_float_float.cpp -o exp2f_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 nearbyintf_float_float.cpp -o nearbyintf_float_float.exe
+InvalidFunctionCall: Unexpected llvm intrinsic: llvm.nearbyint.f32 [Src: /netbatch/donb26784_00/runDir/23/20200304_000000/llvm/llvm-spirv/lib/SPIRV/SPIRVWriter.cpp:1771  ]
+Stack dump:
+0.	Program arguments: /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv @/home/u36574/tmp/icxargqCfayT 
+1.	Running pass 'LLVMToSPIRV' on module '/home/u36574/tmp/icxspvoutP9qN9d'.
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x2c2287)[0x559ea997c287]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x2c0e80)[0x559ea997ae80]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x2c248a)[0x559ea997c48a]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x12890)[0x7ff5ef9a2890]
+/lib/x86_64-linux-gnu/libc.so.6(gsignal+0xc7)[0x7ff5ef5dde97]
+/lib/x86_64-linux-gnu/libc.so.6(abort+0x141)[0x7ff5ef5df801]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x4e6f1a)[0x559ea9ba0f1a]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52b9e7)[0x559ea9be59e7]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52a33f)[0x559ea9be433f]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52508a)[0x559ea9bdf08a]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x530523)[0x559ea9bea523]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52150b)[0x559ea9bdb50b]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x520ee8)[0x559ea9bdaee8]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x6b94fb)[0x559ea9d734fb]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x5349ca)[0x559ea9bee9ca]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x4c6ec7)[0x559ea9b80ec7]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xe7)[0x7ff5ef5c0b97]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x4c26e4)[0x559ea9b7c6e4]
+icc (NextGen): error #10106: Fatal error in /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv, terminated by IOT instruction
+Makefile:33: recipe for target 'nearbyintf_float_float.exe' failed
+make: [nearbyintf_float_float.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cosh_float_float.cpp -o cosh_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 tanh_float_float.cpp -o tanh_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 remquo_float_float_int_float.cpp -o remquo_float_float_int_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 erfc_double_double.cpp -o erfc_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 trunc_float_float.cpp -o trunc_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 round_double_double.cpp -o round_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fmodf_float_float_float.cpp -o fmodf_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 lgamma_float_float.cpp -o lgamma_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 llroundf_float_long_long_int.cpp -o llroundf_float_long_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fmod_float_float_float.cpp -o fmod_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 log2f_float_float.cpp -o log2f_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fpclassify_double_int.cpp -o fpclassify_double_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ldexpf_float_int_float.cpp -o ldexpf_float_int_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isinf_float_bool.cpp -o isinf_float_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sqrtf_float_float.cpp -o sqrtf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 erff_float_float.cpp -o erff_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isgreaterequal_float_float_bool.cpp -o isgreaterequal_float_float_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 round_float_float.cpp -o round_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 sinhf_float_float.cpp -o sinhf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 asinh_double_double.cpp -o asinh_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 llrint_double_long_long_int.cpp -o llrint_double_long_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 acosh_float_float.cpp -o acosh_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ldexp_double_int_double.cpp -o ldexp_double_int_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 hypot_double_double_double.cpp -o hypot_double_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 expf_float_float.cpp -o expf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 lgamma_double_double.cpp -o lgamma_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 signbit_float_bool.cpp -o signbit_float_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 asinh_float_float.cpp -o asinh_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 lrint_double_long_int.cpp -o lrint_double_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 scalblnf_float_long_int_float.cpp -o scalblnf_float_long_int_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 atanhf_float_float.cpp -o atanhf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isnan_double_bool.cpp -o isnan_double_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 copysign_float_float_float.cpp -o copysign_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ldexp_float_int_float.cpp -o ldexp_float_int_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 fabs_float_float.cpp -o fabs_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 tgamma_float_float.cpp -o tgamma_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 atan2_float_float_float.cpp -o atan2_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 logf_float_float.cpp -o logf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 islessgreater_float_float_bool.cpp -o islessgreater_float_float_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 ceil_double_double.cpp -o ceil_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cos_double_double.cpp -o cos_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 nearbyint_double_double.cpp -o nearbyint_double_double.exe
+InvalidFunctionCall: Unexpected llvm intrinsic: llvm.nearbyint.f64 [Src: /netbatch/donb26784_00/runDir/23/20200304_000000/llvm/llvm-spirv/lib/SPIRV/SPIRVWriter.cpp:1771  ]
+Stack dump:
+0.	Program arguments: /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv @/home/u36574/tmp/icxargR8Dt3A 
+1.	Running pass 'LLVMToSPIRV' on module '/home/u36574/tmp/icxspvoutp8F1qn'.
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x2c2287)[0x55bc3ff3a287]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x2c0e80)[0x55bc3ff38e80]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x2c248a)[0x55bc3ff3a48a]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x12890)[0x7fae3c20d890]
+/lib/x86_64-linux-gnu/libc.so.6(gsignal+0xc7)[0x7fae3be48e97]
+/lib/x86_64-linux-gnu/libc.so.6(abort+0x141)[0x7fae3be4a801]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x4e6f1a)[0x55bc4015ef1a]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52b9e7)[0x55bc401a39e7]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52a33f)[0x55bc401a233f]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52508a)[0x55bc4019d08a]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x530523)[0x55bc401a8523]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x52150b)[0x55bc4019950b]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x520ee8)[0x55bc40198ee8]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x6b94fb)[0x55bc403314fb]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x5349ca)[0x55bc401ac9ca]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x4c6ec7)[0x55bc4013eec7]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xe7)[0x7fae3be2bb97]
+/glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv(+0x4c26e4)[0x55bc4013a6e4]
+icc (NextGen): error #10106: Fatal error in /glob/development-tools/versions/oneapi/beta05/inteloneapi/compiler/2021.1-beta05/linux/bin/llvm-spirv, terminated by IOT instruction
+Makefile:33: recipe for target 'nearbyint_double_double.exe' failed
+make: [nearbyint_double_double.exe] Error 1 (ignored)
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 islessequal_double_double_bool.cpp -o islessequal_double_double_bool.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 lrintf_float_long_int.cpp -o lrintf_float_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 erfc_float_float.cpp -o erfc_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 acosf_float_float.cpp -o acosf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 expm1_double_double.cpp -o expm1_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 remainderf_float_float_float.cpp -o remainderf_float_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 abs_long_long_int_long_long_int.cpp -o abs_long_long_int_long_long_int.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 tanh_double_double.cpp -o tanh_double_double.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 exp2_float_float.cpp -o exp2_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 cbrtf_float_float.cpp -o cbrtf_float_float.exe
+timeout 45s icc -qnextgen -fiopenmp -fopenmp-targets=spir64 -fopenmp-version=50 isnormal_double_bool.cpp -o isnormal_double_bool.exe
