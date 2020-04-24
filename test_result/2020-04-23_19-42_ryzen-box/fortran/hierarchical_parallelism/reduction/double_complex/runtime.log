@@ -1,2 +1,0 @@
-timeout 45s ./target.exe
-timeout 45s ./target_simd.exe
