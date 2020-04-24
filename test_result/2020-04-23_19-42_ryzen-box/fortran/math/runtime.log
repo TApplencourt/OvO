@@ -1,0 +1,87 @@
+timeout 45s ./LOG10_real_real.exe
+timeout 45s ./MIN_double_precision_double_precision_double_precision.exe
+timeout 45s ./MAX0_integer_integer_integer.exe
+timeout 45s ./AMIN0_integer_integer_real.exe
+timeout 45s ./MIN0_integer_integer_integer.exe
+timeout 45s ./SIGN_real_real_real.exe
+[GPU Memory Error] Addr: 0x0 Reason: Page not present or supervisor privilege. 
+Memory access fault by GPU node-1 (Agent handle: 0x2152cf0) on address (nil). Reason: Page not present or supervisor privilege.
+timeout: the monitored command dumped core
+Makefile:32: recipe for target 'run_SIGN_real_real_real' failed
+make: [run_SIGN_real_real_real] Aborted (ignored)
+timeout 45s ./FLOOR_double_precision_double_precision.exe
+timeout 45s ./FLOOR_real_real.exe
+timeout 45s ./SIGN_double_precision_double_precision_double_precision.exe
+timeout 45s ./MAX_real_real_real.exe
+[GPU Memory Error] Addr: 0x0 Reason: Page not present or supervisor privilege. 
+Memory access fault by GPU node-1 (Agent handle: 0xd1bcf0) on address (nil). Reason: Page not present or supervisor privilege.
+timeout: the monitored command dumped core
+Makefile:32: recipe for target 'run_MAX_real_real_real' failed
+make: [run_MAX_real_real_real] Aborted (ignored)
+timeout 45s ./MIN_integer_integer_real.exe
+timeout 45s ./MAX1_real_real_integer.exe
+[GPU Memory Error] Addr: 0x0 Reason: Page not present or supervisor privilege. 
+Memory access fault by GPU node-1 (Agent handle: 0x1058cf0) on address (nil). Reason: Page not present or supervisor privilege.
+timeout: the monitored command dumped core
+Makefile:32: recipe for target 'run_MAX1_real_real_integer' failed
+make: [run_MAX1_real_real_integer] Aborted (ignored)
+timeout 45s ./LOG10_double_precision_double_precision.exe
+timeout 45s ./CEILING_double_precision_double_precision.exe
+timeout 45s ./DMAX1_double_precision_double_precision_double_precision.exe
+timeout 45s ./AMAX0_integer_integer_real.exe
+timeout 45s ./MAX_double_precision_double_precision_double_precision.exe
+timeout 45s ./FLOAT_integer_real.exe
+timeout 45s ./IFIX_real_integer.exe
+timeout 45s ./MAX_integer_integer_integer.exe
+timeout 45s ./SNGL_double_precision_real.exe
+timeout 45s ./AMIN1_real_real_real.exe
+[GPU Memory Error] Addr: 0x0 Reason: Page not present or supervisor privilege. 
+Memory access fault by GPU node-1 (Agent handle: 0x15eecf0) on address (nil). Reason: Page not present or supervisor privilege.
+timeout: the monitored command dumped core
+Makefile:32: recipe for target 'run_AMIN1_real_real_real' failed
+make: [run_AMIN1_real_real_real] Aborted (ignored)
+timeout 45s ./MAX_real_real_integer.exe
+[GPU Memory Error] Addr: 0x0 Reason: Page not present or supervisor privilege. 
+Memory access fault by GPU node-1 (Agent handle: 0x14ebcf0) on address (nil). Reason: Page not present or supervisor privilege.
+timeout: the monitored command dumped core
+Makefile:32: recipe for target 'run_MAX_real_real_integer' failed
+make: [run_MAX_real_real_integer] Aborted (ignored)
+timeout 45s ./MIN_real_real_real.exe
+[GPU Memory Error] Addr: 0x0 Reason: Page not present or supervisor privilege. 
+Memory access fault by GPU node-1 (Agent handle: 0x1429cf0) on address (nil). Reason: Page not present or supervisor privilege.
+timeout: the monitored command dumped core
+Makefile:32: recipe for target 'run_MIN_real_real_real' failed
+make: [run_MIN_real_real_real] Aborted (ignored)
+timeout 45s ./CEILING_real_real.exe
+timeout 45s ./MIN_integer_integer_integer.exe
+timeout 45s ./DPROD_real_real_double_precision.exe
+[GPU Memory Error] Addr: 0x0 Reason: Page not present or supervisor privilege. 
+Memory access fault by GPU node-1 (Agent handle: 0x1011cf0) on address (nil). Reason: Page not present or supervisor privilege.
+timeout: the monitored command dumped core
+Makefile:32: recipe for target 'run_DPROD_real_real_double_precision' failed
+make: [run_DPROD_real_real_double_precision] Aborted (ignored)
+timeout 45s ./MIN1_real_real_integer.exe
+[GPU Memory Error] Addr: 0x0 Reason: Page not present or supervisor privilege. 
+Memory access fault by GPU node-1 (Agent handle: 0x1fbacf0) on address (nil). Reason: Page not present or supervisor privilege.
+timeout: the monitored command dumped core
+Makefile:32: recipe for target 'run_MIN1_real_real_integer' failed
+make: [run_MIN1_real_real_integer] Aborted (ignored)
+timeout 45s ./DMIN1_double_precision_double_precision_double_precision.exe
+timeout 45s ./AINT_double_precision_double_precision.exe
+timeout 45s ./AINT_real_real.exe
+timeout 45s ./IDINT_double_precision_integer.exe
+timeout 45s ./MAX_integer_integer_real.exe
+timeout 45s ./SIGN_integer_integer_integer.exe
+timeout 45s ./AMAX1_real_real_real.exe
+[GPU Memory Error] Addr: 0x0 Reason: Page not present or supervisor privilege. 
+Memory access fault by GPU node-1 (Agent handle: 0x11e7cf0) on address (nil). Reason: Page not present or supervisor privilege.
+timeout: the monitored command dumped core
+Makefile:32: recipe for target 'run_AMAX1_real_real_real' failed
+make: [run_AMAX1_real_real_real] Aborted (ignored)
+timeout 45s ./MOD_integer_integer_integer.exe
+timeout 45s ./MIN_real_real_integer.exe
+[GPU Memory Error] Addr: 0x0 Reason: Page not present or supervisor privilege. 
+Memory access fault by GPU node-1 (Agent handle: 0xecccf0) on address (nil). Reason: Page not present or supervisor privilege.
+timeout: the monitored command dumped core
+Makefile:32: recipe for target 'run_MIN_real_real_integer' failed
+make: [run_MIN_real_real_integer] Aborted (ignored)

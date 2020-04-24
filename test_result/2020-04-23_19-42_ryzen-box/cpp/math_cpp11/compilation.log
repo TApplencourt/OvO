@@ -1,0 +1,366 @@
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 frexpf_float_int_float.cpp -o frexpf_float_int_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isfinite_double_bool.cpp -o isfinite_double_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 round_float_float.cpp -o round_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 lgamma_double_double.cpp -o lgamma_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 expm1_float_float.cpp -o expm1_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fdimf_float_float_float.cpp -o fdimf_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 atan_double_double.cpp -o atan_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fabs_double_double.cpp -o fabs_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fpclassify_double_int.cpp -o fpclassify_double_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 truncf_float_float.cpp -o truncf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fma_float_float_float_float.cpp -o fma_float_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 copysign_double_double_double.cpp -o copysign_double_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 llround_double_long_long_int.cpp -o llround_double_long_long_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 floorf_float_float.cpp -o floorf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 islessgreater_double_double_bool.cpp -o islessgreater_double_double_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 logb_double_double.cpp -o logb_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 cbrt_float_float.cpp -o cbrt_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isinf_float_bool.cpp -o isinf_float_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 modf_double_double_double.cpp -o modf_double_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 llrint_float_long_long_int.cpp -o llrint_float_long_long_int.exe
+LLVM ERROR: unsupported libcall legalization
+PLEASE submit a bug report to https://github.com/ROCm-Developer-Tools/aomp and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/lib/aomp_11.0-1/bin/llc /tmp/llrint_float_long_long_int-gfx906-c57748-gfx906-optimized-81d055.bc -mtriple=amdgcn-amd-amdhsa -filetype=obj -mcpu=gfx906 -o /tmp/llrint_float_long_long_int-gfx906-c57748-gfx906-42ac9f.o 
+1.	Running pass 'CallGraph Pass Manager' on module '/tmp/llrint_float_long_long_int-gfx906-c57748-gfx906-optimized-81d055.bc'.
+2.	Running pass 'AMDGPU DAG->DAG Pattern Instruction Selection' on function '@__omp_offloading_10304_24638db__Z11test_llrintv_l15'
+ #0 0x000055e86e8b774a llvm::sys::PrintStackTrace(llvm::raw_ostream&) (/usr/lib/aomp_11.0-1/bin/llc+0x1ab474a)
+ #1 0x000055e86e8b52c4 llvm::sys::RunSignalHandlers() (/usr/lib/aomp_11.0-1/bin/llc+0x1ab22c4)
+ #2 0x000055e86e8b5413 (/usr/lib/aomp_11.0-1/bin/llc+0x1ab2413)
+ #3 0x00007f3c97923890 __restore_rt (/lib/x86_64-linux-gnu/libpthread.so.0+0x12890)
+ #4 0x00007f3c965d4e97 raise /build/glibc-OTsEL5/glibc-2.27/signal/../sysdeps/unix/sysv/linux/raise.c:51:0
+ #5 0x00007f3c965d6801 abort /build/glibc-OTsEL5/glibc-2.27/stdlib/abort.c:81:0
+ #6 0x000055e86e830cbe llvm::report_fatal_error(llvm::Twine const&, bool) (/usr/lib/aomp_11.0-1/bin/llc+0x1a2dcbe)
+ #7 0x000055e86e830de8 (/usr/lib/aomp_11.0-1/bin/llc+0x1a2dde8)
+ #8 0x000055e86d5301a8 (/usr/lib/aomp_11.0-1/bin/llc+0x72d1a8)
+ #9 0x000055e86e6814f1 llvm::TargetLowering::LowerCallTo(llvm::TargetLowering::CallLoweringInfo&) const (/usr/lib/aomp_11.0-1/bin/llc+0x187e4f1)
+#10 0x000055e86e62ea4d (/usr/lib/aomp_11.0-1/bin/llc+0x182ba4d)
+#11 0x000055e86e62f188 (/usr/lib/aomp_11.0-1/bin/llc+0x182c188)
+#12 0x000055e86e6380b7 (/usr/lib/aomp_11.0-1/bin/llc+0x18350b7)
+#13 0x000055e86e639a24 (/usr/lib/aomp_11.0-1/bin/llc+0x1836a24)
+#14 0x000055e86e64ca13 llvm::SelectionDAG::Legalize() (/usr/lib/aomp_11.0-1/bin/llc+0x1849a13)
+#15 0x000055e86e7126cb llvm::SelectionDAGISel::CodeGenAndEmitDAG() (/usr/lib/aomp_11.0-1/bin/llc+0x190f6cb)
+#16 0x000055e86e71710b llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) (/usr/lib/aomp_11.0-1/bin/llc+0x191410b)
+#17 0x000055e86e718b5a (/usr/lib/aomp_11.0-1/bin/llc+0x1915b5a)
+#18 0x000055e86d5ee7ba (/usr/lib/aomp_11.0-1/bin/llc+0x7eb7ba)
+#19 0x000055e86ddd723e llvm::MachineFunctionPass::runOnFunction(llvm::Function&) (/usr/lib/aomp_11.0-1/bin/llc+0xfd423e)
+#20 0x000055e86e1c8f31 llvm::FPPassManager::runOnFunction(llvm::Function&) (/usr/lib/aomp_11.0-1/bin/llc+0x13c5f31)
+#21 0x000055e86da28f4a (/usr/lib/aomp_11.0-1/bin/llc+0xc25f4a)
+#22 0x000055e86e1c9dc1 llvm::legacy::PassManagerImpl::run(llvm::Module&) (/usr/lib/aomp_11.0-1/bin/llc+0x13c6dc1)
+#23 0x000055e86d3b26ec (/usr/lib/aomp_11.0-1/bin/llc+0x5af6ec)
+#24 0x000055e86d345e0e main (/usr/lib/aomp_11.0-1/bin/llc+0x542e0e)
+#25 0x00007f3c965b7b97 __libc_start_main /build/glibc-OTsEL5/glibc-2.27/csu/../csu/libc-start.c:344:0
+#26 0x000055e86d3abf9a _start (/usr/lib/aomp_11.0-1/bin/llc+0x5a8f9a)
+clang-11: error: unable to execute command: Aborted (core dumped)
+clang-11: error: amdgcn-link command failed due to signal (use -v to see invocation)
+clang version 11.0.0 (https://github.com/ROCm-Developer-Tools/amd-llvm-project ccd1e4e8824f19045dc14561b6b733fe130dd2ae)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/aomp/bin
+clang-11: note: diagnostic msg: PLEASE open a git issue at https://github.com/ROCm-Developer-Tools/aomp with a detailed description of this problem.
+clang-11: note: diagnostic msg: Error generating preprocessed source(s).
+Makefile:33: recipe for target 'llrint_float_long_long_int.exe' failed
+make: [llrint_float_long_long_int.exe] Error 254 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 pow_float_float_float.cpp -o pow_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 roundf_float_float.cpp -o roundf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 remquo_double_double_int_double.cpp -o remquo_double_double_int_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 exp_float_float.cpp -o exp_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 lroundf_float_long_int.cpp -o lroundf_float_long_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fabsf_float_float.cpp -o fabsf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 modff_float_float_float.cpp -o modff_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 asin_double_double.cpp -o asin_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 lround_double_long_int.cpp -o lround_double_long_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 hypot_float_float_float.cpp -o hypot_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isnormal_double_bool.cpp -o isnormal_double_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 erf_float_float.cpp -o erf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 llroundf_float_long_long_int.cpp -o llroundf_float_long_long_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fmin_double_double_double.cpp -o fmin_double_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fabs_float_float.cpp -o fabs_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fma_double_double_double_double.cpp -o fma_double_double_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isinf_double_bool.cpp -o isinf_double_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 logbf_float_float.cpp -o logbf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 erfcf_float_float.cpp -o erfcf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 atanf_float_float.cpp -o atanf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isgreater_double_double_bool.cpp -o isgreater_double_double_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 expf_float_float.cpp -o expf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 sin_float_float.cpp -o sin_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 log2_double_double.cpp -o log2_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 log1pf_float_float.cpp -o log1pf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isgreater_float_float_bool.cpp -o isgreater_float_float_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isless_double_double_bool.cpp -o isless_double_double_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 hypotf_float_float_float.cpp -o hypotf_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 logb_float_float.cpp -o logb_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 nextafterf_float_float_float.cpp -o nextafterf_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 powf_float_float_float.cpp -o powf_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 asin_float_float.cpp -o asin_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 asinf_float_float.cpp -o asinf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isless_float_float_bool.cpp -o isless_float_float_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 tgamma_double_double.cpp -o tgamma_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 erf_double_double.cpp -o erf_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 atanh_float_float.cpp -o atanh_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 atan_float_float.cpp -o atan_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 tan_double_double.cpp -o tan_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 frexp_float_int_float.cpp -o frexp_float_int_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isnan_float_bool.cpp -o isnan_float_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 scalbn_float_int_float.cpp -o scalbn_float_int_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 sin_double_double.cpp -o sin_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 modf_float_float_float.cpp -o modf_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 tanhf_float_float.cpp -o tanhf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 log1p_double_double.cpp -o log1p_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 copysignf_float_float_float.cpp -o copysignf_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 trunc_double_double.cpp -o trunc_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 rint_float_float.cpp -o rint_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 tan_float_float.cpp -o tan_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 abs_long_int_long_int.cpp -o abs_long_int_long_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 log2_float_float.cpp -o log2_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 log10_float_float.cpp -o log10_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 rint_double_double.cpp -o rint_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 remquo_float_float_int_float.cpp -o remquo_float_float_int_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 pow_double_double_double.cpp -o pow_double_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 acoshf_float_float.cpp -o acoshf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 lrintf_float_long_int.cpp -o lrintf_float_long_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 atan2_double_double_double.cpp -o atan2_double_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 exp2_double_double.cpp -o exp2_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 remainder_float_float_float.cpp -o remainder_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fdim_float_float_float.cpp -o fdim_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fmin_float_float_float.cpp -o fmin_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 scalbln_double_long_int_double.cpp -o scalbln_double_long_int_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 cbrt_double_double.cpp -o cbrt_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isnormal_float_bool.cpp -o isnormal_float_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 floor_double_double.cpp -o floor_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 islessequal_float_float_bool.cpp -o islessequal_float_float_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isunordered_float_float_bool.cpp -o isunordered_float_float_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 signbit_double_bool.cpp -o signbit_double_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 llround_float_long_long_int.cpp -o llround_float_long_long_int.exe
+LLVM ERROR: unsupported libcall legalization
+PLEASE submit a bug report to https://github.com/ROCm-Developer-Tools/aomp and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/lib/aomp_11.0-1/bin/llc /tmp/llround_float_long_long_int-gfx906-a4362e-gfx906-optimized-ab6df1.bc -mtriple=amdgcn-amd-amdhsa -filetype=obj -mcpu=gfx906 -o /tmp/llround_float_long_long_int-gfx906-a4362e-gfx906-4a5707.o 
+1.	Running pass 'CallGraph Pass Manager' on module '/tmp/llround_float_long_long_int-gfx906-a4362e-gfx906-optimized-ab6df1.bc'.
+2.	Running pass 'AMDGPU DAG->DAG Pattern Instruction Selection' on function '@__omp_offloading_10304_24638e0__Z12test_llroundv_l15'
+ #0 0x000055fa06ed174a llvm::sys::PrintStackTrace(llvm::raw_ostream&) (/usr/lib/aomp_11.0-1/bin/llc+0x1ab474a)
+ #1 0x000055fa06ecf2c4 llvm::sys::RunSignalHandlers() (/usr/lib/aomp_11.0-1/bin/llc+0x1ab22c4)
+ #2 0x000055fa06ecf413 (/usr/lib/aomp_11.0-1/bin/llc+0x1ab2413)
+ #3 0x00007f6dbccc4890 __restore_rt (/lib/x86_64-linux-gnu/libpthread.so.0+0x12890)
+ #4 0x00007f6dbb975e97 raise /build/glibc-OTsEL5/glibc-2.27/signal/../sysdeps/unix/sysv/linux/raise.c:51:0
+ #5 0x00007f6dbb977801 abort /build/glibc-OTsEL5/glibc-2.27/stdlib/abort.c:81:0
+ #6 0x000055fa06e4acbe llvm::report_fatal_error(llvm::Twine const&, bool) (/usr/lib/aomp_11.0-1/bin/llc+0x1a2dcbe)
+ #7 0x000055fa06e4ade8 (/usr/lib/aomp_11.0-1/bin/llc+0x1a2dde8)
+ #8 0x000055fa05b4a1a8 (/usr/lib/aomp_11.0-1/bin/llc+0x72d1a8)
+ #9 0x000055fa06c9b4f1 llvm::TargetLowering::LowerCallTo(llvm::TargetLowering::CallLoweringInfo&) const (/usr/lib/aomp_11.0-1/bin/llc+0x187e4f1)
+#10 0x000055fa06c48a4d (/usr/lib/aomp_11.0-1/bin/llc+0x182ba4d)
+#11 0x000055fa06c49188 (/usr/lib/aomp_11.0-1/bin/llc+0x182c188)
+#12 0x000055fa06c52447 (/usr/lib/aomp_11.0-1/bin/llc+0x1835447)
+#13 0x000055fa06c53a24 (/usr/lib/aomp_11.0-1/bin/llc+0x1836a24)
+#14 0x000055fa06c66a13 llvm::SelectionDAG::Legalize() (/usr/lib/aomp_11.0-1/bin/llc+0x1849a13)
+#15 0x000055fa06d2c6cb llvm::SelectionDAGISel::CodeGenAndEmitDAG() (/usr/lib/aomp_11.0-1/bin/llc+0x190f6cb)
+#16 0x000055fa06d3110b llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) (/usr/lib/aomp_11.0-1/bin/llc+0x191410b)
+#17 0x000055fa06d32b5a (/usr/lib/aomp_11.0-1/bin/llc+0x1915b5a)
+#18 0x000055fa05c087ba (/usr/lib/aomp_11.0-1/bin/llc+0x7eb7ba)
+#19 0x000055fa063f123e llvm::MachineFunctionPass::runOnFunction(llvm::Function&) (/usr/lib/aomp_11.0-1/bin/llc+0xfd423e)
+#20 0x000055fa067e2f31 llvm::FPPassManager::runOnFunction(llvm::Function&) (/usr/lib/aomp_11.0-1/bin/llc+0x13c5f31)
+#21 0x000055fa06042f4a (/usr/lib/aomp_11.0-1/bin/llc+0xc25f4a)
+#22 0x000055fa067e3dc1 llvm::legacy::PassManagerImpl::run(llvm::Module&) (/usr/lib/aomp_11.0-1/bin/llc+0x13c6dc1)
+#23 0x000055fa059cc6ec (/usr/lib/aomp_11.0-1/bin/llc+0x5af6ec)
+#24 0x000055fa0595fe0e main (/usr/lib/aomp_11.0-1/bin/llc+0x542e0e)
+#25 0x00007f6dbb958b97 __libc_start_main /build/glibc-OTsEL5/glibc-2.27/csu/../csu/libc-start.c:344:0
+#26 0x000055fa059c5f9a _start (/usr/lib/aomp_11.0-1/bin/llc+0x5a8f9a)
+clang-11: error: unable to execute command: Aborted (core dumped)
+clang-11: error: amdgcn-link command failed due to signal (use -v to see invocation)
+clang version 11.0.0 (https://github.com/ROCm-Developer-Tools/amd-llvm-project ccd1e4e8824f19045dc14561b6b733fe130dd2ae)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/aomp/bin
+clang-11: note: diagnostic msg: PLEASE open a git issue at https://github.com/ROCm-Developer-Tools/aomp with a detailed description of this problem.
+clang-11: note: diagnostic msg: Error generating preprocessed source(s).
+Makefile:33: recipe for target 'llround_float_long_long_int.exe' failed
+make: [llround_float_long_long_int.exe] Error 254 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 lround_float_long_int.cpp -o lround_float_long_int.exe
+LLVM ERROR: unsupported libcall legalization
+PLEASE submit a bug report to https://github.com/ROCm-Developer-Tools/aomp and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/lib/aomp_11.0-1/bin/llc /tmp/lround_float_long_int-gfx906-83f569-gfx906-optimized-5a3859.bc -mtriple=amdgcn-amd-amdhsa -filetype=obj -mcpu=gfx906 -o /tmp/lround_float_long_int-gfx906-83f569-gfx906-8dc722.o 
+1.	Running pass 'CallGraph Pass Manager' on module '/tmp/lround_float_long_int-gfx906-83f569-gfx906-optimized-5a3859.bc'.
+2.	Running pass 'AMDGPU DAG->DAG Pattern Instruction Selection' on function '@__omp_offloading_10304_2463903__Z11test_lroundv_l15'
+ #0 0x0000560cca37f74a llvm::sys::PrintStackTrace(llvm::raw_ostream&) (/usr/lib/aomp_11.0-1/bin/llc+0x1ab474a)
+ #1 0x0000560cca37d2c4 llvm::sys::RunSignalHandlers() (/usr/lib/aomp_11.0-1/bin/llc+0x1ab22c4)
+ #2 0x0000560cca37d413 (/usr/lib/aomp_11.0-1/bin/llc+0x1ab2413)
+ #3 0x00007fa73f335890 __restore_rt (/lib/x86_64-linux-gnu/libpthread.so.0+0x12890)
+ #4 0x00007fa73dfe6e97 raise /build/glibc-OTsEL5/glibc-2.27/signal/../sysdeps/unix/sysv/linux/raise.c:51:0
+ #5 0x00007fa73dfe8801 abort /build/glibc-OTsEL5/glibc-2.27/stdlib/abort.c:81:0
+ #6 0x0000560cca2f8cbe llvm::report_fatal_error(llvm::Twine const&, bool) (/usr/lib/aomp_11.0-1/bin/llc+0x1a2dcbe)
+ #7 0x0000560cca2f8de8 (/usr/lib/aomp_11.0-1/bin/llc+0x1a2dde8)
+ #8 0x0000560cc8ff81a8 (/usr/lib/aomp_11.0-1/bin/llc+0x72d1a8)
+ #9 0x0000560cca1494f1 llvm::TargetLowering::LowerCallTo(llvm::TargetLowering::CallLoweringInfo&) const (/usr/lib/aomp_11.0-1/bin/llc+0x187e4f1)
+#10 0x0000560cca0f6a4d (/usr/lib/aomp_11.0-1/bin/llc+0x182ba4d)
+#11 0x0000560cca0f7188 (/usr/lib/aomp_11.0-1/bin/llc+0x182c188)
+#12 0x0000560cca100477 (/usr/lib/aomp_11.0-1/bin/llc+0x1835477)
+#13 0x0000560cca101a24 (/usr/lib/aomp_11.0-1/bin/llc+0x1836a24)
+#14 0x0000560cca114a13 llvm::SelectionDAG::Legalize() (/usr/lib/aomp_11.0-1/bin/llc+0x1849a13)
+#15 0x0000560cca1da6cb llvm::SelectionDAGISel::CodeGenAndEmitDAG() (/usr/lib/aomp_11.0-1/bin/llc+0x190f6cb)
+#16 0x0000560cca1df10b llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) (/usr/lib/aomp_11.0-1/bin/llc+0x191410b)
+#17 0x0000560cca1e0b5a (/usr/lib/aomp_11.0-1/bin/llc+0x1915b5a)
+#18 0x0000560cc90b67ba (/usr/lib/aomp_11.0-1/bin/llc+0x7eb7ba)
+#19 0x0000560cc989f23e llvm::MachineFunctionPass::runOnFunction(llvm::Function&) (/usr/lib/aomp_11.0-1/bin/llc+0xfd423e)
+#20 0x0000560cc9c90f31 llvm::FPPassManager::runOnFunction(llvm::Function&) (/usr/lib/aomp_11.0-1/bin/llc+0x13c5f31)
+#21 0x0000560cc94f0f4a (/usr/lib/aomp_11.0-1/bin/llc+0xc25f4a)
+#22 0x0000560cc9c91dc1 llvm::legacy::PassManagerImpl::run(llvm::Module&) (/usr/lib/aomp_11.0-1/bin/llc+0x13c6dc1)
+#23 0x0000560cc8e7a6ec (/usr/lib/aomp_11.0-1/bin/llc+0x5af6ec)
+#24 0x0000560cc8e0de0e main (/usr/lib/aomp_11.0-1/bin/llc+0x542e0e)
+#25 0x00007fa73dfc9b97 __libc_start_main /build/glibc-OTsEL5/glibc-2.27/csu/../csu/libc-start.c:344:0
+#26 0x0000560cc8e73f9a _start (/usr/lib/aomp_11.0-1/bin/llc+0x5a8f9a)
+clang-11: error: unable to execute command: Aborted (core dumped)
+clang-11: error: amdgcn-link command failed due to signal (use -v to see invocation)
+clang version 11.0.0 (https://github.com/ROCm-Developer-Tools/amd-llvm-project ccd1e4e8824f19045dc14561b6b733fe130dd2ae)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/aomp/bin
+clang-11: note: diagnostic msg: PLEASE open a git issue at https://github.com/ROCm-Developer-Tools/aomp with a detailed description of this problem.
+clang-11: note: diagnostic msg: Error generating preprocessed source(s).
+Makefile:33: recipe for target 'lround_float_long_int.exe' failed
+make: [lround_float_long_int.exe] Error 254 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fmodf_float_float_float.cpp -o fmodf_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fminf_float_float_float.cpp -o fminf_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 copysign_float_float_float.cpp -o copysign_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ilogb_float_int.cpp -o ilogb_float_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 expm1f_float_float.cpp -o expm1f_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 abs_double_double.cpp -o abs_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 nextafter_float_float_float.cpp -o nextafter_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 remquof_float_float_int_float.cpp -o remquof_float_float_int_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 atanh_double_double.cpp -o atanh_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ldexp_double_int_double.cpp -o ldexp_double_int_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 acos_float_float.cpp -o acos_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 log1p_float_float.cpp -o log1p_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 abs_int_int.cpp -o abs_int_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 coshf_float_float.cpp -o coshf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 abs_float_float.cpp -o abs_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fmaf_float_float_float_float.cpp -o fmaf_float_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 asinhf_float_float.cpp -o asinhf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 expm1_double_double.cpp -o expm1_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fdim_double_double_double.cpp -o fdim_double_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 scalbnf_float_int_float.cpp -o scalbnf_float_int_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 remainder_double_double_double.cpp -o remainder_double_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 tanf_float_float.cpp -o tanf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 log_double_double.cpp -o log_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 tanh_double_double.cpp -o tanh_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 exp_double_double.cpp -o exp_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 sqrtf_float_float.cpp -o sqrtf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fmaxf_float_float_float.cpp -o fmaxf_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ceil_float_float.cpp -o ceil_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 tgammaf_float_float.cpp -o tgammaf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fmod_double_double_double.cpp -o fmod_double_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 scalbln_float_long_int_float.cpp -o scalbln_float_long_int_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 log_float_float.cpp -o log_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 nextafter_double_double_double.cpp -o nextafter_double_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fmax_double_double_double.cpp -o fmax_double_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 lgammaf_float_float.cpp -o lgammaf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isfinite_float_bool.cpp -o isfinite_float_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 atanhf_float_float.cpp -o atanhf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 rintf_float_float.cpp -o rintf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 atan2f_float_float_float.cpp -o atan2f_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 log10_double_double.cpp -o log10_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 acosh_double_double.cpp -o acosh_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 scalbn_double_int_double.cpp -o scalbn_double_int_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 cos_double_double.cpp -o cos_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fpclassify_float_int.cpp -o fpclassify_float_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 cosf_float_float.cpp -o cosf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 cosh_double_double.cpp -o cosh_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 sqrt_float_float.cpp -o sqrt_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 frexp_double_int_double.cpp -o frexp_double_int_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isgreaterequal_double_double_bool.cpp -o isgreaterequal_double_double_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ilogb_double_int.cpp -o ilogb_double_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 acosh_float_float.cpp -o acosh_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 lrint_float_long_int.cpp -o lrint_float_long_int.exe
+LLVM ERROR: unsupported libcall legalization
+PLEASE submit a bug report to https://github.com/ROCm-Developer-Tools/aomp and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/lib/aomp_11.0-1/bin/llc /tmp/lrint_float_long_int-gfx906-e62bd8-gfx906-optimized-0560f2.bc -mtriple=amdgcn-amd-amdhsa -filetype=obj -mcpu=gfx906 -o /tmp/lrint_float_long_int-gfx906-e62bd8-gfx906-fe8195.o 
+1.	Running pass 'CallGraph Pass Manager' on module '/tmp/lrint_float_long_int-gfx906-e62bd8-gfx906-optimized-0560f2.bc'.
+2.	Running pass 'AMDGPU DAG->DAG Pattern Instruction Selection' on function '@__omp_offloading_10304_24638fe__Z10test_lrintv_l15'
+ #0 0x000055a41b6c474a llvm::sys::PrintStackTrace(llvm::raw_ostream&) (/usr/lib/aomp_11.0-1/bin/llc+0x1ab474a)
+ #1 0x000055a41b6c22c4 llvm::sys::RunSignalHandlers() (/usr/lib/aomp_11.0-1/bin/llc+0x1ab22c4)
+ #2 0x000055a41b6c2413 (/usr/lib/aomp_11.0-1/bin/llc+0x1ab2413)
+ #3 0x00007fe7a61ef890 __restore_rt (/lib/x86_64-linux-gnu/libpthread.so.0+0x12890)
+ #4 0x00007fe7a4ea0e97 raise /build/glibc-OTsEL5/glibc-2.27/signal/../sysdeps/unix/sysv/linux/raise.c:51:0
+ #5 0x00007fe7a4ea2801 abort /build/glibc-OTsEL5/glibc-2.27/stdlib/abort.c:81:0
+ #6 0x000055a41b63dcbe llvm::report_fatal_error(llvm::Twine const&, bool) (/usr/lib/aomp_11.0-1/bin/llc+0x1a2dcbe)
+ #7 0x000055a41b63dde8 (/usr/lib/aomp_11.0-1/bin/llc+0x1a2dde8)
+ #8 0x000055a41a33d1a8 (/usr/lib/aomp_11.0-1/bin/llc+0x72d1a8)
+ #9 0x000055a41b48e4f1 llvm::TargetLowering::LowerCallTo(llvm::TargetLowering::CallLoweringInfo&) const (/usr/lib/aomp_11.0-1/bin/llc+0x187e4f1)
+#10 0x000055a41b43ba4d (/usr/lib/aomp_11.0-1/bin/llc+0x182ba4d)
+#11 0x000055a41b43c188 (/usr/lib/aomp_11.0-1/bin/llc+0x182c188)
+#12 0x000055a41b445417 (/usr/lib/aomp_11.0-1/bin/llc+0x1835417)
+#13 0x000055a41b446a24 (/usr/lib/aomp_11.0-1/bin/llc+0x1836a24)
+#14 0x000055a41b459a13 llvm::SelectionDAG::Legalize() (/usr/lib/aomp_11.0-1/bin/llc+0x1849a13)
+#15 0x000055a41b51f6cb llvm::SelectionDAGISel::CodeGenAndEmitDAG() (/usr/lib/aomp_11.0-1/bin/llc+0x190f6cb)
+#16 0x000055a41b52410b llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) (/usr/lib/aomp_11.0-1/bin/llc+0x191410b)
+#17 0x000055a41b525b5a (/usr/lib/aomp_11.0-1/bin/llc+0x1915b5a)
+#18 0x000055a41a3fb7ba (/usr/lib/aomp_11.0-1/bin/llc+0x7eb7ba)
+#19 0x000055a41abe423e llvm::MachineFunctionPass::runOnFunction(llvm::Function&) (/usr/lib/aomp_11.0-1/bin/llc+0xfd423e)
+#20 0x000055a41afd5f31 llvm::FPPassManager::runOnFunction(llvm::Function&) (/usr/lib/aomp_11.0-1/bin/llc+0x13c5f31)
+#21 0x000055a41a835f4a (/usr/lib/aomp_11.0-1/bin/llc+0xc25f4a)
+#22 0x000055a41afd6dc1 llvm::legacy::PassManagerImpl::run(llvm::Module&) (/usr/lib/aomp_11.0-1/bin/llc+0x13c6dc1)
+#23 0x000055a41a1bf6ec (/usr/lib/aomp_11.0-1/bin/llc+0x5af6ec)
+#24 0x000055a41a152e0e main (/usr/lib/aomp_11.0-1/bin/llc+0x542e0e)
+#25 0x00007fe7a4e83b97 __libc_start_main /build/glibc-OTsEL5/glibc-2.27/csu/../csu/libc-start.c:344:0
+#26 0x000055a41a1b8f9a _start (/usr/lib/aomp_11.0-1/bin/llc+0x5a8f9a)
+clang-11: error: unable to execute command: Aborted (core dumped)
+clang-11: error: amdgcn-link command failed due to signal (use -v to see invocation)
+clang version 11.0.0 (https://github.com/ROCm-Developer-Tools/amd-llvm-project ccd1e4e8824f19045dc14561b6b733fe130dd2ae)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/aomp/bin
+clang-11: note: diagnostic msg: PLEASE open a git issue at https://github.com/ROCm-Developer-Tools/aomp with a detailed description of this problem.
+clang-11: note: diagnostic msg: Error generating preprocessed source(s).
+Makefile:33: recipe for target 'lrint_float_long_int.exe' failed
+make: [lrint_float_long_int.exe] Error 254 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 floor_float_float.cpp -o floor_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 log10f_float_float.cpp -o log10f_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 exp2f_float_float.cpp -o exp2f_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 nearbyintf_float_float.cpp -o nearbyintf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 cosh_float_float.cpp -o cosh_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 erfc_double_double.cpp -o erfc_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 tanh_float_float.cpp -o tanh_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 lgamma_float_float.cpp -o lgamma_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fmod_float_float_float.cpp -o fmod_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 round_double_double.cpp -o round_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 log2f_float_float.cpp -o log2f_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ilogbf_float_int.cpp -o ilogbf_float_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ldexp_float_int_float.cpp -o ldexp_float_int_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 signbit_float_bool.cpp -o signbit_float_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 erff_float_float.cpp -o erff_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isgreaterequal_float_float_bool.cpp -o isgreaterequal_float_float_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isunordered_double_double_bool.cpp -o isunordered_double_double_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 trunc_float_float.cpp -o trunc_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 asinh_double_double.cpp -o asinh_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 llrint_double_long_long_int.cpp -o llrint_double_long_long_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 sinf_float_float.cpp -o sinf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 sqrt_double_double.cpp -o sqrt_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 hypot_double_double_double.cpp -o hypot_double_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 cos_float_float.cpp -o cos_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 asinh_float_float.cpp -o asinh_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 lrint_double_long_int.cpp -o lrint_double_long_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 scalblnf_float_long_int_float.cpp -o scalblnf_float_long_int_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 acos_double_double.cpp -o acos_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 isnan_double_bool.cpp -o isnan_double_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 sinh_float_float.cpp -o sinh_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 fmax_float_float_float.cpp -o fmax_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ceilf_float_float.cpp -o ceilf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 tgamma_float_float.cpp -o tgamma_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 atan2_float_float_float.cpp -o atan2_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 logf_float_float.cpp -o logf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 islessgreater_float_float_bool.cpp -o islessgreater_float_float_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ceil_double_double.cpp -o ceil_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 nearbyint_double_double.cpp -o nearbyint_double_double.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 islessequal_double_double_bool.cpp -o islessequal_double_double_bool.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 erfc_float_float.cpp -o erfc_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 acosf_float_float.cpp -o acosf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 remainderf_float_float_float.cpp -o remainderf_float_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 abs_long_long_int_long_long_int.cpp -o abs_long_long_int_long_long_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 exp2_float_float.cpp -o exp2_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 llrintf_float_long_long_int.cpp -o llrintf_float_long_long_int.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 cbrtf_float_float.cpp -o cbrtf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 nearbyint_float_float.cpp -o nearbyint_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ldexpf_float_int_float.cpp -o ldexpf_float_int_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 sinhf_float_float.cpp -o sinhf_float_float.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 sinh_double_double.cpp -o sinh_double_double.exe
