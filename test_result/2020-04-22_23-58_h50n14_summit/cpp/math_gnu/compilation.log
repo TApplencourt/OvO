@@ -1,2 +1,0 @@
-timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload sincosf_float_float_float.cpp -o sincosf_float_float_float.exe
-timeout 45s xlC_r -std=c++11 -qsmp=omp -qoffload sincos_double_double_double.cpp -o sincos_double_double_double.exe

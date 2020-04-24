@@ -1,2 +1,0 @@
-timeout 45s ./sincos_double_double_double.exe
-timeout 45s ./sincosf_float_float_float.exe
