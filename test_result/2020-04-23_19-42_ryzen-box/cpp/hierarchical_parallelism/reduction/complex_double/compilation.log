@@ -1,0 +1,407 @@
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams_distribute__parallel__for__simd.cpp -o target_teams_distribute__parallel__for__simd.exe
+target_teams_distribute__parallel__for__simd.cpp:17:73: error: reduction variable cannot be in a map clause in '#pragma omp target teams distribute' directive
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                                        ^
+target_teams_distribute__parallel__for__simd.cpp:17:51: note: defined as reduction
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                  ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams_distribute__parallel__for__simd.exe' failed
+make: [target_teams_distribute__parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_parallel.cpp -o target_parallel.exe
+target_parallel.cpp:20:65: error: reduction variable cannot be in a map clause in '#pragma omp target parallel' directive
+#pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
+                                                                ^
+target_parallel.cpp:20:43: note: defined as reduction
+#pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
+                                          ^
+1 error generated.
+Makefile:33: recipe for target 'target_parallel.exe' failed
+make: [target_parallel.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams_distribute_parallel_for__simd.cpp -o target_teams_distribute_parallel_for__simd.exe
+target_teams_distribute_parallel_for__simd.cpp:16:86: error: reduction variable cannot be in a map clause in '#pragma omp target teams distribute parallel for' directive
+#pragma omp target teams distribute parallel for  reduction(+: counter)   map(tofrom:counter) 
+                                                                                     ^
+target_teams_distribute_parallel_for__simd.cpp:16:64: note: defined as reduction
+#pragma omp target teams distribute parallel for  reduction(+: counter)   map(tofrom:counter) 
+                                                               ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams_distribute_parallel_for__simd.exe' failed
+make: [target_teams_distribute_parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams_distribute_parallel_for__simd.cpp -o target__teams_distribute_parallel_for__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams_distribute__parallel_for.cpp -o target__teams_distribute__parallel_for.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__parallel_for__simd.cpp -o target__parallel_for__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__distribute__parallel__for__simd.cpp -o target_teams__distribute__parallel__for__simd.exe
+target_teams__distribute__parallel__for__simd.cpp:17:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__distribute__parallel__for__simd.cpp:17:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__distribute__parallel__for__simd.exe' failed
+make: [target_teams__distribute__parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__parallel__for__simd.cpp -o target__teams__parallel__for__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams_distribute_parallel_for.cpp -o target__teams_distribute_parallel_for.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__distribute__parallel.cpp -o target__teams__distribute__parallel.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__distribute__parallel__simd.cpp -o target__teams__distribute__parallel__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams_distribute__parallel_for__simd.cpp -o target__teams_distribute__parallel_for__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__distribute.cpp -o target__teams__distribute.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__distribute__parallel__for.cpp -o target__teams__distribute__parallel__for.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__distribute__parallel_for.cpp -o target_teams__distribute__parallel_for.exe
+target_teams__distribute__parallel_for.cpp:16:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__distribute__parallel_for.cpp:16:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__distribute__parallel_for.exe' failed
+make: [target_teams__distribute__parallel_for.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__parallel_for__simd.cpp -o target__teams__parallel_for__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__parallel__simd.cpp -o target__parallel__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_parallel_for__simd.cpp -o target_parallel_for__simd.exe
+target_parallel_for__simd.cpp:16:69: error: reduction variable cannot be in a map clause in '#pragma omp target parallel for' directive
+#pragma omp target parallel for  reduction(+: counter)   map(tofrom:counter) 
+                                                                    ^
+target_parallel_for__simd.cpp:16:47: note: defined as reduction
+#pragma omp target parallel for  reduction(+: counter)   map(tofrom:counter) 
+                                              ^
+1 error generated.
+Makefile:33: recipe for target 'target_parallel_for__simd.exe' failed
+make: [target_parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__parallel.cpp -o target_teams__parallel.exe
+target_teams__parallel.cpp:20:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__parallel.cpp:20:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__parallel.exe' failed
+make: [target_teams__parallel.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams_distribute_parallel_for_simd.cpp -o target__teams_distribute_parallel_for_simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams_distribute__simd.cpp -o target__teams_distribute__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_simd.cpp -o target_simd.exe
+target_simd.cpp:15:61: error: reduction variable cannot be in a map clause in '#pragma omp target simd' directive
+#pragma omp target simd  reduction(+: counter)   map(tofrom:counter) 
+                                                            ^
+target_simd.cpp:15:39: note: defined as reduction
+#pragma omp target simd  reduction(+: counter)   map(tofrom:counter) 
+                                      ^
+1 error generated.
+Makefile:33: recipe for target 'target_simd.exe' failed
+make: [target_simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__parallel__for.cpp -o target_teams__parallel__for.exe
+target_teams__parallel__for.cpp:21:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__parallel__for.cpp:21:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__parallel__for.exe' failed
+make: [target_teams__parallel__for.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__distribute__parallel_for__simd.cpp -o target__teams__distribute__parallel_for__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams_distribute__parallel__for.cpp -o target_teams_distribute__parallel__for.exe
+target_teams_distribute__parallel__for.cpp:16:73: error: reduction variable cannot be in a map clause in '#pragma omp target teams distribute' directive
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                                        ^
+target_teams_distribute__parallel__for.cpp:16:51: note: defined as reduction
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                  ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams_distribute__parallel__for.exe' failed
+make: [target_teams_distribute__parallel__for.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__distribute__parallel__simd.cpp -o target_teams__distribute__parallel__simd.exe
+target_teams__distribute__parallel__simd.cpp:22:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__distribute__parallel__simd.cpp:22:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__distribute__parallel__simd.exe' failed
+make: [target_teams__distribute__parallel__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__distribute__simd.cpp -o target_teams__distribute__simd.exe
+target_teams__distribute__simd.cpp:16:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__distribute__simd.cpp:16:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__distribute__simd.exe' failed
+make: [target_teams__distribute__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_parallel__simd.cpp -o target_parallel__simd.exe
+target_parallel__simd.cpp:21:65: error: reduction variable cannot be in a map clause in '#pragma omp target parallel' directive
+#pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
+                                                                ^
+target_parallel__simd.cpp:21:43: note: defined as reduction
+#pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
+                                          ^
+1 error generated.
+Makefile:33: recipe for target 'target_parallel__simd.exe' failed
+make: [target_parallel__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_parallel__for.cpp -o target_parallel__for.exe
+target_parallel__for.cpp:15:65: error: reduction variable cannot be in a map clause in '#pragma omp target parallel' directive
+#pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
+                                                                ^
+target_parallel__for.cpp:15:43: note: defined as reduction
+#pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
+                                          ^
+1 error generated.
+Makefile:33: recipe for target 'target_parallel__for.exe' failed
+make: [target_parallel__for.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__distribute__parallel.cpp -o target_teams__distribute__parallel.exe
+target_teams__distribute__parallel.cpp:21:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__distribute__parallel.cpp:21:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__distribute__parallel.exe' failed
+make: [target_teams__distribute__parallel.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__parallel_for_simd.cpp -o target_teams__parallel_for_simd.exe
+target_teams__parallel_for_simd.cpp:21:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__parallel_for_simd.cpp:21:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__parallel_for_simd.exe' failed
+make: [target_teams__parallel_for_simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams_distribute_parallel_for.cpp -o target_teams_distribute_parallel_for.exe
+target_teams_distribute_parallel_for.cpp:15:86: error: reduction variable cannot be in a map clause in '#pragma omp target teams distribute parallel for' directive
+#pragma omp target teams distribute parallel for  reduction(+: counter)   map(tofrom:counter) 
+                                                                                     ^
+target_teams_distribute_parallel_for.cpp:15:64: note: defined as reduction
+#pragma omp target teams distribute parallel for  reduction(+: counter)   map(tofrom:counter) 
+                                                               ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams_distribute_parallel_for.exe' failed
+make: [target_teams_distribute_parallel_for.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams.cpp -o target_teams.exe
+target_teams.cpp:20:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams.cpp:20:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams.exe' failed
+make: [target_teams.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__distribute__parallel_for__simd.cpp -o target_teams__distribute__parallel_for__simd.exe
+target_teams__distribute__parallel_for__simd.cpp:17:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__distribute__parallel_for__simd.cpp:17:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__distribute__parallel_for__simd.exe' failed
+make: [target_teams__distribute__parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__parallel__simd.cpp -o target__teams__parallel__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__parallel_for.cpp -o target__parallel_for.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams_distribute__parallel__for__simd.cpp -o target__teams_distribute__parallel__for__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__parallel_for.cpp -o target_teams__parallel_for.exe
+target_teams__parallel_for.cpp:21:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__parallel_for.cpp:21:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__parallel_for.exe' failed
+make: [target_teams__parallel_for.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__parallel__for.cpp -o target__teams__parallel__for.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__distribute__parallel_for.cpp -o target__teams__distribute__parallel_for.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams_distribute.cpp -o target_teams_distribute.exe
+target_teams_distribute.cpp:15:73: error: reduction variable cannot be in a map clause in '#pragma omp target teams distribute' directive
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                                        ^
+target_teams_distribute.cpp:15:51: note: defined as reduction
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                  ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams_distribute.exe' failed
+make: [target_teams_distribute.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams_distribute__parallel.cpp -o target__teams_distribute__parallel.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams.cpp -o target__teams.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__parallel__simd.cpp -o target_teams__parallel__simd.exe
+target_teams__parallel__simd.cpp:21:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__parallel__simd.cpp:21:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__parallel__simd.exe' failed
+make: [target_teams__parallel__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams_distribute__parallel.cpp -o target_teams_distribute__parallel.exe
+target_teams_distribute__parallel.cpp:21:73: error: reduction variable cannot be in a map clause in '#pragma omp target teams distribute' directive
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                                        ^
+target_teams_distribute__parallel.cpp:21:51: note: defined as reduction
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                  ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams_distribute__parallel.exe' failed
+make: [target_teams_distribute__parallel.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__distribute__parallel__for__simd.cpp -o target__teams__distribute__parallel__for__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__distribute.cpp -o target_teams__distribute.exe
+target_teams__distribute.cpp:15:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__distribute.cpp:15:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__distribute.exe' failed
+make: [target_teams__distribute.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams_distribute__parallel__simd.cpp -o target__teams_distribute__parallel__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__parallel.cpp -o target__teams__parallel.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams_distribute__parallel__for.cpp -o target__teams_distribute__parallel__for.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__simd.cpp -o target__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__parallel__for__simd.cpp -o target__parallel__for__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__parallel_for_simd.cpp -o target__teams__parallel_for_simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_parallel_for.cpp -o target_parallel_for.exe
+target_parallel_for.cpp:15:69: error: reduction variable cannot be in a map clause in '#pragma omp target parallel for' directive
+#pragma omp target parallel for  reduction(+: counter)   map(tofrom:counter) 
+                                                                    ^
+target_parallel_for.cpp:15:47: note: defined as reduction
+#pragma omp target parallel for  reduction(+: counter)   map(tofrom:counter) 
+                                              ^
+1 error generated.
+Makefile:33: recipe for target 'target_parallel_for.exe' failed
+make: [target_parallel_for.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams_distribute_parallel_for_simd.cpp -o target_teams_distribute_parallel_for_simd.exe
+target_teams_distribute_parallel_for_simd.cpp:15:91: error: reduction variable cannot be in a map clause in '#pragma omp target teams distribute parallel for simd' directive
+#pragma omp target teams distribute parallel for simd  reduction(+: counter)   map(tofrom:counter) 
+                                                                                          ^
+target_teams_distribute_parallel_for_simd.cpp:15:69: note: defined as reduction
+#pragma omp target teams distribute parallel for simd  reduction(+: counter)   map(tofrom:counter) 
+                                                                    ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams_distribute_parallel_for_simd.exe' failed
+make: [target_teams_distribute_parallel_for_simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams_distribute__simd.cpp -o target_teams_distribute__simd.exe
+target_teams_distribute__simd.cpp:16:73: error: reduction variable cannot be in a map clause in '#pragma omp target teams distribute' directive
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                                        ^
+target_teams_distribute__simd.cpp:16:51: note: defined as reduction
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                  ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams_distribute__simd.exe' failed
+make: [target_teams_distribute__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams_distribute.cpp -o target__teams_distribute.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__parallel__for__simd.cpp -o target_teams__parallel__for__simd.exe
+target_teams__parallel__for__simd.cpp:22:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__parallel__for__simd.cpp:22:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__parallel__for__simd.exe' failed
+make: [target_teams__parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__distribute__parallel__for.cpp -o target_teams__distribute__parallel__for.exe
+target_teams__distribute__parallel__for.cpp:16:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__distribute__parallel__for.cpp:16:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__distribute__parallel__for.exe' failed
+make: [target_teams__distribute__parallel__for.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__parallel.cpp -o target__parallel.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__parallel_for_simd.cpp -o target__parallel_for_simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target.cpp -o target.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_parallel__for__simd.cpp -o target_parallel__for__simd.exe
+target_parallel__for__simd.cpp:16:65: error: reduction variable cannot be in a map clause in '#pragma omp target parallel' directive
+#pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
+                                                                ^
+target_parallel__for__simd.cpp:16:43: note: defined as reduction
+#pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
+                                          ^
+1 error generated.
+Makefile:33: recipe for target 'target_parallel__for__simd.exe' failed
+make: [target_parallel__for__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__distribute__simd.cpp -o target__teams__distribute__simd.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams_distribute_simd.cpp -o target_teams_distribute_simd.exe
+target_teams_distribute_simd.cpp:15:78: error: reduction variable cannot be in a map clause in '#pragma omp target teams distribute simd' directive
+#pragma omp target teams distribute simd  reduction(+: counter)   map(tofrom:counter) 
+                                                                             ^
+target_teams_distribute_simd.cpp:15:56: note: defined as reduction
+#pragma omp target teams distribute simd  reduction(+: counter)   map(tofrom:counter) 
+                                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams_distribute_simd.exe' failed
+make: [target_teams_distribute_simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams_distribute__parallel__simd.cpp -o target_teams_distribute__parallel__simd.exe
+target_teams_distribute__parallel__simd.cpp:22:73: error: reduction variable cannot be in a map clause in '#pragma omp target teams distribute' directive
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                                        ^
+target_teams_distribute__parallel__simd.cpp:22:51: note: defined as reduction
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                  ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams_distribute__parallel__simd.exe' failed
+make: [target_teams_distribute__parallel__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__distribute_simd.cpp -o target_teams__distribute_simd.exe
+target_teams__distribute_simd.cpp:15:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__distribute_simd.cpp:15:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__distribute_simd.exe' failed
+make: [target_teams__distribute_simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams_distribute__parallel_for__simd.cpp -o target_teams_distribute__parallel_for__simd.exe
+target_teams_distribute__parallel_for__simd.cpp:17:73: error: reduction variable cannot be in a map clause in '#pragma omp target teams distribute' directive
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                                        ^
+target_teams_distribute__parallel_for__simd.cpp:17:51: note: defined as reduction
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                  ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams_distribute__parallel_for__simd.exe' failed
+make: [target_teams_distribute__parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams_distribute__parallel_for.cpp -o target_teams_distribute__parallel_for.exe
+target_teams_distribute__parallel_for.cpp:16:73: error: reduction variable cannot be in a map clause in '#pragma omp target teams distribute' directive
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                                        ^
+target_teams_distribute__parallel_for.cpp:16:51: note: defined as reduction
+#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+                                                  ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams_distribute__parallel_for.exe' failed
+make: [target_teams_distribute__parallel_for.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_teams__parallel_for__simd.cpp -o target_teams__parallel_for__simd.exe
+target_teams__parallel_for__simd.cpp:22:62: error: reduction variable cannot be in a map clause in '#pragma omp target teams' directive
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                                             ^
+target_teams__parallel_for__simd.cpp:22:40: note: defined as reduction
+#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
+                                       ^
+1 error generated.
+Makefile:33: recipe for target 'target_teams__parallel_for__simd.exe' failed
+make: [target_teams__parallel_for__simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams__parallel_for.cpp -o target__teams__parallel_for.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__parallel__for.cpp -o target__parallel__for.exe
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target_parallel_for_simd.cpp -o target_parallel_for_simd.exe
+target_parallel_for_simd.cpp:15:74: error: reduction variable cannot be in a map clause in '#pragma omp target parallel for simd' directive
+#pragma omp target parallel for simd  reduction(+: counter)   map(tofrom:counter) 
+                                                                         ^
+target_parallel_for_simd.cpp:15:52: note: defined as reduction
+#pragma omp target parallel for simd  reduction(+: counter)   map(tofrom:counter) 
+                                                   ^
+1 error generated.
+Makefile:33: recipe for target 'target_parallel_for_simd.exe' failed
+make: [target_parallel_for_simd.exe] Error 1 (ignored)
+timeout 45s clang++ -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 target__teams_distribute_simd.cpp -o target__teams_distribute_simd.exe

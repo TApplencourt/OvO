@@ -1,0 +1,14 @@
+timeout 45s ./CMPLX_real_real_complex.exe
+[GPU Memory Error] Addr: 0x0 Reason: Page not present or supervisor privilege. 
+Memory access fault by GPU node-1 (Agent handle: 0xec7cd0) on address (nil). Reason: Page not present or supervisor privilege.
+timeout: the monitored command dumped core
+Makefile:32: recipe for target 'run_CMPLX_real_real_complex' failed
+make: [run_CMPLX_real_real_complex] Aborted (ignored)
+timeout 45s ./CMPLX_integer_integer_complex.exe
+timeout 45s ./REAL_complex_real.exe
+timeout 45s ./CONJG_complex_complex.exe
+timeout 45s ./INT_complex_integer.exe
+timeout 45s ./ABS_complex_real.exe
+timeout 45s ./AIMAG_complex_real.exe
+timeout 45s ./CMPLX_complex_complex.exe
+timeout 45s ./DBLE_complex_double_precision.exe
