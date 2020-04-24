@@ -1,0 +1,233 @@
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 TAN_double_precision_double_precision.F90 -o TAN_double_precision_double_precision.exe
+/tmp/TAN_double_precision_double_precision-gfx906-2f1a3c.ll:19:25: error: use of undefined value '@__fd_tan_1'
+        %4 = call fast double  @__fd_tan_1 (double %3)
+                               ^
+1 error generated.
+Makefile:27: recipe for target 'TAN_double_precision_double_precision.exe' failed
+make: [TAN_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 DIM_double_precision_double_precision_double_precision.F90 -o DIM_double_precision_double_precision_double_precision.exe
+/tmp/DIM_double_precision_double_precision_double_precision-gfx906-2ae91f.ll:23:29: error: use of undefined value '@ftn_i_ddim'
+        %5 = bitcast double (...)* @ftn_i_ddim to double (double, double, ...)*
+                                   ^
+1 error generated.
+Makefile:27: recipe for target 'DIM_double_precision_double_precision_double_precision.exe' failed
+make: [DIM_double_precision_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ASIN_real_real.F90 -o ASIN_real_real.exe
+/tmp/ASIN_real_real-gfx906-2caf33.ll:19:24: error: use of undefined value '@__fs_asin_1'
+        %4 = call fast float  @__fs_asin_1 (float %3)
+                              ^
+1 error generated.
+Makefile:27: recipe for target 'ASIN_real_real.exe' failed
+make: [ASIN_real_real.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 SINH_real_real.F90 -o SINH_real_real.exe
+/tmp/SINH_real_real-gfx906-5422e9.ll:19:24: error: use of undefined value '@__fs_sinh_1'
+        %4 = call fast float  @__fs_sinh_1 (float %3)
+                              ^
+1 error generated.
+Makefile:27: recipe for target 'SINH_real_real.exe' failed
+make: [SINH_real_real.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 TANH_real_real.F90 -o TANH_real_real.exe
+/tmp/TANH_real_real-gfx906-bdcc4f.ll:19:24: error: use of undefined value '@__fs_tanh_1'
+        %4 = call fast float  @__fs_tanh_1 (float %3)
+                              ^
+1 error generated.
+Makefile:27: recipe for target 'TANH_real_real.exe' failed
+make: [TANH_real_real.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ANINT_real_real.F90 -o ANINT_real_real.exe
+/tmp/ANINT_real_real-gfx906-c04194.ll:19:28: error: use of undefined value '@__mth_i_anint'
+        %4 = bitcast float (...)* @__mth_i_anint to float (float, ...)*
+                                  ^
+1 error generated.
+Makefile:27: recipe for target 'ANINT_real_real.exe' failed
+make: [ANINT_real_real.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 COSH_real_real.F90 -o COSH_real_real.exe
+/tmp/COSH_real_real-gfx906-a0bab3.ll:19:24: error: use of undefined value '@__fs_cosh_1'
+        %4 = call fast float  @__fs_cosh_1 (float %3)
+                              ^
+1 error generated.
+Makefile:27: recipe for target 'COSH_real_real.exe' failed
+make: [COSH_real_real.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MOD_real_real_real.F90 -o MOD_real_real_real.exe
+/tmp/MOD_real_real_real-gfx906-2148b4.ll:23:24: error: use of undefined value '@__fmth_i_amod'
+        %5 = call fast float  @__fmth_i_amod (float %3, float %4)
+                              ^
+1 error generated.
+Makefile:27: recipe for target 'MOD_real_real_real.exe' failed
+make: [MOD_real_real_real.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 DIM_integer_integer_integer.F90 -o DIM_integer_integer_integer.exe
+/tmp/DIM_integer_integer_integer-gfx906-afec04.ll:25:26: error: use of undefined value '@ftn_i_idim'
+        %7 = bitcast i32 (...)* @ftn_i_idim to i32 (i32, i32, ...)*
+                                ^
+1 error generated.
+Makefile:27: recipe for target 'DIM_integer_integer_integer.exe' failed
+make: [DIM_integer_integer_integer.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MIN_real_real_real.F90 -o MIN_real_real_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MAX0_integer_integer_integer.F90 -o MAX0_integer_integer_integer.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 FLOAT_integer_real.F90 -o FLOAT_integer_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MODULO_real_real_real.F90 -o MODULO_real_real_real.exe
+/tmp/MODULO_real_real_real-gfx906-17fbcc.ll:23:28: error: use of undefined value '@f90_amodulov'
+        %5 = bitcast float (...)* @f90_amodulov to float (float, float, ...)*
+                                  ^
+1 error generated.
+Makefile:27: recipe for target 'MODULO_real_real_real.exe' failed
+make: [MODULO_real_real_real.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 AMIN1_real_real_real.F90 -o AMIN1_real_real_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MAX_real_real_integer.F90 -o MAX_real_real_integer.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 DIM_real_real_real.F90 -o DIM_real_real_real.exe
+/tmp/DIM_real_real_real-gfx906-00d2a0.ll:23:28: error: use of undefined value '@ftn_i_dim'
+        %5 = bitcast float (...)* @ftn_i_dim to float (float, float, ...)*
+                                  ^
+1 error generated.
+Makefile:27: recipe for target 'DIM_real_real_real.exe' failed
+make: [DIM_real_real_real.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ASIN_double_precision_double_precision.F90 -o ASIN_double_precision_double_precision.exe
+/tmp/ASIN_double_precision_double_precision-gfx906-f5e750.ll:19:40: error: use of undefined value '@__fd_asin_1'
+        %4 = bitcast double (double, double)* @__fd_asin_1 to double (double)*
+                                              ^
+1 error generated.
+Makefile:27: recipe for target 'ASIN_double_precision_double_precision.exe' failed
+make: [ASIN_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 DMIN1_double_precision_double_precision_double_precision.F90 -o DMIN1_double_precision_double_precision_double_precision.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MAX_double_precision_double_precision_double_precision.F90 -o MAX_double_precision_double_precision_double_precision.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 SINH_double_precision_double_precision.F90 -o SINH_double_precision_double_precision.exe
+/tmp/SINH_double_precision_double_precision-gfx906-c72269.ll:19:25: error: use of undefined value '@__fd_sinh_1'
+        %4 = call fast double  @__fd_sinh_1 (double %3)
+                               ^
+1 error generated.
+Makefile:27: recipe for target 'SINH_double_precision_double_precision.exe' failed
+make: [SINH_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MOD_integer_integer_integer.F90 -o MOD_integer_integer_integer.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 AMIN0_integer_integer_real.F90 -o AMIN0_integer_integer_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 TANH_double_precision_double_precision.F90 -o TANH_double_precision_double_precision.exe
+/tmp/TANH_double_precision_double_precision-gfx906-5046e9.ll:19:25: error: use of undefined value '@__fd_tanh_1'
+        %4 = call fast double  @__fd_tanh_1 (double %3)
+                               ^
+1 error generated.
+Makefile:27: recipe for target 'TANH_double_precision_double_precision.exe' failed
+make: [TANH_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 SIGN_real_real_real.F90 -o SIGN_real_real_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 COSH_double_precision_double_precision.F90 -o COSH_double_precision_double_precision.exe
+/tmp/COSH_double_precision_double_precision-gfx906-662288.ll:19:25: error: use of undefined value '@__fd_cosh_1'
+        %4 = call fast double  @__fd_cosh_1 (double %3)
+                               ^
+1 error generated.
+Makefile:27: recipe for target 'COSH_double_precision_double_precision.exe' failed
+make: [COSH_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MIN1_real_real_integer.F90 -o MIN1_real_real_integer.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 CEILING_real_real.F90 -o CEILING_real_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 AMAX1_real_real_real.F90 -o AMAX1_real_real_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 AINT_double_precision_double_precision.F90 -o AINT_double_precision_double_precision.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ATAN2_double_precision_double_precision_double_precision.F90 -o ATAN2_double_precision_double_precision_double_precision.exe
+/tmp/ATAN2_double_precision_double_precision_double_precision-gfx906-aaa60d.ll:23:25: error: use of undefined value '@__fd_atan2_1'
+        %5 = call fast double  @__fd_atan2_1 (double %3, double %4)
+                               ^
+1 error generated.
+Makefile:27: recipe for target 'ATAN2_double_precision_double_precision_double_precision.exe' failed
+make: [ATAN2_double_precision_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ATAN2_real_real_real.F90 -o ATAN2_real_real_real.exe
+/tmp/ATAN2_real_real_real-gfx906-3e3362.ll:23:24: error: use of undefined value '@__fs_atan2_1'
+        %5 = call fast float  @__fs_atan2_1 (float %3, float %4)
+                              ^
+1 error generated.
+Makefile:27: recipe for target 'ATAN2_real_real_real.exe' failed
+make: [ATAN2_real_real_real.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ACOS_real_real.F90 -o ACOS_real_real.exe
+/tmp/ACOS_real_real-gfx906-1daf90.ll:19:24: error: use of undefined value '@__fs_acos_1'
+        %4 = call fast float  @__fs_acos_1 (float %3)
+                              ^
+1 error generated.
+Makefile:27: recipe for target 'ACOS_real_real.exe' failed
+make: [ACOS_real_real.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MIN_double_precision_double_precision_double_precision.F90 -o MIN_double_precision_double_precision_double_precision.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ACOS_double_precision_double_precision.F90 -o ACOS_double_precision_double_precision.exe
+/tmp/ACOS_double_precision_double_precision-gfx906-92d4bb.ll:19:25: error: use of undefined value '@__fd_acos_1'
+        %4 = call fast double  @__fd_acos_1 (double %3)
+                               ^
+1 error generated.
+Makefile:27: recipe for target 'ACOS_double_precision_double_precision.exe' failed
+make: [ACOS_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MAX_integer_integer_real.F90 -o MAX_integer_integer_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 SIGN_integer_integer_integer.F90 -o SIGN_integer_integer_integer.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MODULO_double_precision_double_precision_double_precision.F90 -o MODULO_double_precision_double_precision_double_precision.exe
+/tmp/MODULO_double_precision_double_precision_double_precision-gfx906-417fb4.ll:23:29: error: use of undefined value '@f90_dmodulov'
+        %5 = bitcast double (...)* @f90_dmodulov to double (double, double, ...)*
+                                   ^
+1 error generated.
+Makefile:27: recipe for target 'MODULO_double_precision_double_precision_double_precision.exe' failed
+make: [MODULO_double_precision_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 LOG10_real_real.F90 -o LOG10_real_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MIN0_integer_integer_integer.F90 -o MIN0_integer_integer_integer.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ATAN_real_real.F90 -o ATAN_real_real.exe
+/tmp/ATAN_real_real-gfx906-022401.ll:19:24: error: use of undefined value '@__fs_atan_1'
+        %4 = call fast float  @__fs_atan_1 (float %3)
+                              ^
+1 error generated.
+Makefile:27: recipe for target 'ATAN_real_real.exe' failed
+make: [ATAN_real_real.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 FLOOR_real_real.F90 -o FLOOR_real_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 CEILING_double_precision_double_precision.F90 -o CEILING_double_precision_double_precision.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MIN_integer_integer_integer.F90 -o MIN_integer_integer_integer.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 TAN_real_real.F90 -o TAN_real_real.exe
+/tmp/TAN_real_real-gfx906-68c395.ll:19:24: error: use of undefined value '@__fs_tan_1'
+        %4 = call fast float  @__fs_tan_1 (float %3)
+                              ^
+1 error generated.
+Makefile:27: recipe for target 'TAN_real_real.exe' failed
+make: [TAN_real_real.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 NINT_real_integer.F90 -o NINT_real_integer.exe
+/tmp/NINT_real_integer-gfx906-ad0a54.ll:19:26: error: use of undefined value '@__mth_i_nint'
+        %4 = bitcast i32 (...)* @__mth_i_nint to i32 (float, ...)*
+                                ^
+1 error generated.
+Makefile:27: recipe for target 'NINT_real_integer.exe' failed
+make: [NINT_real_integer.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MAX_real_real_real.F90 -o MAX_real_real_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ANINT_double_precision_double_precision.F90 -o ANINT_double_precision_double_precision.exe
+/tmp/ANINT_double_precision_double_precision-gfx906-ca9b89.ll:19:29: error: use of undefined value '@__mth_i_dnint'
+        %4 = bitcast double (...)* @__mth_i_dnint to double (double, ...)*
+                                   ^
+1 error generated.
+Makefile:27: recipe for target 'ANINT_double_precision_double_precision.exe' failed
+make: [ANINT_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 IDINT_double_precision_integer.F90 -o IDINT_double_precision_integer.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 SNGL_double_precision_real.F90 -o SNGL_double_precision_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 SIGN_double_precision_double_precision_double_precision.F90 -o SIGN_double_precision_double_precision_double_precision.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 AINT_real_real.F90 -o AINT_real_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MOD_double_precision_double_precision_double_precision.F90 -o MOD_double_precision_double_precision_double_precision.exe
+/tmp/MOD_double_precision_double_precision_double_precision-gfx906-1693a5.ll:23:25: error: use of undefined value '@__fmth_i_dmod'
+        %5 = call fast double  @__fmth_i_dmod (double %3, double %4)
+                               ^
+1 error generated.
+Makefile:27: recipe for target 'MOD_double_precision_double_precision_double_precision.exe' failed
+make: [MOD_double_precision_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 NINT_double_precision_integer.F90 -o NINT_double_precision_integer.exe
+/tmp/NINT_double_precision_integer-gfx906-217a18.ll:19:26: error: use of undefined value '@__mth_i_idnint'
+        %4 = bitcast i32 (...)* @__mth_i_idnint to i32 (double, ...)*
+                                ^
+1 error generated.
+Makefile:27: recipe for target 'NINT_double_precision_integer.exe' failed
+make: [NINT_double_precision_integer.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MIN_integer_integer_real.F90 -o MIN_integer_integer_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MIN_real_real_integer.F90 -o MIN_real_real_integer.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MAX1_real_real_integer.F90 -o MAX1_real_real_integer.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 LOG10_double_precision_double_precision.F90 -o LOG10_double_precision_double_precision.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ATAN_double_precision_double_precision.F90 -o ATAN_double_precision_double_precision.exe
+/tmp/ATAN_double_precision_double_precision-gfx906-9882ce.ll:19:25: error: use of undefined value '@__fd_atan_1'
+        %4 = call fast double  @__fd_atan_1 (double %3)
+                               ^
+1 error generated.
+Makefile:27: recipe for target 'ATAN_double_precision_double_precision.exe' failed
+make: [ATAN_double_precision_double_precision.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 DMAX1_double_precision_double_precision_double_precision.F90 -o DMAX1_double_precision_double_precision_double_precision.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 FLOOR_double_precision_double_precision.F90 -o FLOOR_double_precision_double_precision.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 AMAX0_integer_integer_real.F90 -o AMAX0_integer_integer_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MODULO_integer_integer_integer.F90 -o MODULO_integer_integer_integer.exe
+/tmp/MODULO_integer_integer_integer-gfx906-d8dc9a.ll:25:26: error: use of undefined value '@f90_modulov'
+        %7 = bitcast i32 (...)* @f90_modulov to i32 (i32, i32, ...)*
+                                ^
+1 error generated.
+Makefile:27: recipe for target 'MODULO_integer_integer_integer.exe' failed
+make: [MODULO_integer_integer_integer.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 DPROD_real_real_double_precision.F90 -o DPROD_real_real_double_precision.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 IFIX_real_integer.F90 -o IFIX_real_integer.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 MAX_integer_integer_integer.F90 -o MAX_integer_integer_integer.exe

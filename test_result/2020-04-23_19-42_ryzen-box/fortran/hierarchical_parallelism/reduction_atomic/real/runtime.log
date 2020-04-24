@@ -1,0 +1,186 @@
+timeout 45s ./target__teams__distribute__simd.exe
+ Expected           30 Got    809856.0    
+Makefile:32: recipe for target 'run_target__teams__distribute__simd' failed
+make: [run_target__teams__distribute__simd] Error 1 (ignored)
+timeout 45s ./target_teams_distribute__parallel__simd.exe
+ Expected           30 Got   0.5859375    
+Makefile:32: recipe for target 'run_target_teams_distribute__parallel__simd' failed
+make: [run_target_teams_distribute__parallel__simd] Error 1 (ignored)
+timeout 45s ./target__parallel__simd.exe
+ Expected            5 Got    848.7500    
+Makefile:32: recipe for target 'run_target__parallel__simd' failed
+make: [run_target__parallel__simd] Error 1 (ignored)
+timeout 45s ./target_teams__parallel_do__simd.exe
+ Expected           30 Got  -2.3456660E-04
+Makefile:32: recipe for target 'run_target_teams__parallel_do__simd' failed
+make: [run_target_teams__parallel_do__simd] Error 1 (ignored)
+timeout 45s ./target__teams__parallel__do.exe
+ Expected            5 Got    512.0000    
+Makefile:32: recipe for target 'run_target__teams__parallel__do' failed
+make: [run_target__teams__parallel__do] Error 1 (ignored)
+timeout 45s ./target__teams__distribute__parallel__do.exe
+ Expected           30 Got    5440.000    
+Makefile:32: recipe for target 'run_target__teams__distribute__parallel__do' failed
+make: [run_target__teams__distribute__parallel__do] Error 1 (ignored)
+timeout 45s ./target__teams__distribute__parallel.exe
+ Expected            5 Got    135.5000    
+Makefile:32: recipe for target 'run_target__teams__distribute__parallel' failed
+make: [run_target__teams__distribute__parallel] Error 1 (ignored)
+timeout 45s ./target__teams__distribute__parallel__simd.exe
+ Expected           30 Got    796.5000    
+Makefile:32: recipe for target 'run_target__teams__distribute__parallel__simd' failed
+make: [run_target__teams__distribute__parallel__simd] Error 1 (ignored)
+timeout 45s ./target_teams_distribute__parallel__do__simd.exe
+ Expected          210 Got    175.0000    
+Makefile:32: recipe for target 'run_target_teams_distribute__parallel__do__simd' failed
+make: [run_target_teams_distribute__parallel__do__simd] Error 1 (ignored)
+timeout 45s ./target_teams_distribute_parallel_do__simd.exe
+ Expected           30 Got  -9.1627535E-06
+Makefile:32: recipe for target 'run_target_teams_distribute_parallel_do__simd' failed
+make: [run_target_teams_distribute_parallel_do__simd] Error 1 (ignored)
+timeout 45s ./target__teams_distribute__parallel_do.exe
+ Expected           30 Got  -9.1627535E-06
+Makefile:32: recipe for target 'run_target__teams_distribute__parallel_do' failed
+make: [run_target__teams_distribute__parallel_do] Error 1 (ignored)
+timeout 45s ./target_teams__parallel__simd.exe
+ Expected            5 Got    84447.53    
+Makefile:32: recipe for target 'run_target_teams__parallel__simd' failed
+make: [run_target_teams__parallel__simd] Error 1 (ignored)
+timeout 45s ./target_parallel__simd.exe
+timeout 45s ./target__teams_distribute__simd.exe
+ Expected           30 Got    877824.0    
+Makefile:32: recipe for target 'run_target__teams_distribute__simd' failed
+make: [run_target__teams_distribute__simd] Error 1 (ignored)
+timeout 45s ./target_teams__distribute__parallel_do__simd.exe
+ Expected          210 Got  -9.1627535E-06
+Makefile:32: recipe for target 'run_target_teams__distribute__parallel_do__simd' failed
+make: [run_target_teams__distribute__parallel_do__simd] Error 1 (ignored)
+timeout 45s ./target_teams__parallel.exe
+ Expected            1 Got    17325.31    
+Makefile:32: recipe for target 'run_target_teams__parallel' failed
+make: [run_target_teams__parallel] Error 1 (ignored)
+timeout 45s ./target__teams__parallel_do_simd.exe
+ Expected            5 Got  -1.8325507E-06
+Makefile:32: recipe for target 'run_target__teams__parallel_do_simd' failed
+make: [run_target__teams__parallel_do_simd] Error 1 (ignored)
+timeout 45s ./target_parallel__do__simd.exe
+timeout 45s ./target_parallel_do__simd.exe
+ Expected           30 Got  -1.8325507E-06
+Makefile:32: recipe for target 'run_target_parallel_do__simd' failed
+make: [run_target_parallel_do__simd] Error 1 (ignored)
+timeout 45s ./target_teams__distribute__simd.exe
+ Expected           30 Got   1.1430144E+07
+Makefile:32: recipe for target 'run_target_teams__distribute__simd' failed
+make: [run_target_teams__distribute__simd] Error 1 (ignored)
+timeout 45s ./target_teams_distribute__parallel.exe
+ Expected            5 Got   9.7656250E-02
+Makefile:32: recipe for target 'run_target_teams_distribute__parallel' failed
+make: [run_target_teams_distribute__parallel] Error 1 (ignored)
+timeout 45s ./target_teams__distribute__parallel__simd.exe
+ Expected           30 Got    20551.50    
+Makefile:32: recipe for target 'run_target_teams__distribute__parallel__simd' failed
+make: [run_target_teams__distribute__parallel__simd] Error 1 (ignored)
+timeout 45s ./target__teams__parallel.exe
+ Expected            1 Got    160.0000    
+Makefile:32: recipe for target 'run_target__teams__parallel' failed
+make: [run_target__teams__parallel] Error 1 (ignored)
+timeout 45s ./target__teams__parallel_do.exe
+ Expected            5 Got  -1.8325507E-06
+Makefile:32: recipe for target 'run_target__teams__parallel_do' failed
+make: [run_target__teams__parallel_do] Error 1 (ignored)
+timeout 45s ./target_teams__distribute__parallel.exe
+ Expected            5 Got    3844.750    
+Makefile:32: recipe for target 'run_target_teams__distribute__parallel' failed
+make: [run_target_teams__distribute__parallel] Error 1 (ignored)
+timeout 45s ./target__teams_distribute__parallel__simd.exe
+ Expected           30 Got    1264.500    
+Makefile:32: recipe for target 'run_target__teams_distribute__parallel__simd' failed
+make: [run_target__teams_distribute__parallel__simd] Error 1 (ignored)
+timeout 45s ./target__teams_distribute__parallel__do.exe
+ Expected           30 Got    7040.000    
+Makefile:32: recipe for target 'run_target__teams_distribute__parallel__do' failed
+make: [run_target__teams_distribute__parallel__do] Error 1 (ignored)
+timeout 45s ./target_teams__parallel__do.exe
+ Expected            5 Got    75918.00    
+Makefile:32: recipe for target 'run_target_teams__parallel__do' failed
+make: [run_target_teams__parallel__do] Error 1 (ignored)
+timeout 45s ./target_teams__parallel_do.exe
+ Expected            5 Got  -2.3456660E-04
+Makefile:32: recipe for target 'run_target_teams__parallel_do' failed
+make: [run_target_teams__parallel_do] Error 1 (ignored)
+timeout 45s ./target_teams__distribute__parallel_do.exe
+ Expected           30 Got  -9.1627535E-06
+Makefile:32: recipe for target 'run_target_teams__distribute__parallel_do' failed
+make: [run_target_teams__distribute__parallel_do] Error 1 (ignored)
+timeout 45s ./target_teams_distribute__parallel_do__simd.exe
+ Expected          210 Got  -1.8325507E-06
+Makefile:32: recipe for target 'run_target_teams_distribute__parallel_do__simd' failed
+make: [run_target_teams_distribute__parallel_do__simd] Error 1 (ignored)
+timeout 45s ./target_teams__distribute__parallel__do.exe
+ Expected           30 Got    15104.00    
+Makefile:32: recipe for target 'run_target_teams__distribute__parallel__do' failed
+make: [run_target_teams__distribute__parallel__do] Error 1 (ignored)
+timeout 45s ./target__teams__parallel__simd.exe
+ Expected            5 Got    833.7500    
+Makefile:32: recipe for target 'run_target__teams__parallel__simd' failed
+make: [run_target__teams__parallel__simd] Error 1 (ignored)
+timeout 45s ./target__teams__distribute__parallel__do__simd.exe
+ Expected          210 Got    38080.00    
+Makefile:32: recipe for target 'run_target__teams__distribute__parallel__do__simd' failed
+make: [run_target__teams__distribute__parallel__do__simd] Error 1 (ignored)
+timeout 45s ./target__teams__distribute__parallel_do__simd.exe
+ Expected          210 Got  -9.1627535E-06
+Makefile:32: recipe for target 'run_target__teams__distribute__parallel_do__simd' failed
+make: [run_target__teams__distribute__parallel_do__simd] Error 1 (ignored)
+timeout 45s ./target__parallel_do__simd.exe
+ Expected           30 Got  -1.8325507E-06
+Makefile:32: recipe for target 'run_target__parallel_do__simd' failed
+make: [run_target__parallel_do__simd] Error 1 (ignored)
+timeout 45s ./target_teams__parallel__do__simd.exe
+ Expected           30 Got    441623.5    
+Makefile:32: recipe for target 'run_target_teams__parallel__do__simd' failed
+make: [run_target_teams__parallel__do__simd] Error 1 (ignored)
+timeout 45s ./target_teams_distribute__parallel_do.exe
+ Expected           30 Got  -1.8325507E-06
+Makefile:32: recipe for target 'run_target_teams_distribute__parallel_do' failed
+make: [run_target_teams_distribute__parallel_do] Error 1 (ignored)
+timeout 45s ./target__teams_distribute__parallel_do__simd.exe
+ Expected          210 Got  -9.1627535E-06
+Makefile:32: recipe for target 'run_target__teams_distribute__parallel_do__simd' failed
+make: [run_target__teams_distribute__parallel_do__simd] Error 1 (ignored)
+timeout 45s ./target__teams_distribute__parallel.exe
+ Expected            5 Got    141.2500    
+Makefile:32: recipe for target 'run_target__teams_distribute__parallel' failed
+make: [run_target__teams_distribute__parallel] Error 1 (ignored)
+timeout 45s ./target__teams_distribute__parallel__do__simd.exe
+ Expected          210 Got    40320.00    
+Makefile:32: recipe for target 'run_target__teams_distribute__parallel__do__simd' failed
+make: [run_target__teams_distribute__parallel__do__simd] Error 1 (ignored)
+timeout 45s ./target_teams_distribute__parallel__do.exe
+ Expected           30 Got    25.00000    
+Makefile:32: recipe for target 'run_target_teams_distribute__parallel__do' failed
+make: [run_target_teams_distribute__parallel__do] Error 1 (ignored)
+timeout 45s ./target__teams__parallel__do__simd.exe
+ Expected           30 Got    3072.000    
+Makefile:32: recipe for target 'run_target__teams__parallel__do__simd' failed
+make: [run_target__teams__parallel__do__simd] Error 1 (ignored)
+timeout 45s ./target_teams__distribute__parallel__do__simd.exe
+ Expected          210 Got    127680.0    
+Makefile:32: recipe for target 'run_target_teams__distribute__parallel__do__simd' failed
+make: [run_target_teams__distribute__parallel__do__simd] Error 1 (ignored)
+timeout 45s ./target__teams__distribute__parallel_do.exe
+ Expected           30 Got  -9.1627535E-06
+Makefile:32: recipe for target 'run_target__teams__distribute__parallel_do' failed
+make: [run_target__teams__distribute__parallel_do] Error 1 (ignored)
+timeout 45s ./target__parallel__do__simd.exe
+ Expected           30 Got    4608.000    
+Makefile:32: recipe for target 'run_target__parallel__do__simd' failed
+make: [run_target__parallel__do__simd] Error 1 (ignored)
+timeout 45s ./target__teams__parallel_do__simd.exe
+ Expected           30 Got  -1.8325507E-06
+Makefile:32: recipe for target 'run_target__teams__parallel_do__simd' failed
+make: [run_target__teams__parallel_do__simd] Error 1 (ignored)
+timeout 45s ./target_teams_distribute__simd.exe
+ Expected           30 Got    300.0000    
+Makefile:32: recipe for target 'run_target_teams_distribute__simd' failed
+make: [run_target_teams_distribute__simd] Error 1 (ignored)

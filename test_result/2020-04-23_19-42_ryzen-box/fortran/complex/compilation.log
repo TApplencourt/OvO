@@ -1,0 +1,44 @@
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 LOG_complex_complex.F90 -o LOG_complex_complex.exe
+/tmp/LOG_complex_complex-gfx906-3c45a4.ll:26:26: error: use of undefined value '@__mth_i_clog'
+        %9 = bitcast i32 (...)* @__mth_i_clog to i32 (i8*, float, float, ...)*
+                                ^
+1 error generated.
+Makefile:27: recipe for target 'LOG_complex_complex.exe' failed
+make: [LOG_complex_complex.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 SIN_complex_complex.F90 -o SIN_complex_complex.exe
+/tmp/SIN_complex_complex-gfx906-a1445e.ll:26:26: error: use of undefined value '@__mth_i_csin'
+        %9 = bitcast i32 (...)* @__mth_i_csin to i32 (i8*, float, float, ...)*
+                                ^
+1 error generated.
+Makefile:27: recipe for target 'SIN_complex_complex.exe' failed
+make: [SIN_complex_complex.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 AIMAG_complex_real.F90 -o AIMAG_complex_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 ABS_complex_real.F90 -o ABS_complex_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 DBLE_complex_double_precision.F90 -o DBLE_complex_double_precision.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 SQRT_complex_complex.F90 -o SQRT_complex_complex.exe
+/tmp/SQRT_complex_complex-gfx906-ffabf3.ll:26:26: error: use of undefined value '@__mth_i_csqrt'
+        %9 = bitcast i32 (...)* @__mth_i_csqrt to i32 (i8*, float, float, ...)*
+                                ^
+1 error generated.
+Makefile:27: recipe for target 'SQRT_complex_complex.exe' failed
+make: [SQRT_complex_complex.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 CMPLX_integer_integer_complex.F90 -o CMPLX_integer_integer_complex.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 COS_complex_complex.F90 -o COS_complex_complex.exe
+/tmp/COS_complex_complex-gfx906-138d98.ll:26:26: error: use of undefined value '@__mth_i_ccos'
+        %9 = bitcast i32 (...)* @__mth_i_ccos to i32 (i8*, float, float, ...)*
+                                ^
+1 error generated.
+Makefile:27: recipe for target 'COS_complex_complex.exe' failed
+make: [COS_complex_complex.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 EXP_complex_complex.F90 -o EXP_complex_complex.exe
+/tmp/EXP_complex_complex-gfx906-d6d9f5.ll:26:26: error: use of undefined value '@__mth_i_cexp'
+        %9 = bitcast i32 (...)* @__mth_i_cexp to i32 (i8*, float, float, ...)*
+                                ^
+1 error generated.
+Makefile:27: recipe for target 'EXP_complex_complex.exe' failed
+make: [EXP_complex_complex.exe] Error 1 (ignored)
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 CONJG_complex_complex.F90 -o CONJG_complex_complex.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 CMPLX_real_real_complex.F90 -o CMPLX_real_real_complex.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 REAL_complex_real.F90 -o REAL_complex_real.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 INT_complex_integer.F90 -o INT_complex_integer.exe
+timeout 45s flang -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx906 CMPLX_complex_complex.F90 -o CMPLX_complex_complex.exe
