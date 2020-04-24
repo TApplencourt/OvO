@@ -1,0 +1,37 @@
+timeout 45s ./target__parallel__for.exe
+timeout 45s ./target_teams_distribute__parallel__for.exe
+timeout 45s ./target_teams_distribute__parallel.exe
+timeout 45s ./target_parallel.exe
+timeout 45s ./target__teams_distribute_parallel_for.exe
+timeout 45s ./target__teams__parallel__for.exe
+timeout 45s ./target__teams_distribute__parallel_for.exe
+timeout 45s ./target__teams_distribute.exe
+timeout 45s ./target__teams_distribute__parallel__for.exe
+timeout 45s ./target__parallel.exe
+timeout 45s ./target_teams__distribute__parallel_for.exe
+timeout 45s ./target_teams__distribute__parallel.exe
+timeout 45s ./target__parallel_for.exe
+timeout 45s ./target.exe
+Expected: 1 Got: 128
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  target give incorect value when offloaded
+timeout: the monitored command dumped core
+Makefile:38: recipe for target 'run_target' failed
+make: [run_target] Aborted (ignored)
+timeout 45s ./target__teams_distribute__parallel.exe
+timeout 45s ./target_teams__distribute__parallel__for.exe
+timeout 45s ./target__teams__distribute__parallel__for.exe
+timeout 45s ./target_teams__parallel.exe
+timeout 45s ./target_parallel__for.exe
+timeout 45s ./target_teams_distribute__parallel_for.exe
+timeout 45s ./target_teams__parallel__for.exe
+timeout 45s ./target__teams__parallel_for.exe
+timeout 45s ./target__teams__distribute__parallel_for.exe
+timeout 45s ./target_parallel_for.exe
+timeout 45s ./target__teams__distribute__parallel.exe
+timeout 45s ./target__teams__distribute.exe
+timeout 45s ./target_teams_distribute_parallel_for.exe
+timeout 45s ./target_teams_distribute.exe
+timeout 45s ./target_teams__distribute.exe
+timeout 45s ./target__teams__parallel.exe
+timeout 45s ./target_teams__parallel_for.exe
