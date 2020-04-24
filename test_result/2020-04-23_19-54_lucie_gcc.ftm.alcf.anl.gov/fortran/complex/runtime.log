@@ -1,8 +1,0 @@
-timeout 45s ./CMPLX_integer_integer_complex.exe
-timeout 45s ./CONJG_complex_complex.exe
-timeout 45s ./CMPLX_real_real_complex.exe
-timeout 45s ./REAL_complex_real.exe
-timeout 45s ./INT_complex_integer.exe
-timeout 45s ./CMPLX_complex_complex.exe
-timeout 45s ./AIMAG_complex_real.exe
-timeout 45s ./DBLE_complex_double_precision.exe
