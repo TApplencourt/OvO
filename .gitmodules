@@ -1,0 +1,3 @@
+[submodule "archive/test_result"]
+	path = archive/test_result
+	url = git@github.com:TApplencourt/OvOresult.git

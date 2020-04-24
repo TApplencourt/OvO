@@ -2,4 +2,4 @@ __pycache__/
 
 *.exe
 *.log
-results/*
+test_result/*
