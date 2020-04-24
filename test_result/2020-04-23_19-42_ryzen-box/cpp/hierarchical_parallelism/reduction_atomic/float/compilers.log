@@ -1,2 +1,0 @@
-clang version 11.0.0 (https://github.com/ROCm-Developer-Tools/amd-llvm-project ccd1e4e8824f19045dc14561b6b733fe130dd2ae) Target: x86_64-unknown-linux-gnu Thread model: posix InstalledDir: /usr/lib/aomp/bin
-clang version 11.0.0 (https://github.com/ROCm-Developer-Tools/amd-llvm-project ccd1e4e8824f19045dc14561b6b733fe130dd2ae) Target: x86_64-unknown-linux-gnu Thread model: posix InstalledDir: /usr/lib/aomp/bin
