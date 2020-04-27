@@ -9,26 +9,28 @@
 
 [![Build Status](https://travis-ci.org/TApplencourt/OvO.svg?branch=master)](https://travis-ci.org/TApplencourt/OvO)
 
-This repository containt OpenMP offloading tests for most of the C++ Math Function (`cmath` and `complex`). For example see [this](https://github.com/TApplencourt/OvO/tree/master/tests/math_cpp11) directory for the c++11 functions.
+It also containt a large set of tests for OpenMP offloading using hierarchical parralellism. For example, see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/reduction) for the fortran tests regarding reduction.
 
-It also containt a large set of tests for Hierarchical parralellism. For example, see [this](https://github.com/TApplencourt/OvO/tree/master/tests/hp_reduction) for the tests regarding reduction.
+This repository also containt tests for most of the C++/Fortran math Function (`cmath` and `complex`). For example see [this](https://github.com/TApplencourt/OvO/tree/master/tests_src/cpp/math_cpp11) directory for the c++11 functions.
 
-The test can be run using `./ovo.sh run` with the enviroment variable needed (e.g. `CXX` / `CXXFLAGS` / `OMP_TARGET_OFFLOAD`) 
+Tests can be run using `./ovo.sh run` with the enviroment variable needed (e.g. `CXX` / `CXXFLAGS` / `OMP_TARGET_OFFLOAD` / `MAKEFLAGS`) 
 
+For example:
 ```
-$  OMP_TARGET_OFFLOAD=mandatory CXX="clang++" CXXFLAGS="-fopenmp -std=c++17" MAKEFLAGS='-j32 --output-sync=target' ./ovo.sh run tests/math_cpp11 tests/math_cpp17
+$  OMP_TARGET_OFFLOAD=mandatory CXX="clang++" CXXFLAGS="-fopenmp -std=c++11" MAKEFLAGS='-j32 --output-sync=target' ./ovo.sh run ./tests_src/cpp/math_cpp11
 Running tests/math_cpp11 | Saving log in results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30/math_cpp11
 clang++ "-fopenmp -std=c++17 isgreater_bool_float_float.cpp -o isgreater_bool_float_float.exe
 clang++ "-fopenmp -std=c++17 isgreater_bool_double_double.cpp -o isgreater_bool_double_double.exe
 clang++ "-fopenmp -std=c++17 truncf_float_float.cpp -o truncf_float_float.exe
 [...]
 ```
+
 Result can be generate with `./ovo.sh display`.
 
 ```
 $ ./ovo.sh display
->> results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30/math_cpp11
-307 / 307 ( 100% ) pass [ 0 compilation failures / 0 runtime failures ]
+>> test_results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30
+307 / 307 ( 100% ) pass [failures: 46 compilation, 0 offload, 0 incorrect results]
 ```
 
 ## Requirement
@@ -40,54 +42,21 @@ $ ./ovo.sh display
 ## More information
 
 ```
-$ ./ovo.sh -h
-Usage:
-  ovo.sh gen [--v5]
-  ovo.sh run [<test_folder>...] [--avoid_long_double]
-  ovo.sh display [--failure | --pass] [--avoid_long_double] [<result_folder>...]
-  ovo.sh clean
-(base) [tapplencourt@jlselogin2 OmpVal]$ ./ovo.sh -h
+$./ovo.sh -h
 Omphval.sh a OpenMP test generator.
 Usage:
-  ovo.sh gen [--v5]
-  ovo.sh run [<test_folder>...] [--avoid_long_double]
-  ovo.sh display [--failure | --pass] [--avoid_long_double] [<result_folder>...]
+  ovo.sh gen
+  ovo.sh run [<test_folder>...] [--no_long_double] [--no_loop]
+  ovo.sh display [--detailed | --failed | --passed ] [--no_long_double] [--no_loop] [<result_folder>...]
+  ovo.sh report  [--no_long_double] [--no_loop]  [<result_folder>]
   ovo.sh clean
-
-  Options:
-   gen                 Generate the ./tests directory containting all the tests
-     v5                  Generate openmp v5 tests (loop construct for example)
-
-   run                 Will run all the test specifier by <test_folder>.
-                       The log are stored in the ./results/${uuid}_$(hostname)/<test_folder>/ directory
-                       More information are saved in '{compilation,runtime}.log' files of those result folder
-                       Use tradional Flags to control the execusion (CXX, CXXFLAGS, MAKEFLAGS, OMP, OMP_TARGET_OFFLOAD, etc)
-     <test_folder>       Folder containing the tests to run (default: ./tests/ )
-
-   display             Display the Error message of failling tests.
-     <result_folder>     Folder to display (default: ./results/ )
-     avoid_long_double   Don't print long_double tests. If used in conjunction with working, will not print the working long double if they exit
-
-Example:
-  - hierarchical parallelism tests
-       OMP_TARGET_OFFLOAD=mandatory CXX='icc' CXXFLAGS='-qnextgen -fiopenmp -fopenmp-targets=spir64=-fno-exceptions' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run ./tests/hp_*
-  - Display a sumarry of result the result.
-      ./ovol.sh diplay --avoid_long_double  results/*/math_cpp11
 ```
 
 # How to read logs files.
 
-When running with `run`, two log files will be create for each`test_folder`.
+When running with `run`, two log files will be create for each `test_folder`, one for compilation, the other for the runtime. 
+Error 112 correspond to a incorect result.
  
-Only the code who didn't compile or run are printed when using `./run.sh display`.
-The error code repported are the one given by `make`. A quick tranlasion table is:
-
-    - `Aborted` : Wrong value
-    - `Killed` : Hanging, killed by `killall -9`
-    - `Segmentation  fault` : ???
-    - `Error 1 (ignored)` : Something else
-
-For more information see the log file and check for the error.
 
 # Where are the tests?!
 
