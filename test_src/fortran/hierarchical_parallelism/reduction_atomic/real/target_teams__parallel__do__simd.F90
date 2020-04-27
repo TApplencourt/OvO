@@ -32,15 +32,15 @@ PROGRAM target_teams__parallel__do__simd
     REAL :: counter = 0
     INTEGER :: num_teams
     REAL :: partial_counter
-    !$OMP TARGET TEAMS  MAP(TOFROM: counter) 
+    !$OMP TARGET TEAMS   MAP(TOFROM: counter) 
     num_teams = omp_get_num_teams()
     partial_counter = 0.
-    !$OMP PARALLEL  REDUCTION(+:partial_counter)  
-    !$OMP DO 
+    !$OMP PARALLEL REDUCTION(+:partial_counter) 
+    !$OMP DO  
     DO i = 1 , L 
-    !$OMP SIMD 
+    !$OMP SIMD  REDUCTION(+:partial_counter)  
     DO j = 1 , M 
-partial_counter = partial_counter + 1./num_teams 
+partial_counter = partial_counter + 1./num_teams
     END DO
     !$OMP END SIMD
     END DO

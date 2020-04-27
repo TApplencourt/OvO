@@ -35,7 +35,7 @@ PROGRAM target__teams__parallel__loop
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
     !$OMP LOOP   
     DO i = 1 , L 
-counter = counter +  CMPLX(   1./num_teams   ,0) 
+counter = counter + 1./num_teams
     END DO
     !$OMP END LOOP
     !$OMP END PARALLEL

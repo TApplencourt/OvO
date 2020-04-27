@@ -7,21 +7,21 @@ void test_target_parallel__for__simd(){
  const int L = 4096;
  const int M = 64;
  double counter{};
-double partial_counter{};
-#pragma omp target parallel  reduction(+: counter)   map(tofrom:partial_counter) 
+#pragma omp target parallel   map(tofrom:counter) 
     {
-#pragma omp for 
+#pragma omp for  
     for (int i = 0 ; i < L ; i++ )
     {
-#pragma omp simd 
+double partial_counter{};
+#pragma omp simd reduction(+: partial_counter)
     for (int j = 0 ; j < M ; j++ )
     {
 partial_counter += double { 1.0f };
    } 
-   } 
-   } 
 #pragma omp atomic update
 counter += partial_counter;
+   } 
+   } 
 if ( !almost_equal(counter,double { L*M }, 0.1)  ) {
     std::cerr << "Expected: " << L*M << " Got: " << counter << std::endl;
     std::exit(112);

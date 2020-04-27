@@ -13,7 +13,7 @@ PROGRAM target_teams_distribute_parallel_do
     REAL :: counter = 0
     !$OMP TARGET TEAMS DISTRIBUTE PARALLEL DO   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
     DO i = 1 , L 
-counter = counter +  1.  
+counter = counter + 1.
     END DO
     !$OMP END TARGET TEAMS DISTRIBUTE PARALLEL DO
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN

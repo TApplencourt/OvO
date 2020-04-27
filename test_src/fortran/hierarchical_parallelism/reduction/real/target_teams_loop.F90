@@ -13,7 +13,7 @@ PROGRAM target_teams_loop
     REAL :: counter = 0
     !$OMP TARGET TEAMS LOOP   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
     DO i = 1 , L 
-counter = counter +  1.  
+counter = counter + 1.
     END DO
     !$OMP END TARGET TEAMS LOOP
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN

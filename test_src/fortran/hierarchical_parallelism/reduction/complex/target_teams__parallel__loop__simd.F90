@@ -38,7 +38,7 @@ PROGRAM target_teams__parallel__loop__simd
     DO i = 1 , L 
     !$OMP SIMD   REDUCTION(+:COUNTER)  
     DO j = 1 , M 
-counter = counter +  CMPLX(   1./num_teams   ,0) 
+counter = counter + 1./num_teams
     END DO
     !$OMP END SIMD
     END DO

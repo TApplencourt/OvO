@@ -30,7 +30,7 @@ PROGRAM target__teams
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
     num_teams = omp_get_num_teams()
-counter = counter +  CMPLX(   1./num_teams   ,0) 
+counter = counter + 1./num_teams
     !$OMP END TEAMS
     !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, 1, 0.1) ) THEN

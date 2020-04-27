@@ -14,7 +14,7 @@ PROGRAM target__teams_distribute_simd
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP TEAMS DISTRIBUTE SIMD   REDUCTION(+:COUNTER)  
     DO i = 1 , L 
-counter = counter +  CMPLX(   1.  ,0)  
+counter = counter + 1.
     END DO
     !$OMP END TEAMS DISTRIBUTE SIMD
     !$OMP END TARGET

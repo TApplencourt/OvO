@@ -7,13 +7,13 @@ void test_target_teams__distribute__parallel_loop(){
  const int L = 4096;
  const int M = 64;
  double counter{};
-#pragma omp target teams  map(tofrom:counter) 
+#pragma omp target teams   map(tofrom:counter) 
     {
-#pragma omp distribute 
+#pragma omp distribute  
     for (int i = 0 ; i < L ; i++ )
     {
 double partial_counter{};
-#pragma omp parallel loop  reduction(+: counter)  
+#pragma omp parallel loop reduction(+: partial_counter)
     for (int j = 0 ; j < M ; j++ )
     {
 partial_counter += double { 1.0f };

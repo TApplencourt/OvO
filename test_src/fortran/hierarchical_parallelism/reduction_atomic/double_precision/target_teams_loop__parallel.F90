@@ -30,12 +30,12 @@ PROGRAM target_teams_loop__parallel
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_threads
     DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET TEAMS LOOP  MAP(TOFROM: counter) 
+    !$OMP TARGET TEAMS LOOP   MAP(TOFROM: counter) 
     DO i = 1 , L 
     partial_counter = 0.
-    !$OMP PARALLEL  REDUCTION(+:partial_counter)  
+    !$OMP PARALLEL REDUCTION(+:partial_counter) 
     num_threads = omp_get_num_threads()
-partial_counter =  partial_counter + 1./num_threads  
+partial_counter = partial_counter + 1./num_threads
     !$OMP END PARALLEL
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter

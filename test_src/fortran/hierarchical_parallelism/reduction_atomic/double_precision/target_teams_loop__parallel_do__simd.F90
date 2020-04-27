@@ -16,12 +16,12 @@ PROGRAM target_teams_loop__parallel_do__simd
     INTEGER :: k
     DOUBLE PRECISION :: counter = 0
     DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET TEAMS LOOP  MAP(TOFROM: counter) 
+    !$OMP TARGET TEAMS LOOP   MAP(TOFROM: counter) 
     DO i = 1 , L 
     partial_counter = 0.
-    !$OMP PARALLEL DO  REDUCTION(+:partial_counter)  
+    !$OMP PARALLEL DO REDUCTION(+:partial_counter) 
     DO j = 1 , M 
-    !$OMP SIMD 
+    !$OMP SIMD  REDUCTION(+:partial_counter)  
     DO k = 1 , N 
 partial_counter = partial_counter + 1.
     END DO

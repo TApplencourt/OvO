@@ -30,13 +30,13 @@ PROGRAM target__teams__parallel_do_simd
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_teams
     DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET  MAP(TOFROM: counter) 
-    !$OMP TEAMS 
+    !$OMP TARGET   MAP(TOFROM: counter) 
+    !$OMP TEAMS  
     num_teams = omp_get_num_teams()
     partial_counter = 0.
-    !$OMP PARALLEL DO SIMD  REDUCTION(+:partial_counter)  
+    !$OMP PARALLEL DO SIMD REDUCTION(+:partial_counter) 
     DO i = 1 , L 
-partial_counter = partial_counter + 1./num_teams 
+partial_counter = partial_counter + 1./num_teams
     END DO
     !$OMP END PARALLEL DO SIMD
 !$OMP ATOMIC UPDATE

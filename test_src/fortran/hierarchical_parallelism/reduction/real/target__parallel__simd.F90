@@ -34,7 +34,7 @@ PROGRAM target__parallel__simd
     num_threads = omp_get_num_threads()
     !$OMP SIMD   REDUCTION(+:COUNTER)  
     DO i = 1 , L 
-counter =  counter +  1./num_threads  
+counter = counter + 1./num_threads
     END DO
     !$OMP END SIMD
     !$OMP END PARALLEL

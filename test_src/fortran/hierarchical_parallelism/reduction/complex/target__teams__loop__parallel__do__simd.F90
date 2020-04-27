@@ -24,7 +24,7 @@ PROGRAM target__teams__loop__parallel__do__simd
     DO j = 1 , M 
     !$OMP SIMD   REDUCTION(+:COUNTER)  
     DO k = 1 , N 
-counter = counter +  CMPLX(   1.  ,0)  
+counter = counter + 1.
     END DO
     !$OMP END SIMD
     END DO

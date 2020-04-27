@@ -34,7 +34,7 @@ PROGRAM target__teams__parallel
     num_teams = omp_get_num_teams()
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
     num_threads = omp_get_num_threads()
-counter = counter +  1./(num_teams*num_threads)  
+counter = counter + 1./(num_teams*num_threads)
     !$OMP END PARALLEL
     !$OMP END TEAMS
     !$OMP END TARGET

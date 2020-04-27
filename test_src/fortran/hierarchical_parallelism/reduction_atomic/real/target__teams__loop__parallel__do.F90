@@ -14,13 +14,13 @@ PROGRAM target__teams__loop__parallel__do
     INTEGER :: j
     REAL :: counter = 0
     REAL :: partial_counter
-    !$OMP TARGET  MAP(TOFROM: counter) 
-    !$OMP TEAMS 
-    !$OMP LOOP 
+    !$OMP TARGET   MAP(TOFROM: counter) 
+    !$OMP TEAMS  
+    !$OMP LOOP  
     DO i = 1 , L 
     partial_counter = 0.
-    !$OMP PARALLEL  REDUCTION(+:partial_counter)  
-    !$OMP DO 
+    !$OMP PARALLEL REDUCTION(+:partial_counter) 
+    !$OMP DO  
     DO j = 1 , M 
 partial_counter = partial_counter + 1.
     END DO

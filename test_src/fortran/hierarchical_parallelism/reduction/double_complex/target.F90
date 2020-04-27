@@ -10,7 +10,7 @@ PROGRAM target
     LOGICAL :: almost_equal
     DOUBLE COMPLEX :: counter = (0,0)
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
-counter = counter +  CMPLX(   1.  ,0)  
+counter = counter + 1.
     !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, 1, 0.1) ) THEN
     write(*,*)  'Expected', 1,  'Got', counter

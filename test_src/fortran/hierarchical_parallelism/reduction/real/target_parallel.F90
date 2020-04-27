@@ -29,7 +29,7 @@ PROGRAM target_parallel
     INTEGER :: num_threads
     !$OMP TARGET PARALLEL   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
     num_threads = omp_get_num_threads()
-counter =  counter +  1./num_threads  
+counter = counter + 1./num_threads
     !$OMP END TARGET PARALLEL
 IF ( .NOT.almost_equal(counter, 1, 0.1) ) THEN
     write(*,*)  'Expected', 1,  'Got', counter

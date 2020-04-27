@@ -36,7 +36,7 @@ PROGRAM target__teams__distribute__parallel
     !$OMP PARALLEL 
     num_threads = omp_get_num_threads()
 !$OMP ATOMIC UPDATE
-counter =  counter +1./num_threads
+counter = counter + 1./num_threads
     !$OMP END PARALLEL
     END DO
     !$OMP END DISTRIBUTE

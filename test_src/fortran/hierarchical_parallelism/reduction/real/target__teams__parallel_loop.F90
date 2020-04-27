@@ -34,7 +34,7 @@ PROGRAM target__teams__parallel_loop
     num_teams = omp_get_num_teams()
     !$OMP PARALLEL LOOP   REDUCTION(+:COUNTER)  
     DO i = 1 , L 
-counter = counter +  1./num_teams  
+counter = counter + 1./num_teams
     END DO
     !$OMP END PARALLEL LOOP
     !$OMP END TEAMS

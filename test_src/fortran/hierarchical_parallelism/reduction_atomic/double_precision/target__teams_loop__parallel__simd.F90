@@ -32,15 +32,15 @@ PROGRAM target__teams_loop__parallel__simd
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_threads
     DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET  MAP(TOFROM: counter) 
-    !$OMP TEAMS LOOP 
+    !$OMP TARGET   MAP(TOFROM: counter) 
+    !$OMP TEAMS LOOP  
     DO i = 1 , L 
     partial_counter = 0.
-    !$OMP PARALLEL  REDUCTION(+:partial_counter)  
+    !$OMP PARALLEL REDUCTION(+:partial_counter) 
     num_threads = omp_get_num_threads()
-    !$OMP SIMD 
+    !$OMP SIMD  REDUCTION(+:partial_counter)  
     DO j = 1 , M 
-partial_counter =  partial_counter + 1./num_threads  
+partial_counter = partial_counter + 1./num_threads
     END DO
     !$OMP END SIMD
     !$OMP END PARALLEL

@@ -13,18 +13,18 @@ void test_target__teams__distribute__parallel__simd(){
  const int L = 4096;
  const int M = 64;
  double counter{};
-#pragma omp target  map(tofrom:counter) 
+#pragma omp target   map(tofrom:counter) 
     {
-#pragma omp teams 
+#pragma omp teams  
     {
-#pragma omp distribute 
+#pragma omp distribute  
     for (int i = 0 ; i < L ; i++ )
     {
 double partial_counter{};
-#pragma omp parallel  reduction(+: counter)  
+#pragma omp parallel reduction(+: partial_counter)
     {
 const int num_threads = omp_get_num_threads();
-#pragma omp simd 
+#pragma omp simd  reduction(+: partial_counter)  
     for (int j = 0 ; j < M ; j++ )
     {
 partial_counter += double { 1.0f/num_threads };

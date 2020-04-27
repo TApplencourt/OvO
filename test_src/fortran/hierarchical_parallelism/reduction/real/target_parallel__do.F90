@@ -14,7 +14,7 @@ PROGRAM target_parallel__do
     !$OMP TARGET PARALLEL   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
     !$OMP DO   
     DO i = 1 , L 
-counter = counter +  1.  
+counter = counter + 1.
     END DO
     !$OMP END DO
     !$OMP END TARGET PARALLEL

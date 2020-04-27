@@ -8,16 +8,16 @@ void test_target__teams_loop__parallel_loop__simd(){
  const int M = 64;
  const int N = 64;
  float counter{};
-#pragma omp target  map(tofrom:counter) 
+#pragma omp target   map(tofrom:counter) 
     {
-#pragma omp teams loop 
+#pragma omp teams loop  
     for (int i = 0 ; i < L ; i++ )
     {
 float partial_counter{};
-#pragma omp parallel loop  reduction(+: counter)  
+#pragma omp parallel loop reduction(+: partial_counter)
     for (int j = 0 ; j < M ; j++ )
     {
-#pragma omp simd 
+#pragma omp simd  reduction(+: partial_counter)  
     for (int k = 0 ; k < N ; k++ )
     {
 partial_counter += float { 1.0f };

@@ -33,7 +33,7 @@ PROGRAM target_teams__parallel
     num_teams = omp_get_num_teams()
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
     num_threads = omp_get_num_threads()
-counter = counter +  CMPLX(   1./(num_teams*num_threads)   ,0) 
+counter = counter + 1./(num_teams*num_threads)
     !$OMP END PARALLEL
     !$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, 1, 0.1) ) THEN

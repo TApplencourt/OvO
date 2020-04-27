@@ -14,18 +14,18 @@ PROGRAM target_teams_distribute_parallel_do__simd
     INTEGER :: j
     REAL :: counter = 0
     REAL :: partial_counter
-    partial_counter = 0.
-    !$OMP TARGET TEAMS DISTRIBUTE PARALLEL DO  REDUCTION(+:partial_counter)   MAP(TOFROM: counter) 
+    !$OMP TARGET TEAMS DISTRIBUTE PARALLEL DO   MAP(TOFROM: counter) 
     DO i = 1 , L 
-    !$OMP SIMD 
+    partial_counter = 0.
+    !$OMP SIMD REDUCTION(+:partial_counter) 
     DO j = 1 , M 
 partial_counter = partial_counter + 1.
     END DO
     !$OMP END SIMD
-    END DO
-    !$OMP END TARGET TEAMS DISTRIBUTE PARALLEL DO
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
+    END DO
+    !$OMP END TARGET TEAMS DISTRIBUTE PARALLEL DO
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     write(*,*)  'Expected', L*M,  'Got', counter
     call exit(112)

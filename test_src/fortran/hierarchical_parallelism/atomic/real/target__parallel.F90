@@ -31,7 +31,7 @@ PROGRAM target__parallel
     !$OMP PARALLEL 
     num_threads = omp_get_num_threads()
 !$OMP ATOMIC UPDATE
-counter =  counter +1./num_threads
+counter = counter + 1./num_threads
     !$OMP END PARALLEL
     !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, 1, 0.1) ) THEN

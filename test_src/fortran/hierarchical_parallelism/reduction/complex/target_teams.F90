@@ -29,7 +29,7 @@ PROGRAM target_teams
     INTEGER :: num_teams
     !$OMP TARGET TEAMS   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
     num_teams = omp_get_num_teams()
-counter = counter +  CMPLX(   1./num_teams   ,0) 
+counter = counter + 1./num_teams
     !$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, 1, 0.1) ) THEN
     write(*,*)  'Expected', 1,  'Got', counter

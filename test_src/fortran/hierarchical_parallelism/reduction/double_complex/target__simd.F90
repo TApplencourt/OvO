@@ -14,7 +14,7 @@ PROGRAM target__simd
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP SIMD   REDUCTION(+:COUNTER)  
     DO i = 1 , L 
-counter = counter +  CMPLX(   1.  ,0)  
+counter = counter + 1.
     END DO
     !$OMP END SIMD
     !$OMP END TARGET

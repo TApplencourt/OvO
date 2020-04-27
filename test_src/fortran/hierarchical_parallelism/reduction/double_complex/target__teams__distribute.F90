@@ -15,7 +15,7 @@ PROGRAM target__teams__distribute
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
     !$OMP DISTRIBUTE   
     DO i = 1 , L 
-counter = counter +  CMPLX(   1.  ,0)  
+counter = counter + 1.
     END DO
     !$OMP END DISTRIBUTE
     !$OMP END TEAMS

@@ -15,7 +15,7 @@ PROGRAM target__parallel__loop
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
     !$OMP LOOP   
     DO i = 1 , L 
-counter = counter +  CMPLX(   1.  ,0)  
+counter = counter + 1.
     END DO
     !$OMP END LOOP
     !$OMP END PARALLEL

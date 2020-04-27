@@ -13,7 +13,7 @@ PROGRAM target_parallel_loop
     REAL :: counter = 0
     !$OMP TARGET PARALLEL LOOP   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
     DO i = 1 , L 
-counter = counter +  1.  
+counter = counter + 1.
     END DO
     !$OMP END TARGET PARALLEL LOOP
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN

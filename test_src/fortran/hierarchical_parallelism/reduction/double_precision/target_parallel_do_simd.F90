@@ -13,7 +13,7 @@ PROGRAM target_parallel_do_simd
     DOUBLE PRECISION :: counter = 0
     !$OMP TARGET PARALLEL DO SIMD   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
     DO i = 1 , L 
-counter = counter +  1.  
+counter = counter + 1.
     END DO
     !$OMP END TARGET PARALLEL DO SIMD
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN

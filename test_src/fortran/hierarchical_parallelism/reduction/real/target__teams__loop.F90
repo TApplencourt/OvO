@@ -15,7 +15,7 @@ PROGRAM target__teams__loop
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
     !$OMP LOOP   
     DO i = 1 , L 
-counter = counter +  1.  
+counter = counter + 1.
     END DO
     !$OMP END LOOP
     !$OMP END TEAMS

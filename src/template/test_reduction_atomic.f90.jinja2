@@ -1,4 +1,4 @@
-{% from 'utils.f90.jinja2' import prologue_general, prologue_function, epilogue_function with context%}
+{% from 'utils.f90.jinja2' import prologue_general, prologue_function, increment, epilogue_function with context%}
 
 {{ prologue_general() }}
 
@@ -10,9 +10,9 @@ PROGRAM {{name}}
     {% for fat_pragma in fat_path %}
     {%if "partial" in fat_pragma%}
     partial_counter = 0.
-    !$OMP {{fat_pragma["pragma"]}} {% if "reduce" in fat_pragma %} REDUCTION(+:partial_counter) {% endif %} {% if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
+    !$OMP {{fat_pragma["pragma"]}} REDUCTION(+:partial_counter) 
     {%else %}
-    !$OMP {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
+    !$OMP {{fat_pragma["pragma"]}} {% if "partial_reduce" in fat_pragma %} REDUCTION(+:partial_counter) {% endif %} {% if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
     {%endif%}
 
 
@@ -28,15 +28,7 @@ PROGRAM {{name}}
 
     {% endfor %}
 
-{% if balenced %}
-partial_counter = partial_counter + 1.
-{% elif only_teams and only_parallel %}
-partial_counter = partial_counter + 1./(num_teams*num_threads) 
-{% elif only_teams  %}
-partial_counter = partial_counter + 1./num_teams 
-{% elif only_parallel  %}
-partial_counter =  partial_counter + 1./num_threads  
-{% endif %}
+{{ increment('partial_counter', balenced, only_teams, only_parallel) }}
  
     {% for fat_pragma in fat_path | reverse %} 
 

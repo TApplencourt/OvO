@@ -12,9 +12,9 @@ PROGRAM target_teams__distribute_simd
     INTEGER :: i
     DOUBLE PRECISION :: counter = 0
     DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET TEAMS  MAP(TOFROM: counter) 
+    !$OMP TARGET TEAMS   MAP(TOFROM: counter) 
     partial_counter = 0.
-    !$OMP DISTRIBUTE SIMD  REDUCTION(+:partial_counter)  
+    !$OMP DISTRIBUTE SIMD REDUCTION(+:partial_counter) 
     DO i = 1 , L 
 partial_counter = partial_counter + 1.
     END DO

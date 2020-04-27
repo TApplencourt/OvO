@@ -7,15 +7,15 @@ void test_target__teams__distribute__simd(){
  const int L = 4096;
  const int M = 64;
  float counter{};
-#pragma omp target  map(tofrom:counter) 
+#pragma omp target   map(tofrom:counter) 
     {
-#pragma omp teams 
+#pragma omp teams  
     {
-#pragma omp distribute 
+#pragma omp distribute  
     for (int i = 0 ; i < L ; i++ )
     {
 float partial_counter{};
-#pragma omp simd  reduction(+: counter)  
+#pragma omp simd reduction(+: partial_counter)
     for (int j = 0 ; j < M ; j++ )
     {
 partial_counter += float { 1.0f };

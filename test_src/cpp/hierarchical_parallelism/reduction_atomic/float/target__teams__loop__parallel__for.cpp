@@ -7,17 +7,17 @@ void test_target__teams__loop__parallel__for(){
  const int L = 4096;
  const int M = 64;
  float counter{};
-#pragma omp target  map(tofrom:counter) 
+#pragma omp target   map(tofrom:counter) 
     {
-#pragma omp teams 
+#pragma omp teams  
     {
-#pragma omp loop 
+#pragma omp loop  
     for (int i = 0 ; i < L ; i++ )
     {
 float partial_counter{};
-#pragma omp parallel  reduction(+: counter)  
+#pragma omp parallel reduction(+: partial_counter)
     {
-#pragma omp for 
+#pragma omp for  
     for (int j = 0 ; j < M ; j++ )
     {
 partial_counter += float { 1.0f };

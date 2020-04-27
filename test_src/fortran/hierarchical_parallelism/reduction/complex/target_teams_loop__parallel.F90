@@ -33,7 +33,7 @@ PROGRAM target_teams_loop__parallel
     DO i = 1 , L 
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
     num_threads = omp_get_num_threads()
-counter =  counter +  CMPLX(  1./num_threads   ,0) 
+counter = counter + 1./num_threads
     !$OMP END PARALLEL
     END DO
     !$OMP END TARGET TEAMS LOOP

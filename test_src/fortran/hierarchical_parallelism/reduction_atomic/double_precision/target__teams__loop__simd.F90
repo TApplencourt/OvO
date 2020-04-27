@@ -14,12 +14,12 @@ PROGRAM target__teams__loop__simd
     INTEGER :: j
     DOUBLE PRECISION :: counter = 0
     DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET  MAP(TOFROM: counter) 
-    !$OMP TEAMS 
-    !$OMP LOOP 
+    !$OMP TARGET   MAP(TOFROM: counter) 
+    !$OMP TEAMS  
+    !$OMP LOOP  
     DO i = 1 , L 
     partial_counter = 0.
-    !$OMP SIMD  REDUCTION(+:partial_counter)  
+    !$OMP SIMD REDUCTION(+:partial_counter) 
     DO j = 1 , M 
 partial_counter = partial_counter + 1.
     END DO

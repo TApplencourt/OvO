@@ -14,7 +14,7 @@ PROGRAM target__teams_loop
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP TEAMS LOOP   REDUCTION(+:COUNTER)  
     DO i = 1 , L 
-counter = counter +  1.  
+counter = counter + 1.
     END DO
     !$OMP END TEAMS LOOP
     !$OMP END TARGET

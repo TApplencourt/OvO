@@ -1,4 +1,4 @@
-{% from 'utils.f90.jinja2' import prologue_general, prologue_function, epilogue_function with context%}
+{% from 'utils.f90.jinja2' import prologue_general, prologue_function, epilogue_function,increment with context%}
 
 {{ prologue_general() }}
 
@@ -22,15 +22,7 @@ PROGRAM {{name}}
     {% endfor %}
 
 !$OMP ATOMIC UPDATE
-{% if balenced %}
-counter = counter + 1.
-{% elif only_teams and only_parallel %}
-counter = counter + 1./(num_teams*num_threads)
-{% elif only_teams  %}
-counter = counter + 1./num_teams
-{% elif only_parallel  %}
-counter =  counter +1./num_threads
-{% endif %}
+{{ increment('counter', balenced, only_teams, only_parallel) }}
  
     {% for fat_pragma in fat_path | reverse %} 
 {% if "loop" in fat_pragma %}

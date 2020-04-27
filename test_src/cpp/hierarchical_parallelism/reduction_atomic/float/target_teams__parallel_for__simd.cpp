@@ -13,14 +13,14 @@ void test_target_teams__parallel_for__simd(){
  const int L = 4096;
  const int M = 64;
  float counter{};
-#pragma omp target teams  map(tofrom:counter) 
+#pragma omp target teams   map(tofrom:counter) 
     {
 const int num_teams = omp_get_num_teams();
 float partial_counter{};
-#pragma omp parallel for  reduction(+: counter)  
+#pragma omp parallel for reduction(+: partial_counter)
     for (int i = 0 ; i < L ; i++ )
     {
-#pragma omp simd 
+#pragma omp simd  reduction(+: partial_counter)  
     for (int j = 0 ; j < M ; j++ )
     {
 partial_counter += float { 1.0f/num_teams } ;

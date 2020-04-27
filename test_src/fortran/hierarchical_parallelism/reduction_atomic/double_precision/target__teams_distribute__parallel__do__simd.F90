@@ -16,14 +16,14 @@ PROGRAM target__teams_distribute__parallel__do__simd
     INTEGER :: k
     DOUBLE PRECISION :: counter = 0
     DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET  MAP(TOFROM: counter) 
-    !$OMP TEAMS DISTRIBUTE 
+    !$OMP TARGET   MAP(TOFROM: counter) 
+    !$OMP TEAMS DISTRIBUTE  
     DO i = 1 , L 
     partial_counter = 0.
-    !$OMP PARALLEL  REDUCTION(+:partial_counter)  
-    !$OMP DO 
+    !$OMP PARALLEL REDUCTION(+:partial_counter) 
+    !$OMP DO  
     DO j = 1 , M 
-    !$OMP SIMD 
+    !$OMP SIMD  REDUCTION(+:partial_counter)  
     DO k = 1 , N 
 partial_counter = partial_counter + 1.
     END DO

@@ -12,13 +12,13 @@ bool almost_equal(double x, double gold, float tol) {
 void test_target_teams__parallel__for(){
  const int L = 262144;
  double counter{};
-#pragma omp target teams  map(tofrom:counter) 
+#pragma omp target teams   map(tofrom:counter) 
     {
 const int num_teams = omp_get_num_teams();
 double partial_counter{};
-#pragma omp parallel  reduction(+: counter)  
+#pragma omp parallel reduction(+: partial_counter)
     {
-#pragma omp for 
+#pragma omp for  
     for (int i = 0 ; i < L ; i++ )
     {
 partial_counter += double { 1.0f/num_teams } ;
