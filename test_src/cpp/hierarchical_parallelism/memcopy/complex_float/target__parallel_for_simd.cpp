@@ -13,7 +13,7 @@ bool almost_equal(complex<float> x, complex<float> y, int ulp) {
 }
 void test_target__parallel_for_simd(){
   // Input and Outputs
-  const int L = 5;
+  const int L = 262144;
   const int size = L;
   std::vector<complex<float>> A(size);
   std::vector<complex<float>> B(size);

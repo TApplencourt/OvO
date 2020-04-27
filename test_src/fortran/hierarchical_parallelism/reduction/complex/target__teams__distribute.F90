@@ -6,11 +6,11 @@ FUNCTION almost_equal(x, gold, tol) result(b)
     LOGICAL          :: b
     b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol)  )
 END FUNCTION almost_equal
-program target__teams__distribute
+PROGRAM target__teams__distribute
     LOGICAL :: almost_equal
-    INTEGER :: L = 5
+    INTEGER :: L = 262144
     INTEGER :: i
-    COMPLEX :: COUNTER =  (    0   ,0)  
+    COMPLEX :: counter =  (    0   ,0) 
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
     !$OMP DISTRIBUTE   
@@ -20,8 +20,8 @@ counter = counter +  CMPLX(   1.  ,0)
     !$OMP END DISTRIBUTE
     !$OMP END TEAMS
     !$OMP END TARGET
-    IF  ( .NOT.almost_equal(COUNTER, L, 0.1) ) THEN
-        write(*,*)  'Expected', L,  'Got', COUNTER
-        call exit(1)
-    ENDIF
-end program target__teams__distribute
+IF  ( .NOT.almost_equal(counter, L, 0.1) ) THEN
+    write(*,*)  'Expected', L,  'Got', counter
+    call exit(1)
+ENDIF
+END PROGRAM target__teams__distribute

@@ -9,8 +9,8 @@ bool almost_equal(float x, float y, int ulp) {
 }
 void test_target__parallel__for__simd(){
   // Input and Outputs
-  const int L = 5;
-  const int M = 6;
+  const int L = 4096;
+  const int M = 64;
   const int size = L*M;
   std::vector<float> A(size);
   std::vector<float> B(size);

@@ -6,9 +6,9 @@ bool almost_equal(float x, float gold, float tol) {
 }
 void test_target_teams_distribute__parallel_loop__simd(){
  // Input and Outputs
- const int L = 5;
- const int M = 6;
- const int N = 7;
+ const int L = 64;
+ const int M = 64;
+ const int N = 64;
 float counter{};
 // Main program
 #pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 

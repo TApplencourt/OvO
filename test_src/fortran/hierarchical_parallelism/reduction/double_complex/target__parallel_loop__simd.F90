@@ -6,13 +6,13 @@ FUNCTION almost_equal(x, gold, tol) result(b)
     LOGICAL          :: b
     b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol)  )
 END FUNCTION almost_equal
-program target__parallel_loop__simd
+PROGRAM target__parallel_loop__simd
     LOGICAL :: almost_equal
-    INTEGER :: L = 5
+    INTEGER :: L = 4096
     INTEGER :: i
-    INTEGER :: M = 6
+    INTEGER :: M = 64
     INTEGER :: j
-    DOUBLE COMPLEX :: COUNTER =  (    0   ,0)  
+    DOUBLE COMPLEX :: counter =  (    0   ,0) 
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP PARALLEL LOOP   REDUCTION(+:COUNTER)  
     DO i = 1 , L 
@@ -24,8 +24,8 @@ counter = counter +  CMPLX(   1.  ,0)
     END DO
     !$OMP END PARALLEL LOOP
     !$OMP END TARGET
-    IF  ( .NOT.almost_equal(COUNTER, L*M, 0.1) ) THEN
-        write(*,*)  'Expected', L*M,  'Got', COUNTER
-        call exit(1)
-    ENDIF
-end program target__parallel_loop__simd
+IF  ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
+    write(*,*)  'Expected', L*M,  'Got', counter
+    call exit(1)
+ENDIF
+END PROGRAM target__parallel_loop__simd

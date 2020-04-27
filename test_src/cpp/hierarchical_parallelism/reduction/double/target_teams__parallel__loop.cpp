@@ -12,7 +12,7 @@ bool almost_equal(double x, double gold, float tol) {
 }
 void test_target_teams__parallel__loop(){
  // Input and Outputs
- const int L = 5;
+ const int L = 262144;
 double counter{};
 // Main program
 #pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 

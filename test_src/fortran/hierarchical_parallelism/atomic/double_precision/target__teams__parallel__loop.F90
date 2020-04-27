@@ -14,9 +14,9 @@ FUNCTION almost_equal(x, gold, tol) result(b)
     INTEGER,  intent(in) ::gold
     REAL, intent(in)  :: tol
     LOGICAL          :: b
-    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  ) 
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
 END FUNCTION almost_equal
-program target__teams__parallel__loop
+PROGRAM target__teams__parallel__loop
 #ifdef _OPENMP
     USE OMP_LIB
     implicit none
@@ -25,11 +25,11 @@ program target__teams__parallel__loop
     INTEGER:: omp_get_num_teams, omp_get_num_threads
 #endif
     LOGICAL :: almost_equal
-    INTEGER :: L = 5
+    INTEGER :: L = 262144
     INTEGER :: i
-    DOUBLE PRECISION :: COUNTER = 0
+    DOUBLE PRECISION :: counter =  0  
     INTEGER :: num_teams
-    !$OMP TARGET   MAP(TOFROM: COUNTER) 
+    !$OMP TARGET   MAP(TOFROM: counter) 
     !$OMP TEAMS 
     num_teams = omp_get_num_teams()
     !$OMP PARALLEL 
@@ -42,8 +42,8 @@ counter = counter + 1./num_teams
     !$OMP END PARALLEL
     !$OMP END TEAMS
     !$OMP END TARGET
-    IF  ( .NOT.almost_equal(COUNTER, L, 0.1) ) THEN
-        write(*,*)  'Expected', L,  'Got', COUNTER
-        call exit(1)
-    ENDIF
-end program target__teams__parallel__loop
+IF  ( .NOT.almost_equal(counter, L, 0.1) ) THEN
+    write(*,*)  'Expected', L,  'Got', counter
+    call exit(1)
+ENDIF
+END PROGRAM target__teams__parallel__loop

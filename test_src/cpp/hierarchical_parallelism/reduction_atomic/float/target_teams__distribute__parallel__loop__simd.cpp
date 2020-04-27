@@ -5,9 +5,9 @@ bool almost_equal(float x, float gold, float tol) {
     return gold * (1-tol) <= x && x <= gold * ( 1+tol );
 }
 void test_target_teams__distribute__parallel__loop__simd(){
- const int L = 5;
- const int M = 6;
- const int N = 7;
+ const int L = 64;
+ const int M = 64;
+ const int N = 64;
 float counter{};
 #pragma omp target teams  map(tofrom:counter) 
     {

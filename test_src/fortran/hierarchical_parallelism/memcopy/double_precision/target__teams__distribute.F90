@@ -2,7 +2,7 @@ program target__teams__distribute
     implicit none
     DOUBLE PRECISION, ALLOCATABLE :: A(:) 
     DOUBLE PRECISION, ALLOCATABLE :: B(:)
-    INTEGER :: L = 5
+    INTEGER :: L = 262144
     INTEGER :: i
     INTEGER :: S
     S = L

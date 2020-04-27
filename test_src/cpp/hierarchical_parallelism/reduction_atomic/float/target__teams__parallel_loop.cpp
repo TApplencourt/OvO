@@ -11,7 +11,7 @@ bool almost_equal(float x, float gold, float tol) {
     return gold * (1-tol) <= x && x <= gold * ( 1+tol );
 }
 void test_target__teams__parallel_loop(){
- const int L = 5;
+ const int L = 262144;
 float counter{};
 #pragma omp target  map(tofrom:counter) 
     {

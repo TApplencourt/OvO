@@ -2,7 +2,7 @@ program target__parallel_do_simd
     implicit none
     REAL, ALLOCATABLE :: A(:) 
     REAL, ALLOCATABLE :: B(:)
-    INTEGER :: L = 5
+    INTEGER :: L = 262144
     INTEGER :: i
     INTEGER :: S
     S = L

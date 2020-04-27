@@ -6,8 +6,8 @@ bool almost_equal(double x, double gold, float tol) {
 }
 void test_target__teams__loop__parallel_for(){
  // Input and Outputs
- const int L = 5;
- const int M = 6;
+ const int L = 4096;
+ const int M = 64;
 double counter{};
 // Main program
 #pragma omp target   map(tofrom:counter) 

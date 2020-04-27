@@ -13,9 +13,9 @@ bool almost_equal(complex<double> x, complex<double> y, int ulp) {
 }
 void test_target__teams_distribute__parallel__for__simd(){
   // Input and Outputs
-  const int L = 5;
-  const int M = 6;
-  const int N = 7;
+  const int L = 64;
+  const int M = 64;
+  const int N = 64;
   const int size = L*M*N;
   std::vector<complex<double>> A(size);
   std::vector<complex<double>> B(size);

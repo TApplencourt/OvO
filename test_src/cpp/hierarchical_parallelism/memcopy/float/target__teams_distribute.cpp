@@ -9,7 +9,7 @@ bool almost_equal(float x, float y, int ulp) {
 }
 void test_target__teams_distribute(){
   // Input and Outputs
-  const int L = 5;
+  const int L = 262144;
   const int size = L;
   std::vector<float> A(size);
   std::vector<float> B(size);

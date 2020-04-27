@@ -12,8 +12,8 @@ bool almost_equal(float x, float gold, float tol) {
 }
 void test_target_teams__parallel_loop__simd(){
  // Input and Outputs
- const int L = 5;
- const int M = 6;
+ const int L = 4096;
+ const int M = 64;
 float counter{};
 // Main program
 #pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 

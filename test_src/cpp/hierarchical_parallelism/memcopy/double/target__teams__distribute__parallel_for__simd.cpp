@@ -9,9 +9,9 @@ bool almost_equal(double x, double y, int ulp) {
 }
 void test_target__teams__distribute__parallel_for__simd(){
   // Input and Outputs
-  const int L = 5;
-  const int M = 6;
-  const int N = 7;
+  const int L = 64;
+  const int M = 64;
+  const int N = 64;
   const int size = L*M*N;
   std::vector<double> A(size);
   std::vector<double> B(size);

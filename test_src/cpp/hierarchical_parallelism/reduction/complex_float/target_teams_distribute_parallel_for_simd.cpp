@@ -9,7 +9,7 @@ bool almost_equal(complex<float> x, complex<float> gold, float tol) {
 #pragma omp declare reduction(+: complex<float>:   omp_out += omp_in) 
 void test_target_teams_distribute_parallel_for_simd(){
  // Input and Outputs
- const int L = 5;
+ const int L = 262144;
 complex<float> counter{};
 // Main program
 #pragma omp target teams distribute parallel for simd  reduction(+: counter)   map(tofrom:counter) 

@@ -4,16 +4,16 @@ FUNCTION almost_equal(x, gold, tol) result(b)
     INTEGER,  intent(in) ::gold
     REAL, intent(in)  :: tol
     LOGICAL          :: b
-    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  ) 
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
 END FUNCTION almost_equal
-program target_teams__distribute__parallel_do
+PROGRAM target_teams__distribute__parallel_do
     LOGICAL :: almost_equal
-    INTEGER :: L = 5
+    INTEGER :: L = 4096
     INTEGER :: i
-    INTEGER :: M = 6
+    INTEGER :: M = 64
     INTEGER :: j
-    DOUBLE PRECISION :: COUNTER = 0
-    !$OMP TARGET TEAMS   MAP(TOFROM: COUNTER) 
+    DOUBLE PRECISION :: counter =  0  
+    !$OMP TARGET TEAMS   MAP(TOFROM: counter) 
     !$OMP DISTRIBUTE 
     DO i = 1 , L 
     !$OMP PARALLEL DO 
@@ -25,8 +25,8 @@ counter = counter + 1.
     END DO
     !$OMP END DISTRIBUTE
     !$OMP END TARGET TEAMS
-    IF  ( .NOT.almost_equal(COUNTER, L*M, 0.1) ) THEN
-        write(*,*)  'Expected', L*M,  'Got', COUNTER
-        call exit(1)
-    ENDIF
-end program target_teams__distribute__parallel_do
+IF  ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
+    write(*,*)  'Expected', L*M,  'Got', counter
+    call exit(1)
+ENDIF
+END PROGRAM target_teams__distribute__parallel_do

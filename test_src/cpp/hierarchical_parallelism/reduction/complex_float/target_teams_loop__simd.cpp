@@ -9,8 +9,8 @@ bool almost_equal(complex<float> x, complex<float> gold, float tol) {
 #pragma omp declare reduction(+: complex<float>:   omp_out += omp_in) 
 void test_target_teams_loop__simd(){
  // Input and Outputs
- const int L = 5;
- const int M = 6;
+ const int L = 4096;
+ const int M = 64;
 complex<float> counter{};
 // Main program
 #pragma omp target teams loop  reduction(+: counter)   map(tofrom:counter) 

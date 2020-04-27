@@ -1,21 +1,20 @@
 FUNCTION almost_equal(x, gold, tol) result(b)
     implicit none
     DOUBLE PRECISION, intent(in) :: x
-    INTEGER,  intent(in) :: gold
+    INTEGER,  intent(in) ::gold
     REAL, intent(in)  :: tol
     LOGICAL          :: b
     b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
 END FUNCTION almost_equal
 PROGRAM target__teams_distribute__parallel__do__simd
     LOGICAL :: almost_equal
-    INTEGER :: L = 5
+    INTEGER :: L = 64
     INTEGER :: i
-    INTEGER :: M = 6
+    INTEGER :: M = 64
     INTEGER :: j
-    INTEGER :: N = 7
+    INTEGER :: N = 64
     INTEGER :: k
-    DOUBLE PRECISION :: counter = 0. 
-    DOUBLE PRECISION :: partial_counter = 0.
+    DOUBLE PRECISION :: counter =  0  
     !$OMP TARGET  MAP(TOFROM: counter) 
     !$OMP TEAMS DISTRIBUTE 
     DO i = 1 , L 
@@ -36,8 +35,8 @@ counter = counter + partial_counter
     END DO
     !$OMP END TEAMS DISTRIBUTE
     !$OMP END TARGET
-    IF  ( .NOT.almost_equal(COUNTER, L*M*N, 0.1) ) THEN
-        write(*,*)  'Expected', L*M*N,  'Got', COUNTER
-        call exit(1)
-    ENDIF
+IF  ( .NOT.almost_equal(counter, L*M*N, 0.1) ) THEN
+    write(*,*)  'Expected', L*M*N,  'Got', counter
+    call exit(1)
+ENDIF
 END PROGRAM target__teams_distribute__parallel__do__simd

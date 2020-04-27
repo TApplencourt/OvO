@@ -6,7 +6,7 @@ bool almost_equal(float x, float gold, float tol) {
 }
 void test_target_parallel_for_simd(){
  // Input and Outputs
- const int L = 5;
+ const int L = 262144;
 float counter{};
 // Main program
 #pragma omp target parallel for simd  reduction(+: counter)   map(tofrom:counter) 

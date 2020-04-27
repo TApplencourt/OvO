@@ -4,7 +4,7 @@ program target_teams_distribute
     COMPLEX, ALLOCATABLE :: B(:)
     REAL, ALLOCATABLE :: B_real(:)
     REAL, ALLOCATABLE :: B_imag(:)
-    INTEGER :: L = 5
+    INTEGER :: L = 262144
     INTEGER :: i
     INTEGER :: S
     S = L

@@ -9,7 +9,7 @@ bool almost_equal(double x, double y, int ulp) {
 }
 void test_target_parallel__for(){
   // Input and Outputs
-  const int L = 5;
+  const int L = 262144;
   const int size = L;
   std::vector<double> A(size);
   std::vector<double> B(size);

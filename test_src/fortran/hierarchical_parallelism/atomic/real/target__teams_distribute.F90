@@ -4,14 +4,14 @@ FUNCTION almost_equal(x, gold, tol) result(b)
     INTEGER,  intent(in) ::gold
     REAL, intent(in)  :: tol
     LOGICAL          :: b
-    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  ) 
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
 END FUNCTION almost_equal
-program target__teams_distribute
+PROGRAM target__teams_distribute
     LOGICAL :: almost_equal
-    INTEGER :: L = 5
+    INTEGER :: L = 262144
     INTEGER :: i
-    REAL :: COUNTER = 0
-    !$OMP TARGET   MAP(TOFROM: COUNTER) 
+    REAL :: counter =  0  
+    !$OMP TARGET   MAP(TOFROM: counter) 
     !$OMP TEAMS DISTRIBUTE 
     DO i = 1 , L 
 !$OMP ATOMIC UPDATE
@@ -19,8 +19,8 @@ counter = counter + 1.
     END DO
     !$OMP END TEAMS DISTRIBUTE
     !$OMP END TARGET
-    IF  ( .NOT.almost_equal(COUNTER, L, 0.1) ) THEN
-        write(*,*)  'Expected', L,  'Got', COUNTER
-        call exit(1)
-    ENDIF
-end program target__teams_distribute
+IF  ( .NOT.almost_equal(counter, L, 0.1) ) THEN
+    write(*,*)  'Expected', L,  'Got', counter
+    call exit(1)
+ENDIF
+END PROGRAM target__teams_distribute

@@ -6,15 +6,15 @@ FUNCTION almost_equal(x, gold, tol) result(b)
     LOGICAL          :: b
     b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
 END FUNCTION almost_equal
-program target_teams__distribute__parallel_loop__simd
+PROGRAM target_teams__distribute__parallel_loop__simd
     LOGICAL :: almost_equal
-    INTEGER :: L = 5
+    INTEGER :: L = 64
     INTEGER :: i
-    INTEGER :: M = 6
+    INTEGER :: M = 64
     INTEGER :: j
-    INTEGER :: N = 7
+    INTEGER :: N = 64
     INTEGER :: k
-    REAL :: COUNTER =  0   
+    REAL :: counter =  0  
     !$OMP TARGET TEAMS   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
     !$OMP DISTRIBUTE   
     DO i = 1 , L 
@@ -30,8 +30,8 @@ counter = counter +  1.
     END DO
     !$OMP END DISTRIBUTE
     !$OMP END TARGET TEAMS
-    IF  ( .NOT.almost_equal(COUNTER, L*M*N, 0.1) ) THEN
-        write(*,*)  'Expected', L*M*N,  'Got', COUNTER
-        call exit(1)
-    ENDIF
-end program target_teams__distribute__parallel_loop__simd
+IF  ( .NOT.almost_equal(counter, L*M*N, 0.1) ) THEN
+    write(*,*)  'Expected', L*M*N,  'Got', counter
+    call exit(1)
+ENDIF
+END PROGRAM target_teams__distribute__parallel_loop__simd

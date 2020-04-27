@@ -2,7 +2,7 @@ program target__teams__loop
     implicit none
     REAL, ALLOCATABLE :: A(:) 
     REAL, ALLOCATABLE :: B(:)
-    INTEGER :: L = 5
+    INTEGER :: L = 262144
     INTEGER :: i
     INTEGER :: S
     S = L

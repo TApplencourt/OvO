@@ -4,9 +4,9 @@ program target__teams_distribute__simd
     COMPLEX, ALLOCATABLE :: B(:)
     REAL, ALLOCATABLE :: B_real(:)
     REAL, ALLOCATABLE :: B_imag(:)
-    INTEGER :: L = 5
+    INTEGER :: L = 4096
     INTEGER :: i
-    INTEGER :: M = 6
+    INTEGER :: M = 64
     INTEGER :: j
     INTEGER :: S
     S = L*M

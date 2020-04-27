@@ -6,11 +6,11 @@ FUNCTION almost_equal(x, gold, tol) result(b)
     LOGICAL          :: b
     b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
 END FUNCTION almost_equal
-program target__parallel__loop
+PROGRAM target__parallel__loop
     LOGICAL :: almost_equal
-    INTEGER :: L = 5
+    INTEGER :: L = 262144
     INTEGER :: i
-    DOUBLE PRECISION :: COUNTER =  0   
+    DOUBLE PRECISION :: counter =  0  
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
     !$OMP LOOP   
@@ -20,8 +20,8 @@ counter = counter +  1.
     !$OMP END LOOP
     !$OMP END PARALLEL
     !$OMP END TARGET
-    IF  ( .NOT.almost_equal(COUNTER, L, 0.1) ) THEN
-        write(*,*)  'Expected', L,  'Got', COUNTER
-        call exit(1)
-    ENDIF
-end program target__parallel__loop
+IF  ( .NOT.almost_equal(counter, L, 0.1) ) THEN
+    write(*,*)  'Expected', L,  'Got', counter
+    call exit(1)
+ENDIF
+END PROGRAM target__parallel__loop

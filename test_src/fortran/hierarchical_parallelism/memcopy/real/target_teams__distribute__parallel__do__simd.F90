@@ -2,11 +2,11 @@ program target_teams__distribute__parallel__do__simd
     implicit none
     REAL, ALLOCATABLE :: A(:) 
     REAL, ALLOCATABLE :: B(:)
-    INTEGER :: L = 5
+    INTEGER :: L = 64
     INTEGER :: i
-    INTEGER :: M = 6
+    INTEGER :: M = 64
     INTEGER :: j
-    INTEGER :: N = 7
+    INTEGER :: N = 64
     INTEGER :: k
     INTEGER :: S
     S = L*M*N

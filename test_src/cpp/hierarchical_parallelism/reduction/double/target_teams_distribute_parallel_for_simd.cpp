@@ -6,7 +6,7 @@ bool almost_equal(double x, double gold, float tol) {
 }
 void test_target_teams_distribute_parallel_for_simd(){
  // Input and Outputs
- const int L = 5;
+ const int L = 262144;
 double counter{};
 // Main program
 #pragma omp target teams distribute parallel for simd  reduction(+: counter)   map(tofrom:counter) 

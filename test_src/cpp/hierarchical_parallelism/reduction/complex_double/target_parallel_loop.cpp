@@ -9,7 +9,7 @@ bool almost_equal(complex<double> x, complex<double> gold, float tol) {
 #pragma omp declare reduction(+: complex<double>:   omp_out += omp_in) 
 void test_target_parallel_loop(){
  // Input and Outputs
- const int L = 5;
+ const int L = 262144;
 complex<double> counter{};
 // Main program
 #pragma omp target parallel loop  reduction(+: counter)   map(tofrom:counter) 

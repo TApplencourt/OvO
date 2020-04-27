@@ -6,13 +6,13 @@ FUNCTION almost_equal(x, gold, tol) result(b)
     LOGICAL          :: b
     b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol)  )
 END FUNCTION almost_equal
-program target__teams__distribute__simd
+PROGRAM target__teams__distribute__simd
     LOGICAL :: almost_equal
-    INTEGER :: L = 5
+    INTEGER :: L = 4096
     INTEGER :: i
-    INTEGER :: M = 6
+    INTEGER :: M = 64
     INTEGER :: j
-    COMPLEX :: COUNTER =  (    0   ,0)  
+    COMPLEX :: counter =  (    0   ,0) 
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
     !$OMP DISTRIBUTE   
@@ -26,8 +26,8 @@ counter = counter +  CMPLX(   1.  ,0)
     !$OMP END DISTRIBUTE
     !$OMP END TEAMS
     !$OMP END TARGET
-    IF  ( .NOT.almost_equal(COUNTER, L*M, 0.1) ) THEN
-        write(*,*)  'Expected', L*M,  'Got', COUNTER
-        call exit(1)
-    ENDIF
-end program target__teams__distribute__simd
+IF  ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
+    write(*,*)  'Expected', L*M,  'Got', counter
+    call exit(1)
+ENDIF
+END PROGRAM target__teams__distribute__simd

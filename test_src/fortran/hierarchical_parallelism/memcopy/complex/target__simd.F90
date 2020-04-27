@@ -4,7 +4,7 @@ program target__simd
     COMPLEX, ALLOCATABLE :: B(:)
     REAL, ALLOCATABLE :: B_real(:)
     REAL, ALLOCATABLE :: B_imag(:)
-    INTEGER :: L = 5
+    INTEGER :: L = 262144
     INTEGER :: i
     INTEGER :: S
     S = L

@@ -2,11 +2,11 @@ program target__teams_loop__parallel__loop__simd
     implicit none
     DOUBLE PRECISION, ALLOCATABLE :: A(:) 
     DOUBLE PRECISION, ALLOCATABLE :: B(:)
-    INTEGER :: L = 5
+    INTEGER :: L = 64
     INTEGER :: i
-    INTEGER :: M = 6
+    INTEGER :: M = 64
     INTEGER :: j
-    INTEGER :: N = 7
+    INTEGER :: N = 64
     INTEGER :: k
     INTEGER :: S
     S = L*M*N

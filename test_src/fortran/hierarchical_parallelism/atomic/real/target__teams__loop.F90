@@ -4,14 +4,14 @@ FUNCTION almost_equal(x, gold, tol) result(b)
     INTEGER,  intent(in) ::gold
     REAL, intent(in)  :: tol
     LOGICAL          :: b
-    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  ) 
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
 END FUNCTION almost_equal
-program target__teams__loop
+PROGRAM target__teams__loop
     LOGICAL :: almost_equal
-    INTEGER :: L = 5
+    INTEGER :: L = 262144
     INTEGER :: i
-    REAL :: COUNTER = 0
-    !$OMP TARGET   MAP(TOFROM: COUNTER) 
+    REAL :: counter =  0  
+    !$OMP TARGET   MAP(TOFROM: counter) 
     !$OMP TEAMS 
     !$OMP LOOP 
     DO i = 1 , L 
@@ -21,8 +21,8 @@ counter = counter + 1.
     !$OMP END LOOP
     !$OMP END TEAMS
     !$OMP END TARGET
-    IF  ( .NOT.almost_equal(COUNTER, L, 0.1) ) THEN
-        write(*,*)  'Expected', L,  'Got', COUNTER
-        call exit(1)
-    ENDIF
-end program target__teams__loop
+IF  ( .NOT.almost_equal(counter, L, 0.1) ) THEN
+    write(*,*)  'Expected', L,  'Got', counter
+    call exit(1)
+ENDIF
+END PROGRAM target__teams__loop

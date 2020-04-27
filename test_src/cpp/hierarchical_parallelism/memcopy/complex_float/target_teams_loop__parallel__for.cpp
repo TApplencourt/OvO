@@ -13,8 +13,8 @@ bool almost_equal(complex<float> x, complex<float> y, int ulp) {
 }
 void test_target_teams_loop__parallel__for(){
   // Input and Outputs
-  const int L = 5;
-  const int M = 6;
+  const int L = 4096;
+  const int M = 64;
   const int size = L*M;
   std::vector<complex<float>> A(size);
   std::vector<complex<float>> B(size);

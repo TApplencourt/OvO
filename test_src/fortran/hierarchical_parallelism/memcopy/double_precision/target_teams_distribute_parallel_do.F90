@@ -2,7 +2,7 @@ program target_teams_distribute_parallel_do
     implicit none
     DOUBLE PRECISION, ALLOCATABLE :: A(:) 
     DOUBLE PRECISION, ALLOCATABLE :: B(:)
-    INTEGER :: L = 5
+    INTEGER :: L = 262144
     INTEGER :: i
     INTEGER :: S
     S = L

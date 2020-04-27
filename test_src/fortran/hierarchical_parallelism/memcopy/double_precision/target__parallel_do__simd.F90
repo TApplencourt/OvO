@@ -2,9 +2,9 @@ program target__parallel_do__simd
     implicit none
     DOUBLE PRECISION, ALLOCATABLE :: A(:) 
     DOUBLE PRECISION, ALLOCATABLE :: B(:)
-    INTEGER :: L = 5
+    INTEGER :: L = 4096
     INTEGER :: i
-    INTEGER :: M = 6
+    INTEGER :: M = 64
     INTEGER :: j
     INTEGER :: S
     S = L*M
