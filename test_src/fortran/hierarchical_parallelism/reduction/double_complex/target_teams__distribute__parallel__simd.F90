@@ -8,13 +8,13 @@ FUNCTION omp_get_num_threads() RESULT(i)
     i = 1
 END FUNCTION omp_get_num_threads
 #endif
-FUNCTION almost_equal(x, gold, tol) result(b)
+FUNCTION almost_equal(x, gold, tol) RESULT(b)
     implicit none
     DOUBLE COMPLEX, intent(in) :: x
-    INTEGER,  intent(in) ::gold
-    REAL, intent(in)  :: tol
-    LOGICAL          :: b
-    b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol)  )
+    INTEGER,  intent(in) :: gold
+    REAL,     intent(in) :: tol
+    LOGICAL              :: b
+    b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target_teams__distribute__parallel__simd
 #ifdef _OPENMP
@@ -22,14 +22,14 @@ PROGRAM target_teams__distribute__parallel__simd
     implicit none
 #else
     implicit none
-    INTEGER:: omp_get_num_teams, omp_get_num_threads
+    INTEGER :: omp_get_num_threads
 #endif
     LOGICAL :: almost_equal
     INTEGER :: L = 4096
     INTEGER :: i
     INTEGER :: M = 64
     INTEGER :: j
-    DOUBLE COMPLEX :: counter =  (    0   ,0) 
+    DOUBLE COMPLEX :: counter = (0,0)
     INTEGER :: num_threads
     !$OMP TARGET TEAMS   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
     !$OMP DISTRIBUTE   
@@ -45,8 +45,8 @@ counter =  counter +  CMPLX(  1./num_threads   ,0)
     END DO
     !$OMP END DISTRIBUTE
     !$OMP END TARGET TEAMS
-IF  ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
+IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     write(*,*)  'Expected', L*M,  'Got', counter
-    call exit(1)
+    call exit(112)
 ENDIF
 END PROGRAM target_teams__distribute__parallel__simd

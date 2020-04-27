@@ -1,0 +1,62 @@
+{% macro prologue_general(T_category, balenced) %}
+
+#include <iostream>
+#include <cstdlib>
+{% if T_category == "complex" %}
+#include <cmath>
+#include <complex>
+using namespace std;
+{% endif %}
+
+{% if not balenced %}
+#ifdef _OPENMP
+#include <omp.h>
+#else
+int omp_get_num_teams()   {return 1;}
+int omp_get_num_threads() {return 1;}
+#endif
+{% endif %}
+
+bool almost_equal({{T}} x, {{T}} gold, float tol) {
+    {% if T_category == "float" %}
+        return gold * (1-tol) <= x && x <= gold * (1 + tol);
+    {% elif T_category == "complex" %}
+        return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol);
+    {% endif %}
+}
+
+{% if T_category == "complex" %}
+#pragma omp declare reduction(+: {{T}}:   omp_out += omp_in)
+{% endif %}
+
+{% endmacro %}
+
+{% macro prologue_function(T, loops) %}
+ {% for l in loops %}
+ const int {{ l.N }} = {{ l.v }};
+ {% endfor %}
+ {{T}} counter{};
+
+{% endmacro %}
+
+{% macro increment(counter, T, balenced, only_teams, only_parallel) %}
+
+{% if balenced %}
+{{counter}} += {{T}} { 1.0f };
+{% elif only_teams and only_parallel %}
+{{counter}} += {{T}} { 1.0f/(num_teams*num_threads) } ;
+{% elif only_teams  %}
+{{counter}} += {{T}} { 1.0f/num_teams } ;
+{% elif only_parallel  %}
+{{counter}} += {{T}} { 1.0f/num_threads };
+{% endif %}
+
+{% endmacro %}
+
+{% macro epilogue_function(T, expected_value) %}
+if ( !almost_equal(counter,{{T}} { {{expected_value}} }, 0.1)  ) {
+    std::cerr << "Expected: " << {{expected_value}} << " Got: " << counter << std::endl;
+    {# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
+    std::exit(112);
+}
+{% endmacro %}

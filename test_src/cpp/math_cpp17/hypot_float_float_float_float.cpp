@@ -18,7 +18,7 @@ void test_hypot(){
    {
      out3_device =  hypot( in0, in1, in2);
    }
-   if ( !almost_equal(out3_host,out3_device,4) ) {
+   if ( !almost_equal(out3_host,out3_device, 4) ) {
         std::cerr << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
         throw std::runtime_error( "hypot give incorect value when offloaded");
     }

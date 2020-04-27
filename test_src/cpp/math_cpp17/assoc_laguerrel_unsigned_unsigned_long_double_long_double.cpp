@@ -18,7 +18,7 @@ void test_assoc_laguerrel(){
    {
      out3_device =  assoc_laguerrel( in0, in1, in2);
    }
-   if ( !almost_equal(out3_host,out3_device,4) ) {
+   if ( !almost_equal(out3_host,out3_device, 4) ) {
         std::cerr << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
         throw std::runtime_error( "assoc_laguerrel give incorect value when offloaded");
     }

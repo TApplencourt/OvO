@@ -17,7 +17,7 @@ void test_cyl_bessel_jl(){
    {
      out2_device =  cyl_bessel_jl( in0, in1);
    }
-   if ( !almost_equal(out2_host,out2_device,4) ) {
+   if ( !almost_equal(out2_host,out2_device, 4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "cyl_bessel_jl give incorect value when offloaded");
     }

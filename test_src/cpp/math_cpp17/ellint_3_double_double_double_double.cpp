@@ -18,7 +18,7 @@ void test_ellint_3(){
    {
      out3_device =  ellint_3( in0, in1, in2);
    }
-   if ( !almost_equal(out3_host,out3_device,4) ) {
+   if ( !almost_equal(out3_host,out3_device, 4) ) {
         std::cerr << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
         throw std::runtime_error( "ellint_3 give incorect value when offloaded");
     }

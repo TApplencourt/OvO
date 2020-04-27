@@ -1,14 +1,13 @@
 #include <iostream>
-#include <cmath>
-#include <stdexcept>
+#include <cstdlib>
 bool almost_equal(double x, double gold, float tol) {
-    return gold * (1-tol) <= x && x <= gold * ( 1+tol );
+        return gold * (1-tol) <= x && x <= gold * (1 + tol);
 }
 void test_target_teams_distribute__parallel__loop__simd(){
  const int L = 64;
  const int M = 64;
  const int N = 64;
-double counter{};
+ double counter{};
 #pragma omp target teams distribute  map(tofrom:counter) 
     for (int i = 0 ; i < L ; i++ )
     {
@@ -30,7 +29,7 @@ counter += partial_counter;
    } 
 if ( !almost_equal(counter,double { L*M*N }, 0.1)  ) {
     std::cerr << "Expected: " << L*M*N << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target_teams_distribute__parallel__loop__simd give incorect value when offloaded");
+    std::exit(112);
 }
 }
 int main()

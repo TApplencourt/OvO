@@ -22,11 +22,11 @@ void test_remquo(){
    {
      out3_device =  remquo( in0, in1, &out2_device);
    }
-   if ( !almost_equal(out2_host,out2_device,4) ) {
+   if ( !almost_equal(out2_host,out2_device, 4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "remquo give incorect value when offloaded");
     }
-   if ( !almost_equal(out3_host,out3_device,4) ) {
+   if ( !almost_equal(out3_host,out3_device, 4) ) {
         std::cerr << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
         throw std::runtime_error( "remquo give incorect value when offloaded");
     }

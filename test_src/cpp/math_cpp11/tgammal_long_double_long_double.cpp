@@ -16,7 +16,7 @@ void test_tgammal(){
    {
      o_device =  tgammal( x);
    }
-   if ( !almost_equal(o_host,o_device,4) ) {
+   if ( !almost_equal(o_host,o_device, 4) ) {
         std::cerr << "Host: " << o_host << " GPU: " << o_device << std::endl;
         throw std::runtime_error( "tgammal give incorect value when offloaded");
     }

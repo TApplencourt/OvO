@@ -17,7 +17,7 @@ void test_nextafter(){
    {
      out2_device =  nextafter( in0, in1);
    }
-   if ( !almost_equal(out2_host,out2_device,4) ) {
+   if ( !almost_equal(out2_host,out2_device, 4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "nextafter give incorect value when offloaded");
     }

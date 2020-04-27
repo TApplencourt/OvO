@@ -1,17 +1,16 @@
 #include <iostream>
+#include <cstdlib>
 #include <cmath>
-#include <stdexcept>
 #include <complex>
 using namespace std;
 bool almost_equal(complex<float> x, complex<float> gold, float tol) {
-        return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol ); 
+        return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol);
 }
-#pragma omp declare reduction(+: complex<float>:   omp_out += omp_in) 
+#pragma omp declare reduction(+: complex<float>:   omp_out += omp_in)
+#pragma omp declare reduction(+: complex<float>:   omp_out += omp_in)
 void test_target_parallel__loop(){
- // Input and Outputs
  const int L = 262144;
-complex<float> counter{};
-// Main program
+ complex<float> counter{};
 #pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
 {
 #pragma omp loop  
@@ -20,10 +19,9 @@ complex<float> counter{};
 counter += complex<float> { 1.0f };
     }
     }
-// Validation
 if ( !almost_equal(counter,complex<float> { L }, 0.1)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target_parallel__loop give incorect value when offloaded");
+    std::exit(112);
 }
 }
 int main()

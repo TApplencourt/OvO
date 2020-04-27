@@ -1,10 +1,10 @@
-FUNCTION almost_equal(x, gold, tol) result(b)
+FUNCTION almost_equal(x, gold, tol) RESULT(b)
     implicit none
     DOUBLE PRECISION, intent(in) :: x
-    INTEGER,  intent(in) ::gold
-    REAL, intent(in)  :: tol
-    LOGICAL          :: b
-    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
+    INTEGER,  intent(in) :: gold
+    REAL,     intent(in) :: tol
+    LOGICAL              :: b
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target_teams_loop__parallel__loop
     LOGICAL :: almost_equal
@@ -12,7 +12,7 @@ PROGRAM target_teams_loop__parallel__loop
     INTEGER :: i
     INTEGER :: M = 64
     INTEGER :: j
-    DOUBLE PRECISION :: counter =  0  
+    DOUBLE PRECISION :: counter = 0
     !$OMP TARGET TEAMS LOOP   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
     DO i = 1 , L 
     !$OMP PARALLEL   REDUCTION(+:COUNTER)  
@@ -24,8 +24,8 @@ counter = counter +  1.
     !$OMP END PARALLEL
     END DO
     !$OMP END TARGET TEAMS LOOP
-IF  ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
+IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     write(*,*)  'Expected', L*M,  'Got', counter
-    call exit(1)
+    call exit(112)
 ENDIF
 END PROGRAM target_teams_loop__parallel__loop

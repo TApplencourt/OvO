@@ -17,7 +17,7 @@ void test_comp_ellint_3f(){
    {
      out2_device =  comp_ellint_3f( in0, in1);
    }
-   if ( !almost_equal(out2_host,out2_device,4) ) {
+   if ( !almost_equal(out2_host,out2_device, 4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         throw std::runtime_error( "comp_ellint_3f give incorect value when offloaded");
     }

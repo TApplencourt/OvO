@@ -1,28 +1,23 @@
 #include <iostream>
-#include <cmath>
-#include <stdexcept>
-#
+#include <cstdlib>
 bool almost_equal(float x, float gold, float tol) {
-        return gold * (1-tol) <= x && x <= gold * ( 1+tol );
+        return gold * (1-tol) <= x && x <= gold * (1 + tol);
 }
 void test_target_teams__distribute(){
- // Input and Outputs
  const int L = 262144;
-float counter{};
-// Main program
+ float counter{};
 #pragma omp target teams  map(tofrom:counter) 
 {
 #pragma omp distribute 
     for (int i = 0 ; i < L ; i++ )
 {
 #pragma omp atomic update
-counter += float { 1 };
+counter += float { 1.0f };
     } 
     } 
-// Validation
 if ( !almost_equal(counter,float { L }, 0.1)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
-    throw std::runtime_error( "target_teams__distribute give incorect value when offloaded");
+    std::exit(112);
 }
 }
 int main()

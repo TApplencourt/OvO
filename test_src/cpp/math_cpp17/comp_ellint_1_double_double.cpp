@@ -16,7 +16,7 @@ void test_comp_ellint_1(){
    {
      out1_device =  comp_ellint_1( in0);
    }
-   if ( !almost_equal(out1_host,out1_device,4) ) {
+   if ( !almost_equal(out1_host,out1_device, 4) ) {
         std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         throw std::runtime_error( "comp_ellint_1 give incorect value when offloaded");
     }

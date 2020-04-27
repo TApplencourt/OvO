@@ -1,10 +1,10 @@
-FUNCTION almost_equal(x, gold, tol) result(b)
+FUNCTION almost_equal(x, gold, tol) RESULT(b)
     implicit none
     DOUBLE COMPLEX, intent(in) :: x
-    INTEGER,  intent(in) ::gold
-    REAL, intent(in)  :: tol
-    LOGICAL          :: b
-    b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol)  )
+    INTEGER,  intent(in) :: gold
+    REAL,     intent(in) :: tol
+    LOGICAL              :: b
+    b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target__teams__distribute__parallel_do
     LOGICAL :: almost_equal
@@ -12,7 +12,7 @@ PROGRAM target__teams__distribute__parallel_do
     INTEGER :: i
     INTEGER :: M = 64
     INTEGER :: j
-    DOUBLE COMPLEX :: counter =  (    0   ,0) 
+    DOUBLE COMPLEX :: counter = (0,0)
     !$OMP TARGET    MAP(TOFROM: COUNTER) 
     !$OMP TEAMS   REDUCTION(+:COUNTER)  
     !$OMP DISTRIBUTE   
@@ -26,8 +26,8 @@ counter = counter +  CMPLX(   1.  ,0)
     !$OMP END DISTRIBUTE
     !$OMP END TEAMS
     !$OMP END TARGET
-IF  ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
+IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     write(*,*)  'Expected', L*M,  'Got', counter
-    call exit(1)
+    call exit(112)
 ENDIF
 END PROGRAM target__teams__distribute__parallel_do

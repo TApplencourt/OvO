@@ -1,10 +1,10 @@
-FUNCTION almost_equal(x, gold, tol) result(b)
+FUNCTION almost_equal(x, gold, tol) RESULT(b)
     implicit none
     REAL, intent(in) :: x
-    INTEGER,  intent(in) ::gold
-    REAL, intent(in)  :: tol
-    LOGICAL          :: b
-    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
+    INTEGER,  intent(in) :: gold
+    REAL,     intent(in) :: tol
+    LOGICAL              :: b
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target_parallel_loop__simd
     LOGICAL :: almost_equal
@@ -12,7 +12,8 @@ PROGRAM target_parallel_loop__simd
     INTEGER :: i
     INTEGER :: M = 64
     INTEGER :: j
-    REAL :: counter =  0  
+    REAL :: counter = 0
+    REAL :: partial_counter
     partial_counter = 0.
     !$OMP TARGET PARALLEL LOOP  REDUCTION(+:partial_counter)   MAP(TOFROM: counter) 
     DO i = 1 , L 
@@ -25,8 +26,8 @@ partial_counter = partial_counter + 1.
     !$OMP END TARGET PARALLEL LOOP
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
-IF  ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
+IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     write(*,*)  'Expected', L*M,  'Got', counter
-    call exit(1)
+    call exit(112)
 ENDIF
 END PROGRAM target_parallel_loop__simd

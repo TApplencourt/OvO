@@ -16,7 +16,7 @@ void test_asinhl(){
    {
      o_device =  asinhl( x);
    }
-   if ( !almost_equal(o_host,o_device,4) ) {
+   if ( !almost_equal(o_host,o_device, 4) ) {
         std::cerr << "Host: " << o_host << " GPU: " << o_device << std::endl;
         throw std::runtime_error( "asinhl give incorect value when offloaded");
     }

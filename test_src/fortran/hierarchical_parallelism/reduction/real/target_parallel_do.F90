@@ -1,23 +1,23 @@
-FUNCTION almost_equal(x, gold, tol) result(b)
+FUNCTION almost_equal(x, gold, tol) RESULT(b)
     implicit none
     REAL, intent(in) :: x
-    INTEGER,  intent(in) ::gold
-    REAL, intent(in)  :: tol
-    LOGICAL          :: b
-    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
+    INTEGER,  intent(in) :: gold
+    REAL,     intent(in) :: tol
+    LOGICAL              :: b
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target_parallel_do
     LOGICAL :: almost_equal
     INTEGER :: L = 262144
     INTEGER :: i
-    REAL :: counter =  0  
+    REAL :: counter = 0
     !$OMP TARGET PARALLEL DO   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
     DO i = 1 , L 
 counter = counter +  1.  
     END DO
     !$OMP END TARGET PARALLEL DO
-IF  ( .NOT.almost_equal(counter, L, 0.1) ) THEN
+IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     write(*,*)  'Expected', L,  'Got', counter
-    call exit(1)
+    call exit(112)
 ENDIF
 END PROGRAM target_parallel_do
