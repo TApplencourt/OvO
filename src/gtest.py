@@ -23,10 +23,17 @@ def pairwise(iterable):
     return zip(a, b)
 
 def sanitize_string(str_):
-    'DOUBLE PRECISION -> double_precision'
-    'complex<double> -> complex_double'
-    'REAL -> real'
-    return '_'.join(str_.lower().translate(str.maketrans("<>", "  ")).split())
+    """
+    >>> sanitize_string('REAL')
+    'real'
+    >>> sanitize_string('DOUBLE PRECISION')
+    'double_precision'
+    >>> sanitize_string('complex<double>')
+    'complex_double'
+    >>> sanitize_string('*double')
+    'double'
+    """
+    return '_'.join(str_.lower().translate(str.maketrans("<>*", "   ")).split())
 
 class TypeSystem():
 
@@ -35,7 +42,7 @@ class TypeSystem():
     
     @cached_property
     def serialized(self):
-        return '_'.join(self.T.lower().translate(str.maketrans("<>*", "   ")).split()) 
+        return sanitize_string(self.T)     
 
     @cached_property
     def category(self):
@@ -51,10 +58,15 @@ class TypeSystem():
 
     @cached_property
     def internal(self):
-        "For complex give the internval value, for the other give back thenself"
-        "complex<float> -> float"
-        " float -> float"
-        " COMPLEX -> REAL"
+        '''
+        For complex give the internal type, for other give back thenself"
+        >>> TypeSystem('complex<float>').internal
+        'float'
+        >>> TypeSystem('DOUBLE COMPLEX').internal
+        'DOUBLE'
+        >>> TypeSystem('COMPLEX').internal
+        'REAL'
+        '''
         if self.category != 'complex':
             return self.no_pt
         elif self.T == 'DOUBLE COMPLEX':
@@ -94,12 +106,6 @@ def combinations_construct(tree_config_path, path=['root']) -> List[List[str]]:
 
 
 class Path():
-
-    from collections import namedtuple
-    Idx = namedtuple("Idx",'i N v')
-    idx_loop =  [Idx('i','L',5), 
-                 Idx('j','M',6), 
-                 Idx('k','N',7)]
 
     def __init__(self, path,T, language='cpp'):
         # To facilitate the recursion. Loop are encoded as "loop_distribute" and "loop_for".
@@ -155,29 +161,48 @@ class Path():
     @cached_property
     def balenced(self):
         return not self.only_parallel and not self.only_teams
-    
+   
     @cached_property
-    def n_loop(self):
-        return sum("loop" in fat_pragma for fat_pragma in self.fat_path)
+    def loop_contruct(self):
+        return ("distribute","for","simd","loop")
+
+    def has_loop(self, pragma):
+        return any(p in pragma for p in self.loop_contruct)
 
     @cached_property
+    def n_loop(self):
+        return sum(map(self.has_loop, self.path))
+    
+    @cached_property
     def loops(self):
-        return Path.idx_loop[:self.n_loop]
+
+        from collections import namedtuple
+        Idx = namedtuple("Idx",'i N v')
+        if self.n_loop == 0:
+            return []
+        elif self.n_loop == 1:
+           return [Idx('i','L',64*64*64)]
+        elif self.n_loop == 2:
+           return [Idx('i','L',64*64), Idx('j','M',64)]
+        elif self.n_loop == 3:
+           return [Idx('i','L',64), Idx('j','M',64), Idx('k','N',64)]
 
     @cached_property
     def fat_path(self):
 
-        l, n_loop = [], 0
+        l, i_loop = [], 0
 
         for pragma in self.path:
-            if self.language == 'cpp':
-                d = {"pragma":pragma}   
-            elif self.language == 'fortran':
-                d = {"pragma":pragma.replace('for','do').upper()}
+            d = {}
 
-            if any(p in pragma for p  in ("distribute","for","simd","loop","do")):
-                d["loop"] = Path.idx_loop[n_loop]
-                n_loop+=1
+            if self.language == 'cpp':
+                d["pragma"] = pragma   
+            elif self.language == 'fortran':
+                d["pragma"] = pragma.replace('for','do').upper() 
+
+            if self.has_loop(pragma):
+                d["loop"] = self.loops[i_loop]
+                i_loop+=1
 
             if "target" in pragma:
                 d["target"] = True
@@ -278,16 +303,12 @@ class ReductionAtomic(OmpReduce):
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_reduction_atomic.f90.jinja2")
 
-        # Need 2 layers minimun
-        if sum(self.has(p) for p in ("teams","parallel","simd") ) < 2:
+        # Need at least 2 layers of construct
+        if any([sum(self.has(p) for p in ("teams","parallel","simd") ) < 2,
+                len(self.path) < 2,
+                self.path[0] == 'target' and (len(self.path) > 2 and "partial" in self.fat_path[1]) ] ):
             return
-
-        if len(self.path) < 2:
-            return
-
-        if len(self.path[1].split() ) >= 3:
-            return
-
+ 
         str_ = template.render(name=self.name,
                                       fat_path=self.fat_path,
                                       loops=self.loops,
@@ -562,4 +583,4 @@ if __name__ == '__main__':
                                           ("reduction", Reduction, ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']), 
                                           ("reduction_atomic", ReductionAtomic, ['REAL','DOUBLE PRECISION'] )),
                                           "fortran" )
-                    
+

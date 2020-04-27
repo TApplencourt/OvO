@@ -1,0 +1,63 @@
+{% macro prologue_general(is_cmplx=False) %}
+
+{% if not balenced %}
+#ifndef _OPENMP
+{% for n in ("teams","threads") %}
+FUNCTION omp_get_num_{{n}}() RESULT(i)
+    INTEGER :: i
+    i = 1
+END FUNCTION omp_get_num_{{n}}
+{% endfor %}
+#endif
+{% endif %}
+
+FUNCTION almost_equal(x, gold, tol) result(b)
+    implicit none
+    {{T}}, intent(in) :: x
+    INTEGER,  intent(in) ::gold
+    REAL, intent(in)  :: tol
+    LOGICAL          :: b
+    {%if is_cmplx %}
+    b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol)  )
+    {%else%}
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
+    {%endif%}
+END FUNCTION almost_equal
+{% endmacro %}
+
+{% macro prologue_function(loops, only_teams, only_parallel, is_cmplx=False) %}
+
+{% if not balenced %}
+#ifdef _OPENMP
+    USE OMP_LIB
+    implicit none
+#else
+    implicit none
+    INTEGER:: omp_get_num_teams, omp_get_num_threads
+#endif
+{% endif %}
+
+    LOGICAL :: almost_equal
+
+  {% for l in loops %}
+    INTEGER :: {{ l.N }} = {{l.v}}
+    INTEGER :: {{ l.i }}
+  {%- endfor %}
+
+    {{T}} :: counter = {% if is_cmplx %} (   {%endif%} 0  {% if is_cmplx %} ,0) {%endif%}
+
+    {% if only_teams %}
+    INTEGER :: num_teams
+    {% endif %}
+    {% if only_parallel %}
+    INTEGER :: num_threads
+    {% endif %}
+
+{% endmacro %}
+
+{% macro epilogue_function(counter, expected_value) %}
+IF  ( .NOT.almost_equal({{counter}}, {{expected_value}}, 0.1) ) THEN
+    write(*,*)  'Expected', {{expected_value}},  'Got', {{counter}}
+    call exit(1)
+ENDIF
+{% endmacro %}
