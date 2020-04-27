@@ -11,16 +11,16 @@ END FUNCTION omp_get_num_{{n}}
 #endif
 {% endif %}
 
-FUNCTION almost_equal(x, gold, tol) result(b)
+FUNCTION almost_equal(x, gold, tol) RESULT(b)
     implicit none
     {{T}}, intent(in) :: x
-    INTEGER,  intent(in) ::gold
-    REAL, intent(in)  :: tol
-    LOGICAL          :: b
+    INTEGER,  intent(in) :: gold
+    REAL,     intent(in) :: tol
+    LOGICAL              :: b
     {%if is_cmplx %}
-    b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol)  )
+    b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol) )
     {%else%}
-    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol)  )
+    b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol) )
     {%endif%}
 END FUNCTION almost_equal
 {% endmacro %}
@@ -33,18 +33,23 @@ END FUNCTION almost_equal
     implicit none
 #else
     implicit none
-    INTEGER:: omp_get_num_teams, omp_get_num_threads
+    {% if only_teams %}
+    INTEGER :: omp_get_num_teams
+    {% endif %}
+    {% if only_parallel %}
+    INTEGER :: omp_get_num_threads
+    {% endif %}
 #endif
 {% endif %}
 
     LOGICAL :: almost_equal
 
   {% for l in loops %}
-    INTEGER :: {{ l.N }} = {{l.v}}
+    INTEGER :: {{ l.N }} = {{ l.v }}
     INTEGER :: {{ l.i }}
   {%- endfor %}
 
-    {{T}} :: counter = {% if is_cmplx %} (   {%endif%} 0  {% if is_cmplx %} ,0) {%endif%}
+    {{T}} :: counter = {% if is_cmplx %}({%endif%}0{% if is_cmplx %},0){%endif%}
 
     {% if only_teams %}
     INTEGER :: num_teams
@@ -52,12 +57,12 @@ END FUNCTION almost_equal
     {% if only_parallel %}
     INTEGER :: num_threads
     {% endif %}
-
 {% endmacro %}
 
 {% macro epilogue_function(counter, expected_value) %}
-IF  ( .NOT.almost_equal({{counter}}, {{expected_value}}, 0.1) ) THEN
+IF ( .NOT.almost_equal({{counter}}, {{expected_value}}, 0.1) ) THEN
     write(*,*)  'Expected', {{expected_value}},  'Got', {{counter}}
-    call exit(1)
+    {# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
+    call exit(112)
 ENDIF
 {% endmacro %}

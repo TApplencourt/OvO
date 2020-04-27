@@ -1,29 +1,10 @@
-#include <iostream>
-#include <cmath>
-#include <stdexcept>
+{% from 'utils.cpp.jinja2' import prologue_general, prologue_function, epilogue_function, increment with context%}
 
-{% if not balenced %}
-#ifdef _OPENMP
-#include <omp.h>
-#else
-int omp_get_num_teams() {return 1;}
-int omp_get_num_threads() {return 1;}
-#endif
-{% endif %}
-
-bool almost_equal({{T}} x, {{T}} gold, float tol) {
-    return gold * (1-tol) <= x && x <= gold * ( 1+tol );
-}
+{{ prologue_general(T_category, balenced) }}
 
 void test_{{name}}(){
 
- {% for l in loops %}
- const int {{ l.N }} = {{l.v}};
- {%- endfor %}
-
-{{T}} counter{};
-
-  {% if target_teams %} {{T}} partial_counter{}; {%endif%}
+{{ prologue_function(T, loops) }}
 
 {% for fat_pragma in fat_path %}
 {% if "partial" in fat_pragma%}
@@ -37,7 +18,6 @@ void test_{{name}}(){
     for (int {{fat_pragma["loop"].i}} = 0 ; {{fat_pragma["loop"].i}} < {{fat_pragma["loop"].N}} ; {{fat_pragma["loop"].i}}++ )
 {% endif %}
     {
-
 {% if "only_teams" in fat_pragma %}
 const int num_teams = omp_get_num_teams();
 {% elif "only_parallel" in fat_pragma %}
@@ -45,15 +25,7 @@ const int num_threads = omp_get_num_threads();
 {% endif %}
 {% endfor %}
 
-{% if balenced %}
-partial_counter += {{T}} { 1.0f };
-{% elif only_teams and only_parallel %}
-partial_counter += {{T}} { 1.0f/(num_teams*num_threads) } ;
-{% elif only_teams  %}
-partial_counter += {{T}} { 1.0f/num_teams } ;
-{% elif only_parallel  %}
-partial_counter += {{T}} { 1.0f/num_threads };
-{% endif %}
+{{ increment('partial_counter', T, balenced, only_teams, only_parallel) }}
 
 {% for fat_pragma in fat_path|reverse %}
    } 
@@ -63,11 +35,7 @@ counter += partial_counter;
 {% endif %}
 {% endfor %}
 
-if ( !almost_equal(counter,{{T}} { {{expected_value}} }, 0.1)  ) {
-    std::cerr << "Expected: " << {{expected_value}} << " Got: " << counter << std::endl;
-    throw std::runtime_error( "{{name}} give incorect value when offloaded");
-}
-
+{{ epilogue_function(T, expected_value) }}
 }
 int main()
 {

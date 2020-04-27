@@ -5,6 +5,7 @@
 PROGRAM {{name}}
     
     {{ prologue_function(loops, only_teams, only_parallel) }}
+    {{T}} :: partial_counter
  
     {% for fat_pragma in fat_path %}
     {%if "partial" in fat_pragma%}
