@@ -13,7 +13,7 @@ It also containt a large set of tests for OpenMP offloading using hierarchical p
 
 This repository also containt tests for most of the C++/Fortran math Function (`cmath` and `complex`). For example see [this](https://github.com/TApplencourt/OvO/tree/master/tests_src/cpp/math_cpp11) directory for the c++11 functions.
 
-Tests can be run using `./ovo.sh run` with the enviroment variable needed (e.g. `CXX` / `CXXFLAGS` / `OMP_TARGET_OFFLOAD` / `MAKEFLAGS`) 
+Tests can be run using `./ovo.sh run` with the enviroment variable needed (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD` / `MAKEFLAGS`) 
 
 For example:
 ```
