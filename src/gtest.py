@@ -305,12 +305,6 @@ class ReductionAtomic(OmpReduce):
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_reduction_atomic.f90.jinja2")
 
-        # Need at least 2 layers of construct
-        #if any([sum(self.has(p) for p in ("teams","parallel","simd") ) < 2,
-        #        len(self.path) < 2,
-        #        self.path[0] == 'target' and (len(self.path) > 2 and "partial" in self.fat_path[1]) ] ):
-        #    return
-
         if not sum( any(k in p for k in ("teams","parallel","simd") ) for p in self.path) >= 2:
             return 
 

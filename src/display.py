@@ -32,12 +32,12 @@ class TestCompilationLaunch(unittest.TestCase):
         self.assertEqual(m, "lroundf_long_int_float")
 
     def test_launch02(self):
-        str_ = "fortran target_teams_distribute__parallel.f90 -o target_teams_distribute__parallel.exe"
+        str_ = "fortran target_teams_distribute__parallel.F90 -o target_teams_distribute__parallel.exe"
         m  = re.findall(r_compilation.launch, str_).pop()
         self.assertEqual(m, "target_teams_distribute__parallel")
 
     def test_launch02(self):
-        str_ = "timeout 45s fortran target_teams_distribute__parallel.f90 -o target_teams_distribute__parallel.exe"
+        str_ = "timeout 45s fortran target_teams_distribute__parallel.F90 -o target_teams_distribute__parallel.exe"
         m  = re.findall(r_compilation.launch, str_).pop()
         self.assertEqual(m, "target_teams_distribute__parallel")
 
@@ -108,10 +108,10 @@ class TestRuntimeError(unittest.TestCase):
         self.assertEqual(error, "Error 1 (ignored)")
 
     def test_error04(self):
-        str_ = "make:11 [run_lroundf_long_int_float] Error 70 (ignored)"
+        str_ = "make:11 [run_lroundf_long_int_float] Aborted"
         m, error  = re.findall(r_runtime.error, str_).pop()
         self.assertEqual(m, "lroundf_long_int_float")
-        self.assertEqual(error, "Segfault")
+        self.assertEqual(error, "Aborted")
 
 class Result(NamedTuple):
     path: str
