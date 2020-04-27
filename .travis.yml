@@ -1,6 +1,9 @@
 dist: bionic
 os: linux
 
+git:
+    submodules: false
+
 
 jobs:
   include:
@@ -16,13 +19,8 @@ jobs:
        packages:
         - gcc-9 
         - python3
-        - python3-pip
-
-    install:
-    - pip3 install --user jinja2
 
     script:   
-    - ./ovo.sh gen
     - CXX='g++' CXXFLAGS='-std=c++11 -Wall -Wno-unknown-pragmas' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/hierarchical_parallelism/ 
     - ./ovo.sh display
 
@@ -34,13 +32,8 @@ jobs:
        packages:
         - gcc-9 
         - python3
-        - python3-pip
-
-    install:
-    - pip3 install --user jinja2
 
     script:   
-    - ./ovo.sh gen
     - CXX='g++' CXXFLAGS='-std=c++11 -fopenmp' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
     - ./ovo.sh display
 
@@ -53,16 +46,11 @@ jobs:
        packages:
         - clang-9 
         - python3
-        - python3-pip
 
     before_install:
     - export LD_LIBRARY_PATH=/usr/local/clang/lib:$LD_LIBRARY_PATH
 
-    install:
-    - pip3 install --user jinja2
-
     script:   
-    - ./ovo.sh gen
     - CXX='clang++' CXXFLAGS='-std=c++11 -fopenmp  -fopenmp-version=50' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
     - ./ovo.sh display
 
@@ -79,7 +67,7 @@ jobs:
     - sudo /opt/ibm/xlC/${XLC_VERSION}/bin/xlc_configure <<< 1 >/dev/null
 
     script:   
-    - CXX='xlc++' CXXFLAGS='-qlanglvl=c++11 -qsmp=omp' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
+    - CXX='xlC-r' CXXFLAGS='-std=c++11 -qsmp=omp' FC='xlf90_r'  FFLAGS='-qsmp=omp' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
     - ./ovo.sh display
 
   - name: "pgcc"
@@ -100,13 +88,8 @@ jobs:
        packages:
         - gcc-9 
         - python3
-        - python3-pip
-
-    install:
-    - pip3 install --user jinja2
 
     script:
-    - ./ovo.sh gen
     - CXX='g++' CXXFLAGS='-std=c++17' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/math_cpp{11,17}
     - ./ovo.sh display
 
@@ -118,13 +101,9 @@ jobs:
        packages:
         - gfortran-9    
         - python3
-        - python3-pip
 
-    install:
-    - pip3 install --user jinja2
 
     script:
-    - ./ovo.sh gen
     - FC='gfortran' FCFLAGS='-Wall -Wno-unknown-pragmas' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/fortran/hierarchical_parallelism/
     - ./ovo.sh display
 
@@ -137,12 +116,7 @@ jobs:
        packages:
         - gfortran-9    
         - python3
-        - python3-pip
-
-    install:
-    - pip3 install --user jinja2
 
     script:
-    - ./ovo.sh gen
     - FC='gfortran' FCFLAGS='-fopenmp' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_loop test_src/fortran/hierarchical_parallelism/
     - ./ovo.sh display
