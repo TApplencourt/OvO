@@ -106,12 +106,16 @@ frun() {
     done
 }
 
+fnewer_folder(){
+    echo $(ls -d test_result/* | sort | tail -n 1)
+}
+
 fdisplay() {
 
     if [ -z "$1" ]
     then
       # Get the last modified folder in results, then list all the tests avalaible inside.
-      local folder="$(ls test_result | sort | tail -n 1)"
+      local folder=$(fnewer_folder)
       local name=$folder
     else
       local folder="${@}" 
@@ -132,14 +136,14 @@ freport() {
     if [ -z "$1" ]
     then
       # Get the last modified folder in results, then list all the tests avalaible inside.
-      local folder="$(ls -d test_result/* | sort | tail -n 1)"
+      local folder=$(fnewer_folder)
    else
       local folder="$1"
     fi
 
     echo ">> $folder"
 
-    fdisplayc "cpp math"  $folder/cpp/{math,complex}_*
+    fdisplayc "cpp math and complex"  $folder/cpp/{math,complex}_*
     fdisplayc "cpp hierarchical parallelism" $folder/cpp/hierarchical_parallelism/
     fdisplayc "fortran math" $folder/fortran/{math,complex}
     fdisplayc "fortran hierarchical parallelism" $folder/fortran/hierarchical_parallelism/

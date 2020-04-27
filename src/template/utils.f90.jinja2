@@ -59,6 +59,20 @@ END FUNCTION almost_equal
     {% endif %}
 {% endmacro %}
 
+{% macro increment(counter, balenced, only_teams, only_parallel) %}
+
+{% if balenced %}
+{{counter}} = {{counter}} + 1.
+{% elif only_teams and only_parallel %}
+{{counter}} = {{counter}} + 1./(num_teams*num_threads)
+{% elif only_teams  %}
+{{counter}} = {{counter}} + 1./num_teams
+{% elif only_parallel  %}
+{{counter}} = {{counter}} + 1./num_threads
+{% endif %}
+
+{% endmacro %}
+
 {% macro epilogue_function(counter, expected_value) %}
 IF ( .NOT.almost_equal({{counter}}, {{expected_value}}, 0.1) ) THEN
     write(*,*)  'Expected', {{expected_value}},  'Got', {{counter}}

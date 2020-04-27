@@ -108,7 +108,7 @@ class TestRuntimeError(unittest.TestCase):
         self.assertEqual(error, "Error 1 (ignored)")
 
     def test_error04(self):
-        str_ = "make:11 [run_lroundf_long_int_float] Segfault"
+        str_ = "make:11 [run_lroundf_long_int_float] Error 70 (ignored)"
         m, error  = re.findall(r_runtime.error, str_).pop()
         self.assertEqual(m, "lroundf_long_int_float")
         self.assertEqual(error, "Segfault")
@@ -138,7 +138,7 @@ def parse_log(file_path, mode, avoid_long_double, avoid_loop):
             for m,error in re.findall(regex.error,line):
                 if not (avoid_long_double and 'long_double' in m) and not (avoid_loop and 'loop' in m):
                     r.failure[m] = error
-    
+
     return r
 
 #  _                    
@@ -149,12 +149,12 @@ def parse_log(file_path, mode, avoid_long_double, avoid_loop):
 def display(name, l_result,  mode=None):
     from operator import itemgetter
     compilation, runtime = l_result
+
     # Total number of test run.
     total_test = len(compilation.test | runtime.test ) 
     # Total failure 
     total_fail = len( set(compilation.failure) | set(runtime.failure) )
     total_success = total_test - total_fail
-   
     if total_test == 0: 
         return
 
@@ -181,7 +181,19 @@ def display(name, l_result,  mode=None):
     if mode=='detailed' or l_to_print:
         if name:
             print (f'>> {name}')
-        print (f'{total_success} / {total_test} ( {total_success/total_test :.0%} ) pass [ {len(set(compilation.failure)) } compilation failures / {len(set(runtime.failure))} runtime failures ]')
+        s_runtime_compilation = set()
+        s_runtime_incorrect_result = set()
+        for n,e in runtime.failure.items():
+            try:
+                _, i, *_ = e.split()
+                if i == '112':
+                    s_runtime_incorrect_result.add(n)
+                else:
+                    raise ValueError
+            except ValueError:
+                 s_runtime_compilation.add(n)
+
+        print (f'{total_success} / {total_test} ( {total_success/total_test :.0%} ) pass [failures: {len(set(compilation.failure)) } compilation, {len(s_runtime_compilation)} offload, {len(s_runtime_incorrect_result)} incorrect results]')
         print ('\n'.join(l_to_print) )
 
 #                
@@ -230,15 +242,15 @@ if __name__ == "__main__":
     # Test may have the same name in different folder
     # Because we print only a summary, we just need the list of the name of the test who ffailed,
     # not their error type 
-    test_c = set(); failure_c = set()
-    test_r = set(); failure_r = set()
+    test_c = set(); failure_c = dict()
+    test_r = set(); failure_r = dict()
 
     for folder, (c,r) in d_result.items():
         test_c |= set(f"{folder}_{p}" for p in c.test)
-        failure_c |= set(f"{folder}_{k}" for k in c.failure)
+        failure_c.update( {f"{folder}/{k}":e for k,e in c.failure.items() } )
     
         test_r |= set(f"{folder}_{p}" for p in r.test)
-        failure_r |= set(f"{folder}_{k}" for k in  r.failure)
+        failure_r.update( {f"{folder}/{k}":e for k,e in  r.failure.items() } )
 
     if mode_display == 'summary':
         display(name,  [Result("", test_c, failure_c), Result("", test_r, failure_r)], 'detailed' )

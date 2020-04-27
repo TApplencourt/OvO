@@ -1,4 +1,4 @@
-{% from 'utils.f90.jinja2' import prologue_general, prologue_function, epilogue_function with context%}
+{% from 'utils.f90.jinja2' import prologue_general, prologue_function, epilogue_function, increment  with context%}
 {% set is_cmplx = (T_category == "complex") %}
 
 {{ prologue_general(is_cmplx) }}
@@ -22,15 +22,7 @@ PROGRAM {{name}}
 
     {% endfor %}
 
-{% if balenced %}
-counter = counter + {% if is_cmplx %} CMPLX(  {%endif%} 1. {% if is_cmplx %} ,0) {%endif%} 
-{% elif only_teams and only_parallel %}
-counter = counter + {% if is_cmplx %} CMPLX(  {%endif%} 1./(num_teams*num_threads)  {% if is_cmplx %} ,0) {%endif%}
-{% elif only_teams  %}
-counter = counter + {% if is_cmplx %} CMPLX(  {%endif%} 1./num_teams  {% if is_cmplx %} ,0) {%endif%}
-{% elif only_parallel  %}
-counter =  counter + {% if is_cmplx %} CMPLX( {%endif%} 1./num_threads  {% if is_cmplx %} ,0) {%endif%}
-{% endif %}
+{{ increment('counter', balenced, only_teams, only_parallel) }}
  
     {% for fat_pragma in fat_path | reverse %} 
 {% if "loop" in fat_pragma %}

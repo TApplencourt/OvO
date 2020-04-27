@@ -192,6 +192,7 @@ class Path():
 
         l, i_loop = [], 0
 
+        n_reduce  = 0
         for pragma in self.path:
             d = {}
 
@@ -216,10 +217,11 @@ class Path():
             if any(p in pragma for p in ("teams","parallel","simd")):
                 d["reduce"] = True
 
-            if self.has("parallel") and "parallel" in pragma:
-                d["partial"] = True
-            elif not self.has("parallel") and "simd" in pragma:
-                d["partial"] = True
+                if n_reduce == 1:
+                    d["partial"] = True
+                elif n_reduce > 1:
+                    d["partial_reduce"] = True
+                n_reduce += 1
 
             l.append(d)
 
@@ -304,11 +306,14 @@ class ReductionAtomic(OmpReduce):
             template = templateEnv.get_template(f"test_reduction_atomic.f90.jinja2")
 
         # Need at least 2 layers of construct
-        if any([sum(self.has(p) for p in ("teams","parallel","simd") ) < 2,
-                len(self.path) < 2,
-                self.path[0] == 'target' and (len(self.path) > 2 and "partial" in self.fat_path[1]) ] ):
-            return
- 
+        #if any([sum(self.has(p) for p in ("teams","parallel","simd") ) < 2,
+        #        len(self.path) < 2,
+        #        self.path[0] == 'target' and (len(self.path) > 2 and "partial" in self.fat_path[1]) ] ):
+        #    return
+
+        if not sum( any(k in p for k in ("teams","parallel","simd") ) for p in self.path) >= 2:
+            return 
+
         str_ = template.render(name=self.name,
                                       fat_path=self.fat_path,
                                       loops=self.loops,
