@@ -25,10 +25,6 @@ bool almost_equal({{T}} x, {{T}} gold, float tol) {
     {% endif %}
 }
 
-{% if T_category == "complex" %}
-#pragma omp declare reduction(+: {{T}}:   omp_out += omp_in)
-{% endif %}
-
 {% endmacro %}
 
 {% macro prologue_function(T, loops) %}

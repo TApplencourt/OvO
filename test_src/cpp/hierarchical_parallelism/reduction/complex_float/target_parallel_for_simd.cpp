@@ -7,7 +7,6 @@ bool almost_equal(complex<float> x, complex<float> gold, float tol) {
         return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol);
 }
 #pragma omp declare reduction(+: complex<float>:   omp_out += omp_in)
-#pragma omp declare reduction(+: complex<float>:   omp_out += omp_in)
 void test_target_parallel_for_simd(){
  const int L = 262144;
  complex<float> counter{};
