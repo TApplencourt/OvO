@@ -1,8 +1,7 @@
 #include <cmath>
 #include <limits>
 #include <iostream>
-#include <stdexcept>
-#
+#include <cstdlib>
 using namespace std;
 bool almost_equal(bool x, bool y, int ulp) {
     return x == y ; 
@@ -19,7 +18,7 @@ void test_isless(){
    }
    if ( !almost_equal(out2_host,out2_device, 4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
-        throw std::runtime_error( "isless give incorect value when offloaded");
+        std::exit(112);
     }
 }
 int main()

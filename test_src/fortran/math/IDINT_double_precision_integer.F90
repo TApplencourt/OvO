@@ -8,6 +8,6 @@ program test_IDINT
     !$OMP END TARGET
     IF  ( o_host .ne. o_device)  THEN
         write(*,*)  'Expected ', o_host, ' Got ', o_device
-        call exit(1)
+        CALL EXIT(112)
     ENDIF
 end program test_IDINT

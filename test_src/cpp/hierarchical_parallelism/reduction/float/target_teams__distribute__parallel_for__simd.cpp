@@ -8,19 +8,17 @@ void test_target_teams__distribute__parallel_for__simd(){
  const int M = 64;
  const int N = 64;
  float counter{};
-#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
-{
-#pragma omp distribute  
+#pragma omp target teams reduction(+: counter) map(tofrom:counter) 
+#pragma omp distribute
     for (int i = 0 ; i < L ; i++ )
-{
-#pragma omp parallel for  reduction(+: counter)  
+    {
+#pragma omp parallel for reduction(+: counter)
     for (int j = 0 ; j < M ; j++ )
-{
-#pragma omp simd  reduction(+: counter)  
+    {
+#pragma omp simd reduction(+: counter)
     for (int k = 0 ; k < N ; k++ )
-{
+    {
 counter += float { 1.0f };
-    }
     }
     }
     }

@@ -12,16 +12,14 @@ bool almost_equal(double x, double gold, float tol) {
 void test_target__parallel__simd(){
  const int L = 262144;
  double counter{};
-#pragma omp target   map(tofrom:counter) 
-{
-#pragma omp parallel  reduction(+: counter)  
-{
+#pragma omp target map(tofrom:counter) 
+#pragma omp parallel reduction(+: counter)
+    {
 const int num_threads = omp_get_num_threads();
-#pragma omp simd  reduction(+: counter)  
+#pragma omp simd reduction(+: counter)
     for (int i = 0 ; i < L ; i++ )
-{
+    {
 counter += double { 1.0f/num_threads };
-    }
     }
     }
 if ( !almost_equal(counter,double { L }, 0.1)  ) {

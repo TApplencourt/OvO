@@ -12,20 +12,18 @@ int omp_get_num_threads() {return 1;}
 bool almost_equal(complex<float> x, complex<float> gold, float tol) {
         return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol);
 }
-#pragma omp declare reduction(+: complex<float>:   omp_out += omp_in)
+#pragma omp declare reduction(+: complex<float>: omp_out += omp_in)
 void test_target_teams__parallel__loop(){
  const int L = 262144;
  complex<float> counter{};
-#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
-{
+#pragma omp target teams reduction(+: counter) map(tofrom:counter) 
+    {
 const int num_teams = omp_get_num_teams();
-#pragma omp parallel  reduction(+: counter)  
-{
-#pragma omp loop  
+#pragma omp parallel reduction(+: counter)
+#pragma omp loop
     for (int i = 0 ; i < L ; i++ )
-{
+    {
 counter += complex<float> { 1.0f/num_teams } ;
-    }
     }
     }
 if ( !almost_equal(counter,complex<float> { L }, 0.1)  ) {

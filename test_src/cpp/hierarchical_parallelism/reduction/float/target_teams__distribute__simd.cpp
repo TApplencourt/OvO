@@ -7,16 +7,14 @@ void test_target_teams__distribute__simd(){
  const int L = 4096;
  const int M = 64;
  float counter{};
-#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
-{
-#pragma omp distribute  
+#pragma omp target teams reduction(+: counter) map(tofrom:counter) 
+#pragma omp distribute
     for (int i = 0 ; i < L ; i++ )
-{
-#pragma omp simd  reduction(+: counter)  
+    {
+#pragma omp simd reduction(+: counter)
     for (int j = 0 ; j < M ; j++ )
-{
+    {
 counter += float { 1.0f };
-    }
     }
     }
 if ( !almost_equal(counter,float { L*M }, 0.1)  ) {

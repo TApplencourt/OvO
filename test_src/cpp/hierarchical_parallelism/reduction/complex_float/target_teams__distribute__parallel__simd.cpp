@@ -12,24 +12,22 @@ int omp_get_num_threads() {return 1;}
 bool almost_equal(complex<float> x, complex<float> gold, float tol) {
         return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol);
 }
-#pragma omp declare reduction(+: complex<float>:   omp_out += omp_in)
+#pragma omp declare reduction(+: complex<float>: omp_out += omp_in)
 void test_target_teams__distribute__parallel__simd(){
  const int L = 4096;
  const int M = 64;
  complex<float> counter{};
-#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
-{
-#pragma omp distribute  
+#pragma omp target teams reduction(+: counter) map(tofrom:counter) 
+#pragma omp distribute
     for (int i = 0 ; i < L ; i++ )
-{
-#pragma omp parallel  reduction(+: counter)  
-{
+    {
+#pragma omp parallel reduction(+: counter)
+    {
 const int num_threads = omp_get_num_threads();
-#pragma omp simd  reduction(+: counter)  
+#pragma omp simd reduction(+: counter)
     for (int j = 0 ; j < M ; j++ )
-{
+    {
 counter += complex<float> { 1.0f/num_threads };
-    }
     }
     }
     }

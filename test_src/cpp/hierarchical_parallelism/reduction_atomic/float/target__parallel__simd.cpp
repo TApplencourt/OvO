@@ -12,9 +12,8 @@ bool almost_equal(float x, float gold, float tol) {
 void test_target__parallel__simd(){
  const int L = 262144;
  float counter{};
-#pragma omp target   map(tofrom:counter) 
-    {
-#pragma omp parallel  
+#pragma omp target map(tofrom:counter) 
+#pragma omp parallel
     {
 const int num_threads = omp_get_num_threads();
 float partial_counter{};
@@ -22,11 +21,10 @@ float partial_counter{};
     for (int i = 0 ; i < L ; i++ )
     {
 partial_counter += float { 1.0f/num_threads };
-   } 
+    }
 #pragma omp atomic update
 counter += partial_counter;
-   } 
-   } 
+    }
 if ( !almost_equal(counter,float { L }, 0.1)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
     std::exit(112);

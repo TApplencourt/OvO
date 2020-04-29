@@ -12,7 +12,7 @@ bool almost_equal(double x, double gold, float tol) {
 void test_target_teams__parallel_loop(){
  const int L = 262144;
  double counter{};
-#pragma omp target teams   map(tofrom:counter) 
+#pragma omp target teams map(tofrom:counter) 
     {
 const int num_teams = omp_get_num_teams();
 double partial_counter{};
@@ -20,10 +20,10 @@ double partial_counter{};
     for (int i = 0 ; i < L ; i++ )
     {
 partial_counter += double { 1.0f/num_teams } ;
-   } 
+    }
 #pragma omp atomic update
 counter += partial_counter;
-   } 
+    }
 if ( !almost_equal(counter,double { L }, 0.1)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;
     std::exit(112);

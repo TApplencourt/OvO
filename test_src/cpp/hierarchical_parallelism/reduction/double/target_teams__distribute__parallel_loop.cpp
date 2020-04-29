@@ -7,16 +7,14 @@ void test_target_teams__distribute__parallel_loop(){
  const int L = 4096;
  const int M = 64;
  double counter{};
-#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
-{
-#pragma omp distribute  
+#pragma omp target teams reduction(+: counter) map(tofrom:counter) 
+#pragma omp distribute
     for (int i = 0 ; i < L ; i++ )
-{
-#pragma omp parallel loop  reduction(+: counter)  
+    {
+#pragma omp parallel loop reduction(+: counter)
     for (int j = 0 ; j < M ; j++ )
-{
+    {
 counter += double { 1.0f };
-    }
     }
     }
 if ( !almost_equal(counter,double { L*M }, 0.1)  ) {

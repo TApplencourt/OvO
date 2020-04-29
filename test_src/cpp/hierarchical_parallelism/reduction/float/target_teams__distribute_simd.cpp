@@ -6,13 +6,11 @@ bool almost_equal(float x, float gold, float tol) {
 void test_target_teams__distribute_simd(){
  const int L = 262144;
  float counter{};
-#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
-{
-#pragma omp distribute simd  reduction(+: counter)  
+#pragma omp target teams reduction(+: counter) map(tofrom:counter) 
+#pragma omp distribute simd reduction(+: counter)
     for (int i = 0 ; i < L ; i++ )
-{
+    {
 counter += float { 1.0f };
-    }
     }
 if ( !almost_equal(counter,float { L }, 0.1)  ) {
     std::cerr << "Expected: " << L << " Got: " << counter << std::endl;

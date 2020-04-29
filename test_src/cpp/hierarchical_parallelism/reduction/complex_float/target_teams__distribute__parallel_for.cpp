@@ -6,21 +6,19 @@ using namespace std;
 bool almost_equal(complex<float> x, complex<float> gold, float tol) {
         return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol);
 }
-#pragma omp declare reduction(+: complex<float>:   omp_out += omp_in)
+#pragma omp declare reduction(+: complex<float>: omp_out += omp_in)
 void test_target_teams__distribute__parallel_for(){
  const int L = 4096;
  const int M = 64;
  complex<float> counter{};
-#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
-{
-#pragma omp distribute  
+#pragma omp target teams reduction(+: counter) map(tofrom:counter) 
+#pragma omp distribute
     for (int i = 0 ; i < L ; i++ )
-{
-#pragma omp parallel for  reduction(+: counter)  
+    {
+#pragma omp parallel for reduction(+: counter)
     for (int j = 0 ; j < M ; j++ )
-{
+    {
 counter += complex<float> { 1.0f };
-    }
     }
     }
 if ( !almost_equal(counter,complex<float> { L*M }, 0.1)  ) {

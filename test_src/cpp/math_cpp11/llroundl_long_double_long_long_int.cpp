@@ -1,8 +1,7 @@
 #include <cmath>
 #include <limits>
 #include <iostream>
-#include <stdexcept>
-#
+#include <cstdlib>
 using namespace std;
 bool almost_equal(long long int x, long long int y, int ulp) {
     return x == y ; 
@@ -18,7 +17,7 @@ void test_llroundl(){
    }
    if ( !almost_equal(out1_host,out1_device, 4) ) {
         std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
-        throw std::runtime_error( "llroundl give incorect value when offloaded");
+        std::exit(112);
     }
 }
 int main()

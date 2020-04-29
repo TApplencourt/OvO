@@ -1,8 +1,7 @@
 #include <cmath>
 #include <limits>
 #include <iostream>
-#include <stdexcept>
-#
+#include <cstdlib>
 using namespace std;
 bool almost_equal(long double x, long double y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<long double>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<long double>::min();
@@ -19,7 +18,7 @@ void test_cyl_bessel_il(){
    }
    if ( !almost_equal(out2_host,out2_device, 4) ) {
         std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
-        throw std::runtime_error( "cyl_bessel_il give incorect value when offloaded");
+        std::exit(112);
     }
 }
 int main()

@@ -2,8 +2,7 @@
 #include <cmath>
 #include <limits>
 #include <iostream>
-#include <stdexcept>
-#
+#include <cstdlib>
 using namespace std;
 bool almost_equal(complex<double> x, complex<double> y, int ulp) {
     return std::abs(x-y) <= std::numeric_limits<double>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<double>::min();
@@ -19,7 +18,7 @@ void test_asin(){
    }
    if ( !almost_equal(o_host,o_device, 4) ) {
         std::cerr << "Host: " << o_host << " GPU: " << o_device << std::endl;
-        throw std::runtime_error( "asin give incorect value when offloaded");
+        std::exit(112);
     }
 }
 int main()

@@ -7,16 +7,14 @@ void test_target_parallel__for__simd(){
  const int L = 4096;
  const int M = 64;
  double counter{};
-#pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
-{
-#pragma omp for  
+#pragma omp target parallel reduction(+: counter) map(tofrom:counter) 
+#pragma omp for
     for (int i = 0 ; i < L ; i++ )
-{
-#pragma omp simd  reduction(+: counter)  
+    {
+#pragma omp simd reduction(+: counter)
     for (int j = 0 ; j < M ; j++ )
-{
+    {
 counter += double { 1.0f };
-    }
     }
     }
 if ( !almost_equal(counter,double { L*M }, 0.1)  ) {

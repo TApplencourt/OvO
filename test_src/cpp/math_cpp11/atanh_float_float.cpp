@@ -1,8 +1,7 @@
 #include <cmath>
 #include <limits>
 #include <iostream>
-#include <stdexcept>
-#
+#include <cstdlib>
 using namespace std;
 bool almost_equal(float x, float y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
@@ -18,7 +17,7 @@ void test_atanh(){
    }
    if ( !almost_equal(out1_host,out1_device, 4) ) {
         std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
-        throw std::runtime_error( "atanh give incorect value when offloaded");
+        std::exit(112);
     }
 }
 int main()

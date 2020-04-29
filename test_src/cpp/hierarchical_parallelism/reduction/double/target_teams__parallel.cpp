@@ -11,11 +11,11 @@ bool almost_equal(double x, double gold, float tol) {
 }
 void test_target_teams__parallel(){
  double counter{};
-#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
-{
+#pragma omp target teams reduction(+: counter) map(tofrom:counter) 
+    {
 const int num_teams = omp_get_num_teams();
-#pragma omp parallel  reduction(+: counter)  
-{
+#pragma omp parallel reduction(+: counter)
+    {
 const int num_threads = omp_get_num_threads();
 counter += double { 1.0f/(num_teams*num_threads) } ;
     }

@@ -13,25 +13,23 @@ void test_target__teams__parallel_loop__simd(){
  const int L = 4096;
  const int M = 64;
  float counter{};
-#pragma omp target   map(tofrom:counter) 
-    {
-#pragma omp teams  
+#pragma omp target map(tofrom:counter) 
+#pragma omp teams
     {
 const int num_teams = omp_get_num_teams();
 float partial_counter{};
 #pragma omp parallel loop reduction(+: partial_counter)
     for (int i = 0 ; i < L ; i++ )
     {
-#pragma omp simd  reduction(+: partial_counter)  
+#pragma omp simd reduction(+: partial_counter)
     for (int j = 0 ; j < M ; j++ )
     {
 partial_counter += float { 1.0f/num_teams } ;
-   } 
-   } 
+    }
+    }
 #pragma omp atomic update
 counter += partial_counter;
-   } 
-   } 
+    }
 if ( !almost_equal(counter,float { L*M }, 0.1)  ) {
     std::cerr << "Expected: " << L*M << " Got: " << counter << std::endl;
     std::exit(112);

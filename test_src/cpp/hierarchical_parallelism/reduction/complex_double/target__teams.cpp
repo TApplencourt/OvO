@@ -12,16 +12,14 @@ int omp_get_num_threads() {return 1;}
 bool almost_equal(complex<double> x, complex<double> gold, float tol) {
         return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol);
 }
-#pragma omp declare reduction(+: complex<double>:   omp_out += omp_in)
+#pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
 void test_target__teams(){
  complex<double> counter{};
-#pragma omp target   map(tofrom:counter) 
-{
-#pragma omp teams  reduction(+: counter)  
-{
+#pragma omp target map(tofrom:counter) 
+#pragma omp teams reduction(+: counter)
+    {
 const int num_teams = omp_get_num_teams();
 counter += complex<double> { 1.0f/num_teams } ;
-    }
     }
 if ( !almost_equal(counter,complex<double> { 1 }, 0.1)  ) {
     std::cerr << "Expected: " << 1 << " Got: " << counter << std::endl;

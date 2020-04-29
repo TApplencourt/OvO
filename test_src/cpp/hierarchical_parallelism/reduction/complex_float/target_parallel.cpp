@@ -12,11 +12,11 @@ int omp_get_num_threads() {return 1;}
 bool almost_equal(complex<float> x, complex<float> gold, float tol) {
         return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol);
 }
-#pragma omp declare reduction(+: complex<float>:   omp_out += omp_in)
+#pragma omp declare reduction(+: complex<float>: omp_out += omp_in)
 void test_target_parallel(){
  complex<float> counter{};
-#pragma omp target parallel  reduction(+: counter)   map(tofrom:counter) 
-{
+#pragma omp target parallel reduction(+: counter) map(tofrom:counter) 
+    {
 const int num_threads = omp_get_num_threads();
 counter += complex<float> { 1.0f/num_threads };
     }

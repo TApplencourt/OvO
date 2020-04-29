@@ -13,15 +13,15 @@ void test_target_teams_distribute__parallel__simd(){
  const int L = 4096;
  const int M = 64;
  float counter{};
-#pragma omp target teams distribute  reduction(+: counter)   map(tofrom:counter) 
+#pragma omp target teams distribute reduction(+: counter) map(tofrom:counter) 
     for (int i = 0 ; i < L ; i++ )
-{
-#pragma omp parallel  reduction(+: counter)  
-{
+    {
+#pragma omp parallel reduction(+: counter)
+    {
 const int num_threads = omp_get_num_threads();
-#pragma omp simd  reduction(+: counter)  
+#pragma omp simd reduction(+: counter)
     for (int j = 0 ; j < M ; j++ )
-{
+    {
 counter += float { 1.0f/num_threads };
     }
     }

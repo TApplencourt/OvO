@@ -12,16 +12,14 @@ bool almost_equal(double x, double gold, float tol) {
 void test_target_teams__parallel__for(){
  const int L = 262144;
  double counter{};
-#pragma omp target teams  reduction(+: counter)   map(tofrom:counter) 
-{
+#pragma omp target teams reduction(+: counter) map(tofrom:counter) 
+    {
 const int num_teams = omp_get_num_teams();
-#pragma omp parallel  reduction(+: counter)  
-{
-#pragma omp for  
+#pragma omp parallel reduction(+: counter)
+#pragma omp for
     for (int i = 0 ; i < L ; i++ )
-{
+    {
 counter += double { 1.0f/num_teams } ;
-    }
     }
     }
 if ( !almost_equal(counter,double { L }, 0.1)  ) {

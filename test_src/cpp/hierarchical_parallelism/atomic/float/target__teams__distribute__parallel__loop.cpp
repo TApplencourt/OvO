@@ -7,25 +7,19 @@ void test_target__teams__distribute__parallel__loop(){
  const int L = 4096;
  const int M = 64;
  float counter{};
-#pragma omp target  map(tofrom:counter) 
-{
-#pragma omp teams 
-{
-#pragma omp distribute 
+#pragma omp target map(tofrom:counter) 
+#pragma omp teams
+#pragma omp distribute
     for (int i = 0 ; i < L ; i++ )
-{
-#pragma omp parallel 
-{
-#pragma omp loop 
+    {
+#pragma omp parallel
+#pragma omp loop
     for (int j = 0 ; j < M ; j++ )
-{
+    {
 #pragma omp atomic update
 counter += float { 1.0f };
-    } 
-    } 
-    } 
-    } 
-    } 
+    }
+    }
 if ( !almost_equal(counter,float { L*M }, 0.1)  ) {
     std::cerr << "Expected: " << L*M << " Got: " << counter << std::endl;
     std::exit(112);

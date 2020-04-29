@@ -12,19 +12,15 @@ bool almost_equal(double x, double gold, float tol) {
 void test_target__teams__distribute__parallel(){
  const int L = 262144;
  double counter{};
-#pragma omp target   map(tofrom:counter) 
-{
-#pragma omp teams  reduction(+: counter)  
-{
-#pragma omp distribute  
+#pragma omp target map(tofrom:counter) 
+#pragma omp teams reduction(+: counter)
+#pragma omp distribute
     for (int i = 0 ; i < L ; i++ )
-{
-#pragma omp parallel  reduction(+: counter)  
-{
+    {
+#pragma omp parallel reduction(+: counter)
+    {
 const int num_threads = omp_get_num_threads();
 counter += double { 1.0f/num_threads };
-    }
-    }
     }
     }
 if ( !almost_equal(counter,double { L }, 0.1)  ) {

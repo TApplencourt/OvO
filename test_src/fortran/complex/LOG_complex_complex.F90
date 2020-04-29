@@ -8,6 +8,6 @@ program test_LOG
     !$OMP END TARGET
     IF ( ABS(o_host-o_device) > EPSILON(  REAL (  o_host  )   )*4 ) THEN
         write(*,*)  'Expected ', o_host, ' Got ', o_device
-        call exit(1)
+        CALL EXIT(112)
     ENDIF
 end program test_LOG
