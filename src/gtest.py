@@ -512,7 +512,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate tests.')
     args = parser.parse_args()
 
-    makefile_cpp = templateEnv.get_template(f"Makefile.jinja2").render(cpp="cpp")
+    makefile_cpp = templateEnv.get_template(f"Makefile.jinja2").render(ext="cpp")
     makefile_fortran = templateEnv.get_template(f"Makefile.jinja2").render(ext="F90")
 
     gen_math(makefile_cpp, ("cmath_synopsis.json" ,"cmath_complex_synopsis.json"), "cpp")
