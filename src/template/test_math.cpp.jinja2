@@ -5,8 +5,7 @@
 
 #include <limits>
 #include <iostream>
-#include <stdexcept>
-#
+#include <cstdlib>
 using namespace std;
 
 {% for output_type in l_argv | selectattr('is_output') | unique(attribute='T.no_pt') %} 
@@ -41,7 +40,8 @@ void test_{{name}}(){
    {% for output in l_argv | selectattr('is_output')  %}
    if ( !almost_equal({{output.name_host}},{{output.name_device}}, 4) ) {
         std::cerr << "Host: " << {{output.name_host}} << " GPU: " << {{output.name_device}} << std::endl;
-        throw std::runtime_error( "{{name}} give incorect value when offloaded");
+        {# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
+        std::exit(112);
     }
     {% endfor %}
 }

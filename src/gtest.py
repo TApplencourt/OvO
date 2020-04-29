@@ -305,7 +305,7 @@ class ReductionAtomic(OmpReduce):
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_reduction_atomic.f90.jinja2")
 
-        if not sum( any(k in p for k in ("teams","parallel","simd") ) for p in self.path) >= 2:
+        if not any("partial" in p for p in self.fat_path):
             return 
 
         str_ = template.render(name=self.name,
