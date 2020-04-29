@@ -219,7 +219,7 @@ class Path():
 
                 if n_reduce == 1:
                     d["partial"] = True
-                elif n_reduce > 1:
+                if n_reduce >= 1:
                     d["partial_reduce"] = True
                 n_reduce += 1
 
@@ -252,7 +252,7 @@ class Atomic(OmpReduce):
     def template_rendered(self):
 
         if self.language == "cpp":
-            template = templateEnv.get_template(f"test_atomic.cpp.jinja2")
+            template = templateEnv.get_template(f"fold.cpp.jinja2")
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_atomic.f90.jinja2")
 
@@ -260,6 +260,7 @@ class Atomic(OmpReduce):
             return 
 
         str_ = template.render(name=self.name,
+                               family='atomic',
                                       fat_path=self.fat_path,
                                       loops=self.loops,
                                       balenced=self.balenced,
@@ -278,11 +279,12 @@ class Reduction(OmpReduce):
     def template_rendered(self):
 
         if self.language == "cpp":
-            template = templateEnv.get_template(f"test_reduction.cpp.jinja2")
+            template = templateEnv.get_template(f"fold.cpp.jinja2")
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_reduction.f90.jinja2")
 
         str_ =  template.render(name=self.name,
+                                family='reduction',
                                         fat_path=self.fat_path,
                                         loops=self.loops,
                                         balenced=self.balenced,
@@ -301,7 +303,7 @@ class ReductionAtomic(OmpReduce):
     def template_rendered(self):
 
         if self.language == "cpp":
-            template = templateEnv.get_template(f"test_reduction_atomic.cpp.jinja2")
+            template = templateEnv.get_template(f"fold.cpp.jinja2")
         elif self.language == "fortran":
             template = templateEnv.get_template(f"test_reduction_atomic.f90.jinja2")
 
@@ -309,6 +311,7 @@ class ReductionAtomic(OmpReduce):
             return 
 
         str_ = template.render(name=self.name,
+                              family='reduction_atomic',
                                       fat_path=self.fat_path,
                                       loops=self.loops,
                                       balenced=self.balenced,
