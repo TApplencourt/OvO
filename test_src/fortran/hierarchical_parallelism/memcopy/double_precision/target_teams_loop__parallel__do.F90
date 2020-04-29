@@ -22,8 +22,8 @@ program target_teams_loop__parallel__do
     END DO
     !$OMP END TARGET TEAMS LOOP
     IF (ANY(ABS(A - B) > EPSILON(  B  ) )) THEN
-        write(*,*)  'Wrong value', MAXVAL(ABS(A-B)), 'max difference'
-        call exit(1)
+        WRITE(*,*)  'Wrong value', MAXVAL(ABS(A-B)), 'max difference'
+        CALL EXIT(112)
     ENDIF
     DEALLOCATE(A,B)
 end program target_teams_loop__parallel__do

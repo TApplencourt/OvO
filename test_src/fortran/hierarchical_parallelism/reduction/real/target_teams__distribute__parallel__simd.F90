@@ -31,22 +31,22 @@ PROGRAM target_teams__distribute__parallel__simd
     INTEGER :: j
     REAL :: counter = 0
     INTEGER :: num_threads
-    !$OMP TARGET TEAMS   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
-    !$OMP DISTRIBUTE   
-    DO i = 1 , L 
-    !$OMP PARALLEL   REDUCTION(+:COUNTER)  
+!$OMP TARGET TEAMS REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP DISTRIBUTE
+    DO i = 1 , L
+!$OMP PARALLEL REDUCTION(+:counter)
     num_threads = omp_get_num_threads()
-    !$OMP SIMD   REDUCTION(+:COUNTER)  
-    DO j = 1 , M 
-counter = counter + 1./num_threads
+!$OMP SIMD REDUCTION(+:counter)
+    DO j = 1 , M
+counter = counter +  1./num_threads
     END DO
-    !$OMP END SIMD
-    !$OMP END PARALLEL
+!$OMP END SIMD
+!$OMP END PARALLEL
     END DO
-    !$OMP END DISTRIBUTE
-    !$OMP END TARGET TEAMS
+!$OMP END DISTRIBUTE
+!$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
-    write(*,*)  'Expected', L*M,  'Got', counter
+    WRITE(*,*)  'Expected', L*M,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams__distribute__parallel__simd

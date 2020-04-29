@@ -11,14 +11,14 @@ PROGRAM target_parallel_loop
     INTEGER :: L = 262144
     INTEGER :: i
     REAL :: counter = 0
-    !$OMP TARGET PARALLEL LOOP   MAP(TOFROM: counter) 
-    DO i = 1 , L 
+!$OMP TARGET PARALLEL LOOP map(tofrom:counter) 
+    DO i = 1 , L
 !$OMP ATOMIC UPDATE
-counter = counter + 1.
+counter = counter +  1.
     END DO
-    !$OMP END TARGET PARALLEL LOOP
+!$OMP END TARGET PARALLEL LOOP
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_parallel_loop

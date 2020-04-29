@@ -29,24 +29,24 @@ PROGRAM target__teams__distribute__parallel
     INTEGER :: i
     REAL :: counter = 0
     INTEGER :: num_threads
-    REAL :: partial_counter
-    !$OMP TARGET   MAP(TOFROM: counter) 
-    !$OMP TEAMS  
-    !$OMP DISTRIBUTE  
-    DO i = 1 , L 
-    partial_counter = 0.
-    !$OMP PARALLEL REDUCTION(+:partial_counter) 
+  REAL partial_counter
+!$OMP TARGET map(tofrom:counter) 
+!$OMP TEAMS
+!$OMP DISTRIBUTE
+    DO i = 1 , L
+  partial_counter = 0.
+!$OMP PARALLEL REDUCTION(+: partial_counter)
     num_threads = omp_get_num_threads()
-partial_counter = partial_counter + 1./num_threads
-    !$OMP END PARALLEL
+partial_counter = partial_counter +  1./num_threads
+!$OMP END PARALLEL
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
     END DO
-    !$OMP END DISTRIBUTE
-    !$OMP END TEAMS
-    !$OMP END TARGET
+!$OMP END DISTRIBUTE
+!$OMP END TEAMS
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams__distribute__parallel

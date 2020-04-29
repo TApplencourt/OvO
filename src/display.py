@@ -118,7 +118,7 @@ class Result(NamedTuple):
     test: set
     failure: dict
     
-def parse_log(file_path, mode, avoid_long_double, avoid_loop):
+def parse_log(file_path, mode, avoid_long, avoid_loop):
 
     r = Result(file_path, set(), {} )
 
@@ -133,10 +133,10 @@ def parse_log(file_path, mode, avoid_long_double, avoid_loop):
     with open(p) as f:
         for line in f:
             for m in re.findall(regex.launch, line):
-                if not (avoid_long_double and 'long_double' in m) and not (avoid_loop and 'loop' in m):
+                if not (avoid_long and 'long' in m) and not (avoid_loop and 'loop' in m):
                     r.test.add(m)
             for m,error in re.findall(regex.error,line):
-                if not (avoid_long_double and 'long_double' in m) and not (avoid_loop and 'loop' in m):
+                if not (avoid_long and 'long' in m) and not (avoid_loop and 'loop' in m):
                     r.failure[m] = error
 
     return r
@@ -222,7 +222,7 @@ if __name__ == "__main__":
         mode_display = 'summary'
 
     # The last arguments skip the long_double example. Indeed, GPUs have limited support for them
-    avoid_long_double = True if sys.argv[5] == 'true' else False
+    avoid_long = True if sys.argv[5] == 'true' else False
     avoid_loop = True if sys.argv[6] == 'true' else False
 
     paths =  sys.argv[7:]
@@ -232,7 +232,7 @@ if __name__ == "__main__":
         l_result = []
         for mode in ("compilation","runtime"):
             p = os.path.join(folder,f"{mode}.log")
-            l_result.append(parse_log(p,mode, avoid_long_double, avoid_loop))
+            l_result.append(parse_log(p,mode, avoid_long, avoid_loop))
             
         d_result[folder] = l_result[:]
         if mode_display != 'summary':

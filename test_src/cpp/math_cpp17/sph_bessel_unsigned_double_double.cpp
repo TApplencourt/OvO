@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iomanip> 
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -17,7 +18,7 @@ void test_sph_bessel(){
      out2_device =  sph_bessel( in0, in1);
    }
    if ( !almost_equal(out2_host,out2_device, 4) ) {
-        std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
+        std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         std::exit(112);
     }
 }

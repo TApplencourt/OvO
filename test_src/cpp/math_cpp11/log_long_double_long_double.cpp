@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iomanip> 
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -16,7 +17,7 @@ void test_log(){
      o_device =  log( x);
    }
    if ( !almost_equal(o_host,o_device, 4) ) {
-        std::cerr << "Host: " << o_host << " GPU: " << o_device << std::endl;
+        std::cerr << std::setprecision (std::numeric_limits<long double>::max_digits10 ) << "Host: " << o_host << " GPU: " << o_device << std::endl;
         std::exit(112);
     }
 }

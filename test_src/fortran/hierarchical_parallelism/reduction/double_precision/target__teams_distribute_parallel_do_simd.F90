@@ -11,15 +11,15 @@ PROGRAM target__teams_distribute_parallel_do_simd
     INTEGER :: L = 262144
     INTEGER :: i
     DOUBLE PRECISION :: counter = 0
-    !$OMP TARGET    MAP(TOFROM: COUNTER) 
-    !$OMP TEAMS DISTRIBUTE PARALLEL DO SIMD   REDUCTION(+:COUNTER)  
-    DO i = 1 , L 
-counter = counter + 1.
+!$OMP TARGET map(tofrom:counter) 
+!$OMP TEAMS DISTRIBUTE PARALLEL DO SIMD REDUCTION(+:counter)
+    DO i = 1 , L
+counter = counter +  1.
     END DO
-    !$OMP END TEAMS DISTRIBUTE PARALLEL DO SIMD
-    !$OMP END TARGET
+!$OMP END TEAMS DISTRIBUTE PARALLEL DO SIMD
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams_distribute_parallel_do_simd

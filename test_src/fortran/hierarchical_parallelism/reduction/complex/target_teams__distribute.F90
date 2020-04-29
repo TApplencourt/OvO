@@ -11,15 +11,15 @@ PROGRAM target_teams__distribute
     INTEGER :: L = 262144
     INTEGER :: i
     COMPLEX :: counter = (0,0)
-    !$OMP TARGET TEAMS   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
-    !$OMP DISTRIBUTE   
-    DO i = 1 , L 
-counter = counter + 1.
+!$OMP TARGET TEAMS REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP DISTRIBUTE
+    DO i = 1 , L
+counter = counter +  CMPLX(  1. , 0 ) 
     END DO
-    !$OMP END DISTRIBUTE
-    !$OMP END TARGET TEAMS
+!$OMP END DISTRIBUTE
+!$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams__distribute

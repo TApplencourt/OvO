@@ -31,28 +31,28 @@ PROGRAM target__teams__loop__parallel__simd
     INTEGER :: j
     REAL :: counter = 0
     INTEGER :: num_threads
-    REAL :: partial_counter
-    !$OMP TARGET   MAP(TOFROM: counter) 
-    !$OMP TEAMS  
-    !$OMP LOOP  
-    DO i = 1 , L 
-    partial_counter = 0.
-    !$OMP PARALLEL REDUCTION(+:partial_counter) 
+  REAL partial_counter
+!$OMP TARGET map(tofrom:counter) 
+!$OMP TEAMS
+!$OMP LOOP
+    DO i = 1 , L
+  partial_counter = 0.
+!$OMP PARALLEL REDUCTION(+: partial_counter)
     num_threads = omp_get_num_threads()
-    !$OMP SIMD  REDUCTION(+:partial_counter)  
-    DO j = 1 , M 
-partial_counter = partial_counter + 1./num_threads
+!$OMP SIMD REDUCTION(+: partial_counter)
+    DO j = 1 , M
+partial_counter = partial_counter +  1./num_threads
     END DO
-    !$OMP END SIMD
-    !$OMP END PARALLEL
+!$OMP END SIMD
+!$OMP END PARALLEL
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
     END DO
-    !$OMP END LOOP
-    !$OMP END TEAMS
-    !$OMP END TARGET
+!$OMP END LOOP
+!$OMP END TEAMS
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
-    write(*,*)  'Expected', L*M,  'Got', counter
+    WRITE(*,*)  'Expected', L*M,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams__loop__parallel__simd

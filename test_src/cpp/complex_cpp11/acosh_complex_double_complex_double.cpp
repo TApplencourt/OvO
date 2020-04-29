@@ -1,5 +1,6 @@
 #include <complex>
 #include <cmath>
+#include <iomanip> 
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -17,7 +18,7 @@ void test_acosh(){
      o_device =  acosh( x);
    }
    if ( !almost_equal(o_host,o_device, 4) ) {
-        std::cerr << "Host: " << o_host << " GPU: " << o_device << std::endl;
+        std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Host: " << o_host << " GPU: " << o_device << std::endl;
         std::exit(112);
     }
 }

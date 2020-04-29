@@ -19,8 +19,8 @@ program target_parallel_do_simd
     END DO
     !$OMP END TARGET PARALLEL DO SIMD
     IF (ANY(ABS(A - B) > EPSILON(  REAL(  B  )  ) )) THEN
-        write(*,*)  'Wrong value', MAXVAL(ABS(A-B)), 'max difference'
-        call exit(1)
+        WRITE(*,*)  'Wrong value', MAXVAL(ABS(A-B)), 'max difference'
+        CALL EXIT(112)
     ENDIF
     DEALLOCATE(A,B)
 end program target_parallel_do_simd

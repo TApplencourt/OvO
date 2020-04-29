@@ -1,3 +1,4 @@
+
 TIMEOUT = $(shell command -v timeout 2> /dev/null)
 ifdef TIMEOUT
 	TIMEOUT = timeout -k 5s 10s
@@ -19,9 +20,15 @@ EXE_NO_LOOP = $(SRC_NO_LOOP:%.F90=%.exe)
 .PHONY: exe_no_loop
 exe_no_loop: $(EXE_NO_LOOP)
 
+SRC_NO_LONG = $(filter-out $(wildcard *long*.F90), $(SRC))
+EXE_NO_LONG = $(SRC_NO_LONG:%.F90=%.exe)
 
-.PHONY: exe_no_long_double_no_loop
-exe_no_long_double_no_loop: $(EXE_NO_LOOP)
+.PHONY: exe_no_long
+exe_no_long: $(EXE_NO_LONG)
+
+
+.PHONY: exe_no_long_no_loop
+exe_no_long_no_loop: $(filter $(EXE_NO_LONG), $(EXE_NO_LOOP)) 
 
 %.exe: %.F90
 	-$(FC) $(FFLAGS) $< -o $@

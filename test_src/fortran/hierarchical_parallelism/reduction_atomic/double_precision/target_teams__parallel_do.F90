@@ -29,20 +29,20 @@ PROGRAM target_teams__parallel_do
     INTEGER :: i
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_teams
-    DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET TEAMS   MAP(TOFROM: counter) 
+  DOUBLE PRECISION partial_counter
+!$OMP TARGET TEAMS map(tofrom:counter) 
     num_teams = omp_get_num_teams()
-    partial_counter = 0.
-    !$OMP PARALLEL DO REDUCTION(+:partial_counter) 
-    DO i = 1 , L 
-partial_counter = partial_counter + 1./num_teams
+  partial_counter = 0.
+!$OMP PARALLEL DO REDUCTION(+: partial_counter)
+    DO i = 1 , L
+partial_counter = partial_counter +  1./num_teams
     END DO
-    !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
-    !$OMP END TARGET TEAMS
+!$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams__parallel_do

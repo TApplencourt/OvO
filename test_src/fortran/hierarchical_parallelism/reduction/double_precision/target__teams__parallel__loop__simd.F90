@@ -31,24 +31,24 @@ PROGRAM target__teams__parallel__loop__simd
     INTEGER :: j
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_teams
-    !$OMP TARGET    MAP(TOFROM: COUNTER) 
-    !$OMP TEAMS   REDUCTION(+:COUNTER)  
+!$OMP TARGET map(tofrom:counter) 
+!$OMP TEAMS REDUCTION(+:counter)
     num_teams = omp_get_num_teams()
-    !$OMP PARALLEL   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   
-    DO i = 1 , L 
-    !$OMP SIMD   REDUCTION(+:COUNTER)  
-    DO j = 1 , M 
-counter = counter + 1./num_teams
+!$OMP PARALLEL REDUCTION(+:counter)
+!$OMP LOOP
+    DO i = 1 , L
+!$OMP SIMD REDUCTION(+:counter)
+    DO j = 1 , M
+counter = counter +  1./num_teams
     END DO
-    !$OMP END SIMD
+!$OMP END SIMD
     END DO
-    !$OMP END LOOP
-    !$OMP END PARALLEL
-    !$OMP END TEAMS
-    !$OMP END TARGET
+!$OMP END LOOP
+!$OMP END PARALLEL
+!$OMP END TEAMS
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
-    write(*,*)  'Expected', L*M,  'Got', counter
+    WRITE(*,*)  'Expected', L*M,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams__parallel__loop__simd

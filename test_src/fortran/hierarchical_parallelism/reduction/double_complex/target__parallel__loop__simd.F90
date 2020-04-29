@@ -13,21 +13,21 @@ PROGRAM target__parallel__loop__simd
     INTEGER :: M = 64
     INTEGER :: j
     DOUBLE COMPLEX :: counter = (0,0)
-    !$OMP TARGET    MAP(TOFROM: COUNTER) 
-    !$OMP PARALLEL   REDUCTION(+:COUNTER)  
-    !$OMP LOOP   
-    DO i = 1 , L 
-    !$OMP SIMD   REDUCTION(+:COUNTER)  
-    DO j = 1 , M 
-counter = counter + 1.
+!$OMP TARGET map(tofrom:counter) 
+!$OMP PARALLEL REDUCTION(+:counter)
+!$OMP LOOP
+    DO i = 1 , L
+!$OMP SIMD REDUCTION(+:counter)
+    DO j = 1 , M
+counter = counter +  CMPLX(  1. , 0 ) 
     END DO
-    !$OMP END SIMD
+!$OMP END SIMD
     END DO
-    !$OMP END LOOP
-    !$OMP END PARALLEL
-    !$OMP END TARGET
+!$OMP END LOOP
+!$OMP END PARALLEL
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
-    write(*,*)  'Expected', L*M,  'Got', counter
+    WRITE(*,*)  'Expected', L*M,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__parallel__loop__simd

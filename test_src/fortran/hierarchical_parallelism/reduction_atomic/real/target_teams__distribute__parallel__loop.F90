@@ -13,25 +13,25 @@ PROGRAM target_teams__distribute__parallel__loop
     INTEGER :: M = 64
     INTEGER :: j
     REAL :: counter = 0
-    REAL :: partial_counter
-    !$OMP TARGET TEAMS   MAP(TOFROM: counter) 
-    !$OMP DISTRIBUTE  
-    DO i = 1 , L 
-    partial_counter = 0.
-    !$OMP PARALLEL REDUCTION(+:partial_counter) 
-    !$OMP LOOP  
-    DO j = 1 , M 
-partial_counter = partial_counter + 1.
+  REAL partial_counter
+!$OMP TARGET TEAMS map(tofrom:counter) 
+!$OMP DISTRIBUTE
+    DO i = 1 , L
+  partial_counter = 0.
+!$OMP PARALLEL REDUCTION(+: partial_counter)
+!$OMP LOOP
+    DO j = 1 , M
+partial_counter = partial_counter +  1.
     END DO
-    !$OMP END LOOP
-    !$OMP END PARALLEL
+!$OMP END LOOP
+!$OMP END PARALLEL
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
     END DO
-    !$OMP END DISTRIBUTE
-    !$OMP END TARGET TEAMS
+!$OMP END DISTRIBUTE
+!$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
-    write(*,*)  'Expected', L*M,  'Got', counter
+    WRITE(*,*)  'Expected', L*M,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams__distribute__parallel__loop

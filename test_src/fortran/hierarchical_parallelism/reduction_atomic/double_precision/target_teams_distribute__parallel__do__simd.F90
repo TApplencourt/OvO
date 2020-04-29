@@ -15,27 +15,27 @@ PROGRAM target_teams_distribute__parallel__do__simd
     INTEGER :: N = 64
     INTEGER :: k
     DOUBLE PRECISION :: counter = 0
-    DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET TEAMS DISTRIBUTE   MAP(TOFROM: counter) 
-    DO i = 1 , L 
-    partial_counter = 0.
-    !$OMP PARALLEL REDUCTION(+:partial_counter) 
-    !$OMP DO  
-    DO j = 1 , M 
-    !$OMP SIMD  REDUCTION(+:partial_counter)  
-    DO k = 1 , N 
-partial_counter = partial_counter + 1.
+  DOUBLE PRECISION partial_counter
+!$OMP TARGET TEAMS DISTRIBUTE map(tofrom:counter) 
+    DO i = 1 , L
+  partial_counter = 0.
+!$OMP PARALLEL REDUCTION(+: partial_counter)
+!$OMP DO
+    DO j = 1 , M
+!$OMP SIMD REDUCTION(+: partial_counter)
+    DO k = 1 , N
+partial_counter = partial_counter +  1.
     END DO
-    !$OMP END SIMD
+!$OMP END SIMD
     END DO
-    !$OMP END DO
-    !$OMP END PARALLEL
+!$OMP END DO
+!$OMP END PARALLEL
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
     END DO
-    !$OMP END TARGET TEAMS DISTRIBUTE
+!$OMP END TARGET TEAMS DISTRIBUTE
 IF ( .NOT.almost_equal(counter, L*M*N, 0.1) ) THEN
-    write(*,*)  'Expected', L*M*N,  'Got', counter
+    WRITE(*,*)  'Expected', L*M*N,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams_distribute__parallel__do__simd

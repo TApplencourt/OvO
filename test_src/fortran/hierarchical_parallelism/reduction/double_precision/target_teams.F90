@@ -27,12 +27,12 @@ PROGRAM target_teams
     LOGICAL :: almost_equal
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_teams
-    !$OMP TARGET TEAMS   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
+!$OMP TARGET TEAMS REDUCTION(+:counter) map(tofrom:counter) 
     num_teams = omp_get_num_teams()
-counter = counter + 1./num_teams
-    !$OMP END TARGET TEAMS
+counter = counter +  1./num_teams
+!$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, 1, 0.1) ) THEN
-    write(*,*)  'Expected', 1,  'Got', counter
+    WRITE(*,*)  'Expected', 1,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams

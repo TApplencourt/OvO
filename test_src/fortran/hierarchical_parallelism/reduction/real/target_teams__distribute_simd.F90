@@ -11,15 +11,15 @@ PROGRAM target_teams__distribute_simd
     INTEGER :: L = 262144
     INTEGER :: i
     REAL :: counter = 0
-    !$OMP TARGET TEAMS   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
-    !$OMP DISTRIBUTE SIMD   REDUCTION(+:COUNTER)  
-    DO i = 1 , L 
-counter = counter + 1.
+!$OMP TARGET TEAMS REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP DISTRIBUTE SIMD REDUCTION(+:counter)
+    DO i = 1 , L
+counter = counter +  1.
     END DO
-    !$OMP END DISTRIBUTE SIMD
-    !$OMP END TARGET TEAMS
+!$OMP END DISTRIBUTE SIMD
+!$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams__distribute_simd

@@ -19,8 +19,8 @@ program target_parallel_loop
     END DO
     !$OMP END TARGET PARALLEL LOOP
     IF (ANY(ABS(A - B) > EPSILON(  REAL(  B  )  ) )) THEN
-        write(*,*)  'Wrong value', MAXVAL(ABS(A-B)), 'max difference'
-        call exit(1)
+        WRITE(*,*)  'Wrong value', MAXVAL(ABS(A-B)), 'max difference'
+        CALL EXIT(112)
     ENDIF
     DEALLOCATE(A,B)
 end program target_parallel_loop

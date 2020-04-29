@@ -29,17 +29,17 @@ PROGRAM target__teams__parallel
     COMPLEX :: counter = (0,0)
     INTEGER :: num_teams
     INTEGER :: num_threads
-    !$OMP TARGET    MAP(TOFROM: COUNTER) 
-    !$OMP TEAMS   REDUCTION(+:COUNTER)  
+!$OMP TARGET map(tofrom:counter) 
+!$OMP TEAMS REDUCTION(+:counter)
     num_teams = omp_get_num_teams()
-    !$OMP PARALLEL   REDUCTION(+:COUNTER)  
+!$OMP PARALLEL REDUCTION(+:counter)
     num_threads = omp_get_num_threads()
-counter = counter + 1./(num_teams*num_threads)
-    !$OMP END PARALLEL
-    !$OMP END TEAMS
-    !$OMP END TARGET
+counter = counter +  CMPLX(  1./(num_teams*num_threads) , 0 ) 
+!$OMP END PARALLEL
+!$OMP END TEAMS
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, 1, 0.1) ) THEN
-    write(*,*)  'Expected', 1,  'Got', counter
+    WRITE(*,*)  'Expected', 1,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams__parallel

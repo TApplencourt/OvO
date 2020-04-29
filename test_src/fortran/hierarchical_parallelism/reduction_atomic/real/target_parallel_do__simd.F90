@@ -13,21 +13,21 @@ PROGRAM target_parallel_do__simd
     INTEGER :: M = 64
     INTEGER :: j
     REAL :: counter = 0
-    REAL :: partial_counter
-    !$OMP TARGET PARALLEL DO   MAP(TOFROM: counter) 
-    DO i = 1 , L 
-    partial_counter = 0.
-    !$OMP SIMD REDUCTION(+:partial_counter) 
-    DO j = 1 , M 
-partial_counter = partial_counter + 1.
+  REAL partial_counter
+!$OMP TARGET PARALLEL DO map(tofrom:counter) 
+    DO i = 1 , L
+  partial_counter = 0.
+!$OMP SIMD REDUCTION(+: partial_counter)
+    DO j = 1 , M
+partial_counter = partial_counter +  1.
     END DO
-    !$OMP END SIMD
+!$OMP END SIMD
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
     END DO
-    !$OMP END TARGET PARALLEL DO
+!$OMP END TARGET PARALLEL DO
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
-    write(*,*)  'Expected', L*M,  'Got', counter
+    WRITE(*,*)  'Expected', L*M,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_parallel_do__simd

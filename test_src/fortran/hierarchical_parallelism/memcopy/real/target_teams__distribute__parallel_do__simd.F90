@@ -28,8 +28,8 @@ program target_teams__distribute__parallel_do__simd
     !$OMP END DISTRIBUTE
     !$OMP END TARGET TEAMS
     IF (ANY(ABS(A - B) > EPSILON(  B  ) )) THEN
-        write(*,*)  'Wrong value', MAXVAL(ABS(A-B)), 'max difference'
-        call exit(1)
+        WRITE(*,*)  'Wrong value', MAXVAL(ABS(A-B)), 'max difference'
+        CALL EXIT(112)
     ENDIF
     DEALLOCATE(A,B)
 end program target_teams__distribute__parallel_do__simd

@@ -29,20 +29,20 @@ PROGRAM target_parallel__simd
     INTEGER :: i
     REAL :: counter = 0
     INTEGER :: num_threads
-    REAL :: partial_counter
-    !$OMP TARGET PARALLEL   MAP(TOFROM: counter) 
+  REAL partial_counter
+!$OMP TARGET PARALLEL map(tofrom:counter) 
     num_threads = omp_get_num_threads()
-    partial_counter = 0.
-    !$OMP SIMD REDUCTION(+:partial_counter) 
-    DO i = 1 , L 
-partial_counter = partial_counter + 1./num_threads
+  partial_counter = 0.
+!$OMP SIMD REDUCTION(+: partial_counter)
+    DO i = 1 , L
+partial_counter = partial_counter +  1./num_threads
     END DO
-    !$OMP END SIMD
+!$OMP END SIMD
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
-    !$OMP END TARGET PARALLEL
+!$OMP END TARGET PARALLEL
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_parallel__simd

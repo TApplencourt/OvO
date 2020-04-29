@@ -13,19 +13,19 @@ PROGRAM target_parallel__do__simd
     INTEGER :: M = 64
     INTEGER :: j
     REAL :: counter = 0
-    !$OMP TARGET PARALLEL   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
-    !$OMP DO   
-    DO i = 1 , L 
-    !$OMP SIMD   REDUCTION(+:COUNTER)  
-    DO j = 1 , M 
-counter = counter + 1.
+!$OMP TARGET PARALLEL REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP DO
+    DO i = 1 , L
+!$OMP SIMD REDUCTION(+:counter)
+    DO j = 1 , M
+counter = counter +  1.
     END DO
-    !$OMP END SIMD
+!$OMP END SIMD
     END DO
-    !$OMP END DO
-    !$OMP END TARGET PARALLEL
+!$OMP END DO
+!$OMP END TARGET PARALLEL
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
-    write(*,*)  'Expected', L*M,  'Got', counter
+    WRITE(*,*)  'Expected', L*M,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_parallel__do__simd

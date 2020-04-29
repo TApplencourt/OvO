@@ -29,17 +29,17 @@ PROGRAM target_teams_loop__parallel
     INTEGER :: i
     REAL :: counter = 0
     INTEGER :: num_threads
-    !$OMP TARGET TEAMS LOOP   MAP(TOFROM: counter) 
-    DO i = 1 , L 
-    !$OMP PARALLEL 
+!$OMP TARGET TEAMS LOOP map(tofrom:counter) 
+    DO i = 1 , L
+!$OMP PARALLEL
     num_threads = omp_get_num_threads()
 !$OMP ATOMIC UPDATE
-counter = counter + 1./num_threads
-    !$OMP END PARALLEL
+counter = counter +  1./num_threads
+!$OMP END PARALLEL
     END DO
-    !$OMP END TARGET TEAMS LOOP
+!$OMP END TARGET TEAMS LOOP
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams_loop__parallel

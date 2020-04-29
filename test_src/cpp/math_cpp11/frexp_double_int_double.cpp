@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iomanip> 
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -21,11 +22,11 @@ void test_frexp(){
      out2_device =  frexp( in0, &out1_device);
    }
    if ( !almost_equal(out1_host,out1_device, 4) ) {
-        std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
+        std::cerr << std::setprecision (std::numeric_limits<int>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         std::exit(112);
     }
    if ( !almost_equal(out2_host,out2_device, 4) ) {
-        std::cerr << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
+        std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         std::exit(112);
     }
 }

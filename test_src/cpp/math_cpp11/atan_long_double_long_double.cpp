@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iomanip> 
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -16,7 +17,7 @@ void test_atan(){
      out1_device =  atan( in0);
    }
    if ( !almost_equal(out1_host,out1_device, 4) ) {
-        std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
+        std::cerr << std::setprecision (std::numeric_limits<long double>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         std::exit(112);
     }
 }

@@ -29,22 +29,22 @@ PROGRAM target_teams__distribute__parallel
     INTEGER :: i
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_threads
-    DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET TEAMS   MAP(TOFROM: counter) 
-    !$OMP DISTRIBUTE  
-    DO i = 1 , L 
-    partial_counter = 0.
-    !$OMP PARALLEL REDUCTION(+:partial_counter) 
+  DOUBLE PRECISION partial_counter
+!$OMP TARGET TEAMS map(tofrom:counter) 
+!$OMP DISTRIBUTE
+    DO i = 1 , L
+  partial_counter = 0.
+!$OMP PARALLEL REDUCTION(+: partial_counter)
     num_threads = omp_get_num_threads()
-partial_counter = partial_counter + 1./num_threads
-    !$OMP END PARALLEL
+partial_counter = partial_counter +  1./num_threads
+!$OMP END PARALLEL
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
     END DO
-    !$OMP END DISTRIBUTE
-    !$OMP END TARGET TEAMS
+!$OMP END DISTRIBUTE
+!$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams__distribute__parallel

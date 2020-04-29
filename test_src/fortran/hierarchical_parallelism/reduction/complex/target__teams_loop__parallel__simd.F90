@@ -31,22 +31,22 @@ PROGRAM target__teams_loop__parallel__simd
     INTEGER :: j
     COMPLEX :: counter = (0,0)
     INTEGER :: num_threads
-    !$OMP TARGET    MAP(TOFROM: COUNTER) 
-    !$OMP TEAMS LOOP   REDUCTION(+:COUNTER)  
-    DO i = 1 , L 
-    !$OMP PARALLEL   REDUCTION(+:COUNTER)  
+!$OMP TARGET map(tofrom:counter) 
+!$OMP TEAMS LOOP REDUCTION(+:counter)
+    DO i = 1 , L
+!$OMP PARALLEL REDUCTION(+:counter)
     num_threads = omp_get_num_threads()
-    !$OMP SIMD   REDUCTION(+:COUNTER)  
-    DO j = 1 , M 
-counter = counter + 1./num_threads
+!$OMP SIMD REDUCTION(+:counter)
+    DO j = 1 , M
+counter = counter +  CMPLX(  1./num_threads , 0 ) 
     END DO
-    !$OMP END SIMD
-    !$OMP END PARALLEL
+!$OMP END SIMD
+!$OMP END PARALLEL
     END DO
-    !$OMP END TEAMS LOOP
-    !$OMP END TARGET
+!$OMP END TEAMS LOOP
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
-    write(*,*)  'Expected', L*M,  'Got', counter
+    WRITE(*,*)  'Expected', L*M,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams_loop__parallel__simd

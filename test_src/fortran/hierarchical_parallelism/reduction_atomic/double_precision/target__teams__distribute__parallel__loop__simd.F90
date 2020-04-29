@@ -15,31 +15,31 @@ PROGRAM target__teams__distribute__parallel__loop__simd
     INTEGER :: N = 64
     INTEGER :: k
     DOUBLE PRECISION :: counter = 0
-    DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET   MAP(TOFROM: counter) 
-    !$OMP TEAMS  
-    !$OMP DISTRIBUTE  
-    DO i = 1 , L 
-    partial_counter = 0.
-    !$OMP PARALLEL REDUCTION(+:partial_counter) 
-    !$OMP LOOP  
-    DO j = 1 , M 
-    !$OMP SIMD  REDUCTION(+:partial_counter)  
-    DO k = 1 , N 
-partial_counter = partial_counter + 1.
+  DOUBLE PRECISION partial_counter
+!$OMP TARGET map(tofrom:counter) 
+!$OMP TEAMS
+!$OMP DISTRIBUTE
+    DO i = 1 , L
+  partial_counter = 0.
+!$OMP PARALLEL REDUCTION(+: partial_counter)
+!$OMP LOOP
+    DO j = 1 , M
+!$OMP SIMD REDUCTION(+: partial_counter)
+    DO k = 1 , N
+partial_counter = partial_counter +  1.
     END DO
-    !$OMP END SIMD
+!$OMP END SIMD
     END DO
-    !$OMP END LOOP
-    !$OMP END PARALLEL
+!$OMP END LOOP
+!$OMP END PARALLEL
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
     END DO
-    !$OMP END DISTRIBUTE
-    !$OMP END TEAMS
-    !$OMP END TARGET
+!$OMP END DISTRIBUTE
+!$OMP END TEAMS
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M*N, 0.1) ) THEN
-    write(*,*)  'Expected', L*M*N,  'Got', counter
+    WRITE(*,*)  'Expected', L*M*N,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams__distribute__parallel__loop__simd

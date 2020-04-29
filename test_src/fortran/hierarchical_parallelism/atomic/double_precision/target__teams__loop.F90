@@ -11,18 +11,18 @@ PROGRAM target__teams__loop
     INTEGER :: L = 262144
     INTEGER :: i
     DOUBLE PRECISION :: counter = 0
-    !$OMP TARGET   MAP(TOFROM: counter) 
-    !$OMP TEAMS 
-    !$OMP LOOP 
-    DO i = 1 , L 
+!$OMP TARGET map(tofrom:counter) 
+!$OMP TEAMS
+!$OMP LOOP
+    DO i = 1 , L
 !$OMP ATOMIC UPDATE
-counter = counter + 1.
+counter = counter +  1.
     END DO
-    !$OMP END LOOP
-    !$OMP END TEAMS
-    !$OMP END TARGET
+!$OMP END LOOP
+!$OMP END TEAMS
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams__loop

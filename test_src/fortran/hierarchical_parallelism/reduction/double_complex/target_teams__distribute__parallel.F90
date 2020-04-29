@@ -29,18 +29,18 @@ PROGRAM target_teams__distribute__parallel
     INTEGER :: i
     DOUBLE COMPLEX :: counter = (0,0)
     INTEGER :: num_threads
-    !$OMP TARGET TEAMS   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
-    !$OMP DISTRIBUTE   
-    DO i = 1 , L 
-    !$OMP PARALLEL   REDUCTION(+:COUNTER)  
+!$OMP TARGET TEAMS REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP DISTRIBUTE
+    DO i = 1 , L
+!$OMP PARALLEL REDUCTION(+:counter)
     num_threads = omp_get_num_threads()
-counter = counter + 1./num_threads
-    !$OMP END PARALLEL
+counter = counter +  CMPLX(  1./num_threads , 0 ) 
+!$OMP END PARALLEL
     END DO
-    !$OMP END DISTRIBUTE
-    !$OMP END TARGET TEAMS
+!$OMP END DISTRIBUTE
+!$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams__distribute__parallel

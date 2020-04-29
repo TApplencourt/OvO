@@ -29,18 +29,18 @@ PROGRAM target__parallel__simd
     INTEGER :: i
     DOUBLE COMPLEX :: counter = (0,0)
     INTEGER :: num_threads
-    !$OMP TARGET    MAP(TOFROM: COUNTER) 
-    !$OMP PARALLEL   REDUCTION(+:COUNTER)  
+!$OMP TARGET map(tofrom:counter) 
+!$OMP PARALLEL REDUCTION(+:counter)
     num_threads = omp_get_num_threads()
-    !$OMP SIMD   REDUCTION(+:COUNTER)  
-    DO i = 1 , L 
-counter = counter + 1./num_threads
+!$OMP SIMD REDUCTION(+:counter)
+    DO i = 1 , L
+counter = counter +  CMPLX(  1./num_threads , 0 ) 
     END DO
-    !$OMP END SIMD
-    !$OMP END PARALLEL
-    !$OMP END TARGET
+!$OMP END SIMD
+!$OMP END PARALLEL
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__parallel__simd

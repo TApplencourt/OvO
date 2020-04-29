@@ -13,23 +13,23 @@ PROGRAM target__teams_loop__simd
     INTEGER :: M = 64
     INTEGER :: j
     DOUBLE PRECISION :: counter = 0
-    DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET   MAP(TOFROM: counter) 
-    !$OMP TEAMS LOOP  
-    DO i = 1 , L 
-    partial_counter = 0.
-    !$OMP SIMD REDUCTION(+:partial_counter) 
-    DO j = 1 , M 
-partial_counter = partial_counter + 1.
+  DOUBLE PRECISION partial_counter
+!$OMP TARGET map(tofrom:counter) 
+!$OMP TEAMS LOOP
+    DO i = 1 , L
+  partial_counter = 0.
+!$OMP SIMD REDUCTION(+: partial_counter)
+    DO j = 1 , M
+partial_counter = partial_counter +  1.
     END DO
-    !$OMP END SIMD
+!$OMP END SIMD
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
     END DO
-    !$OMP END TEAMS LOOP
-    !$OMP END TARGET
+!$OMP END TEAMS LOOP
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
-    write(*,*)  'Expected', L*M,  'Got', counter
+    WRITE(*,*)  'Expected', L*M,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams_loop__simd

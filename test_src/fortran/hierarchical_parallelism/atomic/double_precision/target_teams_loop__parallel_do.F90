@@ -13,18 +13,18 @@ PROGRAM target_teams_loop__parallel_do
     INTEGER :: M = 64
     INTEGER :: j
     DOUBLE PRECISION :: counter = 0
-    !$OMP TARGET TEAMS LOOP   MAP(TOFROM: counter) 
-    DO i = 1 , L 
-    !$OMP PARALLEL DO 
-    DO j = 1 , M 
+!$OMP TARGET TEAMS LOOP map(tofrom:counter) 
+    DO i = 1 , L
+!$OMP PARALLEL DO
+    DO j = 1 , M
 !$OMP ATOMIC UPDATE
-counter = counter + 1.
+counter = counter +  1.
     END DO
-    !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
     END DO
-    !$OMP END TARGET TEAMS LOOP
+!$OMP END TARGET TEAMS LOOP
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
-    write(*,*)  'Expected', L*M,  'Got', counter
+    WRITE(*,*)  'Expected', L*M,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams_loop__parallel_do

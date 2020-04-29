@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iomanip> 
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -18,7 +19,7 @@ void test_ellint_3(){
      out3_device =  ellint_3( in0, in1, in2);
    }
    if ( !almost_equal(out3_host,out3_device, 4) ) {
-        std::cerr << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
+        std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
         std::exit(112);
     }
 }

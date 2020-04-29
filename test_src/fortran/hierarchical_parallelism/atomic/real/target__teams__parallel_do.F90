@@ -29,19 +29,19 @@ PROGRAM target__teams__parallel_do
     INTEGER :: i
     REAL :: counter = 0
     INTEGER :: num_teams
-    !$OMP TARGET   MAP(TOFROM: counter) 
-    !$OMP TEAMS 
+!$OMP TARGET map(tofrom:counter) 
+!$OMP TEAMS
     num_teams = omp_get_num_teams()
-    !$OMP PARALLEL DO 
-    DO i = 1 , L 
+!$OMP PARALLEL DO
+    DO i = 1 , L
 !$OMP ATOMIC UPDATE
-counter = counter + 1./num_teams
+counter = counter +  1./num_teams
     END DO
-    !$OMP END PARALLEL DO
-    !$OMP END TEAMS
-    !$OMP END TARGET
+!$OMP END PARALLEL DO
+!$OMP END TEAMS
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams__parallel_do

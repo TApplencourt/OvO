@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iomanip> 
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -16,7 +17,7 @@ void test_comp_ellint_1f(){
      out1_device =  comp_ellint_1f( in0);
    }
    if ( !almost_equal(out1_host,out1_device, 4) ) {
-        std::cerr << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
+        std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         std::exit(112);
     }
 }

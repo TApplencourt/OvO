@@ -21,8 +21,8 @@ program target__simd
     !$OMP END SIMD
     !$OMP END TARGET
     IF (ANY(ABS(A - B) > EPSILON(  REAL(  B  )  ) )) THEN
-        write(*,*)  'Wrong value', MAXVAL(ABS(A-B)), 'max difference'
-        call exit(1)
+        WRITE(*,*)  'Wrong value', MAXVAL(ABS(A-B)), 'max difference'
+        CALL EXIT(112)
     ENDIF
     DEALLOCATE(A,B)
 end program target__simd

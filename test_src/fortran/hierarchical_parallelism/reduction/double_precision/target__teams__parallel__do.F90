@@ -29,20 +29,20 @@ PROGRAM target__teams__parallel__do
     INTEGER :: i
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_teams
-    !$OMP TARGET    MAP(TOFROM: COUNTER) 
-    !$OMP TEAMS   REDUCTION(+:COUNTER)  
+!$OMP TARGET map(tofrom:counter) 
+!$OMP TEAMS REDUCTION(+:counter)
     num_teams = omp_get_num_teams()
-    !$OMP PARALLEL   REDUCTION(+:COUNTER)  
-    !$OMP DO   
-    DO i = 1 , L 
-counter = counter + 1./num_teams
+!$OMP PARALLEL REDUCTION(+:counter)
+!$OMP DO
+    DO i = 1 , L
+counter = counter +  1./num_teams
     END DO
-    !$OMP END DO
-    !$OMP END PARALLEL
-    !$OMP END TEAMS
-    !$OMP END TARGET
+!$OMP END DO
+!$OMP END PARALLEL
+!$OMP END TEAMS
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams__parallel__do

@@ -27,15 +27,15 @@ PROGRAM target__teams
     LOGICAL :: almost_equal
     REAL :: counter = 0
     INTEGER :: num_teams
-    !$OMP TARGET   MAP(TOFROM: counter) 
-    !$OMP TEAMS 
+!$OMP TARGET map(tofrom:counter) 
+!$OMP TEAMS
     num_teams = omp_get_num_teams()
 !$OMP ATOMIC UPDATE
-counter = counter + 1./num_teams
-    !$OMP END TEAMS
-    !$OMP END TARGET
+counter = counter +  1./num_teams
+!$OMP END TEAMS
+!$OMP END TARGET
 IF ( .NOT.almost_equal(counter, 1, 0.1) ) THEN
-    write(*,*)  'Expected', 1,  'Got', counter
+    WRITE(*,*)  'Expected', 1,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams

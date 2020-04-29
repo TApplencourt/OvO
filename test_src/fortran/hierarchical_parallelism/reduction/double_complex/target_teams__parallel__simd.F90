@@ -31,19 +31,19 @@ PROGRAM target_teams__parallel__simd
     DOUBLE COMPLEX :: counter = (0,0)
     INTEGER :: num_teams
     INTEGER :: num_threads
-    !$OMP TARGET TEAMS   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
+!$OMP TARGET TEAMS REDUCTION(+:counter) map(tofrom:counter) 
     num_teams = omp_get_num_teams()
-    !$OMP PARALLEL   REDUCTION(+:COUNTER)  
+!$OMP PARALLEL REDUCTION(+:counter)
     num_threads = omp_get_num_threads()
-    !$OMP SIMD   REDUCTION(+:COUNTER)  
-    DO i = 1 , L 
-counter = counter + 1./(num_teams*num_threads)
+!$OMP SIMD REDUCTION(+:counter)
+    DO i = 1 , L
+counter = counter +  CMPLX(  1./(num_teams*num_threads) , 0 ) 
     END DO
-    !$OMP END SIMD
-    !$OMP END PARALLEL
-    !$OMP END TARGET TEAMS
+!$OMP END SIMD
+!$OMP END PARALLEL
+!$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams__parallel__simd

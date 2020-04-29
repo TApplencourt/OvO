@@ -11,16 +11,16 @@ PROGRAM target_teams__distribute
     INTEGER :: L = 262144
     INTEGER :: i
     REAL :: counter = 0
-    !$OMP TARGET TEAMS   MAP(TOFROM: counter) 
-    !$OMP DISTRIBUTE 
-    DO i = 1 , L 
+!$OMP TARGET TEAMS map(tofrom:counter) 
+!$OMP DISTRIBUTE
+    DO i = 1 , L
 !$OMP ATOMIC UPDATE
-counter = counter + 1.
+counter = counter +  1.
     END DO
-    !$OMP END DISTRIBUTE
-    !$OMP END TARGET TEAMS
+!$OMP END DISTRIBUTE
+!$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams__distribute

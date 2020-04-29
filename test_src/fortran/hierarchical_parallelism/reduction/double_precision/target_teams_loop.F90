@@ -11,13 +11,13 @@ PROGRAM target_teams_loop
     INTEGER :: L = 262144
     INTEGER :: i
     DOUBLE PRECISION :: counter = 0
-    !$OMP TARGET TEAMS LOOP   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
-    DO i = 1 , L 
-counter = counter + 1.
+!$OMP TARGET TEAMS LOOP REDUCTION(+:counter) map(tofrom:counter) 
+    DO i = 1 , L
+counter = counter +  1.
     END DO
-    !$OMP END TARGET TEAMS LOOP
+!$OMP END TARGET TEAMS LOOP
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams_loop

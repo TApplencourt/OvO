@@ -11,13 +11,13 @@ PROGRAM target_parallel_do
     INTEGER :: L = 262144
     INTEGER :: i
     COMPLEX :: counter = (0,0)
-    !$OMP TARGET PARALLEL DO   REDUCTION(+:COUNTER)   MAP(TOFROM: COUNTER) 
-    DO i = 1 , L 
-counter = counter + 1.
+!$OMP TARGET PARALLEL DO REDUCTION(+:counter) map(tofrom:counter) 
+    DO i = 1 , L
+counter = counter +  CMPLX(  1. , 0 ) 
     END DO
-    !$OMP END TARGET PARALLEL DO
+!$OMP END TARGET PARALLEL DO
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_parallel_do

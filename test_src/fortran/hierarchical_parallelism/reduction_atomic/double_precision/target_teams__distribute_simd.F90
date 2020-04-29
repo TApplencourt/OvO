@@ -11,19 +11,19 @@ PROGRAM target_teams__distribute_simd
     INTEGER :: L = 262144
     INTEGER :: i
     DOUBLE PRECISION :: counter = 0
-    DOUBLE PRECISION :: partial_counter
-    !$OMP TARGET TEAMS   MAP(TOFROM: counter) 
-    partial_counter = 0.
-    !$OMP DISTRIBUTE SIMD REDUCTION(+:partial_counter) 
-    DO i = 1 , L 
-partial_counter = partial_counter + 1.
+  DOUBLE PRECISION partial_counter
+!$OMP TARGET TEAMS map(tofrom:counter) 
+  partial_counter = 0.
+!$OMP DISTRIBUTE SIMD REDUCTION(+: partial_counter)
+    DO i = 1 , L
+partial_counter = partial_counter +  1.
     END DO
-    !$OMP END DISTRIBUTE SIMD
+!$OMP END DISTRIBUTE SIMD
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
-    !$OMP END TARGET TEAMS
+!$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
-    write(*,*)  'Expected', L,  'Got', counter
+    WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams__distribute_simd
