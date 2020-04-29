@@ -31,7 +31,8 @@ exe_no_long: $(EXE_NO_LONG)
 exe_no_long_no_loop: $(filter $(EXE_NO_LONG), $(EXE_NO_LOOP)) 
 
 %.exe: %.cpp
-	-$(FC) $(FFLAGS) $< -o $@
+	-$(CXX) $(CXXFLAGS) $< -o $@
+
 
 .PHONY: run
 run: $(RUN)

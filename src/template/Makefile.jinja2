@@ -25,7 +25,11 @@ exe_no_{{name}}: $(EXE_NO_{{name|upper}})
 exe_no_long_no_loop: $(filter $(EXE_NO_LONG), $(EXE_NO_LOOP)) {# Interception #}
 
 %.exe: %.{{ext}}
+{%-if ext == "F90" %}
 	-$(FC) $(FFLAGS) $< -o $@
+{%-elif ext == "cpp"%}
+	-$(CXX) $(CXXFLAGS) $< -o $@
+{%endif%}
 
 .PHONY: run
 run: $(RUN)
