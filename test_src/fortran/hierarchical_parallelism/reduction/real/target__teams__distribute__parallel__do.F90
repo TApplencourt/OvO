@@ -30,6 +30,6 @@ counter = counter + 1.
     !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     write(*,*)  'Expected', L*M,  'Got', counter
-    call exit(112)
+    CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams__distribute__parallel__do

@@ -1,6 +1,6 @@
 TIMEOUT = $(shell command -v timeout 2> /dev/null)
 ifdef TIMEOUT
-	TIMEOUT = timeout 45s
+	TIMEOUT = timeout -k 5s 10s
 endif
 
 SRC = $(wildcard *.cpp)
@@ -30,7 +30,7 @@ exe_no_loop: $(EXE_NO_LOOP)
 exe_no_long_double_no_loop: $(filter $(EXE_NO_LONG_DOUBLE), $(EXE_NO_LOOP))
 
 %.exe: %.cpp
-	-$(TIMEOUT) $(CXX) $(CXXFLAGS) $< -o $@
+	-$(CXX) $(CXXFLAGS) $< -o $@
 
 .PHONY: run
 run: $(RUN)

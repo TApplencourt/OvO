@@ -41,6 +41,6 @@ counter = counter + 1./num_teams
     !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     write(*,*)  'Expected', L,  'Got', counter
-    call exit(112)
+    CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams__parallel_loop

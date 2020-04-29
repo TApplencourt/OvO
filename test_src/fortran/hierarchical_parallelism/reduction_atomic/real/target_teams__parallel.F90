@@ -42,6 +42,6 @@ counter = counter + partial_counter
     !$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, 1, 0.1) ) THEN
     write(*,*)  'Expected', 1,  'Got', counter
-    call exit(112)
+    CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams__parallel

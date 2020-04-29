@@ -18,6 +18,6 @@ counter = counter + 1.
     !$OMP END TARGET TEAMS DISTRIBUTE PARALLEL DO SIMD
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     write(*,*)  'Expected', L,  'Got', counter
-    call exit(112)
+    CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams_distribute_parallel_do_simd

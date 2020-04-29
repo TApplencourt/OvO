@@ -49,6 +49,6 @@ counter = counter + 1./num_teams
     !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     write(*,*)  'Expected', L*M,  'Got', counter
-    call exit(112)
+    CALL EXIT(112)
 ENDIF
 END PROGRAM target__teams__parallel__do__simd

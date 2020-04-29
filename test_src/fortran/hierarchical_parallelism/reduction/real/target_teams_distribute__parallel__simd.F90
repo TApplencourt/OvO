@@ -45,6 +45,6 @@ counter = counter + 1./num_threads
     !$OMP END TARGET TEAMS DISTRIBUTE
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     write(*,*)  'Expected', L*M,  'Got', counter
-    call exit(112)
+    CALL EXIT(112)
 ENDIF
 END PROGRAM target_teams_distribute__parallel__simd

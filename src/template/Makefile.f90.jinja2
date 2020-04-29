@@ -1,6 +1,6 @@
 TIMEOUT = $(shell command -v timeout 2> /dev/null)
 ifdef TIMEOUT
-	TIMEOUT = timeout 45s
+	TIMEOUT = timeout -k 5s 10s
 endif
 
 SRC = $(wildcard *.F90)
@@ -24,7 +24,7 @@ exe_no_{{name}}: $(EXE_NO_{{name|upper}})
 exe_no_long_double_no_loop: $(EXE_NO_LOOP)
 
 %.exe: %.F90
-	-$(TIMEOUT) $(FC) $(FFLAGS) $< -o $@
+	-$(FC) $(FFLAGS) $< -o $@
 
 .PHONY: run
 run: $(RUN)

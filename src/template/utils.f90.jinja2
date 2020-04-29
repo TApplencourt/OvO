@@ -77,6 +77,6 @@ END FUNCTION almost_equal
 IF ( .NOT.almost_equal({{counter}}, {{expected_value}}, 0.1) ) THEN
     write(*,*)  'Expected', {{expected_value}},  'Got', {{counter}}
     {# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
-    call exit(112)
+    CALL EXIT(112)
 ENDIF
 {% endmacro %}
