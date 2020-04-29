@@ -254,6 +254,9 @@ class Fold(Path):
 
         if family =='reduction_atomic' and not any("partial" in p for p in self.fat_path):
             return 
+        
+        if family =='reduction_atomic' and self.balenced and self.n_loop == 1:
+            return
 
         template = templateEnv.get_template(f"fold.{self.ext}.jinja2")
 
