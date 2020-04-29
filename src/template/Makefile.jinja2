@@ -1,10 +1,11 @@
+{# Check if timeout command exist exit #}
 TIMEOUT = $(shell command -v timeout 2> /dev/null)
 ifdef TIMEOUT
 	TIMEOUT = timeout -k 5s 10s
 endif
 
-SRC = $(wildcard *.F90)
-EXE = $(SRC:%.F90=%.exe)
+SRC = $(wildcard *.{{ext}})
+EXE = $(SRC:%.{{ext}}=%.exe)
 
 .PHONY: exe
 exe: $(EXE)
@@ -12,18 +13,18 @@ exe: $(EXE)
 pEXE = $(wildcard *.exe)
 RUN = $(addprefix run_, $(basename $(pEXE)))
 
-{% for name in ("loop",) %}
-SRC_NO_{{name|upper}} = $(filter-out $(wildcard *{{name}}*.F90), $(SRC))
-EXE_NO_{{name|upper}} = $(SRC_NO_{{name|upper}}:%.F90=%.exe)
+{% for name in ("loop","long") %}
+SRC_NO_{{name|upper}} = $(filter-out $(wildcard *{{name}}*.{{ext}}), $(SRC))
+EXE_NO_{{name|upper}} = $(SRC_NO_{{name|upper}}:%.{{ext}}=%.exe)
 
 .PHONY: exe_no_{{name}}
 exe_no_{{name}}: $(EXE_NO_{{name|upper}})
 {% endfor %}
 
-.PHONY: exe_no_long_double_no_loop
-exe_no_long_double_no_loop: $(EXE_NO_LOOP)
+.PHONY: exe_no_long_no_loop
+exe_no_long_no_loop: $(filter $(EXE_NO_LONG), $(EXE_NO_LOOP)) {# Interception #}
 
-%.exe: %.F90
+%.exe: %.{{ext}}
 	-$(FC) $(FFLAGS) $< -o $@
 
 .PHONY: run

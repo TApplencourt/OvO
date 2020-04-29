@@ -124,15 +124,16 @@ class Path():
             return n.replace('for','do')
 
     @cached_property
-    def filename(self):
-        # Some node in the path have space in their name. We will replace them with
-        # one underscore. Level will be replaced with two.
-        # The path will always containt 'for'. If we are in fortran, for sanity, we shoud replace then with 'do'.
-        
+    def ext(self):
         if self.language == "cpp":
-            return f"{self.name}.cpp"
-        else:
-            return f"{self.name}.F90"
+            return "cpp"
+        elif self.language == "fortran":
+            return "F90"
+        return NotImplementedError
+
+    @cached_property
+    def filename(self):
+        return f"{self.name}.{self.ext}"
 
     @cached_property
     def flatten_path(self):
@@ -237,7 +238,7 @@ templateEnv = jinja2.Environment(loader=templateLoader)
 def format_template(str_):
     return '\n'.join(line for line in str_.split('\n') if line.strip() ) + '\n'
 
-class OmpReduce(Path):
+class Fold(Path):
 
     @cached_property
     def expected_value(self):
@@ -246,84 +247,30 @@ class OmpReduce(Path):
 
         return f"{'*'.join(l.N for l in self.loops)}"
 
-class Atomic(OmpReduce):
-
-    @cached_property
-    def template_rendered(self):
-
-        if self.language == "cpp":
-            template = templateEnv.get_template(f"fold.cpp.jinja2")
-        elif self.language == "fortran":
-            template = templateEnv.get_template(f"test_atomic.f90.jinja2")
-
-        if self.has("simd"):
+    def template_rendered(self,family):
+        
+        if family =='atomic' and self.has("simd"):
             return 
 
-        str_ = template.render(name=self.name,
-                               family='atomic',
-                                      fat_path=self.fat_path,
-                                      loops=self.loops,
-                                      balenced=self.balenced,
-                                      only_teams=self.only_teams,
-                                      only_parallel=self.only_parallel,
-                                      expected_value=self.expected_value,
-                                      T_category=self.T.category,
-                                      T_type=self.T.internal,
-                                      T=self.T.T)
-
-        return format_template(str_)
-
-class Reduction(OmpReduce):
-
-    @cached_property
-    def template_rendered(self):
-
-        if self.language == "cpp":
-            template = templateEnv.get_template(f"fold.cpp.jinja2")
-        elif self.language == "fortran":
-            template = templateEnv.get_template(f"test_reduction.f90.jinja2")
-
-        str_ =  template.render(name=self.name,
-                                family='reduction',
-                                        fat_path=self.fat_path,
-                                        loops=self.loops,
-                                        balenced=self.balenced,
-                                        only_teams=self.only_teams,
-                                        only_parallel=self.only_parallel,
-                                        expected_value=self.expected_value,
-                                        T_category=self.T.category,
-                                        T_type=self.T.internal,
-                                        T=self.T.T)
-
-        return format_template(str_)
-
-class ReductionAtomic(OmpReduce):
-
-    @cached_property
-    def template_rendered(self):
-
-        if self.language == "cpp":
-            template = templateEnv.get_template(f"fold.cpp.jinja2")
-        elif self.language == "fortran":
-            template = templateEnv.get_template(f"test_reduction_atomic.f90.jinja2")
-
-        if not any("partial" in p for p in self.fat_path):
+        if family =='reduction_atomic' and not any("partial" in p for p in self.fat_path):
             return 
 
+        template = templateEnv.get_template(f"fold.{self.ext}.jinja2")
+
         str_ = template.render(name=self.name,
-                              family='reduction_atomic',
-                                      fat_path=self.fat_path,
-                                      loops=self.loops,
-                                      balenced=self.balenced,
-                                      only_teams=self.only_teams,
-                                      only_parallel=self.only_parallel,
-                                      expected_value=self.expected_value,
-                                      T_category=self.T.category,
-                                      T_type=self.T.internal,
-                                      T=self.T.T)
+                               family=family,
+                               fat_path=self.fat_path,
+                               loops=self.loops,
+                               balenced=self.balenced,
+                               only_teams=self.only_teams,
+                               only_parallel=self.only_parallel,
+                               expected_value=self.expected_value,
+                               T_category=self.T.category,
+                               T_type=self.T.internal,
+                               T=self.T.T)
 
         return format_template(str_)
-    
+
 class Memcopy(Path):
 
     @cached_property
@@ -347,15 +294,11 @@ class Memcopy(Path):
     def size(self):
         return '*'.join(l.N for l in self.loops) 
 
-    @cached_property
-    def template_rendered(self):
+    def template_rendered(self, familly):
         if not self.balenced or self.only_target:
             return
 
-        if self.language == "cpp":
-            template = templateEnv.get_template(f"test_memcopy.cpp.jinja2")
-        elif self.language == "fortran":
-            template = templateEnv.get_template(f"test_memcopy.f90.jinja2")
+        template = templateEnv.get_template(f"test_memcopy.{self.ext}.jinja2")
 
         str_ = template.render(name=self.name,
                                fat_path=self.fat_path,
@@ -450,6 +393,14 @@ class Math():
         self.language = language
         self.l = self.create_l(T,attr, argv, domain)
 
+    @cached_property
+    def ext(self):
+        if self.language == "cpp":
+            return "cpp"
+        elif self.language == "fortran":
+            return "F90"
+        return NotImplementedError
+
     def create_l(self, T, attr, argv, domain):
         l =  [ Argv(t,a,b) for t,a,b in zip(T,attr, argv)]
 
@@ -478,10 +429,7 @@ class Math():
     @cached_property
     def filename(self):
          n = '_'.join([self.name] + [ t.T.serialized for t in self.l])
-         if self.language == "cpp":
-            return f'{n}.cpp'
-         elif self.language == "fortran":
-            return f'{n}.F90'
+         return f'{n}.{self.ext}'
  
     @cached_property
     def scalar_output(self):
@@ -503,10 +451,8 @@ class Math():
         if any(t.T.is_pointer and t.is_input for t in self.l ):
             return None
 
-        if self.language == "cpp":
-            template = templateEnv.get_template(f"test_math.cpp.jinja2")
-        elif self.language == "fortran":
-            template = templateEnv.get_template(f"test_math.f90.jinja2")
+        template = templateEnv.get_template(f"test_math.{self.ext}.jinja2")
+        
         str_ = template.render(name=self.name, l_argv=self.l, scalar_output= self.scalar_output, have_complex=self.have_complex)
         return format_template(str_)
 
@@ -556,18 +502,18 @@ def gen_hp(makefile, omp_tree, tests, language):
 
             for path in combinations_construct(omp_tree):
                 p = Constructor(path,T,language)
-                if p.template_rendered:
+                t = p.template_rendered(test)
+                if t:
                     with open(os.path.join(folder,p.filename),'w') as f:
-                        f.write(p.template_rendered)
+                        f.write(t)
 
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Generate tests.')
     args = parser.parse_args()
 
-    makefile_cpp = templateEnv.get_template(f"Makefile.cpp.jinja2").render()
-
-    makefile_fortran = templateEnv.get_template(f"Makefile.f90.jinja2").render()
+    makefile_cpp = templateEnv.get_template(f"Makefile.jinja2").render(cpp="cpp")
+    makefile_fortran = templateEnv.get_template(f"Makefile.jinja2").render(ext="F90")
 
     gen_math(makefile_cpp, ("cmath_synopsis.json" ,"cmath_complex_synopsis.json"), "cpp")
     gen_math(makefile_fortran, ("f90math_synopsis.json",), "fortran" )
@@ -576,13 +522,13 @@ if __name__ == '__main__':
         omp_tree = json.load(f)
 
     gen_hp(makefile_cpp, omp_tree,( ("memcopy", Memcopy,     ['float', 'complex<float>', 'double','complex<double>']) ,
-                                    ("atomic" , Atomic,      ['float', 'double']) ,
-                                    ("reduction", Reduction, ["float",'complex<float>','double','complex<double>']), 
-                                    ("reduction_atomic", ReductionAtomic, ['float','double'] )),
+                                    ("atomic" , Fold,      ['float', 'double']) ,
+                                    ("reduction", Fold, ["float",'complex<float>','double','complex<double>']), 
+                                    ("reduction_atomic", Fold, ['float','double'] )),
                                     "cpp" ) 
     gen_hp(makefile_fortran, omp_tree, (  ("memcopy", Memcopy,     ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']) ,
-                                          ("atomic" , Atomic,      ['REAL','DOUBLE PRECISION']) ,
-                                          ("reduction", Reduction, ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']), 
-                                          ("reduction_atomic", ReductionAtomic, ['REAL','DOUBLE PRECISION'] )),
+                                          ("atomic" , Fold,      ['REAL','DOUBLE PRECISION']) ,
+                                          ("reduction", Fold, ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']), 
+                                          ("reduction_atomic", Fold, ['REAL','DOUBLE PRECISION'] )),
                                           "fortran" )
 
