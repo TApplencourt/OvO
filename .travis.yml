@@ -11,50 +11,58 @@ jobs:
     script:
     - python3 -m unittest src/display.py
 
-  - name: cpp hierarchical_parallelism no_omp_call
+  - name: gcc
+    env: 
+      - CXX='g++'
+      - CXXFLAGS='-std=c++2a -Wall -Wno-unknown-pragmas'
     addons:
       apt:
        sources:
          - ubuntu-toolchain-r-test
        packages:
-        - gcc-9 
+        - g++-9 
+        - gfortran-9
         - python3
 
     script:   
-    - CXX='g++' CXXFLAGS='-std=c++11 -Wall -Wno-unknown-pragmas' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/hierarchical_parallelism/ 
-    - ./ovo.sh display
+    - FC='gfortan' FFLAGS='-Wall -Wno-unknown-pragmas' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run
+    - ./ovo.sh report
 
-  - name: cpp hierarchical_parallelism no_loop
-    addons:
-      apt:
-       sources:
-         - ubuntu-toolchain-r-test
-       packages:
-        - gcc-9 
-        - python3
-
-    script:   
-    - CXX='g++' CXXFLAGS='-std=c++11 -fopenmp' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
-    - ./ovo.sh display
-
-  - name: cpp hierarchical_parallelism host
+  - name: clang 10 omp
     addons:
       apt:
        sources:
          - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main'
            key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
        packages:
-        - clang-9 
+        - clang-10 
         - python3
 
     before_install:
     - export LD_LIBRARY_PATH=/usr/local/clang/lib:$LD_LIBRARY_PATH
 
     script:   
-    - CXX='clang++' CXXFLAGS='-std=c++11 -fopenmp  -fopenmp-version=50' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
-    - ./ovo.sh display
+    - CXX='clang++' CXXFLAGS='-std=c++20 -fopenmp -fopenmp-version=50' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/
+    - ./ovo.sh report
 
-  - name: cpp hierarchical_parallelism host (power)
+  - name: icc omp
+    install:
+    - source /opt/intel/inteloneapi/compiler/latest/env/vars.sh
+    addons:
+      apt:
+        sources:
+        - sourceline: 'deb https://apt.repos.intel.com/oneapi all main'
+          key_url: 'https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB'
+        packages:
+        - intel-oneapi-icc
+        - python3
+
+    script:   
+    - CXX='icc -qnextgen' CXXFLAGS='-std=c++11 -fopenmp -fopenmp-version=50' FC='ifort -qnextgen' FFLAGS='-std=c++11 -fopenmp -fopenmp-version=50' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run
+    - ./ovo.sh report
+
+
+  - name: XL omp
     arch:
     - ppc64le
 
@@ -67,56 +75,14 @@ jobs:
     - sudo /opt/ibm/xlC/${XLC_VERSION}/bin/xlc_configure <<< 1 >/dev/null
 
     script:   
-    - CXX='xlC-r' CXXFLAGS='-std=c++11 -qsmp=omp' FC='xlf90_r'  FFLAGS='-qsmp=omp' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
-    - ./ovo.sh display
+    - CXX='xlc++' CXXFLAGS='-std=c++11 -qsmp=omp' FC='xlf90'  FFLAGS='-qsmp=omp' ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/ 
+    - ./ovo.sh report
 
   - name: "pgcc"
-    env:
-    - CXX=pgc++
+    
     install:
     - curl 'https://raw.githubusercontent.com/nemequ/pgi-travis/master/install-pgi.sh' | /bin/sh
     
     script:
-    - ./ovo.sh run --no_loop test_src/cpp/hierarchical_parallelism/
-    - ./ovo.sh display
-
-  - name: cpp math host
-    addons:
-      apt:
-       sources:
-         - ubuntu-toolchain-r-test
-       packages:
-        - gcc-9 
-        - python3
-
-    script:
-    - CXX='g++' CXXFLAGS='-std=c++17' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/cpp/math_cpp{11,17}
-    - ./ovo.sh display
-
-  - name: fortran hierarchical_parallelism no_omp_call
-    addons:
-      apt:
-       sources:
-         - ubuntu-toolchain-r-test
-       packages:
-        - gfortran-9    
-        - python3
-
-
-    script:
-    - FC='gfortran' FCFLAGS='-Wall -Wno-unknown-pragmas' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run test_src/fortran/hierarchical_parallelism/
-    - ./ovo.sh display
-
-
-  - name: fortran hierarchical_parallelism no_loop
-    addons:
-      apt:
-       sources:
-         - ubuntu-toolchain-r-test
-       packages:
-        - gfortran-9    
-        - python3
-
-    script:
-    - FC='gfortran' FCFLAGS='-fopenmp' MAKEFLAGS='-j8 --output-sync=target' ./ovo.sh run --no_loop test_src/fortran/hierarchical_parallelism/
-    - ./ovo.sh display
+    - CXX=pgc++ CXXFLAGS='‑std=c++17 -mp' FC='pgfortran' FXXFLAGS='-mp' ./ovo.sh run
+    - ./ovo.sh report
