@@ -38,7 +38,7 @@ jobs:
     addons:
       apt:
        sources:
-         - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main'
+         - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-10 main'
            key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
        packages:
         - clang-10
@@ -54,9 +54,9 @@ jobs:
   - name: intel
     env: 
       - CXX='icc'
-      - CXXFLAGS='-std=c++17'
+      - CXXFLAGS='-std=c++17 -wd3180'
       - FC='ifort'
-      - FFLAGS=''
+      - FFLAGS='-wd3180'
       - MAKEFLAGS='-j8 --output-sync=target' 
     install:
     - source /opt/intel/inteloneapi/compiler/latest/env/vars.sh
@@ -67,6 +67,7 @@ jobs:
           key_url: 'https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB'
         packages:
         - intel-oneapi-icc
+        - intel-oneapi-ifort
         - python3
 
     script:   
@@ -89,6 +90,7 @@ jobs:
           key_url: 'https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB'
         packages:
         - intel-oneapi-icc
+        - intel-oneapi-ifort
         - python3
 
     script:   
