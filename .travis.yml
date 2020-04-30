@@ -19,8 +19,8 @@ jobs:
       - MAKEFLAGS='-j8 --output-sync=target' 
     addons:
       apt:
-       sources:
-         - ubuntu-toolchain-r-test
+        - sourceline: "ppa:ubuntu-toolchain-r/test"
+          key_url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x60c317803a41ba51845e371a1e9377a2ba9ef27f
        packages:
         - g++-9 
         - gfortran-9
@@ -56,7 +56,7 @@ jobs:
       - CXX='icc'
       - CXXFLAGS='-std=c++17 -wd3180'
       - FC='ifort'
-      - FFLAGS='-wd3180'
+      - FFLAGS=''
       - MAKEFLAGS='-j8 --output-sync=target' 
     install:
     - source /opt/intel/inteloneapi/compiler/latest/env/vars.sh
@@ -118,7 +118,7 @@ jobs:
     - ./ovo.sh run 
     - ./ovo.sh report
 
-  - name: pgcc
+  - name: pgi
     env:
       - CXX='pgc++'
       - CXXFLAGS='-std=c++17 -mp'
