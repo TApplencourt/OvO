@@ -9,9 +9,9 @@
 
 [![Build Status](https://travis-ci.org/TApplencourt/OvO.svg?branch=master)](https://travis-ci.org/TApplencourt/OvO)
 
-It also containt a large set of tests for OpenMP offloading using hierarchical parralellism. For example, see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/reduction) for the fortran tests regarding reduction.
+It also containt a large (>2k) set of tests for OpenMP offloading using hierarchical parralellism. For example, see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/reduction) for the fortran tests regarding reduction.
 
-This repository also containt tests for most of the C++/Fortran math Function (`cmath` and `complex`). For example see [this](https://github.com/TApplencourt/OvO/tree/master/tests_src/cpp/math_cpp11) directory for the c++11 functions.
+This repository also containt tests for most of the C++/Fortran math Function (`cmath` and `complex`). For example see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/math_cpp11) directory for the c++11 functions.
 
 Tests can be run using `./ovo.sh run` with the enviroment variable needed (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD` / `MAKEFLAGS`) 
 
