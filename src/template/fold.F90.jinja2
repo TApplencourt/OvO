@@ -15,10 +15,10 @@ PROGRAM {{name}}
   partial_counter = 0.
   {%- endif  %}
 !$OMP {{fat_pragma["pragma"]}}
-  {%- if    "reduce_host"  in fat_pragma                                   %} REDUCTION(+: counter)  {% endif %}
-  {%- if family == 'reduction'          and "reduce"         in fat_pragma %} REDUCTION(+: counter)
-  {%- elif family == 'reduction_atomic' and "partial_reduce" in fat_pragma %} REDUCTION(+: partial_counter) {%- endif %}
-  {%- if "target" in fat_pragma %} MAP(TOFROM:counter) {% endif %}
+  {%- if    "reduce_host"  in fat_pragma                                     %} REDUCTION(+: counter)
+  {%- elif family == 'reduction'          and "reduce"         in fat_pragma %} REDUCTION(+: counter)
+  {%- elif family == 'reduction_atomic' and "partial_reduce" in fat_pragma   %} REDUCTION(+: partial_counter) {%- endif %}
+  {%- if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
 
 
 {% if "loop" in fat_pragma %}

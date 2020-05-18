@@ -541,12 +541,15 @@ if __name__ == '__main__':
                                           "fortran" )
     
     # Threaded  
-    subset_omp_construct = [ ['parallel for','target teams distribute parallel for'] ]
+    subset_omp_construct = [ ['parallel for','target teams distribute parallel for'],
+                             ['parallel','for','target','teams','distribute','parallel','for'],
+                             ['parallel','target','teams'] ]
+
     gen_hp(makefile_cpp, subset_omp_construct,   ( ("threaded_reduction" , Fold,      ['double','complex<double>']),) , "cpp" )
     gen_hp(makefile_fortran, subset_omp_construct,   ( ("threaded_reduction" , Fold,      ['DOUBLE PRECISION','DOUBLE COMPLEX']),) , "fortran" )
 
     gen_hp(makefile_cpp, subset_omp_construct,   ( ("threaded_atomic" , Fold,      ['double']),) , "cpp" )
-    gen_hp(makefile_fortran, subset_omp_construct,   ( ("threaded_atomic" , Fold,      ['DOUBLE PRECISION']),) , "fortran" )
+    gen_hp(makefile_fortran, subset_omp_construct,   ( ("threaded_atomic" , Fold,      ['DOUBLE PRECISION', 'DOUBLE COMPLEX']),) , "fortran" )
 
 
 
