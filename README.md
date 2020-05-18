@@ -8,7 +8,7 @@
 ```
 [![Build Status](https://travis-ci.org/TApplencourt/OvO.svg?branch=master)](https://travis-ci.org/TApplencourt/OvO)
 
-Ovo containt a large (>2k) set of tests for OpenMP offloading using hierarchical parallelism. For example, see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/reduction) for the fortran tests regarding reduction.
+OvO containt a large (>2k) set of tests for OpenMP offloading using hierarchical parallelism. For example, see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/reduction) for the fortran tests regarding reduction.
 
 This repository also containt tests for most of the C++/Fortran math Function (`cmath` and `complex`). For example see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/math_cpp11) directory for the c++11 functions.
 
