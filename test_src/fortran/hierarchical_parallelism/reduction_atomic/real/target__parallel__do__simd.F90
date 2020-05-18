@@ -14,7 +14,7 @@ PROGRAM target__parallel__do__simd
     INTEGER :: j
     REAL :: counter = 0
   REAL partial_counter
-!$OMP TARGET map(tofrom:counter) 
+!$OMP TARGET MAP(TOFROM:counter) 
 !$OMP PARALLEL
 !$OMP DO
     DO i = 1 , L

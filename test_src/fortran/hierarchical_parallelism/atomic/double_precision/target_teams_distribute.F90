@@ -11,7 +11,7 @@ PROGRAM target_teams_distribute
     INTEGER :: L = 262144
     INTEGER :: i
     DOUBLE PRECISION :: counter = 0
-!$OMP TARGET TEAMS DISTRIBUTE map(tofrom:counter) 
+!$OMP TARGET TEAMS DISTRIBUTE MAP(TOFROM:counter) 
     DO i = 1 , L
 !$OMP ATOMIC UPDATE
 counter = counter +  1.

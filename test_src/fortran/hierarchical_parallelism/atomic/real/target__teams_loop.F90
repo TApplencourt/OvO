@@ -11,7 +11,7 @@ PROGRAM target__teams_loop
     INTEGER :: L = 262144
     INTEGER :: i
     REAL :: counter = 0
-!$OMP TARGET map(tofrom:counter) 
+!$OMP TARGET MAP(TOFROM:counter) 
 !$OMP TEAMS LOOP
     DO i = 1 , L
 !$OMP ATOMIC UPDATE

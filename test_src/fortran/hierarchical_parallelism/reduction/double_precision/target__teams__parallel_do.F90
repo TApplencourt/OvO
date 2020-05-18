@@ -29,10 +29,10 @@ PROGRAM target__teams__parallel_do
     INTEGER :: i
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_teams
-!$OMP TARGET map(tofrom:counter) 
-!$OMP TEAMS REDUCTION(+:counter)
+!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TEAMS REDUCTION(+: counter)
     num_teams = omp_get_num_teams()
-!$OMP PARALLEL DO REDUCTION(+:counter)
+!$OMP PARALLEL DO REDUCTION(+: counter)
     DO i = 1 , L
 counter = counter +  1./num_teams
     END DO

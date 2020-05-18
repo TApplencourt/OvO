@@ -27,7 +27,7 @@ PROGRAM target_parallel
     LOGICAL :: almost_equal
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_threads
-!$OMP TARGET PARALLEL map(tofrom:counter) 
+!$OMP TARGET PARALLEL MAP(TOFROM:counter) 
     num_threads = omp_get_num_threads()
 !$OMP ATOMIC UPDATE
 counter = counter +  1./num_threads

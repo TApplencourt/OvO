@@ -29,7 +29,7 @@ PROGRAM target_teams__parallel__do
     INTEGER :: i
     REAL :: counter = 0
     INTEGER :: num_teams
-!$OMP TARGET TEAMS map(tofrom:counter) 
+!$OMP TARGET TEAMS MAP(TOFROM:counter) 
     num_teams = omp_get_num_teams()
 !$OMP PARALLEL
 !$OMP DO

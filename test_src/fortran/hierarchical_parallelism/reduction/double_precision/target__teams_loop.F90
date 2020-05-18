@@ -11,8 +11,8 @@ PROGRAM target__teams_loop
     INTEGER :: L = 262144
     INTEGER :: i
     DOUBLE PRECISION :: counter = 0
-!$OMP TARGET map(tofrom:counter) 
-!$OMP TEAMS LOOP REDUCTION(+:counter)
+!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TEAMS LOOP REDUCTION(+: counter)
     DO i = 1 , L
 counter = counter +  1.
     END DO

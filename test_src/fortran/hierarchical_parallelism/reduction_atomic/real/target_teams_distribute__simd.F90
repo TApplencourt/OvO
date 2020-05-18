@@ -14,7 +14,7 @@ PROGRAM target_teams_distribute__simd
     INTEGER :: j
     REAL :: counter = 0
   REAL partial_counter
-!$OMP TARGET TEAMS DISTRIBUTE map(tofrom:counter) 
+!$OMP TARGET TEAMS DISTRIBUTE MAP(TOFROM:counter) 
     DO i = 1 , L
   partial_counter = 0.
 !$OMP SIMD REDUCTION(+: partial_counter)

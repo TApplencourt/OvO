@@ -32,7 +32,7 @@ PROGRAM target__teams__parallel__loop__simd
     REAL :: counter = 0
     INTEGER :: num_teams
   REAL partial_counter
-!$OMP TARGET map(tofrom:counter) 
+!$OMP TARGET MAP(TOFROM:counter) 
 !$OMP TEAMS
     num_teams = omp_get_num_teams()
   partial_counter = 0.

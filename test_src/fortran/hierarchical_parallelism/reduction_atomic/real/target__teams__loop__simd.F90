@@ -14,7 +14,7 @@ PROGRAM target__teams__loop__simd
     INTEGER :: j
     REAL :: counter = 0
   REAL partial_counter
-!$OMP TARGET map(tofrom:counter) 
+!$OMP TARGET MAP(TOFROM:counter) 
 !$OMP TEAMS
 !$OMP LOOP
     DO i = 1 , L

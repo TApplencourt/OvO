@@ -13,10 +13,10 @@ PROGRAM target__teams_distribute__parallel__do
     INTEGER :: M = 64
     INTEGER :: j
     REAL :: counter = 0
-!$OMP TARGET map(tofrom:counter) 
-!$OMP TEAMS DISTRIBUTE REDUCTION(+:counter)
+!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TEAMS DISTRIBUTE REDUCTION(+: counter)
     DO i = 1 , L
-!$OMP PARALLEL REDUCTION(+:counter)
+!$OMP PARALLEL REDUCTION(+: counter)
 !$OMP DO
     DO j = 1 , M
 counter = counter +  1.

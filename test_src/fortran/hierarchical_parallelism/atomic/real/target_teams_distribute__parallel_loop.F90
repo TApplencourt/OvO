@@ -13,7 +13,7 @@ PROGRAM target_teams_distribute__parallel_loop
     INTEGER :: M = 64
     INTEGER :: j
     REAL :: counter = 0
-!$OMP TARGET TEAMS DISTRIBUTE map(tofrom:counter) 
+!$OMP TARGET TEAMS DISTRIBUTE MAP(TOFROM:counter) 
     DO i = 1 , L
 !$OMP PARALLEL LOOP
     DO j = 1 , M

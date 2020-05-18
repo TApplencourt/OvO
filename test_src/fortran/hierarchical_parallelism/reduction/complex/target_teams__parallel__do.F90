@@ -29,9 +29,9 @@ PROGRAM target_teams__parallel__do
     INTEGER :: i
     COMPLEX :: counter = (0,0)
     INTEGER :: num_teams
-!$OMP TARGET TEAMS REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP TARGET TEAMS REDUCTION(+: counter) MAP(TOFROM:counter) 
     num_teams = omp_get_num_teams()
-!$OMP PARALLEL REDUCTION(+:counter)
+!$OMP PARALLEL REDUCTION(+: counter)
 !$OMP DO
     DO i = 1 , L
 counter = counter +  CMPLX(  1./num_teams , 0 ) 

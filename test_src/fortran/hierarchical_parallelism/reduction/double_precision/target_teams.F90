@@ -27,7 +27,7 @@ PROGRAM target_teams
     LOGICAL :: almost_equal
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_teams
-!$OMP TARGET TEAMS REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP TARGET TEAMS REDUCTION(+: counter) MAP(TOFROM:counter) 
     num_teams = omp_get_num_teams()
 counter = counter +  1./num_teams
 !$OMP END TARGET TEAMS

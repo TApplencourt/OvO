@@ -11,7 +11,7 @@ PROGRAM target_teams_distribute_parallel_do_simd
     INTEGER :: L = 262144
     INTEGER :: i
     REAL :: counter = 0
-!$OMP TARGET TEAMS DISTRIBUTE PARALLEL DO SIMD REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP TARGET TEAMS DISTRIBUTE PARALLEL DO SIMD REDUCTION(+: counter) MAP(TOFROM:counter) 
     DO i = 1 , L
 counter = counter +  1.
     END DO

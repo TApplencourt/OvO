@@ -11,8 +11,8 @@ PROGRAM target__teams_distribute
     INTEGER :: L = 262144
     INTEGER :: i
     COMPLEX :: counter = (0,0)
-!$OMP TARGET map(tofrom:counter) 
-!$OMP TEAMS DISTRIBUTE REDUCTION(+:counter)
+!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TEAMS DISTRIBUTE REDUCTION(+: counter)
     DO i = 1 , L
 counter = counter +  CMPLX(  1. , 0 ) 
     END DO

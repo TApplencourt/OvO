@@ -16,7 +16,7 @@ PROGRAM target_teams_distribute__parallel__do__simd
     INTEGER :: k
     REAL :: counter = 0
   REAL partial_counter
-!$OMP TARGET TEAMS DISTRIBUTE map(tofrom:counter) 
+!$OMP TARGET TEAMS DISTRIBUTE MAP(TOFROM:counter) 
     DO i = 1 , L
   partial_counter = 0.
 !$OMP PARALLEL REDUCTION(+: partial_counter)

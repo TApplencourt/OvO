@@ -14,7 +14,7 @@ PROGRAM target__teams_distribute__parallel__loop
     INTEGER :: j
     REAL :: counter = 0
   REAL partial_counter
-!$OMP TARGET map(tofrom:counter) 
+!$OMP TARGET MAP(TOFROM:counter) 
 !$OMP TEAMS DISTRIBUTE
     DO i = 1 , L
   partial_counter = 0.

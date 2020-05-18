@@ -27,8 +27,8 @@ PROGRAM target__teams
     LOGICAL :: almost_equal
     COMPLEX :: counter = (0,0)
     INTEGER :: num_teams
-!$OMP TARGET map(tofrom:counter) 
-!$OMP TEAMS REDUCTION(+:counter)
+!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TEAMS REDUCTION(+: counter)
     num_teams = omp_get_num_teams()
 counter = counter +  CMPLX(  1./num_teams , 0 ) 
 !$OMP END TEAMS

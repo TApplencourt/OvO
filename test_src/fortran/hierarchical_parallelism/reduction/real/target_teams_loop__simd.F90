@@ -13,9 +13,9 @@ PROGRAM target_teams_loop__simd
     INTEGER :: M = 64
     INTEGER :: j
     REAL :: counter = 0
-!$OMP TARGET TEAMS LOOP REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP TARGET TEAMS LOOP REDUCTION(+: counter) MAP(TOFROM:counter) 
     DO i = 1 , L
-!$OMP SIMD REDUCTION(+:counter)
+!$OMP SIMD REDUCTION(+: counter)
     DO j = 1 , M
 counter = counter +  1.
     END DO

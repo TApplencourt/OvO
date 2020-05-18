@@ -16,7 +16,7 @@ PROGRAM target__teams__loop__parallel_do__simd
     INTEGER :: k
     DOUBLE PRECISION :: counter = 0
   DOUBLE PRECISION partial_counter
-!$OMP TARGET map(tofrom:counter) 
+!$OMP TARGET MAP(TOFROM:counter) 
 !$OMP TEAMS
 !$OMP LOOP
     DO i = 1 , L

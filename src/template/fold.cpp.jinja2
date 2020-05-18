@@ -15,8 +15,9 @@ void test_{{name}}(){
 {{T}} partial_counter{};
   {%- endif  %}
 #pragma omp {{fat_pragma["pragma"]}}
-  {%- if family == 'reduction'          and "reduce"         in fat_pragma %} reduction(+: counter)
-  {%- elif family == 'reduction_atomic' and "partial_reduce" in fat_pragma %} reduction(+: partial_counter) {%- endif %}
+  {%- if    "reduce_host"  in fat_pragma                                                     %} reduction(+: counter)  {% endif %} 
+  {%- if    family in ('reduction','threaded_reduction')  and "reduce"         in fat_pragma %} reduction(+: counter)
+  {%- elif  family == 'reduction_atomic'                  and "partial_reduce" in fat_pragma %} reduction(+: partial_counter) {%- endif %}
   {%- if "target" in fat_pragma %} map(tofrom:counter) {% endif %}
 
 {% if "loop" in fat_pragma %}
@@ -34,10 +35,10 @@ const int num_threads = omp_get_num_threads();
 
 {% endfor %}
 
-{% if  family == 'atomic' %}
+{% if   family in ('atomic','threaded_atomic')  %}
 #pragma omp atomic update
 {{ increment('counter', T, balenced, only_teams, only_parallel) }}
-{% elif family == 'reduction' %}
+{% elif family in ('reduction','threaded_reduction')  %}
 {{ increment('counter', T, balenced, only_teams, only_parallel) }}
 {% elif family == 'reduction_atomic' %}
 {{ increment('partial_counter', T, balenced, only_teams, only_parallel) }}

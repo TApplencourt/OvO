@@ -29,7 +29,7 @@ PROGRAM target__teams__parallel
     REAL :: counter = 0
     INTEGER :: num_teams
     INTEGER :: num_threads
-!$OMP TARGET map(tofrom:counter) 
+!$OMP TARGET MAP(TOFROM:counter) 
 !$OMP TEAMS
     num_teams = omp_get_num_teams()
 !$OMP PARALLEL

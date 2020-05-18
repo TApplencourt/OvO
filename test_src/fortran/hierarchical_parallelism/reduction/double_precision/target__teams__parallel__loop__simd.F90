@@ -31,13 +31,13 @@ PROGRAM target__teams__parallel__loop__simd
     INTEGER :: j
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_teams
-!$OMP TARGET map(tofrom:counter) 
-!$OMP TEAMS REDUCTION(+:counter)
+!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TEAMS REDUCTION(+: counter)
     num_teams = omp_get_num_teams()
-!$OMP PARALLEL REDUCTION(+:counter)
+!$OMP PARALLEL REDUCTION(+: counter)
 !$OMP LOOP
     DO i = 1 , L
-!$OMP SIMD REDUCTION(+:counter)
+!$OMP SIMD REDUCTION(+: counter)
     DO j = 1 , M
 counter = counter +  1./num_teams
     END DO

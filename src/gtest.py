@@ -94,14 +94,15 @@ class TypeSystem():
 # \_/ |  | |      | | (/_ (/_ 
 #                             
 
+# Need to refractor this one... Too ugly or too smart
 from typing import List
 def combinations_construct(tree_config_path, path=['root']) -> List[List[str]]:
     
-    paths = [path[1:]] if len(path[1:]) else [] 
+    tails = [path[1:]] if len(path[1:]) else [] 
 
-    for children in omp_tree[path[-1]]:
-        paths += combinations_construct(tree_config_path, path + [children])
-    return paths
+    for children in tree_config_path[path[-1]]:
+        tails += combinations_construct(tree_config_path, path + [children])
+    return tails
 
 
 
@@ -194,6 +195,7 @@ class Path():
         l, i_loop = [], 0
 
         n_reduce  = 0
+        target = False
         for pragma in self.path:
             d = {}
 
@@ -208,6 +210,7 @@ class Path():
 
             if "target" in pragma:
                 d["target"] = True
+                target = True
 
             if "teams" in pragma and self.only_teams:
                 d["only_teams"] = True
@@ -222,6 +225,8 @@ class Path():
                     d["partial"] = True
                 if n_reduce >= 1:
                     d["partial_reduce"] = True
+                if not target:
+                    d["reduce_host"] = True
                 n_reduce += 1
 
             l.append(d)
@@ -491,7 +496,7 @@ def gen_math(makefile, l_json, language):
                         with open(os.path.join(folder,m.filename),'w') as f:
                             f.write(m.template_rendered)
 
-def gen_hp(makefile, omp_tree, tests, language):
+def gen_hp(makefile, omp_construct, tests, language):
 
 
     for test,Constructor, l_T in tests: 
@@ -503,7 +508,7 @@ def gen_hp(makefile, omp_tree, tests, language):
             with open(os.path.join(folder,'Makefile'),'w') as f:
                 f.write(makefile)
 
-            for path in combinations_construct(omp_tree):
+            for path in omp_construct:
                 p = Constructor(path,T,language)
                 t = p.template_rendered(test)
                 if t:
@@ -522,16 +527,26 @@ if __name__ == '__main__':
     gen_math(makefile_fortran, ("f90math_synopsis.json",), "fortran" )
 
     with open(os.path.join(dirname,"config","omp_struct.json"), 'r') as f:
-        omp_tree = json.load(f)
-
-    gen_hp(makefile_cpp, omp_tree,( ("memcopy", Memcopy,     ['float', 'complex<float>', 'double','complex<double>']) ,
+        omp_construct = combinations_construct(json.load(f))
+    
+    gen_hp(makefile_cpp, omp_construct,( ("memcopy", Memcopy,     ['float', 'complex<float>', 'double','complex<double>']) ,
                                     ("atomic" , Fold,      ['float', 'double']) ,
                                     ("reduction", Fold, ["float",'complex<float>','double','complex<double>']), 
                                     ("reduction_atomic", Fold, ['float','double'] )),
                                     "cpp" ) 
-    gen_hp(makefile_fortran, omp_tree, (  ("memcopy", Memcopy,     ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']) ,
+    gen_hp(makefile_fortran, omp_construct, (  ("memcopy", Memcopy,     ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']) ,
                                           ("atomic" , Fold,      ['REAL','DOUBLE PRECISION']) ,
                                           ("reduction", Fold, ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']), 
                                           ("reduction_atomic", Fold, ['REAL','DOUBLE PRECISION'] )),
                                           "fortran" )
+    
+    # Threaded  
+    subset_omp_construct = [ ['parallel for','target teams distribute parallel for'] ]
+    gen_hp(makefile_cpp, subset_omp_construct,   ( ("threaded_reduction" , Fold,      ['double','complex<double>']),) , "cpp" )
+    gen_hp(makefile_fortran, subset_omp_construct,   ( ("threaded_reduction" , Fold,      ['DOUBLE PRECISION','DOUBLE COMPLEX']),) , "fortran" )
+
+    gen_hp(makefile_cpp, subset_omp_construct,   ( ("threaded_atomic" , Fold,      ['double']),) , "cpp" )
+    gen_hp(makefile_fortran, subset_omp_construct,   ( ("threaded_atomic" , Fold,      ['DOUBLE PRECISION']),) , "fortran" )
+
+
 

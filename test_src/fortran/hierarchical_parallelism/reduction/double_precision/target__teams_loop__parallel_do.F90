@@ -13,10 +13,10 @@ PROGRAM target__teams_loop__parallel_do
     INTEGER :: M = 64
     INTEGER :: j
     DOUBLE PRECISION :: counter = 0
-!$OMP TARGET map(tofrom:counter) 
-!$OMP TEAMS LOOP REDUCTION(+:counter)
+!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TEAMS LOOP REDUCTION(+: counter)
     DO i = 1 , L
-!$OMP PARALLEL DO REDUCTION(+:counter)
+!$OMP PARALLEL DO REDUCTION(+: counter)
     DO j = 1 , M
 counter = counter +  1.
     END DO

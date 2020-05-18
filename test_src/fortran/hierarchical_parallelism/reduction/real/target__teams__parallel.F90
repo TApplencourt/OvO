@@ -29,10 +29,10 @@ PROGRAM target__teams__parallel
     REAL :: counter = 0
     INTEGER :: num_teams
     INTEGER :: num_threads
-!$OMP TARGET map(tofrom:counter) 
-!$OMP TEAMS REDUCTION(+:counter)
+!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TEAMS REDUCTION(+: counter)
     num_teams = omp_get_num_teams()
-!$OMP PARALLEL REDUCTION(+:counter)
+!$OMP PARALLEL REDUCTION(+: counter)
     num_threads = omp_get_num_threads()
 counter = counter +  1./(num_teams*num_threads)
 !$OMP END PARALLEL

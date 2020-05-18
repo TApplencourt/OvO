@@ -31,12 +31,12 @@ PROGRAM target_teams__distribute__parallel__simd
     INTEGER :: j
     DOUBLE COMPLEX :: counter = (0,0)
     INTEGER :: num_threads
-!$OMP TARGET TEAMS REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP TARGET TEAMS REDUCTION(+: counter) MAP(TOFROM:counter) 
 !$OMP DISTRIBUTE
     DO i = 1 , L
-!$OMP PARALLEL REDUCTION(+:counter)
+!$OMP PARALLEL REDUCTION(+: counter)
     num_threads = omp_get_num_threads()
-!$OMP SIMD REDUCTION(+:counter)
+!$OMP SIMD REDUCTION(+: counter)
     DO j = 1 , M
 counter = counter +  CMPLX(  1./num_threads , 0 ) 
     END DO

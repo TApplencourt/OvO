@@ -11,7 +11,7 @@ PROGRAM target__teams__loop
     INTEGER :: L = 262144
     INTEGER :: i
     REAL :: counter = 0
-!$OMP TARGET map(tofrom:counter) 
+!$OMP TARGET MAP(TOFROM:counter) 
 !$OMP TEAMS
 !$OMP LOOP
     DO i = 1 , L

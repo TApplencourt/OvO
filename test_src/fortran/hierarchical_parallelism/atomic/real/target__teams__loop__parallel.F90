@@ -29,7 +29,7 @@ PROGRAM target__teams__loop__parallel
     INTEGER :: i
     REAL :: counter = 0
     INTEGER :: num_threads
-!$OMP TARGET map(tofrom:counter) 
+!$OMP TARGET MAP(TOFROM:counter) 
 !$OMP TEAMS
 !$OMP LOOP
     DO i = 1 , L

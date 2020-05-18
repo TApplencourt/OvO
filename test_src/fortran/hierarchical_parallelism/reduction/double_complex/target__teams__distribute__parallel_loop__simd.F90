@@ -15,13 +15,13 @@ PROGRAM target__teams__distribute__parallel_loop__simd
     INTEGER :: N = 64
     INTEGER :: k
     DOUBLE COMPLEX :: counter = (0,0)
-!$OMP TARGET map(tofrom:counter) 
-!$OMP TEAMS REDUCTION(+:counter)
+!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TEAMS REDUCTION(+: counter)
 !$OMP DISTRIBUTE
     DO i = 1 , L
-!$OMP PARALLEL LOOP REDUCTION(+:counter)
+!$OMP PARALLEL LOOP REDUCTION(+: counter)
     DO j = 1 , M
-!$OMP SIMD REDUCTION(+:counter)
+!$OMP SIMD REDUCTION(+: counter)
     DO k = 1 , N
 counter = counter +  CMPLX(  1. , 0 ) 
     END DO

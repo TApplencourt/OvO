@@ -27,7 +27,7 @@ PROGRAM target__parallel
     LOGICAL :: almost_equal
     REAL :: counter = 0
     INTEGER :: num_threads
-!$OMP TARGET map(tofrom:counter) 
+!$OMP TARGET MAP(TOFROM:counter) 
 !$OMP PARALLEL
     num_threads = omp_get_num_threads()
 !$OMP ATOMIC UPDATE

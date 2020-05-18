@@ -13,9 +13,9 @@ PROGRAM target_teams_loop__parallel__do
     INTEGER :: M = 64
     INTEGER :: j
     REAL :: counter = 0
-!$OMP TARGET TEAMS LOOP REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP TARGET TEAMS LOOP REDUCTION(+: counter) MAP(TOFROM:counter) 
     DO i = 1 , L
-!$OMP PARALLEL REDUCTION(+:counter)
+!$OMP PARALLEL REDUCTION(+: counter)
 !$OMP DO
     DO j = 1 , M
 counter = counter +  1.

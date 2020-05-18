@@ -11,8 +11,8 @@ PROGRAM target__teams__loop
     INTEGER :: L = 262144
     INTEGER :: i
     COMPLEX :: counter = (0,0)
-!$OMP TARGET map(tofrom:counter) 
-!$OMP TEAMS REDUCTION(+:counter)
+!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TEAMS REDUCTION(+: counter)
 !$OMP LOOP
     DO i = 1 , L
 counter = counter +  CMPLX(  1. , 0 ) 

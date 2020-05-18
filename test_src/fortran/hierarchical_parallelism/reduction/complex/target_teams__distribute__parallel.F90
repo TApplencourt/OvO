@@ -29,10 +29,10 @@ PROGRAM target_teams__distribute__parallel
     INTEGER :: i
     COMPLEX :: counter = (0,0)
     INTEGER :: num_threads
-!$OMP TARGET TEAMS REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP TARGET TEAMS REDUCTION(+: counter) MAP(TOFROM:counter) 
 !$OMP DISTRIBUTE
     DO i = 1 , L
-!$OMP PARALLEL REDUCTION(+:counter)
+!$OMP PARALLEL REDUCTION(+: counter)
     num_threads = omp_get_num_threads()
 counter = counter +  CMPLX(  1./num_threads , 0 ) 
 !$OMP END PARALLEL

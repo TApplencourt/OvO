@@ -15,9 +15,10 @@ PROGRAM {{name}}
   partial_counter = 0.
   {%- endif  %}
 !$OMP {{fat_pragma["pragma"]}}
-  {%- if family == 'reduction'          and "reduce"         in fat_pragma %} REDUCTION(+:counter)
+  {%- if    "reduce_host"  in fat_pragma                                   %} REDUCTION(+: counter)  {% endif %}
+  {%- if family == 'reduction'          and "reduce"         in fat_pragma %} REDUCTION(+: counter)
   {%- elif family == 'reduction_atomic' and "partial_reduce" in fat_pragma %} REDUCTION(+: partial_counter) {%- endif %}
-  {%- if "target" in fat_pragma %} map(tofrom:counter) {% endif %}
+  {%- if "target" in fat_pragma %} MAP(TOFROM:counter) {% endif %}
 
 
 {% if "loop" in fat_pragma %}
@@ -32,10 +33,10 @@ PROGRAM {{name}}
 
     {% endfor %}
 
-{% if  family == 'atomic' %}
+{% if   family in ('atomic','threaded_atomic')  %}
 !$OMP ATOMIC UPDATE
 {{ increment('counter', balenced, only_teams, only_parallel,is_cmplx) }}
-{% elif family == 'reduction' %}
+{% elif family in ('reduction','threaded_reduction')  %}
 {{ increment('counter', balenced, only_teams, only_parallel,is_cmplx) }}
 {% elif family == 'reduction_atomic' %}
 {{ increment('partial_counter', balenced, only_teams, only_parallel,is_cmplx) }}

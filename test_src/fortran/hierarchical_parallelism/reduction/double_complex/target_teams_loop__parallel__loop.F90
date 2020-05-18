@@ -13,9 +13,9 @@ PROGRAM target_teams_loop__parallel__loop
     INTEGER :: M = 64
     INTEGER :: j
     DOUBLE COMPLEX :: counter = (0,0)
-!$OMP TARGET TEAMS LOOP REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP TARGET TEAMS LOOP REDUCTION(+: counter) MAP(TOFROM:counter) 
     DO i = 1 , L
-!$OMP PARALLEL REDUCTION(+:counter)
+!$OMP PARALLEL REDUCTION(+: counter)
 !$OMP LOOP
     DO j = 1 , M
 counter = counter +  CMPLX(  1. , 0 ) 

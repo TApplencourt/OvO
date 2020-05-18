@@ -27,7 +27,7 @@ PROGRAM target_parallel
     LOGICAL :: almost_equal
     COMPLEX :: counter = (0,0)
     INTEGER :: num_threads
-!$OMP TARGET PARALLEL REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP TARGET PARALLEL REDUCTION(+: counter) MAP(TOFROM:counter) 
     num_threads = omp_get_num_threads()
 counter = counter +  CMPLX(  1./num_threads , 0 ) 
 !$OMP END TARGET PARALLEL

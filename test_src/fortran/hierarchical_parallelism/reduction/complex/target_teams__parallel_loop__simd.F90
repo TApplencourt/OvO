@@ -31,11 +31,11 @@ PROGRAM target_teams__parallel_loop__simd
     INTEGER :: j
     COMPLEX :: counter = (0,0)
     INTEGER :: num_teams
-!$OMP TARGET TEAMS REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP TARGET TEAMS REDUCTION(+: counter) MAP(TOFROM:counter) 
     num_teams = omp_get_num_teams()
-!$OMP PARALLEL LOOP REDUCTION(+:counter)
+!$OMP PARALLEL LOOP REDUCTION(+: counter)
     DO i = 1 , L
-!$OMP SIMD REDUCTION(+:counter)
+!$OMP SIMD REDUCTION(+: counter)
     DO j = 1 , M
 counter = counter +  CMPLX(  1./num_teams , 0 ) 
     END DO

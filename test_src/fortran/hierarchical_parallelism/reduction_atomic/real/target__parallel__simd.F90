@@ -30,7 +30,7 @@ PROGRAM target__parallel__simd
     REAL :: counter = 0
     INTEGER :: num_threads
   REAL partial_counter
-!$OMP TARGET map(tofrom:counter) 
+!$OMP TARGET MAP(TOFROM:counter) 
 !$OMP PARALLEL
     num_threads = omp_get_num_threads()
   partial_counter = 0.

@@ -29,9 +29,9 @@ PROGRAM target_parallel__simd
     INTEGER :: i
     COMPLEX :: counter = (0,0)
     INTEGER :: num_threads
-!$OMP TARGET PARALLEL REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP TARGET PARALLEL REDUCTION(+: counter) MAP(TOFROM:counter) 
     num_threads = omp_get_num_threads()
-!$OMP SIMD REDUCTION(+:counter)
+!$OMP SIMD REDUCTION(+: counter)
     DO i = 1 , L
 counter = counter +  CMPLX(  1./num_threads , 0 ) 
     END DO

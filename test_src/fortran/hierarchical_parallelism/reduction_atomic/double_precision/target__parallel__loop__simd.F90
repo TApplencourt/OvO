@@ -14,7 +14,7 @@ PROGRAM target__parallel__loop__simd
     INTEGER :: j
     DOUBLE PRECISION :: counter = 0
   DOUBLE PRECISION partial_counter
-!$OMP TARGET map(tofrom:counter) 
+!$OMP TARGET MAP(TOFROM:counter) 
 !$OMP PARALLEL
 !$OMP LOOP
     DO i = 1 , L

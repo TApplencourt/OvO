@@ -15,13 +15,13 @@ PROGRAM target_teams__distribute__parallel__do__simd
     INTEGER :: N = 64
     INTEGER :: k
     REAL :: counter = 0
-!$OMP TARGET TEAMS REDUCTION(+:counter) map(tofrom:counter) 
+!$OMP TARGET TEAMS REDUCTION(+: counter) MAP(TOFROM:counter) 
 !$OMP DISTRIBUTE
     DO i = 1 , L
-!$OMP PARALLEL REDUCTION(+:counter)
+!$OMP PARALLEL REDUCTION(+: counter)
 !$OMP DO
     DO j = 1 , M
-!$OMP SIMD REDUCTION(+:counter)
+!$OMP SIMD REDUCTION(+: counter)
     DO k = 1 , N
 counter = counter +  1.
     END DO
