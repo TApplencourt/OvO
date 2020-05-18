@@ -1,4 +1,4 @@
-# OvO (OpenMP vs Offload)
+# OvO: OpenMP vs Offload
 
 ```
   ___
