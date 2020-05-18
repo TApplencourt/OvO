@@ -7,7 +7,7 @@ void test_target__parallel__loop__simd(){
  const int L = 4096;
  const int M = 64;
  float counter{};
-#pragma omp target map(tofrom:counter) 
+#pragma omp target map(tofrom: counter) 
 #pragma omp parallel
 #pragma omp loop
     for (int i = 0 ; i < L ; i++ )

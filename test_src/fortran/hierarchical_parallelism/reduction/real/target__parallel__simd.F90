@@ -29,7 +29,7 @@ PROGRAM target__parallel__simd
     INTEGER :: i
     REAL :: counter = 0
     INTEGER :: num_threads
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP PARALLEL REDUCTION(+: counter)
     num_threads = omp_get_num_threads()
 !$OMP SIMD REDUCTION(+: counter)

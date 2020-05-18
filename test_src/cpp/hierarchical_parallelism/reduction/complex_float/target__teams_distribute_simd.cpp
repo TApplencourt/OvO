@@ -10,7 +10,7 @@ bool almost_equal(complex<float> x, complex<float> gold, float tol) {
 void test_target__teams_distribute_simd(){
  const int L = 262144;
  complex<float> counter{};
-#pragma omp target map(tofrom:counter) 
+#pragma omp target map(tofrom: counter) 
 #pragma omp teams distribute simd reduction(+: counter)
     for (int i = 0 ; i < L ; i++ )
     {

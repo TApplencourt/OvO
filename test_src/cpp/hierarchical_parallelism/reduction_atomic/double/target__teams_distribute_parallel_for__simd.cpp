@@ -7,7 +7,7 @@ void test_target__teams_distribute_parallel_for__simd(){
  const int L = 4096;
  const int M = 64;
  double counter{};
-#pragma omp target map(tofrom:counter) 
+#pragma omp target map(tofrom: counter) 
 #pragma omp teams distribute parallel for
     for (int i = 0 ; i < L ; i++ )
     {

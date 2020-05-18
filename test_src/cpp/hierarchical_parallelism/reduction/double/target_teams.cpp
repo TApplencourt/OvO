@@ -11,7 +11,7 @@ bool almost_equal(double x, double gold, float tol) {
 }
 void test_target_teams(){
  double counter{};
-#pragma omp target teams reduction(+: counter) map(tofrom:counter) 
+#pragma omp target teams reduction(+: counter) map(tofrom: counter) 
     {
 const int num_teams = omp_get_num_teams();
 counter += double { 1.0f/num_teams } ;

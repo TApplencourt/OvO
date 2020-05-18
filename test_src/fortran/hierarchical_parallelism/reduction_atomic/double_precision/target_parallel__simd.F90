@@ -30,7 +30,7 @@ PROGRAM target_parallel__simd
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_threads
   DOUBLE PRECISION partial_counter
-!$OMP TARGET PARALLEL MAP(TOFROM:counter) 
+!$OMP TARGET PARALLEL MAP(TOFROM: counter) 
     num_threads = omp_get_num_threads()
   partial_counter = 0.
 !$OMP SIMD REDUCTION(+: partial_counter)

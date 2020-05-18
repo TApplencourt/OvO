@@ -29,7 +29,7 @@ PROGRAM target__teams_distribute__parallel
     INTEGER :: i
     REAL :: counter = 0
     INTEGER :: num_threads
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP TEAMS DISTRIBUTE
     DO i = 1 , L
 !$OMP PARALLEL

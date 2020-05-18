@@ -11,7 +11,7 @@ PROGRAM target_parallel__do
     INTEGER :: L = 262144
     INTEGER :: i
     REAL :: counter = 0
-!$OMP TARGET PARALLEL MAP(TOFROM:counter) 
+!$OMP TARGET PARALLEL MAP(TOFROM: counter) 
 !$OMP DO
     DO i = 1 , L
 !$OMP ATOMIC UPDATE

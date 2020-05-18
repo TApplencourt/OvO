@@ -15,10 +15,10 @@ void test_{{name}}(){
 {{T}} partial_counter{};
   {%- endif  %}
 #pragma omp {{fat_pragma["pragma"]}}
-  {%- if    "reduce_host"  in fat_pragma                                                     %} reduction(+: counter)  {% endif %} 
-  {%- if    family in ('reduction','threaded_reduction')  and "reduce"         in fat_pragma %} reduction(+: counter)
+  {%- if    "reduce_host"  in fat_pragma                                                     %} reduction(+: counter)  
+  {%- elif  family in ('reduction','threaded_reduction')  and "reduce"         in fat_pragma %} reduction(+: counter)
   {%- elif  family == 'reduction_atomic'                  and "partial_reduce" in fat_pragma %} reduction(+: partial_counter) {%- endif %}
-  {%- if "target" in fat_pragma %} map(tofrom:counter) {% endif %}
+  {%- if "target" in fat_pragma %} map(tofrom: counter) {% endif %}
 
 {% if "loop" in fat_pragma %}
     for (int {{fat_pragma["loop"].i}} = 0 ; {{fat_pragma["loop"].i}} < {{fat_pragma["loop"].N}} ; {{fat_pragma["loop"].i}}++ )

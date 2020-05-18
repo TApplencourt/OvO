@@ -31,7 +31,7 @@ PROGRAM target__teams__loop__parallel__simd
     INTEGER :: j
     DOUBLE COMPLEX :: counter = (0,0)
     INTEGER :: num_threads
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP TEAMS REDUCTION(+: counter)
 !$OMP LOOP
     DO i = 1 , L

@@ -11,7 +11,7 @@ PROGRAM target_parallel_do
     INTEGER :: L = 262144
     INTEGER :: i
     REAL :: counter = 0
-!$OMP TARGET PARALLEL DO REDUCTION(+: counter) MAP(TOFROM:counter) 
+!$OMP TARGET PARALLEL DO REDUCTION(+: counter) MAP(TOFROM: counter) 
     DO i = 1 , L
 counter = counter +  1.
     END DO

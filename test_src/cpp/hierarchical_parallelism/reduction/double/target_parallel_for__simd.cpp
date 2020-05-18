@@ -7,7 +7,7 @@ void test_target_parallel_for__simd(){
  const int L = 4096;
  const int M = 64;
  double counter{};
-#pragma omp target parallel for reduction(+: counter) map(tofrom:counter) 
+#pragma omp target parallel for reduction(+: counter) map(tofrom: counter) 
     for (int i = 0 ; i < L ; i++ )
     {
 #pragma omp simd reduction(+: counter)

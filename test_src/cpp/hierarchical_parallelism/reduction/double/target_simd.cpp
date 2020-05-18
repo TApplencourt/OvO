@@ -6,7 +6,7 @@ bool almost_equal(double x, double gold, float tol) {
 void test_target_simd(){
  const int L = 262144;
  double counter{};
-#pragma omp target simd reduction(+: counter) map(tofrom:counter) 
+#pragma omp target simd reduction(+: counter) map(tofrom: counter) 
     for (int i = 0 ; i < L ; i++ )
     {
 counter += double { 1.0f };

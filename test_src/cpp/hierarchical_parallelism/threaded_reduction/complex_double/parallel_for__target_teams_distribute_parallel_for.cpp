@@ -11,10 +11,10 @@ void test_parallel_for__target_teams_distribute_parallel_for(){
  const int L = 4096;
  const int M = 64;
  complex<double> counter{};
-#pragma omp parallel for reduction(+: counter)   reduction(+: counter)
+#pragma omp parallel for reduction(+: counter)
     for (int i = 0 ; i < L ; i++ )
     {
-#pragma omp target teams distribute parallel for reduction(+: counter) map(tofrom:counter) 
+#pragma omp target teams distribute parallel for reduction(+: counter) map(tofrom: counter) 
     for (int j = 0 ; j < M ; j++ )
     {
 counter += complex<double> { 1.0f };

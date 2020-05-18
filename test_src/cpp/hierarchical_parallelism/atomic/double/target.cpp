@@ -5,7 +5,7 @@ bool almost_equal(double x, double gold, float tol) {
 }
 void test_target(){
  double counter{};
-#pragma omp target map(tofrom:counter) 
+#pragma omp target map(tofrom: counter) 
 #pragma omp atomic update
 counter += double { 1.0f };
 if ( !almost_equal(counter,double { 1 }, 0.1)  ) {

@@ -29,7 +29,7 @@ PROGRAM target_teams__parallel
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_teams
     INTEGER :: num_threads
-!$OMP TARGET TEAMS MAP(TOFROM:counter) 
+!$OMP TARGET TEAMS MAP(TOFROM: counter) 
     num_teams = omp_get_num_teams()
 !$OMP PARALLEL
     num_threads = omp_get_num_threads()

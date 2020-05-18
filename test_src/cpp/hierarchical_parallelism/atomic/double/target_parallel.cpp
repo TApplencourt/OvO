@@ -11,7 +11,7 @@ bool almost_equal(double x, double gold, float tol) {
 }
 void test_target_parallel(){
  double counter{};
-#pragma omp target parallel map(tofrom:counter) 
+#pragma omp target parallel map(tofrom: counter) 
     {
 const int num_threads = omp_get_num_threads();
 #pragma omp atomic update

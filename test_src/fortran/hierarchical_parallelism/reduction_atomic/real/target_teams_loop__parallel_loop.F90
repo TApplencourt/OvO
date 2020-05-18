@@ -14,7 +14,7 @@ PROGRAM target_teams_loop__parallel_loop
     INTEGER :: j
     REAL :: counter = 0
   REAL partial_counter
-!$OMP TARGET TEAMS LOOP MAP(TOFROM:counter) 
+!$OMP TARGET TEAMS LOOP MAP(TOFROM: counter) 
     DO i = 1 , L
   partial_counter = 0.
 !$OMP PARALLEL LOOP REDUCTION(+: partial_counter)

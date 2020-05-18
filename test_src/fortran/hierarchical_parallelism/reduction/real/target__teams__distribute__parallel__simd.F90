@@ -31,7 +31,7 @@ PROGRAM target__teams__distribute__parallel__simd
     INTEGER :: j
     REAL :: counter = 0
     INTEGER :: num_threads
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP TEAMS REDUCTION(+: counter)
 !$OMP DISTRIBUTE
     DO i = 1 , L

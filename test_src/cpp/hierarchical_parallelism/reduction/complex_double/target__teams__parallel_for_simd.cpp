@@ -16,7 +16,7 @@ bool almost_equal(complex<double> x, complex<double> gold, float tol) {
 void test_target__teams__parallel_for_simd(){
  const int L = 262144;
  complex<double> counter{};
-#pragma omp target map(tofrom:counter) 
+#pragma omp target map(tofrom: counter) 
 #pragma omp teams reduction(+: counter)
     {
 const int num_teams = omp_get_num_teams();

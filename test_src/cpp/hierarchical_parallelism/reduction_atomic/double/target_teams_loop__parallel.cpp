@@ -12,7 +12,7 @@ bool almost_equal(double x, double gold, float tol) {
 void test_target_teams_loop__parallel(){
  const int L = 262144;
  double counter{};
-#pragma omp target teams loop map(tofrom:counter) 
+#pragma omp target teams loop map(tofrom: counter) 
     for (int i = 0 ; i < L ; i++ )
     {
 double partial_counter{};

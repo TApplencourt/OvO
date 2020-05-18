@@ -12,7 +12,7 @@ bool almost_equal(double x, double gold, float tol) {
 void test_target_parallel__simd(){
  const int L = 262144;
  double counter{};
-#pragma omp target parallel reduction(+: counter) map(tofrom:counter) 
+#pragma omp target parallel reduction(+: counter) map(tofrom: counter) 
     {
 const int num_threads = omp_get_num_threads();
 #pragma omp simd reduction(+: counter)

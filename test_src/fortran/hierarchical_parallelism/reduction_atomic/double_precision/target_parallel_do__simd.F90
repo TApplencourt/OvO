@@ -14,7 +14,7 @@ PROGRAM target_parallel_do__simd
     INTEGER :: j
     DOUBLE PRECISION :: counter = 0
   DOUBLE PRECISION partial_counter
-!$OMP TARGET PARALLEL DO MAP(TOFROM:counter) 
+!$OMP TARGET PARALLEL DO MAP(TOFROM: counter) 
     DO i = 1 , L
   partial_counter = 0.
 !$OMP SIMD REDUCTION(+: partial_counter)

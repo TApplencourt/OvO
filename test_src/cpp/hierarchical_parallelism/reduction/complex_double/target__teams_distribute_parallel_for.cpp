@@ -10,7 +10,7 @@ bool almost_equal(complex<double> x, complex<double> gold, float tol) {
 void test_target__teams_distribute_parallel_for(){
  const int L = 262144;
  complex<double> counter{};
-#pragma omp target map(tofrom:counter) 
+#pragma omp target map(tofrom: counter) 
 #pragma omp teams distribute parallel for reduction(+: counter)
     for (int i = 0 ; i < L ; i++ )
     {

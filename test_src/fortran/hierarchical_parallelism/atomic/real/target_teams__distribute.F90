@@ -11,7 +11,7 @@ PROGRAM target_teams__distribute
     INTEGER :: L = 262144
     INTEGER :: i
     REAL :: counter = 0
-!$OMP TARGET TEAMS MAP(TOFROM:counter) 
+!$OMP TARGET TEAMS MAP(TOFROM: counter) 
 !$OMP DISTRIBUTE
     DO i = 1 , L
 !$OMP ATOMIC UPDATE

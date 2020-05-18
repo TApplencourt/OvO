@@ -13,7 +13,7 @@ void test_target_teams__parallel_for__simd(){
  const int L = 4096;
  const int M = 64;
  double counter{};
-#pragma omp target teams map(tofrom:counter) 
+#pragma omp target teams map(tofrom: counter) 
     {
 const int num_teams = omp_get_num_teams();
 double partial_counter{};

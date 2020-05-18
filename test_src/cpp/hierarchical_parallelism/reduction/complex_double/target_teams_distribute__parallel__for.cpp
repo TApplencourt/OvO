@@ -11,7 +11,7 @@ void test_target_teams_distribute__parallel__for(){
  const int L = 4096;
  const int M = 64;
  complex<double> counter{};
-#pragma omp target teams distribute reduction(+: counter) map(tofrom:counter) 
+#pragma omp target teams distribute reduction(+: counter) map(tofrom: counter) 
     for (int i = 0 ; i < L ; i++ )
     {
 #pragma omp parallel reduction(+: counter)

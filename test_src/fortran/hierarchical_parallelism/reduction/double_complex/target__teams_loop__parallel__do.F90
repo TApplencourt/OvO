@@ -13,7 +13,7 @@ PROGRAM target__teams_loop__parallel__do
     INTEGER :: M = 64
     INTEGER :: j
     DOUBLE COMPLEX :: counter = (0,0)
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP TEAMS LOOP REDUCTION(+: counter)
     DO i = 1 , L
 !$OMP PARALLEL REDUCTION(+: counter)

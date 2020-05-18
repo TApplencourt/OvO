@@ -9,7 +9,7 @@ END FUNCTION almost_equal
 PROGRAM target
     LOGICAL :: almost_equal
     DOUBLE PRECISION :: counter = 0
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 counter = counter +  1.
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, 1, 0.1) ) THEN

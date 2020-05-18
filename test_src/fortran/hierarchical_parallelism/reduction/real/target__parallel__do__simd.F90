@@ -13,7 +13,7 @@ PROGRAM target__parallel__do__simd
     INTEGER :: M = 64
     INTEGER :: j
     REAL :: counter = 0
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP PARALLEL REDUCTION(+: counter)
 !$OMP DO
     DO i = 1 , L

@@ -8,7 +8,7 @@ void test_target_teams_distribute__parallel_loop__simd(){
  const int M = 64;
  const int N = 64;
  double counter{};
-#pragma omp target teams distribute map(tofrom:counter) 
+#pragma omp target teams distribute map(tofrom: counter) 
     for (int i = 0 ; i < L ; i++ )
     {
 double partial_counter{};

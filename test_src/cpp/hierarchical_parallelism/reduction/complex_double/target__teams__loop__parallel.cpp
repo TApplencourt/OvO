@@ -16,7 +16,7 @@ bool almost_equal(complex<double> x, complex<double> gold, float tol) {
 void test_target__teams__loop__parallel(){
  const int L = 262144;
  complex<double> counter{};
-#pragma omp target map(tofrom:counter) 
+#pragma omp target map(tofrom: counter) 
 #pragma omp teams reduction(+: counter)
 #pragma omp loop
     for (int i = 0 ; i < L ; i++ )

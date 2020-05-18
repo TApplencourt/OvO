@@ -13,9 +13,9 @@ PROGRAM parallel_do__target_teams_distribute_parallel_do
     INTEGER :: M = 64
     INTEGER :: j
     DOUBLE PRECISION :: counter = 0
-!$OMP PARALLEL DO REDUCTION(+: counter)  
+!$OMP PARALLEL DO REDUCTION(+: counter)
     DO i = 1 , L
-!$OMP TARGET TEAMS DISTRIBUTE PARALLEL DO MAP(TOFROM:counter) 
+!$OMP TARGET TEAMS DISTRIBUTE PARALLEL DO MAP(TOFROM: counter) 
     DO j = 1 , M
 !$OMP ATOMIC UPDATE
 counter = counter +  1.

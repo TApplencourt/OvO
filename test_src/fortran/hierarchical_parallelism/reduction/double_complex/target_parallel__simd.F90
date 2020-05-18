@@ -29,7 +29,7 @@ PROGRAM target_parallel__simd
     INTEGER :: i
     DOUBLE COMPLEX :: counter = (0,0)
     INTEGER :: num_threads
-!$OMP TARGET PARALLEL REDUCTION(+: counter) MAP(TOFROM:counter) 
+!$OMP TARGET PARALLEL REDUCTION(+: counter) MAP(TOFROM: counter) 
     num_threads = omp_get_num_threads()
 !$OMP SIMD REDUCTION(+: counter)
     DO i = 1 , L

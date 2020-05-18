@@ -15,7 +15,7 @@ PROGRAM target__teams_distribute__parallel_loop__simd
     INTEGER :: N = 64
     INTEGER :: k
     DOUBLE PRECISION :: counter = 0
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP TEAMS DISTRIBUTE REDUCTION(+: counter)
     DO i = 1 , L
 !$OMP PARALLEL LOOP REDUCTION(+: counter)

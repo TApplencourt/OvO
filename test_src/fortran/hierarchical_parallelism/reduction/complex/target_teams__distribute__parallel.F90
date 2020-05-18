@@ -29,7 +29,7 @@ PROGRAM target_teams__distribute__parallel
     INTEGER :: i
     COMPLEX :: counter = (0,0)
     INTEGER :: num_threads
-!$OMP TARGET TEAMS REDUCTION(+: counter) MAP(TOFROM:counter) 
+!$OMP TARGET TEAMS REDUCTION(+: counter) MAP(TOFROM: counter) 
 !$OMP DISTRIBUTE
     DO i = 1 , L
 !$OMP PARALLEL REDUCTION(+: counter)

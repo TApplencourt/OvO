@@ -11,7 +11,7 @@ PROGRAM target_parallel_loop
     INTEGER :: L = 262144
     INTEGER :: i
     DOUBLE PRECISION :: counter = 0
-!$OMP TARGET PARALLEL LOOP REDUCTION(+: counter) MAP(TOFROM:counter) 
+!$OMP TARGET PARALLEL LOOP REDUCTION(+: counter) MAP(TOFROM: counter) 
     DO i = 1 , L
 counter = counter +  1.
     END DO

@@ -12,7 +12,7 @@ void test_target_teams_loop__parallel_loop__simd(){
  const int M = 64;
  const int N = 64;
  complex<float> counter{};
-#pragma omp target teams loop reduction(+: counter) map(tofrom:counter) 
+#pragma omp target teams loop reduction(+: counter) map(tofrom: counter) 
     for (int i = 0 ; i < L ; i++ )
     {
 #pragma omp parallel loop reduction(+: counter)

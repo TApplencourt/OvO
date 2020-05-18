@@ -31,7 +31,7 @@ PROGRAM target__teams__parallel__simd
     REAL :: counter = 0
     INTEGER :: num_teams
     INTEGER :: num_threads
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP TEAMS REDUCTION(+: counter)
     num_teams = omp_get_num_teams()
 !$OMP PARALLEL REDUCTION(+: counter)

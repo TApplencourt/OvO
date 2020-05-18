@@ -32,7 +32,7 @@ PROGRAM target__teams_distribute__parallel__simd
     REAL :: counter = 0
     INTEGER :: num_threads
   REAL partial_counter
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP TEAMS DISTRIBUTE
     DO i = 1 , L
   partial_counter = 0.

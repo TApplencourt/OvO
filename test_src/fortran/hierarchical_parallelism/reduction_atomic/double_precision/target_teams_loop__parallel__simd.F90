@@ -32,7 +32,7 @@ PROGRAM target_teams_loop__parallel__simd
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_threads
   DOUBLE PRECISION partial_counter
-!$OMP TARGET TEAMS LOOP MAP(TOFROM:counter) 
+!$OMP TARGET TEAMS LOOP MAP(TOFROM: counter) 
     DO i = 1 , L
   partial_counter = 0.
 !$OMP PARALLEL REDUCTION(+: partial_counter)

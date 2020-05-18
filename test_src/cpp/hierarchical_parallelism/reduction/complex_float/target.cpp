@@ -9,7 +9,7 @@ bool almost_equal(complex<float> x, complex<float> gold, float tol) {
 #pragma omp declare reduction(+: complex<float>: omp_out += omp_in)
 void test_target(){
  complex<float> counter{};
-#pragma omp target map(tofrom:counter) 
+#pragma omp target map(tofrom: counter) 
 counter += complex<float> { 1.0f };
 if ( !almost_equal(counter,complex<float> { 1 }, 0.1)  ) {
     std::cerr << "Expected: " << 1 << " Got: " << counter << std::endl;

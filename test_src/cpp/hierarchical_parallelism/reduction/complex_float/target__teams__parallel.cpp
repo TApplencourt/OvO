@@ -15,7 +15,7 @@ bool almost_equal(complex<float> x, complex<float> gold, float tol) {
 #pragma omp declare reduction(+: complex<float>: omp_out += omp_in)
 void test_target__teams__parallel(){
  complex<float> counter{};
-#pragma omp target map(tofrom:counter) 
+#pragma omp target map(tofrom: counter) 
 #pragma omp teams reduction(+: counter)
     {
 const int num_teams = omp_get_num_teams();

@@ -6,7 +6,7 @@ bool almost_equal(float x, float gold, float tol) {
 void test_target_parallel_loop(){
  const int L = 262144;
  float counter{};
-#pragma omp target parallel loop map(tofrom:counter) 
+#pragma omp target parallel loop map(tofrom: counter) 
     for (int i = 0 ; i < L ; i++ )
     {
 #pragma omp atomic update

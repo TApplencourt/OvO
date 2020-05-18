@@ -7,7 +7,7 @@ void test_target_parallel_for__simd(){
  const int L = 4096;
  const int M = 64;
  float counter{};
-#pragma omp target parallel for map(tofrom:counter) 
+#pragma omp target parallel for map(tofrom: counter) 
     for (int i = 0 ; i < L ; i++ )
     {
 float partial_counter{};

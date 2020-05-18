@@ -13,7 +13,7 @@ PROGRAM target_teams__distribute__simd
     INTEGER :: M = 64
     INTEGER :: j
     DOUBLE COMPLEX :: counter = (0,0)
-!$OMP TARGET TEAMS REDUCTION(+: counter) MAP(TOFROM:counter) 
+!$OMP TARGET TEAMS REDUCTION(+: counter) MAP(TOFROM: counter) 
 !$OMP DISTRIBUTE
     DO i = 1 , L
 !$OMP SIMD REDUCTION(+: counter)

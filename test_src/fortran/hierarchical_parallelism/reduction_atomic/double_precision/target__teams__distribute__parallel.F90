@@ -30,7 +30,7 @@ PROGRAM target__teams__distribute__parallel
     DOUBLE PRECISION :: counter = 0
     INTEGER :: num_threads
   DOUBLE PRECISION partial_counter
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP TEAMS
 !$OMP DISTRIBUTE
     DO i = 1 , L

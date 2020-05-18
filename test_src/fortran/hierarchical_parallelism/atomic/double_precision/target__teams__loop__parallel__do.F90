@@ -13,7 +13,7 @@ PROGRAM target__teams__loop__parallel__do
     INTEGER :: M = 64
     INTEGER :: j
     DOUBLE PRECISION :: counter = 0
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP TEAMS
 !$OMP LOOP
     DO i = 1 , L

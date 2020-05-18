@@ -11,7 +11,7 @@ PROGRAM target__simd
     INTEGER :: L = 262144
     INTEGER :: i
     REAL :: counter = 0
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP SIMD REDUCTION(+: counter)
     DO i = 1 , L
 counter = counter +  1.

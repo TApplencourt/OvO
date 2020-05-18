@@ -30,7 +30,7 @@ PROGRAM target__teams__parallel
     INTEGER :: num_teams
     INTEGER :: num_threads
   DOUBLE PRECISION partial_counter
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP TEAMS
     num_teams = omp_get_num_teams()
   partial_counter = 0.

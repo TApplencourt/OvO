@@ -8,7 +8,7 @@ void test_target__teams_loop__parallel_for__simd(){
  const int M = 64;
  const int N = 64;
  double counter{};
-#pragma omp target map(tofrom:counter) 
+#pragma omp target map(tofrom: counter) 
 #pragma omp teams loop reduction(+: counter)
     for (int i = 0 ; i < L ; i++ )
     {

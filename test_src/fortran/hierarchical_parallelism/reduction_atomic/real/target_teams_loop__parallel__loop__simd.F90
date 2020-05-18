@@ -16,7 +16,7 @@ PROGRAM target_teams_loop__parallel__loop__simd
     INTEGER :: k
     REAL :: counter = 0
   REAL partial_counter
-!$OMP TARGET TEAMS LOOP MAP(TOFROM:counter) 
+!$OMP TARGET TEAMS LOOP MAP(TOFROM: counter) 
     DO i = 1 , L
   partial_counter = 0.
 !$OMP PARALLEL REDUCTION(+: partial_counter)

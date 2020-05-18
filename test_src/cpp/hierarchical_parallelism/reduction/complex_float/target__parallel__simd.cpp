@@ -16,7 +16,7 @@ bool almost_equal(complex<float> x, complex<float> gold, float tol) {
 void test_target__parallel__simd(){
  const int L = 262144;
  complex<float> counter{};
-#pragma omp target map(tofrom:counter) 
+#pragma omp target map(tofrom: counter) 
 #pragma omp parallel reduction(+: counter)
     {
 const int num_threads = omp_get_num_threads();

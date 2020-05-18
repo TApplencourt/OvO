@@ -15,7 +15,7 @@ PROGRAM target__teams_loop__parallel__loop__simd
     INTEGER :: N = 64
     INTEGER :: k
     DOUBLE COMPLEX :: counter = (0,0)
-!$OMP TARGET MAP(TOFROM:counter) 
+!$OMP TARGET MAP(TOFROM: counter) 
 !$OMP TEAMS LOOP REDUCTION(+: counter)
     DO i = 1 , L
 !$OMP PARALLEL REDUCTION(+: counter)
