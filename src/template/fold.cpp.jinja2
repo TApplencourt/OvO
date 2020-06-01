@@ -3,7 +3,9 @@
 {{ prologue_general(T_category, balenced) }}
 
 {% if T_category == "complex" %}
+#if !defined(_NO_UDR)
 #pragma omp declare reduction(+: {{T}}: omp_out += omp_in)
+#endif
 {% endif %}
 
 void test_{{name}}(){
