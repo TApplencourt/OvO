@@ -88,6 +88,8 @@ frun() {
         echo $(${CXX:-c++} --version) > "$nresult"/compilers.log
         echo $(${FC:-gfortran} --version) >> "$nresult"/compilers.log
 
+        NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
+        export MAKEFLAGS="${MAKEFLAGS:--j$NPROC --output-sync}"
         if ${__no_long} && ${__no_loop}
         then
             make --no-print-directory -C "$dir" exe_no_long_no_loop |& tee "$nresult"/compilation.log
@@ -100,7 +102,10 @@ frun() {
         else
             make --no-print-directory -C "$dir" exe |& tee "$nresult"/compilation.log
         fi
-        make --no-print-directory -C "$dir" run |& tee "$nresult"/runtime.log
+
+        # Always Run test in serial
+        # Can add a new variable if neeeded
+        make -j1 --no-print-directory -C "$dir" run |& tee "$nresult"/runtime.log
     done
 }
 
