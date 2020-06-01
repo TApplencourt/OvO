@@ -41,9 +41,13 @@ PROGRAM target__teams__parallel__do__simd
     DO j = 1 , M
 counter = counter +  CMPLX(  1./num_teams , 0 ) 
     END DO
+#ifdef _END_PRAGMA
 !$OMP END SIMD
+#endif
     END DO
+#ifdef _END_PRAGMA
 !$OMP END DO
+#endif
 !$OMP END PARALLEL
 !$OMP END TEAMS
 !$OMP END TARGET

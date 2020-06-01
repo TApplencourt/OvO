@@ -39,7 +39,9 @@ PROGRAM target__teams__loop__parallel
 counter = counter +  1./num_threads
 !$OMP END PARALLEL
     END DO
+#ifdef _END_PRAGMA
 !$OMP END LOOP
+#endif
 !$OMP END TEAMS
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN

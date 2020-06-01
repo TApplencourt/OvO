@@ -12,7 +12,7 @@ int omp_get_num_threads() {return 1;}
 bool almost_equal(complex<double> x, complex<double> gold, float tol) {
         return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol);
 }
-#if !defined(_NO_UDR)
+#ifndef _NO_UDR
 #pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
 #endif
 void test_target_teams_distribute__parallel__simd(){

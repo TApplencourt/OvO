@@ -36,7 +36,9 @@ PROGRAM target_teams__parallel__do
     DO i = 1 , L
 counter = counter +  1./num_teams
     END DO
+#ifdef _END_PRAGMA
 !$OMP END DO
+#endif
 !$OMP END PARALLEL
 !$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN

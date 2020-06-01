@@ -37,7 +37,9 @@ PROGRAM target_teams_loop__parallel
 counter = counter +  1./num_threads
 !$OMP END PARALLEL
     END DO
+#ifdef _END_PRAGMA
 !$OMP END TARGET TEAMS LOOP
+#endif
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)

@@ -24,12 +24,18 @@ PROGRAM target_teams_distribute__parallel__loop__simd
     DO k = 1 , N
 counter = counter +  CMPLX(  1. , 0 ) 
     END DO
+#ifdef _END_PRAGMA
 !$OMP END SIMD
+#endif
     END DO
+#ifdef _END_PRAGMA
 !$OMP END LOOP
+#endif
 !$OMP END PARALLEL
     END DO
+#ifdef _END_PRAGMA
 !$OMP END TARGET TEAMS DISTRIBUTE
+#endif
 IF ( .NOT.almost_equal(counter, L*M*N, 0.1) ) THEN
     WRITE(*,*)  'Expected', L*M*N,  'Got', counter
     CALL EXIT(112)

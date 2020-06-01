@@ -17,7 +17,9 @@ PROGRAM target__parallel__loop
     DO i = 1 , L
 counter = counter +  CMPLX(  1. , 0 ) 
     END DO
+#ifdef _END_PRAGMA
 !$OMP END LOOP
+#endif
 !$OMP END PARALLEL
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN

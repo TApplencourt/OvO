@@ -40,6 +40,9 @@ partial_counter = partial_counter +  1./(num_teams*num_threads)
 !$OMP END PARALLEL
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
+#ifndef _END_PRAGMA
+!$OMP END ATOMIC
+#endif
 !$OMP END TEAMS
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, 1, 0.1) ) THEN

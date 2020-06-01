@@ -17,7 +17,9 @@ PROGRAM target__teams__loop
     DO i = 1 , L
 counter = counter +  1.
     END DO
+#ifdef _END_PRAGMA
 !$OMP END LOOP
+#endif
 !$OMP END TEAMS
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN

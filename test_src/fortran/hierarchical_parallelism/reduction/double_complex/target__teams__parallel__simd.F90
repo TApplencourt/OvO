@@ -40,7 +40,9 @@ PROGRAM target__teams__parallel__simd
     DO i = 1 , L
 counter = counter +  CMPLX(  1./(num_teams*num_threads) , 0 ) 
     END DO
+#ifdef _END_PRAGMA
 !$OMP END SIMD
+#endif
 !$OMP END PARALLEL
 !$OMP END TEAMS
 !$OMP END TARGET

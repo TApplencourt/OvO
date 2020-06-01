@@ -37,7 +37,9 @@ PROGRAM target_teams__parallel__loop
 !$OMP ATOMIC UPDATE
 counter = counter +  1./num_teams
     END DO
+#ifdef _END_PRAGMA
 !$OMP END LOOP
+#endif
 !$OMP END PARALLEL
 !$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN

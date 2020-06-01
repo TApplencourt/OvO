@@ -20,10 +20,14 @@ PROGRAM target_teams_loop__parallel__do
     DO j = 1 , M
 counter = counter +  CMPLX(  1. , 0 ) 
     END DO
+#ifdef _END_PRAGMA
 !$OMP END DO
+#endif
 !$OMP END PARALLEL
     END DO
+#ifdef _END_PRAGMA
 !$OMP END TARGET TEAMS LOOP
+#endif
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     WRITE(*,*)  'Expected', L*M,  'Got', counter
     CALL EXIT(112)

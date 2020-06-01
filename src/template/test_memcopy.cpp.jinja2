@@ -13,7 +13,7 @@ bool almost_equal({{T}} x, {{T}} y, int ulp) {
 {% if T_category == "float" %}
      return std::fabs(x-y) <= std::numeric_limits<{{T}}>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<{{T}}>::min();
 {% elif T_category == "complex" %}
-    return std::abs(x-y) <= std::numeric_limits<{{output_type.T.internal}}>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<{{output_type.T.internal}}>::min();
+    return std::abs(x-y) <= std::numeric_limits<{{T.internal}}>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<{{T.internal}}>::min();
 {% endif %}
 }
 

@@ -37,7 +37,9 @@ PROGRAM target__teams__parallel__loop
     DO i = 1 , L
 counter = counter +  CMPLX(  1./num_teams , 0 ) 
     END DO
+#ifdef _END_PRAGMA
 !$OMP END LOOP
+#endif
 !$OMP END PARALLEL
 !$OMP END TEAMS
 !$OMP END TARGET

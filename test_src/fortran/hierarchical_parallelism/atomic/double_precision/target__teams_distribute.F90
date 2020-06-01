@@ -17,7 +17,9 @@ PROGRAM target__teams_distribute
 !$OMP ATOMIC UPDATE
 counter = counter +  1.
     END DO
+#ifdef _END_PRAGMA
 !$OMP END TEAMS DISTRIBUTE
+#endif
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     WRITE(*,*)  'Expected', L,  'Got', counter

@@ -37,7 +37,9 @@ PROGRAM target_teams__distribute__parallel
 counter = counter +  CMPLX(  1./num_threads , 0 ) 
 !$OMP END PARALLEL
     END DO
+#ifdef _END_PRAGMA
 !$OMP END DISTRIBUTE
+#endif
 !$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     WRITE(*,*)  'Expected', L,  'Got', counter

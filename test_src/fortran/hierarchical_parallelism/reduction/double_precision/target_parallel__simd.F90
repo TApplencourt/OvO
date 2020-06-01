@@ -35,7 +35,9 @@ PROGRAM target_parallel__simd
     DO i = 1 , L
 counter = counter +  1./num_threads
     END DO
+#ifdef _END_PRAGMA
 !$OMP END SIMD
+#endif
 !$OMP END TARGET PARALLEL
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     WRITE(*,*)  'Expected', L,  'Got', counter

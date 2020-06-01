@@ -16,7 +16,9 @@ PROGRAM target__parallel_do_simd
     DO i = 1 , L
 counter = counter +  CMPLX(  1. , 0 ) 
     END DO
+#ifdef _END_PRAGMA
 !$OMP END PARALLEL DO SIMD
+#endif
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     WRITE(*,*)  'Expected', L,  'Got', counter

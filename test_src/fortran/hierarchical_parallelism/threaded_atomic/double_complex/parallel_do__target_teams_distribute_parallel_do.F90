@@ -20,9 +20,13 @@ PROGRAM parallel_do__target_teams_distribute_parallel_do
 !$OMP ATOMIC UPDATE
 counter = counter +  CMPLX(  1. , 0 ) 
     END DO
+#ifdef _END_PRAGMA
 !$OMP END TARGET TEAMS DISTRIBUTE PARALLEL DO
+#endif
     END DO
+#ifdef _END_PRAGMA
 !$OMP END PARALLEL DO
+#endif
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     WRITE(*,*)  'Expected', L*M,  'Got', counter
     CALL EXIT(112)

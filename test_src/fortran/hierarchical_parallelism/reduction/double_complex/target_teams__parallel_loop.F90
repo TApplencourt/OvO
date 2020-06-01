@@ -35,7 +35,9 @@ PROGRAM target_teams__parallel_loop
     DO i = 1 , L
 counter = counter +  CMPLX(  1./num_teams , 0 ) 
     END DO
+#ifdef _END_PRAGMA
 !$OMP END PARALLEL LOOP
+#endif
 !$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     WRITE(*,*)  'Expected', L,  'Got', counter

@@ -20,9 +20,13 @@ PROGRAM target_teams__distribute__parallel_loop
     DO j = 1 , M
 counter = counter +  1.
     END DO
+#ifdef _END_PRAGMA
 !$OMP END PARALLEL LOOP
+#endif
     END DO
+#ifdef _END_PRAGMA
 !$OMP END DISTRIBUTE
+#endif
 !$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     WRITE(*,*)  'Expected', L*M,  'Got', counter

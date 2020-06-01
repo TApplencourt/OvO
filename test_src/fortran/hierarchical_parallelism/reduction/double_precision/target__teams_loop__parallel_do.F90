@@ -20,9 +20,13 @@ PROGRAM target__teams_loop__parallel_do
     DO j = 1 , M
 counter = counter +  1.
     END DO
+#ifdef _END_PRAGMA
 !$OMP END PARALLEL DO
+#endif
     END DO
+#ifdef _END_PRAGMA
 !$OMP END TEAMS LOOP
+#endif
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     WRITE(*,*)  'Expected', L*M,  'Got', counter

@@ -15,7 +15,9 @@ PROGRAM target_teams_distribute_simd
     DO i = 1 , L
 counter = counter +  CMPLX(  1. , 0 ) 
     END DO
+#ifdef _END_PRAGMA
 !$OMP END TARGET TEAMS DISTRIBUTE SIMD
+#endif
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     WRITE(*,*)  'Expected', L,  'Got', counter
     CALL EXIT(112)

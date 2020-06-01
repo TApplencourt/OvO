@@ -22,11 +22,18 @@ PROGRAM target__teams_distribute__parallel_loop
     DO j = 1 , M
 partial_counter = partial_counter +  1.
     END DO
+#ifdef _END_PRAGMA
 !$OMP END PARALLEL LOOP
+#endif
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
+#ifndef _END_PRAGMA
+!$OMP END ATOMIC
+#endif
     END DO
+#ifdef _END_PRAGMA
 !$OMP END TEAMS DISTRIBUTE
+#endif
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN
     WRITE(*,*)  'Expected', L*M,  'Got', counter

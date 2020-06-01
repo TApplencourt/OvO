@@ -26,14 +26,23 @@ PROGRAM target_teams_loop__parallel__do__simd
     DO k = 1 , N
 partial_counter = partial_counter +  1.
     END DO
+#ifdef _END_PRAGMA
 !$OMP END SIMD
+#endif
     END DO
+#ifdef _END_PRAGMA
 !$OMP END DO
+#endif
 !$OMP END PARALLEL
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
+#ifndef _END_PRAGMA
+!$OMP END ATOMIC
+#endif
     END DO
+#ifdef _END_PRAGMA
 !$OMP END TARGET TEAMS LOOP
+#endif
 IF ( .NOT.almost_equal(counter, L*M*N, 0.1) ) THEN
     WRITE(*,*)  'Expected', L*M*N,  'Got', counter
     CALL EXIT(112)

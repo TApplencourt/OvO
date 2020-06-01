@@ -38,7 +38,9 @@ PROGRAM target__teams__parallel__do
 !$OMP ATOMIC UPDATE
 counter = counter +  1./num_teams
     END DO
+#ifdef _END_PRAGMA
 !$OMP END DO
+#endif
 !$OMP END PARALLEL
 !$OMP END TEAMS
 !$OMP END TARGET

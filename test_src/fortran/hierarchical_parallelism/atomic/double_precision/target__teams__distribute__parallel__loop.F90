@@ -23,10 +23,14 @@ PROGRAM target__teams__distribute__parallel__loop
 !$OMP ATOMIC UPDATE
 counter = counter +  1.
     END DO
+#ifdef _END_PRAGMA
 !$OMP END LOOP
+#endif
 !$OMP END PARALLEL
     END DO
+#ifdef _END_PRAGMA
 !$OMP END DISTRIBUTE
+#endif
 !$OMP END TEAMS
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN

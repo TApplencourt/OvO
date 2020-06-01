@@ -38,9 +38,14 @@ PROGRAM target__parallel__simd
     DO i = 1 , L
 partial_counter = partial_counter +  1./num_threads
     END DO
+#ifdef _END_PRAGMA
 !$OMP END SIMD
+#endif
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
+#ifndef _END_PRAGMA
+!$OMP END ATOMIC
+#endif
 !$OMP END PARALLEL
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN

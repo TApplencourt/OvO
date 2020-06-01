@@ -16,7 +16,9 @@ PROGRAM target__teams_loop
     DO i = 1 , L
 counter = counter +  1.
     END DO
+#ifdef _END_PRAGMA
 !$OMP END TEAMS LOOP
+#endif
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     WRITE(*,*)  'Expected', L,  'Got', counter

@@ -36,7 +36,9 @@ PROGRAM target__parallel__simd
     DO i = 1 , L
 counter = counter +  CMPLX(  1./num_threads , 0 ) 
     END DO
+#ifdef _END_PRAGMA
 !$OMP END SIMD
+#endif
 !$OMP END PARALLEL
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN

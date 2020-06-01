@@ -6,7 +6,7 @@ using namespace std;
 bool almost_equal(complex<float> x, complex<float> gold, float tol) {
         return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol);
 }
-#if !defined(_NO_UDR)
+#ifndef _NO_UDR
 #pragma omp declare reduction(+: complex<float>: omp_out += omp_in)
 #endif
 void test_target__teams__loop__parallel_for__simd(){

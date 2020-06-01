@@ -37,9 +37,14 @@ PROGRAM target_teams__parallel_do_simd
     DO i = 1 , L
 partial_counter = partial_counter +  1./num_teams
     END DO
+#ifdef _END_PRAGMA
 !$OMP END PARALLEL DO SIMD
+#endif
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
+#ifndef _END_PRAGMA
+!$OMP END ATOMIC
+#endif
 !$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     WRITE(*,*)  'Expected', L,  'Got', counter

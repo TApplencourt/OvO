@@ -40,9 +40,13 @@ PROGRAM target_teams__parallel__do__simd
     DO j = 1 , M
 counter = counter +  1./num_teams
     END DO
+#ifdef _END_PRAGMA
 !$OMP END SIMD
+#endif
     END DO
+#ifdef _END_PRAGMA
 !$OMP END DO
+#endif
 !$OMP END PARALLEL
 !$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L*M, 0.1) ) THEN

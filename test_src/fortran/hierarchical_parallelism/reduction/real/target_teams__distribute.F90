@@ -16,7 +16,9 @@ PROGRAM target_teams__distribute
     DO i = 1 , L
 counter = counter +  1.
     END DO
+#ifdef _END_PRAGMA
 !$OMP END DISTRIBUTE
+#endif
 !$OMP END TARGET TEAMS
 IF ( .NOT.almost_equal(counter, L, 0.1) ) THEN
     WRITE(*,*)  'Expected', L,  'Got', counter

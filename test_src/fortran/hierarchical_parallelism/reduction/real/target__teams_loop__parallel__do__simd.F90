@@ -25,12 +25,18 @@ PROGRAM target__teams_loop__parallel__do__simd
     DO k = 1 , N
 counter = counter +  1.
     END DO
+#ifdef _END_PRAGMA
 !$OMP END SIMD
+#endif
     END DO
+#ifdef _END_PRAGMA
 !$OMP END DO
+#endif
 !$OMP END PARALLEL
     END DO
+#ifdef _END_PRAGMA
 !$OMP END TEAMS LOOP
+#endif
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M*N, 0.1) ) THEN
     WRITE(*,*)  'Expected', L*M*N,  'Got', counter

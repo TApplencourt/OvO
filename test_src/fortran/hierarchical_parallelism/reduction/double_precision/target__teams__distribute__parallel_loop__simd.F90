@@ -25,11 +25,17 @@ PROGRAM target__teams__distribute__parallel_loop__simd
     DO k = 1 , N
 counter = counter +  1.
     END DO
+#ifdef _END_PRAGMA
 !$OMP END SIMD
+#endif
     END DO
+#ifdef _END_PRAGMA
 !$OMP END PARALLEL LOOP
+#endif
     END DO
+#ifdef _END_PRAGMA
 !$OMP END DISTRIBUTE
+#endif
 !$OMP END TEAMS
 !$OMP END TARGET
 IF ( .NOT.almost_equal(counter, L*M*N, 0.1) ) THEN
