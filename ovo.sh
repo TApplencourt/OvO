@@ -5,15 +5,15 @@ Usage:
   ovo.sh run [<test_folder>...] [--no_long] [--no_loop]
   ovo.sh display [--detailed | --failed | --passed ] [--no_long] [--no_loop] [<result_folder>...]
   ovo.sh report  [--no_long] [--no_loop]  [<result_folder>] 
-  ovo.sh clean
+  ovo.sh clean [<test_folder>...]
 "
 
 # You are Not Expected to Understand This
 # docopt parser below, refresh this parser with `docopt.sh ovo.sh`
 # shellcheck disable=2016,1091,2034
 docopt() { source src/docopt-lib.sh '0.9.15' || { ret=$?
-printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:285}
-usage=${DOC:36:249}; digest=afac1; shorts=('' '' '' '' '')
+printf -- "exit %d\n" "$ret"; exit "$ret"; }; set -e; trimmed_doc=${DOC:0:304}
+usage=${DOC:36:268}; digest=49c29; shorts=('' '' '' '' '')
 longs=(--no_long --no_loop --detailed --failed --passed); argcounts=(0 0 0 0 0)
 node_0(){ switch __no_long 0; }; node_1(){ switch __no_loop 1; }; node_2(){
 switch __detailed 2; }; node_3(){ switch __failed 3; }; node_4(){
@@ -25,9 +25,9 @@ node_11(){ _command clean; }; node_12(){ required 7; }; node_13(){ oneormore 5
 node_17(){ required 8 14 15 16; }; node_18(){ either 2 3 4; }; node_19(){
 optional 18; }; node_20(){ oneormore 6; }; node_21(){ optional 20; }; node_22(){
 required 9 19 15 16 21; }; node_23(){ optional 6; }; node_24(){
-required 10 15 16 23; }; node_25(){ required 11; }; node_26(){
+required 10 15 16 23; }; node_25(){ required 11 14; }; node_26(){
 either 12 17 22 24 25; }; node_27(){ required 26; }; cat <<<' docopt_exit() {
-[[ -n $1 ]] && printf "%s\n" "$1" >&2; printf "%s\n" "${DOC:36:249}" >&2; exit 1
+[[ -n $1 ]] && printf "%s\n" "$1" >&2; printf "%s\n" "${DOC:36:268}" >&2; exit 1
 }'; unset var___no_long var___no_loop var___detailed var___failed var___passed \
 var__test_folder_ var__result_folder_ var_gen var_run var_display var_report \
 var_clean; parse 27 "$@"; local prefix=${DOCOPT_PREFIX:-''}; local docopt_decl=1
@@ -88,7 +88,7 @@ frun() {
         echo $(${CXX:-c++} --version) > "$nresult"/compilers.log
         echo $(${FC:-gfortran} --version) >> "$nresult"/compilers.log
 
-        if [[ ${__no_long} && ${__no_loop} ]]
+        if ${__no_long} && ${__no_loop}
         then
             make --no-print-directory -C "$dir" exe_no_long_no_loop |& tee "$nresult"/compilation.log
         elif ${__no_long}
@@ -168,5 +168,5 @@ $gen && rm -rf -- ./test_src && ./src/gtest.py
 $run && fclean "${_result_folder_[@]}" && frun "${_test_folder_[@]}"
 $display && fdisplay "${_result_folder_[@]}"
 $report && freport "${_result_folder_[@]}"
-$clean && fclean
+$clean && fclean "${_test_folder_[@]}"
 exit 0
