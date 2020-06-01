@@ -113,6 +113,7 @@ class Path():
         self.path = [ ' '.join(pragma.split('_')[0] for pragma in p.split()) for p in path]
         self.T = TypeSystem(T)
         self.language = language
+        self.unroll = 2
 
     @cached_property
     def name(self):

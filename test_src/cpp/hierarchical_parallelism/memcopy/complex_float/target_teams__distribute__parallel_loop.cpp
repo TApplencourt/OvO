@@ -7,7 +7,7 @@ using namespace std;
 #include <algorithm>
 #include <stdexcept>
 bool almost_equal(complex<float> x, complex<float> y, int ulp) {
-    return std::abs(x-y) <= std::numeric_limits<>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<>::min();
+    return std::abs(x-y) <= std::numeric_limits<float>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<float>::min();
 }
 void test_target_teams__distribute__parallel_loop(){
   // Input and Outputs
