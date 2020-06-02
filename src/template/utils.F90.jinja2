@@ -68,7 +68,12 @@ END FUNCTION almost_equal
 {%- elif only_parallel %} 1./num_threads 
 {%- endif %}
 {%- if is_cmplx %} , 0 ) {% endif%}
+{% endmacro %}
 
+{% macro OMP_END(fat_pragma) %}
+{% if not "loop" in fat_pragma or ("loop" in fat_pragma  and self.paired_pragmas)%}
+!$OMP END {{fat_pragma["pragma"]}}
+{% endif %}
 {% endmacro %}
 
 {% macro epilogue_function(counter, expected_value) %}

@@ -1,0 +1,994 @@
+{
+    "F77_complex": {
+        "ABS": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "REAL"
+                ]
+            ]
+        },
+        "AIMAG": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "REAL"
+                ]
+            ]
+        },
+        "CMPLX": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "COMPLEX"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "COMPLEX"
+                ],
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "CONJG": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "COS": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "DBLE": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "EXP": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "INT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "LOG": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "REAL": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "REAL"
+                ]
+            ]
+        },
+        "SIN": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "SQRT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        }
+    },
+    "F77": {
+        "ACOS": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "AINT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "AMAX0": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "REAL"
+                ]
+            ]
+        },
+        "AMAX1": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ]
+            ]
+        },
+        "AMIN0": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "REAL"
+                ]
+            ]
+        },
+        "AMIN1": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ]
+            ]
+        },
+        "ANINT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "ASIN": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "ATAN": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "ATAN2": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "CEILING": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "COSH": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "DIM": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "DMAX1": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "DMIN1": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "DPROD": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "FLOAT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "REAL"
+                ]
+            ]
+        },
+        "FLOOR": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "IDINT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "DOUBLE PRECISION",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "IFIX": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "LOG10": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "MAX": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ],
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "REAL"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "MAX0": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "MAX1": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "MIN": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ],
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "REAL"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "MIN0": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "MIN1": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "MOD": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "MODULO": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "NINT": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "INTEGER"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "INTEGER"
+                ]
+            ]
+        },
+        "SIGN": {
+            "attribute": [
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "INTEGER",
+                    "INTEGER",
+                    "INTEGER"
+                ],
+                [
+                    "REAL",
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "SINH": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "SNGL": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "DOUBLE PRECISION",
+                    "REAL"
+                ]
+            ]
+        },
+        "TAN": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "TANH": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        }
+    }
+}

@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-
-from itertools import tee
-import json, os
-
+import jinja2, json, os
+from itertools import tee, zip_longest
 from functools import update_wrapper
+
+dirname = os.path.dirname(__file__)
+templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname,"template"))
+templateEnv = jinja2.Environment(loader=templateLoader)
+
 class cached_property(object):
     def __init__(self, func):
         update_wrapper(self,func)
@@ -22,18 +25,13 @@ def pairwise(iterable):
     next(b, None)
     return zip(a, b)
 
-def sanitize_string(str_):
-    """
-    >>> sanitize_string('REAL')
-    'real'
-    >>> sanitize_string('DOUBLE PRECISION')
-    'double_precision'
-    >>> sanitize_string('complex<double>')
-    'complex_double'
-    >>> sanitize_string('*double')
-    'double'
-    """
-    return '_'.join(str_.lower().translate(str.maketrans("<>*", "   ")).split())
+def format_template(str_):
+    return '\n'.join(line for line in str_.split('\n') if line.strip() ) + '\n'
+
+# ___                             
+#  |     ._   _    | | _|_ o |  _ 
+#  | |_| |_) (/_   |_|  |_ | | _> 
+#        |                       
 
 class TypeSystem():
 
@@ -42,7 +40,17 @@ class TypeSystem():
     
     @cached_property
     def serialized(self):
-        return sanitize_string(self.T)     
+        """
+        >>> sanitize_string('REAL')
+        'real'
+        >>> sanitize_string('DOUBLE PRECISION')
+        'double_precision'
+        >>> sanitize_string('complex<double>')
+        'complex_double'
+        >>> sanitize_string('*double')
+        'double'
+        """
+        return '_'.join(self.T.lower().translate(str.maketrans("<>*", "   ")).split())
 
     @cached_property
     def category(self):
@@ -89,6 +97,13 @@ class TypeSystem():
     def __str__(self):
         return self.T
 
+    @cached_property
+    def language(self):
+        if self.no_pt.islower():
+            return 'cpp'
+        else:
+            return 'fortran'
+
 #  _        _    ___          
 # / \ |\/| |_)    | ._ _   _  
 # \_/ |  | |      | | (/_ (/_ 
@@ -104,16 +119,24 @@ def combinations_construct(tree_config_path, path=['root']) -> List[List[str]]:
         tails += combinations_construct(tree_config_path, path + [children])
     return tails
 
-
+# ___                               _                      
+#  |  _   _ _|_   |_   _.  _  _ __ |_ _.  _ _|_  _  ._     
+#  | (/_ _>  |_   |_) (_| _> (/_   | (_| (_  |_ (_) | \/   
+#                                                     /    
 
 class Path():
 
-    def __init__(self, path,T, language='cpp'):
+    def __init__(self, path, d_arg):
         # To facilitate the recursion. Loop are encoded as "loop_distribute" and "loop_for".
         self.path = [ ' '.join(pragma.split('_')[0] for pragma in p.split()) for p in path]
-        self.T = TypeSystem(T)
-        self.language = language
-        self.unroll = 2
+
+        self.T =  TypeSystem(d_arg['data_type'])
+        self.test_type = d_arg['test_type']
+
+        self.language = self.T.language
+        self.avoid_user_defined_reduction = d_arg['avoid_user_defined_reduction']
+        self.paired_pragmas = d_arg['paired_pragmas']
+        self.loop_pragma = d_arg['loop_pragma']
 
     @cached_property
     def name(self):
@@ -181,15 +204,10 @@ class Path():
 
         from collections import namedtuple
         Idx = namedtuple("Idx",'i N v')
-        if self.n_loop == 0:
-            return []
-        elif self.n_loop == 1:
-           return [Idx('i','L',64*64*64)]
-        elif self.n_loop == 2:
-           return [Idx('i','L',64*64), Idx('j','M',64)]
-        elif self.n_loop == 3:
-           return [Idx('i','L',64), Idx('j','M',64), Idx('k','N',64)]
+        i0 = ord('i')
+        return [ Idx(chr(i0+i),f"N_{chr(i0+i)}",64) for i in range(self.n_loop) ]
 
+        
     @cached_property
     def fat_path(self):
 
@@ -234,15 +252,15 @@ class Path():
 
         return l
 
-import os
-import jinja2
-dirname = os.path.dirname(__file__)
-templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname,"template"))
-templateEnv = jinja2.Environment(loader=templateLoader)
+    def write_template_rendered(self,folder):
+        if self.template_rendered:
+            with open(os.path.join(folder,self.filename),'w') as f:
+                f.write(self.template_rendered)
 
-
-def format_template(str_):
-    return '\n'.join(line for line in str_.split('\n') if line.strip() ) + '\n'
+#                                        _                                
+# |_| o  _  ._ _. ._ _ |_  o  _  _. |   |_) _. ._ _. | |  _  | o  _ ._ _  
+# | | | (/_ | (_| | (_ | | | (_ (_| |   |  (_| | (_| | | (/_ | | _> | | | 
+#                                                                         
 
 class Fold(Path):
 
@@ -253,21 +271,27 @@ class Fold(Path):
 
         return f"{'*'.join(l.N for l in self.loops)}"
 
-    def template_rendered(self,family):
+    @cached_property
+    def template_rendered(self):
         
-        if family =='atomic' and self.has("simd"):
-            return 
+        if self.test_type  == 'atomic' and self.has("simd"):
+            return False
 
-        if family =='reduction_atomic' and not any("partial" in p for p in self.fat_path):
-            return 
+        if self.test_type == 'reduction_atomic' and not any("partial" in p for p in self.fat_path):
+            return False
         
-        if family =='reduction_atomic' and self.balenced and self.n_loop == 1:
-            return
+        if self.test_type  == 'reduction_atomic' and self.balenced and self.n_loop == 1:
+            return False
+
+        if not self.loop_pragma and self.has('loop'):
+            return False
+        if self.loop_pragma and not self.has('loop'):
+            return False
 
         template = templateEnv.get_template(f"fold.{self.ext}.jinja2")
 
         str_ = template.render(name=self.name,
-                               family=family,
+                               family=self.test_type,
                                fat_path=self.fat_path,
                                loops=self.loops,
                                balenced=self.balenced,
@@ -276,36 +300,39 @@ class Fold(Path):
                                expected_value=self.expected_value,
                                T_category=self.T.category,
                                T_type=self.T.internal,
-                               T=self.T.T)
-
+                               T=self.T.T,
+                               avoid_user_defined_reduction=self.avoid_user_defined_reduction,
+                               paired_pragmas=self.paired_pragmas)
+                               
         return format_template(str_)
 
 class Memcopy(Path):
 
     @cached_property
     def index(self):
-        if self.language == "cpp":
-            if self.n_loop == 1:
-                return "i"
-            elif self.n_loop == 2:
-                return "j + i*M"
-            elif self.n_loop == 3:
-                return "k + j*N + i*N*M"
-        elif  self.language == "fortran":
-            if self.n_loop == 1:
-                return "i"
-            elif self.n_loop == 2:
-                return "j + (i-1)*M"
-            elif self.n_loop == 3:
-                return "k + (j-1)*N + (i-1)*N*M"
-
+        l=[]
+        n = self.n_loop
+        for j in reversed(range(n)):
+            head, *tail = self.loops[j:]
+            str_ = [ f"({head.i}-1)" if self.language =='fortran' else head.i  ] + [k.N for k in tail]
+            l.append('*'.join(str_))
+        if self.language == 'fortran':
+            return '+'.join(l) + '+1'
+        else:
+            return '+'.join(l)
     @cached_property
     def size(self):
         return '*'.join(l.N for l in self.loops) 
 
-    def template_rendered(self, familly):
+    @cached_property
+    def template_rendered(self):
         if not self.balenced or self.only_target:
-            return
+            return False
+
+        if not self.loop_pragma and self.has('loop'):
+            return False
+        if self.loop_pragma and not self.has('loop'):
+            return False
 
         template = templateEnv.get_template(f"test_memcopy.{self.ext}.jinja2")
 
@@ -320,7 +347,10 @@ class Memcopy(Path):
 
         return format_template(str_)
 
-#from cmath import complex
+#                                                  _                         
+# |\/|  _. _|_ |_   _  ._ _   _. _|_ o  _  _. |   |_    ._   _ _|_ o  _  ._  
+# |  | (_|  |_ | | (/_ | | | (_|  |_ | (_ (_| |   | |_| | | (_  |_ | (_) | | 
+#                                                                            
 class ccomplex(object):
    
     def __init__(self, a, b):
@@ -470,87 +500,140 @@ class Math():
 # \_ (_) (_| (/_   (_| (/_ | | (/_ | (_|  |_ | (_) | | 
 #                   _|                                 
 #
-def gen_math(makefile, l_json, language):
-    from itertools import zip_longest
 
-    for p in l_json:
-      with open(os.path.join(dirname,"config",p), 'r') as f:
-          math_json = json.load(f)
+def gen_mf(d_arg):
+    print (d_arg)
+    
+    std = d_arg['standart']
+    cmplx = d_arg['complex']
+   
+    if std.startswith('cpp') or std == 'gnu':
+        language = 'cpp'
+        if cmplx:
+            f = 'cmath_complex_synopsis.json'
+        else:
+            f =  'cmath_synopsis.json'
+    elif std.startswith('F'):
+        language = 'fortran'
+        f = "f77math_synopsis.json"
+    
+    with open(os.path.join(dirname,"config",f), 'r') as f:
+        math_json = json.load(f)
 
-      for category, X in math_json.items():
-        folder = os.path.join("test_src",language,f"{category}")
-        os.makedirs(folder, exist_ok=True)
+    name_folder = [std] + [k for k,v in d_arg.items() if v == True]    
+    folder = os.path.join("test_src","mathematical_function",language,'-'.join(name_folder))
+    os.makedirs(folder, exist_ok=True)
 
-        with open(os.path.join(folder,'Makefile'),'w') as f:
-            f.write(makefile)
+    with open(os.path.join(folder,"Makefile"),'w') as f:
+        f.write(templateEnv.get_template(f"Makefile.jinja2").render(ext="cpp" if language == "cpp" else "F90"))
 
-        for name, Y in X.items():
+    std = f"{std}_complex" if cmplx else std
+    if std not in math_json:
+        return False
 
+    for name, Y in math_json[std].items():
            lattribute = Y['attribute']
            lT = Y['type']
            largv = Y['name'] if 'name' in Y else []
            ldomain = Y['domain'] if 'domain' in Y else []
-            
+
            for T, attr, argv, domain in zip_longest(lT,lattribute,largv, ldomain):
                     m = Math(name,T, attr, argv, domain,language)
                     if m.template_rendered:
                         with open(os.path.join(folder,m.filename),'w') as f:
                             f.write(m.template_rendered)
+       
 
-def gen_hp(makefile, omp_construct, tests, language):
+def gen_hp(d_arg, omp_construct):
+    
+    print (d_arg) 
+    t = TypeSystem(d_arg['data_type'])
 
+    # Do we need to generate a folder?
+    if d_arg['avoid_user_defined_reduction']:
+        if t.language == "fortran":
+            return False
+        if t.category != 'complex':
+            return False
+        if d_arg['test_type'] not in ('reduction',):
+            return False
+    if d_arg['paired_pragmas'] and t.language != "fortran":
+            return False
+    
+    if t.category == 'complex' and d_arg['test_type'] in ('reduction_atomic','atomic','threaded_atomic'):
+        return False
 
-    for test,Constructor, l_T in tests: 
-        for T in l_T:
-            folder = os.path.join("test_src",language,"hierarchical_parallelism",test,sanitize_string(T))
+    name_folder = [d_arg["test_type"], t.serialized ] + [k for k,v in d_arg.items() if v == True]
+    folder =  os.path.join("test_src",t.language,"hierarchical_parallelism",'-'.join(name_folder))
+    os.makedirs(folder, exist_ok=True)
 
-            os.makedirs(folder, exist_ok=True)
+    with open(os.path.join(folder,"Makefile"),'w') as f:
+        f.write(templateEnv.get_template(f"Makefile.jinja2").render(ext="cpp" if t.language == "cpp" else "F90"))
 
-            with open(os.path.join(folder,'Makefile'),'w') as f:
-                f.write(makefile)
+    d_Construtor = {'reduction': Fold,
+                    'atomic': Fold,
+                    'reduction_atomic': Fold,
+                    'memcopy': Memcopy,
+                    'threaded_reduction': Fold,
+                    'threaded_atomic': Fold}
 
-            for path in omp_construct:
-                p = Constructor(path,T,language)
-                t = p.template_rendered(test)
-                if t:
-                    with open(os.path.join(folder,p.filename),'w') as f:
-                        f.write(t)
+    Constructor = d_Construtor[d_arg["test_type"]]
+    for path in omp_construct:
+        if d_arg["test_type"].startswith('threaded'):
+            path = ['parallel for'] + path
+        Constructor(path,d_arg).write_template_rendered(folder)
+#
+# ___                                  
+#  |  ._  ._     _|_   |   _   _  o  _ 
+# _|_ | | |_) |_| |_   |_ (_) (_| | (_ 
+#         |                    _|      
+#
+import argparse
+class EmptyIsBoth(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if len(values) == 0:
+            values = [True,False]
+        setattr(namespace, self.dest, values)
+
+import argparse
+def ListOfBool(v):
+    try:
+        return eval(v)
+    except:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
 
 if __name__ == '__main__':
-    import argparse
     parser = argparse.ArgumentParser(description='Generate tests.')
+    action_parsers = parser.add_subparsers(dest='command')
+    hp_parser = action_parsers.add_parser("hierarchical_parallelism")
+
+    hp_parser.add_argument('--test_type', nargs='+', default=['atomic','reduction'])
+    hp_parser.add_argument('--data_type',nargs='+', default=['float','complex<double>', 'REAL', 'DOUBLE COMPLEX'])
+    hp_parser.add_argument('--loop_pragma', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
+    hp_parser.add_argument('--paired_pragmas', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
+    hp_parser.add_argument('--avoid_user_defined_reduction', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
+
+    mf_parser = action_parsers.add_parser("mathematical_function")
+    mf_parser.add_argument('--standart', nargs='*', default=['cpp11','F77'])
+    mf_parser.add_argument('--complex',  nargs='*', default=[True,False], action=EmptyIsBoth, type=ListOfBool)
+
     args = parser.parse_args()
-
-    makefile_cpp = templateEnv.get_template(f"Makefile.jinja2").render(ext="cpp")
-    makefile_fortran = templateEnv.get_template(f"Makefile.jinja2").render(ext="F90")
-
-    gen_math(makefile_cpp, ("cmath_synopsis.json" ,"cmath_complex_synopsis.json"), "cpp")
-    gen_math(makefile_fortran, ("f90math_synopsis.json",), "fortran" )
+    if not args.command:
+        parser.parse_args(['--help'])
+        sys.exit()
 
     with open(os.path.join(dirname,"config","omp_struct.json"), 'r') as f:
         omp_construct = combinations_construct(json.load(f))
-    
-    gen_hp(makefile_cpp, omp_construct,( ("memcopy", Memcopy,     ['float', 'complex<float>', 'double','complex<double>']) ,
-                                    ("atomic" , Fold,      ['float', 'double']) ,
-                                    ("reduction", Fold, ["float",'complex<float>','double','complex<double>']), 
-                                    ("reduction_atomic", Fold, ['float','double'] )),
-                                    "cpp" ) 
-    gen_hp(makefile_fortran, omp_construct, (  ("memcopy", Memcopy,     ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']) ,
-                                          ("atomic" , Fold,      ['REAL','DOUBLE PRECISION']) ,
-                                          ("reduction", Fold, ['REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']), 
-                                          ("reduction_atomic", Fold, ['REAL','DOUBLE PRECISION'] )),
-                                          "fortran" )
-    
-    # Threaded  
-    subset_omp_construct = [ ['parallel for','target teams distribute parallel for'],
-                             ['parallel','for','target','teams','distribute','parallel','for'],
-                             ['parallel','target','teams'] ]
 
-    gen_hp(makefile_cpp, subset_omp_construct,   ( ("threaded_reduction" , Fold,      ['double','complex<double>']),) , "cpp" )
-    gen_hp(makefile_fortran, subset_omp_construct,   ( ("threaded_reduction" , Fold,      ['DOUBLE PRECISION','DOUBLE COMPLEX']),) , "fortran" )
+    gen = gen_hp if args.command == 'hierarchical_parallelism' else gen_mf
+    from itertools import product
+    d_args = dict(sorted(vars(args).items()))
+    del d_args['command']
 
-    gen_hp(makefile_cpp, subset_omp_construct,   ( ("threaded_atomic" , Fold,      ['double']),) , "cpp" )
-    gen_hp(makefile_fortran, subset_omp_construct,   ( ("threaded_atomic" , Fold,      ['DOUBLE PRECISION', 'DOUBLE COMPLEX']),) , "fortran" )
-
-
-
+    k = d_args.keys()
+    for p in product(*d_args.values()):
+        d = {k:v for k,v in zip(k,p)}
+        if args.command == 'hierarchical_parallelism':
+            gen_hp(d,omp_construct)
+        else:
+            gen_mf(d)

@@ -1,5 +1,5 @@
 {
-    "math_gnu": {
+    "gnu": {
         "sincos" : {
              "attribute": [ ["in","out","out"] ],
              "type": [ ["double", "double*", "double*"] ]
@@ -13,7 +13,7 @@
              "type": [ ["long double", "long double*", "long double*"] ]
                 }        
     },
-    "math_cpp11": {
+    "cpp11": {
         "abs": {
             "attribute": [
                 [
@@ -4584,7 +4584,7 @@
             ]
         }
     },
-    "math_cpp17": {
+    "cpp17": {
         "assoc_laguerre": {
             "attribute": [
                 [
@@ -5636,7 +5636,7 @@
             ]
         }
     },
-    "math_cpp20": {
+    "cpp20": {
         "lerp": {
             "attribute": [
                 [
