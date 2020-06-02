@@ -1,3 +1,5 @@
+{% from 'utils.F90.jinja2' import OMP_END with context%}
+
 program {{name}}
 
     {% set is_cmplx = (T_category == "complex") %}
@@ -44,7 +46,8 @@ program {{name}}
 {% if "loop" in fat_pragma %}
     END DO
 {% endif %}
-    !$OMP END {{fat_pragma["pragma"]}}
+
+    {{ OMP_END(fat_pragma) }}
     {% endfor %}
 
     IF (ANY(ABS(A - B) > EPSILON( {% if is_cmplx %} REAL( {%endif%} B {% if is_cmplx %} ) {%endif%} ) )) THEN

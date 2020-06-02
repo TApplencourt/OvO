@@ -2,10 +2,8 @@
 
 {{ prologue_general(T_category, balenced) }}
 
-{% if T_category == "complex" %}
-#ifndef _NO_UDR
+{% if T_category == "complex" and not avoid_user_defined_reduction %}
 #pragma omp declare reduction(+: {{T}}: omp_out += omp_in)
-#endif
 {% endif %}
 
 void test_{{name}}(){
