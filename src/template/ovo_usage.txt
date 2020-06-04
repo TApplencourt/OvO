@@ -1,0 +1,42 @@
+OvO a OpenMP test generator.
+Usage:
+  ovo.sh gen
+  ovo.sh gen hierarchical_parallelism [--test_type [atomic|reduction|reduction_atomic|
+                                                    threaded_atomic|threaded_reduction|
+                                                    memcopy]... ]
+                                      [--data_type [float|'complex<float>'|
+                                                    double|'complex<double>'|
+                                                    REAL|COMPLEX|
+                                                    'DOUBLE PRECISION'|'DOUBLE COMPLEX']... ]
+                                      [--loop_pragma [True|False] ]
+                                      [--paired_pragmas [True|False] ]
+                                      [--avoid_user_defined_reduction [True|False] ]
+                                      [--append]
+
+  ovo.sh gen mathematical_function [--standart [cpp11|cpp17|cpp20|f77]... ]
+                                   [--complex [True|False] ]
+                                   [--long [True|False] ]
+                                   [--append]
+  ovo.sh run [<test_folder>...]
+  ovo.sh report [ --summary | --detailed | --failed | --passed ] [<result_folder>...]
+  ovo.sh clean
+  ovo.sh (-h | --help)
+
+Default Value (will be used when using gen without option):
+    --test_type atomic reduction memcopy
+    --data_type float, 'complex<double>' REAL 'DOUBLE COMPLEX'
+    --loop_pragma False
+    --paired_pragmas False
+    --avoid_user_defined_reduction False
+
+    --standart cp11 F77
+    --complex True, False
+    --long False 
+
+Example:
+  - Generate all the possible tests
+    ./ovo.sh gen hierarchical_parallelism --test_type --data_type --loop_pragma --paired_pragmas --avoid_user_defined_reduction
+    ./ovo.sh gen mathematical_function --standart --complex --long --append
+  - Generate only hierarchical_parallelism real Fortran test with loop construct
+     ./ovo.sh gen hierarchical_parallelism  --data_type REAL --loop_pragma True
+

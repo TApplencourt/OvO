@@ -7,7 +7,6 @@ using namespace std;
 {% endif %}
 #include <vector>
 #include <algorithm>
-#include <stdexcept>
     
 bool almost_equal({{T}} x, {{T}} y, int ulp) {
 {% if T_category == "float" %}
@@ -18,7 +17,6 @@ bool almost_equal({{T}} x, {{T}} y, int ulp) {
 }
 
 void test_{{name}}(){
-  // Input and Outputs
   {% for l in loops %}
   const int {{ l.N }} = {{l.v}};
   {%- endfor %}
@@ -30,7 +28,6 @@ void test_{{name}}(){
   {{T}} *pA = A.data();
   {{T}} *pB = B.data();
 
-// Main program
 {% for fat_pragma in fat_path %}
 #pragma omp {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %}  map(from: pA[0:{{size}}]) map(to: pB[0:{{size}}]) {% endif %}
 {% if "loop" in fat_pragma %}
@@ -45,11 +42,11 @@ pA[ {{index}} ] = pB [ {{index}} ];
     } 
 {% endfor %}
 
-// Validation
 for (int i = 0 ;  i < size ; i++) {
     if ( !almost_equal(A[i],B[i],1) ) {
          std::cerr << "Expected: " << B[i] << " Got: " << A[i] << std::endl;
-        throw std::runtime_error( "{{name}} give incorect value when offloaded");
+        {# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
+        std::exit(112);
     }
 }
  
