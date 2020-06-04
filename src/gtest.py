@@ -281,7 +281,7 @@ class Fold(Path):
     @cached_property
     def template_rendered(self):
         
-        if self.test_type  == 'atomic' and self.has("simd"):
+        if self.test_type in ('atomic','threaded_atomic') and self.has("simd"):
             return False
 
         if self.test_type == 'reduction_atomic' and not any("partial" in p for p in self.fat_path):
