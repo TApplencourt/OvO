@@ -52,7 +52,7 @@ while (( "$#" )); do
     case "$1" in
         gen)
         shift
-        $base/src/gtest.py $@
+        $base/src/gtest.py "$@"
         exit
         ;;
         run)
