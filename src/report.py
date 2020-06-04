@@ -76,6 +76,11 @@ class TestCompilationError(unittest.TestCase):
         self.assertEqual(m, "lroundf_long_int_float")
         self.assertEqual(error, "Segfault")
 
+    def test_error03(self):
+        str_ = "make:11 *** [lroundf_long_int_float.exe] Error 124 (ignored)"
+        m, error  = re.findall(r_compilation.error, str_).pop()
+        self.assertEqual(m, "lroundf_long_int_float")
+        self.assertEqual(error, "Error 124 (ignored)")
 
 class TestRutimeLaunch(unittest.TestCase):
     def test_launch00(self):
@@ -130,7 +135,7 @@ def parse_folder(folder):
         for line in f:
             for m,error in re.findall(r_runtime.error, line):
                  l = error.split()
-                 if l != 'Error':
+                 if l[0] != 'Error':
                         error = 'runtime'
                  elif l[1] in ('124','137'):
                         error =  'hanging'
