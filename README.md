@@ -8,15 +8,15 @@
 ```
 [![Build Status](https://travis-ci.org/TApplencourt/OvO.svg?branch=master)](https://travis-ci.org/TApplencourt/OvO)
 
-OvO containt a large (>2k) set of tests for OpenMP offloading using hierarchical parallelism. For example, see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/reduction) for the fortran tests regarding reduction.
+OvO containt a large (>2k) set of tests for OpenMP offloading using hierarchical parallelism. For example, see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/) for the fortran tests.
 
 This repository also containt tests for most of the C++/Fortran math Function (`cmath` and `complex`). For example see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/math_cpp11) directory for the c++11 functions.
 
-Tests can be run using `./ovo.sh run` with the enviroment variable needed (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD` / `MAKEFLAGS`) 
+Tests can be run using `./ovo.sh run` with the enviroment variable needed (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD) 
 
 For example:
 ```
-$  OMP_TARGET_OFFLOAD=mandatory CXX="clang++" CXXFLAGS="-fopenmp -std=c++11" MAKEFLAGS='-j32 --output-sync=target' ./ovo.sh run ./tests_src/cpp/math_cpp11
+$  OMP_TARGET_OFFLOAD=mandatory CXX="clang++" CXXFLAGS="-fopenmp -std=c++11" ./ovo.sh run ./tests_src/cpp/math_cpp11
 Running tests/math_cpp11 | Saving log in results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30/math_cpp11
 clang++ "-fopenmp -std=c++17 isgreater_bool_float_float.cpp -o isgreater_bool_float_float.exe
 clang++ "-fopenmp -std=c++17 isgreater_bool_double_double.cpp -o isgreater_bool_double_double.exe
@@ -27,7 +27,7 @@ clang++ "-fopenmp -std=c++17 truncf_float_float.cpp -o truncf_float_float.exe
 Result can be generate with `./ovo.sh display`.
 
 ```
-$ ./ovo.sh display
+$ ./ovo.sh report
 >> test_results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30
 307 / 307 ( 100% ) pass [failures: 46 compilation, 0 offload, 0 incorrect results]
 ```
@@ -35,22 +35,21 @@ $ ./ovo.sh display
 ## Requirement
  - bash >3.2 (bash 3.2 was realeased in 2006-10-12!)
  - python3
- - make
  - [jinja](https://jinja.palletsprojects.com/en/2.11.x/) (optional,  needed to re-generate the tests if templates have been modifed)
- - OpenMP 5.0 compiler. Ovo assume `firstprivate` by default, and being able to map and reduce a variable in the same combined construct
+```
+conda install --file requirements.txt
+```
+or
+```
+pip install requirements.txt)
+```
+- OpenMP 5.0 compiler. Ovo assume `firstprivate` by default, and being able to map and reduce a variable in the same combined construct
   - C++ 11 compiler minimun (some math test required C++17 and C++20)
- 
+
 ## More information
 
 ```
 $./ovo.sh -h
-Omphval.sh a OpenMP test generator.
-Usage:
-  ovo.sh gen
-  ovo.sh run [<test_folder>...] [--no_long_double] [--no_loop]
-  ovo.sh display [--detailed | --failed | --passed ] [--no_long_double] [--no_loop] [<result_folder>...]
-  ovo.sh report  [--no_long_double] [--no_loop]  [<result_folder>]
-  ovo.sh clean
 ```
 
 # How to read logs files.
@@ -66,6 +65,4 @@ They are generated using the `.jinja2` templates located at `test_src/template/`
 
 # Advance usage
 
- - Defining `NO_UDR` will remove the usage for User Defined Reduction used in C++ complexed reduction tests
- - Defining `END_PRAGMA` will force Fortran tests to always add `#OMP END`
  - We use implicit mapping of std::complex. To check in simple case if this is support by your compiler please use `./ovo.sh run src/sanity_check/`  
