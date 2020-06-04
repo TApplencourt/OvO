@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-import jinja2, json, os, shutil
+import jinja2, json, os, shutil, sys
 from itertools import tee, zip_longest, product
 from functools import update_wrapper
 
 dirname = os.path.dirname(__file__)
 templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname,"template"))
 templateEnv = jinja2.Environment(loader=templateLoader)
+
+with open(os.path.join(dirname,'template','ovo_usage.txt')) as f:
+    ovo_usage=f.read()
 
 class cached_property(object):
     def __init__(self, func):
@@ -62,7 +65,7 @@ class TypeSystem():
             return 'complex'
         elif self.no_pt in ('bool',):
             return 'bool'
-        raise NotImplementedError(f'Datatype ({self.T}) is not yet supported')
+        raise NotImplementedError(f'Datatype ({self.T}) is not yet supported.')
 
     @cached_property
     def is_long(self):
@@ -592,6 +595,13 @@ def gen_hp(d_arg, omp_construct):
 # _|_ | | |_) |_| |_   |_ (_) (_| | (_ 
 #         |                    _|      
 #
+def check_validy_arguments(possible_values, values, type_):
+    wrong_value = set(values) - set(possible_values)
+    if wrong_value:
+        print (ovo_usage)
+        print (f'{wrong_value} are not valid {type_}. Please choose in {possible_values}')
+        sys.exit()
+
 import argparse
 class EmptyIsBoth(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
@@ -601,14 +611,18 @@ class EmptyIsBoth(argparse.Action):
 
 class EmptyIsAllTestType(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
+        possible_values = ['atomic','reduction','reduction_atomic', 'memcopy','threaded_atomic','threaded_reduction']
         if len(values) == 0:
-            values = ['atomic','reduction','reduction_atomic', 'memcopy','threaded_atomic','threaded_reduction']
+            values = possible_values
+        check_validy_arguments(possible_values, values, 'test type')
         setattr(namespace, self.dest, values)
 
 class EmptyIsAllDataType(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
+        possible_values =  ['float','complex<float>', 'double', 'complex<double>', 'REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']
         if len(values) == 0:
-            values = ['float','complex<float>', 'double', 'complex<double>', 'REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']
+            values = possible_values
+        check_validy_arguments(possible_values, values, 'data type')
         setattr(namespace, self.dest, values)
 
 class EmptyIsAllStandart(argparse.Action):
@@ -625,9 +639,7 @@ def ListOfBool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 if __name__ == '__main__':
-    with open(os.path.join(dirname,'template','ovo_usage.txt')) as f:
-            usage=f.read()
-    parser = argparse.ArgumentParser(usage=usage)
+    parser = argparse.ArgumentParser(usage=ovo_usage)
     action_parsers = parser.add_subparsers(dest='command')
 
     hp_parser = action_parsers.add_parser("hierarchical_parallelism")

@@ -22,9 +22,15 @@ Usage:
   ovo.sh clean
   ovo.sh (-h | --help)
 
-Default Value (will be used when using gen without option):
+Possible value:
+   --test_type atomic reduction reduction_atomic memcopy threaded_atomic threaded_reduction
+   --data_type float double 'complex<float>' 'complex<double>' REAL COMPLEX 'DOUBLE PRECISION' 'DOUBLE COMPLEX'
+
+   --standart cp11 cpp17 cpp20 F77
+
+Default value:
     --test_type atomic reduction memcopy
-    --data_type float, 'complex<double>' REAL 'DOUBLE COMPLEX'
+    --data_type float 'complex<double>' REAL 'DOUBLE COMPLEX'
     --loop_pragma False
     --paired_pragmas False
     --avoid_user_defined_reduction False
