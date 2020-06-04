@@ -216,8 +216,10 @@ if __name__ == "__main__":
             summary_d_result(d)
         elif args.failed:
             dd.pop(None,None)
+            if not dd: continue
+            print (f'>> {folder}')
             for k,v in sorted(dd.items()):
-                print (f'>> {folder}')
+                print (f'>>> {k}')
                 print ('\n'.join(sorted(v)))
         elif args.passed and dd[None]:
             print (f'>> {folder}')
