@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import jinja2, json, os
-from itertools import tee, zip_longest
+import jinja2, json, os, shutil
+from itertools import tee, zip_longest, product
 from functools import update_wrapper
 
 dirname = os.path.dirname(__file__)
@@ -63,6 +63,10 @@ class TypeSystem():
         elif self.no_pt in ('bool',):
             return 'bool'
         raise NotImplementedError(f'Datatype ({self.T}) is not yet supported')
+
+    @cached_property
+    def is_long(self):
+        return 'long' in self.no_pt
 
     @cached_property
     def internal(self):
@@ -311,15 +315,13 @@ class Memcopy(Path):
     @cached_property
     def index(self):
         l=[]
-        n = self.n_loop
-        for j in reversed(range(n)):
+        for j in reversed(range(self.n_loop)):
             head, *tail = self.loops[j:]
             str_ = [ f"({head.i}-1)" if self.language =='fortran' else head.i  ] + [k.N for k in tail]
             l.append('*'.join(str_))
-        if self.language == 'fortran':
-            return '+'.join(l) + '+1'
-        else:
-            return '+'.join(l)
+
+        r = '+'.join(l)
+        return r if self.language == 'cpp' else f'{r}+1'
     @cached_property
     def size(self):
         return '*'.join(l.N for l in self.loops) 
@@ -478,7 +480,11 @@ class Math():
             return [ l for l in self.l if l.is_output and not l.T.is_pointer ].pop()
         else:
             return None
-
+    
+    @cached_property
+    def use_long(self):
+        return any(t.T.is_long for t in self.l) 
+                
     @cached_property
     def have_complex(self):
         return any(t.T.category == 'complex' for t in self.l)
@@ -502,7 +508,6 @@ class Math():
 #
 
 def gen_mf(d_arg):
-    print (d_arg)
     
     std = d_arg['standart']
     cmplx = d_arg['complex']
@@ -521,7 +526,7 @@ def gen_mf(d_arg):
         math_json = json.load(f)
 
     name_folder = [std] + [k for k,v in d_arg.items() if v == True]    
-    folder = os.path.join("test_src","mathematical_function",language,'-'.join(name_folder))
+    folder = os.path.join("test_src",language,"mathematical_function",'-'.join(name_folder))
     os.makedirs(folder, exist_ok=True)
 
     with open(os.path.join(folder,"Makefile"),'w') as f:
@@ -539,14 +544,13 @@ def gen_mf(d_arg):
 
            for T, attr, argv, domain in zip_longest(lT,lattribute,largv, ldomain):
                     m = Math(name,T, attr, argv, domain,language)
-                    if m.template_rendered:
+                    if  ( (m.use_long and d_arg['long']) or (not m.use_long and not d_arg['long']) ) and m.template_rendered:
                         with open(os.path.join(folder,m.filename),'w') as f:
                             f.write(m.template_rendered)
        
 
 def gen_hp(d_arg, omp_construct):
     
-    print (d_arg) 
     t = TypeSystem(d_arg['data_type'])
 
     # Do we need to generate a folder?
@@ -563,7 +567,7 @@ def gen_hp(d_arg, omp_construct):
     if t.category == 'complex' and d_arg['test_type'] in ('reduction_atomic','atomic','threaded_atomic'):
         return False
 
-    name_folder = [d_arg["test_type"], t.serialized ] + [k for k,v in d_arg.items() if v == True]
+    name_folder = [d_arg["test_type"], t.serialized ] + sorted([k for k,v in d_arg.items() if v == True])
     folder =  os.path.join("test_src",t.language,"hierarchical_parallelism",'-'.join(name_folder))
     os.makedirs(folder, exist_ok=True)
 
@@ -595,6 +599,24 @@ class EmptyIsBoth(argparse.Action):
             values = [True,False]
         setattr(namespace, self.dest, values)
 
+class EmptyIsAllTestType(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if len(values) == 0:
+            values = ['atomic','reduction','reduction_atomic', 'memcopy','threaded_atomic','threaded_reduction']
+        setattr(namespace, self.dest, values)
+
+class EmptyIsAllDataType(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if len(values) == 0:
+            values = ['float','complex<float>', 'double', 'complex<double>', 'REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']
+        setattr(namespace, self.dest, values)
+
+class EmptyIsAllStandart(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if len(values) == 0:
+            values = ['cpp11', 'cpp17','cpp20','F77']
+        setattr(namespace, self.dest, values)
+
 import argparse
 def ListOfBool(v):
     try:
@@ -603,36 +625,47 @@ def ListOfBool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Generate tests.')
+    with open(os.path.join(dirname,'template','ovo_usage.txt')) as f:
+            usage=f.read()
+    parser = argparse.ArgumentParser(usage=usage)
     action_parsers = parser.add_subparsers(dest='command')
+
     hp_parser = action_parsers.add_parser("hierarchical_parallelism")
 
-    hp_parser.add_argument('--test_type', nargs='+', default=['atomic','reduction'])
-    hp_parser.add_argument('--data_type',nargs='+', default=['float','complex<double>', 'REAL', 'DOUBLE COMPLEX'])
+    hp_parser.add_argument('--test_type', nargs='*', default=['atomic','reduction','memcopy'], action=EmptyIsAllTestType)
+    hp_parser.add_argument('--data_type',nargs='*', default=['float','complex<double>', 'REAL', 'DOUBLE COMPLEX'], action=EmptyIsAllDataType)
     hp_parser.add_argument('--loop_pragma', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
     hp_parser.add_argument('--paired_pragmas', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
     hp_parser.add_argument('--avoid_user_defined_reduction', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
-
+    hp_parser.add_argument('--append', action='store_true' )
+    
     mf_parser = action_parsers.add_parser("mathematical_function")
-    mf_parser.add_argument('--standart', nargs='*', default=['cpp11','F77'])
+    mf_parser.add_argument('--standart', nargs='*', default=['cpp11','F77'], action=EmptyIsAllStandart)
     mf_parser.add_argument('--complex',  nargs='*', default=[True,False], action=EmptyIsBoth, type=ListOfBool)
+    mf_parser.add_argument('--long',  nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
+    mf_parser.add_argument('--append', action='store_true')
 
-    args = parser.parse_args()
-    if not args.command:
-        parser.parse_args(['--help'])
-        sys.exit()
-
+    l_args = [ parser.parse_args() ]
+    if not l_args[0].command:
+        l_args = [ parser.parse_args(['hierarchical_parallelism']), 
+                parser.parse_args(['mathematical_function']) ]
+    
     with open(os.path.join(dirname,"config","omp_struct.json"), 'r') as f:
         omp_construct = combinations_construct(json.load(f))
+     
+    if not any(args.append for args in l_args):
+        print('Removing ./test_src...')
+        shutil.rmtree('./test_src', ignore_errors=True)
 
-    gen = gen_hp if args.command == 'hierarchical_parallelism' else gen_mf
-    from itertools import product
-    d_args = dict(sorted(vars(args).items()))
-    del d_args['command']
+    for args in l_args:
+      d_args = dict(vars(args))
+      del d_args['command']
+      del d_args['append']
 
-    k = d_args.keys()
-    for p in product(*d_args.values()):
+      k = d_args.keys()
+      for p in product(*d_args.values()):
         d = {k:v for k,v in zip(k,p)}
+        print(d)
         if args.command == 'hierarchical_parallelism':
             gen_hp(d,omp_construct)
         else:

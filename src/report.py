@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
-import re
+import re, unittest, os
 from typing import NamedTuple
+from collections import defaultdict
+
+dirname = os.path.dirname(__file__)
 
 #  _                    
 # |_) _. ._ _ o ._   _  
@@ -18,7 +21,6 @@ class DRegex(NamedTuple):
 r_compilation = DRegex("\w+\.(?:cpp|F90) -o (\w+)\.exe$", "make.*?(\w+)\.exe\]\s+(.*)")
 r_runtime = DRegex("\./(\w+)\.exe$", "make.*?run_(\w+)\]\s+(.*)")
 
-import unittest
 class TestCompilationLaunch(unittest.TestCase):
     
     def test_launch00(self):
@@ -113,145 +115,112 @@ class TestRuntimeError(unittest.TestCase):
         self.assertEqual(m, "lroundf_long_int_float")
         self.assertEqual(error, "Aborted")
 
-class Result(NamedTuple):
-    path: str
-    test: set
-    failure: dict
+def parse_folder(folder):
+    d = {}
     
-def parse_log(file_path, mode, avoid_long, avoid_loop):
-
-    r = Result(file_path, set(), {} )
-
-    if not os.path.exists(p):
-        return r
-
-    if mode == "compilation":
-        regex = r_compilation
-    elif mode == "runtime":
-        regex =  r_runtime
-
-    with open(p) as f:
+    with open(os.path.join(folder,"compilation.log")) as f:
         for line in f:
-            for m in re.findall(regex.launch, line):
-                if not (avoid_long and 'long' in m) and not (avoid_loop and 'loop' in m):
-                    r.test.add(m)
-            for m,error in re.findall(regex.error,line):
-                if not (avoid_long and 'long' in m) and not (avoid_loop and 'loop' in m):
-                    r.failure[m] = error
+            for m in  re.findall(r_compilation.launch, line):
+                d[os.path.join(folder,m)] = None
 
-    return r
-
-#  _                    
-# | \ o  _ ._  |  _.    
-# |_/ | _> |_) | (_| \/ 
-#          |         /  
-#
-def display(name, l_result,  mode=None):
-    from operator import itemgetter
-    compilation, runtime = l_result
-
-    # Total number of test run.
-    total_test = len(compilation.test | runtime.test ) 
-    # Total failure 
-    total_fail = len( set(compilation.failure) | set(runtime.failure) )
-    total_success = total_test - total_fail
-    if total_test == 0: 
-        return
-
-    l_to_print=[]
-
-    if mode=='failed':
-        for type_, d in  ("Compile error", compilation.failure), ("Runtime error", runtime.failure):
-            if d:
-                l_to_print.append(f"# {type_}")
-                # Sort by error message
-                array = sorted(d.items(),key=itemgetter(1))
-                # Display taking care of alignement  
-                max_width = max(len(test) for test, _ in array)
-                for test, error in array:
-                    l_to_print.append(f"{test:{max_width}} {error}")
-                l_to_print.append('')
-
-    elif mode=='passed':
-        l_to_print.append("# Tests who passed")
-        for k in sorted(runtime.test - set(runtime.failure)):
-            l_to_print.append(k)
-        l_to_print.append('')
+            for m,error in re.findall(r_compilation.error, line):
+                d[os.path.join(folder,m)] = 'compilation'
     
-    if mode=='detailed' or l_to_print:
-        if name:
-            print (f'>> {name}')
-        s_runtime_compilation = set()
-        s_runtime_incorrect_result = set()
-        for n,e in runtime.failure.items():
-            try:
-                _, i, *_ = e.split()
-                if i == '112':
-                    s_runtime_incorrect_result.add(n)
-                else:
-                    raise ValueError
-            except ValueError:
-                 s_runtime_compilation.add(n)
+    with open(os.path.join(folder,"runtime.log")) as f:
+        for line in f:
+            for m,error in re.findall(r_runtime.error, line):
+                 l = error.split()
+                 if l != 'Error':
+                        error = 'runtime'
+                 elif l[1] in ('124','137'):
+                        error =  'hanging'
+                 elif l[1] in ('112',):
+                        error = 'wrong value'
+                 else:
+                        error = 'runtime'
+           
+                 d[os.path.join(folder,m)] = error
 
-        print (f'{total_success} / {total_test} ( {total_success/total_test :.0%} ) pass [failures: {len(set(compilation.failure)) } compilation, {len(s_runtime_compilation)} offload, {len(s_runtime_incorrect_result)} incorrect results]')
-        print ('\n'.join(l_to_print) )
+    return d
+
+
+#  _
+# | \ o  _ ._  |  _.
+# |_/ | _> |_) | (_| \/
+#          |         /
+#
+
+def summary_d_result(d):
+    total_test = len(d)
+    from collections import Counter
+    d = Counter(d.values())
+
+    c = d['compilation']
+    r = d['runtime']
+    h = d['hanging']
+    v = d['wrong value']
+    total_success = d[None]
+    
+    print (f'{total_success} / {total_test} ( {total_success/total_test :.0%} ) pass [failures: {c} compilation, {r} offload, {v} incorrect value, {h} hanging]')
 
 #                
 # |\/|  _. o ._  
 # |  | (_| | | | 
 #                
+import sys
+import argparse
+from pathlib import Path
+import os
+
+class EmptyIsAllFolder(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if len(values) == 0:
+            folders = [os.path.join('test_result',i) for i in os.listdir('test_result') ]
+            values = [ max(folders) ]
+
+        setattr(namespace, self.dest, values)
 
 if __name__ == "__main__":
+    with open(os.path.join(dirname,'template','ovo_usage.txt')) as f:
+            usage=f.read()
+    parser = argparse.ArgumentParser(usage=usage)
+    group = parser.add_mutually_exclusive_group()
 
-    import sys
-    import os.path
-    # This function is called by a bach script, hence the quite non pythonic input convension.
-    # It's easier to do the busness logic here than in bath
+    group.add_argument('--coarse' , action='store_true')
+    group.add_argument('--failed'  , action='store_true')
+    group.add_argument('--passed'  , action='store_true')
+   
+    parser.add_argument('result_folder', nargs='*',action=EmptyIsAllFolder)
+    args = parser.parse_args()
 
-    # The second and thirs arguments and sis the "mode" of display.
-    # Should we print only the summary, the failed or the past tests.
-    name = sys.argv[1]
-
-    if sys.argv[2] == 'true':
-        mode_display = "detailed"
-    elif sys.argv[3] == 'true':
-        mode_display = "failed"
-    elif sys.argv[4] == 'true':
-        mode_display = "passed"
-    else:
-        mode_display = 'summary'
-
-    # The last arguments skip the long_double example. Indeed, GPUs have limited support for them
-    avoid_long = True if sys.argv[5] == 'true' else False
-    avoid_loop = True if sys.argv[6] == 'true' else False
-
-    paths =  sys.argv[7:]
-
-    d_result = {}
-    for folder in paths:
-        l_result = []
-        for mode in ("compilation","runtime"):
-            p = os.path.join(folder,f"{mode}.log")
-            l_result.append(parse_log(p,mode, avoid_long, avoid_loop))
-            
-        d_result[folder] = l_result[:]
-        if mode_display != 'summary':
-            display(folder, l_result, mode_display) 
-
-    # We agreage all the result,
-    # Test may have the same name in different folder
-    # Because we print only a summary, we just need the list of the name of the test who ffailed,
-    # not their error type 
-    test_c = set(); failure_c = dict()
-    test_r = set(); failure_r = dict()
-
-    for folder, (c,r) in d_result.items():
-        test_c |= set(f"{folder}_{p}" for p in c.test)
-        failure_c.update( {f"{folder}/{k}":e for k,e in c.failure.items() } )
+    s_folder = set()
+    for folder in args.result_folder:
+        s_folder |= {os.path.dirname(path) for path in Path(folder).rglob('env.log')}
     
-        test_r |= set(f"{folder}_{p}" for p in r.test)
-        failure_r.update( {f"{folder}/{k}":e for k,e in  r.failure.items() } )
+    d_agregaded = {}
+    for folder in sorted(s_folder):
+        d = parse_folder(folder)
+        d_agregaded.update(d)
+    
+        dd = defaultdict(list)
+        for name, value in d.items():
+            dd[value].append(os.path.basename(name))
 
-    if mode_display == 'summary':
-        display(name,  [Result("", test_c, failure_c), Result("", test_r, failure_r)], 'detailed' )
-        
+        if args.coarse:
+            print (f'>> {folder}')
+            summary_d_result(d)
+        elif args.failed and set(dd.keys()) - {None}:
+            print (f'>> {folder}')
+            for k,v in sorted(dd.items()):
+                print (f'>>> {k}')
+                print ('\n'.join(sorted(v)))
+        elif args.passed and dd[None]:
+            print (f'>> {folder}')
+            for name, value in d[None].values():
+                print (n)
+    
+    if len(args.result_folder) == 1:
+        print (f">> Summary of {args.result_folder[0]}")
+    else:
+        print (">> Summary")
+    summary_d_result(d_agregaded)
