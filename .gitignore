@@ -1,5 +1,3 @@
 __pycache__/
-
-*.exe
-*.log
 test_result/*
+test_src/*
