@@ -214,15 +214,14 @@ if __name__ == "__main__":
         if args.coarse:
             print (f'>> {folder}')
             summary_d_result(d)
-        elif args.failed and set(dd.keys()) - {None}:
-            print (f'>> {folder}')
+        elif args.failed:
+            dd.pop(None,None)
             for k,v in sorted(dd.items()):
-                print (f'>>> {k}')
+                print (f'>> {folder}')
                 print ('\n'.join(sorted(v)))
         elif args.passed and dd[None]:
             print (f'>> {folder}')
-            for name, value in d[None].values():
-                print (n)
+            print ('\n'.join(sorted(dd[None])))
     
     if len(args.result_folder) == 1:
         print (f">> Summary of {args.result_folder[0]}")
