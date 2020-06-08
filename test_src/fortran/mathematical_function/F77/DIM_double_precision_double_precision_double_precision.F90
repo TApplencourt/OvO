@@ -2,7 +2,7 @@ program test_DIM
    implicit none
    DOUBLE PRECISION :: in0 = ( 0.42 )
    DOUBLE PRECISION :: in1 = ( 0.42 )
-   DOUBLE PRECISION :: o_host, o_device 
+   DOUBLE PRECISION :: o_host, o_device
     o_host = DIM( in0, in1)
     !$OMP target map(from:o_device)
     o_device = DIM( in0, in1)

@@ -1,7 +1,7 @@
 program test_INT
    implicit none
    COMPLEX :: in0 = ( 0.42, 0.0 )
-   INTEGER :: o_host, o_device 
+   INTEGER :: o_host, o_device
     o_host = INT( in0)
     !$OMP target map(from:o_device)
     o_device = INT( in0)

@@ -2,7 +2,7 @@ program test_AMIN0
    implicit none
    INTEGER :: in0 = ( 1 )
    INTEGER :: in1 = ( 1 )
-   REAL :: o_host, o_device 
+   REAL :: o_host, o_device
     o_host = AMIN0( in0, in1)
     !$OMP target map(from:o_device)
     o_device = AMIN0( in0, in1)

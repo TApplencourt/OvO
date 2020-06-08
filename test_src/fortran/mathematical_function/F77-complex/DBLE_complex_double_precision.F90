@@ -1,7 +1,7 @@
 program test_DBLE
    implicit none
    COMPLEX :: in0 = ( 0.42, 0.0 )
-   DOUBLE PRECISION :: o_host, o_device 
+   DOUBLE PRECISION :: o_host, o_device
     o_host = DBLE( in0)
     !$OMP target map(from:o_device)
     o_device = DBLE( in0)

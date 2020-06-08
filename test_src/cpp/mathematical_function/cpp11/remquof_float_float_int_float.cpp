@@ -1,11 +1,11 @@
 #include <cmath>
-#include <iomanip> 
+#include <iomanip>
 #include <limits>
 #include <iostream>
 #include <cstdlib>
 using namespace std;
 bool almost_equal(int x, int y, int ulp) {
-    return x == y ; 
+    return x == y ;
 }
 bool almost_equal(float x, float y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();

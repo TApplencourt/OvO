@@ -1,7 +1,7 @@
 program test_CMPLX
    implicit none
    COMPLEX :: in0 = ( 0.42, 0.0 )
-   COMPLEX :: o_host, o_device 
+   COMPLEX :: o_host, o_device
     o_host = CMPLX( in0)
     !$OMP target map(from:o_device)
     o_device = CMPLX( in0)

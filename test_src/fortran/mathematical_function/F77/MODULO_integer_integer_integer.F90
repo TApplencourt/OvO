@@ -2,7 +2,7 @@ program test_MODULO
    implicit none
    INTEGER :: in0 = ( 1 )
    INTEGER :: in1 = ( 1 )
-   INTEGER :: o_host, o_device 
+   INTEGER :: o_host, o_device
     o_host = MODULO( in0, in1)
     !$OMP target map(from:o_device)
     o_device = MODULO( in0, in1)

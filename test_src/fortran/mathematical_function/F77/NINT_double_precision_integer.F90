@@ -1,7 +1,7 @@
 program test_NINT
    implicit none
    DOUBLE PRECISION :: in0 = ( 0.42 )
-   INTEGER :: o_host, o_device 
+   INTEGER :: o_host, o_device
     o_host = NINT( in0)
     !$OMP target map(from:o_device)
     o_device = NINT( in0)

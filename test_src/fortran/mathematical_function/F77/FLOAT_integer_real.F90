@@ -1,7 +1,7 @@
 program test_FLOAT
    implicit none
    INTEGER :: in0 = ( 1 )
-   REAL :: o_host, o_device 
+   REAL :: o_host, o_device
     o_host = FLOAT( in0)
     !$OMP target map(from:o_device)
     o_device = FLOAT( in0)

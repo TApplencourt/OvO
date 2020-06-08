@@ -1,7 +1,7 @@
 program test_IFIX
    implicit none
    REAL :: in0 = ( 0.42 )
-   INTEGER :: o_host, o_device 
+   INTEGER :: o_host, o_device
     o_host = IFIX( in0)
     !$OMP target map(from:o_device)
     o_device = IFIX( in0)

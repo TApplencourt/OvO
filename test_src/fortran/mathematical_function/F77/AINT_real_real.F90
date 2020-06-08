@@ -1,7 +1,7 @@
 program test_AINT
    implicit none
    REAL :: in0 = ( 0.42 )
-   REAL :: o_host, o_device 
+   REAL :: o_host, o_device
     o_host = AINT( in0)
     !$OMP target map(from:o_device)
     o_device = AINT( in0)

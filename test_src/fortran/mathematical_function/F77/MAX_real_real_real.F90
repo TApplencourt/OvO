@@ -2,7 +2,7 @@ program test_MAX
    implicit none
    REAL :: in0 = ( 0.42 )
    REAL :: in1 = ( 0.42 )
-   REAL :: o_host, o_device 
+   REAL :: o_host, o_device
     o_host = MAX( in0, in1)
     !$OMP target map(from:o_device)
     o_device = MAX( in0, in1)

@@ -83,3 +83,20 @@ IF ( .NOT.almost_equal({{counter}}, {{expected_value}}, 0.1) ) THEN
     CALL EXIT(112)
 ENDIF
 {% endmacro %}
+
+{% macro for_loop_prologue(fat_pragma) %}
+{% if "loop" in fat_pragma %}
+    {% for l in fat_pragma["loop"] %}
+       DO {{l.i}} = 1 , {{l.N}}
+    {% endfor %}
+{% endif %}
+{% endmacro %}
+
+{% macro for_loop_epilogue(fat_pragma) %}
+{% if "loop" in fat_pragma %}
+{% for l in fat_pragma["loop"] %}
+    END DO
+{% endfor %}
+{% endif %}
+{% endmacro %}
+

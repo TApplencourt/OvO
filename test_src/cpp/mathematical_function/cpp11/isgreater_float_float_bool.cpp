@@ -1,11 +1,11 @@
 #include <cmath>
-#include <iomanip> 
+#include <iomanip>
 #include <limits>
 #include <iostream>
 #include <cstdlib>
 using namespace std;
 bool almost_equal(bool x, bool y, int ulp) {
-    return x == y ; 
+    return x == y ;
 }
 void test_isgreater(){
    float in0 {  0.42 };

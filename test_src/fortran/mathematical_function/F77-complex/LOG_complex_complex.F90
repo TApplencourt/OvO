@@ -1,7 +1,7 @@
 program test_LOG
    implicit none
    COMPLEX :: in0 = ( 0.42, 0.0 )
-   COMPLEX :: o_host, o_device 
+   COMPLEX :: o_host, o_device
     o_host = LOG( in0)
     !$OMP target map(from:o_device)
     o_device = LOG( in0)

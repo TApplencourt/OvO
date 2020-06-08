@@ -1,7 +1,7 @@
 program test_ABS
    implicit none
    COMPLEX :: in0 = ( 0.42, 0.0 )
-   REAL :: o_host, o_device 
+   REAL :: o_host, o_device
     o_host = ABS( in0)
     !$OMP target map(from:o_device)
     o_device = ABS( in0)

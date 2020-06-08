@@ -1,11 +1,11 @@
 #include <cmath>
-#include <iomanip> 
+#include <iomanip>
 #include <limits>
 #include <iostream>
 #include <cstdlib>
 using namespace std;
 bool almost_equal(int x, int y, int ulp) {
-    return x == y ; 
+    return x == y ;
 }
 void test_ilogb(){
    float x {  0.42 };

@@ -1,7 +1,7 @@
 program test_REAL
    implicit none
    COMPLEX :: in0 = ( 0.42, 0.0 )
-   REAL :: o_host, o_device 
+   REAL :: o_host, o_device
     o_host = REAL( in0)
     !$OMP target map(from:o_device)
     o_device = REAL( in0)

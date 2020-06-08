@@ -2,7 +2,7 @@ program test_DPROD
    implicit none
    REAL :: in0 = ( 0.42 )
    REAL :: in1 = ( 0.42 )
-   DOUBLE PRECISION :: o_host, o_device 
+   DOUBLE PRECISION :: o_host, o_device
     o_host = DPROD( in0, in1)
     !$OMP target map(from:o_device)
     o_device = DPROD( in0, in1)

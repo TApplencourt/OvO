@@ -2,7 +2,7 @@ program test_DIM
    implicit none
    REAL :: in0 = ( 0.42 )
    REAL :: in1 = ( 0.42 )
-   REAL :: o_host, o_device 
+   REAL :: o_host, o_device
     o_host = DIM( in0, in1)
     !$OMP target map(from:o_device)
     o_device = DIM( in0, in1)

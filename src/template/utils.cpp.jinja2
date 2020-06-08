@@ -56,3 +56,12 @@ if ( !almost_equal(counter,{{T}} { {{expected_value}} }, 0.1)  ) {
     std::exit(112);
 }
 {% endmacro %}
+
+{% macro for_loop_prologue(fat_pragma) %}
+  {% if "loop" in fat_pragma %}
+    {% for l in fat_pragma["loop"] %}
+      for (int {{l.i}} = 0 ; {{l.i}} < {{l.N}} ; {{l.i}}++ )
+    {% endfor %}
+      {
+ {% endif %}
+{% endmacro %}

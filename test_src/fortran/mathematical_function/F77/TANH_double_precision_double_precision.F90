@@ -1,7 +1,7 @@
 program test_TANH
    implicit none
    DOUBLE PRECISION :: in0 = ( 0.42 )
-   DOUBLE PRECISION :: o_host, o_device 
+   DOUBLE PRECISION :: o_host, o_device
     o_host = TANH( in0)
     !$OMP target map(from:o_device)
     o_device = TANH( in0)

@@ -1,7 +1,7 @@
 program test_COS
    implicit none
    COMPLEX :: in0 = ( 0.42, 0.0 )
-   COMPLEX :: o_host, o_device 
+   COMPLEX :: o_host, o_device
     o_host = COS( in0)
     !$OMP target map(from:o_device)
     o_device = COS( in0)
