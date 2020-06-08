@@ -19,7 +19,7 @@ PROGRAM {{name}}
   {%- elif family == 'reduction'          and "reduce"         in fat_pragma %} REDUCTION(+: counter)
   {%- elif family == 'reduction_atomic' and "partial_reduce" in fat_pragma   %} REDUCTION(+: partial_counter) {%- endif %}
   {%- if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
-  {%- if n_collapse >= 1 and  "loop" in fat_pragma %} COLLAPSE({{n_collapse}}) {% endif %}
+  {%- if n_collapse != 0 and  "loop" in fat_pragma %} COLLAPSE({{n_collapse}}) {% endif %}
 
   {{ for_loop_prologue(fat_pragma) }}
 

@@ -19,7 +19,7 @@ void test_{{name}}(){
   {%- elif  family in ('reduction','threaded_reduction')  and "reduce"         in fat_pragma %} reduction(+: counter)
   {%- elif  family == 'reduction_atomic'                  and "partial_reduce" in fat_pragma %} reduction(+: partial_counter) {%- endif %}
   {%- if "target" in fat_pragma %} map(tofrom: counter) {% endif %}
-  {%- if n_collapse >= 1 and  "loop" in fat_pragma %} collapse({{n_collapse}}) {% endif %}
+  {%- if n_collapse != 0 and  "loop" in fat_pragma %} collapse({{n_collapse}}) {% endif %}
   
   {{ for_loop_prologue(fat_pragma) }}
 
