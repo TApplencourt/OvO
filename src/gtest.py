@@ -319,6 +319,9 @@ class Fold(Path):
         if self.loop_pragma and not self.has('loop'):
             return False
 
+        if self.n_collapse != 1 and not self.n_loop:
+            return False
+
         template = templateEnv.get_template(f"fold.{self.ext}.jinja2")
 
         str_ = template.render(name=self.name,
@@ -358,10 +361,11 @@ class Memcopy(Path):
     def template_rendered(self):
         if not self.balenced or self.only_target:
             return False
-
         if not self.loop_pragma and self.has('loop'):
             return False
         if self.loop_pragma and not self.has('loop'):
+            return False
+        if self.n_collapse != 1 and not self.n_loop:
             return False
 
         template = templateEnv.get_template(f"test_memcopy.{self.ext}.jinja2")
@@ -597,7 +601,10 @@ def gen_hp(d_arg, omp_construct):
     if t.category == 'complex' and d_arg['test_type'] in ('reduction_atomic','atomic','threaded_atomic'):
         return False
 
-    name_folder = [d_arg["test_type"], t.serialized ] + sorted([k for k,v in d_arg.items() if v == True])
+    name_folder = [d_arg["test_type"], t.serialized ] + sorted([k for k,v in d_arg.items() if v is True])
+    if d_arg['collapse'] != 1:
+        name_folder += [ f"collapse_n{d_arg['collapse']}" ]
+
     folder =  os.path.join("test_src",t.language,"hierarchical_parallelism",'-'.join(name_folder))
     os.makedirs(folder, exist_ok=True)
 
@@ -661,8 +668,8 @@ class EmptyIsAllStandart(argparse.Action):
 class EmptyIsTwo(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         if not values:
-            values = 2
-        setattr(namespace, self.dest, [values])
+            values = [1,2]
+        setattr(namespace, self.dest, values)
 
 import argparse
 def ListOfBool(v):
@@ -682,7 +689,7 @@ if __name__ == '__main__':
     hp_parser.add_argument('--loop_pragma', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
     hp_parser.add_argument('--paired_pragmas', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
     hp_parser.add_argument('--avoid_user_defined_reduction', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
-    hp_parser.add_argument('--collapse', nargs='?', default=[1], action=EmptyIsTwo, type=ListOfBool)
+    hp_parser.add_argument('--collapse', nargs='*', default=[1], action=EmptyIsTwo, type=ListOfBool)
 
     hp_parser.add_argument('--append', action='store_true' )
     
