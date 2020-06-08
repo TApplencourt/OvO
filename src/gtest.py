@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import jinja2, json, os, shutil, sys
+import jinja2, json, os, shutil, sys, math
 from itertools import tee, zip_longest, product
 from functools import update_wrapper
 
@@ -28,8 +28,24 @@ def pairwise(iterable):
     next(b, None)
     return zip(a, b)
 
-def format_template(str_):
-    return '\n'.join(line for line in str_.split('\n') if line.strip() ) + '\n'
+def split_fortran_line(str_):
+    l = list(str_)
+    for i in range(len(str_)//100):
+        l.insert((i+1)*100+3*i,'&\n&')
+    return ''.join(l)
+
+def format_template(str_, language):
+    
+    l_line = [line.rstrip() for line in str_.split('\n') if line.strip() ]
+
+    l_result = []
+    if language=='fortran':
+        for l in l_line:
+            l_result.append(split_fortran_line(l))       
+    else:
+        l_result = l_line
+
+    return '\n'.join(l_result) + '\n'
 
 # ___                             
 #  |     ._   _    | | _|_ o |  _ 
@@ -144,6 +160,7 @@ class Path():
         self.avoid_user_defined_reduction = d_arg['avoid_user_defined_reduction']
         self.paired_pragmas = d_arg['paired_pragmas']
         self.loop_pragma = d_arg['loop_pragma']
+        self.n_collapse= d_arg['collapse']
 
     @cached_property
     def name(self):
@@ -203,16 +220,23 @@ class Path():
         return any(p in pragma for p in self.loop_contruct)
 
     @cached_property
-    def n_loop(self):
+    def n_loop_section(self):
         return sum(map(self.has_loop, self.path))
     
+    @cached_property
+    def n_loop(self):
+        return self.n_loop_section*self.n_collapse
+   
+    @cached_property
+    def loop_tripcount(self):
+         return max(1, math.ceil(math.pow(64*64*64, 1./self.n_loop)))
+
     @cached_property
     def loops(self):
 
         from collections import namedtuple
         Idx = namedtuple("Idx",'i N v')
-        i0 = ord('i')
-        return [ Idx(chr(i0+i),f"N_{chr(i0+i)}",64) for i in range(self.n_loop) ]
+        return [ Idx(f"i{i}",f"N{i}",self.loop_tripcount) for i in range(self.n_loop) ]
 
         
     @cached_property
@@ -231,8 +255,8 @@ class Path():
                 d["pragma"] = pragma.replace('for','do').upper() 
 
             if self.has_loop(pragma):
-                d["loop"] = self.loops[i_loop]
-                i_loop+=1
+                d["loop"] = [ self.loops[i_loop+i] for i in range(self.n_collapse) ]
+                i_loop+=self.n_collapse
 
             if "target" in pragma:
                 d["target"] = True
@@ -309,9 +333,10 @@ class Fold(Path):
                                T_type=self.T.internal,
                                T=self.T.T,
                                avoid_user_defined_reduction=self.avoid_user_defined_reduction,
-                               paired_pragmas=self.paired_pragmas)
-                               
-        return format_template(str_)
+                               paired_pragmas=self.paired_pragmas,
+                               n_collapse=self.n_collapse)
+                                        
+        return format_template(str_,self.language)
 
 class Memcopy(Path):
 
@@ -343,14 +368,16 @@ class Memcopy(Path):
 
         str_ = template.render(name=self.name,
                                fat_path=self.fat_path,
-                               loops=self.loops,
+                               loops = self.loops,
+                               n_loop_section=self.n_loop_section,
                                index=self.index,
                                size=self.size,
                                T_category=self.T.category,
                                T_type=self.T.internal,
-                               T=self.T.T)
+                               T=self.T.T,
+                               n_collapse=self.n_collapse)
 
-        return format_template(str_)
+        return format_template(str_,self.language)
 
 #                                                  _                         
 # |\/|  _. _|_ |_   _  ._ _   _. _|_ o  _  _. |   |_    ._   _ _|_ o  _  ._  
@@ -502,7 +529,7 @@ class Math():
         template = templateEnv.get_template(f"test_math.{self.ext}.jinja2")
         
         str_ = template.render(name=self.name, l_argv=self.l, scalar_output= self.scalar_output, have_complex=self.have_complex)
-        return format_template(str_)
+        return format_template(str_,self.language)
 
 #  -                                                   
 # /   _   _|  _     _   _  ._   _  ._ _. _|_ o  _  ._  
@@ -631,6 +658,12 @@ class EmptyIsAllStandart(argparse.Action):
             values = ['cpp11', 'cpp17','cpp20','F77']
         setattr(namespace, self.dest, values)
 
+class EmptyIsTwo(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if not values:
+            values = 2
+        setattr(namespace, self.dest, [values])
+
 import argparse
 def ListOfBool(v):
     try:
@@ -649,6 +682,8 @@ if __name__ == '__main__':
     hp_parser.add_argument('--loop_pragma', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
     hp_parser.add_argument('--paired_pragmas', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
     hp_parser.add_argument('--avoid_user_defined_reduction', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
+    hp_parser.add_argument('--collapse', nargs='?', default=[1], action=EmptyIsTwo, type=ListOfBool)
+
     hp_parser.add_argument('--append', action='store_true' )
     
     mf_parser = action_parsers.add_parser("mathematical_function")

@@ -1,4 +1,4 @@
-{% from 'utils.F90.jinja2' import prologue_general, prologue_function, epilogue_function, increment,OMP_END  with context%}
+{% from 'utils.F90.jinja2' import prologue_general, prologue_function, epilogue_function, increment,for_loop_prologue, for_loop_epilogue, OMP_END  with context%}
 {% set is_cmplx = (T_category == "complex") %}
 
 {{ prologue_general(is_cmplx) }}
@@ -19,11 +19,9 @@ PROGRAM {{name}}
   {%- elif family == 'reduction'          and "reduce"         in fat_pragma %} REDUCTION(+: counter)
   {%- elif family == 'reduction_atomic' and "partial_reduce" in fat_pragma   %} REDUCTION(+: partial_counter) {%- endif %}
   {%- if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
+  {%- if n_collapse >= 1 and  "loop" in fat_pragma %} COLLAPSE({{n_collapse}}) {% endif %}
 
-
-{% if "loop" in fat_pragma %}
-    DO {{fat_pragma["loop"].i}} = 1 , {{fat_pragma["loop"].N}}
-{% endif %}
+  {{ for_loop_prologue(fat_pragma) }}
 
     {% if "only_teams" in fat_pragma %}
     num_teams = omp_get_num_teams()
@@ -43,10 +41,7 @@ PROGRAM {{name}}
 {% endif %}
 
 {% for fat_pragma in fat_path | reverse %}
-
-{% if "loop" in fat_pragma %}
-    END DO
-{% endif %}
+{{ for_loop_epilogue(fat_pragma) }} 
 {{ OMP_END(fat_pragma) }}
 
 {% if family == 'reduction_atomic' and "partial" in fat_pragma%}

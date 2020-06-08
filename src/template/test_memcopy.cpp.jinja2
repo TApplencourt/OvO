@@ -1,3 +1,5 @@
+{% from 'utils.cpp.jinja2' import for_loop_prologue with context%}
+
 #include <iostream>
 #include <limits>
 #include <cmath>
@@ -30,15 +32,13 @@ void test_{{name}}(){
 
 {% for fat_pragma in fat_path %}
 #pragma omp {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %}  map(from: pA[0:{{size}}]) map(to: pB[0:{{size}}]) {% endif %}
-{% if "loop" in fat_pragma %}
-    for (int {{fat_pragma["loop"].i}} = 0 ; {{fat_pragma["loop"].i}} < {{fat_pragma["loop"].N}} ; {{fat_pragma["loop"].i}}++ )
-    {
-{% endif %}
+{%- if n_collapse >= 1 and  "loop" in fat_pragma %} collapse({{n_collapse}}) {% endif %}
+{{ for_loop_prologue(fat_pragma) }}
 {% endfor %}
+const int idx = {{index}};
+pA[idx] = pB[idx];
 
-pA[ {{index}} ] = pB [ {{index}} ];
-
-{% for l in loops %} 
+{% for _ in range(n_loop_section) %} 
     } 
 {% endfor %}
 

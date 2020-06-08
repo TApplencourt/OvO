@@ -1,4 +1,4 @@
-{% from 'utils.F90.jinja2' import OMP_END with context%}
+{% from 'utils.F90.jinja2' import for_loop_prologue, for_loop_epilogue, OMP_END with context%}
 
 program {{name}}
 
@@ -17,6 +17,7 @@ program {{name}}
     INTEGER :: {{ l.N }} = {{l.v}}
     INTEGER :: {{ l.i }} 
   {%- endfor %}
+    INTEGER :: idx
 
     INTEGER :: S
     S = {{size}}
@@ -34,19 +35,14 @@ program {{name}}
 
     {% for fat_pragma in fat_path %}
     !$OMP {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %}  MAP(FROM: A) MAP(TO: B) {% endif %}
-
-{% if "loop" in fat_pragma %}
-    DO {{fat_pragma["loop"].i}} = 1 , {{fat_pragma["loop"].N}} 
-{% endif %}
+    {%- if n_collapse >= 1 and  "loop" in fat_pragma %} COLLAPSE({{n_collapse}}) {% endif %}
+    {{ for_loop_prologue(fat_pragma) }}
     {% endfor %}
-
-    A( {{index}} ) = B( {{index}} )
+    idx = {{index}}    
+    A( idx ) = B( idx )
  
     {% for fat_pragma in fat_path | reverse %} 
-{% if "loop" in fat_pragma %}
-    END DO
-{% endif %}
-
+    {{ for_loop_epilogue(fat_pragma) }}
     {{ OMP_END(fat_pragma) }}
     {% endfor %}
 

@@ -1,4 +1,4 @@
-{% from 'utils.cpp.jinja2' import prologue_general, prologue_function, epilogue_function, increment with context%}
+{% from 'utils.cpp.jinja2' import prologue_general, prologue_function, epilogue_function, increment, for_loop_prologue  with context%}
 
 {{ prologue_general(T_category, balenced) }}
 
@@ -19,11 +19,9 @@ void test_{{name}}(){
   {%- elif  family in ('reduction','threaded_reduction')  and "reduce"         in fat_pragma %} reduction(+: counter)
   {%- elif  family == 'reduction_atomic'                  and "partial_reduce" in fat_pragma %} reduction(+: partial_counter) {%- endif %}
   {%- if "target" in fat_pragma %} map(tofrom: counter) {% endif %}
-
-{% if "loop" in fat_pragma %}
-    for (int {{fat_pragma["loop"].i}} = 0 ; {{fat_pragma["loop"].i}} < {{fat_pragma["loop"].N}} ; {{fat_pragma["loop"].i}}++ )
-    {
-{% endif %}
+  {%- if n_collapse >= 1 and  "loop" in fat_pragma %} collapse({{n_collapse}}) {% endif %}
+  
+  {{ for_loop_prologue(fat_pragma) }}
 
 {% if "only_teams" in fat_pragma %}
     {
