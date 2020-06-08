@@ -32,7 +32,7 @@ void test_{{name}}(){
 
 {% for fat_pragma in fat_path %}
 #pragma omp {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %}  map(from: pA[0:{{size}}]) map(to: pB[0:{{size}}]) {% endif %}
-{%- if n_collapse >= 1 and  "loop" in fat_pragma %} collapse({{n_collapse}}) {% endif %}
+{%- if n_collapse != 0 and  "loop" in fat_pragma %} collapse({{n_collapse}}) {% endif %}
 {{ for_loop_prologue(fat_pragma) }}
 {% endfor %}
 const int idx = {{index}};

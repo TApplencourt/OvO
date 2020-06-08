@@ -35,7 +35,7 @@ program {{name}}
 
     {% for fat_pragma in fat_path %}
     !$OMP {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %}  MAP(FROM: A) MAP(TO: B) {% endif %}
-    {%- if n_collapse >= 1 and  "loop" in fat_pragma %} COLLAPSE({{n_collapse}}) {% endif %}
+    {%- if n_collapse != 0 and  "loop" in fat_pragma %} COLLAPSE({{n_collapse}}) {% endif %}
     {{ for_loop_prologue(fat_pragma) }}
     {% endfor %}
     idx = {{index}}    

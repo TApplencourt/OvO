@@ -30,8 +30,10 @@ def pairwise(iterable):
 
 def split_fortran_line(str_):
     l = list(str_)
+
+    prefix = '&\n!$OMP&' if str_.startswith('!$OMP') else '&\n&'
     for i in range(len(str_)//100):
-        l.insert((i+1)*100+3*i,'&\n&')
+        l.insert((i+1)*100+3*i,prefix)
     return ''.join(l)
 
 def format_template(str_, language):
@@ -225,7 +227,7 @@ class Path():
     
     @cached_property
     def n_loop(self):
-        return self.n_loop_section*self.n_collapse
+        return self.n_loop_section*max(self.n_collapse,1)
    
     @cached_property
     def loop_tripcount(self):
@@ -255,7 +257,7 @@ class Path():
                 d["pragma"] = pragma.replace('for','do').upper() 
 
             if self.has_loop(pragma):
-                d["loop"] = [ self.loops[i_loop+i] for i in range(self.n_collapse) ]
+                d["loop"] = [ self.loops[i_loop+i] for i in range(max(self.n_collapse,1)) ]
                 i_loop+=self.n_collapse
 
             if "target" in pragma:
@@ -319,7 +321,7 @@ class Fold(Path):
         if self.loop_pragma and not self.has('loop'):
             return False
 
-        if self.n_collapse != 1 and not self.n_loop:
+        if self.n_collapse != 0 and not self.n_loop:
             return False
 
         template = templateEnv.get_template(f"fold.{self.ext}.jinja2")
@@ -365,7 +367,7 @@ class Memcopy(Path):
             return False
         if self.loop_pragma and not self.has('loop'):
             return False
-        if self.n_collapse != 1 and not self.n_loop:
+        if self.n_collapse != 0 and not self.n_loop:
             return False
 
         template = templateEnv.get_template(f"test_memcopy.{self.ext}.jinja2")
@@ -602,7 +604,7 @@ def gen_hp(d_arg, omp_construct):
         return False
 
     name_folder = [d_arg["test_type"], t.serialized ] + sorted([k for k,v in d_arg.items() if v is True])
-    if d_arg['collapse'] != 1:
+    if d_arg['collapse'] != 0:
         name_folder += [ f"collapse_n{d_arg['collapse']}" ]
 
     folder =  os.path.join("test_src",t.language,"hierarchical_parallelism",'-'.join(name_folder))
@@ -668,7 +670,7 @@ class EmptyIsAllStandart(argparse.Action):
 class EmptyIsTwo(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         if not values:
-            values = [1,2]
+            values = [0, 1,2]
         setattr(namespace, self.dest, values)
 
 import argparse
@@ -689,7 +691,7 @@ if __name__ == '__main__':
     hp_parser.add_argument('--loop_pragma', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
     hp_parser.add_argument('--paired_pragmas', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
     hp_parser.add_argument('--avoid_user_defined_reduction', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
-    hp_parser.add_argument('--collapse', nargs='*', default=[1], action=EmptyIsTwo, type=ListOfBool)
+    hp_parser.add_argument('--collapse', nargs='*', default=[0], action=EmptyIsTwo, type=ListOfBool)
 
     hp_parser.add_argument('--append', action='store_true' )
     
