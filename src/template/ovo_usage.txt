@@ -11,6 +11,7 @@ Usage:
                                       [--loop_pragma [True|False] ]
                                       [--paired_pragmas [True|False] ]
                                       [--avoid_user_defined_reduction [True|False] ]
+                                      [--collapse [N]...]
                                       [--append]
 
   ovo.sh gen mathematical_function [--standart [cpp11|cpp17|cpp20|f77]... ]
@@ -34,6 +35,7 @@ Default value:
     --loop_pragma False
     --paired_pragmas False
     --avoid_user_defined_reduction False
+    --collapse 1
 
     --standart cp11 F77
     --complex True, False
@@ -41,7 +43,7 @@ Default value:
 
 Example:
   - Generate all the possible tests
-    ./ovo.sh gen hierarchical_parallelism --test_type --data_type --loop_pragma --paired_pragmas --avoid_user_defined_reduction
+    ./ovo.sh gen hierarchical_parallelism --test_type --data_type --loop_pragma --paired_pragmas --avoid_user_defined_reduction --collapse
     ./ovo.sh gen mathematical_function --standart --complex --long --append
   - Generate only hierarchical_parallelism real Fortran test with loop construct
      ./ovo.sh gen hierarchical_parallelism  --data_type REAL --loop_pragma True
