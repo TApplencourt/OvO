@@ -71,7 +71,7 @@ END FUNCTION almost_equal
 {% endmacro %}
 
 {% macro OMP_END(fat_pragma) %}
-{% if not "loop" in fat_pragma or ("loop" in fat_pragma  and self.paired_pragmas)%}
+{% if not "loop" in fat_pragma or ("loop" in fat_pragma  and paired_pragmas)%}
 !$OMP END {{fat_pragma["pragma"]}}
 {% endif %}
 {% endmacro %}

@@ -1,14 +1,27 @@
 #!/usr/bin/env python3
 import jinja2, json, os, shutil, sys, math
-from itertools import tee, zip_longest, product
+from itertools import tee, zip_longest, product,chain
 from functools import update_wrapper
+from typing import List
+from collections import namedtuple
 
+#
+#  __                                      _          _       
+# /__ |  _  |_   _. |     | o ._  o  _.   /   _  ._ _|_ o  _  
+# \_| | (_) |_) (_| |   \_| | | | | (_|   \_ (_) | | |  | (_| 
+#                                _|                        _| 
+#
 dirname = os.path.dirname(__file__)
 templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname,"template"))
 templateEnv = jinja2.Environment(loader=templateLoader)
+def raise_helper(msg):
+    raise Exception(msg)
+templateEnv.globals['raise'] = raise_helper
 
-with open(os.path.join(dirname,'template','ovo_usage.txt')) as f:
-    ovo_usage=f.read()
+#                
+# | | _|_ o |  _ 
+# |_|  |_ | | _> 
+#                
 
 class cached_property(object):
     def __init__(self, func):
@@ -28,26 +41,44 @@ def pairwise(iterable):
     next(b, None)
     return zip(a, b)
 
-def split_fortran_line(str_):
-    l = list(str_)
-
-    prefix = '&\n!$OMP&' if str_.startswith('!$OMP') else '&\n&'
-    for i in range(len(str_)//100):
-        l.insert((i+1)*100+3*i,prefix)
-    return ''.join(l)
-
 def format_template(str_, language):
-    
+    """
+    - Remove empty line.
+    - right strip
+    - Split Fortran line 
+    """
+    def split_fortran_line(line, max_width=100):
+        prefix = '&\n!$OMP&' if line.startswith('!$OMP') else '&\n&'
+        l_chunk =  range(len(line)//100)         
+
+        l = list(line)
+        for i in l_chunk:
+            l.insert((i+1)*max_width+3*i,prefix)
+        return ''.join(l)
+  
     l_line = [line.rstrip() for line in str_.split('\n') if line.strip() ]
-
-    l_result = []
-    if language=='fortran':
-        for l in l_line:
-            l_result.append(split_fortran_line(l))       
-    else:
-        l_result = l_line
-
+    l_result = l_line if language=='cpp' else map(split_fortran_line,l_line)
     return '\n'.join(l_result) + '\n'
+
+#  _        _    ___
+# / \ |\/| |_)    | ._ _   _
+# \_/ |  | |      | | (/_ (/_
+#
+
+# Need to refractor this one... Too ugly or too smart
+def combinations_construct(tree_config_path, path=['root']) -> List[List[str]]:
+    '''
+    >>> combinations_construct({'root':['target','target teams'],
+    ...                         'target':['teams'],
+    ...                         'target teams': [],
+    ...                         'teams': [] })
+    [['target'], ['target', 'teams'], ['target teams']]
+    '''
+    tails = [path[1:]] if len(path[1:]) else []
+
+    for children in tree_config_path[path[-1]]:
+        tails += combinations_construct(tree_config_path, path + [children])
+    return tails
 
 # ___                             
 #  |     ._   _    | | _|_ o |  _ 
@@ -62,37 +93,50 @@ class TypeSystem():
     @cached_property
     def serialized(self):
         """
-        >>> sanitize_string('REAL')
+        >>> TypeSystem('REAL').serialized
         'real'
-        >>> sanitize_string('DOUBLE PRECISION')
+        >>> TypeSystem('DOUBLE PRECISION').serialized
         'double_precision'
-        >>> sanitize_string('complex<double>')
-        'complex_double'
-        >>> sanitize_string('*double')
+        >>> TypeSystem('complex<long double>').serialized
+        'complex_long_double'
+        >>> TypeSystem('*double').serialized
         'double'
         """
         return '_'.join(self.T.lower().translate(str.maketrans("<>*", "   ")).split())
 
     @cached_property
+    def without_pointer(self):
+        '''
+        >>> TypeSystem('*complex<float>').without_pointer
+        'complex<float>'
+        '''
+        return self.T.replace('*','')
+
+    @cached_property
     def category(self):
-        if self.no_pt in ('long int', 'int','long long int','unsigned','INTEGER'):
+        """
+        >>> TypeSystem('complex<long double>').category
+        'complex'
+        >>> TypeSystem('REAL').category
+        'float'
+        """
+        if self.without_pointer in ('long int', 'int','long long int','unsigned','INTEGER'):
             return 'integer'
-        elif  self.no_pt in ('REAL','DOUBLE PRECISION', 'float','double','long double'):
+        elif  self.without_pointer in ('REAL','DOUBLE PRECISION', 'float','double','long double'):
             return 'float'
-        elif self.no_pt in ('COMPLEX', 'DOUBLE COMPLEX', 'complex<float>', 'complex<double>',  'complex<long double>'):
+        elif self.without_pointer in ('COMPLEX', 'DOUBLE COMPLEX', 'complex<float>', 'complex<double>',  'complex<long double>'):
             return 'complex'
-        elif self.no_pt in ('bool',):
+        elif self.without_pointer in ('bool',):
             return 'bool'
         raise NotImplementedError(f'Datatype ({self.T}) is not yet supported.')
 
     @cached_property
     def is_long(self):
-        return 'long' in self.no_pt
+        return 'long' in self.without_pointer
 
     @cached_property
     def internal(self):
         '''
-        For complex give the internal type, for other give back thenself"
         >>> TypeSystem('complex<float>').internal
         'float'
         >>> TypeSystem('DOUBLE COMPLEX').internal
@@ -101,48 +145,43 @@ class TypeSystem():
         'REAL'
         '''
         if self.category != 'complex':
-            return self.no_pt
+            return self.without_pointer
         elif self.T == 'DOUBLE COMPLEX':
             return 'DOUBLE'
         elif self.T == 'COMPLEX':
             return 'REAL'
         elif self.category == 'complex': #Only the C++ type are left
-            return self.no_pt.split('<')[1][:-1]
+            return self.without_pointer.split('<')[1][:-1]
         else:
             raise NotImplementedError("Datatype ({self.T}) is not yet supported")
 
     @cached_property
     def is_pointer(self):
+        '''
+        >>> TypeSystem('complex<float>').is_pointer
+        False
+        >>> TypeSystem('*complex<float>').is_pointer
+        True
+        '''
         return '*' in self.T
 
     @cached_property
-    def no_pt(self):
-        return self.T.replace('*','')
-
-    def __str__(self):
-        return self.T
-
-    @cached_property
     def language(self):
-        if self.no_pt.islower():
+        '''
+        >>> TypeSystem('*complex<float>').language
+        'cpp'
+        >>> TypeSystem('REAL').language
+        'fortran'
+        '''
+        # Warning, just rely on the capitalization.
+        # Not robust, but good enought
+        if self.without_pointer.islower():
             return 'cpp'
         else:
             return 'fortran'
 
-#  _        _    ___          
-# / \ |\/| |_)    | ._ _   _  
-# \_/ |  | |      | | (/_ (/_ 
-#                             
-
-# Need to refractor this one... Too ugly or too smart
-from typing import List
-def combinations_construct(tree_config_path, path=['root']) -> List[List[str]]:
-    
-    tails = [path[1:]] if len(path[1:]) else [] 
-
-    for children in tree_config_path[path[-1]]:
-        tails += combinations_construct(tree_config_path, path + [children])
-    return tails
+    def __str__(self):
+        return self.T
 
 # ___                               _                      
 #  |  _   _ _|_   |_   _.  _  _ __ |_ _.  _ _|_  _  ._     
@@ -151,21 +190,48 @@ def combinations_construct(tree_config_path, path=['root']) -> List[List[str]]:
 
 class Path():
 
-    def __init__(self, path, d_arg):
+    def __init__(self, path_raw, d_arg):
+        self.path_raw = path_raw
+
+        # Explicit is better than implicit.
+        # So this is ugly... But really usefull when testing
+        # d_args keys containt [data_type, test_type, avoid_user_defined_reduction, paired_pragmas, loop_pragma, collapse]
+        for k,v in d_arg.items():
+            setattr(self, k, v)
+    
+    @cached_property
+    def T(self):
+        return TypeSystem(self.data_type)
+
+    @cached_property
+    def language(self):
+        '''
+        >>> Path(None, {'data_type':'float'} ).language
+        'cpp'
+        >>> Path(None, {'data_type':'REAL'} ).language
+        'fortran'
+        '''
+        return self.T.language
+
+    @cached_property
+    def path(self):
+        '''
+        >>> Path( ['parallel','for'], {} ).path
+        ['parallel', 'for']
+        >>> Path( ['parallel','loop_for'], {} ).path
+        ['parallel', 'loop']
+        '''
         # To facilitate the recursion. Loop are encoded as "loop_distribute" and "loop_for".
-        self.path = [ ' '.join(pragma.split('_')[0] for pragma in p.split()) for p in path]
-
-        self.T =  TypeSystem(d_arg['data_type'])
-        self.test_type = d_arg['test_type']
-
-        self.language = self.T.language
-        self.avoid_user_defined_reduction = d_arg['avoid_user_defined_reduction']
-        self.paired_pragmas = d_arg['paired_pragmas']
-        self.loop_pragma = d_arg['loop_pragma']
-        self.n_collapse= d_arg['collapse']
+        return [ ' '.join(pragma.split('_')[0] for pragma in p.split()) for p in self.path_raw]
 
     @cached_property
     def name(self):
+        '''
+        >>> Path( ['parallel','for'], {'data_type':'float'} ).name
+        'parallel__for'
+        >>> Path( ['parallel for','simd'], {'data_type':'REAL'} ).name
+        'parallel_do__simd'
+        '''
         l_node_serialized = ("_".join(node.split()) for node in self.path)
         
         n =  "__".join(l_node_serialized)
@@ -173,9 +239,16 @@ class Path():
             return n
         elif self.language == "fortran":
             return n.replace('for','do')
+        return NotImplementedError
 
     @cached_property
     def ext(self):
+        '''
+        >>> Path(None, {'data_type':'float'} ).ext
+        'cpp'
+        >>> Path(None, {'data_type':'DOUBLE PRECISION'} ).ext
+        'F90'
+        '''
         if self.language == "cpp":
             return "cpp"
         elif self.language == "fortran":
@@ -184,70 +257,176 @@ class Path():
 
     @cached_property
     def filename(self):
+        '''
+        >>> Path( ['parallel','for'], {'data_type':'float'} ).filename
+        'parallel__for.cpp'
+        >>> Path( ['parallel','loop_for'], {'data_type':'float'} ).filename
+        'parallel__loop.cpp'
+        >>> Path( ['parallel for','simd'], {'data_type':'REAL'} ).filename
+        'parallel_do__simd.F90'
+        '''
         return f"{self.name}.{self.ext}"
 
     @cached_property
     def flatten_path(self):
-        # [ "teams distribute", "parallel" ] -> [ "teams distribute parallel" ]
-        from itertools import chain
+        '''
+        >>> Path( ['parallel', 'for','simd'], {} ).flatten_path
+        ['parallel', 'for', 'simd']
+        >>> Path( ['parallel for','simd'], {} ).flatten_path
+        ['parallel', 'for', 'simd']
+        '''
         return list(chain.from_iterable(map(str.split,self.path)))
 
     def follow_by(self,a,b):
+        '''
+        >>> Path( ['parallel', 'for'], {} ).follow_by('parallel','for')
+        True
+        >>> Path( ['parallel for'], {} ).follow_by('parallel','for')
+        True
+        >>> Path( ['parallel', 'for'], {} ).follow_by('for','simd')
+        False
+        '''
         return any( (i == a) and (j == b) for i,j in pairwise(self.flatten_path))
 
-    def has(self,constructs):
-        return constructs in self.flatten_path
+    def has(self,construct):
+        '''
+        >>> Path( ['parallel', 'for'], {} ).has('for')
+        True
+        >>> Path( ['parallel for'], {} ).has('parallel')
+        True
+        >>> Path( ['parallel for'], {} ).has('simd')
+        False
+        '''
+        return construct in self.flatten_path
 
     @cached_property
     def only_teams(self):
+        '''
+        >>> Path( ['teams', 'distribute'], {} ).only_teams
+        False
+        >>> Path( ['teams', 'loop'], {} ).only_teams
+        False
+        >>> Path( ['teams', 'parrallel','loop'], {} ).only_teams
+        True
+        '''
         return self.has("teams") and not ( self.follow_by("teams","distribute") or self.follow_by("teams","loop") )
 
     @cached_property
     def only_parallel(self):
+        '''
+        >>> Path( ['parallel', 'for'], {} ).only_parallel
+        False
+        >>> Path( ['parallel', 'loop'], {} ).only_parallel
+        False
+        >>> Path( ['teams','loop','parallel'], {} ).only_parallel
+        True
+        '''
         return self.has("parallel") and not  ( self.follow_by("parallel", "for") or self.follow_by("parallel","loop") )
 
     @cached_property
-    def only_target(self):
-        return len(self.flatten_path) == 1
-
-    @cached_property
     def balenced(self):
+        '''
+        >>> Path( ['parallel', 'for'], {} ).balenced
+        True
+        >>> Path( ['teams', 'loop', 'parallel'], {} ).balenced
+        False
+        '''
         return not self.only_parallel and not self.only_teams
    
-    @cached_property
-    def loop_contruct(self):
-        return ("distribute","for","simd","loop")
+    def is_loop_pragma(self, pragma):
+        '''
+        >>> Path( {}, {}).is_loop_pragma('loop')
+        True
+        >>> Path( {}, {}).is_loop_pragma('parralel for')
+        True
+        >>> Path( {}, {}).is_loop_pragma('teams')
+        False
+        '''
+        return any(p in pragma for p in ("distribute","for","simd","loop") )
 
-    def has_loop(self, pragma):
-        return any(p in pragma for p in self.loop_contruct)
+    @cached_property
+    def loop_pragma_number(self):
+        '''
+        >>> Path( ['teams', 'distribute', 'parallel', 'for'], {} ).loop_pragma_number
+        2
+        >>> Path( ['teams', 'distribute', 'parallel', 'loop'], {} ).loop_pragma_number
+        2
+        >>> Path( ['teams', 'parallel'], {} ).loop_pragma_number
+        0
+        '''
+        return sum(map(self.is_loop_pragma, self.path)) 
 
     @cached_property
-    def n_loop_section(self):
-        return sum(map(self.has_loop, self.path))
-    
+    def loop_construct_number(self):
+        '''
+        >>> Path( ['distribute'], {'collapse':1} ).loop_construct_number
+        1
+        >>> Path( ['distribute'], {'collapse':0} ).loop_construct_number
+        1
+        >>> Path( ['distribute'], {'collapse':2} ).loop_construct_number
+        2
+        >>> Path( ['teams', 'distribute', 'parallel', 'for'], {'collapse':2} ).loop_construct_number
+        4
+        >>> Path( ['teams', 'parallel'], {'collapse':2} ).loop_construct_number
+        0
+        '''
+        if self.collapse:
+            return self.loop_pragma_number*self.collapse
+        else:
+            return self.loop_pragma_number
+
     @cached_property
-    def n_loop(self):
-        return self.n_loop_section*max(self.n_collapse,1)
-   
+    def has_loop_construct(self):
+        return self.loop_construct_number != 0
+  
     @cached_property
     def loop_tripcount(self):
-         return max(1, math.ceil(math.pow(64*64*64, 1./self.n_loop)))
+        '''
+        >>> Path( ['distribute'], {'collapse':0} ).loop_tripcount
+        262144
+        >>> Path( ['distribute'], {'collapse':1} ).loop_tripcount
+        262144
+        >>> Path( ['distribute'], {'collapse':2} ).loop_tripcount
+        512
+        >>> Path( ['teams distribute paralel for simd'], {'collapse': 0} ).loop_tripcount
+        262144
+        >>> Path( ['teams', 'distribute', 'paralel', 'for', 'simd'], {'collapse':0} ).loop_tripcount
+        64
+        >>> Path( ['teams'], {'collapse':0} ).loop_tripcount
+        ...
+        '''
+        if not self.loop_construct_number:
+            return None
+
+        return max(1, math.ceil(math.pow(64*64*64, 1./self.loop_construct_number)))
 
     @cached_property
     def loops(self):
-
-        from collections import namedtuple
+        '''
+        >>> Path( ['distribute'], {'collapse':1} ).loops
+        [Idx(i='i0', N='N0', v=262144)]
+        >>> Path( ['distribute'], {'collapse':2} ).loops
+        [Idx(i='i0', N='N0', v=512), Idx(i='i1', N='N1', v=512)]
+        >>> Path( ['teams'], {'collapse':None} ).loops
+        []
+        '''        
         Idx = namedtuple("Idx",'i N v')
-        return [ Idx(f"i{i}",f"N{i}",self.loop_tripcount) for i in range(self.n_loop) ]
+        return [ Idx(f"i{i}",f"N{i}",self.loop_tripcount) for i in range(self.loop_construct_number) ]
 
         
     @cached_property
     def fat_path(self):
-
-        l, i_loop = [], 0
-
-        n_reduce  = 0
-        target = False
+        '''
+        >>> Path( ['distribute'], {'collapse':0, 'data_type':'REAL'} ).fat_path
+        [{'pragma': 'DISTRIBUTE', 'loop': [Idx(i='i0', N='N0', v=262144)]}]
+        >>> Path( ['target teams distribute', 'paralel for'], {'collapse':0, 'data_type':'REAL'} ).fat_path #doctest: +NORMALIZE_WHITESPACE
+        [{'pragma': 'TARGET TEAMS DISTRIBUTE', 
+          'loop': [Idx(i='i0', N='N0', v=512)], 'target': True, 'reduce': True}, 
+         {'pragma': 'PARALEL DO', 
+          'loop': [Idx(i='i0', N='N0', v=512)]}]
+        '''
+        # Yes, this is horible state machine...
+        l, i_loop,n_reduce, target = [], 0, 0 , False
         for pragma in self.path:
             d = {}
 
@@ -256,9 +435,9 @@ class Path():
             elif self.language == 'fortran':
                 d["pragma"] = pragma.replace('for','do').upper() 
 
-            if self.has_loop(pragma):
-                d["loop"] = [ self.loops[i_loop+i] for i in range(max(self.n_collapse,1)) ]
-                i_loop+=self.n_collapse
+            if self.is_loop_pragma(pragma):
+                d["loop"] = [ self.loops[i_loop+i] for i in range(max(self.collapse,1)) ]
+                i_loop+=self.collapse
 
             if "target" in pragma:
                 d["target"] = True
@@ -285,6 +464,44 @@ class Path():
 
         return l
 
+    @cached_property
+    def is_valid_common_test(self):
+        '''
+        >>> Path( ['for'], {'collapse':0,'loop_pragma':False} ).is_valid_common_test
+        True
+        >>> Path( ['for'], {'collapse':0,'loop_pragma':True} ).is_valid_common_test
+        False
+        >>> Path( ['loop'], {'collapse':0,'loop_pragma':False} ).is_valid_common_test
+        False
+        >>> Path( ['loop'], {'collapse':0,'loop_pragma':True} ).is_valid_common_test
+        True
+        >>> Path( ['loop'], {'collapse':1,'loop_pragma':True} ).is_valid_common_test
+        True
+        >>> Path( ['loop'], {'collapse':0, 'loop_pragma':True} ).is_valid_common_test
+        True
+        >>> Path( ['teams'], {'collapse':0, 'loop_pragma':False} ).is_valid_common_test
+        True
+        >>> Path( ['teams'], {'collapse':1, 'loop_pragma':False} ).is_valid_common_test
+        False
+        '''
+        # If we don't ask for loop pragma we don't want to generate with tests who containt omp loop construct
+        if self.loop_pragma ^ self.has('loop'):
+            return False
+        # If people whant collapse, we will print only the test with loop
+        if self.collapse and not self.has_loop_construct:
+            return False
+        return True
+
+    @cached_property
+    def template_rendered(self):
+
+        if not ( self.is_valid_common_test and self.is_valid_test):
+            return None
+
+        template = templateEnv.get_template(self.template_location)
+        str_ = template.render(**{p:getattr(self,p)  for p in dir(self) if p != 'template_rendered' } )
+        return format_template(str_,self.language)
+
     def write_template_rendered(self,folder):
         if self.template_rendered:
             with open(os.path.join(folder,self.filename),'w') as f:
@@ -299,91 +516,100 @@ class Fold(Path):
 
     @cached_property
     def expected_value(self):
+        '''
+        >>> Fold( ['teams', 'distribute'], {'collapse':0} ).expected_value 
+        'N0'
+        >>> Fold( ['teams', 'distribute'], {'collapse':2} ).expected_value
+        'N0*N1'
+        >>> Fold( ['teams','parallel'], {'collapse':1} ).expected_value
+        '1'
+        '''
+
         if not self.loops:
             return "1"
 
         return f"{'*'.join(l.N for l in self.loops)}"
 
     @cached_property
-    def template_rendered(self):
-        
+    def is_valid_test(self):
+        '''
+        >>> Fold( ['teams', 'distribute'], {'collapse':0,'test_type': 'atomic'} ).is_valid_test
+        True
+        >>> Fold( ['teams', 'distribute', 'simd'], {'collapse':0,'test_type': 'atomic'} ).is_valid_test
+        False
+        >>> Fold( ['parralel for'], {'collapse':0,'test_type': 'reduction_atomic','data_type':'REAL'} ).is_valid_test
+        False
+        >>> Fold( ['teams','simd'], {'collapse':0,'test_type': 'reduction_atomic','data_type':'REAL'} ).is_valid_test
+        True
+        '''
+        # Cannot use atomic inside simd
         if self.test_type in ('atomic','threaded_atomic') and self.has("simd"):
             return False
 
+        # We want to do a two step fold (reduction in the inner loops and atomics in the outer)
+        # - That mean we need at least 2 posible reduction <=> partial in fat_path
         if self.test_type == 'reduction_atomic' and not any("partial" in p for p in self.fat_path):
             return False
-        
-        if self.test_type  == 'reduction_atomic' and self.balenced and self.n_loop == 1:
-            return False
 
-        if not self.loop_pragma and self.has('loop'):
-            return False
-        if self.loop_pragma and not self.has('loop'):
-            return False
-
-        if self.n_collapse != 0 and not self.n_loop:
-            return False
-
-        template = templateEnv.get_template(f"fold.{self.ext}.jinja2")
-
-        str_ = template.render(name=self.name,
-                               family=self.test_type,
-                               fat_path=self.fat_path,
-                               loops=self.loops,
-                               balenced=self.balenced,
-                               only_teams=self.only_teams,
-                               only_parallel=self.only_parallel,
-                               expected_value=self.expected_value,
-                               T_category=self.T.category,
-                               T_type=self.T.internal,
-                               T=self.T.T,
-                               avoid_user_defined_reduction=self.avoid_user_defined_reduction,
-                               paired_pragmas=self.paired_pragmas,
-                               n_collapse=self.n_collapse)
-                                        
-        return format_template(str_,self.language)
+        return True
+    
+    @cached_property
+    def template_location(self):
+        return f"fold.{self.ext}.jinja2"
 
 class Memcopy(Path):
 
     @cached_property
     def index(self):
-        l=[]
-        for j in reversed(range(self.n_loop)):
-            head, *tail = self.loops[j:]
-            str_ = [ f"({head.i}-1)" if self.language =='fortran' else head.i  ] + [k.N for k in tail]
-            l.append('*'.join(str_))
+        '''
+        >>> Memcopy(['for'],{'data_type':'float','collapse':0}).index
+        'i0'
+        >>> Memcopy(['for'],{'data_type':'float','collapse':3}).index
+        'i2+(i1+(i0*N1)*N2)'
+        >>> Memcopy(['for'],{'data_type':'REAL','collapse':0}).index
+        '(i0-1)+1'
+        >>> Memcopy(['for'],{'data_type':'REAL','collapse':3}).index
+        '(i2-1)+((i1-1)+((i0-1)*N1)*N2)+1'
+        '''
+        def fma_idx(n,offset = 0):
+            idx = f'(i{n}-{offset})' if offset else f'i{n}'
 
-        r = '+'.join(l)
-        return r if self.language == 'cpp' else f'{r}+1'
+            if n == 0:
+                return idx
+            return f'{idx}+({fma_idx(n-1,offset)}*N{n})'
+
+        if self.language == 'cpp':
+            return fma_idx(self.loop_construct_number-1)
+        else:
+            return f'{fma_idx(self.loop_construct_number-1,1)}+1'
+    
     @cached_property
-    def size(self):
+    def problem_size(self):
+        '''
+        >>> Memcopy( ['teams', 'distribute'], {'collapse':0} ).problem_size
+        'N0'
+        >>> Memcopy( ['teams', 'distribute'], {'collapse':2} ).problem_size
+        'N0*N1'
+        '''
+
         return '*'.join(l.N for l in self.loops) 
 
     @cached_property
-    def template_rendered(self):
-        if not self.balenced or self.only_target:
-            return False
-        if not self.loop_pragma and self.has('loop'):
-            return False
-        if self.loop_pragma and not self.has('loop'):
-            return False
-        if self.n_collapse != 0 and not self.n_loop:
-            return False
+    def is_valid_test(self):
+        '''
+        >>> Memcopy( ['teams', 'distribute'], {'collapse':0} ).is_valid_test
+        True
+        >>> Memcopy( ['teams', 'parallel'], {'collapse':0} ).is_valid_test
+        False
+        '''
 
-        template = templateEnv.get_template(f"test_memcopy.{self.ext}.jinja2")
+        if not self.balenced or not self.has_loop_construct:
+            return False
+        return True
 
-        str_ = template.render(name=self.name,
-                               fat_path=self.fat_path,
-                               loops = self.loops,
-                               n_loop_section=self.n_loop_section,
-                               index=self.index,
-                               size=self.size,
-                               T_category=self.T.category,
-                               T_type=self.T.internal,
-                               T=self.T.T,
-                               n_collapse=self.n_collapse)
-
-        return format_template(str_,self.language)
+    @cached_property
+    def template_location(self):
+        return f"test_memcopy.{self.ext}.jinja2"
 
 #                                                  _                         
 # |\/|  _. _|_ |_   _  ._ _   _. _|_ o  _  _. |   |_    ._   _ _|_ o  _  ._  
@@ -561,6 +787,9 @@ def gen_mf(d_arg):
     with open(os.path.join(dirname,"config",f), 'r') as f:
         math_json = json.load(f)
 
+    if d_arg['long'] and language == 'fortran':
+        return False
+ 
     name_folder = [std] + [k for k,v in d_arg.items() if v == True]    
     folder = os.path.join("test_src",language,"mathematical_function",'-'.join(name_folder))
     os.makedirs(folder, exist_ok=True)
@@ -681,6 +910,9 @@ def ListOfBool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 if __name__ == '__main__':
+    with open(os.path.join(dirname,'template','ovo_usage.txt')) as f:
+        ovo_usage=f.read()
+
     parser = argparse.ArgumentParser(usage=ovo_usage)
     action_parsers = parser.add_subparsers(dest='command')
 
