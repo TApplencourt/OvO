@@ -15,14 +15,14 @@ void test_target__teams_distribute__parallel_for(){
   std::generate(B.begin(), B.end(), std::rand);
   float *pA = A.data();
   float *pB = B.data();
-#pragma omp target   map(from: pA[0:N0*N1]) map(to: pB[0:N0*N1])
+#pragma omp target   map(from: pA[0:size]) map(to: pB[0:size])
 #pragma omp teams distribute
       for (int i0 = 0 ; i0 < N0 ; i0++ )
       {
 #pragma omp parallel for
       for (int i0 = 0 ; i0 < N0 ; i0++ )
       {
-const int idx = i1+i0*N1;
+const int idx = i1+(i0*N1);
 pA[idx] = pB[idx];
     }
     }

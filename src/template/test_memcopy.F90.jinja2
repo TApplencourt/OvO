@@ -2,7 +2,7 @@
 
 program {{name}}
 
-    {% set is_cmplx = (T_category == "complex") %}
+    {% set is_cmplx = (T.category == "complex") %}
 
     implicit none
 
@@ -20,7 +20,7 @@ program {{name}}
     INTEGER :: idx
 
     INTEGER :: S
-    S = {{size}}
+    S = {{problem_size}}
      
     ALLOCATE(A(S), B(S) {% if is_cmplx %}, B_real(S), B_imag(S) {%endif%} )
        
@@ -35,7 +35,7 @@ program {{name}}
 
     {% for fat_pragma in fat_path %}
     !$OMP {{fat_pragma["pragma"]}} {% if "target" in fat_pragma %}  MAP(FROM: A) MAP(TO: B) {% endif %}
-    {%- if n_collapse != 0 and  "loop" in fat_pragma %} COLLAPSE({{n_collapse}}) {% endif %}
+    {%- if collapse and  "loop" in fat_pragma %} COLLAPSE({{collapse}}) {% endif %}
     {{ for_loop_prologue(fat_pragma) }}
     {% endfor %}
     idx = {{index}}    

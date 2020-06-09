@@ -14,7 +14,7 @@ void test_target__teams_distribute_parallel_for_simd(){
   std::generate(B.begin(), B.end(), std::rand);
   float *pA = A.data();
   float *pB = B.data();
-#pragma omp target   map(from: pA[0:N0]) map(to: pB[0:N0])
+#pragma omp target   map(from: pA[0:size]) map(to: pB[0:size])
 #pragma omp teams distribute parallel for simd
       for (int i0 = 0 ; i0 < N0 ; i0++ )
       {

@@ -17,7 +17,7 @@ program target__parallel__do__simd
        DO i0 = 1 , N0
     !$OMP SIMD
        DO i0 = 1 , N0
-    idx = (i1-1)+(i0-1)*N1+1
+    idx = (i1-1)+((i0-1)*N1)+1
     A( idx ) = B( idx )
     END DO
     END DO

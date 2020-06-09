@@ -1,25 +1,25 @@
 {% from 'utils.F90.jinja2' import prologue_general, prologue_function, epilogue_function, increment,for_loop_prologue, for_loop_epilogue, OMP_END  with context%}
-{% set is_cmplx = (T_category == "complex") %}
+{% set is_cmplx = (T.category == "complex") %}
 
 {{ prologue_general(is_cmplx) }}
 
 PROGRAM {{name}}
 
 {{ prologue_function(loops, only_teams, only_parallel, is_cmplx) }}
-{%- if family == 'reduction_atomic' %}
+{%- if test_type == 'reduction_atomic' %}
   {{T}} partial_counter
 {% endif %}
 
 {% for fat_pragma in fat_path %}
-  {%- if family == 'reduction_atomic' and  "partial" in fat_pragma %}
+  {%- if test_type == 'reduction_atomic' and  "partial" in fat_pragma %}
   partial_counter = 0.
   {%- endif  %}
 !$OMP {{fat_pragma["pragma"]}}
   {%- if    "reduce_host"  in fat_pragma                                     %} REDUCTION(+: counter)
-  {%- elif family == 'reduction'          and "reduce"         in fat_pragma %} REDUCTION(+: counter)
-  {%- elif family == 'reduction_atomic' and "partial_reduce" in fat_pragma   %} REDUCTION(+: partial_counter) {%- endif %}
+  {%- elif test_type == 'reduction'          and "reduce"         in fat_pragma %} REDUCTION(+: counter)
+  {%- elif test_type == 'reduction_atomic' and "partial_reduce" in fat_pragma   %} REDUCTION(+: partial_counter) {%- endif %}
   {%- if "target" in fat_pragma %} MAP(TOFROM: counter) {% endif %}
-  {%- if n_collapse != 0 and  "loop" in fat_pragma %} COLLAPSE({{n_collapse}}) {% endif %}
+  {%- if collapse and  "loop" in fat_pragma %} COLLAPSE({{collapse}}) {% endif %}
 
   {{ for_loop_prologue(fat_pragma) }}
 
@@ -31,12 +31,12 @@ PROGRAM {{name}}
 
     {% endfor %}
 
-{% if   family in ('atomic','threaded_atomic')  %}
+{% if   test_type in ('atomic','threaded_atomic')  %}
 !$OMP ATOMIC UPDATE
 {{ increment('counter', balenced, only_teams, only_parallel,is_cmplx) }}
-{% elif family in ('reduction','threaded_reduction')  %}
+{% elif test_type in ('reduction','threaded_reduction')  %}
 {{ increment('counter', balenced, only_teams, only_parallel,is_cmplx) }}
-{% elif family == 'reduction_atomic' %}
+{% elif test_type == 'reduction_atomic' %}
 {{ increment('partial_counter', balenced, only_teams, only_parallel,is_cmplx) }}
 {% endif %}
 
@@ -44,7 +44,7 @@ PROGRAM {{name}}
 {{ for_loop_epilogue(fat_pragma) }} 
 {{ OMP_END(fat_pragma) }}
 
-{% if family == 'reduction_atomic' and "partial" in fat_pragma%}
+{% if test_type == 'reduction_atomic' and "partial" in fat_pragma%}
 !$OMP ATOMIC UPDATE
 counter = counter + partial_counter
 {% if paired_pragmas %} !$OMP END ATOMIC {% endif %}

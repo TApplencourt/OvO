@@ -17,14 +17,14 @@ void test_target_parallel__for__simd(){
   std::generate(B.begin(), B.end(), std::rand);
   complex<double> *pA = A.data();
   complex<double> *pB = B.data();
-#pragma omp target parallel   map(from: pA[0:N0*N1]) map(to: pB[0:N0*N1])
+#pragma omp target parallel   map(from: pA[0:size]) map(to: pB[0:size])
 #pragma omp for
       for (int i0 = 0 ; i0 < N0 ; i0++ )
       {
 #pragma omp simd
       for (int i0 = 0 ; i0 < N0 ; i0++ )
       {
-const int idx = i1+i0*N1;
+const int idx = i1+(i0*N1);
 pA[idx] = pB[idx];
     }
     }
