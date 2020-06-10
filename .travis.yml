@@ -9,7 +9,7 @@ jobs:
   - name: unittest
     script:
     - python3 -m unittest src/report.py
-    - python3 -m doctest -v src/gtest.py
+    - python3 -m doctest  src/gtest.py
 
   - name: gcc
     compiler: gcc
@@ -32,7 +32,6 @@ jobs:
     compiler: gfortran
     env: 
       - FC='gfortran-9'
-      - FFLAGS='-Wall -Wno-unknown-pragmas'
     addons:
       apt:
         sources:
