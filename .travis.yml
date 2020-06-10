@@ -71,7 +71,6 @@ jobs:
     compiler: gfortran
     env: 
       - FC='gfortran-9'
-      - FFLAGS='-fopenmp'
     addons:
       apt:
         sources:
@@ -84,5 +83,5 @@ jobs:
     - pip install -r requirements.txt
     script:
     - ./ovo.sh gen hierarchical_parallelism --test_type --data_type --loop_pragma --paired_pragmas --avoid_user_defined_reduction --collapse
-    - ./ovo.sh run test_src/cpp
+    - ./ovo.sh run test_src/fortran
     - ./ovo.sh report --failed
