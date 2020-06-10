@@ -17,7 +17,7 @@ PROGRAM target__teams_distribute_parallel_do__simd
 !$OMP TEAMS DISTRIBUTE PARALLEL DO REDUCTION(+: counter)
        DO i0 = 1 , N0
 !$OMP SIMD REDUCTION(+: counter)
-       DO i0 = 1 , N0
+       DO i1 = 1 , N1
 counter = counter +  CMPLX(  1. , 0 )
     END DO
     END DO

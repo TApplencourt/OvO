@@ -38,7 +38,7 @@ PROGRAM target__teams__distribute__parallel__simd
 !$OMP PARALLEL REDUCTION(+: counter)
     num_threads = omp_get_num_threads()
 !$OMP SIMD REDUCTION(+: counter)
-       DO i0 = 1 , N0
+       DO i1 = 1 , N1
 counter = counter +  1./num_threads
     END DO
 !$OMP END PARALLEL

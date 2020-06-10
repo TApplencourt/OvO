@@ -13,10 +13,10 @@ void test_target_teams__distribute__parallel_for__simd(){
       for (int i0 = 0 ; i0 < N0 ; i0++ )
       {
 #pragma omp parallel for reduction(+: counter)
-      for (int i0 = 0 ; i0 < N0 ; i0++ )
+      for (int i1 = 0 ; i1 < N1 ; i1++ )
       {
 #pragma omp simd reduction(+: counter)
-      for (int i0 = 0 ; i0 < N0 ; i0++ )
+      for (int i2 = 0 ; i2 < N2 ; i2++ )
       {
 counter += float { 1.0f };
     }

@@ -14,7 +14,7 @@ program target_teams_distribute__parallel_do
     !$OMP TARGET TEAMS DISTRIBUTE   MAP(FROM: A) MAP(TO: B)
        DO i0 = 1 , N0
     !$OMP PARALLEL DO
-       DO i0 = 1 , N0
+       DO i1 = 1 , N1
     idx = (i1-1)+((i0-1)*N1)+1
     A( idx ) = B( idx )
     END DO

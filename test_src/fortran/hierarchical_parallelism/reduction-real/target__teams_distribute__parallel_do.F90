@@ -17,7 +17,7 @@ PROGRAM target__teams_distribute__parallel_do
 !$OMP TEAMS DISTRIBUTE REDUCTION(+: counter)
        DO i0 = 1 , N0
 !$OMP PARALLEL DO REDUCTION(+: counter)
-       DO i0 = 1 , N0
+       DO i1 = 1 , N1
 counter = counter +  1.
     END DO
     END DO

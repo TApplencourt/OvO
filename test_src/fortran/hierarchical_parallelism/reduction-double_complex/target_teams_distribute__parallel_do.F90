@@ -16,7 +16,7 @@ PROGRAM target_teams_distribute__parallel_do
 !$OMP TARGET TEAMS DISTRIBUTE REDUCTION(+: counter) MAP(TOFROM: counter)
        DO i0 = 1 , N0
 !$OMP PARALLEL DO REDUCTION(+: counter)
-       DO i0 = 1 , N0
+       DO i1 = 1 , N1
 counter = counter +  CMPLX(  1. , 0 )
     END DO
     END DO

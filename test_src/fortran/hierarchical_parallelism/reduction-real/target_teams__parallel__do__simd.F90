@@ -37,7 +37,7 @@ PROGRAM target_teams__parallel__do__simd
 !$OMP DO
        DO i0 = 1 , N0
 !$OMP SIMD REDUCTION(+: counter)
-       DO i0 = 1 , N0
+       DO i1 = 1 , N1
 counter = counter +  1./num_teams
     END DO
     END DO

@@ -16,7 +16,7 @@ PROGRAM target_parallel_do__simd
 !$OMP TARGET PARALLEL DO REDUCTION(+: counter) MAP(TOFROM: counter)
        DO i0 = 1 , N0
 !$OMP SIMD REDUCTION(+: counter)
-       DO i0 = 1 , N0
+       DO i1 = 1 , N1
 counter = counter +  1.
     END DO
     END DO

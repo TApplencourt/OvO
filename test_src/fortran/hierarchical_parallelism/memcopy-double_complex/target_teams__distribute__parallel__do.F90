@@ -21,7 +21,7 @@ program target_teams__distribute__parallel__do
        DO i0 = 1 , N0
     !$OMP PARALLEL
     !$OMP DO
-       DO i0 = 1 , N0
+       DO i1 = 1 , N1
     idx = (i1-1)+((i0-1)*N1)+1
     A( idx ) = B( idx )
     END DO

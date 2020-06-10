@@ -13,7 +13,7 @@ void test_target_teams__distribute__parallel__for(){
       {
 #pragma omp parallel
 #pragma omp for
-      for (int i0 = 0 ; i0 < N0 ; i0++ )
+      for (int i1 = 0 ; i1 < N1 ; i1++ )
       {
 #pragma omp atomic update
 counter += float { 1.0f };

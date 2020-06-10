@@ -17,7 +17,7 @@ PROGRAM target_teams__distribute__simd
 !$OMP DISTRIBUTE
        DO i0 = 1 , N0
 !$OMP SIMD REDUCTION(+: counter)
-       DO i0 = 1 , N0
+       DO i1 = 1 , N1
 counter = counter +  CMPLX(  1. , 0 )
     END DO
     END DO

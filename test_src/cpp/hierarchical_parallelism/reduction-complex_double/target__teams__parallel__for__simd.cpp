@@ -26,7 +26,7 @@ const int num_teams = omp_get_num_teams();
       for (int i0 = 0 ; i0 < N0 ; i0++ )
       {
 #pragma omp simd reduction(+: counter)
-      for (int i0 = 0 ; i0 < N0 ; i0++ )
+      for (int i1 = 0 ; i1 < N1 ; i1++ )
       {
 counter += complex<double> { 1.0f/num_teams } ;
     }

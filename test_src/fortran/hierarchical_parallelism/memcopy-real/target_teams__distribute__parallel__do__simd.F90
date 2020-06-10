@@ -18,9 +18,9 @@ program target_teams__distribute__parallel__do__simd
        DO i0 = 1 , N0
     !$OMP PARALLEL
     !$OMP DO
-       DO i0 = 1 , N0
+       DO i1 = 1 , N1
     !$OMP SIMD
-       DO i0 = 1 , N0
+       DO i2 = 1 , N2
     idx = (i2-1)+((i1-1)+((i0-1)*N1)*N2)+1
     A( idx ) = B( idx )
     END DO

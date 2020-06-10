@@ -20,7 +20,7 @@ program target__teams_distribute_parallel_do__simd
     !$OMP TEAMS DISTRIBUTE PARALLEL DO
        DO i0 = 1 , N0
     !$OMP SIMD
-       DO i0 = 1 , N0
+       DO i1 = 1 , N1
     idx = (i1-1)+((i0-1)*N1)+1
     A( idx ) = B( idx )
     END DO

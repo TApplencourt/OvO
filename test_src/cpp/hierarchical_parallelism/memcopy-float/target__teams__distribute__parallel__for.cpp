@@ -22,7 +22,7 @@ void test_target__teams__distribute__parallel__for(){
       {
 #pragma omp parallel
 #pragma omp for
-      for (int i0 = 0 ; i0 < N0 ; i0++ )
+      for (int i1 = 0 ; i1 < N1 ; i1++ )
       {
 const int idx = i1+(i0*N1);
 pA[idx] = pB[idx];

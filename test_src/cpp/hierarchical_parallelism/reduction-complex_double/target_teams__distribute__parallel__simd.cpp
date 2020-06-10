@@ -25,7 +25,7 @@ void test_target_teams__distribute__parallel__simd(){
     {
 const int num_threads = omp_get_num_threads();
 #pragma omp simd reduction(+: counter)
-      for (int i0 = 0 ; i0 < N0 ; i0++ )
+      for (int i1 = 0 ; i1 < N1 ; i1++ )
       {
 counter += complex<double> { 1.0f/num_threads };
     }
