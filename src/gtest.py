@@ -562,21 +562,26 @@ class Memcopy(Path):
     @cached_property
     def index(self):
         '''
-        >>> Memcopy(['for'],{'data_type':'float','collapse':0}).index
+        >>> Memcopy(['for'],{'data_type':'float','collapse':1}).index
         'i0'
+        >>> Memcopy(['for'],{'data_type':'float','collapse':2}).index
+        'i1+N1*(i0)'
         >>> Memcopy(['for'],{'data_type':'float','collapse':3}).index
-        'i2+(i1+(i0*N1)*N2)'
+        'i2+N2*(i1+N1*(i0))'
+        >>> Memcopy(['for'],{'data_type':'float','collapse':4}).index
+        'i3+N3*(i2+N2*(i1+N1*(i0)))'
         >>> Memcopy(['for'],{'data_type':'REAL','collapse':0}).index
-        '(i0-1)+1'
-        >>> Memcopy(['for'],{'data_type':'REAL','collapse':3}).index
-        '(i2-1)+((i1-1)+((i0-1)*N1)*N2)+1'
+        'i0-1+1'
+        >>> Memcopy(['for'],{'data_type':'REAL','collapse':2}).index
+        'i1-1+N1*(i0-1)+1'
         '''
+
         def fma_idx(n,offset = 0):
-            idx = f'(i{n}-{offset})' if offset else f'i{n}'
+            idx = f'i{n}-{offset}' if offset else f'i{n}'
 
             if n == 0:
                 return idx
-            return f'{idx}+({fma_idx(n-1,offset)}*N{n})'
+            return f'{idx}+N{n}*({fma_idx(n-1,offset)})'
 
         if self.language == 'cpp':
             return fma_idx(self.loop_construct_number-1)
