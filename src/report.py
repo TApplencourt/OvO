@@ -180,8 +180,13 @@ import os
 class EmptyIsAllFolder(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         if len(values) == 0:
-            folders = [os.path.join('test_result',i) for i in os.listdir('test_result') ]
-            values = [ max(folders) ]
+            try:
+                folders = [os.path.join('test_result',i) for i in os.listdir('test_result') ]
+                values = [ max(folders) ]
+            except FileNotFoundError:
+                sys.exit("The test_result folder doesn't seems to exit")
+            except ValueError:
+                sys.exit("The test_result seems to be empty")
 
         setattr(namespace, self.dest, values)
 
@@ -230,3 +235,6 @@ if __name__ == "__main__":
     else:
         print (">> Summary")
     summary_d_result(d_agregaded)
+
+    if any(i is not None for i in d_agregaded.values()):
+        sys.exit(1)
