@@ -1,0 +1,1 @@
+- OvO_presentation_20-05-20.pdf : Introduction to OvO. Related to realease v0.1
