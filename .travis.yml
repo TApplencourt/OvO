@@ -28,11 +28,11 @@ jobs:
     - ./ovo.sh run test_src/cpp
     - ./ovo.sh report --failed
 
-  - name: gcc [host omp]
+  - name: gcc [no omp full]
     compiler: gcc
     env: 
       - CXX='g++-9'
-      - CXXFLAGS='-fopenmp -std=c++11'
+      - CXXFLAGS='-std=c++11'
     addons:
       apt:
         sources:
@@ -41,7 +41,13 @@ jobs:
         packages:
         - g++-9 
         - python3
-    script:
+    install:
+    - pip install -r requirements.txt
+    script:    - ./ovo.sh gen hierarchical_parallelism --test_type --data_type --loop_pragma --paired_pragmas --avoid_user_defined_reduction --collapse
+      
+
+      
+        
     - ./ovo.sh run test_src/cpp
     - ./ovo.sh report --failed
 
@@ -61,7 +67,7 @@ jobs:
     - ./ovo.sh run test_src/fortran
     - ./ovo.sh report --failed
 
-  - name: gfortran [omp host]
+  - name: gfortran [no omp full]
     compiler: gfortran
     env: 
       - FC='gfortran-9'
@@ -74,7 +80,9 @@ jobs:
         packages:
         - gfortran-9 
         - python3
+    install:
+    - pip install -r requirements.txt
     script:
-    - ./ovo.sh run test_src/fortran
+    - ./ovo.sh gen hierarchical_parallelism --test_type --data_type --loop_pragma --paired_pragmas --avoid_user_defined_reduction --collapse
+    - ./ovo.sh run test_src/cpp
     - ./ovo.sh report --failed
- 
