@@ -8,13 +8,13 @@ jobs:
   include:
   - name: unittest
     script:
-    - python3 -m unittest src/display.py
+    - python3 -m unittest src/report.py
     - python3 -m doctest -v src/gtest.py
 
   - name: gcc
     compiler: gcc
     env: 
-      - CXX='g++'
+      - CXX='g++-9'
       - CXXFLAGS='-std=c++11'
     addons:
       apt:
@@ -31,7 +31,7 @@ jobs:
   - name: gfortran
     compiler: gfortran
     env: 
-      - FC='gfortran'
+      - FC='gfortran-9'
       - FFLAGS='-Wall -Wno-unknown-pragmas'
     addons:
       apt:
@@ -43,4 +43,4 @@ jobs:
         - python3
     script:
     - ./ovo.sh run test_src/fortran
-    - ./ovo.sh report
+    - ./ovo.sh report --failed
