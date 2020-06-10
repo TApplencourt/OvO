@@ -437,7 +437,7 @@ class Path():
 
             if self.is_loop_pragma(pragma):
                 d["loop"] = [ self.loops[i_loop+i] for i in range(max(self.collapse,1)) ]
-                i_loop+=self.collapse
+                i_loop+=max(self.collapse,1)
 
             if "target" in pragma:
                 d["target"] = True
