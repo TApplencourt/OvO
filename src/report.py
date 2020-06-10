@@ -165,7 +165,9 @@ def summary_d_result(d):
     h = d['hanging']
     v = d['wrong value']
     total_success = d[None]
-    
+    if not total_test:
+        return None
+
     print (f'{total_success} / {total_test} ( {total_success/total_test :.0%} ) pass [failures: {c} compilation, {r} offload, {v} incorrect value, {h} hanging]')
 
 #                
