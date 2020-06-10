@@ -423,7 +423,7 @@ class Path():
         [{'pragma': 'TARGET TEAMS DISTRIBUTE', 
           'loop': [Idx(i='i0', N='N0', v=512)], 'target': True, 'reduce': True}, 
          {'pragma': 'PARALEL DO', 
-          'loop': [Idx(i='i0', N='N0', v=512)]}]
+          'loop': [Idx(i='i1', N='N1', v=512)]}]
         '''
         # Yes, this is horible state machine...
         l, i_loop,n_reduce, target = [], 0, 0 , False
