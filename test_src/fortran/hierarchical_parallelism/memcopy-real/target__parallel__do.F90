@@ -13,7 +13,7 @@ program target__parallel__do
     !$OMP PARALLEL
     !$OMP DO
        DO i0 = 1 , N0
-    idx = (i0-1)+1
+    idx = i0-1+1
     A( idx ) = B( idx )
     END DO
 !$OMP END PARALLEL

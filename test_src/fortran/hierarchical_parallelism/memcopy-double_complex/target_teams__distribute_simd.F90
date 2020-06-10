@@ -17,7 +17,7 @@ program target_teams__distribute_simd
     !$OMP TARGET TEAMS   MAP(FROM: A) MAP(TO: B)
     !$OMP DISTRIBUTE SIMD
        DO i0 = 1 , N0
-    idx = (i0-1)+1
+    idx = i0-1+1
     A( idx ) = B( idx )
     END DO
 !$OMP END TARGET TEAMS

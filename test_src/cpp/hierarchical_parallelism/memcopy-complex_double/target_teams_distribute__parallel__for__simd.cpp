@@ -28,7 +28,7 @@ void test_target_teams_distribute__parallel__for__simd(){
 #pragma omp simd
       for (int i2 = 0 ; i2 < N2 ; i2++ )
       {
-const int idx = i2+(i1+(i0*N1)*N2);
+const int idx = i2+N2*(i1+N1*(i0));
 pA[idx] = pB[idx];
     }
     }

@@ -18,7 +18,7 @@ program target__teams__distribute
     !$OMP TEAMS
     !$OMP DISTRIBUTE
        DO i0 = 1 , N0
-    idx = (i0-1)+1
+    idx = i0-1+1
     A( idx ) = B( idx )
     END DO
 !$OMP END TEAMS

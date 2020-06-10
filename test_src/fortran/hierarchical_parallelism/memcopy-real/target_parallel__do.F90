@@ -12,7 +12,7 @@ program target_parallel__do
     !$OMP TARGET PARALLEL   MAP(FROM: A) MAP(TO: B)
     !$OMP DO
        DO i0 = 1 , N0
-    idx = (i0-1)+1
+    idx = i0-1+1
     A( idx ) = B( idx )
     END DO
 !$OMP END TARGET PARALLEL

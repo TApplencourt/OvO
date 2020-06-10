@@ -11,7 +11,7 @@ program target_teams_distribute_parallel_do_simd
     CALL RANDOM_NUMBER(B)
     !$OMP TARGET TEAMS DISTRIBUTE PARALLEL DO SIMD   MAP(FROM: A) MAP(TO: B)
        DO i0 = 1 , N0
-    idx = (i0-1)+1
+    idx = i0-1+1
     A( idx ) = B( idx )
     END DO
     IF (ANY(ABS(A - B) > EPSILON(  B  ) )) THEN
