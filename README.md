@@ -10,7 +10,7 @@
 
 OvO containt a large (>2k) set of tests for OpenMP offloading using hierarchical parallelism. For example, see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/) for the fortran tests.
 
-This repository also containt tests for most of the C++/Fortran math Function (`cmath` and `complex`). For example see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/math_cpp11) directory for the c++11 functions.
+This repository also containt tests for most of the C++/Fortran math Function (`cmath` and `complex`). For example see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/mathematical_function/) directory for the c++11 functions.
 
 Tests can be run using `./ovo.sh run` with the enviroment variable needed (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD) 
 
