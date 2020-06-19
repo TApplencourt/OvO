@@ -16,7 +16,7 @@ void test_target_teams_distribute_simd() {
   std::generate(src.begin(), src.end(), std::rand);
   complex<double> *pS { src.data() };
   complex<double> *pD { dst.data() };
-  #pragma omp target teams distribute simd map(from: pS[0:size]) map(to: pD[0:size])
+  #pragma omp target teams distribute simd map(to: pS[0:size]) map(from: pD[0:size])
   for (int i0 = 0 ; i0 < N0 ; i0++ )
   {
     const int idx = i0;

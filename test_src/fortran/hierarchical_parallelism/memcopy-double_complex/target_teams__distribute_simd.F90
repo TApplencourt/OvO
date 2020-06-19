@@ -15,7 +15,7 @@ PROGRAM target_teams__distribute_simd
   CALL RANDOM_NUMBER(src_imag)
   src = CMPLX(src_real,src_imag)
   DEALLOCATE (src_real,src_imag)
-  !$OMP target teams map(from: src) map(to: dst)
+  !$OMP target teams map(to: src) map(from: dst)
   !$OMP distribute simd
   DO i0 = 1, N0
     idx = i0-1+1

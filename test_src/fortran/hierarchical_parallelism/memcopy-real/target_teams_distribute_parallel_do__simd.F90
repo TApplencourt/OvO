@@ -11,7 +11,7 @@ PROGRAM target_teams_distribute_parallel_do__simd
   S = N0*N1
   ALLOCATE(dst(S), src(S) )
   CALL RANDOM_NUMBER(src)
-  !$OMP target teams distribute parallel do map(from: src) map(to: dst)
+  !$OMP target teams distribute parallel do map(to: src) map(from: dst)
   DO i0 = 1, N0
     !$OMP simd
     DO i1 = 1, N1

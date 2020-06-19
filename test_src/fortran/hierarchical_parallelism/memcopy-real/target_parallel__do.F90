@@ -9,7 +9,7 @@ PROGRAM target_parallel__do
   S = N0
   ALLOCATE(dst(S), src(S) )
   CALL RANDOM_NUMBER(src)
-  !$OMP target parallel map(from: src) map(to: dst)
+  !$OMP target parallel map(to: src) map(from: dst)
   !$OMP do
   DO i0 = 1, N0
     idx = i0-1+1

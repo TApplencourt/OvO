@@ -19,7 +19,7 @@ PROGRAM target__teams__distribute__parallel__do__simd
   CALL RANDOM_NUMBER(src_imag)
   src = CMPLX(src_real,src_imag)
   DEALLOCATE (src_real,src_imag)
-  !$OMP target map(from: src) map(to: dst)
+  !$OMP target map(to: src) map(from: dst)
   !$OMP teams
   !$OMP distribute
   DO i0 = 1, N0

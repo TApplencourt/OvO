@@ -9,7 +9,7 @@ PROGRAM target_teams__distribute_simd
   S = N0
   ALLOCATE(dst(S), src(S) )
   CALL RANDOM_NUMBER(src)
-  !$OMP target teams map(from: src) map(to: dst)
+  !$OMP target teams map(to: src) map(from: dst)
   !$OMP distribute simd
   DO i0 = 1, N0
     idx = i0-1+1

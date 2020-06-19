@@ -11,7 +11,7 @@ PROGRAM target__parallel__do__simd
   S = N0*N1
   ALLOCATE(dst(S), src(S) )
   CALL RANDOM_NUMBER(src)
-  !$OMP target map(from: src) map(to: dst)
+  !$OMP target map(to: src) map(from: dst)
   !$OMP parallel
   !$OMP do
   DO i0 = 1, N0

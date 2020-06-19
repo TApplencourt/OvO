@@ -14,7 +14,7 @@ void test_target_parallel__for() {
   std::generate(src.begin(), src.end(), std::rand);
   float *pS { src.data() };
   float *pD { dst.data() };
-  #pragma omp target parallel map(from: pS[0:size]) map(to: pD[0:size])
+  #pragma omp target parallel map(to: pS[0:size]) map(from: pD[0:size])
   #pragma omp for
   for (int i0 = 0 ; i0 < N0 ; i0++ )
   {

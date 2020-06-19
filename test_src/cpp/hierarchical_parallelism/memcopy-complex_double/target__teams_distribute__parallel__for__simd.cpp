@@ -18,7 +18,7 @@ void test_target__teams_distribute__parallel__for__simd() {
   std::generate(src.begin(), src.end(), std::rand);
   complex<double> *pS { src.data() };
   complex<double> *pD { dst.data() };
-  #pragma omp target map(from: pS[0:size]) map(to: pD[0:size])
+  #pragma omp target map(to: pS[0:size]) map(from: pD[0:size])
   #pragma omp teams distribute
   for (int i0 = 0 ; i0 < N0 ; i0++ )
   {
