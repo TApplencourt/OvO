@@ -15,7 +15,7 @@ void test_target__teams_distribute_parallel_for_simd() {
   #pragma omp teams distribute parallel for simd reduction(+: counter_N0)
   for (int i0 = 0 ; i0 < N0 ; i0++ )
   {
-    counter_N0 = counter_N0 +  1. ;
+    counter_N0 = counter_N0 + complex<double> {  1. };
   }
   if (!almost_equal(counter_N0, expected_value, 0.1)) {
     std::cerr << "Expected: " << expected_value << " Got: " << counter_N0 << std::endl;

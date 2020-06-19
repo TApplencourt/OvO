@@ -136,6 +136,8 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
 {{increments.v}} = {{increments.v}} + {{T}} { {{increments.i}}.real() / {{increments.j}} };
          {% elif increments.j and increments.i == "1." %}
 {{increments.v}} = {{increments.v}} + {{T}} { {{T.internal}} { {{increments.i}} } / {{increments.j}} };
+         {% elif T.is_complex and increments.i == "1." %}
+{{increments.v}} = {{increments.v}} + {{T}} {  {{increments.i}} };
          {% else  %}
 {{increments.v}} = {{increments.v}} +  {{increments.i}} ;
          {% endif %}
