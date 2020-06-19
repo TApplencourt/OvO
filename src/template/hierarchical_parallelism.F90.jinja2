@@ -72,6 +72,8 @@ PROGRAM {{name}}
   INTEGER :: omp_get_num_threads
    {% endif %}
 #endif
+{% else %}
+  implicit none
 {% endif %}
 
 {% for loop_constructs in region_loop_construct %}
