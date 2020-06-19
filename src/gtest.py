@@ -524,13 +524,13 @@ class Path:
     def regions_increment(self):
         '''
         >>> Path( ['target'], {'collapse':0,'intermediate_result':False} ).regions_increment
-        [Inc(v='counter_target', i=1.0, j=None)]
+        [Inc(v='counter_target', i='1.', j=None)]
         >>> Path( ['target teams distribute'], {'collapse':0,'intermediate_result':False} ).regions_increment
-        [Inc(v='counter_N0', i=1.0, j=None)]
+        [Inc(v='counter_N0', i='1.', j=None)]
         >>> Path( ['target teams distribute','parallel', 'for'], {'collapse':2,'intermediate_result':True} ).regions_increment
-        [Inc(v='counter_N0', i='counter_N2', j=None), Inc(v='counter_N2', i=1.0, j=None)]
+        [Inc(v='counter_N0', i='counter_N2', j=None), Inc(v='counter_N2', i='1.', j=None)]
         >>> Path( ['target teams'], {'collapse':0,'intermediate_result':False} ).regions_increment
-        [Inc(v='counter_teams', i=1.0, j='omp_get_num_teams()')]
+        [Inc(v='counter_teams', i='1.', j='omp_get_num_teams()')]
         '''
         
         l = [] ; Inc = namedtuple("Inc",'v i j')
@@ -558,12 +558,12 @@ class Path:
     @cached_property
     def regions_additional_pragma(self):
         '''
-        >>> Path( ['target teams'], {'test_type':'atomic','intermediate_result':False} ).regions_additional_pragma
+        >>> Path( ['target teams'], {'test_type':'atomic','intermediate_result':False, 'collapse':0}).regions_additional_pragma
         [['map(tofrom: counter_teams)']]
-        >>> Path( ['target teams'], {'test_type':'reduction','intermediate_result':False} ).regions_additional_pragma
-        [['map(tofrom: counter_teams) reduction(+: counter_teams)']]
-        >>> Path( ['target teams'], {'test_type':'memcopy','intermediate_result':False} ).regions_additional_pragma
+        >>> Path( ['target teams'], {'test_type':'memcopy','intermediate_result':False, 'collapse':0}).regions_additional_pragma
         [['map(from: pS[0:size]) map(to: pD[0:size])']]
+        >>> Path( ['target teams distribute'], {'test_type':'reduction','intermediate_result':False, 'collapse':3}).regions_additional_pragma
+        [['map(tofrom: counter_N0) reduction(+: counter_N0) collapse(3)']]
         '''        
         l = []
         for counter, region in zip(self.region_counters,self.regions):
