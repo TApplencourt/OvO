@@ -15,7 +15,7 @@ jobs:
     compiler: gcc
     env: 
       - CXX='g++-9'
-      - CXXFLAGS='-std=c++11'
+      - CXXFLAGS='-Wall -Wextra -Werror -Wno-unknown-pragmas'
     addons:
       apt:
         sources:
@@ -32,7 +32,7 @@ jobs:
     compiler: gcc
     env: 
       - CXX='g++-9'
-      - CXXFLAGS='-std=c++11'
+      - CXXFLAGS='-Wall -Wextra -Werror -Wno-unknown-pragmas'
     addons:
       apt:
         sources:
@@ -47,6 +47,24 @@ jobs:
     - ./ovo.sh gen tiers 3
     - ./ovo.sh run test_src/cpp
     - ./ovo.sh report --failed
+
+  - name: icx [omp offload host]
+    compiler: icx
+    env:
+      - CXX='icx'
+      - CXXFLAGS='-fiopenmp -fopenmp-targets=x86_64-pc-linux-gnu -fopenmp-version=50'
+      - OVO_TIMEOUT='3min'
+    addons:
+      apt:
+        sources:
+        - sourceline: 'deb https://apt.repos.intel.com/oneapi all main'
+          key_url: https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
+        packages:
+        - intel-oneapi-icc
+        - python3
+    script:
+    - ./ovo.sh run test_src/cpp
+    - ./ovo.sh report --failed || true
 
   - name: gfortran [no omp]
     compiler: gfortran
