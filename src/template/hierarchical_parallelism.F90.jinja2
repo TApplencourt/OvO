@@ -126,7 +126,7 @@ PROGRAM {{name}}
 {{counter}} = 0
    {% endif %}
    {% for pragma, additional_pragma in zip_longest(region, region_additional_pragma, fillvalue='') %}
-!$OMP {{pragma}} {{additional_pragma}}
+!$OMP {{pragma | replace("for ","do ")}} {{additional_pragma}}
    {% endfor %}
 
    {% for loop_  in loop_constructs %}
