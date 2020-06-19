@@ -11,7 +11,7 @@
 OvO containt a large set of tests OpenMP offloading of [C++](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp) and [FORTRAN](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran). 
 OvO is focused on testing extensively [hierarchical parallelism](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/) and [mathematical functions](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/mathematical_function/).
 
-For hierarchical parallelism, we generate *all* possible OpenMP loop-nests containting any combinaison of `target, teams, distribute, parrallel for`, inculding combined pragma.
+For hierarchical parallelism, we generate *all* possible OpenMP loop-nests containing any combination of `target, teams, distribute, parallel for`, including combined pragma.
 
 All tests are checked for compilation and correctness.
 
@@ -46,7 +46,7 @@ clang++ -fopenmp isgreater_bool_float_float.cpp -o isgreater_bool_float_float.ex
 ```
 
 ## Result
-A summary of the result can be optained with `./ovo.sh report`. 
+A summary of the result can be obtained with `./ovo.sh report`. 
 
 ```
 $ ./ovo.sh report
@@ -54,13 +54,13 @@ $ ./ovo.sh report
 811 / 910 ( 89% ) pass [failures: 8 compilation, 84 offload, 7 incorrect results]
 ```
 
-You can also use `./ovo.sh report --failed` to get a list of tests who failed for more thoughtful investigation.
+You can also use `./ovo.sh report --failed` to get a list of tests that failed for more thoughtful investigation.
 
-All information  of the execution of the tests are avalaible in subfolder of `test_src` corresponding to our run.
-The enviroement used to tun the test are avalaible in `env.log`. 
-Two log files are also created, one for the compilation (`compilation.log`), and one for the runtime (`runtime.log`).
-  - Error code 112 correspond to a incorrect result. 
-  - Error 124 or 137 correspond to a tests who was hanging and was killed by `timeout`. 
+All information on the execution of the tests is available in the subfolder of `test_src` corresponding to our run.
+The environment used to tun the test is available in `env.log`. 
+Two log files are also created one for the compilation (`compilation.log`), and one for the runtime (`runtime.log`).
+  - Error code 112 corresponds to an incorrect result. 
+  - Error 124 or 137 corresponds to a test that was hanging and was killed by `timeout`. 
 
 ## Requirement
   - python3
@@ -75,10 +75,10 @@ or
 pip install requirements.txt
 ```
 
-## List of test avalaible
+## List of tests available
 
-Lot of tests are avalaible. For conveniance we bundle them in `tiers`. 
-By default the `Tiers 1` test are saved in the `OvO` diretory.
+More than tests 18000 are available. For convenience, we bundle them in `tiers`. 
+By default, the `Tiers 1` test are saved in the `OvO` directory.
 
 ```
 |===========\
@@ -95,8 +95,8 @@ By default the `Tiers 1` test are saved in the `OvO` diretory.
 |======================\
 |Tiers 2                \
 |------------------------\
-| - intermidate_result    \
-| - colllapse              \
+| - intermediate_result   \
+| - collapse               \
 |===========================\
 |Tiers 3                     \
 |-----------------------------\
@@ -107,22 +107,22 @@ By default the `Tiers 1` test are saved in the `OvO` diretory.
 | - DOUBLE PRECISION, COMPLEX      \
 ```
 
-To generate test please use `ovo.sh gen` with the correct option. For example
-`ovo.sh tiers 3` if you feel adventurous
+To generate tests, please use `ovo.sh gen`.But default it will generate `tiers 1` tests. But if you feel adventurous, you can type:
+`ovo.sh tiers 3`.
 
 ### Intermidate result
 
-Will use temporary variable to store parial result of a loop nest.
+Use temporary variables to store loop-nest partial results.
 
 ### Collapse
 
-Will generate test with `collpase(2)` clause
+Generate using with `collapse(2)` clause.
 
 ### Loop pragma
 
-Test will use the OpenMP 5.0 `loop` construct
+Use the OpenMP 5.0 `loop` construct
 
 ### host threaded
 
-We will generate test where the target region is inclosed in a host parrallel for.
+Generate tests where the target region is enclosed in a host parallel for.
 
