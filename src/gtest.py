@@ -563,7 +563,7 @@ class Path:
         >>> Path( ['target teams'], {'test_type':'memcopy','intermediate_result':False, 'collapse':0,'data_type':'float'}).regions_additional_pragma
         [['map(from: pS[0:size]) map(to: pD[0:size])']]
         >>> Path( ['target teams'], {'test_type':'memcopy','intermediate_result':False, 'collapse':0,'data_type':'REAL'}).regions_additional_pragma
-        [['map(from: src[0:size]) map(to: dst[0:size])']]
+        [['map(from: src) map(to: dst)']]
         >>> Path( ['target teams distribute'], {'test_type':'reduction','intermediate_result':False, 'collapse':3}).regions_additional_pragma
         [['map(tofrom: counter_N0) reduction(+: counter_N0) collapse(3)']]
         '''        
@@ -577,7 +577,7 @@ class Path:
                          if self.language == 'cpp':
                             construct+= ['map(from: pS[0:size]) map(to: pD[0:size])']
                          elif self.language == 'fortran':
-                           construct+= ['map(from: src[0:size]) map(to: dst[0:size])']
+                           construct+= ['map(from: src) map(to: dst)']
                     else:
                         construct+= [f'map(tofrom: {counter})']
                 if 'reduction' in self.test_type and pragma.can_be_reduced:
