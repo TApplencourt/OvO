@@ -1,4 +1,5 @@
 PROGRAM target_teams_distribute__parallel__do
+  implicit none
   INTEGER :: N0 = 512
   INTEGER :: i0
   INTEGER :: N1 = 512

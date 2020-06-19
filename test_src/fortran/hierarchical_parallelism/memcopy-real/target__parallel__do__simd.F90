@@ -1,4 +1,5 @@
 PROGRAM target__parallel__do__simd
+  implicit none
   INTEGER :: N0 = 512
   INTEGER :: i0
   INTEGER :: N1 = 512

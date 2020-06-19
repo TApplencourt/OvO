@@ -1,4 +1,5 @@
 PROGRAM target__teams_distribute_simd
+  implicit none
   INTEGER :: N0 = 262144
   INTEGER :: i0
   INTEGER :: idx

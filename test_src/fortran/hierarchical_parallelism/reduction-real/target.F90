@@ -7,6 +7,7 @@ FUNCTION almost_equal(x, gold, tol) RESULT(b)
   b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target
+  implicit none
   LOGICAL :: almost_equal
   REAL :: counter_target
   INTEGER :: expected_value

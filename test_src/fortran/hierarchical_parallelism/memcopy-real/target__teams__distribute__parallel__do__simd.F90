@@ -1,4 +1,5 @@
 PROGRAM target__teams__distribute__parallel__do__simd
+  implicit none
   INTEGER :: N0 = 64
   INTEGER :: i0
   INTEGER :: N1 = 64

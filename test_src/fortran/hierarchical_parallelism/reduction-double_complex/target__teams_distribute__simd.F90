@@ -7,6 +7,7 @@ FUNCTION almost_equal(x, gold, tol) RESULT(b)
   b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target__teams_distribute__simd
+  implicit none
   INTEGER :: N0 = 512
   INTEGER :: i0
   INTEGER :: N1 = 512

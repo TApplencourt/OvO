@@ -1,4 +1,5 @@
 PROGRAM target_teams_distribute
+  implicit none
   INTEGER :: N0 = 262144
   INTEGER :: i0
   INTEGER :: idx

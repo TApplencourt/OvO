@@ -7,6 +7,7 @@ FUNCTION almost_equal(x, gold, tol) RESULT(b)
   b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target__teams_distribute__parallel__do__simd
+  implicit none
   INTEGER :: N0 = 64
   INTEGER :: i0
   INTEGER :: N1 = 64
