@@ -198,7 +198,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(usage=usage)
     group = parser.add_mutually_exclusive_group()
 
-    group.add_argument('--coarse' , action='store_true')
+    group.add_argument('--summary' , action='store_true')
     group.add_argument('--failed'  , action='store_true')
     group.add_argument('--passed'  , action='store_true')
    
@@ -218,7 +218,7 @@ if __name__ == "__main__":
         for name, value in d.items():
             dd[value].append(os.path.basename(name))
 
-        if args.coarse:
+        if args.summary:
             print (f'>> {folder}')
             summary_d_result(d)
         elif args.failed:

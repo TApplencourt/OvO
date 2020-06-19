@@ -620,16 +620,6 @@
                     "in",
                     "in",
                     "out"
-                ],
-                [
-                    "in",
-                    "in",
-                    "out"
-                ],
-                [
-                    "in",
-                    "in",
-                    "out"
                 ]
             ],
             "type": [
@@ -647,16 +637,6 @@
                     "DOUBLE PRECISION",
                     "DOUBLE PRECISION",
                     "DOUBLE PRECISION"
-                ],
-                [
-                    "INTEGER",
-                    "INTEGER",
-                    "REAL"
-                ],
-                [
-                    "REAL",
-                    "REAL",
-                    "INTEGER"
                 ]
             ]
         },
@@ -708,16 +688,6 @@
                     "in",
                     "in",
                     "out"
-                ],
-                [
-                    "in",
-                    "in",
-                    "out"
-                ],
-                [
-                    "in",
-                    "in",
-                    "out"
                 ]
             ],
             "type": [
@@ -735,16 +705,6 @@
                     "DOUBLE PRECISION",
                     "DOUBLE PRECISION",
                     "DOUBLE PRECISION"
-                ],
-                [
-                    "INTEGER",
-                    "INTEGER",
-                    "REAL"
-                ],
-                [
-                    "REAL",
-                    "REAL",
-                    "INTEGER"
                 ]
             ]
         },

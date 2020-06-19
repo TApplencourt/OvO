@@ -8,61 +8,119 @@
 ```
 [![Build Status](https://travis-ci.org/TApplencourt/OvO.svg?branch=master)](https://travis-ci.org/TApplencourt/OvO)
 
-OvO containt a large (>2k) set of tests for OpenMP offloading using hierarchical parallelism. For example, see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/) for the fortran tests.
+OvO containt a large set of tests OpenMP offloading of [C++](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp) and [FORTRAN](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran). 
+OvO is focused on testing extensively [hierarchical parallelism](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/) and [mathematical functions](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/mathematical_function/)].
 
-This repository also containt tests for most of the C++/Fortran math Function (`cmath` and `complex`). For example see [this](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/math_cpp11) directory for the c++11 functions.
+All tests are checked for compilation and correctness.
 
-Tests can be run using `./ovo.sh run` with the enviroment variable needed (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD) 
-
-For example:
+As an example of a simple C++ hierarchical parallelism kernel we check:
 ```
-$  OMP_TARGET_OFFLOAD=mandatory CXX="clang++" CXXFLAGS="-fopenmp -std=c++11" ./ovo.sh run ./tests_src/cpp/math_cpp11
-Running tests/math_cpp11 | Saving log in results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30/math_cpp11
-clang++ "-fopenmp -std=c++17 isgreater_bool_float_float.cpp -o isgreater_bool_float_float.exe
-clang++ "-fopenmp -std=c++17 isgreater_bool_double_double.cpp -o isgreater_bool_double_double.exe
-clang++ "-fopenmp -std=c++17 truncf_float_float.cpp -o truncf_float_float.exe
+#pragma omp target map(tofrom: counter_N0)
+#pragma omp teams distribute
+for (int i0 = 0 ; i0 < N0 ; i0++ )
+{
+  #pragma omp parallel for
+  for (int i1 = 0 ; i1 < N1 ; i1++ )
+  {
+     #pragma omp atomic update
+     counter_N0 = counter_N0 +  1. ;
+   }
+}
+assert (counter_N0 != N0*N1);
+```
+
+## Running 
+
+To run OvO simply type `./ovo.sh run`. The logs file will be saved in the newly created `test_result` folder. 
+OvO will respect any usual environement provided by th user (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD`).
+You can find commonly used flags for various compiler in [/documentation/README.md](https://github.com/TApplencourt/OvO/tree/master//documentation/README.md).
+
+For example, runing with `gfortran`:
+```
+$ OMP_TARGET_OFFLOAD=mandatory CXX="g++" CXXFLAGS="-fopenmp" FC="gfortran" FFLAGS="-fopenmp"./ovo.sh run
+Running tests_src/cpp/mathematical_function/math_cpp11 | Saving log in results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30/cpp/mathematical_function/math_cpp11
+clang++ -fopenmp isgreater_bool_float_float.cpp -o isgreater_bool_float_float.exe
 [...]
 ```
 
-Result can be generate with `./ovo.sh display`.
+## Result
+A summary of the result can be optained with `./ovo.sh report`. 
 
 ```
 $ ./ovo.sh report
 >> test_results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30
-307 / 307 ( 100% ) pass [failures: 46 compilation, 0 offload, 0 incorrect results]
+811 / 910 ( 89% ) pass [failures: 8 compilation, 84 offload, 7 incorrect results]
 ```
 
+You can also use `./ovo.sh report --failed` to get a list of tests who failed for more thoughtful investigation.
+
+All information  of the execution of the tests are avalaible in subfolder of `test_src` corresponding to our run.
+The enviroement used to tun the test are avalaible in `env.log`. 
+Two log files are also created, one for the compilation (`compilation.log`), and one for the runtime (`runtime.log`).
+  - Error code 112 correspond to a incorrect result. 
+  - Error 124 or 137 correspond to a tests who was hanging and was killed by `timeout`. 
+
 ## Requirement
- - bash >3.2 (bash 3.2 was realeased in 2006-10-12!)
- - python3
- - [jinja](https://jinja.palletsprojects.com/en/2.11.x/) (optional,  needed to re-generate the tests if templates have been modifed)
+  - python3
+  - OpenMP compiler (obviously). We recommand an OpenMP 5.0 spec-complied compiler. Some test map and reduce a variable in the same combined construct
+  - C++11 compiler
+  - [jinja](https://jinja.palletsprojects.com/en/2.11.x/) (optional,  needed to generate more tests. See next section)
 ```
 conda install --file requirements.txt
 ```
 or
 ```
-pip install requirements.txt)
-```
-- OpenMP 5.0 compiler. Ovo assume `firstprivate` by default, and being able to map and reduce a variable in the same combined construct
-  - C++ 11 compiler minimun (some math test required C++17 and C++20)
-
-## More information
-
-```
-$./ovo.sh -h
+pip install requirements.txt
 ```
 
-# How to read logs files.
+## List of test avalaible
 
-When running with `run`, two log files will be create for each `test_folder`, one for compilation, the other for the runtime 
-Error 112 correspond to a incorect result
- 
+Lot of tests are avalaible. For conveniance we bundle them in `tiers`. 
+By default the `Tiers 1` test are saved in the `OvO` diretory.
 
-# Where are the tests?!
+```
+|===========\
+|Tiers 1     \
+|-------------\
+|Test          \
+|  - Atomic     \
+|  - Memcopy     \
+|  - Reduction    \
+|Datatype          \
+|  - float, REAL    \
+|  - complex<double> \
+|  - DOUBLE COMPLEX   \
+|======================\
+|Tiers 2                \
+|------------------------\
+| - intermidate_result    \
+| - colllapse              \
+|===========================\
+|Tiers 3                     \
+|-----------------------------\
+| - loop_pragma                \
+| - host_threaded               \
+|DataType                        \
+| - double, complex<float>        \
+| - DOUBLE PRECISION, COMPLEX      \
+```
 
-Check `test_src` folder. They can be re-generated by `ovo.sh gen`
-They are generated using the `.jinja2` templates located at `test_src/template/`
+To generate test please use `ovo.sh gen` with the correct option. For example
+`ovo.sh tiers 3` if you feel adventurous
 
-# Advance usage
+### Intermidate result
 
- - We use implicit mapping of std::complex. To check in simple case if this is support by your compiler please use `./ovo.sh run src/sanity_check/`  
+Will use temporary variable to store parial result of a loop nest.
+
+### Collapse
+
+Will generate test with `collpase(2)` clause
+
+### Loop pragma
+
+Test will use the OpenMP 5.0 `loop` construct
+
+### host threaded
+
+We will generate test where the target region is inclosed in a host parrallel for.
+

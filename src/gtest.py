@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import jinja2, json, os, shutil, sys, math
-from itertools import tee, zip_longest, product,chain
+from itertools import tee, zip_longest, product,chain,zip_longest
 from functools import update_wrapper
 from typing import List
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 
 #
 #  __                                      _          _       
@@ -17,23 +17,28 @@ templateEnv = jinja2.Environment(loader=templateLoader)
 def raise_helper(msg):
     raise Exception(msg)
 templateEnv.globals['raise'] = raise_helper
+templateEnv.globals.update(zip=zip)
+templateEnv.globals.update(zip_longest=zip_longest)
+templateEnv.globals.update(chain=chain)
 
 #                
 # | | _|_ o |  _ 
 # |_|  |_ | | _> 
 #                
+try:
+    from functools import cached_property
+except ImportError:
+    class cached_property(object):
 
-class cached_property(object):
-    def __init__(self, func):
-        update_wrapper(self,func)
-        self.func = func
+        def __init__(self, func):
+            update_wrapper(self,func)
+            self.func = func
 
-    def __get__(self, obj, cls):
-        if obj is None:
-            return self
-        value = obj.__dict__[self.func.__name__] = self.func(obj)
-
-        return value
+        def __get__(self, obj, cls):
+            if obj is None:
+                return self
+            value = obj.__dict__[self.func.__name__] = self.func(obj)
+            return value
 
 def pairwise(iterable):
     "s -> (s0,s1), (s1,s2), (s2, s3), ..."
@@ -135,6 +140,10 @@ class TypeSystem():
         return 'long' in self.without_pointer
 
     @cached_property
+    def is_complex(self):
+        return self.category == 'complex'
+
+    @cached_property
     def internal(self):
         '''
         >>> TypeSystem('complex<float>').internal
@@ -183,12 +192,57 @@ class TypeSystem():
     def __str__(self):
         return self.T
 
+
+class Pragma():
+
+    def __init__(self, pragma):
+        self.pragma = pragma
+
+    @cached_property
+    def is_loop(self):
+        return any(p in self.pragma for p in ("distribute","for","loop","simd") )
+
+    @cached_property
+    def is_worksharing(self):
+        return any(p in self.pragma for p in ("distribute","for","loop") )
+
+    @cached_property
+    def is_teams(self):
+        return 'teams' in self.pragma
+
+    @cached_property
+    def is_distribute(self):
+        return 'distribute' in self.pragma
+
+    @cached_property
+    def is_target(self): 
+        return 'target' in self.pragma
+
+    @cached_property
+    def is_teams(self):
+        return 'teams' in self.pragma
+
+    @cached_property
+    def is_parallel(self):
+        return 'parallel' in self.pragma
+
+    @cached_property
+    def is_generator(self):
+        return any(p in self.pragma for p in ("teams","parallel") )
+
+    @cached_property
+    def can_be_reduced(self):
+        return any(p in self.pragma for p in ("teams","parallel","simd") )
+    
+    def __repr__(self):
+        return self.pragma
+
 # ___                               _                      
 #  |  _   _ _|_   |_   _.  _  _ __ |_ _.  _ _|_  _  ._     
 #  | (/_ _>  |_   |_) (_| _> (/_   | (_| (_  |_ (_) | \/   
 #                                                     /    
 
-class Path():
+class Path:
 
     def __init__(self, path_raw, d_arg):
         self.path_raw = path_raw
@@ -198,7 +252,7 @@ class Path():
         # d_args keys containt [data_type, test_type, avoid_user_defined_reduction, paired_pragmas, loop_pragma, collapse]
         for k,v in d_arg.items():
             setattr(self, k, v)
-    
+ 
     @cached_property
     def T(self):
         return TypeSystem(self.data_type)
@@ -277,17 +331,6 @@ class Path():
         '''
         return list(chain.from_iterable(map(str.split,self.path)))
 
-    def follow_by(self,a,b):
-        '''
-        >>> Path( ['parallel', 'for'], {} ).follow_by('parallel','for')
-        True
-        >>> Path( ['parallel for'], {} ).follow_by('parallel','for')
-        True
-        >>> Path( ['parallel', 'for'], {} ).follow_by('for','simd')
-        False
-        '''
-        return any( (i == a) and (j == b) for i,j in pairwise(self.flatten_path))
-
     def has(self,construct):
         '''
         >>> Path( ['parallel', 'for'], {} ).has('for')
@@ -304,24 +347,26 @@ class Path():
         '''
         >>> Path( ['teams', 'distribute'], {} ).only_teams
         False
-        >>> Path( ['teams', 'loop'], {} ).only_teams
-        False
         >>> Path( ['teams', 'parrallel','loop'], {} ).only_teams
         True
+        >>> Path( ['distribute'], {} ).only_teams
+        False
+        >>> Path( ['teams'], {} ).only_teams
+        True
         '''
-        return self.has("teams") and not ( self.follow_by("teams","distribute") or self.follow_by("teams","loop") )
+        return any( i == 'teams' and not j in ('distribute','loop')  for i,j in pairwise(self.flatten_path + [None] ) )
 
     @cached_property
     def only_parallel(self):
         '''
         >>> Path( ['parallel', 'for'], {} ).only_parallel
         False
-        >>> Path( ['parallel', 'loop'], {} ).only_parallel
-        False
         >>> Path( ['teams','loop','parallel'], {} ).only_parallel
         True
+        >>> Path( ['parallel'], {} ).only_parallel
+        True
         '''
-        return self.has("parallel") and not  ( self.follow_by("parallel", "for") or self.follow_by("parallel","loop") )
+        return any( i == 'parallel' and not j in ('for','loop')  for i,j in pairwise(self.flatten_path + [None] ) )
 
     @cached_property
     def balenced(self):
@@ -333,29 +378,6 @@ class Path():
         '''
         return not self.only_parallel and not self.only_teams
    
-    def is_loop_pragma(self, pragma):
-        '''
-        >>> Path( {}, {}).is_loop_pragma('loop')
-        True
-        >>> Path( {}, {}).is_loop_pragma('parralel for')
-        True
-        >>> Path( {}, {}).is_loop_pragma('teams')
-        False
-        '''
-        return any(p in pragma for p in ("distribute","for","simd","loop") )
-
-    @cached_property
-    def loop_pragma_number(self):
-        '''
-        >>> Path( ['teams', 'distribute', 'parallel', 'for'], {} ).loop_pragma_number
-        2
-        >>> Path( ['teams', 'distribute', 'parallel', 'loop'], {} ).loop_pragma_number
-        2
-        >>> Path( ['teams', 'parallel'], {} ).loop_pragma_number
-        0
-        '''
-        return sum(map(self.is_loop_pragma, self.path)) 
-
     @cached_property
     def loop_construct_number(self):
         '''
@@ -367,17 +389,16 @@ class Path():
         2
         >>> Path( ['teams', 'distribute', 'parallel', 'for'], {'collapse':2} ).loop_construct_number
         4
+        >>> Path( ['teams distribute parallel for'], {'collapse':2} ).loop_construct_number
+        2
         >>> Path( ['teams', 'parallel'], {'collapse':2} ).loop_construct_number
         0
         '''
+        loop_pragma_number =  sum(Pragma(p).is_loop for p in self.path)
         if self.collapse:
-            return self.loop_pragma_number*self.collapse
+            return loop_pragma_number*self.collapse
         else:
-            return self.loop_pragma_number
-
-    @cached_property
-    def has_loop_construct(self):
-        return self.loop_construct_number != 0
+            return loop_pragma_number
   
     @cached_property
     def loop_tripcount(self):
@@ -401,68 +422,167 @@ class Path():
         return max(1, math.ceil(math.pow(64*64*64, 1./self.loop_construct_number)))
 
     @cached_property
-    def loops(self):
+    def regions(self):
         '''
-        >>> Path( ['distribute'], {'collapse':1} ).loops
-        [Idx(i='i0', N='N0', v=262144)]
-        >>> Path( ['distribute'], {'collapse':2} ).loops
-        [Idx(i='i0', N='N0', v=512), Idx(i='i1', N='N1', v=512)]
-        >>> Path( ['teams'], {'collapse':None} ).loops
-        []
-        '''        
-        Idx = namedtuple("Idx",'i N v')
-        return [ Idx(f"i{i}",f"N{i}",self.loop_tripcount) for i in range(self.loop_construct_number) ]
-
+        >>> Path( ['target'], {} ).regions
+        [[target]]
+        >>> Path( ['target teams distribute'], {} ).regions
+        [[target teams distribute]]
+        >>> Path( ['target', 'teams', 'distribute'], {} ).regions
+        [[target, teams, distribute]]
+        >>> Path( ['target', 'teams', 'distribute','parallel','for','simd'], {} ).regions
+        [[target, teams, distribute], [parallel, for], [simd]]
+        >>> Path( ['target teams','parallel'], {} ).regions
+        [[target teams], [parallel]]
+        >>> Path( ['target', 'parallel', 'for'], {} ).regions
+        [[target, parallel, for]]
+        >>> Path( ['parallel', 'for','target','teams'], {} ).regions
+        [[parallel, for], [target, teams]]
+        >>> Path( ['target', 'teams', 'loop','parallel','loop','simd'], {} ).regions
+        [[target, teams, loop], [parallel, loop], [simd]]
+        >>> Path( ['target', 'teams', 'parallel','simd'], {'collapse':0} ).regions
+        [[target, teams], [parallel], [simd]]
+        '''
         
-    @cached_property
-    def fat_path(self):
-        '''
-        >>> Path( ['distribute'], {'collapse':0, 'data_type':'REAL'} ).fat_path
-        [{'pragma': 'DISTRIBUTE', 'loop': [Idx(i='i0', N='N0', v=262144)]}]
-        >>> Path( ['target teams distribute', 'paralel for'], {'collapse':0, 'data_type':'REAL'} ).fat_path #doctest: +NORMALIZE_WHITESPACE
-        [{'pragma': 'TARGET TEAMS DISTRIBUTE', 
-          'loop': [Idx(i='i0', N='N0', v=512)], 'target': True, 'reduce': True}, 
-         {'pragma': 'PARALEL DO', 
-          'loop': [Idx(i='i1', N='N1', v=512)]}]
-        '''
-        # Yes, this is horible state machine...
-        l, i_loop,n_reduce, target = [], 0, 0 , False
-        for pragma in self.path:
-            d = {}
-
-            if self.language == 'cpp':
-                d["pragma"] = pragma   
-            elif self.language == 'fortran':
-                d["pragma"] = pragma.replace('for','do').upper() 
-
-            if self.is_loop_pragma(pragma):
-                d["loop"] = [ self.loops[i_loop+i] for i in range(max(self.collapse,1)) ]
-                i_loop+=max(self.collapse,1)
-
-            if "target" in pragma:
-                d["target"] = True
-                target = True
-
-            if "teams" in pragma and self.only_teams:
-                d["only_teams"] = True
-
-            if "parallel" in pragma and self.only_parallel:
-                d["only_parallel"] = True
-            
-            if any(p in pragma for p in ("teams","parallel","simd")):
-                d["reduce"] = True
-
-                if n_reduce == 1:
-                    d["partial"] = True
-                if n_reduce >= 1:
-                    d["partial_reduce"] = True
-                if not target:
-                    d["reduce_host"] = True
-                n_reduce += 1
-
-            l.append(d)
+        l, l_tmp = [],[]
+        for i,j in pairwise(self.path+['sentinel']):
+           tail_i = Pragma(i.split()[-1])
+           head_j = Pragma(j.split()[0])
+               
+           l_tmp.append(Pragma(i))
+           if (tail_i.is_loop    or (tail_i.is_generator and not head_j.is_worksharing)) or \
+              (tail_i.is_target  and head_j.pragma == 'sentinel'):
+              l.append(l_tmp[:])
+              l_tmp = []
 
         return l
+
+    @cached_property
+    def region_counters(self):
+        '''
+        >>> Path( ['target teams distribute'], {'collapse':0, 'intermediate_result':False} ).region_counters
+        ['counter_N0']
+        >>> Path( ['target'], {'collapse':0, 'intermediate_result':False} ).region_counters
+        ['counter_target']
+        >>> Path( ['target teams'], {'collapse':0, 'intermediate_result':False} ).region_counters
+        ['counter_teams']
+        >>> Path( ['target','teams', 'parallel'], {'collapse':0, 'intermediate_result':True} ).region_counters
+        ['counter_teams', 'counter_parallel']
+        >>> Path( ['target','teams', 'parallel for'], {'collapse':0, 'intermediate_result':True} ).region_counters
+        ['counter_teams', 'counter_N0']
+        >>> Path( ['target teams distribute','parallel for'], {'collapse':0, 'intermediate_result':True} ).region_counters
+        ['counter_N0', 'counter_N1']
+        >>> Path( ['target teams distribute','parallel for'], {'collapse':2, 'intermediate_result':True} ).region_counters
+        ['counter_N0', 'counter_N2']
+        '''
+        l,i = [], 0
+        for region in self.regions:
+            tail = region[-1]
+            if tail.is_loop:
+                l.append(f'counter_N{i}')
+                i+= max(self.collapse,1)
+            else:
+                l.append(f'counter_{tail.pragma.split().pop()}')
+
+        # In the case of local tests,  we will use only one variable to do our work.
+        # All the counter should refer to the first one
+        if not self.intermediate_result:
+            return [ l[0] ] * len(self.regions)
+        return l
+    
+    @cached_property
+    def region_loop_construct(self):
+        '''
+        >>> Path( ['target teams distribute'], {'collapse':0} ).region_loop_construct
+        [[Idx(i='i0', N='N0', v=262144)]]
+        >>> Path( ['target teams distribute','parallel'], {'collapse':0} ).region_loop_construct
+        [[Idx(i='i0', N='N0', v=262144)], []]
+        >>> Path( ['target teams distribute','parallel for'], {'collapse':0} ).region_loop_construct
+        [[Idx(i='i0', N='N0', v=512)], [Idx(i='i1', N='N1', v=512)]]
+        >>> Path( ['target teams distribute'], {'collapse':2} ).region_loop_construct
+        [[Idx(i='i0', N='N0', v=512), Idx(i='i1', N='N1', v=512)]]
+        '''
+        n_collapse = max(self.collapse,1)
+        i = 0
+        l = []
+        Idx = namedtuple("Idx",'i N v')
+        for region in self.regions:
+            tail = region[-1]
+            
+            l_tmp = []
+            if tail.is_loop:
+                for j in range(n_collapse):
+                    l_tmp.append( Idx(f"i{i}",f"N{i}",self.loop_tripcount)  )
+                    i+=1
+            else:
+                l_tmp  = []
+
+            l.append(l_tmp)
+        return l
+    
+    @cached_property
+    def regions_increment(self):
+        '''
+        >>> Path( ['target'], {'collapse':0,'intermediate_result':False} ).regions_increment
+        [Inc(v='counter_target', i=1.0, j=None)]
+        >>> Path( ['target teams distribute'], {'collapse':0,'intermediate_result':False} ).regions_increment
+        [Inc(v='counter_N0', i=1.0, j=None)]
+        >>> Path( ['target teams distribute','parallel', 'for'], {'collapse':2,'intermediate_result':True} ).regions_increment
+        [Inc(v='counter_N0', i='counter_N2', j=None), Inc(v='counter_N2', i=1.0, j=None)]
+        >>> Path( ['target teams'], {'collapse':0,'intermediate_result':False} ).regions_increment
+        [Inc(v='counter_teams', i=1.0, j='omp_get_num_teams()')]
+        '''
+        
+        l = [] ; Inc = namedtuple("Inc",'v i j')
+        for (counter,counter_next), region in zip(pairwise(self.region_counters + ['1.']),self.regions):
+            tail  = region[-1]
+            if not self.intermediate_result and self.only_teams and self.only_parallel:
+                    l.append(Inc(counter,counter_next, '( omp_get_num_teams() * omp_get_num_threads() )'))
+            elif not self.intermediate_result and self.only_teams:
+                    l.append(Inc(counter,counter_next, 'omp_get_num_teams()'))
+            elif not self.intermediate_result and self.only_parallel:
+                    l.append(Inc(counter,counter_next, 'omp_get_num_threads()'))
+            elif tail.is_loop:
+                    l.append(Inc(counter,counter_next,None))
+            elif tail.is_teams:
+                    l.append(Inc(counter,counter_next, 'omp_get_num_teams()'))
+            elif tail.is_parallel:
+                    l.append(Inc(counter,counter_next, 'omp_get_num_threads()'))
+            elif tail.is_target:
+                    l.append(Inc(counter,counter_next,None))
+            else:
+                raise ValueError(tail)
+       
+        return l
+
+    @cached_property
+    def regions_additional_pragma(self):
+        '''
+        >>> Path( ['target teams'], {'test_type':'atomic','intermediate_result':False} ).regions_additional_pragma
+        [['map(tofrom: counter_teams)']]
+        >>> Path( ['target teams'], {'test_type':'reduction','intermediate_result':False} ).regions_additional_pragma
+        [['map(tofrom: counter_teams) reduction(+: counter_teams)']]
+        >>> Path( ['target teams'], {'test_type':'memcopy','intermediate_result':False} ).regions_additional_pragma
+        [['map(from: pS[0:size]) map(to: pD[0:size])']]
+        '''        
+        l = []
+        for counter, region in zip(self.region_counters,self.regions):
+            l_tmp = []
+            for pragma in region:
+                construct = []
+                if pragma.is_target:
+                    if 'memcopy' in self.test_type:
+                         construct+= ['map(from: pS[0:size]) map(to: pD[0:size])']
+                    else:
+                        construct+= [f'map(tofrom: {counter})']
+                if 'reduction' in self.test_type and pragma.can_be_reduced:
+                    construct+= [f'reduction(+: {counter})']
+                if self.collapse and pragma.is_loop:
+                    construct+= [f'collapse({self.collapse})']
+
+                l_tmp.append(' '.join(construct))
+            l.append(l_tmp[:])
+        return l                
 
     @cached_property
     def is_valid_common_test(self):
@@ -488,7 +608,7 @@ class Path():
         if self.loop_pragma ^ self.has('loop'):
             return False
         # If people whant collapse, we will print only the test with loop
-        if self.collapse and not self.has_loop_construct:
+        if self.collapse and not self.loop_construct_number:
             return False
         return True
 
@@ -513,7 +633,7 @@ class Path():
 #                                                                         
 
 class Fold(Path):
-
+        
     @cached_property
     def expected_value(self):
         '''
@@ -525,10 +645,10 @@ class Fold(Path):
         '1'
         '''
 
-        if not self.loops:
-            return "1"
+        if not self.loop_construct_number:
+            return '1'
 
-        return f"{'*'.join(l.N for l in self.loops)}"
+        return '*'.join(l.N for l in chain.from_iterable(self.region_loop_construct))
 
     @cached_property
     def is_valid_test(self):
@@ -537,25 +657,13 @@ class Fold(Path):
         True
         >>> Fold( ['teams', 'distribute', 'simd'], {'collapse':0,'test_type': 'atomic'} ).is_valid_test
         False
-        >>> Fold( ['parralel for'], {'collapse':0,'test_type': 'reduction_atomic','data_type':'REAL'} ).is_valid_test
-        False
-        >>> Fold( ['teams','simd'], {'collapse':0,'test_type': 'reduction_atomic','data_type':'REAL'} ).is_valid_test
-        True
         '''
         # Cannot use atomic inside simd
-        if self.test_type in ('atomic','threaded_atomic') and self.has("simd"):
-            return False
-
-        # We want to do a two step fold (reduction in the inner loops and atomics in the outer)
-        # - That mean we need at least 2 posible reduction <=> partial in fat_path
-        if self.test_type == 'reduction_atomic' and not any("partial" in p for p in self.fat_path):
-            return False
-
-        return True
+        return not (self.test_type == 'atomic' and self.has("simd"))
     
     @cached_property
     def template_location(self):
-        return f"fold.{self.ext}.jinja2"
+        return f"hierarchical_parallelism.{self.ext}.jinja2"
 
 class Memcopy(Path):
 
@@ -597,7 +705,7 @@ class Memcopy(Path):
         'N0*N1'
         '''
 
-        return '*'.join(l.N for l in self.loops) 
+        return '*'.join(l.N for l in chain.from_iterable(self.region_loop_construct))
 
     @cached_property
     def is_valid_test(self):
@@ -608,13 +716,13 @@ class Memcopy(Path):
         False
         '''
 
-        if not self.balenced or not self.has_loop_construct:
+        if not self.balenced or not self.loop_construct_number:
             return False
         return True
 
     @cached_property
     def template_location(self):
-        return f"test_memcopy.{self.ext}.jinja2"
+        return f"hierarchical_parallelism.{self.ext}.jinja2"
 
 #                                                  _                         
 # |\/|  _. _|_ |_   _  ._ _   _. _|_ o  _  _. |   |_    ._   _ _|_ o  _  ._  
@@ -630,49 +738,49 @@ class ccomplex(object):
         return f"{self.real}, {self.img}"
 
 class Argv:
-            def __init__(self,t,attr, argv):
-                self.T = TypeSystem(t)
-                self.attr = attr
-                self.name = argv
-                self.val = None
+    def __init__(self,t,attr, argv):
+        self.T = TypeSystem(t)
+        self.attr = attr
+        self.name = argv
+        self.val = None
 
-            @cached_property
-            def is_argv(self):
-                return self.attr == 'in' or (self.attr == 'out' and self.T.is_pointer)
+    @cached_property
+    def is_argv(self):
+        return self.attr == 'in' or (self.attr == 'out' and self.T.is_pointer)
 
-            def argv_name(self,suffix):
-                if self.attr == 'in':
-                    return self.name
-                elif self.attr == 'out' and self.T.is_pointer:
-                    return f'&{self.name}_{suffix}'            
-                else:
-                    raise NotImplemented(f'{self.name} is not yet implemented as parameters of function')
+    def argv_name(self,suffix):
+        if self.attr == 'in':
+            return self.name
+        elif self.attr == 'out' and self.T.is_pointer:
+            return f'&{self.name}_{suffix}'
+        else:
+            raise NotImplemented(f'{self.name} is not yet implemented as parameters of function')
 
-            @cached_property
-            def name_host(self):
-                return f'{self.name}_host'
+    @cached_property
+    def name_host(self):
+        return f'{self.name}_host'
 
-            @cached_property
-            def name_device(self):
-                return f'{self.name}_device'
+    @cached_property
+    def name_device(self):
+        return f'{self.name}_device'
 
-            @cached_property
-            def argv_host(self):
-                return self.argv_name('host')
+    @cached_property
+    def argv_host(self):
+        return self.argv_name('host')
 
-            @cached_property
-            def argv_device(self):
-                return self.argv_name('device')
+    @cached_property
+    def argv_device(self):
+        return self.argv_name('device')
 
-            @cached_property
-            def is_output(self):
-                return self.attr == 'out'
+    @cached_property
+    def is_output(self):
+        return self.attr == 'out'
 
-            @cached_property
-            def is_input(self):
-                return self.attr == 'in'
+    @cached_property
+    def is_input(self):
+        return self.attr == 'in'
   
-class Math():
+class Math:
 
     T_to_values = {'bool': [True],
          'float': [0.42, 4.42],
@@ -763,7 +871,7 @@ class Math():
         if any(t.T.is_pointer and t.is_input for t in self.l ):
             return None
 
-        template = templateEnv.get_template(f"test_math.{self.ext}.jinja2")
+        template = templateEnv.get_template(f"mathematical_function.{self.ext}.jinja2")
         
         str_ = template.render(name=self.name, l_argv=self.l, scalar_output= self.scalar_output, have_complex=self.have_complex)
         return format_template(str_,self.language)
@@ -797,6 +905,8 @@ def gen_mf(d_arg):
  
     name_folder = [std] + [k for k,v in d_arg.items() if v == True]    
     folder = os.path.join("test_src",language,"mathematical_function",'-'.join(name_folder))
+    print (f'Generating {folder}')
+
     os.makedirs(folder, exist_ok=True)
 
     with open(os.path.join(folder,"Makefile"),'w') as f:
@@ -822,19 +932,17 @@ def gen_mf(d_arg):
 def gen_hp(d_arg, omp_construct):
     
     t = TypeSystem(d_arg['data_type'])
+    # Avoid the user reduction is only valid for cpp complex reduction code
+    if d_arg['no_user_defined_reduction']:
+        if t.language != "cpp" or t.category != 'complex' or d_arg['test_type'] != 'reduction':
+            return False
 
-    # Do we need to generate a folder?
-    if d_arg['avoid_user_defined_reduction']:
-        if t.language == "fortran":
-            return False
-        if t.category != 'complex':
-            return False
-        if d_arg['test_type'] not in ('reduction',):
-            return False
+    # Paired_pragmas only valid for fortran code
     if d_arg['paired_pragmas'] and t.language != "fortran":
             return False
     
-    if t.category == 'complex' and d_arg['test_type'] in ('reduction_atomic','atomic','threaded_atomic'):
+    # OpenMP doesn't support Complex Atomic
+    if t.category == 'complex' and d_arg['test_type'] == 'atomic':
         return False
 
     name_folder = [d_arg["test_type"], t.serialized ] + sorted([k for k,v in d_arg.items() if v is True])
@@ -842,21 +950,19 @@ def gen_hp(d_arg, omp_construct):
         name_folder += [ f"collapse_n{d_arg['collapse']}" ]
 
     folder =  os.path.join("test_src",t.language,"hierarchical_parallelism",'-'.join(name_folder))
+    print (f'Generating {folder}') 
     os.makedirs(folder, exist_ok=True)
 
     with open(os.path.join(folder,"Makefile"),'w') as f:
         f.write(templateEnv.get_template(f"Makefile.jinja2").render(ext="cpp" if t.language == "cpp" else "F90"))
 
-    d_Construtor = {'reduction': Fold,
-                    'atomic': Fold,
-                    'reduction_atomic': Fold,
-                    'memcopy': Memcopy,
-                    'threaded_reduction': Fold,
-                    'threaded_atomic': Fold}
+    if d_arg["test_type"] in ('reduction','atomic'):
+        Constructor = Fold
+    elif d_arg["test_type"] in ('memcopy', ):
+        Constructor = Memcopy
 
-    Constructor = d_Construtor[d_arg["test_type"]]
     for path in omp_construct:
-        if d_arg["test_type"].startswith('threaded'):
+        if d_arg["host_threaded"]:
             path = ['parallel for'] + path
         Constructor(path,d_arg).write_template_rendered(folder)
 #
@@ -873,93 +979,160 @@ def check_validy_arguments(possible_values, values, type_):
         sys.exit()
 
 import argparse
-class EmptyIsBoth(argparse.Action):
+class EmptyIsTrue(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         if len(values) == 0:
-            values = [True,False]
+            values = [True]
         setattr(namespace, self.dest, values)
 
 class EmptyIsAllTestType(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
-        possible_values = ['atomic','reduction','reduction_atomic', 'memcopy','threaded_atomic','threaded_reduction']
+        possible_values = ['atomic','reduction','memcopy']
         if len(values) == 0:
             values = possible_values
         check_validy_arguments(possible_values, values, 'test type')
         setattr(namespace, self.dest, values)
 
-class EmptyIsAllDataType(argparse.Action):
+class EmptyIsSinglePrecision(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         possible_values =  ['float','complex<float>', 'double', 'complex<double>', 'REAL', 'COMPLEX', 'DOUBLE PRECISION', 'DOUBLE COMPLEX']
         if len(values) == 0:
-            values = possible_values
+            values = ['float','REAL']
         check_validy_arguments(possible_values, values, 'data type')
         setattr(namespace, self.dest, values)
 
-class EmptyIsAllStandart(argparse.Action):
+class EmptyIsOldStandart(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
+        possible_values = ['cpp11', 'cpp17','cpp20','F77']
         if len(values) == 0:
-            values = ['cpp11', 'cpp17','cpp20','F77']
+            values = ['cpp11', 'F77']
+        check_validy_arguments(possible_values, values, 'Standart')
         setattr(namespace, self.dest, values)
 
-class EmptyIsTwo(argparse.Action):
+class EmptyIsOne(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         if not values:
-            values = [0, 1,2]
+            values = [1]
         setattr(namespace, self.dest, values)
 
-import argparse
-def ListOfBool(v):
+def EvalArg(v,msg='Boolean value expected.'):
     try:
         return eval(v)
     except:
-        raise argparse.ArgumentTypeError('Boolean value expected.')
+        raise argparse.ArgumentTypeError(msg)
 
 if __name__ == '__main__':
     with open(os.path.join(dirname,'template','ovo_usage.txt')) as f:
         ovo_usage=f.read()
 
     parser = argparse.ArgumentParser(usage=ovo_usage)
-    action_parsers = parser.add_subparsers(dest='command')
 
+    action_parsers = parser.add_subparsers(dest='command')
+    
+    # ~
+    # tiers
+    # ~
+
+    tiers_parser = action_parsers.add_parser("tiers")
+    tiers_parser.add_argument('tiers', type=int, nargs='+')
+
+    # ~
+    # hierarchical_parallelism
+    # ~
     hp_parser = action_parsers.add_parser("hierarchical_parallelism")
 
-    hp_parser.add_argument('--test_type', nargs='*', default=['atomic','reduction','memcopy'], action=EmptyIsAllTestType)
-    hp_parser.add_argument('--data_type',nargs='*', default=['float','complex<double>', 'REAL', 'DOUBLE COMPLEX'], action=EmptyIsAllDataType)
-    hp_parser.add_argument('--loop_pragma', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
-    hp_parser.add_argument('--paired_pragmas', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
-    hp_parser.add_argument('--avoid_user_defined_reduction', nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
-    hp_parser.add_argument('--collapse', nargs='*', default=[0], action=EmptyIsTwo, type=ListOfBool)
-
+    hp_parser.add_argument('--test_type', nargs='*', action=EmptyIsAllTestType)
+    hp_parser.add_argument('--data_type', nargs='*', action=EmptyIsSinglePrecision)
+    hp_parser.add_argument('--collapse',  nargs='*', action=EmptyIsOne, type=lambda l: EvalArg(l,'integer value is expected'))
     hp_parser.add_argument('--append', action='store_true' )
+    # Boolean test
+    for opt in ('loop_pragma','paired_pragmas',
+                'no_user_defined_reduction',
+                'host_threaded','intermediate_result'):
+        hp_parser.add_argument(f'--{opt}', nargs='*', action=EmptyIsTrue, type=EvalArg)
     
+    # ~
+    # mathematical_function
+    # ~
+
     mf_parser = action_parsers.add_parser("mathematical_function")
-    mf_parser.add_argument('--standart', nargs='*', default=['cpp11','F77'], action=EmptyIsAllStandart)
-    mf_parser.add_argument('--complex',  nargs='*', default=[True,False], action=EmptyIsBoth, type=ListOfBool)
-    mf_parser.add_argument('--long',  nargs='*', default=[False], action=EmptyIsBoth, type=ListOfBool)
+    mf_parser.add_argument('--standart', nargs='*', action=EmptyIsOldStandart)
+
+    mf_parser.add_argument('--complex',  nargs='*', action=EmptyIsTrue, type=EvalArg)
+    mf_parser.add_argument('--long',     nargs='*', action=EmptyIsTrue, type=EvalArg)
     mf_parser.add_argument('--append', action='store_true')
 
-    l_args = [ parser.parse_args() ]
-    if not l_args[0].command:
-        l_args = [ parser.parse_args(['hierarchical_parallelism']), 
-                parser.parse_args(['mathematical_function']) ]
+
+    # ~
+    # Deefault
+    # ~
+
+    d_hp = { 'test_type' : {'atomic','reduction','memcopy'},
+             'data_type' : {'float', 'REAL'},
+             'loop_pragma' : {False},
+             'paired_pragmas': {False},
+             'no_user_defined_reduction': {False},
+             'host_threaded': {False},
+             'intermediate_result': {False},
+             'collapse': {0},
+             'append': False }
+
+    d_mf = { 'standart' : {'cpp11','F77'},
+             'complex': {True,False},
+             'long': {False},
+             'append': False }
+
+    # ~
+    # Parsing logic
+    # ~
+    p = parser.parse_args()
     
+    # By default we use 'tiers 1'    
+    if not p.command:
+        p.command = 'tiers'
+        p.tiers = [1]
+    
+    # Tiers logic
+    if p.command == 'tiers':
+      d_hp['data_type'] |= {'complex<double>','DOUBLE COMPLEX'}
+      if p.tiers[0] >= 2:
+            d_hp['intermediate_result'] |= {True}
+            d_hp['collapse'] |= {2,}
+      if p.tiers[0] >= 3:
+            d_hp['loop_pragma'] |= {True}
+            #d_hp['paired_pragmas'] |= {True}
+            d_hp['host_threaded'] |= {True}
+            d_hp['data_type'] |= {'double','complex<float>', 'DOUBLE PRECISION', 'COMPLEX'}
+            d_mf['standart'] |= {'cpp17'}
+
+      l_args = [('hierarchical_parallelism',d_hp), ('mathematical_function', d_mf) ]
+
+    # Overwrite the default with the user values
+    elif p.command in ('hierarchical_parallelism', 'mathematical_function'):
+        d = d_hp if p.command == 'hierarchical_parallelism' else d_mf
+
+        for k,v in vars(p).items():
+            if k in d and v is not None:
+                d[k] = v
+        l_args = [ (p.command, d) ]
+
+    # ~
+    # Generate tests for cartesian product of options
+    # ~
     with open(os.path.join(dirname,"config","omp_struct.json"), 'r') as f:
         omp_construct = combinations_construct(json.load(f))
-     
-    if not any(args.append for args in l_args):
-        print('Removing ./test_src...')
-        shutil.rmtree('./test_src', ignore_errors=True)
 
-    for args in l_args:
-      d_args = dict(vars(args))
-      del d_args['command']
-      del d_args['append']
+    for type_, d_args in l_args:
+      
+      if not d_args.pop('append'):
+        print(f'Removing ./tests_src/{{cpp,fortram}}/{type_} tests ...')
+        shutil.rmtree(f'./test_src/cpp/{type_}', ignore_errors=True)
+        shutil.rmtree(f'./test_src/fortran/{type_}',ignore_errors=True)
 
       k = d_args.keys()
       for p in product(*d_args.values()):
         d = {k:v for k,v in zip(k,p)}
-        print(d)
-        if args.command == 'hierarchical_parallelism':
+        if type_ == 'hierarchical_parallelism':
             gen_hp(d,omp_construct)
         else:
             gen_mf(d)
