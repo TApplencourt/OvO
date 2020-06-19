@@ -7,7 +7,7 @@
 using namespace std;
 bool almost_equal(complex<float> x, complex<float> y, int ulp) {
     return std::abs(x-y) <= std::numeric_limits<float>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<float>::min();
-}
+   }
 void test_pow(){
    complex<float> in0 {  0.42, 0.0 };
    complex<float> in1 {  0.42, 0.0 };

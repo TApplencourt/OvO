@@ -1,16 +1,17 @@
 OvO a OpenMP test generator.
 Usage:
   ovo.sh gen
-  ovo.sh gen hierarchical_parallelism [--test_type [atomic|reduction|reduction_atomic|
-                                                    threaded_atomic|threaded_reduction|
-                                                    memcopy]... ]
+  ovo.sh gen tiers [1|2|3]
+  ovo.sh gen hierarchical_parallelism [--test_type [atomic|reduction|memcopy]...]
                                       [--data_type [float|'complex<float>'|
                                                     double|'complex<double>'|
                                                     REAL|COMPLEX|
                                                     'DOUBLE PRECISION'|'DOUBLE COMPLEX']... ]
                                       [--loop_pragma [True|False] ]
+                                      [--host_threaded [True|False] ]
+                                      [--intermediate_result [True|False] ]
                                       [--paired_pragmas [True|False] ]
-                                      [--avoid_user_defined_reduction [True|False] ]
+                                      [--no_user_defined_reduction [True|False] ]
                                       [--collapse [N]...]
                                       [--append]
 
@@ -23,28 +24,7 @@ Usage:
   ovo.sh clean
   ovo.sh (-h | --help)
 
-Possible value:
-   --test_type atomic reduction reduction_atomic memcopy threaded_atomic threaded_reduction
-   --data_type float double 'complex<float>' 'complex<double>' REAL COMPLEX 'DOUBLE PRECISION' 'DOUBLE COMPLEX'
-
-   --standart cp11 cpp17 cpp20 F77
-
-Default value:
-    --test_type atomic reduction memcopy
-    --data_type float 'complex<double>' REAL 'DOUBLE COMPLEX'
-    --loop_pragma False
-    --paired_pragmas False
-    --avoid_user_defined_reduction False
-    --collapse 1
-
-    --standart cp11 F77
-    --complex True, False
-    --long False 
-
 Example:
-  - Generate all the possible tests
-    ./ovo.sh gen hierarchical_parallelism --test_type --data_type --loop_pragma --paired_pragmas --avoid_user_defined_reduction --collapse
-    ./ovo.sh gen mathematical_function --standart --complex --long --append
   - Generate only hierarchical_parallelism real Fortran test with loop construct
-     ./ovo.sh gen hierarchical_parallelism  --data_type REAL --loop_pragma True
+     ./ovo.sh gen hierarchical_parallelism  --data_type REAL --loop_pragma True --test_type memcopy
 

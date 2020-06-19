@@ -4,12 +4,9 @@
 #include <iostream>
 #include <cstdlib>
 using namespace std;
-bool almost_equal(int x, int y, int ulp) {
-    return x == y ;
-}
 bool almost_equal(float x, float y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
-}
+   }
 void test_frexpf(){
    float in0 {  0.42 };
    int out1_host;
@@ -21,7 +18,7 @@ void test_frexpf(){
    {
      out2_device =  frexpf( in0, &out1_device);
    }
-   if ( !almost_equal(out1_host,out1_device, 4) ) {
+   if ( out1_host != out1_device ) {
         std::cerr << std::setprecision (std::numeric_limits<int>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         std::exit(112);
     }

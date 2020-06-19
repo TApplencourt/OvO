@@ -2,38 +2,37 @@
 #include <cstdlib>
 #include <cmath>
 #include <complex>
-using namespace std;
+using std::complex;
 #ifdef _OPENMP
 #include <omp.h>
 #else
-int omp_get_num_teams()   {return 1;}
-int omp_get_num_threads() {return 1;}
+int omp_get_num_teams() {return 1;}
 #endif
 bool almost_equal(complex<double> x, complex<double> gold, float tol) {
-        return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol);
+  return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
 }
-#pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
-void test_target_teams__parallel_for__simd(){
- const int N0 = 512;
- const int N1 = 512;
- complex<double> counter{};
-#pragma omp target teams reduction(+: counter) map(tofrom: counter)
+void test_target_teams__parallel_for__simd() {
+  const int N0 { 512 };
+  const int N1 { 512 };
+  const complex<double> expected_value { N0*N1 };
+  #pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
+  complex<double> counter_teams{};
+  #pragma omp target teams map(tofrom: counter_teams) reduction(+: counter_teams)
+  {
+    #pragma omp parallel for reduction(+: counter_teams)
+    for (int i0 = 0 ; i0 < N0 ; i0++ )
     {
-const int num_teams = omp_get_num_teams();
-#pragma omp parallel for reduction(+: counter)
-      for (int i0 = 0 ; i0 < N0 ; i0++ )
-      {
-#pragma omp simd reduction(+: counter)
+      #pragma omp simd reduction(+: counter_teams)
       for (int i1 = 0 ; i1 < N1 ; i1++ )
       {
-counter += complex<double> { 1.0f/num_teams } ;
+        counter_teams = counter_teams + complex<double> { double { 1. } / omp_get_num_teams() };
+      }
     }
-    }
-    }
-if ( !almost_equal(counter,complex<double> { N0*N1 }, 0.1)  ) {
-    std::cerr << "Expected: " << N0*N1 << " Got: " << counter << std::endl;
+  }
+  if (!almost_equal(counter_teams, expected_value, 0.1)) {
+    std::cerr << "Expected: " << expected_value << " Got: " << counter_teams << std::endl;
     std::exit(112);
-}
+  }
 }
 int main()
 {

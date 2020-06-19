@@ -4,9 +4,6 @@
 #include <iostream>
 #include <cstdlib>
 using namespace std;
-bool almost_equal(bool x, bool y, int ulp) {
-    return x == y ;
-}
 void test_isnan(){
    float in0 {  0.42 };
    bool out1_host;
@@ -16,7 +13,7 @@ void test_isnan(){
    {
      out1_device =  isnan( in0);
    }
-   if ( !almost_equal(out1_host,out1_device, 4) ) {
+   if ( out1_host != out1_device ) {
         std::cerr << std::setprecision (std::numeric_limits<bool>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         std::exit(112);
     }

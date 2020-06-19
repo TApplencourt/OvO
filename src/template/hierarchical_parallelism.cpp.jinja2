@@ -1,0 +1,189 @@
+{#                        #}
+{# |_|  _   _.  _|  _  ._ #}
+{# | | (/_ (_| (_| (/_ |  #}
+{#                        #}
+
+#include <iostream>
+#include <cstdlib>
+#include <cmath>
+{% if test_type == 'memcopy' %}
+#include <limits>
+#include <vector>
+#include <algorithm>
+{% endif %}
+{% if T.is_complex %}
+#include <complex>
+using std::complex;
+{% endif %}
+
+{#  _                    _     __               #}
+{# / \ ._   _  ._  |\/| |_)   (_ _|_     |_   _ #}
+{# \_/ |_) (/_ | | |  | |     __) |_ |_| |_) _> #}
+{#     |                                        #}
+
+{% if not balenced %}
+#ifdef _OPENMP
+#include <omp.h>
+#else
+   {% if only_teams %}
+int omp_get_num_teams() {return 1;}
+   {% endif %}
+   {% if only_parallel %}
+int omp_get_num_threads() {return 1;}
+   {% endif %}
+#endif
+{% endif %}
+
+{#  _                                         _                         #}
+{# /   _  ._ _  ._   _. ._ _. o  _  _  ._    |_    ._   _ _|_ o  _  ._  #}
+{# \_ (_) | | | |_) (_| | (_| | _> (_) | |   | |_| | | (_  |_ | (_) | | #}
+{#              |                                                       #}
+
+{# For memcopy we compare 'bitwise', for folder we compare relatively due to floating point arithmetic #}
+
+{% if test_type == 'memcopy' %}
+bool almost_equal({{T}} x, {{T}} y, int ulp) {
+   {% if T.category == "float" %}
+  return std::fabs(x-y) <= std::numeric_limits<{{T}}>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<{{T}}>::min();
+   {% elif T.category == "complex" %}
+  return std::abs(x-y) <= std::numeric_limits<{{T.internal}}>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<{{T.internal}}>::min();
+   {% endif %}
+}
+{% else %}
+bool almost_equal({{T}} x, {{T}} gold, float tol) {
+   {% if T.category == "float" %}
+  return gold * (1-tol) <= x && x <= gold * (1 + tol);
+   {% elif T.category == "complex" %}
+  return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
+   {% endif %}
+}
+{% endif%}
+
+
+{# _____         _    ______                _   _             #}
+{#|_   _|       | |   |  ___|              | | (_)            #}
+{#  | | ___  ___| |_  | |_ _   _ _ __   ___| |_ _  ___  _ __  #}
+{#  | |/ _ \/ __| __| |  _| | | | '_ \ / __| __| |/ _ \| '_ \ #}
+{#  | |  __/\__ \ |_  | | | |_| | | | | (__| |_| | (_) | | | |#}
+{#  \_/\___||___/\__| \_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|#}
+{#                                                            #}
+
+void test_{{name}}() {
+
+{#                               _                                   #}
+{# \  / _. ._ o  _. |_  |  _    | \  _   _ |  _. ._ _. _|_ o  _  ._  #}
+{#  \/ (_| |  | (_| |_) | (/_   |_/ (/_ (_ | (_| | (_|  |_ | (_) | | #}
+{#                                                                   #}
+
+{% for loop_constructs in region_loop_construct %}
+    {% for loop_  in loop_constructs %}
+  const int {{ loop_.N }} { {{ loop_.v }} };
+    {% endfor %}
+{% endfor %}
+ 
+{% if test_type == 'memcopy' %}  
+  const int size = {{problem_size}};
+  std::vector<{{T}}> dst(size), src(size);
+  std::generate(src.begin(), src.end(), std::rand);
+  {{T}} *pS { src.data() };
+  {{T}} *pD { dst.data() };
+{% else %}
+  const {{T}} expected_value { {{expected_value}} };
+{% endif %}
+
+{#                      _                          #}
+{# |   _   _  ._   _   |_) ._ _  |  _   _       _  #}
+{# |_ (_) (_) |_) _>   |   | (_) | (_) (_| |_| (/_ #}
+{#            |                         _|         #}
+
+{% if test_type == 'reduction' and T.is_complex and not no_user_defined_reduction%} 
+  #pragma omp declare reduction(+: {{T}}: omp_out += omp_in)
+{% endif %}
+
+{% for region, region_additional_pragma, loop_constructs,counter in zip_longest(regions, regions_additional_pragma, region_loop_construct,region_counters, fillvalue=[]) %}
+{% filter indent(width=2*loop.index) %}
+   {# In the case of 'local' test, we use only one counter in the outermost enclosing scope #} 
+   {% if  test_type != 'memcopy' and (intermediate_result or loop.first) %}
+{{T}} {{counter}}{};
+   {% endif %}
+   {% for pragma, additional_pragma in zip_longest(region, region_additional_pragma, fillvalue='') %}
+#pragma omp {{pragma}} {{additional_pragma}}
+   {% endfor %}
+
+   {% for loop_  in loop_constructs %}
+for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
+   {% endfor %}
+{
+{% endfilter %}
+{% endfor %}
+
+{#                      _                         #}
+{# |   _   _  ._   _   |_ ._  o |  _   _       _  #}
+{# |_ (_) (_) |_) _>   |_ |_) | | (_) (_| |_| (/_ #}
+{#            |           |            _|         #}
+
+{% for increments in regions_increment | reverse %}
+   {% filter indent(width=2*(loop.revindex+1)) %}
+
+      {# In the case of 'local' test, we increment the counter only in the inner most enclosing scope #}
+      {% if test_type != 'memcopy' and (intermediate_result or loop.first) %}
+
+         {% if 'atomic' in test_type %}
+#pragma omp atomic update
+         {% endif %}
+          
+         {% if T.is_complex and increments.j and increments.i != "1." %}
+{{increments.v}} = {{increments.v}} + {{T}} { {{increments.i}}.real() / {{increments.j}} };
+         {% elif increments.j and increments.i == "1." %}
+{{increments.v}} = {{increments.v}} + {{T}} { {{T.internal}} { {{increments.i}} } / {{increments.j}} };
+         {% else  %}
+{{increments.v}} = {{increments.v}} +  {{increments.i}} ;
+         {% endif %}
+
+      {% elif test_type == 'memcopy' and loop.first %}
+const int idx = {{index}};
+pD[idx] = pS[idx];
+      {% endif %}
+ 
+   {% endfilter %}
+
+   {# The closing braket are indented by one less level #}
+   {% filter indent(width=2*loop.revindex) %}
+}
+   {% endfilter %}
+{% endfor %}
+
+{#                                   #}
+{# \  / _. | o  _|  _. _|_ o  _  ._  #}
+{#  \/ (_| | | (_| (_|  |_ | (_) | | #}
+{#                                   #}
+
+{# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
+
+{%if test_type == 'memcopy' %}
+  for (int i = 0 ;  i < size ; i++)
+    if ( !almost_equal(dst[i],src[i],1) ) {
+      std::cerr << "Expected: " << dst[i] << " Got: " << src[i] << std::endl;
+      std::exit(112);
+  }
+{% else %}
+  if (!almost_equal({{region_counters | first }}, expected_value, 0.1)) {
+    std::cerr << "Expected: " << expected_value << " Got: " << {{region_counters | first }} << std::endl;
+    std::exit(112);
+  }
+{% endif %}
+}
+
+{# ___  ___      _        ______                _   _              #}
+{# |  \/  |     (_)       |  ___|              | | (_)             #}
+{# | .  . | __ _ _ _ __   | |_ _   _ _ __   ___| |_ _  ___  _ __   #}
+{# | |\/| |/ _\` | | '_ \ |  _| | | | '_ \ / __| __| |/ _ \| '_ \  #}
+{# | |  | | (_| | | | | | | | | |_| | | | | (__| |_| | (_) | | | | #}
+{# \_|  |_/\__,_|_|_| |_| \_|  \__,_|_| |_|\___|\__|_|\___/|_| |_| #}
+{#                                                                 #}
+
+int main()
+{
+    test_{{name}}();
+}
+

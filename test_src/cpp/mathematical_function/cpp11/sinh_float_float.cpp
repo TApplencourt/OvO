@@ -6,7 +6,7 @@
 using namespace std;
 bool almost_equal(float x, float y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
-}
+   }
 void test_sinh(){
    float in0 {  0.42 };
    float out1_host;

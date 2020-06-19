@@ -2,39 +2,38 @@
 #include <cstdlib>
 #include <cmath>
 #include <complex>
-using namespace std;
+using std::complex;
 #ifdef _OPENMP
 #include <omp.h>
 #else
-int omp_get_num_teams()   {return 1;}
 int omp_get_num_threads() {return 1;}
 #endif
 bool almost_equal(complex<double> x, complex<double> gold, float tol) {
-        return abs(gold) * (1-tol) <= abs(x) && abs(x) <= abs(gold) * (1 + tol);
+  return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
 }
-#pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
-void test_target__teams_distribute__parallel__simd(){
- const int N0 = 512;
- const int N1 = 512;
- complex<double> counter{};
-#pragma omp target map(tofrom: counter)
-#pragma omp teams distribute reduction(+: counter)
-      for (int i0 = 0 ; i0 < N0 ; i0++ )
-      {
-#pragma omp parallel reduction(+: counter)
+void test_target__teams_distribute__parallel__simd() {
+  const int N0 { 512 };
+  const int N1 { 512 };
+  const complex<double> expected_value { N0*N1 };
+  #pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
+  complex<double> counter_N0{};
+  #pragma omp target map(tofrom: counter_N0)
+  #pragma omp teams distribute reduction(+: counter_N0)
+  for (int i0 = 0 ; i0 < N0 ; i0++ )
+  {
+    #pragma omp parallel reduction(+: counter_N0)
     {
-const int num_threads = omp_get_num_threads();
-#pragma omp simd reduction(+: counter)
+      #pragma omp simd reduction(+: counter_N0)
       for (int i1 = 0 ; i1 < N1 ; i1++ )
       {
-counter += complex<double> { 1.0f/num_threads };
+        counter_N0 = counter_N0 + complex<double> { double { 1. } / omp_get_num_threads() };
+      }
     }
-    }
-    }
-if ( !almost_equal(counter,complex<double> { N0*N1 }, 0.1)  ) {
-    std::cerr << "Expected: " << N0*N1 << " Got: " << counter << std::endl;
+  }
+  if (!almost_equal(counter_N0, expected_value, 0.1)) {
+    std::cerr << "Expected: " << expected_value << " Got: " << counter_N0 << std::endl;
     std::exit(112);
-}
+  }
 }
 int main()
 {

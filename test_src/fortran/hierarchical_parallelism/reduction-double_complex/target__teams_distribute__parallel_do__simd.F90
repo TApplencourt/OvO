@@ -1,34 +1,37 @@
 FUNCTION almost_equal(x, gold, tol) RESULT(b)
-    implicit none
-    DOUBLE COMPLEX, intent(in) :: x
-    INTEGER,  intent(in) :: gold
-    REAL,     intent(in) :: tol
-    LOGICAL              :: b
-    b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol) )
+  implicit none
+  DOUBLE COMPLEX, intent(in) :: x
+  INTEGER,  intent(in) :: gold
+  REAL,     intent(in) :: tol
+  LOGICAL              :: b
+  b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target__teams_distribute__parallel_do__simd
-    LOGICAL :: almost_equal
-    INTEGER :: N0 = 64
-    INTEGER :: i0
-    INTEGER :: N1 = 64
-    INTEGER :: i1
-    INTEGER :: N2 = 64
-    INTEGER :: i2
-    DOUBLE COMPLEX :: counter = (0,0)
-!$OMP TARGET MAP(TOFROM: counter)
-!$OMP TEAMS DISTRIBUTE REDUCTION(+: counter)
-       DO i0 = 1 , N0
-!$OMP PARALLEL DO REDUCTION(+: counter)
-       DO i1 = 1 , N1
-!$OMP SIMD REDUCTION(+: counter)
-       DO i2 = 1 , N2
-counter = counter +  CMPLX(  1. , 0 )
+  INTEGER :: N0 = 64
+  INTEGER :: i0
+  INTEGER :: N1 = 64
+  INTEGER :: i1
+  INTEGER :: N2 = 64
+  INTEGER :: i2
+  LOGICAL :: almost_equal
+  DOUBLE COMPLEX :: counter_N0
+  INTEGER :: expected_value
+  expected_value = N0*N1*N2
+  counter_N0 = 0
+  !$OMP target map(tofrom: counter_N0)
+  !$OMP teams distribute reduction(+: counter_N0)
+  DO i0 = 1, N0
+    !$OMP parallel for reduction(+: counter_N0)
+    DO i1 = 1, N1
+      !$OMP simd reduction(+: counter_N0)
+      DO i2 = 1, N2
+        counter_N0 = counter_N0 + 1.
+      END DO
     END DO
-    END DO
-    END DO
-!$OMP END TARGET
-IF ( .NOT.almost_equal(counter, N0*N1*N2, 0.1) ) THEN
-    WRITE(*,*)  'Expected', N0*N1*N2,  'Got', counter
-    CALL EXIT(112)
-ENDIF
+  END DO
+  !$OMP END target
+  IF ( .NOT.almost_equal(counter_N0,expected_value, 0.1) ) THEN
+    WRITE(*,*)  'Expected', expected_value,  'Got', counter_N0
+    STOP 112
+  ENDIF
 END PROGRAM target__teams_distribute__parallel_do__simd

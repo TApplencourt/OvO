@@ -4,12 +4,9 @@
 #include <iostream>
 #include <cstdlib>
 using namespace std;
-bool almost_equal(int x, int y, int ulp) {
-    return x == y ;
-}
 bool almost_equal(float x, float y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
-}
+   }
 void test_remquof(){
    float in0 {  0.42 };
    float in1 {  0.42 };
@@ -22,7 +19,7 @@ void test_remquof(){
    {
      out3_device =  remquof( in0, in1, &out2_device);
    }
-   if ( !almost_equal(out2_host,out2_device, 4) ) {
+   if ( out2_host != out2_device ) {
         std::cerr << std::setprecision (std::numeric_limits<int>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         std::exit(112);
     }

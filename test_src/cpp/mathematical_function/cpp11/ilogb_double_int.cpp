@@ -4,9 +4,6 @@
 #include <iostream>
 #include <cstdlib>
 using namespace std;
-bool almost_equal(int x, int y, int ulp) {
-    return x == y ;
-}
 void test_ilogb(){
    double x {  0.42 };
    int o_host;
@@ -16,7 +13,7 @@ void test_ilogb(){
    {
      o_device =  ilogb( x);
    }
-   if ( !almost_equal(o_host,o_device, 4) ) {
+   if ( o_host != o_device ) {
         std::cerr << std::setprecision (std::numeric_limits<int>::max_digits10 ) << "Host: " << o_host << " GPU: " << o_device << std::endl;
         std::exit(112);
     }
