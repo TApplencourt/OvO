@@ -14,7 +14,7 @@ PROGRAM target__teams_distribute__parallel__do
   !$OMP teams distribute
   DO i0 = 1, N0
     !$OMP parallel
-    !$OMP for
+    !$OMP do
     DO i1 = 1, N1
       idx = i1-1+N1*(i0-1)+1
       dst(idx) = src(idx)

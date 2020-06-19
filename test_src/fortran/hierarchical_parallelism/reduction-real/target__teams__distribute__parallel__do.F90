@@ -21,7 +21,7 @@ PROGRAM target__teams__distribute__parallel__do
   !$OMP distribute
   DO i0 = 1, N0
     !$OMP parallel reduction(+: counter_N0)
-    !$OMP for
+    !$OMP do
     DO i1 = 1, N1
       counter_N0 = counter_N0 + 1.
     END DO

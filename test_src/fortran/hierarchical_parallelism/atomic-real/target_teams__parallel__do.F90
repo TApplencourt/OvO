@@ -29,7 +29,7 @@ PROGRAM target_teams__parallel__do
   counter_teams = 0
   !$OMP target teams map(tofrom: counter_teams)
     !$OMP parallel
-    !$OMP for
+    !$OMP do
     DO i0 = 1, N0
       !$OMP omp atomic update
       counter_teams = counter_teams + 1.  / omp_get_num_teams() ;

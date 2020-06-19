@@ -19,7 +19,7 @@ PROGRAM target_teams__distribute__parallel_do
   !$OMP target teams map(tofrom: counter_N0) reduction(+: counter_N0)
   !$OMP distribute
   DO i0 = 1, N0
-    !$OMP parallel for reduction(+: counter_N0)
+    !$OMP parallel do reduction(+: counter_N0)
     DO i1 = 1, N1
       counter_N0 = counter_N0 + 1.
     END DO

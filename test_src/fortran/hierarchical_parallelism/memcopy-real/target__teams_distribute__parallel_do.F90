@@ -13,7 +13,7 @@ PROGRAM target__teams_distribute__parallel_do
   !$OMP target map(from: pS[0:size]) map(to: pD[0:size])
   !$OMP teams distribute
   DO i0 = 1, N0
-    !$OMP parallel for
+    !$OMP parallel do
     DO i1 = 1, N1
       idx = i1-1+N1*(i0-1)+1
       dst(idx) = src(idx)

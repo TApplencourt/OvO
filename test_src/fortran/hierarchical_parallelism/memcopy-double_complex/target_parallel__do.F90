@@ -15,7 +15,7 @@ PROGRAM target_parallel__do
   src = CMPLX(src_real,src_imag)
   DEALLOCATE (src_real,src_imag)
   !$OMP target parallel map(from: pS[0:size]) map(to: pD[0:size])
-  !$OMP for
+  !$OMP do
   DO i0 = 1, N0
     idx = i0-1+1
     dst(idx) = src(idx)

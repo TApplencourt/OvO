@@ -18,7 +18,7 @@ PROGRAM target_teams_distribute__parallel_do
   counter_N0 = 0
   !$OMP target teams distribute map(tofrom: counter_N0)
   DO i0 = 1, N0
-    !$OMP parallel for
+    !$OMP parallel do
     DO i1 = 1, N1
       !$OMP omp atomic update
       counter_N0 = counter_N0 + 1.

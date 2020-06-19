@@ -21,7 +21,7 @@ PROGRAM target_teams_distribute__parallel__do__simd
   !$OMP target teams distribute map(tofrom: counter_N0) reduction(+: counter_N0)
   DO i0 = 1, N0
     !$OMP parallel reduction(+: counter_N0)
-    !$OMP for
+    !$OMP do
     DO i1 = 1, N1
       !$OMP simd reduction(+: counter_N0)
       DO i2 = 1, N2

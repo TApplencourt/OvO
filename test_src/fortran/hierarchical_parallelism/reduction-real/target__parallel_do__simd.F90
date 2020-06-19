@@ -17,7 +17,7 @@ PROGRAM target__parallel_do__simd
   expected_value = N0*N1
   counter_N0 = 0
   !$OMP target map(tofrom: counter_N0)
-  !$OMP parallel for reduction(+: counter_N0)
+  !$OMP parallel do reduction(+: counter_N0)
   DO i0 = 1, N0
     !$OMP simd reduction(+: counter_N0)
     DO i1 = 1, N1

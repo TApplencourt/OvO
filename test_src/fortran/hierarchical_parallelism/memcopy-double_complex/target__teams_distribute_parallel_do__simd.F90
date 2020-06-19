@@ -17,7 +17,7 @@ PROGRAM target__teams_distribute_parallel_do__simd
   src = CMPLX(src_real,src_imag)
   DEALLOCATE (src_real,src_imag)
   !$OMP target map(from: pS[0:size]) map(to: pD[0:size])
-  !$OMP teams distribute parallel for
+  !$OMP teams distribute parallel do
   DO i0 = 1, N0
     !$OMP simd
     DO i1 = 1, N1

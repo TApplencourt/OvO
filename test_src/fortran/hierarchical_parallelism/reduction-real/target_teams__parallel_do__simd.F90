@@ -30,7 +30,7 @@ PROGRAM target_teams__parallel_do__simd
   expected_value = N0*N1
   counter_teams = 0
   !$OMP target teams map(tofrom: counter_teams) reduction(+: counter_teams)
-    !$OMP parallel for reduction(+: counter_teams)
+    !$OMP parallel do reduction(+: counter_teams)
     DO i0 = 1, N0
       !$OMP simd reduction(+: counter_teams)
       DO i1 = 1, N1

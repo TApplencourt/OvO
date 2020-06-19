@@ -18,7 +18,7 @@ PROGRAM target__parallel__do__simd
   counter_N0 = 0
   !$OMP target map(tofrom: counter_N0)
   !$OMP parallel reduction(+: counter_N0)
-  !$OMP for
+  !$OMP do
   DO i0 = 1, N0
     !$OMP simd reduction(+: counter_N0)
     DO i1 = 1, N1

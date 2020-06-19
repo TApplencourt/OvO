@@ -20,7 +20,7 @@ PROGRAM target__teams__distribute__parallel_do
   !$OMP teams
   !$OMP distribute
   DO i0 = 1, N0
-    !$OMP parallel for
+    !$OMP parallel do
     DO i1 = 1, N1
       !$OMP omp atomic update
       counter_N0 = counter_N0 + 1.

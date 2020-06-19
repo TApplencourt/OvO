@@ -16,7 +16,7 @@ PROGRAM target__teams_distribute__parallel__do__simd
   !$OMP teams distribute
   DO i0 = 1, N0
     !$OMP parallel
-    !$OMP for
+    !$OMP do
     DO i1 = 1, N1
       !$OMP simd
       DO i2 = 1, N2

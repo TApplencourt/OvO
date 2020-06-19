@@ -22,7 +22,7 @@ PROGRAM target_teams__distribute__parallel__do__simd
   !$OMP distribute
   DO i0 = 1, N0
     !$OMP parallel reduction(+: counter_N0)
-    !$OMP for
+    !$OMP do
     DO i1 = 1, N1
       !$OMP simd reduction(+: counter_N0)
       DO i2 = 1, N2

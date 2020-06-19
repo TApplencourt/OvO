@@ -30,7 +30,7 @@ PROGRAM target__teams__parallel__do
   !$OMP target map(tofrom: counter_teams)
   !$OMP teams reduction(+: counter_teams)
     !$OMP parallel reduction(+: counter_teams)
-    !$OMP for
+    !$OMP do
     DO i0 = 1, N0
       counter_teams = counter_teams + 1.  / omp_get_num_teams() ;
     END DO

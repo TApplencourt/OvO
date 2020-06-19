@@ -21,7 +21,7 @@ PROGRAM target_teams_distribute__parallel__do__simd
   !$OMP target teams distribute map(from: pS[0:size]) map(to: pD[0:size])
   DO i0 = 1, N0
     !$OMP parallel
-    !$OMP for
+    !$OMP do
     DO i1 = 1, N1
       !$OMP simd
       DO i2 = 1, N2

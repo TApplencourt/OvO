@@ -12,7 +12,7 @@ PROGRAM target__parallel__do__simd
   CALL RANDOM_NUMBER(src)
   !$OMP target map(from: pS[0:size]) map(to: pD[0:size])
   !$OMP parallel
-  !$OMP for
+  !$OMP do
   DO i0 = 1, N0
     !$OMP simd
     DO i1 = 1, N1
