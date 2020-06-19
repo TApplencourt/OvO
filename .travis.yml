@@ -87,7 +87,7 @@ jobs:
   - name: gfortran [no omp full]
     compiler: gfortran
     env: 
-      - FC='gfortran-9'
+      - FC='gfortran-9 -Wall -Wextra -Werror'
     addons:
       apt:
         sources:
@@ -97,6 +97,44 @@ jobs:
         - gfortran-9 
         - python3
     install:
+    - pip install -r requirements.txt
+    script:
+    - ./ovo.sh gen tiers 3
+    - ./ovo.sh run test_src/fortran
+    - ./ovo.sh report --failed
+
+  - name: gfortran [no omp]
+    compiler: gfortran
+    env:
+      - FC='gfortran-9'
+    addons:
+      apt:
+        sources:
+         - sourceline: "ppa:ubuntu-toolchain-r/test"
+           key_url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x60c317803a41ba51845e371a1e9377a2ba9ef27f
+        packages:
+        - gfortran-9
+        - python3
+    script:
+    - ./ovo.sh run test_src/fortran
+    - ./ovo.sh report --failed
+
+  - name: ifx [omp offload host full]
+    compiler: ifx
+    env:
+      - FC='ifx'
+      - FFLAGS='-fiopenmp -fopenmp-targets=x86_64-pc-linux-gnu -fopenmp-version=50'
+      - OVO_TIMEOUT='3m'
+    addons:
+      apt:
+        sources:
+        - sourceline: 'deb https://apt.repos.intel.com/oneapi all main'
+          key_url: https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
+        packages:
+        - intel-oneapi-ifort
+        - python3
+    install:
+    - source /opt/intel/inteloneapi/compiler/latest/env/vars.sh
     - pip install -r requirements.txt
     script:
     - ./ovo.sh gen tiers 3
