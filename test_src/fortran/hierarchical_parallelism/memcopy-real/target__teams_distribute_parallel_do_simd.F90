@@ -8,7 +8,7 @@ PROGRAM target__teams_distribute_parallel_do_simd
   S = N0
   ALLOCATE(dst(S), src(S) )
   CALL RANDOM_NUMBER(src)
-  !$OMP target map(from: pS[0:size]) map(to: pD[0:size])
+  !$OMP target map(from: src[0:size]) map(to: dst[0:size])
   !$OMP teams distribute parallel do simd
   DO i0 = 1, N0
     idx = i0-1+1

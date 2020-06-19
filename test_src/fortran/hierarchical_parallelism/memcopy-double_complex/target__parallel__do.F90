@@ -14,7 +14,7 @@ PROGRAM target__parallel__do
   CALL RANDOM_NUMBER(src_imag)
   src = CMPLX(src_real,src_imag)
   DEALLOCATE (src_real,src_imag)
-  !$OMP target map(from: pS[0:size]) map(to: pD[0:size])
+  !$OMP target map(from: src[0:size]) map(to: dst[0:size])
   !$OMP parallel
   !$OMP do
   DO i0 = 1, N0
