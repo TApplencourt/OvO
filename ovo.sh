@@ -23,8 +23,11 @@ frun() {
 
         mkdir -p "$nresult"
         env > "$nresult"/env.log
-        echo $(${CXX:-c++} --version) > "$nresult"/compilers.log
-        echo $(${FC:-gfortran} --version) >> "$nresult"/compilers.log
+        echo "Trying to get more information about compiler used..." >> "$nresult"/env.log
+        echo "${CXX:-c++} --version" >> "$nresult"/env.log
+        ${CXX:-c++} --version &>> "$nresult"/env.log
+        echo "${FC:-gfortran} --version" >> "$nresult"/env.log
+        ${FC:-gfortran} --version &>> "$nresult"/env.log
 
         NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
         export MAKEFLAGS="${MAKEFLAGS:--j$NPROC --output-sync}"
