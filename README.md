@@ -14,7 +14,7 @@ OvO is focused on testing extensively [hierarchical parallelism](https://github.
 All tests are checked for compilation and correctness.
 
 As an example of a simple C++ hierarchical parallelism kernel we check:
-```
+```cpp
 #pragma omp target map(tofrom: counter_N0)
 #pragma omp teams distribute
 for (int i0 = 0 ; i0 < N0 ; i0++ )
