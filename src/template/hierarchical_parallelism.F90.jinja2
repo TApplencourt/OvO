@@ -146,7 +146,7 @@ DO {{loop_.i}} = 1, {{loop_.N}}
       {% if test_type != 'memcopy' and (intermediate_result or loop.first) %}
 
          {% if 'atomic' in test_type %}
-!$OMP omp atomic update
+!$OMP atomic update
          {% endif %}
 
          {% if increments.j %}

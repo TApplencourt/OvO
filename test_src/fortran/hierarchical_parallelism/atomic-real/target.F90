@@ -13,7 +13,7 @@ PROGRAM target
   expected_value = 1
   counter_target = 0
   !$OMP target map(tofrom: counter_target)
-    !$OMP omp atomic update
+    !$OMP atomic update
     counter_target = counter_target + 1.
   !$OMP END target
   IF ( .NOT.almost_equal(counter_target,expected_value, 0.1) ) THEN

@@ -31,7 +31,7 @@ PROGRAM target__teams_distribute__parallel
   !$OMP teams distribute
   DO i0 = 1, N0
     !$OMP parallel
-      !$OMP omp atomic update
+      !$OMP atomic update
       counter_N0 = counter_N0 + 1.  / omp_get_num_threads() ;
     !$OMP END parallel
   END DO

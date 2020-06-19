@@ -27,7 +27,7 @@ PROGRAM target__parallel
   counter_parallel = 0
   !$OMP target map(tofrom: counter_parallel)
   !$OMP parallel
-    !$OMP omp atomic update
+    !$OMP atomic update
     counter_parallel = counter_parallel + 1.  / omp_get_num_threads() ;
   !$OMP END parallel
   !$OMP END target

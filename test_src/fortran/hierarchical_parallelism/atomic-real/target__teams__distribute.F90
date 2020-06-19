@@ -18,7 +18,7 @@ PROGRAM target__teams__distribute
   !$OMP teams
   !$OMP distribute
   DO i0 = 1, N0
-    !$OMP omp atomic update
+    !$OMP atomic update
     counter_N0 = counter_N0 + 1.
   END DO
   !$OMP END teams

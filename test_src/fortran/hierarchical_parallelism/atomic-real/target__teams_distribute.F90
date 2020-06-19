@@ -17,7 +17,7 @@ PROGRAM target__teams_distribute
   !$OMP target map(tofrom: counter_N0)
   !$OMP teams distribute
   DO i0 = 1, N0
-    !$OMP omp atomic update
+    !$OMP atomic update
     counter_N0 = counter_N0 + 1.
   END DO
   !$OMP END target

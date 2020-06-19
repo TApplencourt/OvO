@@ -31,7 +31,7 @@ PROGRAM target__teams__parallel_do
   !$OMP teams
     !$OMP parallel do
     DO i0 = 1, N0
-      !$OMP omp atomic update
+      !$OMP atomic update
       counter_teams = counter_teams + 1.  / omp_get_num_teams() ;
     END DO
   !$OMP END teams

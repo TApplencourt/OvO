@@ -34,7 +34,7 @@ jobs:
     compiler: gcc
     env: 
       - CXX='g++-10'
-      - CXXFLAGS='-Wall -Wextra -Werror -Wno-unknown-pragmas'
+      - CXXFLAGS='-Wall -Wextra -Werror -Wno-unknown-pragmas -std=c++17'
     addons:
       apt:
         sources:
@@ -114,14 +114,14 @@ jobs:
   - name: gfortran [no omp full]
     compiler: gfortran
     env: 
-      - FC='gfortran-9 -Wall -Wextra -Werror'
+      - FC='gfortran-10 -Wall -Wextra -Werror'
     addons:
       apt:
         sources:
          - sourceline: "ppa:ubuntu-toolchain-r/test"
            key_url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x60c317803a41ba51845e371a1e9377a2ba9ef27f
         packages:
-        - gfortran-9 
+        - gfortran-10 
         - python3
     install:
     - pip install -r requirements.txt
@@ -138,7 +138,7 @@ jobs:
     compiler: ifx
     env:
       - FC='ifx'
-      - FFLAGS='-fiopenmp -fopenmp-targets=x86_64-pc-linux-gnu -fopenmp-version=50'
+      - FFLAGS='-fiopenmp -fopenmp-targets=x86_64-pc-linux-gnu'
       - OVO_TIMEOUT='3m'
     addons:
       apt:

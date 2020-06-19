@@ -26,7 +26,7 @@ PROGRAM target_teams
   expected_value = 1
   counter_teams = 0
   !$OMP target teams map(tofrom: counter_teams)
-    !$OMP omp atomic update
+    !$OMP atomic update
     counter_teams = counter_teams + 1.  / omp_get_num_teams() ;
   !$OMP END target teams
   IF ( .NOT.almost_equal(counter_teams,expected_value, 0.1) ) THEN

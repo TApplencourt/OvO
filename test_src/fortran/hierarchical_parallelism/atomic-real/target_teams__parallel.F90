@@ -32,7 +32,7 @@ PROGRAM target_teams__parallel
   counter_teams = 0
   !$OMP target teams map(tofrom: counter_teams)
     !$OMP parallel
-      !$OMP omp atomic update
+      !$OMP atomic update
       counter_teams = counter_teams + 1.  / ( omp_get_num_teams() * omp_get_num_threads() ) ;
     !$OMP END parallel
   !$OMP END target teams

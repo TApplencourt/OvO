@@ -27,7 +27,7 @@ PROGRAM target__teams
   counter_teams = 0
   !$OMP target map(tofrom: counter_teams)
   !$OMP teams
-    !$OMP omp atomic update
+    !$OMP atomic update
     counter_teams = counter_teams + 1.  / omp_get_num_teams() ;
   !$OMP END teams
   !$OMP END target
