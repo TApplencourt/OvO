@@ -67,26 +67,6 @@ jobs:
     - ./ovo.sh run test_src/cpp
     - ./ovo.sh report --failed || True
 
-  - name: gcc [omp full]
-    compiler: gcc
-    env:
-      - CXX='g++-10'
-      - CXXFLAGS='-Wall -Wextra -Werror -Wno-unknown-pragmas -fopenmp -foffload=disable'
-    addons:
-      apt:
-        sources:
-         - sourceline: "ppa:ubuntu-toolchain-r/test"
-           key_url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x60c317803a41ba51845e371a1e9377a2ba9ef27f
-        packages:
-        - g++-10
-        - python3
-    install:
-    - pip install -r requirements.txt
-    script:
-    - ./ovo.sh gen tiers 3
-    - ./ovo.sh run test_src/cpp
-    - ./ovo.sh report --failed || True
-
 #~
 # icx
 #~

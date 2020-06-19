@@ -53,7 +53,7 @@ def format_template(str_, language):
     - Split Fortran line 
     """
     def split_fortran_line(line, max_width=100):
-        prefix = '&\n!$OMP&' if line.startswith('!$OMP') else '&\n&'
+        prefix = '&\n!$OMP&' if line.lstrip().startswith('!$OMP') else '&\n&'
         l_chunk =  range(len(line)//100)         
 
         l = list(line)
