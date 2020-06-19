@@ -139,4 +139,4 @@ jobs:
     script:
     - ./ovo.sh gen tiers 3
     - ./ovo.sh run test_src/fortran
-    - ./ovo.sh report --failed
+    - ./ovo.sh report --failed || true
