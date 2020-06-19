@@ -65,7 +65,7 @@ jobs:
         - python3
     script:
     - ./ovo.sh run test_src/cpp
-    - ./ovo.sh report --failed || True
+    - ./ovo.sh report --failed || true
 
 #~
 # icx
