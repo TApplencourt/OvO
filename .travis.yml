@@ -53,7 +53,7 @@ jobs:
     env:
       - CXX='icx'
       - CXXFLAGS='-fiopenmp -fopenmp-targets=x86_64-pc-linux-gnu -fopenmp-version=50'
-      - OVO_TIMEOUT='3min'
+      - OVO_TIMEOUT='3m'
     addons:
       apt:
         sources:
