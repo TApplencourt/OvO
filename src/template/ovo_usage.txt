@@ -20,7 +20,7 @@ Usage:
                                    [--long [True|False] ]
                                    [--append]
   ovo.sh run [<test_folder>...]
-  ovo.sh report [ --summary | --detailed | --failed | --passed ] [<result_folder>...]
+  ovo.sh report [ --summary | --failed | --passed ] [<result_folder>...]
   ovo.sh clean
   ovo.sh (-h | --help)
 
