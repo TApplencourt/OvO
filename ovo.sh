@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+# Find path of all directories who contain a Makefile.
+# Those are the test directory
+# The uniq at the end is needed because user can pass the same folder twice in the arguments
 fl_test_src() { find ${@:-test_src} -type f -name 'Makefile' -printf "%h\n" | sort -u ; }
 
 frun() {
