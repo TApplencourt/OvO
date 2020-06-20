@@ -1,16 +1,5 @@
 #!/usr/bin/env bash
-fl_folder(){
-    find "${@}" -type f -name 'Makefile' -printf "%h\n" | sort -u
-}
-
-fl_test_src() {
-    if [ -z "$1" ]
-    then
-        echo $(fl_folder "test_src")
-    else
-        echo $(fl_folder "${@}")
-    fi
-}
+fl_test_src() { find ${@:-test_src} -type f -name 'Makefile' -printf "%h\n" | sort -u ; }
 
 frun() {
     local uuid=$(date +"%Y-%m-%d_%H-%M")
@@ -29,11 +18,11 @@ frun() {
         echo "${FC:-gfortran} --version" >> "$nresult"/env.log
         ${FC:-gfortran} --version &>> "$nresult"/env.log
 
-        NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
-        export MAKEFLAGS="${MAKEFLAGS:--j$NPROC --output-sync}"
-        # Compile
+	# Compile in parallel
+	NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
+        export MAKEFLAGS="${MAKEFLAGS:--j${NPROC:-1} --output-sync}"
         make --no-print-directory -C "$dir" exe |& tee "$nresult"/compilation.log
-        # Run serially
+        # But Run serially
         make -j1 --no-print-directory -C "$dir" run |& tee "$nresult"/runtime.log
     done
 }
@@ -43,7 +32,6 @@ fclean() {
     do
         make -s -C "$dir" "clean"
     done
-    
 }
 
 base=$(dirname $0)
@@ -77,6 +65,5 @@ while (( "$#" )); do
         ;;
 esac
 done
-# Notice the quote...They are need to print multiline string
 cat $base/src/template/ovo_usage.txt
 exit 0
