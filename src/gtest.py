@@ -615,6 +615,9 @@ class Path:
         # If people whant collapse, we will print only the test with loop
         if self.collapse and not self.loop_construct_number:
             return False
+        if self.intermediate_result and self.loop_construct_number <= 1*max(1,self.collapse):
+            return False
+
         return True
 
     @cached_property
