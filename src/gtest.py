@@ -1042,7 +1042,6 @@ if __name__ == '__main__':
     # ~
     # tiers
     # ~
-
     tiers_parser = action_parsers.add_parser("tiers")
     tiers_parser.add_argument('tiers', type=int, nargs='+')
 
@@ -1064,7 +1063,6 @@ if __name__ == '__main__':
     # ~
     # mathematical_function
     # ~
-
     mf_parser = action_parsers.add_parser("mathematical_function")
     mf_parser.add_argument('--standart', nargs='*', action=EmptyIsOldStandart)
 
@@ -1072,11 +1070,9 @@ if __name__ == '__main__':
     mf_parser.add_argument('--long',     nargs='*', action=EmptyIsTrue, type=EvalArg)
     mf_parser.add_argument('--append', action='store_true')
 
-
     # ~
-    # Deefault
+    # Default
     # ~
-
     d_hp = { 'test_type' : {'atomic','reduction','memcopy'},
              'data_type' : {'float', 'REAL'},
              'loop_pragma' : {False},
@@ -1096,11 +1092,6 @@ if __name__ == '__main__':
     # Parsing logic
     # ~
     p = parser.parse_args()
-
-    # By default all combinaison of option are valid
-    def asked_combinaison(d):
-        return True
-
 
     # By default we use 'tiers 1'    
     if not p.command:
@@ -1125,10 +1116,10 @@ if __name__ == '__main__':
                     return False
                 elif d['collapse'] and d['test_type'] != 'memcopy':
                     return False
-                elif d['host_threaded'] and ( d['intermediate_result'] or d['collapse']):
+                elif d['host_threaded'] and (d['intermediate_result'] or d['collapse']):
                     return False
-                
-                return True
+                else:            
+                    return True
 
       if p.tiers[0] >= 3:
             d_hp['loop_pragma'] |= {True}
