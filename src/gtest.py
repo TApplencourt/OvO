@@ -592,21 +592,21 @@ class Path:
     @cached_property
     def is_valid_common_test(self):
         '''
-        >>> Path( ['for'], {'collapse':0,'loop_pragma':False} ).is_valid_common_test
+        >>> Path( ['for'], {'collapse':0,'loop_pragma':False,'intermediate_result': False} ).is_valid_common_test
         True
-        >>> Path( ['for'], {'collapse':0,'loop_pragma':True} ).is_valid_common_test
+        >>> Path( ['for'], {'collapse':0,'loop_pragma':True, 'intermediate_result': False} ).is_valid_common_test
         False
-        >>> Path( ['loop'], {'collapse':0,'loop_pragma':False} ).is_valid_common_test
+        >>> Path( ['loop'], {'collapse':0,'loop_pragma':False,'intermediate_result': False} ).is_valid_common_test
         False
-        >>> Path( ['loop'], {'collapse':0,'loop_pragma':True} ).is_valid_common_test
+        >>> Path( ['loop'], {'collapse':0,'loop_pragma':True,'intermediate_result': False} ).is_valid_common_test
         True
-        >>> Path( ['loop'], {'collapse':1,'loop_pragma':True} ).is_valid_common_test
+        >>> Path( ['loop'], {'collapse':1,'loop_pragma':True, 'intermediate_result': False} ).is_valid_common_test
         True
-        >>> Path( ['loop'], {'collapse':0, 'loop_pragma':True} ).is_valid_common_test
+        >>> Path( ['loop'], {'collapse':0, 'loop_pragma':True, 'intermediate_result': False} ).is_valid_common_test
         True
-        >>> Path( ['teams'], {'collapse':0, 'loop_pragma':False} ).is_valid_common_test
+        >>> Path( ['teams'], {'collapse':0, 'loop_pragma':False, 'intermediate_result': False} ).is_valid_common_test
         True
-        >>> Path( ['teams'], {'collapse':1, 'loop_pragma':False} ).is_valid_common_test
+        >>> Path( ['teams'], {'collapse':1, 'loop_pragma':False, 'intermediate_result': False} ).is_valid_common_test
         False
         '''
         # If we don't ask for loop pragma we don't want to generate with tests who containt omp loop construct
