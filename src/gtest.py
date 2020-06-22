@@ -934,8 +934,10 @@ def gen_mf(d_arg):
                             f.write(m.template_rendered)
        
 
-def gen_hp(d_arg, omp_construct):
-    
+def gen_hp(d_arg, omp_construct, asked_combinaison):
+    if not asked_combinaison(d_arg):
+        return False
+
     t = TypeSystem(d_arg['data_type'])
     # Avoid the user reduction is only valid for cpp complex reduction code
     if d_arg['no_user_defined_reduction']:
@@ -1091,24 +1093,45 @@ if __name__ == '__main__':
     # Parsing logic
     # ~
     p = parser.parse_args()
-    
+
+    # By default all combinaison of option are valid
+    def asked_combinaison(d):
+        return True
+
+
     # By default we use 'tiers 1'    
     if not p.command:
         p.command = 'tiers'
         p.tiers = [1]
-    
+
+    # The asked_combinaison, is a function used to filter in the caraterion product of argument
+    # We use it in Tiers 2 to limite the number of product. 
+
     # Tiers logic
     if p.command == 'tiers':
-      d_hp['data_type'] |= {'complex<double>','DOUBLE COMPLEX'}
+      if p.tiers[0] >= 1:
+            d_hp['data_type'] |= {'complex<double>','DOUBLE COMPLEX'}
+            asked_combinaison = lambda d: True
+
       if p.tiers[0] >= 2:
             d_hp['intermediate_result'] |= {True}
             d_hp['collapse'] |= {2,}
+            d_hp['host_threaded'] |= {True}
+            def asked_combinaison(d):
+                if d['intermediate_result']  and  d['test_type'] != 'atomic':
+                    return False
+                elif d['collapse'] and d['test_type'] != 'memcopy':
+                    return False
+                elif d['host_threaded'] and ( d['intermediate_result'] or d['collapse']):
+                    return False
+                
+                return True
+
       if p.tiers[0] >= 3:
             d_hp['loop_pragma'] |= {True}
-            #d_hp['paired_pragmas'] |= {True}
-            d_hp['host_threaded'] |= {True}
             d_hp['data_type'] |= {'double','complex<float>', 'DOUBLE PRECISION', 'COMPLEX'}
             d_mf['standart'] |= {'cpp17'}
+            asked_combinaison = lambda d: True
 
       l_args = [('hierarchical_parallelism',d_hp), ('mathematical_function', d_mf) ]
 
@@ -1120,6 +1143,7 @@ if __name__ == '__main__':
             if k in d and v is not None:
                 d[k] = v
         l_args = [ (p.command, d) ]
+        asked_combinaison = lambda d: True
 
     # ~
     # Generate tests for cartesian product of options
@@ -1138,6 +1162,7 @@ if __name__ == '__main__':
       for p in product(*d_args.values()):
         d = {k:v for k,v in zip(k,p)}
         if type_ == 'hierarchical_parallelism':
-            gen_hp(d,omp_construct)
+            gen_hp(d,omp_construct, asked_combinaison)
+
         else:
             gen_mf(d)
