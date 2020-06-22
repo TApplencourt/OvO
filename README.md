@@ -95,16 +95,20 @@ By default, the `Tiers 1` test are saved in the `OvO` directory.
 |======================\
 |Tiers 2                \
 |------------------------\
-| - intermediate_result   \
-| - collapse               \
-|===========================\
-|Tiers 3                     \
-|-----------------------------\
-| - loop_pragma                \
-| - host_threaded               \
-|DataType                        \
-| - double, complex<float>        \
-| - DOUBLE PRECISION, COMPLEX      \
+|  - Colllapse + Memcopy  \
+|  - Intermidate result +  \
+|       atomic              \ 
+|  - Host threaded           \
+|       atomic,memcopy,       \
+|       reduction              \
+|===============================\
+|Tiers 3                         \
+|---------------------------------\
+| - loop pragma                    \
+|DataType                           \
+| - double, complex<float>           \
+| - DOUBLE PRECISION, COMPLEX         \
+| Cartesian production of all options  \
 ```
 
 To generate tests, please use `ovo.sh gen`.But default it will generate `tiers 1` tests. But if you feel adventurous, you can type:
