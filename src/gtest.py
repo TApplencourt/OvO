@@ -73,10 +73,7 @@ def format_template(str_, language):
 # Need to refractor this one... Too ugly or too smart
 def combinations_construct(tree_config_path, path=["root"]) -> List[List[str]]:
     """
-    >>> combinations_construct({'root':['target','target teams'],
-    ...                         'target':['teams'],
-    ...                         'target teams': [],
-    ...                         'teams': [] })
+    >>> combinations_construct({"root": ["target", "target teams"], "target": ["teams"], "target teams": [], "teams": []})
     [['target'], ['target', 'teams'], ['target teams']]
     """
     tails = [path[1:]] if len(path[1:]) else []
@@ -99,13 +96,13 @@ class TypeSystem:
     @cached_property
     def serialized(self):
         """
-        >>> TypeSystem('REAL').serialized
+        >>> TypeSystem("REAL").serialized
         'real'
-        >>> TypeSystem('DOUBLE PRECISION').serialized
+        >>> TypeSystem("DOUBLE PRECISION").serialized
         'double_precision'
-        >>> TypeSystem('complex<long double>').serialized
+        >>> TypeSystem("complex<long double>").serialized
         'complex_long_double'
-        >>> TypeSystem('*double').serialized
+        >>> TypeSystem("*double").serialized
         'double'
         """
         return "_".join(self.T.lower().translate(str.maketrans("<>*", "   ")).split())
@@ -113,7 +110,7 @@ class TypeSystem:
     @cached_property
     def without_pointer(self):
         """
-        >>> TypeSystem('*complex<float>').without_pointer
+        >>> TypeSystem("*complex<float>").without_pointer
         'complex<float>'
         """
         return self.T.replace("*", "")
@@ -121,9 +118,9 @@ class TypeSystem:
     @cached_property
     def category(self):
         """
-        >>> TypeSystem('complex<long double>').category
+        >>> TypeSystem("complex<long double>").category
         'complex'
-        >>> TypeSystem('REAL').category
+        >>> TypeSystem("REAL").category
         'float'
         """
         if self.without_pointer in ("long int", "int", "long long int", "unsigned", "INTEGER"):
@@ -147,11 +144,11 @@ class TypeSystem:
     @cached_property
     def internal(self):
         """
-        >>> TypeSystem('complex<float>').internal
+        >>> TypeSystem("complex<float>").internal
         'float'
-        >>> TypeSystem('DOUBLE COMPLEX').internal
+        >>> TypeSystem("DOUBLE COMPLEX").internal
         'DOUBLE'
-        >>> TypeSystem('COMPLEX').internal
+        >>> TypeSystem("COMPLEX").internal
         'REAL'
         """
         if self.category != "complex":
@@ -168,9 +165,9 @@ class TypeSystem:
     @cached_property
     def is_pointer(self):
         """
-        >>> TypeSystem('complex<float>').is_pointer
+        >>> TypeSystem("complex<float>").is_pointer
         False
-        >>> TypeSystem('*complex<float>').is_pointer
+        >>> TypeSystem("*complex<float>").is_pointer
         True
         """
         return "*" in self.T
@@ -178,9 +175,9 @@ class TypeSystem:
     @cached_property
     def language(self):
         """
-        >>> TypeSystem('*complex<float>').language
+        >>> TypeSystem("*complex<float>").language
         'cpp'
-        >>> TypeSystem('REAL').language
+        >>> TypeSystem("REAL").language
         'fortran'
         """
         # Warning, just rely on the capitalization.
@@ -261,9 +258,9 @@ class Path:
     @cached_property
     def language(self):
         """
-        >>> Path(None, {'data_type':'float'} ).language
+        >>> Path(None, {"data_type": "float"}).language
         'cpp'
-        >>> Path(None, {'data_type':'REAL'} ).language
+        >>> Path(None, {"data_type": "REAL"}).language
         'fortran'
         """
         return self.T.language
@@ -271,9 +268,9 @@ class Path:
     @cached_property
     def path(self):
         """
-        >>> Path( ['parallel','for'], {} ).path
+        >>> Path(["parallel", "for"], {}).path
         ['parallel', 'for']
-        >>> Path( ['parallel','loop_for'], {} ).path
+        >>> Path(["parallel", "loop_for"], {}).path
         ['parallel', 'loop']
         """
         # To facilitate the recursion. Loop are encoded as "loop_distribute" and "loop_for".
@@ -282,9 +279,9 @@ class Path:
     @cached_property
     def name(self):
         """
-        >>> Path( ['parallel','for'], {'data_type':'float'} ).name
+        >>> Path(["parallel", "for"], {"data_type": "float"}).name
         'parallel__for'
-        >>> Path( ['parallel for','simd'], {'data_type':'REAL'} ).name
+        >>> Path(["parallel for", "simd"], {"data_type": "REAL"}).name
         'parallel_do__simd'
         """
         l_node_serialized = ("_".join(node.split()) for node in self.path)
@@ -299,9 +296,9 @@ class Path:
     @cached_property
     def ext(self):
         """
-        >>> Path(None, {'data_type':'float'} ).ext
+        >>> Path(None, {"data_type": "float"}).ext
         'cpp'
-        >>> Path(None, {'data_type':'DOUBLE PRECISION'} ).ext
+        >>> Path(None, {"data_type": "DOUBLE PRECISION"}).ext
         'F90'
         """
         if self.language == "cpp":
@@ -313,11 +310,11 @@ class Path:
     @cached_property
     def filename(self):
         """
-        >>> Path( ['parallel','for'], {'data_type':'float'} ).filename
+        >>> Path(["parallel", "for"], {"data_type": "float"}).filename
         'parallel__for.cpp'
-        >>> Path( ['parallel','loop_for'], {'data_type':'float'} ).filename
+        >>> Path(["parallel", "loop_for"], {"data_type": "float"}).filename
         'parallel__loop.cpp'
-        >>> Path( ['parallel for','simd'], {'data_type':'REAL'} ).filename
+        >>> Path(["parallel for", "simd"], {"data_type": "REAL"}).filename
         'parallel_do__simd.F90'
         """
         return f"{self.name}.{self.ext}"
@@ -325,20 +322,20 @@ class Path:
     @cached_property
     def flatten_path(self):
         """
-        >>> Path( ['parallel', 'for','simd'], {} ).flatten_path
+        >>> Path(["parallel", "for", "simd"], {}).flatten_path
         ['parallel', 'for', 'simd']
-        >>> Path( ['parallel for','simd'], {} ).flatten_path
+        >>> Path(["parallel for", "simd"], {}).flatten_path
         ['parallel', 'for', 'simd']
         """
         return list(chain.from_iterable(map(str.split, self.path)))
 
     def has(self, construct):
         """
-        >>> Path( ['parallel', 'for'], {} ).has('for')
+        >>> Path(["parallel", "for"], {}).has("for")
         True
-        >>> Path( ['parallel for'], {} ).has('parallel')
+        >>> Path(["parallel for"], {}).has("parallel")
         True
-        >>> Path( ['parallel for'], {} ).has('simd')
+        >>> Path(["parallel for"], {}).has("simd")
         False
         """
         return construct in self.flatten_path
@@ -346,13 +343,13 @@ class Path:
     @cached_property
     def only_teams(self):
         """
-        >>> Path( ['teams', 'distribute'], {} ).only_teams
+        >>> Path(["teams", "distribute"], {}).only_teams
         False
-        >>> Path( ['teams', 'parrallel','loop'], {} ).only_teams
+        >>> Path(["teams", "parrallel", "loop"], {}).only_teams
         True
-        >>> Path( ['distribute'], {} ).only_teams
+        >>> Path(["distribute"], {}).only_teams
         False
-        >>> Path( ['teams'], {} ).only_teams
+        >>> Path(["teams"], {}).only_teams
         True
         """
         return any(i == "teams" and not j in ("distribute", "loop") for i, j in pairwise(self.flatten_path + [None]))
@@ -360,11 +357,11 @@ class Path:
     @cached_property
     def only_parallel(self):
         """
-        >>> Path( ['parallel', 'for'], {} ).only_parallel
+        >>> Path(["parallel", "for"], {}).only_parallel
         False
-        >>> Path( ['teams','loop','parallel'], {} ).only_parallel
+        >>> Path(["teams", "loop", "parallel"], {}).only_parallel
         True
-        >>> Path( ['parallel'], {} ).only_parallel
+        >>> Path(["parallel"], {}).only_parallel
         True
         """
         return any(i == "parallel" and not j in ("for", "loop") for i, j in pairwise(self.flatten_path + [None]))
@@ -372,9 +369,9 @@ class Path:
     @cached_property
     def balenced(self):
         """
-        >>> Path( ['parallel', 'for'], {} ).balenced
+        >>> Path(["parallel", "for"], {}).balenced
         True
-        >>> Path( ['teams', 'loop', 'parallel'], {} ).balenced
+        >>> Path(["teams", "loop", "parallel"], {}).balenced
         False
         """
         return not self.only_parallel and not self.only_teams
@@ -382,17 +379,17 @@ class Path:
     @cached_property
     def loop_construct_number(self):
         """
-        >>> Path( ['distribute'], {'collapse':1} ).loop_construct_number
+        >>> Path(["distribute"], {"collapse": 1}).loop_construct_number
         1
-        >>> Path( ['distribute'], {'collapse':0} ).loop_construct_number
+        >>> Path(["distribute"], {"collapse": 0}).loop_construct_number
         1
-        >>> Path( ['distribute'], {'collapse':2} ).loop_construct_number
+        >>> Path(["distribute"], {"collapse": 2}).loop_construct_number
         2
-        >>> Path( ['teams', 'distribute', 'parallel', 'for'], {'collapse':2} ).loop_construct_number
+        >>> Path(["teams", "distribute", "parallel", "for"], {"collapse": 2}).loop_construct_number
         4
-        >>> Path( ['teams distribute parallel for'], {'collapse':2} ).loop_construct_number
+        >>> Path(["teams distribute parallel for"], {"collapse": 2}).loop_construct_number
         2
-        >>> Path( ['teams', 'parallel'], {'collapse':2} ).loop_construct_number
+        >>> Path(["teams", "parallel"], {"collapse": 2}).loop_construct_number
         0
         """
         loop_pragma_number = sum(Pragma(p).is_loop for p in self.path)
@@ -404,18 +401,17 @@ class Path:
     @cached_property
     def loop_tripcount(self):
         """
-        >>> Path( ['distribute'], {'collapse':0} ).loop_tripcount
+        >>> Path(["distribute"], {"collapse": 0}).loop_tripcount
         262144
-        >>> Path( ['distribute'], {'collapse':1} ).loop_tripcount
+        >>> Path(["distribute"], {"collapse": 1}).loop_tripcount
         262144
-        >>> Path( ['distribute'], {'collapse':2} ).loop_tripcount
+        >>> Path(["distribute"], {"collapse": 2}).loop_tripcount
         512
-        >>> Path( ['teams distribute paralel for simd'], {'collapse': 0} ).loop_tripcount
+        >>> Path(["teams distribute paralel for simd"], {"collapse": 0}).loop_tripcount
         262144
-        >>> Path( ['teams', 'distribute', 'paralel', 'for', 'simd'], {'collapse':0} ).loop_tripcount
+        >>> Path(["teams", "distribute", "paralel", "for", "simd"], {"collapse": 0}).loop_tripcount
         64
-        >>> Path( ['teams'], {'collapse':0} ).loop_tripcount
-        ...
+        >>> Path(["teams"], {"collapse": 0}).loop_tripcount
         """
         if not self.loop_construct_number:
             return None
@@ -425,23 +421,23 @@ class Path:
     @cached_property
     def regions(self):
         """
-        >>> Path( ['target'], {} ).regions
+        >>> Path(["target"], {}).regions
         [[target]]
-        >>> Path( ['target teams distribute'], {} ).regions
+        >>> Path(["target teams distribute"], {}).regions
         [[target teams distribute]]
-        >>> Path( ['target', 'teams', 'distribute'], {} ).regions
+        >>> Path(["target", "teams", "distribute"], {}).regions
         [[target, teams, distribute]]
-        >>> Path( ['target', 'teams', 'distribute','parallel','for','simd'], {} ).regions
+        >>> Path(["target", "teams", "distribute", "parallel", "for", "simd"], {}).regions
         [[target, teams, distribute], [parallel, for], [simd]]
-        >>> Path( ['target teams','parallel'], {} ).regions
+        >>> Path(["target teams", "parallel"], {}).regions
         [[target teams], [parallel]]
-        >>> Path( ['target', 'parallel', 'for'], {} ).regions
+        >>> Path(["target", "parallel", "for"], {}).regions
         [[target, parallel, for]]
-        >>> Path( ['parallel', 'for','target','teams'], {} ).regions
+        >>> Path(["parallel", "for", "target", "teams"], {}).regions
         [[parallel, for], [target, teams]]
-        >>> Path( ['target', 'teams', 'loop','parallel','loop','simd'], {} ).regions
+        >>> Path(["target", "teams", "loop", "parallel", "loop", "simd"], {}).regions
         [[target, teams, loop], [parallel, loop], [simd]]
-        >>> Path( ['target', 'teams', 'parallel','simd'], {'collapse':0} ).regions
+        >>> Path(["target", "teams", "parallel", "simd"], {"collapse": 0}).regions
         [[target, teams], [parallel], [simd]]
         """
 
@@ -460,19 +456,19 @@ class Path:
     @cached_property
     def region_counters(self):
         """
-        >>> Path( ['target teams distribute'], {'collapse':0, 'intermediate_result':False} ).region_counters
+        >>> Path(["target teams distribute"], {"collapse": 0, "intermediate_result": False}).region_counters
         ['counter_N0']
-        >>> Path( ['target'], {'collapse':0, 'intermediate_result':False} ).region_counters
+        >>> Path(["target"], {"collapse": 0, "intermediate_result": False}).region_counters
         ['counter_target']
-        >>> Path( ['target teams'], {'collapse':0, 'intermediate_result':False} ).region_counters
+        >>> Path(["target teams"], {"collapse": 0, "intermediate_result": False}).region_counters
         ['counter_teams']
-        >>> Path( ['target','teams', 'parallel'], {'collapse':0, 'intermediate_result':True} ).region_counters
+        >>> Path(["target", "teams", "parallel"], {"collapse": 0, "intermediate_result": True}).region_counters
         ['counter_teams', 'counter_parallel']
-        >>> Path( ['target','teams', 'parallel for'], {'collapse':0, 'intermediate_result':True} ).region_counters
+        >>> Path(["target", "teams", "parallel for"], {"collapse": 0, "intermediate_result": True}).region_counters
         ['counter_teams', 'counter_N0']
-        >>> Path( ['target teams distribute','parallel for'], {'collapse':0, 'intermediate_result':True} ).region_counters
+        >>> Path(["target teams distribute", "parallel for"], {"collapse": 0, "intermediate_result": True}).region_counters
         ['counter_N0', 'counter_N1']
-        >>> Path( ['target teams distribute','parallel for'], {'collapse':2, 'intermediate_result':True} ).region_counters
+        >>> Path(["target teams distribute", "parallel for"], {"collapse": 2, "intermediate_result": True}).region_counters
         ['counter_N0', 'counter_N2']
         """
         l, i = [], 0
@@ -493,13 +489,13 @@ class Path:
     @cached_property
     def region_loop_construct(self):
         """
-        >>> Path( ['target teams distribute'], {'collapse':0} ).region_loop_construct
+        >>> Path(["target teams distribute"], {"collapse": 0}).region_loop_construct
         [[Idx(i='i0', N='N0', v=262144)]]
-        >>> Path( ['target teams distribute','parallel'], {'collapse':0} ).region_loop_construct
+        >>> Path(["target teams distribute", "parallel"], {"collapse": 0}).region_loop_construct
         [[Idx(i='i0', N='N0', v=262144)], []]
-        >>> Path( ['target teams distribute','parallel for'], {'collapse':0} ).region_loop_construct
+        >>> Path(["target teams distribute", "parallel for"], {"collapse": 0}).region_loop_construct
         [[Idx(i='i0', N='N0', v=512)], [Idx(i='i1', N='N1', v=512)]]
-        >>> Path( ['target teams distribute'], {'collapse':2} ).region_loop_construct
+        >>> Path(["target teams distribute"], {"collapse": 2}).region_loop_construct
         [[Idx(i='i0', N='N0', v=512), Idx(i='i1', N='N1', v=512)]]
         """
         n_collapse = max(self.collapse, 1)
@@ -523,13 +519,13 @@ class Path:
     @cached_property
     def regions_increment(self):
         """
-        >>> Path( ['target'], {'collapse':0,'intermediate_result':False} ).regions_increment
+        >>> Path(["target"], {"collapse": 0, "intermediate_result": False}).regions_increment
         [Inc(v='counter_target', i='1.', j=None)]
-        >>> Path( ['target teams distribute'], {'collapse':0,'intermediate_result':False} ).regions_increment
+        >>> Path(["target teams distribute"], {"collapse": 0, "intermediate_result": False}).regions_increment
         [Inc(v='counter_N0', i='1.', j=None)]
-        >>> Path( ['target teams distribute','parallel', 'for'], {'collapse':2,'intermediate_result':True} ).regions_increment
+        >>> Path(["target teams distribute", "parallel", "for"], {"collapse": 2, "intermediate_result": True}).regions_increment
         [Inc(v='counter_N0', i='counter_N2', j=None), Inc(v='counter_N2', i='1.', j=None)]
-        >>> Path( ['target teams'], {'collapse':0,'intermediate_result':False} ).regions_increment
+        >>> Path(["target teams"], {"collapse": 0, "intermediate_result": False}).regions_increment
         [Inc(v='counter_teams', i='1.', j='omp_get_num_teams()')]
         """
 
@@ -559,13 +555,13 @@ class Path:
     @cached_property
     def regions_additional_pragma(self):
         """
-        >>> Path( ['target teams'], {'test_type':'atomic','intermediate_result':False, 'collapse':0}).regions_additional_pragma
+        >>> Path(["target teams"], {"test_type": "atomic", "intermediate_result": False, "collapse": 0}).regions_additional_pragma
         [['map(tofrom: counter_teams)']]
-        >>> Path( ['target teams'], {'test_type':'memcopy','intermediate_result':False, 'collapse':0,'data_type':'float'}).regions_additional_pragma
+        >>> Path(["target teams"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float"}).regions_additional_pragma
         [['map(to: pS[0:size]) map(from: pD[0:size])']]
-        >>> Path( ['target teams'], {'test_type':'memcopy','intermediate_result':False, 'collapse':0,'data_type':'REAL'}).regions_additional_pragma
+        >>> Path(["target teams"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "REAL"}).regions_additional_pragma
         [['map(to: src) map(from: dst)']]
-        >>> Path( ['target teams distribute'], {'test_type':'reduction','intermediate_result':False, 'collapse':3}).regions_additional_pragma
+        >>> Path(["target teams distribute"], {"test_type": "reduction", "intermediate_result": False, "collapse": 3}).regions_additional_pragma
         [['map(tofrom: counter_N0) reduction(+: counter_N0) collapse(3)']]
         """
         l = []
@@ -593,21 +589,21 @@ class Path:
     @cached_property
     def is_valid_common_test(self):
         """
-        >>> Path( ['for'], {'collapse':0,'loop_pragma':False,'intermediate_result': False} ).is_valid_common_test
+        >>> Path(["for"], {"collapse": 0, "loop_pragma": False, "intermediate_result": False}).is_valid_common_test
         True
-        >>> Path( ['for'], {'collapse':0,'loop_pragma':True, 'intermediate_result': False} ).is_valid_common_test
+        >>> Path(["for"], {"collapse": 0, "loop_pragma": True, "intermediate_result": False}).is_valid_common_test
         False
-        >>> Path( ['loop'], {'collapse':0,'loop_pragma':False,'intermediate_result': False} ).is_valid_common_test
+        >>> Path(["loop"], {"collapse": 0, "loop_pragma": False, "intermediate_result": False}).is_valid_common_test
         False
-        >>> Path( ['loop'], {'collapse':0,'loop_pragma':True,'intermediate_result': False} ).is_valid_common_test
+        >>> Path(["loop"], {"collapse": 0, "loop_pragma": True, "intermediate_result": False}).is_valid_common_test
         True
-        >>> Path( ['loop'], {'collapse':1,'loop_pragma':True, 'intermediate_result': False} ).is_valid_common_test
+        >>> Path(["loop"], {"collapse": 1, "loop_pragma": True, "intermediate_result": False}).is_valid_common_test
         True
-        >>> Path( ['loop'], {'collapse':0, 'loop_pragma':True, 'intermediate_result': False} ).is_valid_common_test
+        >>> Path(["loop"], {"collapse": 0, "loop_pragma": True, "intermediate_result": False}).is_valid_common_test
         True
-        >>> Path( ['teams'], {'collapse':0, 'loop_pragma':False, 'intermediate_result': False} ).is_valid_common_test
+        >>> Path(["teams"], {"collapse": 0, "loop_pragma": False, "intermediate_result": False}).is_valid_common_test
         True
-        >>> Path( ['teams'], {'collapse':1, 'loop_pragma':False, 'intermediate_result': False} ).is_valid_common_test
+        >>> Path(["teams"], {"collapse": 1, "loop_pragma": False, "intermediate_result": False}).is_valid_common_test
         False
         """
         # If we don't ask for loop pragma we don't want to generate with tests who containt omp loop construct
@@ -647,11 +643,11 @@ class Fold(Path):
     @cached_property
     def expected_value(self):
         """
-        >>> Fold( ['teams', 'distribute'], {'collapse':0} ).expected_value 
+        >>> Fold(["teams", "distribute"], {"collapse": 0}).expected_value
         'N0'
-        >>> Fold( ['teams', 'distribute'], {'collapse':2} ).expected_value
+        >>> Fold(["teams", "distribute"], {"collapse": 2}).expected_value
         'N0*N1'
-        >>> Fold( ['teams','parallel'], {'collapse':1} ).expected_value
+        >>> Fold(["teams", "parallel"], {"collapse": 1}).expected_value
         '1'
         """
 
@@ -663,9 +659,9 @@ class Fold(Path):
     @cached_property
     def is_valid_test(self):
         """
-        >>> Fold( ['teams', 'distribute'], {'collapse':0,'test_type': 'atomic'} ).is_valid_test
+        >>> Fold(["teams", "distribute"], {"collapse": 0, "test_type": "atomic"}).is_valid_test
         True
-        >>> Fold( ['teams', 'distribute', 'simd'], {'collapse':0,'test_type': 'atomic'} ).is_valid_test
+        >>> Fold(["teams", "distribute", "simd"], {"collapse": 0, "test_type": "atomic"}).is_valid_test
         False
         """
         # Cannot use atomic inside simd
@@ -680,17 +676,17 @@ class Memcopy(Path):
     @cached_property
     def index(self):
         """
-        >>> Memcopy(['for'],{'data_type':'float','collapse':1}).index
+        >>> Memcopy(["for"], {"data_type": "float", "collapse": 1}).index
         'i0'
-        >>> Memcopy(['for'],{'data_type':'float','collapse':2}).index
+        >>> Memcopy(["for"], {"data_type": "float", "collapse": 2}).index
         'i1+N1*(i0)'
-        >>> Memcopy(['for'],{'data_type':'float','collapse':3}).index
+        >>> Memcopy(["for"], {"data_type": "float", "collapse": 3}).index
         'i2+N2*(i1+N1*(i0))'
-        >>> Memcopy(['for'],{'data_type':'float','collapse':4}).index
+        >>> Memcopy(["for"], {"data_type": "float", "collapse": 4}).index
         'i3+N3*(i2+N2*(i1+N1*(i0)))'
-        >>> Memcopy(['for'],{'data_type':'REAL','collapse':0}).index
+        >>> Memcopy(["for"], {"data_type": "REAL", "collapse": 0}).index
         'i0-1+1'
-        >>> Memcopy(['for'],{'data_type':'REAL','collapse':2}).index
+        >>> Memcopy(["for"], {"data_type": "REAL", "collapse": 2}).index
         'i1-1+N1*(i0-1)+1'
         """
 
@@ -709,9 +705,9 @@ class Memcopy(Path):
     @cached_property
     def problem_size(self):
         """
-        >>> Memcopy( ['teams', 'distribute'], {'collapse':0} ).problem_size
+        >>> Memcopy(["teams", "distribute"], {"collapse": 0}).problem_size
         'N0'
-        >>> Memcopy( ['teams', 'distribute'], {'collapse':2} ).problem_size
+        >>> Memcopy(["teams", "distribute"], {"collapse": 2}).problem_size
         'N0*N1'
         """
 
@@ -720,9 +716,9 @@ class Memcopy(Path):
     @cached_property
     def is_valid_test(self):
         """
-        >>> Memcopy( ['teams', 'distribute'], {'collapse':0} ).is_valid_test
+        >>> Memcopy(["teams", "distribute"], {"collapse": 0}).is_valid_test
         True
-        >>> Memcopy( ['teams', 'parallel'], {'collapse':0} ).is_valid_test
+        >>> Memcopy(["teams", "parallel"], {"collapse": 0}).is_valid_test
         False
         """
 
@@ -794,7 +790,25 @@ class Argv:
 
 class Math:
 
-    T_to_values = {"bool": [True], "float": [0.42, 4.42], "REAL": [0.42, 4.42], "long int": [1], "unsigned": [1], "double": [0.42, 4.42], "DOUBLE PRECISION": [0.42, 4.42], "int": [1, 0, 2], "INTEGER": [1, 0, 2], "long long int": [1], "long double": [0.42, 4.42], "complex<float>": [ccomplex(0.42, 0.0), ccomplex(4.42, 0.0)], "COMPLEX": [ccomplex(0.42, 0.0), ccomplex(4.42, 0.0)], "complex<double>": [ccomplex(0.42, 0.0), ccomplex(4.42, 0.0)], "DOUBLE COMPLEX": [ccomplex(0.42, 0.0), ccomplex(4.42, 0.0)], "complex<long double>": [ccomplex(0.42, 0.0), ccomplex(4.42, 0.0)], "const char*": [None]}
+    T_to_values = {
+        "bool": [True],
+        "float": [0.42, 4.42],
+        "REAL": [0.42, 4.42],
+        "long int": [1],
+        "unsigned": [1],
+        "double": [0.42, 4.42],
+        "DOUBLE PRECISION": [0.42, 4.42],
+        "int": [1, 0, 2],
+        "INTEGER": [1, 0, 2],
+        "long long int": [1],
+        "long double": [0.42, 4.42],
+        "complex<float>": [ccomplex(0.42, 0.0), ccomplex(4.42, 0.0)],
+        "COMPLEX": [ccomplex(0.42, 0.0), ccomplex(4.42, 0.0)],
+        "complex<double>": [ccomplex(0.42, 0.0), ccomplex(4.42, 0.0)],
+        "DOUBLE COMPLEX": [ccomplex(0.42, 0.0), ccomplex(4.42, 0.0)],
+        "complex<long double>": [ccomplex(0.42, 0.0), ccomplex(4.42, 0.0)],
+        "const char*": [None],
+    }
 
     def __init__(self, name, T, attr, argv, domain, language="cpp"):
         self.name = name
@@ -1072,7 +1086,17 @@ if __name__ == "__main__":
     # ~
     # Default
     # ~
-    d_hp = {"test_type": {"atomic", "reduction", "memcopy"}, "data_type": {"float", "REAL"}, "loop_pragma": {False}, "paired_pragmas": {False}, "no_user_defined_reduction": {False}, "host_threaded": {False}, "intermediate_result": {False}, "collapse": {0}, "append": False}
+    d_hp = {
+        "test_type": {"atomic", "reduction", "memcopy"},
+        "data_type": {"float", "REAL"},
+        "loop_pragma": {False},
+        "paired_pragmas": {False},
+        "no_user_defined_reduction": {False},
+        "host_threaded": {False},
+        "intermediate_result": {False},
+        "collapse": {0},
+        "append": False,
+    }
 
     d_mf = {"standart": {"cpp11", "F77"}, "complex": {True, False}, "long": {False}, "append": False}
 
