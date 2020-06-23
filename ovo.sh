@@ -50,6 +50,9 @@ while (( "$#" )); do
         report)
             shift; $base/src/report.py $@; exit
             ;;
+        *)
+            shift;
+            ;;
     esac
 done
 cat $base/src/template/ovo_usage.txt
