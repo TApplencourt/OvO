@@ -13,17 +13,15 @@ frun() {
 
     for dir in $(find_tests_folder $@); do
         nresult=$result/${dir#*/}
-        echo "Running $dir | Saving log in $nresult"
+        echo ">> Running $dir | Saving log in $nresult"
         mkdir -p "$nresult"
         {
+            set -x
             env 
-            echo "Trying to get more information about compiler used..."
-            echo "${CXX:-c++} --version"
             ${CXX:-c++} --version 
-            echo "${FC:-gfortran} --version"
             ${FC:-gfortran} --version 
+            set +x
         } &> "$nresult"/env.log
-
 	    # Compile in parallel
 	    NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
         export MAKEFLAGS="${MAKEFLAGS:--j${NPROC:-1} --output-sync}"
