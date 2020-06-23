@@ -6,8 +6,8 @@ PROGRAM target__teams_distribute__parallel_do__simd
   INTEGER :: i1
   INTEGER :: N2 = 64
   INTEGER :: i2
-  INTEGER :: idx
-  INTEGER :: S
+  INTEGER :: idx, S
+  INTEGER :: errno = 0
   DOUBLE COMPLEX, ALLOCATABLE :: src(:)
   DOUBLE COMPLEX, ALLOCATABLE :: dst(:)
   REAL, ALLOCATABLE :: src_real(:)
@@ -34,6 +34,8 @@ PROGRAM target__teams_distribute__parallel_do__simd
   !$OMP END target
   IF (ANY(ABS(dst - src) > EPSILON(REAL(src)))) THEN
     WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
-    STOP 112
+    errno = 112
   ENDIF
+  DEALLOCATE(src, dst)
+  IF (errno .NE. 0) STOP errno
 END PROGRAM target__teams_distribute__parallel_do__simd
