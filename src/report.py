@@ -3,6 +3,10 @@
 import re, unittest, os
 from typing import NamedTuple
 from collections import defaultdict
+try:
+    from tabulate import tabulate
+except ImportError:
+    from tabulate_local import tabulate
 
 dirname = os.path.dirname(__file__)
 
@@ -156,9 +160,15 @@ def parse_folder(folder):
 # |_/ | _> |_) | (_| \/
 #          |         /
 #
+def summary_csv(d,folder):
 
-
-def summary_d_result(d):
+    if folder == 'Total':
+        language = ''
+        type_ = ''
+        test = folder
+    else:
+        *_, language, type_, test = folder.split('/') 
+    
     total_test = len(d)
     from collections import Counter
 
@@ -169,12 +179,8 @@ def summary_d_result(d):
     h = d["hanging"]
     v = d["wrong value"]
     total_success = d[None]
-    if not total_test:
-        return None
-
-    print(f"{total_success} / {total_test} ( {total_success/total_test :.0%} ) pass [failures: {c} compilation, {r} offload, {v} incorrect value, {h} hanging]")
-
-
+ 
+    return [language, type_, test, total_success/total_test, total_test, total_success, c, r, v, h]
 #
 # |\/|  _. o ._
 # |  | (_| | | |
@@ -189,7 +195,7 @@ class EmptyIsAllFolder(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         if len(values) == 0:
             try:
-                folders = [os.path.join("test_result", i) for i in os.listdir("test_result")]
+                folders = (os.path.join("test_result", i) for i in os.listdir("test_result"))
                 values = [max(folders)]
             except FileNotFoundError:
                 sys.exit("The test_result folder doesn't seems to exit")
@@ -216,35 +222,42 @@ if __name__ == "__main__":
     for folder in args.result_folder:
         s_folder |= {os.path.dirname(path) for path in Path(folder).rglob("env.log")}
 
+
+    l = []
+
     d_agregaded = {}
     for folder in sorted(s_folder):
         d = parse_folder(folder)
         d_agregaded.update(d)
 
-        dd = defaultdict(list)
-        for name, value in d.items():
-            dd[value].append(os.path.basename(name))
+        if args.summary:
+            l.append(summary_csv(d,folder))
+        elif args.passed or args.failed:
+            d_failed = defaultdict(list)
+            l_sucess = []
+            for name, value in d.items():
+                if value is None:
+                    l_sucess.append(os.path.basename(name))
+                else:
+                    d_failed[value].append(os.path.basename(name))
+       
+            print(f">> {folder}")
+            if args.failed and d_failed:
+                for k, v in sorted(d_failed.items()):
+                    print(f">>> {k}")
+                    print("\n".join(sorted(v)))
+            elif args.passed and l_sucess:
+                print("\n".join(sorted(l_sucess)))
+
+    if not(args.passed or args.failed):
+        if len(args.result_folder) <= 1:
+            print(f">> Overall result using {args.result_folder[0]}")
+        print (tabulate([summary_csv(d_agregaded,'Total')[3:]],headers=['pass rate (%)', 'test (#)', 'success (#)', 'compilation error (#)', 'offload error (#)', 'incorrect value (#)', 'hang (#)'], floatfmt=".0%"))
 
         if args.summary:
-            print(f">> {folder}")
-            summary_d_result(d)
-        elif args.failed:
-            dd.pop(None, None)
-            if not dd:
-                continue
-            print(f">> {folder}")
-            for k, v in sorted(dd.items()):
-                print(f">>> {k}")
-                print("\n".join(sorted(v)))
-        elif args.passed and dd[None]:
-            print(f">> {folder}")
-            print("\n".join(sorted(dd[None])))
-
-    if len(args.result_folder) == 1:
-        print(f">> Summary of {args.result_folder[0]}")
-    else:
-        print(">> Summary")
-    summary_d_result(d_agregaded)
-
+            print ()
+            print (">> Summary")
+            print (tabulate(l,headers=['language', 'category', 'name', 'pass rate (%)', 'test (#)', 'success (#)', 'compilation error (#)', 'offload error (#)', 'incorrect value (#)', 'hang (#)'], floatfmt=".0%"))
+        
     if any(i is not None for i in d_agregaded.values()):
         sys.exit(1)
