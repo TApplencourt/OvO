@@ -17,13 +17,13 @@ frun() {
         mkdir -p "$nresult"
         {
             set -x
-            env 
-            ${CXX:-c++} --version 
-            ${FC:-gfortran} --version 
+            env
+            ${CXX:-c++} --version
+            ${FC:-gfortran} --version
             set +x
         } &> "$nresult"/env.log
-	    # Compile in parallel
-	    NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
+        # Compile in parallel
+        NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
         export MAKEFLAGS="${MAKEFLAGS:--j${NPROC:-1} --output-sync}"
         make --no-print-directory -C "$dir" exe |& tee "$nresult"/compilation.log
         # But Run serially
@@ -39,17 +39,17 @@ base=$(dirname $0)
 while (( "$#" )); do
     case "$1" in
         gen)
-        shift; $base/src/gtest.py "$@"; exit
-        ;;
+            shift; $base/src/gtest.py "$@"; exit
+            ;;
         clean)
-        shift; fclean; exit
-        ;;
+            shift; fclean; exit
+            ;;
         run)
-        shift; fclean $@ && frun $@; exit
-        ;;
+            shift; fclean $@ && frun $@; exit
+            ;;
         report)
-        shift; $base/src/report.py $@; exit
-        ;;
+            shift; $base/src/report.py $@; exit
+            ;;
     esac
 done
 cat $base/src/template/ovo_usage.txt
