@@ -82,7 +82,6 @@ PROGRAM {{name}}
   INTEGER :: {{ loop_.i }}
 {% endfor %}
 {% endfor %}
-
 {% if test_type != 'memcopy' %}
   LOGICAL :: almost_equal
     {# We need unique in the case of non temporary result #}
@@ -92,8 +91,8 @@ PROGRAM {{name}}
   INTEGER :: expected_value
   expected_value = {{expected_value}}
 {% else %}
-  INTEGER :: idx
-  INTEGER :: S
+  INTEGER :: idx, S
+  INTEGER :: errno = 0
   {{T}}, ALLOCATABLE :: src(:)
   {{T}}, ALLOCATABLE :: dst(:)
    {% if  T.category == "complex" %}
@@ -187,6 +186,8 @@ END DO
 {#                                   #}
 
 {# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
+{# To follow the standart we should use ERROR STOP. But it's a Fortran 2008 feature...#}
+{# That may cause portabilities issue #}
 
 {%if test_type == 'memcopy' %}
    {% if T.category == "complex" %}
@@ -195,13 +196,15 @@ END DO
   IF (ANY(ABS(dst - src) > EPSILON(src))) THEN
    {% endif %}
     WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
+    errno = 112
+  ENDIF
+  DEALLOCATE(src, dst)
+  IF (errno .NE. 0) STOP errno
 {% else %}
   IF ( .NOT.almost_equal({{region_counters | first }},expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', {{region_counters | first }}
-{% endif %}
-    {# To follow the standart we should use ERROR STOP. But it's a Fortran 2008 feature...#}
-    {# That may cause portabilities issue #}
     STOP 112
   ENDIF
-
+{% endif %}
+  
 END PROGRAM {{name}}
