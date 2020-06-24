@@ -68,6 +68,10 @@ bool almost_equal({{T}} x, {{T}} gold, float tol) {
 {#  \_/\___||___/\__| \_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|#}
 {#                                                            #}
 
+{% if test_type == 'reduction' and T.is_complex and not no_user_defined_reduction%}
+#pragma omp declare reduction(+: {{T}}: omp_out += omp_in)
+{% endif %}
+
 void test_{{name}}() {
 
 {#                               _                                   #}
@@ -95,11 +99,6 @@ void test_{{name}}() {
 {# |   _   _  ._   _   |_) ._ _  |  _   _       _  #}
 {# |_ (_) (_) |_) _>   |   | (_) | (_) (_| |_| (/_ #}
 {#            |                         _|         #}
-
-{% if test_type == 'reduction' and T.is_complex and not no_user_defined_reduction%} 
-  #pragma omp declare reduction(+: {{T}}: omp_out += omp_in)
-{% endif %}
-
 {% for region, region_additional_pragma, loop_constructs,counter in zip_longest(regions, regions_additional_pragma, region_loop_construct,region_counters, fillvalue=[]) %}
 {% filter indent(width=2*loop.index) %}
    {# In the case of 'local' test, we use only one counter in the outermost enclosing scope #} 

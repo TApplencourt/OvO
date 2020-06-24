@@ -6,11 +6,11 @@ using std::complex;
 bool almost_equal(complex<double> x, complex<double> gold, float tol) {
   return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
 }
+#pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
 void test_target_teams__distribute__parallel__for() {
   const int N0 { 512 };
   const int N1 { 512 };
   const complex<double> expected_value { N0*N1 };
-  #pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
   complex<double> counter_N0{};
   #pragma omp target teams map(tofrom: counter_N0) reduction(+: counter_N0)
   #pragma omp distribute

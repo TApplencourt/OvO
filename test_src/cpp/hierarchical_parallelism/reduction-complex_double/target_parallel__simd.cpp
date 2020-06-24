@@ -11,10 +11,10 @@ int omp_get_num_threads() {return 1;}
 bool almost_equal(complex<double> x, complex<double> gold, float tol) {
   return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
 }
+#pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
 void test_target_parallel__simd() {
   const int N0 { 262144 };
   const complex<double> expected_value { N0 };
-  #pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
   complex<double> counter_parallel{};
   #pragma omp target parallel map(tofrom: counter_parallel) reduction(+: counter_parallel)
   {

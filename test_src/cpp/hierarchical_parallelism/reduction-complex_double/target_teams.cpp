@@ -11,9 +11,9 @@ int omp_get_num_teams() {return 1;}
 bool almost_equal(complex<double> x, complex<double> gold, float tol) {
   return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
 }
+#pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
 void test_target_teams() {
   const complex<double> expected_value { 1 };
-  #pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
   complex<double> counter_teams{};
   #pragma omp target teams map(tofrom: counter_teams) reduction(+: counter_teams)
   {
