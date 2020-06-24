@@ -135,20 +135,20 @@ def parse_folder(folder):
                 d[os.path.join(folder, m)] = None
 
             for m, error in re.findall(r_compilation.error, line):
-                d[os.path.join(folder, m)] = "compilation"
+                d[os.path.join(folder, m)] = "compilation error"
 
     with open(os.path.join(folder, "runtime.log")) as f:
         for line in f:
             for m, error in re.findall(r_runtime.error, line):
                 l = error.split()
                 if l[0] != "Error":
-                    error = "runtime"
+                    error = "runtime error"
                 elif l[1] in ("124", "137"):
                     error = "hanging"
                 elif l[1] in ("112",):
                     error = "wrong value"
                 else:
-                    error = "runtime"
+                    error = "runtime error"
 
                 d[os.path.join(folder, m)] = error
 
@@ -160,27 +160,37 @@ def parse_folder(folder):
 # |_/ | _> |_) | (_| \/
 #          |         /
 #
-def summary_csv(d,folder):
-
-    if folder == 'Total':
-        language = ''
-        type_ = ''
-        test = folder
-    else:
-        *_, language, type_, test = folder.split('/') 
+def summary_csv(d,folder=None):
     
     total_test = len(d)
     from collections import Counter
+    c = Counter(d.values())
 
-    d = Counter(d.values())
+    c["test"] = total_test
+    c["success"] = c[None]
+    c["pass rate"] = f"{c['success'] / c['test']:.0%}"
 
-    c = d["compilation"]
-    r = d["runtime"]
-    h = d["hanging"]
-    v = d["wrong value"]
-    total_success = d[None]
- 
-    return [language, type_, test, total_success/total_test, total_test, total_success, c, r, v, h]
+    if folder:
+        *_,  c["language"], c["category"], c["name"] = folder.split('/')
+
+    return c
+
+def print_result(l_d, csv=False, overall=False):
+    l_collum = ['language', 'category', 'name', 'pass rate(%)', 'test(#)', 'success(#)', 'compilation error(#)', 'runtime error(#)', 'wrong value(#)', 'hang(#)']
+    if overall:
+        l_collum = l_collum[3:]
+    l_key = [key.split('(')[0] for key in l_collum ]
+
+    data = [ l_collum ] + [[d[key] for key in l_key] for d in l_d] 
+    if csv:
+        import csv
+        spamwriter = csv.writer(sys.stdout)
+        for row in data:
+            spamwriter.writerow(row)
+    else:
+        print(tabulate(data, headers="firstrow"))
+
+
 #
 # |\/|  _. o ._
 # |  | (_| | | |
@@ -214,7 +224,8 @@ if __name__ == "__main__":
     group.add_argument("--summary", action="store_true")
     group.add_argument("--failed", action="store_true")
     group.add_argument("--passed", action="store_true")
-
+    parser.add_argument("--csv", action="store_true")
+    
     parser.add_argument("result_folder", nargs="*", action=EmptyIsAllFolder)
     args = parser.parse_args()
 
@@ -223,18 +234,18 @@ if __name__ == "__main__":
         s_folder |= {os.path.dirname(path) for path in Path(folder).rglob("env.log")}
 
 
-    l = []
+    d_agregaded, l_summary = {}, []
 
-    d_agregaded = {}
     for folder in sorted(s_folder):
         d = parse_folder(folder)
         d_agregaded.update(d)
 
         if args.summary:
-            l.append(summary_csv(d,folder))
+            l_summary.append(summary_csv(d,folder))
         elif args.passed or args.failed:
-            d_failed = defaultdict(list)
-            l_sucess = []
+
+            # Need to split between pass and failed
+            d_failed, l_sucess = defaultdict(list), []
             for name, value in d.items():
                 if value is None:
                     l_sucess.append(os.path.basename(name))
@@ -242,22 +253,21 @@ if __name__ == "__main__":
                     d_failed[value].append(os.path.basename(name))
        
             print(f">> {folder}")
-            if args.failed and d_failed:
+            if args.failed:
                 for k, v in sorted(d_failed.items()):
                     print(f">>> {k}")
                     print("\n".join(sorted(v)))
-            elif args.passed and l_sucess:
+            elif args.passed:
                 print("\n".join(sorted(l_sucess)))
 
     if not(args.passed or args.failed):
         if len(args.result_folder) <= 1:
             print(f">> Overall result using {args.result_folder[0]}")
-        print (tabulate([summary_csv(d_agregaded,'Total')[3:]],headers=['pass rate (%)', 'test (#)', 'success (#)', 'compilation error (#)', 'offload error (#)', 'incorrect value (#)', 'hang (#)'], floatfmt=".0%"))
+            print_result([summary_csv(d_agregaded)],csv=args.csv,overall=True) 
 
         if args.summary:
-            print ()
-            print (">> Summary")
-            print (tabulate(l,headers=['language', 'category', 'name', 'pass rate (%)', 'test (#)', 'success (#)', 'compilation error (#)', 'offload error (#)', 'incorrect value (#)', 'hang (#)'], floatfmt=".0%"))
+            print ("\n >> Summary")
+            print_result(l_summary,csv=args.csv)
         
     if any(i is not None for i in d_agregaded.values()):
         sys.exit(1)
