@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 
-import re, unittest, os
+import re, unittest, os,sys
 from typing import NamedTuple
 from collections import defaultdict
+
+dirname = os.path.dirname(__file__)
+
 try:
     from tabulate import tabulate
 except ImportError:
+    sys.path.append(dirname)
     from tabulate_local import tabulate
-
-dirname = os.path.dirname(__file__)
 
 #  _
 # |_) _. ._ _ o ._   _
