@@ -39,7 +39,7 @@ base=$(dirname $0)
 while (( "$#" )); do
     case "$1" in
         gen)
-            shift; $base/src/gtest.py "$@"; exit
+            shift; $base/src/gtest.py $@; exit
             ;;
         clean)
             shift; fclean; exit

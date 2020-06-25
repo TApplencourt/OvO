@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
-import re, unittest, os,sys
+import re, unittest, os, sys, contextlib
+import csv
 from typing import NamedTuple
-from collections import defaultdict
+from collections import defaultdict, Counter
+from operator import itemgetter
 
 dirname = os.path.dirname(__file__)
 
@@ -131,28 +133,40 @@ class TestRuntimeError(unittest.TestCase):
 def parse_folder(folder):
     d = {}
 
-    with open(os.path.join(folder, "compilation.log")) as f:
-        for line in f:
-            for m in re.findall(r_compilation.launch, line):
-                d[os.path.join(folder, m)] = None
+    with contextlib.suppress(FileNotFoundError):
+        with open(os.path.join(folder, "compilation.log")) as f:
+            for line in f:
+                # By default the tests are sucessfull
+                for m in re.findall(r_compilation.launch, line):
+                    d[os.path.join(folder, m)] = "success"
 
-            for m, error in re.findall(r_compilation.error, line):
-                d[os.path.join(folder, m)] = "compilation error"
+                # Then we overwrite the tests status if needed
+                for m, error in re.findall(r_compilation.error, line):
+                    d[os.path.join(folder, m)] = "compilation error"
 
-    with open(os.path.join(folder, "runtime.log")) as f:
-        for line in f:
-            for m, error in re.findall(r_runtime.error, line):
-                l = error.split()
-                if l[0] != "Error":
-                    error = "runtime error"
-                elif l[1] in ("124", "137"):
-                    error = "hanging"
-                elif l[1] in ("112",):
-                    error = "wrong value"
-                else:
-                    error = "runtime error"
+    with contextlib.suppress(FileNotFoundError):
+        with open(os.path.join(folder, "runtime.log")) as f:
+            for line in f:
 
-                d[os.path.join(folder, m)] = error
+                # Defensive programing, we should not need that in tradional case
+                # All the tests should have been added during the compilation stage.
+                # But maybe somebody somehow delete the "compilation.log" so...
+                for m in re.findall(r_runtime.launch, line):
+                    d[os.path.join(folder, m)] = "success"
+
+                # Using error code to assisn test status
+                for m, error in re.findall(r_runtime.error, line):
+                    l = error.split()
+                    if l[0].lower() != "error":
+                        error = "runtime error"
+                    elif l[1] in ("124", "137"):
+                        error = "hang"
+                    elif l[1] in ("112",):
+                        error = "wrong value"
+                    else:
+                        error = "runtime error"
+
+                    d[os.path.join(folder, m)] = error
 
     return d
 
@@ -162,30 +176,55 @@ def parse_folder(folder):
 # |_/ | _> |_) | (_| \/
 #          |         /
 #
-def summary_csv(d,folder=None):
-    
-    total_test = len(d)
-    from collections import Counter
-    c = Counter(d.values())
+def summary_csv(d, have_folder=None):
+    """
+    >>> summary_csv( {"a":"runtime error", "b":"success"} )
+    Counter({'runtime error': 1, 'success': 1, 'test': 2, 'pass rate': '50%'})
+    >>> summary_csv( {"a":"runtime error", "b":"success"}, folder='a/b/c/d' )
+    Counter({'runtime error': 1, 'success': 1, 'test': 2, 'pass rate': '50%', 'language': 'b', 'category': 'c', 'name': 'd'})
+    """
+    if not d:
+        return {}
 
-    c["test"] = total_test
-    c["success"] = c[None]
+    c = Counter(d.values())
+    c["test"] = len(d)
     c["pass rate"] = f"{c['success'] / c['test']:.0%}"
 
-    if folder:
-        *_,  c["language"], c["category"], c["name"] = folder.split('/')
-
+    if have_folder:
+        *_, c["test_result"], c["language"], c["category"], c["name"] = folder.split(os.path.sep)
     return c
 
-def print_result(l_d, csv=False, overall=False):
-    l_collum = ['language', 'category', 'name', 'pass rate(%)', 'test(#)', 'success(#)', 'compilation error(#)', 'runtime error(#)', 'wrong value(#)', 'hang(#)']
-    if overall:
-        l_collum = l_collum[3:]
-    l_key = [key.split('(')[0] for key in l_collum ]
 
-    data = [ l_collum ] + [[d[key] for key in l_key] for d in l_d] 
+def print_result(l_d, csv, type_=None):
+    """
+    >>> print_result([Counter({'runtime error': 1, 'test': 1, 'pass rate': '0%'})], False)
+      language    category    name  pass rate(%)      test(#)    success(#)    compilation error(#)    runtime error(#)    wrong value(#)    hang(#)
+    ----------  ----------  ------  --------------  ---------  ------------  ----------------------  ------------------  ----------------  ---------
+             0           0       0  0%                      1             0                       0                   1                 0          0
+    >>> print_result([Counter({'runtime error': 23, 'test': 46, 'pass rate': '50%'})], False, True)
+    pass rate(%)      test(#)    success(#)    compilation error(#)    runtime error(#)    wrong value(#)    hang(#)
+    --------------  ---------  ------------  ----------------------  ------------------  ----------------  ---------
+    50%                    46             0                       0                  23                 0          0
+    """
+
+    l_column = ["test_result", "language", "category", "name", "pass rate(%)", "test(#)", "success(#)", "compilation error(#)", "runtime error(#)", "wrong value(#)", "hang(#)"]
+
+    # The key are the column where we remove the unit
+    l_key = [key.split("(")[0] for key in l_column]
+
+    # - If the file don't exist or if the file is empty,
+    #       the directy will be empty, so we filter empty dictionary
+    # - We sort by folder, language and pass rate
+    # - We cannot naively map(d.get) because this return an emtpy string and not 0
+    rows = sorted([[d[k] for k in l_key] for d in filter(None, l_d)], key=itemgetter(0, 1, 2, 4))
+    data = [l_column] + rows
+    # For the overall summary, the language category and name are not needed
+    if type_ == "overall":
+        data = [row[4:] for row in data]
+    elif type_ == "no_folder":
+        data = [row[1:] for row in data]
+
     if csv:
-        import csv
         spamwriter = csv.writer(sys.stdout)
         for row in data:
             spamwriter.writerow(row)
@@ -227,7 +266,7 @@ if __name__ == "__main__":
     group.add_argument("--failed", action="store_true")
     group.add_argument("--passed", action="store_true")
     parser.add_argument("--csv", action="store_true")
-    
+
     parser.add_argument("result_folder", nargs="*", action=EmptyIsAllFolder)
     args = parser.parse_args()
 
@@ -235,41 +274,42 @@ if __name__ == "__main__":
     for folder in args.result_folder:
         s_folder |= {os.path.dirname(path) for path in Path(folder).rglob("env.log")}
 
+    # How many test_result are we using
+    n_test_result = len(set(path.split(os.path.sep)[-4] for path in s_folder))
 
-    d_agregaded, l_summary = {}, []
+    d_test_aggregaded, l_summary = {}, []
 
     for folder in sorted(s_folder):
-        d = parse_folder(folder)
-        d_agregaded.update(d)
+        d_test = parse_folder(folder)
+        d_test_aggregaded.update(d_test)
 
         if args.summary:
-            l_summary.append(summary_csv(d,folder))
+            l_summary.append(summary_csv(d_test, folder))
         elif args.passed or args.failed:
+            d_status_to_tests = defaultdict(list)
+            for name, value in d_test.items():
+                d_status_to_tests[value].append(os.path.basename(name))
 
-            # Need to split between pass and failed
-            d_failed, l_sucess = defaultdict(list), []
-            for name, value in d.items():
-                if value is None:
-                    l_sucess.append(os.path.basename(name))
-                else:
-                    d_failed[value].append(os.path.basename(name))
-       
-            print(f">> {folder}")
-            if args.failed:
-                for k, v in sorted(d_failed.items()):
-                    print(f">>> {k}")
-                    print("\n".join(sorted(v)))
-            elif args.passed:
-                print("\n".join(sorted(l_sucess)))
+            # Display failed or passed tests
+            l_status = ["success"] if args.passed else [k for k in d_status_to_tests if k != "success"]
+            # Don't display folder which no valid tests
+            if any(d_status_to_tests[k] for k in l_status):
+                print(f">> {folder}")
+            for status in sorted(l_status):
+                print(f">>> {status}")
+                print("\n".join(sorted(d_status_to_tests[status])))
 
-    if not(args.passed or args.failed):
-        if len(args.result_folder) <= 1:
-            print(f">> Overall result using {args.result_folder[0]}")
-            print_result([summary_csv(d_agregaded)],csv=args.csv,overall=True) 
+    if not (args.passed or args.failed):
+        if len(args.result_folder) == 1:
+            print(f">> Overall result for {args.result_folder[0]}")
+        else:
+            print(f">> Overall result")
 
-        if args.summary:
-            print ("\n >> Summary")
-            print_result(l_summary,csv=args.csv)
-        
-    if any(i is not None for i in d_agregaded.values()):
+        print_result([summary_csv(d_test_aggregaded)], csv=args.csv, type_="overall")
+
+    if args.summary:
+        print("\n >> Summary")
+        print_result(l_summary, csv=args.csv, type_="no_folder" if n_test_result == 1 else None)
+
+    if any(i is not None for i in d_test_aggregaded.values()):
         sys.exit(1)
