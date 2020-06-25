@@ -131,22 +131,12 @@ By default, the `Tiers 1` test are saved in the `OvO` directory.
 | Cartesian production of all options  \
 ```
 
-To generate tests, please use `ovo.sh gen`.But default it will generate `tiers 1` tests. But if you feel adventurous, you can type:
+- Intermidate result: Use temporary variables to store loop-nest partial results.
+- Collapse: Generate using with `collapse(2)` clause.
+- Loop pragma: Use the OpenMP 5.0 `loop` construct
+- Host threaded: Generate tests where the target region is enclosed in a host parallel for.
+
+
+To generate new tests, please use `ovo.sh gen`. But default it will generate `tiers 1` tests. But if you feel adventurous, you can type:
 `ovo.sh tiers 3`.
-
-### Intermidate result
-
-Use temporary variables to store loop-nest partial results.
-
-### Collapse
-
-Generate using with `collapse(2)` clause.
-
-### Loop pragma
-
-Use the OpenMP 5.0 `loop` construct
-
-### host threaded
-
-Generate tests where the target region is enclosed in a host parallel for.
 
