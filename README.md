@@ -35,13 +35,11 @@ assert (counter_N0 != N0*N1);
 
 To run OvO simply type `./ovo.sh run`. The logs file will be saved in the newly created `test_result` folder. 
 OvO will respect any usual environement provided by th user (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD`).
-You can find commonly used flags for various compiler in [/documentation/README.md](https://github.com/TApplencourt/OvO/tree/master//documentation/README.md).
-
-For example, runing with `gfortran`:
+You can find commonly used flags for various compiler in [/documentation/README.md](https://github.com/TApplencourt/OvO/tree/master//documentation/README.md). For example:
 ```
 $ OMP_TARGET_OFFLOAD=mandatory CXX="g++" CXXFLAGS="-fopenmp" FC="gfortran" FFLAGS="-fopenmp"./ovo.sh run
 Running tests_src/cpp/mathematical_function/math_cpp11 | Saving log in results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30/cpp/mathematical_function/math_cpp11
-clang++ -fopenmp isgreater_bool_float_float.cpp -o isgreater_bool_float_float.exe
+g++ -fopenmp isgreater_bool_float_float.cpp -o isgreater_bool_float_float.exe
 [...]
 ```
 
