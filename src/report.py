@@ -178,9 +178,9 @@ def parse_folder(folder):
 def summary_csv(d, folder=None):
     """
     >>> summary_csv( {"a":"runtime error", "b":"success"} )
-    Counter({'runtime error': 1, 'success': 1, 'test': 2, 'pass rate': '50%'})
+    Counter({'test': 2, 'runtime error': 1, 'success': 1, 'pass rate': 0.5})
     >>> summary_csv( {"a":"runtime error", "b":"success"}, folder='a/b/c/d')
-    Counter({'runtime error': 1, 'success': 1, 'test': 2, 'pass rate': '50%', 'test_result': 'a', 'language': 'b', 'category': 'c', 'name': 'd'})
+    Counter({'runtime error': 1, 'success': 1, 'test': 2, 'pass rate': 0.5, 'test_result': 'a', 'language': 'b', 'category': 'c', 'name': 'd'})
     """
     if not d:
         return {}
