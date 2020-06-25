@@ -46,12 +46,32 @@ clang++ -fopenmp isgreater_bool_float_float.cpp -o isgreater_bool_float_float.ex
 ```
 
 ## Result
-A summary of the result can be obtained with `./ovo.sh report`. 
+A summary of the result can be obtained with `./ovo.sh report`. Example of output optained with `--summary`:
 
 ```
-$ ./ovo.sh report
->> test_results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30
-811 / 910 ( 89% ) pass [failures: 8 compilation, 84 offload, 7 incorrect results]
+./ovo.sh report --summary  --tablefmt github
+>> Overall result
+|   pass rate(%) |   test(#) |   success(#) |   compilation error(#) |   runtime error(#) |   wrong value(#) |   hang(#) |
+|----------------|-----------|--------------|------------------------|--------------------|------------------|-----------|
+|            57% |       828 |          471 |                    198 |                 41 |               98 |        20 |
+
+ >> Summary
+| language   | category                 | name                     |   pass rate(%) |   test(#) |   success(#) |   compilation error(#) |   runtime error(#) |   wrong value(#) |   hang(#) |
+|------------|--------------------------|--------------------------|----------------|-----------|--------------|------------------------|--------------------|------------------|-----------|
+| cpp        | hierarchical_parallelism | reduction-float          |            34% |        74 |           25 |                      2 |                  1 |               44 |         2 |
+| cpp        | hierarchical_parallelism | reduction-complex_double |            47% |        74 |           35 |                      2 |                  1 |               28 |         8 |
+| cpp        | hierarchical_parallelism | atomic-float             |            58% |        33 |           19 |                      0 |                  0 |                4 |        10 |
+| cpp        | hierarchical_parallelism | memcopy-complex_double   |            93% |        45 |           42 |                      2 |                  1 |                0 |         0 |
+| cpp        | hierarchical_parallelism | memcopy-float            |            93% |        45 |           42 |                      2 |                  1 |                0 |         0 |
+| cpp        | mathematical_function    | cpp11                    |            92% |       177 |          163 |                      6 |                  4 |                4 |         0 |
+| cpp        | mathematical_function    | cpp11-complex            |           100% |        34 |           34 |                      0 |                  0 |                0 |         0 |
+| fortran    | hierarchical_parallelism | reduction-double_complex |             7% |        74 |            5 |                     49 |                 14 |                6 |         0 |
+| fortran    | hierarchical_parallelism | reduction-real           |             8% |        74 |            6 |                     48 |                 14 |                6 |         0 |
+| fortran    | hierarchical_parallelism | memcopy-real             |            22% |        45 |           10 |                     35 |                  0 |                0 |         0 |
+| fortran    | hierarchical_parallelism | memcopy-double_complex   |            24% |        45 |           11 |                     34 |                  0 |                0 |         0 |
+| fortran    | hierarchical_parallelism | atomic-real              |            39% |        33 |           13 |                     18 |                  0 |                2 |         0 |
+| fortran    | mathematical_function    | F77-complex              |            71% |        14 |           10 |                      0 |                  0 |                4 |         0 |
+| fortran    | mathematical_function    | F77                      |            92% |        61 |           56 |                      0 |                  5 |                0 |         0 |
 ```
 
 You can also use `./ovo.sh report --failed` to get a list of tests that failed for more thoughtful investigation.
