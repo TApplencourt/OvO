@@ -311,5 +311,5 @@ if __name__ == "__main__":
         print("\n >> Summary")
         print_result(l_summary, csv=args.csv, type_="no_folder" if n_test_result == 1 else None)
 
-    if any(i is not None for i in d_test_aggregaded.values()):
+    if any(i != "success" for i in d_test_aggregaded.values()):
         sys.exit(1)
