@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import re, unittest, os, sys, contextlib
-import csv
 from typing import NamedTuple
 from collections import defaultdict, Counter
 from operator import itemgetter
@@ -176,32 +175,32 @@ def parse_folder(folder):
 # |_/ | _> |_) | (_| \/
 #          |         /
 #
-def summary_csv(d, have_folder=None):
+def summary_csv(d, folder=None):
     """
     >>> summary_csv( {"a":"runtime error", "b":"success"} )
     Counter({'runtime error': 1, 'success': 1, 'test': 2, 'pass rate': '50%'})
-    >>> summary_csv( {"a":"runtime error", "b":"success"}, folder='a/b/c/d' )
-    Counter({'runtime error': 1, 'success': 1, 'test': 2, 'pass rate': '50%', 'language': 'b', 'category': 'c', 'name': 'd'})
+    >>> summary_csv( {"a":"runtime error", "b":"success"}, folder='a/b/c/d')
+    Counter({'runtime error': 1, 'success': 1, 'test': 2, 'pass rate': '50%', 'test_result': 'a', 'language': 'b', 'category': 'c', 'name': 'd'})
     """
     if not d:
         return {}
 
     c = Counter(d.values())
     c["test"] = len(d)
-    c["pass rate"] = f"{c['success'] / c['test']:.0%}"
+    c["pass rate"] = c['success'] / c['test']
 
-    if have_folder:
+    if folder:
         *_, c["test_result"], c["language"], c["category"], c["name"] = folder.split(os.path.sep)
     return c
 
 
-def print_result(l_d, csv, type_=None):
+def print_result(l_d, tablefmt="simple", type_=None):
     """
-    >>> print_result([Counter({'runtime error': 1, 'test': 1, 'pass rate': '0%'})], False)
+    >>> print_result([Counter({'runtime error': 1, 'test': 1, 'pass rate': '0%'})],type_="no_folder")
       language    category    name  pass rate(%)      test(#)    success(#)    compilation error(#)    runtime error(#)    wrong value(#)    hang(#)
     ----------  ----------  ------  --------------  ---------  ------------  ----------------------  ------------------  ----------------  ---------
              0           0       0  0%                      1             0                       0                   1                 0          0
-    >>> print_result([Counter({'runtime error': 23, 'test': 46, 'pass rate': '50%'})], False, True)
+    >>> print_result([Counter({'runtime error': 23, 'test': 46, 'pass rate': '50%'})], type_="overall")
     pass rate(%)      test(#)    success(#)    compilation error(#)    runtime error(#)    wrong value(#)    hang(#)
     --------------  ---------  ------------  ----------------------  ------------------  ----------------  ---------
     50%                    46             0                       0                  23                 0          0
@@ -224,13 +223,7 @@ def print_result(l_d, csv, type_=None):
     elif type_ == "no_folder":
         data = [row[1:] for row in data]
 
-    if csv:
-        spamwriter = csv.writer(sys.stdout)
-        for row in data:
-            spamwriter.writerow(row)
-    else:
-        print(tabulate(data, headers="firstrow"))
-
+    print(tabulate(data, headers="firstrow",tablefmt=tablefmt,floatfmt=".0%"))
 
 #
 # |\/|  _. o ._
@@ -265,8 +258,8 @@ if __name__ == "__main__":
     group.add_argument("--summary", action="store_true")
     group.add_argument("--failed", action="store_true")
     group.add_argument("--passed", action="store_true")
-    parser.add_argument("--csv", action="store_true")
-
+    parser.add_argument("--tablefmt", default="simple")
+    
     parser.add_argument("result_folder", nargs="*", action=EmptyIsAllFolder)
     args = parser.parse_args()
 
@@ -305,11 +298,11 @@ if __name__ == "__main__":
         else:
             print(f">> Overall result")
 
-        print_result([summary_csv(d_test_aggregaded)], csv=args.csv, type_="overall")
+        print_result([summary_csv(d_test_aggregaded)], tablefmt=args.tablefmt, type_="overall")
 
     if args.summary:
         print("\n >> Summary")
-        print_result(l_summary, csv=args.csv, type_="no_folder" if n_test_result == 1 else None)
+        print_result(l_summary, tablefmt=args.tablefmt, type_="no_folder" if n_test_result == 1 else None)
 
     if any(i != "success" for i in d_test_aggregaded.values()):
         sys.exit(1)

@@ -9,7 +9,8 @@ jobs:
   - name: unittest
     script:
     - python3 -m unittest src/report.py
-    - python3 -m doctest  src/gtest.py
+    - python3 -m doctest src/report.py
+    - python3 -m doctest src/gtest.py
 #~
 # GCC
 #~
