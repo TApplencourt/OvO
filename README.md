@@ -76,7 +76,7 @@ A summary of the result can be obtained with `./ovo.sh report`. Example of outpu
 
 You can also use `./ovo.sh report --failed` to get a list of tests that failed for more thoughtful investigation.
 
-All information on the execution of the tests is available in the subfolder of `test_src` corresponding to our run (for example `./test_result/1957-04-01_19-02_CDC6600.lanl.gov/cpp/hierarchical_parallelism/memcopy-real`).
+All information on the execution of the tests is available in the subfolder of `test_result` corresponding to our run (for example `./test_result/1957-04-01_19-02_CDC6600.lanl.gov/cpp/hierarchical_parallelism/memcopy-real`).
 The environment used to tun the test is available in `env.log`. 
 Two log files are also created one for the compilation (`compilation.log`), and one for the runtime (`runtime.log`).
   - Error code `112` corresponds to an incorrect result. 
