@@ -52,8 +52,12 @@ def format_template(str_, language):
     """
 
     def split_fortran_line(line, max_width=100):
+        '''
+        To be improved and cleaned.
+        Don't work if we need to split one line in more than one line
+        '''
         prefix = "&\n!$OMP&" if line.lstrip().startswith("!$OMP") else "&\n&"
-        l_chunk = range(len(line) // 100)
+        l_chunk = range(len(line) // max_width)
 
         l = list(line)
         for i in l_chunk:
