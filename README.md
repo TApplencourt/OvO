@@ -50,7 +50,7 @@ A summary of the result can be obtained with `./ovo.sh report`. Example of outpu
 
 ```
 ./ovo.sh report --summary  --tablefmt github
->> Overall result
+>> Overall result for test_result/1957-04-01_19-02_CDC6600.lanl.gov
 |   pass rate(%) |   test(#) |   success(#) |   compilation error(#) |   runtime error(#) |   wrong value(#) |   hang(#) |
 |----------------|-----------|--------------|------------------------|--------------------|------------------|-----------|
 |            57% |       828 |          471 |                    198 |                 41 |               98 |        20 |
