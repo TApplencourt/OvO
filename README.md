@@ -35,6 +35,8 @@ assert (counter_N0 != N0*N1);
 
 To run OvO simply type `./ovo.sh run`. The logs file will be saved in the newly created `test_result` folder. 
 OvO will respect any usual environement provided by th user (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD`).
+OvO will also respect the special `OVO_TIMEOUT` enviroment who control the timeout used to kill too-long running tests (by default `15s`).
+
 You can find commonly used flags for various compiler in [/documentation/README.md](https://github.com/TApplencourt/OvO/tree/master//documentation/README.md). For example:
 ```
 $ OMP_TARGET_OFFLOAD=mandatory CXX="g++" CXXFLAGS="-fopenmp" FC="gfortran" FFLAGS="-fopenmp"./ovo.sh run
