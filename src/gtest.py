@@ -195,41 +195,31 @@ class TypeSystem:
         return self.T
 
 
-class Pragma:
+class Pragma(str):
     def __init__(self, pragma):
         self.pragma = pragma
 
-    @cached_property
-    def is_loop(self):
-        return any(p in self.pragma for p in ("distribute", "for", "loop", "simd"))
+    def has(self,str_):
+        """
+        >>> Pragma("target teams distribute").has("implicit_goto")
+        True
+        >>> Pragma("target teams distribute").has("target")
+        True
+        >>> Pragma("target teams distribute").has("loop")
+        False
+        """
 
-    @cached_property
-    def is_worksharing(self):
-        return any(p in self.pragma for p in ("distribute", "for", "loop"))
-
-    @cached_property
-    def is_teams(self):
-        return "teams" in self.pragma
-
-    @cached_property
-    def is_distribute(self):
-        return "distribute" in self.pragma
-
-    @cached_property
-    def is_target(self):
-        return "target" in self.pragma
-
-    @cached_property
-    def is_teams(self):
-        return "teams" in self.pragma
-
-    @cached_property
-    def is_parallel(self):
-        return "parallel" in self.pragma
-
-    @cached_property
-    def is_generator(self):
-        return any(p in self.pragma for p in ("teams", "parallel"))
+        # Naming is hard. I want to know if y have a C++/Fortran loop in my kernel
+        # Loop is a omp construct...
+        # So let's got for `implicit_goto`
+        if str_ == "implicit_goto":
+            return any(p in self.pragma for p in ("distribute", "for", "loop", "simd"))
+        elif str_ == "worksharing":
+            return any(p in self.pragma for p in ("distribute", "for", "loop"))
+        elif str_ == "generator":
+            return any(p in self.pragma for p in ("teams", "parallel"))
+        else:
+            return str_ in self.pragma
 
     @cached_property
     def can_be_reduced(self):
@@ -272,13 +262,32 @@ class Path:
     @cached_property
     def path(self):
         """
-        >>> Path(["parallel", "for"], {}).path
-        ['parallel', 'for']
+        >>> Path(["parallel for"], {}).path
+        [parallel for]
         >>> Path(["parallel", "loop_for"], {}).path
-        ['parallel', 'loop']
+        [parallel, loop]
         """
         # To facilitate the recursion. Loop are encoded as "loop_distribute" and "loop_for".
-        return [" ".join(pragma.split("_")[0] for pragma in p.split()) for p in self.path_raw]
+        def sanitize(combined_pragma):
+            l_pragma = combined_pragma.split()
+            head = lambda p : p.split('_').pop(0)  
+            return Pragma(" ".join(map(head,l_pragma)))
+
+        return [sanitize(p) for p in self.path_raw]
+
+    @cached_property
+    def flatten_target_path(self):
+        """
+        >>> Path(["parallel for", "simd"], {}).flatten_target_path
+        [parallel, for, simd]
+        """
+        l = list(map(Pragma,chain.from_iterable(map(str.split, self.path))))
+        try:
+            idx = l.index("target")
+        except ValueError:
+            return l
+        else:
+            return l[idx:]
 
     @cached_property
     def name(self):
@@ -324,27 +333,6 @@ class Path:
         return f"{self.name}.{self.ext}"
 
     @cached_property
-    def flatten_path(self):
-        """
-        >>> Path(["parallel", "for", "simd"], {}).flatten_path
-        ['parallel', 'for', 'simd']
-        >>> Path(["parallel for", "simd"], {}).flatten_path
-        ['parallel', 'for', 'simd']
-        """
-        return list(chain.from_iterable(map(str.split, self.path)))
-
-    def has(self, construct):
-        """
-        >>> Path(["parallel", "for"], {}).has("for")
-        True
-        >>> Path(["parallel for"], {}).has("parallel")
-        True
-        >>> Path(["parallel for"], {}).has("simd")
-        False
-        """
-        return construct in self.flatten_path
-
-    @cached_property
     def only_teams(self):
         """
         >>> Path(["teams", "distribute"], {}).only_teams
@@ -356,19 +344,22 @@ class Path:
         >>> Path(["teams"], {}).only_teams
         True
         """
-        return any(i == "teams" and not j in ("distribute", "loop") for i, j in pairwise(self.flatten_path + [None]))
+        # Because of `loop` we need to check pair-wize
+        return any(i == "teams" and not j in ("distribute", "loop") for i, j in pairwise(self.flatten_target_path + [None]))
 
     @cached_property
     def only_parallel(self):
         """
-        >>> Path(["parallel", "for"], {}).only_parallel
+        >>> Path(["target parallel", "for"], {}).only_parallel
         False
-        >>> Path(["teams", "loop", "parallel"], {}).only_parallel
+        >>> Path(["target parallel", "for"], {}).only_parallel
+        False
+        >>> Path(["target teams", "loop", "parallel"], {}).only_parallel
         True
-        >>> Path(["parallel"], {}).only_parallel
+        >>> Path(["parallel for", "target parallel"], {}).only_parallel
         True
         """
-        return any(i == "parallel" and not j in ("for", "loop") for i, j in pairwise(self.flatten_path + [None]))
+        return any(i == "parallel" and not j in ("for", "loop") for i, j in pairwise(self.flatten_target_path + [None]))
 
     @cached_property
     def balenced(self):
@@ -396,7 +387,7 @@ class Path:
         >>> Path(["teams", "parallel"], {"collapse": 2}).loop_construct_number
         0
         """
-        loop_pragma_number = sum(Pragma(p).is_loop for p in self.path)
+        loop_pragma_number = sum(Pragma(p).has("implicit_goto") for p in self.path)
         if self.collapse:
             return loop_pragma_number * self.collapse
         else:
@@ -451,7 +442,7 @@ class Path:
             head_j = Pragma(j.split()[0])
 
             l_tmp.append(Pragma(i))
-            if (tail_i.is_loop or (tail_i.is_generator and not head_j.is_worksharing)) or (tail_i.is_target and head_j.pragma == "sentinel"):
+            if (tail_i.has("implicit_goto") or (tail_i.has("generator") and not head_j.has("worksharing"))) or (tail_i.has("target") and head_j == "sentinel"):
                 l.append(l_tmp[:])
                 l_tmp = []
 
@@ -478,11 +469,11 @@ class Path:
         l, i = [], 0
         for region in self.regions:
             tail = region[-1]
-            if tail.is_loop:
+            if tail.has("implicit_goto"):
                 l.append(f"counter_N{i}")
                 i += max(self.collapse, 1)
             else:
-                l.append(f"counter_{tail.pragma.split().pop()}")
+                l.append(f"counter_{tail.split().pop()}")
 
         # In the case of local tests,  we will use only one variable to do our work.
         # All the counter should refer to the first one
@@ -510,7 +501,7 @@ class Path:
             tail = region[-1]
 
             l_tmp = []
-            if tail.is_loop:
+            if tail.has("implicit_goto"):
                 for j in range(n_collapse):
                     l_tmp.append(Idx(f"i{i}", f"N{i}", self.loop_tripcount))
                     i += 1
@@ -543,13 +534,13 @@ class Path:
                 l.append(Inc(counter, counter_next, "omp_get_num_teams()"))
             elif not self.intermediate_result and self.only_parallel:
                 l.append(Inc(counter, counter_next, "omp_get_num_threads()"))
-            elif tail.is_loop:
+            elif tail.has("implicit_goto"):
                 l.append(Inc(counter, counter_next, None))
-            elif tail.is_teams:
+            elif tail.has("teams"):
                 l.append(Inc(counter, counter_next, "omp_get_num_teams()"))
-            elif tail.is_parallel:
+            elif tail.has("parallel"):
                 l.append(Inc(counter, counter_next, "omp_get_num_threads()"))
-            elif tail.is_target:
+            elif tail.has("target"):
                 l.append(Inc(counter, counter_next, None))
             else:
                 raise ValueError(tail)
@@ -573,7 +564,7 @@ class Path:
             l_tmp = []
             for pragma in region:
                 construct = []
-                if pragma.is_target:
+                if pragma.has("target"):
                     if "memcopy" in self.test_type:
                         if self.language == "cpp":
                             construct += ["map(to: pS[0:size]) map(from: pD[0:size])"]
@@ -583,7 +574,7 @@ class Path:
                         construct += [f"map(tofrom: {counter})"]
                 if "reduction" in self.test_type and pragma.can_be_reduced:
                     construct += [f"reduction(+: {counter})"]
-                if self.collapse and pragma.is_loop:
+                if self.collapse and pragma.has("implicit_goto"):
                     construct += [f"collapse({self.collapse})"]
 
                 l_tmp.append(" ".join(construct))
@@ -611,12 +602,14 @@ class Path:
         False
         """
         # If we don't ask for loop pragma we don't want to generate with tests who containt omp loop construct
-        if self.loop_pragma ^ self.has("loop"):
+        if self.loop_pragma ^ any(p.has("loop") for p in self.path):
             return False
-        # If people whant collapse, we will print only the test with loop
+        # If people want collapse, we will print only the test with loop
         if self.collapse and not self.loop_construct_number:
             return False
-        if self.intermediate_result and self.loop_construct_number <= 1 * max(1, self.collapse):
+        # If people whant some intermediate_result we need at least to have 2 regions inside the target
+        # Because when we do `host_threaded` we add only one region. The following hack is working
+        if self.intermediate_result and len(self.regions) < (2 + self.host_threaded):
             return False
 
         return True
@@ -669,7 +662,7 @@ class Fold(Path):
         False
         """
         # Cannot use atomic inside simd
-        return not (self.test_type == "atomic" and self.has("simd"))
+        return not (self.test_type == "atomic" and any(p.has("simd") for p in self.path))
 
     @cached_property
     def template_location(self):
@@ -1129,6 +1122,7 @@ if __name__ == "__main__":
                 2,
             }
             d_hp["host_threaded"] |= {True}
+            d_hp["paired_pragmas"] |= {True}
 
             def asked_combinaison(d):
                 if d["intermediate_result"] and d["test_type"] != "atomic":
@@ -1136,6 +1130,8 @@ if __name__ == "__main__":
                 elif d["collapse"] and d["test_type"] != "memcopy":
                     return False
                 elif d["host_threaded"] and (d["intermediate_result"] or d["collapse"]):
+                    return False
+                elif d["paired_pragmas"] and ( d["test_type"] != "reduction" or d["data_type"] != "REAL" or d["host_threaded"] ):
                     return False
                 else:
                     return True
