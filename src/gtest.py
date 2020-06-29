@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 import jinja2, json, os, shutil, sys, math
 from itertools import tee, zip_longest, product, chain, zip_longest
-from functools import update_wrapper
-from typing import List
 from collections import namedtuple, defaultdict
 
 #
@@ -25,6 +23,8 @@ try:
     from functools import cached_property
 except ImportError:
 
+    from functools import update_wrapper
+
     class cached_property(object):
         def __init__(self, func):
             update_wrapper(self, func)
@@ -38,7 +38,10 @@ except ImportError:
 
 
 def pairwise(iterable):
-    "s -> (s0,s1), (s1,s2), (s2, s3), ..."
+    '''
+    >>> list(pairwise(['a','b','c']))
+    [('a', 'b'), ('b', 'c')]
+    '''
     a, b = tee(iterable)
     next(b, None)
     return zip(a, b)
@@ -47,14 +50,14 @@ def pairwise(iterable):
 def format_template(str_, language):
     """
     - Remove empty line.
-    - right strip
+    - Right strip
     - Split Fortran line 
     """
 
     def split_fortran_line(line, max_width=100):
         '''
         To be improved and cleaned.
-        Don't work if we need to split one line in more than one line
+        Don't work if we need to split line in more than one line
         '''
         prefix = "&\n!$OMP&" if line.lstrip().startswith("!$OMP") else "&\n&"
         l_chunk = range(len(line) // max_width)
@@ -75,11 +78,15 @@ def format_template(str_, language):
 #
 
 # Need to refractor this one... Too ugly or too smart
-def combinations_construct(tree_config_path, path=["root"]) -> List[List[str]]:
+def combinations_construct(tree_config_path, path=["root"]):
     """
-    >>> combinations_construct({"root": ["target", "target teams"], "target": ["teams"], "target teams": [], "teams": []})
+    >>> combinations_construct({"root": ["target", "target teams"], 
+    ...                         "target": ["teams"], 
+    ...                         "target teams": [], "teams": []})
     [['target'], ['target', 'teams'], ['target teams']]
     """
+
+    # Remove the 'root' path
     tails = [path[1:]] if len(path[1:]) else []
 
     for children in tree_config_path[path[-1]]:
@@ -829,8 +836,6 @@ class Math:
         # Got all the possible value of the input
         l_input_name = [t.name for t in l_input]
         l_input_values = [Math.T_to_values[t.T.T] for t in l_input]
-
-        from itertools import product
 
         for l_input_value in product(*l_input_values):
             if not domain:
