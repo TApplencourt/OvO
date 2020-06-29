@@ -904,7 +904,7 @@ def gen_mf(d_arg):
             f = "cmath_synopsis.json"
     elif std.startswith("F"):
         language = "fortran"
-        f = "f77math_synopsis.json"
+        f = "fmath_synopsis.json"
 
     with open(os.path.join(dirname, "config", f), "r") as f:
         math_json = json.load(f)
