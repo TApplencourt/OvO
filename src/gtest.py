@@ -573,10 +573,12 @@ class Path:
                 construct = []
                 if pragma.has("target"):
                     if "memcopy" in self.test_type:
+                        dst_pragma = "from" if not self.host_threaded  else 'tofrom'
+
                         if self.language == "cpp":
-                            construct += ["map(to: pS[0:size]) map(from: pD[0:size])"]
+                            construct += [f"map(to: pS[0:size]) map({dst_pragma}: pD[0:size])"]
                         elif self.language == "fortran":
-                            construct += ["map(to: src) map(from: dst)"]
+                            construct += [f"map(to: src) map({dst_pragma}: dst)"]
                     else:
                         construct += [f"map(tofrom: {counter})"]
                 if "reduction" in self.test_type and pragma.can_be_reduced:
