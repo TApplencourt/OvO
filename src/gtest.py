@@ -206,20 +206,17 @@ class Pragma(str):
     def __init__(self, pragma):
         self.pragma = pragma
 
-    def has(self,str_):
+    def has_construct(self,str_):
         """
-        >>> Pragma("target teams distribute").has("implicit_goto")
+        >>> Pragma("target teams distribute").has_construct("loop-associated")
         True
-        >>> Pragma("target teams distribute").has("target")
+        >>> Pragma("target teams distribute").has_construct("target")
         True
-        >>> Pragma("target teams distribute").has("loop")
+        >>> Pragma("target teams distribute").has_construct("loop")
         False
         """
 
-        # Naming is hard. I want to know if y have a C++/Fortran loop in my kernel
-        # Loop is a omp construct...
-        # So let's got for `implicit_goto`
-        if str_ == "implicit_goto":
+        if str_ == "loop-associated":
             return any(p in self.pragma for p in ("distribute", "for", "loop", "simd"))
         elif str_ == "worksharing":
             return any(p in self.pragma for p in ("distribute", "for", "loop"))
@@ -236,13 +233,12 @@ class Pragma(str):
         return self.pragma
 
 
-# ___                               _
-#  |  _   _ _|_   |_   _.  _  _ __ |_ _.  _ _|_  _  ._
-#  | (/_ _>  |_   |_) (_| _> (/_   | (_| (_  |_ (_) | \/
-#                                                     /
+#                                        _
+# |_| o  _  ._ _. ._ _ |_  o  _  _. |   |_) _. ._ _. | |  _  | o  _ ._ _
+# | | | (/_ | (_| | (_ | | | (_ (_| |   |  (_| | (_| | | (/_ | | _> | | |
+#
 
-
-class Path:
+class HP: #^(;,;)^
     def __init__(self, path_raw, d_arg):
         self.path_raw = path_raw
 
@@ -259,9 +255,9 @@ class Path:
     @cached_property
     def language(self):
         """
-        >>> Path(None, {"data_type": "float"}).language
+        >>> HP(None, {"data_type": "float"}).language
         'cpp'
-        >>> Path(None, {"data_type": "REAL"}).language
+        >>> HP(None, {"data_type": "REAL"}).language
         'fortran'
         """
         return self.T.language
@@ -269,9 +265,9 @@ class Path:
     @cached_property
     def path(self):
         """
-        >>> Path(["parallel for"], {}).path
+        >>> HP(["parallel for"], {}).path
         [parallel for]
-        >>> Path(["parallel", "loop_for"], {}).path
+        >>> HP(["parallel", "loop_for"], {}).path
         [parallel, loop]
         """
         # To facilitate the recursion. Loop are encoded as "loop_distribute" and "loop_for".
@@ -285,7 +281,7 @@ class Path:
     @cached_property
     def flatten_target_path(self):
         """
-        >>> Path(["parallel for", "simd"], {}).flatten_target_path
+        >>> HP(["parallel for", "simd"], {}).flatten_target_path
         [parallel, for, simd]
         """
         l = list(map(Pragma,chain.from_iterable(map(str.split, self.path))))
@@ -299,9 +295,9 @@ class Path:
     @cached_property
     def name(self):
         """
-        >>> Path(["parallel", "for"], {"data_type": "float"}).name
+        >>> HP(["parallel", "for"], {"data_type": "float"}).name
         'parallel__for'
-        >>> Path(["parallel for", "simd"], {"data_type": "REAL"}).name
+        >>> HP(["parallel for", "simd"], {"data_type": "REAL"}).name
         'parallel_do__simd'
         """
         l_node_serialized = ("_".join(node.split()) for node in self.path)
@@ -316,9 +312,9 @@ class Path:
     @cached_property
     def ext(self):
         """
-        >>> Path(None, {"data_type": "float"}).ext
+        >>> HP(None, {"data_type": "float"}).ext
         'cpp'
-        >>> Path(None, {"data_type": "DOUBLE PRECISION"}).ext
+        >>> HP(None, {"data_type": "DOUBLE PRECISION"}).ext
         'F90'
         """
         if self.language == "cpp":
@@ -330,116 +326,82 @@ class Path:
     @cached_property
     def filename(self):
         """
-        >>> Path(["parallel", "for"], {"data_type": "float"}).filename
+        >>> HP(["parallel", "for"], {"data_type": "float"}).filename
         'parallel__for.cpp'
-        >>> Path(["parallel", "loop_for"], {"data_type": "float"}).filename
+        >>> HP(["parallel", "loop_for"], {"data_type": "float"}).filename
         'parallel__loop.cpp'
-        >>> Path(["parallel for", "simd"], {"data_type": "REAL"}).filename
+        >>> HP(["parallel for", "simd"], {"data_type": "REAL"}).filename
         'parallel_do__simd.F90'
         """
         return f"{self.name}.{self.ext}"
 
-    @cached_property
-    def only_teams(self):
-        """
-        >>> Path(["teams", "distribute"], {}).only_teams
-        False
-        >>> Path(["teams", "parrallel", "loop"], {}).only_teams
-        True
-        >>> Path(["distribute"], {}).only_teams
-        False
-        >>> Path(["teams"], {}).only_teams
-        True
-        """
-        # Because of `loop` we need to check pair-wize
-        return any(i == "teams" and not j in ("distribute", "loop") for i, j in pairwise(self.flatten_target_path + [None]))
 
-    @cached_property
-    def only_parallel(self):
-        """
-        >>> Path(["target parallel", "for"], {}).only_parallel
+    def single(self,p):
+        '''
+        >>> HP(["teams", "distribute"], {}).single("teams")
         False
-        >>> Path(["target parallel", "for"], {}).only_parallel
+        >>> HP(["teams", "parallel", "loop"], {}).single("teams")
+        True
+        >>> HP(["parallel for", "target parallel"], {}).single("parallel")
+        True
+        >>> HP(["target teams", "parallel loop"], {}).single("parallel")
         False
-        >>> Path(["target teams", "loop", "parallel"], {}).only_parallel
-        True
-        >>> Path(["parallel for", "target parallel"], {}).only_parallel
-        True
-        """
-        return any(i == "parallel" and not j in ("for", "loop") for i, j in pairwise(self.flatten_target_path + [None]))
+        '''
+
+        if p == "teams":
+            spouses = ("distribute", "loop")
+        elif p == "parallel":
+            spouses = ("for", "loop")
+
+        # Because of `loop` we need to check pair-wize
+        return any(i.has_construct(p) and not j in spouses for i, j in pairwise(self.flatten_target_path + [None]))
 
     @cached_property
     def balenced(self):
         """
-        >>> Path(["parallel", "for"], {}).balenced
+        >>> HP(["parallel", "for"], {}).balenced
         True
-        >>> Path(["teams", "loop", "parallel"], {}).balenced
+        >>> HP(["teams", "loop", "parallel"], {}).balenced
         False
         """
-        return not self.only_parallel and not self.only_teams
+        return not any(map(self.single,("teams","parallel")))
 
     @cached_property
-    def loop_construct_number(self):
+    def unroll_factor(self):
+        return max(1,self.collapse)
+
+    @cached_property
+    def associated_loops_number(self):
         """
-        >>> Path(["distribute"], {"collapse": 1}).loop_construct_number
+        >>> HP(["teams distribute parallel for"], {"collapse": 0}).associated_loops_number
         1
-        >>> Path(["distribute"], {"collapse": 0}).loop_construct_number
-        1
-        >>> Path(["distribute"], {"collapse": 2}).loop_construct_number
-        2
-        >>> Path(["teams", "distribute", "parallel", "for"], {"collapse": 2}).loop_construct_number
-        4
-        >>> Path(["teams distribute parallel for"], {"collapse": 2}).loop_construct_number
-        2
-        >>> Path(["teams", "parallel"], {"collapse": 2}).loop_construct_number
+        >>> HP(["teams", "parallel"], {"collapse": 0}).associated_loops_number
         0
+        >>> HP(["teams distribute", "parallel for"], {"collapse": 2}).associated_loops_number
+        4
         """
-        loop_pragma_number = sum(Pragma(p).has("implicit_goto") for p in self.path)
-        if self.collapse:
-            return loop_pragma_number * self.collapse
-        else:
-            return loop_pragma_number
+        return sum(p.has_construct("loop-associated") for p in self.path) * self.unroll_factor
 
     @cached_property
-    def loop_tripcount(self):
+    def l_nested_constructs(self):
         """
-        >>> Path(["distribute"], {"collapse": 0}).loop_tripcount
-        262144
-        >>> Path(["distribute"], {"collapse": 1}).loop_tripcount
-        262144
-        >>> Path(["distribute"], {"collapse": 2}).loop_tripcount
-        512
-        >>> Path(["teams distribute paralel for simd"], {"collapse": 0}).loop_tripcount
-        262144
-        >>> Path(["teams", "distribute", "paralel", "for", "simd"], {"collapse": 0}).loop_tripcount
-        64
-        >>> Path(["teams"], {"collapse": 0}).loop_tripcount
-        """
-        if not self.loop_construct_number:
-            return None
-
-        return max(1, math.ceil(math.pow(64 * 64 * 64, 1.0 / self.loop_construct_number)))
-
-    @cached_property
-    def regions(self):
-        """
-        >>> Path(["target"], {}).regions
+        >>> HP(["target"], {}).l_nested_constructs
         [[target]]
-        >>> Path(["target teams distribute"], {}).regions
+        >>> HP(["target teams distribute"], {}).l_nested_constructs
         [[target teams distribute]]
-        >>> Path(["target", "teams", "distribute"], {}).regions
+        >>> HP(["target", "teams", "distribute"], {}).l_nested_constructs
         [[target, teams, distribute]]
-        >>> Path(["target", "teams", "distribute", "parallel", "for", "simd"], {}).regions
+        >>> HP(["target", "teams", "distribute", "parallel", "for", "simd"], {}).l_nested_constructs
         [[target, teams, distribute], [parallel, for], [simd]]
-        >>> Path(["target teams", "parallel"], {}).regions
+        >>> HP(["target teams", "parallel"], {}).l_nested_constructs
         [[target teams], [parallel]]
-        >>> Path(["target", "parallel", "for"], {}).regions
+        >>> HP(["target", "parallel", "for"], {}).l_nested_constructs
         [[target, parallel, for]]
-        >>> Path(["parallel", "for", "target", "teams"], {}).regions
+        >>> HP(["parallel", "for", "target", "teams"], {}).l_nested_constructs
         [[parallel, for], [target, teams]]
-        >>> Path(["target", "teams", "loop", "parallel", "loop", "simd"], {}).regions
+        >>> HP(["target", "teams", "loop", "parallel", "loop", "simd"], {}).l_nested_constructs
         [[target, teams, loop], [parallel, loop], [simd]]
-        >>> Path(["target", "teams", "parallel", "simd"], {"collapse": 0}).regions
+        >>> HP(["target", "teams", "parallel", "simd"], {"collapse": 0}).l_nested_constructs
         [[target, teams], [parallel], [simd]]
         """
 
@@ -448,72 +410,73 @@ class Path:
             tail_i = Pragma(i.split()[-1])
             head_j = Pragma(j.split()[0])
 
-            l_tmp.append(Pragma(i))
-            if (tail_i.has("implicit_goto") or (tail_i.has("generator") and not head_j.has("worksharing"))) or (tail_i.has("target") and head_j == "sentinel"):
+            l_tmp.append(i)
+            if (tail_i.has_construct("loop-associated") or (tail_i.has_construct("generator") and not head_j.has_construct("worksharing"))) or (tail_i.has_construct("target") and head_j == "sentinel"):
                 l.append(l_tmp[:])
                 l_tmp = []
 
         return l
 
     @cached_property
-    def region_counters(self):
+    def regions_counter(self):
         """
-        >>> Path(["target teams distribute"], {"collapse": 0, "intermediate_result": False}).region_counters
+        >>> HP(["target teams distribute"], {"collapse": 0, "intermediate_result": False}).regions_counter
         ['counter_N0']
-        >>> Path(["target"], {"collapse": 0, "intermediate_result": False}).region_counters
+        >>> HP(["target"], {"collapse": 0, "intermediate_result": False}).regions_counter
         ['counter_target']
-        >>> Path(["target teams"], {"collapse": 0, "intermediate_result": False}).region_counters
+        >>> HP(["target teams"], {"collapse": 0, "intermediate_result": False}).regions_counter
         ['counter_teams']
-        >>> Path(["target", "teams", "parallel"], {"collapse": 0, "intermediate_result": True}).region_counters
+        >>> HP(["target", "teams", "parallel"], {"collapse": 0, "intermediate_result": True}).regions_counter
         ['counter_teams', 'counter_parallel']
-        >>> Path(["target", "teams", "parallel for"], {"collapse": 0, "intermediate_result": True}).region_counters
+        >>> HP(["target", "teams", "parallel for"], {"collapse": 0, "intermediate_result": True}).regions_counter
         ['counter_teams', 'counter_N0']
-        >>> Path(["target teams distribute", "parallel for"], {"collapse": 0, "intermediate_result": True}).region_counters
+        >>> HP(["target teams distribute", "parallel for"], {"collapse": 0, "intermediate_result": True}).regions_counter
         ['counter_N0', 'counter_N1']
-        >>> Path(["target teams distribute", "parallel for"], {"collapse": 2, "intermediate_result": True}).region_counters
+        >>> HP(["target teams distribute", "parallel for"], {"collapse": 2, "intermediate_result": True}).regions_counter
         ['counter_N0', 'counter_N2']
         """
         l, i = [], 0
-        for region in self.regions:
-            tail = region[-1]
-            if tail.has("implicit_goto"):
+        for *_, tail in self.l_nested_constructs:
+            if tail.has_construct("loop-associated"):
                 l.append(f"counter_N{i}")
-                i += max(self.collapse, 1)
+                i += self.unroll_factor
             else:
                 l.append(f"counter_{tail.split().pop()}")
 
         # In the case of local tests,  we will use only one variable to do our work.
         # All the counter should refer to the first one
         if not self.intermediate_result:
-            return [l[0]] * len(self.regions)
+            return [l[0]] * len(self.l_nested_constructs)
         return l
 
     @cached_property
-    def region_loop_construct(self):
+    def regions_associated_loop(self):
         """
-        >>> Path(["target teams distribute"], {"collapse": 0}).region_loop_construct
+        >>> HP(["target teams distribute"], {"collapse": 0}).regions_associated_loop
         [[Idx(i='i0', N='N0', v=262144)]]
-        >>> Path(["target teams distribute", "parallel"], {"collapse": 0}).region_loop_construct
+        >>> HP(["target teams distribute", "parallel"], {"collapse": 0}).regions_associated_loop
         [[Idx(i='i0', N='N0', v=262144)], []]
-        >>> Path(["target teams distribute", "parallel for"], {"collapse": 0}).region_loop_construct
+        >>> HP(["target teams distribute", "parallel for"], {"collapse": 0}).regions_associated_loop
         [[Idx(i='i0', N='N0', v=512)], [Idx(i='i1', N='N1', v=512)]]
-        >>> Path(["target teams distribute"], {"collapse": 2}).region_loop_construct
+        >>> HP(["target teams distribute"], {"collapse": 2}).regions_associated_loop
         [[Idx(i='i0', N='N0', v=512), Idx(i='i1', N='N1', v=512)]]
         """
-        n_collapse = max(self.collapse, 1)
-        i = 0
-        l = []
+
+        # Try to event out the loop iteration number
+        if self.associated_loops_number:
+            loop_tripcount = max(1, math.ceil(math.pow(64 * 64 * 64, 1.0 / self.associated_loops_number)))
+        else:
+            loop_tripcount = None
+
+        l, i = [], 0
         Idx = namedtuple("Idx", "i N v")
-        for region in self.regions:
-            tail = region[-1]
+        for *_, tail in self.l_nested_constructs:
 
             l_tmp = []
-            if tail.has("implicit_goto"):
-                for j in range(n_collapse):
-                    l_tmp.append(Idx(f"i{i}", f"N{i}", self.loop_tripcount))
+            if tail.has_construct("loop-associated"):
+                for j in range(self.unroll_factor):
+                    l_tmp.append(Idx(f"i{i}", f"N{i}", loop_tripcount))
                     i += 1
-            else:
-                l_tmp = []
 
             l.append(l_tmp)
         return l
@@ -521,102 +484,179 @@ class Path:
     @cached_property
     def regions_increment(self):
         """
-        >>> Path(["target"], {"collapse": 0, "intermediate_result": False}).regions_increment
+        >>> HP(["target"], {"collapse": 0, "intermediate_result": False}).regions_increment
         [Inc(v='counter_target', i='1.', j=None)]
-        >>> Path(["target teams distribute"], {"collapse": 0, "intermediate_result": False}).regions_increment
+        >>> HP(["target teams distribute"], {"collapse": 0, "intermediate_result": False}).regions_increment
         [Inc(v='counter_N0', i='1.', j=None)]
-        >>> Path(["target teams distribute", "parallel", "for"], {"collapse": 2, "intermediate_result": True}).regions_increment
+        >>> HP(["target teams distribute", "parallel", "for"], {"collapse": 2, "intermediate_result": True}).regions_increment
         [Inc(v='counter_N0', i='counter_N2', j=None), Inc(v='counter_N2', i='1.', j=None)]
-        >>> Path(["target teams"], {"collapse": 0, "intermediate_result": False}).regions_increment
+        >>> HP(["target teams"], {"collapse": 0, "intermediate_result": False}).regions_increment
         [Inc(v='counter_teams', i='1.', j='omp_get_num_teams()')]
         """
 
         l = []
         Inc = namedtuple("Inc", "v i j")
-        for (counter, counter_next), region in zip(pairwise(self.region_counters + ["1."]), self.regions):
+        for (counter, counter_next), region in zip(pairwise(self.regions_counter + ["1."]), self.l_nested_constructs):
             tail = region[-1]
-            if not self.intermediate_result and self.only_teams and self.only_parallel:
-                l.append(Inc(counter, counter_next, "( omp_get_num_teams() * omp_get_num_threads() )"))
-            elif not self.intermediate_result and self.only_teams:
-                l.append(Inc(counter, counter_next, "omp_get_num_teams()"))
-            elif not self.intermediate_result and self.only_parallel:
-                l.append(Inc(counter, counter_next, "omp_get_num_threads()"))
-            elif tail.has("implicit_goto"):
-                l.append(Inc(counter, counter_next, None))
-            elif tail.has("teams"):
-                l.append(Inc(counter, counter_next, "omp_get_num_teams()"))
-            elif tail.has("parallel"):
-                l.append(Inc(counter, counter_next, "omp_get_num_threads()"))
-            elif tail.has("target"):
-                l.append(Inc(counter, counter_next, None))
+            if not self.intermediate_result and self.single("teams") and self.single("parallel"):
+                j = "( omp_get_num_teams() * omp_get_num_threads() )"
+            elif not self.intermediate_result and self.single("teams"):
+                j = "omp_get_num_teams()"
+            elif not self.intermediate_result and self.single("parallel"):
+                j = "omp_get_num_threads()"
+            elif tail.has_construct("loop-associated"):
+                j = None
+            elif tail.has_construct("teams"):
+                j = "omp_get_num_teams()"
+            elif tail.has_construct("parallel"):
+                j = "omp_get_num_threads()"
+            elif tail.has_construct("target"):
+                j = None
             else:
                 raise ValueError(tail)
-
+            l.append(Inc(counter,counter_next,j))
         return l
 
     @cached_property
     def regions_additional_pragma(self):
         """
-        >>> Path(["target teams"], {"test_type": "atomic", "intermediate_result": False, "collapse": 0}).regions_additional_pragma
+        >>> HP(["target teams"], {"test_type": "atomic", "intermediate_result": False, "collapse": 0}).regions_additional_pragma
         [['map(tofrom: counter_teams)']]
-        >>> Path(["target teams"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float"}).regions_additional_pragma
+        >>> HP(["target teams"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float","host_threaded": False}).regions_additional_pragma
         [['map(to: pS[0:size]) map(from: pD[0:size])']]
-        >>> Path(["target teams"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "REAL"}).regions_additional_pragma
-        [['map(to: src) map(from: dst)']]
-        >>> Path(["target teams distribute"], {"test_type": "reduction", "intermediate_result": False, "collapse": 3}).regions_additional_pragma
+        >>> HP(["target teams"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "REAL", "host_threaded": True}).regions_additional_pragma
+        [['map(to: src) map(tofrom: dst)']]
+        >>> HP(["target teams distribute"], {"test_type": "reduction", "intermediate_result": False, "collapse": 3}).regions_additional_pragma
         [['map(tofrom: counter_N0) reduction(+: counter_N0) collapse(3)']]
         """
-        l = []
-        for counter, region in zip(self.region_counters, self.regions):
-            l_tmp = []
-            for pragma in region:
-                construct = []
-                if pragma.has("target"):
-                    if "memcopy" in self.test_type:
-                        if self.language == "cpp":
-                            construct += ["map(to: pS[0:size]) map(from: pD[0:size])"]
-                        elif self.language == "fortran":
-                            construct += ["map(to: src) map(from: dst)"]
-                    else:
-                        construct += [f"map(tofrom: {counter})"]
-                if "reduction" in self.test_type and pragma.can_be_reduced:
-                    construct += [f"reduction(+: {counter})"]
-                if self.collapse and pragma.has("implicit_goto"):
-                    construct += [f"collapse({self.collapse})"]
 
-                l_tmp.append(" ".join(construct))
-            l.append(l_tmp[:])
+        def additional_pragma(counter, pragma):
+            construct = []
+            if pragma.has_construct("target"):
+                if "memcopy" in self.test_type:
+                    dst_pragma = "from" if not self.host_threaded  else 'tofrom'
+                    if self.language == "cpp":
+                        construct += [f"map(to: pS[0:size]) map({dst_pragma}: pD[0:size])"]
+                    elif self.language == "fortran":
+                        construct += [f"map(to: src) map({dst_pragma}: dst)"]
+                else:
+                        construct += [f"map(tofrom: {counter})"]
+            if "reduction" in self.test_type and pragma.can_be_reduced:
+                construct += [f"reduction(+: {counter})"]
+            if self.collapse and pragma.has_construct("loop-associated"):
+                construct += [f"collapse({self.collapse})"]
+            return " ".join(construct)
+
+        l = []
+        for counter, region in zip(self.regions_counter, self.l_nested_constructs):
+            l.append( [additional_pragma(counter,pragma) for pragma in region] )
         return l
 
     @cached_property
-    def is_valid_common_test(self):
+    def tripcount(self):
         """
-        >>> Path(["for"], {"collapse": 0, "loop_pragma": False, "intermediate_result": False}).is_valid_common_test
-        True
-        >>> Path(["for"], {"collapse": 0, "loop_pragma": True, "intermediate_result": False}).is_valid_common_test
+        >>> HP(["teams", "distribute"], {"collapse": 0}).tripcount
+        'N0'
+        >>> HP(["teams", "distribute"], {"collapse": 2}).tripcount
+        'N0*N1'
+        >>> HP(["teams", "parallel"], {"collapse": 1}).tripcount
+        '1'
+        """
+
+        if not self.associated_loops_number:
+            return "1"
+
+        return "*".join(l.N for l in chain.from_iterable(self.regions_associated_loop))
+
+    @cached_property
+    def inner_index(self):
+        """
+        >>> HP(["for"], {"data_type": "float", "collapse": 1}).inner_index
+        'i0'
+        >>> HP(["for"], {"data_type": "float", "collapse": 2}).inner_index
+        'i1+N1*(i0)'
+        >>> HP(["for"], {"data_type": "float", "collapse": 3}).inner_index
+        'i2+N2*(i1+N1*(i0))'
+        >>> HP(["for"], {"data_type": "float", "collapse": 4}).inner_index
+        'i3+N3*(i2+N2*(i1+N1*(i0)))'
+        >>> HP(["for"], {"data_type": "REAL", "collapse": 0}).inner_index
+        'i0-1+1'
+        >>> HP(["for"], {"data_type": "REAL", "collapse": 2}).inner_index
+        'i1-1+N1*(i0-1)+1'
+        """
+
+        def fma_idx(n, offset=0):
+            idx = f"i{n}-{offset}" if offset else f"i{n}"
+            if n == 0:
+                return idx
+            return f"{idx}+N{n}*({fma_idx(n-1,offset)})"
+
+        idx_loop = self.associated_loops_number - 1 
+        if idx_loop < 0:
+            return None
+        elif self.language == "cpp":
+            return fma_idx(idx_loop)
+        else:
+            return f"{fma_idx(idx_loop,1)}+1"
+
+
+    @cached_property
+    def is_valid_test(self):
+        """
+        >>> d = {"test_type":"atomic",
+        ...      "collapse": 0, 
+        ...      "loop_pragma": False, 
+        ...      "intermediate_result": False,
+        ...      "host_threaded": False}
+
+        >>> HP(["target for"], {**d, 'loop_pragma': True} ).is_valid_test
         False
-        >>> Path(["loop"], {"collapse": 0, "loop_pragma": False, "intermediate_result": False}).is_valid_common_test
+        >>> HP(["target for"], {**d} ).is_valid_test
+        True
+        >>> HP(["target teams"], {**d, 'collapse': 2} ).is_valid_test
         False
-        >>> Path(["loop"], {"collapse": 0, "loop_pragma": True, "intermediate_result": False}).is_valid_common_test
+        >>> HP(["parallel for target teams distribute parallel for"], {**d, 'intermediate_result': True} ).is_valid_test
+        False
+        >>> HP(["target teams", "parallel loop"], {**d, 'loop_pragma': True} ).is_valid_test
+        False
+        >>> HP(["target teams", "parallel loop"], {**d, 'loop_pragma': True, 'intermediate_result': True} ).is_valid_test
         True
-        >>> Path(["loop"], {"collapse": 1, "loop_pragma": True, "intermediate_result": False}).is_valid_common_test
-        True
-        >>> Path(["loop"], {"collapse": 0, "loop_pragma": True, "intermediate_result": False}).is_valid_common_test
-        True
-        >>> Path(["teams"], {"collapse": 0, "loop_pragma": False, "intermediate_result": False}).is_valid_common_test
-        True
-        >>> Path(["teams"], {"collapse": 1, "loop_pragma": False, "intermediate_result": False}).is_valid_common_test
+        >>> HP(["target teams"], d).is_valid_test
+        False
+        >>> HP(["target teams", "parallel"], {**d, 'test_type':'memcopy'} ).is_valid_test
         False
         """
-        # If we don't ask for loop pragma we don't want to generate with tests who containt omp loop construct
-        if self.loop_pragma ^ any(p.has("loop") for p in self.path):
+
+        # Based on section 2.23 -- Nesting of Regions of the openmp v5.0 specification 
+        # We also try to do duplicate tests.
+
+        # If we don't ask for loop pragma we don't want to generate tests who doesn't containt omp loop construct
+        if self.loop_pragma ^ any(p.has_construct("loop") for p in self.path):
             return False
-        # If people want collapse, we will print only the test with loop
-        if self.collapse and not self.loop_construct_number:
+
+        # If people want collapse, we will generate only the test with loop
+        elif self.collapse and not self.associated_loops_number:
             return False
-        # If people whant some intermediate_result we need at least to have 2 regions inside the target
+
+        # If people whant some intermediate_result we need at least two 2 l_nested_constructs inside the target
         # Because when we do `host_threaded` we add only one region. The following hack is working
-        if self.intermediate_result and len(self.regions) < (2 + self.host_threaded):
+        elif self.intermediate_result and len(self.l_nested_constructs) < (2 + self.host_threaded):
+            return False
+        
+        #>> A loop region corresponding to a loop construct may not contain calls to the OpenMP Runtime API
+        elif self.loop_pragma and not any([self.balenced,self.intermediate_result,self.single("parallel")]):
+            return False
+
+        # >> distribute, distribute simd, distribute parallel worksharing-loop, 
+        #    distribute parallel worksharing-loop SIMD, parallel regions, including any parallel regions arising from combined constructs,
+        #    omp_get_num_teams() regions, and omp_get_team_num() regions 
+        #    are the only OpenMP regions that may be strictly nested inside the teams region. 
+        # That mean atomic cannot be stricly nested inside "teams"...
+        elif self.test_type == "atomic" and self.flatten_target_path[-1] == 'teams':
+            return False
+
+        # need to have at least one loop and be balenced
+        elif self.test_type == "memcopy" and not self.associated_loops_number and not self.balenced:
             return False
 
         return True
@@ -624,10 +664,10 @@ class Path:
     @cached_property
     def template_rendered(self):
 
-        if not (self.is_valid_common_test and self.is_valid_test):
+        if not self.is_valid_test:
             return None
 
-        template = templateEnv.get_template(self.template_location)
+        template = templateEnv.get_template(f"hierarchical_parallelism.{self.ext}.jinja2")
         str_ = template.render(**{p: getattr(self, p) for p in dir(self) if p != "template_rendered"})
         return format_template(str_, self.language)
 
@@ -635,105 +675,6 @@ class Path:
         if self.template_rendered:
             with open(os.path.join(folder, self.filename), "w") as f:
                 f.write(self.template_rendered)
-
-
-#                                        _
-# |_| o  _  ._ _. ._ _ |_  o  _  _. |   |_) _. ._ _. | |  _  | o  _ ._ _
-# | | | (/_ | (_| | (_ | | | (_ (_| |   |  (_| | (_| | | (/_ | | _> | | |
-#
-
-
-class Fold(Path):
-    @cached_property
-    def expected_value(self):
-        """
-        >>> Fold(["teams", "distribute"], {"collapse": 0}).expected_value
-        'N0'
-        >>> Fold(["teams", "distribute"], {"collapse": 2}).expected_value
-        'N0*N1'
-        >>> Fold(["teams", "parallel"], {"collapse": 1}).expected_value
-        '1'
-        """
-
-        if not self.loop_construct_number:
-            return "1"
-
-        return "*".join(l.N for l in chain.from_iterable(self.region_loop_construct))
-
-    @cached_property
-    def is_valid_test(self):
-        """
-        >>> Fold(["teams", "distribute"], {"collapse": 0, "test_type": "atomic"}).is_valid_test
-        True
-        >>> Fold(["teams", "distribute", "simd"], {"collapse": 0, "test_type": "atomic"}).is_valid_test
-        False
-        """
-        # Cannot use atomic inside simd
-        return not (self.test_type == "atomic" and any(p.has("simd") for p in self.path))
-
-    @cached_property
-    def template_location(self):
-        return f"hierarchical_parallelism.{self.ext}.jinja2"
-
-
-class Memcopy(Path):
-    @cached_property
-    def index(self):
-        """
-        >>> Memcopy(["for"], {"data_type": "float", "collapse": 1}).index
-        'i0'
-        >>> Memcopy(["for"], {"data_type": "float", "collapse": 2}).index
-        'i1+N1*(i0)'
-        >>> Memcopy(["for"], {"data_type": "float", "collapse": 3}).index
-        'i2+N2*(i1+N1*(i0))'
-        >>> Memcopy(["for"], {"data_type": "float", "collapse": 4}).index
-        'i3+N3*(i2+N2*(i1+N1*(i0)))'
-        >>> Memcopy(["for"], {"data_type": "REAL", "collapse": 0}).index
-        'i0-1+1'
-        >>> Memcopy(["for"], {"data_type": "REAL", "collapse": 2}).index
-        'i1-1+N1*(i0-1)+1'
-        """
-
-        def fma_idx(n, offset=0):
-            idx = f"i{n}-{offset}" if offset else f"i{n}"
-
-            if n == 0:
-                return idx
-            return f"{idx}+N{n}*({fma_idx(n-1,offset)})"
-
-        if self.language == "cpp":
-            return fma_idx(self.loop_construct_number - 1)
-        else:
-            return f"{fma_idx(self.loop_construct_number-1,1)}+1"
-
-    @cached_property
-    def problem_size(self):
-        """
-        >>> Memcopy(["teams", "distribute"], {"collapse": 0}).problem_size
-        'N0'
-        >>> Memcopy(["teams", "distribute"], {"collapse": 2}).problem_size
-        'N0*N1'
-        """
-
-        return "*".join(l.N for l in chain.from_iterable(self.region_loop_construct))
-
-    @cached_property
-    def is_valid_test(self):
-        """
-        >>> Memcopy(["teams", "distribute"], {"collapse": 0}).is_valid_test
-        True
-        >>> Memcopy(["teams", "parallel"], {"collapse": 0}).is_valid_test
-        False
-        """
-
-        if not self.balenced or not self.loop_construct_number:
-            return False
-        return True
-
-    @cached_property
-    def template_location(self):
-        return f"hierarchical_parallelism.{self.ext}.jinja2"
-
 
 #                                                  _
 # |\/|  _. _|_ |_   _  ._ _   _. _|_ o  _  _. |   |_    ._   _ _|_ o  _  ._
@@ -949,9 +890,8 @@ def gen_hp(d_arg, omp_construct, asked_combinaison):
 
     t = TypeSystem(d_arg["data_type"])
     # Avoid the user reduction is only valid for cpp complex reduction code
-    if d_arg["no_user_defined_reduction"]:
-        if t.language != "cpp" or t.category != "complex" or d_arg["test_type"] != "reduction":
-            return False
+    if d_arg["no_user_defined_reduction"] and (t.language != "cpp" or t.category != "complex" or d_arg["test_type"] != "reduction"):
+        return False
 
     # Paired_pragmas only valid for fortran code
     if d_arg["paired_pragmas"] and t.language != "fortran":
@@ -959,6 +899,16 @@ def gen_hp(d_arg, omp_construct, asked_combinaison):
 
     # OpenMP doesn't support Complex Atomic
     if t.category == "complex" and d_arg["test_type"] == "atomic":
+        return False
+
+
+    '''
+    >> The only constructs that may be nested inside a loop region are the loop construct, the parallel construct, 
+    the simd construct, and combined constructs for which the first construct is a parallel construct.
+
+    That mean no atomic with loop
+    '''
+    if d_arg["test_type"] == "atomic" and d_arg["loop_pragma"]:
         return False
 
     name_folder = [d_arg["test_type"], t.serialized] + sorted([k for k, v in d_arg.items() if v is True])
@@ -972,15 +922,9 @@ def gen_hp(d_arg, omp_construct, asked_combinaison):
     with open(os.path.join(folder, "Makefile"), "w") as f:
         f.write(templateEnv.get_template(f"Makefile.jinja2").render(ext="cpp" if t.language == "cpp" else "F90"))
 
-    if d_arg["test_type"] in ("reduction", "atomic"):
-        Constructor = Fold
-    elif d_arg["test_type"] in ("memcopy",):
-        Constructor = Memcopy
-
     for path in omp_construct:
-        if d_arg["host_threaded"]:
-            path = ["parallel for"] + path
-        Constructor(path, d_arg).write_template_rendered(folder)
+        if d_arg["host_threaded"]: path = ["parallel for"] + path
+        HP(path, d_arg).write_template_rendered(folder)
 
 
 #
@@ -1177,6 +1121,5 @@ if __name__ == "__main__":
             d = {k: v for k, v in zip(k, p)}
             if type_ == "hierarchical_parallelism":
                 gen_hp(d, omp_construct, asked_combinaison)
-
             else:
                 gen_mf(d)
