@@ -120,5 +120,6 @@
     "teams distribute parallel for simd": [],
     "teams distribute simd": [],
     "parallel for simd": [],
-    "simd": []
+    "simd": ["loop_simd"],
+    "loop_simd": []
 }
