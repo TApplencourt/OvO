@@ -116,12 +116,12 @@ By default, the `Tiers 1` test are saved in the `OvO` directory.
 |======================\
 |Tiers 2                \
 |------------------------\
-|  - Colllapse + Memcopy  \
+|  - Collapse + Memcopy   \
 |  - Intermidate result +  \
-|       atomic              \ 
-|  - Host threaded           \
-|       atomic,memcopy,       \
-|       reduction              \
+|       Atomic              \ 
+|  - Host threaded +         \
+|       { Atomic, Memcopy,    \
+|         Reduction }          \
 |===============================\
 |Tiers 3                         \
 |---------------------------------\
