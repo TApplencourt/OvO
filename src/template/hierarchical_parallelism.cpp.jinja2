@@ -25,10 +25,10 @@ using std::complex;
 #ifdef _OPENMP
 #include <omp.h>
 #else
-   {% if only_teams %}
+   {% if single("teams") %}
 int omp_get_num_teams() {return 1;}
    {% endif %}
-   {% if only_parallel %}
+   {% if single("parallel") %}
 int omp_get_num_threads() {return 1;}
    {% endif %}
 #endif
@@ -79,27 +79,27 @@ void test_{{name}}() {
 {#  \/ (_| |  | (_| |_) | (/_   |_/ (/_ (_ | (_| | (_|  |_ | (_) | | #}
 {#                                                                   #}
 
-{% for loop_constructs in region_loop_construct %}
+{% for loop_constructs in regions_associated_loop %}
     {% for loop_  in loop_constructs %}
   const int {{ loop_.N }} { {{ loop_.v }} };
     {% endfor %}
 {% endfor %}
  
 {% if test_type == 'memcopy' %}  
-  const int size = {{problem_size}};
+  const int size = {{tripcount}};
   std::vector<{{T}}> dst(size), src(size);
   std::generate(src.begin(), src.end(), std::rand);
   {{T}} *pS { src.data() };
   {{T}} *pD { dst.data() };
 {% else %}
-  const {{T}} expected_value { {{expected_value}} };
+  const {{T}} expected_value { {{tripcount}} };
 {% endif %}
 
 {#                      _                          #}
 {# |   _   _  ._   _   |_) ._ _  |  _   _       _  #}
 {# |_ (_) (_) |_) _>   |   | (_) | (_) (_| |_| (/_ #}
 {#            |                         _|         #}
-{% for region, region_additional_pragma, loop_constructs,counter in zip_longest(regions, regions_additional_pragma, region_loop_construct,region_counters, fillvalue=[]) %}
+{% for region, loop_constructs, region_additional_pragma, counter in zip(l_nested_constructs, regions_associated_loop, regions_additional_pragma,regions_counter) %}
 {% filter indent(width=2*loop.index) %}
    {# In the case of 'local' test, we use only one counter in the outermost enclosing scope #} 
    {% if  test_type != 'memcopy' and (intermediate_result or loop.first) %}
@@ -127,7 +127,7 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
       {# In the case of 'local' test, we increment the counter only in the inner most enclosing scope #}
       {% if test_type != 'memcopy' and (intermediate_result or loop.first) %}
 
-         {% if 'atomic' in test_type %}
+         {% if test_type == 'atomic' %}
 #pragma omp atomic update
          {% endif %}
           
@@ -142,7 +142,7 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
          {% endif %}
 
       {% elif test_type == 'memcopy' and loop.first %}
-const int idx = {{index}};
+const int idx = {{inner_index}};
 pD[idx] = pS[idx];
       {% endif %}
  
@@ -168,8 +168,8 @@ pD[idx] = pS[idx];
       std::exit(112);
   }
 {% else %}
-  if (!almost_equal({{region_counters | first }}, expected_value, 0.1)) {
-    std::cerr << "Expected: " << expected_value << " Got: " << {{region_counters | first }} << std::endl;
+  if (!almost_equal({{regions_counter | first }}, expected_value, 0.1)) {
+    std::cerr << "Expected: " << expected_value << " Got: " << {{regions_counter | first }} << std::endl;
     std::exit(112);
   }
 {% endif %}

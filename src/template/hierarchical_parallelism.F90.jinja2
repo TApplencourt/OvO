@@ -5,13 +5,13 @@
 
 {% if not balenced %}
 #ifndef _OPENMP
-   {% if only_teams %}
+   {% if single("teams") %}
 FUNCTION omp_get_num_teams() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_teams
    {% endif %}
-   {% if only_parallel %}
+   {% if single("parallel") %}
 FUNCTION omp_get_num_threads() RESULT(i)
   INTEGER :: i
   i = 1
@@ -65,10 +65,10 @@ PROGRAM {{name}}
   implicit none
 #else
   implicit none
-   {% if only_teams %}
+   {% if single("teams") %}
   INTEGER :: omp_get_num_teams
    {% endif %}
-   {% if only_parallel %}
+   {% if single("parallel") %}
   INTEGER :: omp_get_num_threads
    {% endif %}
 #endif
@@ -76,7 +76,7 @@ PROGRAM {{name}}
   implicit none
 {% endif %}
 
-{% for loop_constructs in region_loop_construct %}
+{% for loop_constructs in regions_associated_loop %}
 {% for loop_  in loop_constructs %}
   INTEGER :: {{ loop_.N }} = {{ loop_.v }}
   INTEGER :: {{ loop_.i }}
@@ -85,11 +85,11 @@ PROGRAM {{name}}
 {% if test_type != 'memcopy' %}
   LOGICAL :: almost_equal
     {# We need unique in the case of non temporary result #}
-    {% for counter in region_counters | unique %}
+    {% for counter in regions_counter | unique %}
   {{T}} :: {{counter}}
     {% endfor %}
   INTEGER :: expected_value
-  expected_value = {{expected_value}}
+  expected_value = {{tripcount}}
 {% else %}
   INTEGER :: idx, S
   INTEGER :: errno = 0
@@ -100,7 +100,7 @@ PROGRAM {{name}}
   REAL, ALLOCATABLE :: src_imag(:)
    {%endif%}
 
-  S = {{problem_size}}
+  S = {{tripcount}}
   ALLOCATE(dst(S), src(S) )
 
    {% if T.category == "complex" %}
@@ -120,13 +120,13 @@ PROGRAM {{name}}
 {# |_ (_) (_) |_) _>   |   | (_) | (_) (_| |_| (/_ #}
 {#            |                         _|         #}
 
-{% for region, region_additional_pragma, loop_constructs, counter in zip_longest(regions, regions_additional_pragma, region_loop_construct,region_counters, fillvalue=[]) %}
+{% for region, loop_constructs, region_additional_pragma, counter in zip(l_nested_constructs, regions_associated_loop, regions_additional_pragma,regions_counter) %}
 {% filter indent(width=2*loop.index) %}
    {# In the case of 'local' test, we use only one counter in the outermost enclosing scope #}
    {% if  test_type != 'memcopy' and (intermediate_result or loop.first) %}
 {{counter}} = 0
    {% endif %}
-   {% for pragma, additional_pragma in zip_longest(region, region_additional_pragma, fillvalue='') %}
+   {% for pragma, additional_pragma in zip(region, region_additional_pragma) %}
 !$OMP {{pragma | replace("for","do")}} {{additional_pragma}}
    {% endfor %}
 
@@ -140,13 +140,13 @@ DO {{loop_.i}} = 1, {{loop_.N}}
 {# |   _   _  ._   _   |_ ._  o |  _   _       _  #}
 {# |_ (_) (_) |_) _>   |_ |_) | | (_) (_| |_| (/_ #}
 {#            |           |            _|         #}
-{% for increments, region, loop_constructs in zip(regions_increment,regions, region_loop_construct) | reverse %}
+{% for region, loop_constructs, increments in zip(l_nested_constructs, regions_associated_loop, regions_increment) | reverse %}
    {% filter indent(width=2*(loop.revindex+1)) %}
 
       {# In the case of 'local' test, we increment the counter only in the inner most enclosing scope #}
       {% if test_type != 'memcopy' and (intermediate_result or loop.first) %}
 
-         {% if 'atomic' in test_type %}
+         {% if test_type =='atomic' %}
 !$OMP atomic update
          {% endif %}
 
@@ -157,7 +157,7 @@ DO {{loop_.i}} = 1, {{loop_.N}}
          {% endif %}
       
       {% elif test_type == 'memcopy' and loop.first %}
-idx = {{index}}
+idx = {{inner_index}}
 dst(idx) = src(idx)
       {% endif %}
 
@@ -201,8 +201,8 @@ END DO
   DEALLOCATE(src, dst)
   IF (errno .NE. 0) STOP errno
 {% else %}
-  IF ( .NOT.almost_equal({{region_counters | first }},expected_value, 0.1) ) THEN
-    WRITE(*,*)  'Expected', expected_value,  'Got', {{region_counters | first }}
+  IF ( .NOT.almost_equal({{regions_counter | first }},expected_value, 0.1) ) THEN
+    WRITE(*,*)  'Expected', expected_value,  'Got', {{regions_counter | first }}
     STOP 112
   ENDIF
 {% endif %}
