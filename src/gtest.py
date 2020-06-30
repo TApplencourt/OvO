@@ -912,7 +912,7 @@ def gen_hp(d_arg, omp_construct, asked_combinaison):
         return False
 
     name_folder = [d_arg["test_type"], t.serialized] + sorted([k for k, v in d_arg.items() if v is True])
-    if d_arg["collapse"] != 0:
+    if d_arg["collapse"]:
         name_folder += [f"collapse_n{d_arg['collapse']}"]
 
     folder = os.path.join("test_src", t.language, "hierarchical_parallelism", "-".join(name_folder))
