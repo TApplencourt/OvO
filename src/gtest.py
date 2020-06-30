@@ -656,7 +656,7 @@ class HP: #^(;,;)^
             return False
 
         # need to have at least one loop and be balenced
-        elif self.test_type == "memcopy" and not self.associated_loops_number and not self.balenced:
+        elif self.test_type == "memcopy" and not (self.associated_loops_number and self.balenced):
             return False
 
         return True
