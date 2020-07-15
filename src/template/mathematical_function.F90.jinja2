@@ -22,7 +22,7 @@ program test_{{name}}
     IF ( ABS(o_host-o_device) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} o_host {% if is_cmplx %} ) {%endif%}  )*4 ) THEN
     {% endif %}
         write(*,*)  'Expected ', o_host, ' Got ', o_device
-        CALL EXIT(112)
+        STOP 112
     ENDIF
 
 end program test_{{name}}
