@@ -8,6 +8,6 @@ program test_NINT
     !$OMP END TARGET
     IF  ( o_host .ne. o_device)  THEN
         write(*,*)  'Expected ', o_host, ' Got ', o_device
-        CALL EXIT(112)
+        STOP 112
     ENDIF
 end program test_NINT

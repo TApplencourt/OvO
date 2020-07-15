@@ -25,5 +25,5 @@ PROGRAM target_teams_distribute_parallel_do_simd
     errno = 112
   ENDIF
   DEALLOCATE(src, dst)
-  IF (errno .NE. 0) STOP errno
+  IF (errno .EQ. 112) STOP 112
 END PROGRAM target_teams_distribute_parallel_do_simd

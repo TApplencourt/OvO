@@ -199,7 +199,8 @@ END DO
     errno = 112
   ENDIF
   DEALLOCATE(src, dst)
-  IF (errno .NE. 0) STOP errno
+  {# STOP can *ONLY* take a constant by the standart...#}
+  IF (errno .EQ. 112) STOP 112
 {% else %}
   IF ( .NOT.almost_equal({{regions_counter | first }},expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', {{regions_counter | first }}

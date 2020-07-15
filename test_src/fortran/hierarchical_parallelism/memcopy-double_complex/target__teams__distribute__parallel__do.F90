@@ -36,5 +36,5 @@ PROGRAM target__teams__distribute__parallel__do
     errno = 112
   ENDIF
   DEALLOCATE(src, dst)
-  IF (errno .NE. 0) STOP errno
+  IF (errno .EQ. 112) STOP 112
 END PROGRAM target__teams__distribute__parallel__do
