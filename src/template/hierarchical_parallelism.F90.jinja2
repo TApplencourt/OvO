@@ -59,7 +59,7 @@ END FUNCTION almost_equal
 {% if name|length <= 63 %}
 PROGRAM {{name}}
 {% else %}
-$ {{name}}
+!{{name}}
 PROGRAM main
 {% endif %}
 
