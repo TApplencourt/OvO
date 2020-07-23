@@ -182,7 +182,7 @@ END DO
    {% filter indent(width=2*loop.revindex) %}
          {% for pragma in region | reverse %}
       {% if paired_pragmas or not loop_constructs or not loop.first %}
-!$OMP END {{pragma}}
+!$OMP END {{pragma | replace("for","do")}}
       {% endif %}
          {% endfor %}
    {% endfilter %}
