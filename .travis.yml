@@ -112,7 +112,7 @@ jobs:
     - ./ovo.sh run test_src/fortran
     - ./ovo.sh report --failed
 
-  - name: gfortran [no omp tiers 3]
+  - name: gfortran [no omp tiers 2]
     compiler: gfortran
     env: 
       - FC='gfortran-10 -Wall -Wextra -Werror'
@@ -127,7 +127,7 @@ jobs:
     install:
     - pip install -r requirements.txt
     script:
-    - ./ovo.sh gen tiers 3
+    - ./ovo.sh gen tiers 2
     - ./ovo.sh run test_src/fortran
     - ./ovo.sh report --failed
 
