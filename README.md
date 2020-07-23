@@ -8,15 +8,13 @@
 ```
 [![Build Status](https://travis-ci.org/TApplencourt/OvO.svg?branch=master)](https://travis-ci.org/TApplencourt/OvO)
 
-OvO containt a large set of tests OpenMP offloading of [C++](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp) and [FORTRAN](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran). 
+OvO containt a large set of tests OpenMP offloading of [C++](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp) and [FORTRAN](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran). More than 30k can be generated, and arround 1k are avalaible directly in this repo). 
 OvO is focused on testing extensively [hierarchical parallelism](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/) and [mathematical functions](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/mathematical_function/).
 Presentation we did on OvO are avalaible in the [documentation](https://github.com/TApplencourt/OvO/tree/master/documentation/) folder.
 
 For hierarchical parallelism, we generate *all* possible OpenMP loop-nests containing any combination of `target, teams, distribute, parallel for`, including combined pragma.
 
-All tests are checked for compilation and correctness.
-
-As an example of a simple C++ hierarchical parallelism kernel we check:
+All tests are checked for compilation and correctness. Bellow is a simple C++ hierarchical parallelism kernel present in this repo:
 ```cpp
 #pragma omp target map(tofrom: counter_N0)
 #pragma omp teams distribute
@@ -34,11 +32,13 @@ assert (counter_N0 != N0*N1);
 
 ## Running 
 
-To run OvO simply type `./ovo.sh run`. The logs file will be saved in the newly created `test_result` folder. 
-OvO will respect any usual environement provided by th user (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD`).
+To run OvO simply type `./ovo.sh run`. Log files will be saved in the newly created `test_result` folder. 
+OvO will respect any usual environement provided by the user (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD`). 
 OvO will also respect the special `OVO_TIMEOUT` enviroment who control the timeout used to kill too-long running tests (by default `15s`).
 
-You can find commonly used flags for various compiler in [/documentation/README.md](https://github.com/TApplencourt/OvO/tree/master/documentation/README.md). For example:
+You can find commonly used flags for various compiler in [/documentation/README.md](https://github.com/TApplencourt/OvO/tree/master/documentation/README.md). PR are welcomed, for new version of compilers. 
+
+Bellow is a simple run using GCC compiler:
 ```
 $ OMP_TARGET_OFFLOAD=mandatory CXX="g++" CXXFLAGS="-fopenmp" FC="gfortran" FFLAGS="-fopenmp"./ovo.sh run
 Running tests_src/cpp/mathematical_function/math_cpp11 | Saving log in results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30/cpp/mathematical_function/math_cpp11
