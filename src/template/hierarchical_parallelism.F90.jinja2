@@ -52,7 +52,16 @@ END FUNCTION almost_equal
 {# \_|  |_/\__,_|_|_| |_| \_|  \__,_|_| |_|\___|\__|_|\___/|_| |_| #}
 {#                                                                 #}
 
+{# Fortran 2003 restrict the size identifiers to 63 characters #}
+{# I don't want to talk (or support) older version... #}
+{# "Be the Change You Wish To See in the World: #}
+
+{% if name|length <= 63 %}
 PROGRAM {{name}}
+{% else %}
+$ {{name}}
+PROGRAM main
+{% endif %}
 
 {#                               _                                   #}
 {# \  / _. ._ o  _. |_  |  _    | \  _   _ |  _. ._ _. _|_ o  _  ._  #}
@@ -207,5 +216,9 @@ END DO
     STOP 112
   ENDIF
 {% endif %}
-  
+
+{% if name|length <= 63 %}
 END PROGRAM {{name}}
+{% else %}
+END PROGRAM main
+{% endif %}
