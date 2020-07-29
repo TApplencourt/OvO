@@ -83,7 +83,7 @@ class TestCompilationError(unittest.TestCase):
         self.assertEqual(m, "lroundf_long_int_float")
         self.assertEqual(error, "Segfault")
 
-    def test_error03(self):
+    def test_error05(self):
         str_ = "make:11 *** [lroundf_long_int_float.exe] Error 124 (ignored)"
         m, error = re.findall(r_compilation.error, str_).pop()
         self.assertEqual(m, "lroundf_long_int_float")
