@@ -21,7 +21,7 @@ using std::complex;
 {# \_/ |_) (/_ | | |  | |     __) |_ |_| |_) _> #}
 {#     |                                        #}
 
-{% if not balenced %}
+{% if not balenced or host_threaded %}
 #ifdef _OPENMP
 #include <omp.h>
 #else
@@ -30,6 +30,9 @@ int omp_get_num_teams() {return 1;}
    {% endif %}
    {% if single("parallel") %}
 int omp_get_num_threads() {return 1;}
+   {% endif %}
+   {% if host_threaded %}
+int omp_get_num_devices() {return 1;}
    {% endif %}
 #endif
 {% endif %}
