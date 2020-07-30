@@ -520,27 +520,55 @@ class HP: #^(;,;)^
     @cached_property
     def regions_additional_pragma(self):
         """
-        >>> HP(["target teams"], {"test_type": "atomic", "intermediate_result": False, "collapse": 0}).regions_additional_pragma
+        >>> HP(["target teams"], {"test_type": "atomic", "intermediate_result": False, "collapse": 0, "host_threaded" : False}).regions_additional_pragma
         [['map(tofrom: counter_teams)']]
         >>> HP(["target teams"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float","host_threaded": False}).regions_additional_pragma
         [['map(to: pS[0:size]) map(from: pD[0:size])']]
-        >>> HP(["target teams"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "REAL", "host_threaded": True}).regions_additional_pragma
-        [['map(to: src) map(tofrom: dst)']]
-        >>> HP(["target teams distribute"], {"test_type": "reduction", "intermediate_result": False, "collapse": 3}).regions_additional_pragma
+        >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float", "host_threaded": True}).regions_additional_pragma
+        [[''], ['map(to: pS[i0:N1]) map(from: pD[i0:N1]) device((i0)%omp_get_num_devices())']]
+        >>> HP(["parallel for", "target"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float", "host_threaded": True}).regions_additional_pragma
+        [[''], ['map(to: pS[i0:1]) map(from: pD[i0:1]) device((i0)%omp_get_num_devices())']]
+        >>> HP(["parallel for", "target"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "REAL", "host_threaded": True}).regions_additional_pragma
+        [[''], ['map(to: src(i0-1+1:i0-1+1) map(from: dst(i0-1+1:i0-1+1)) device((i0-1+1)%omp_get_num_devices())']]
+        >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "REAL", "host_threaded": True}).regions_additional_pragma
+        [[''], ['map(to: src(i0-1+1:i0-1+1+N1) map(from: dst(i0-1+1:i0-1+1+N1)) device((i0-1+1)%omp_get_num_devices())']]
+        >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 2, "data_type": "float", "host_threaded": True}).regions_additional_pragma
+        [['collapse(2)'], ['map(to: pS[i1+N1*(i0):N2*N3]) map(from: pD[i1+N1*(i0):N2*N3]) device((i1+N1*(i0))%omp_get_num_devices()) collapse(2)']]
+        >>> HP(["target teams distribute"], {"test_type": "reduction", "intermediate_result": False, "collapse": 3, "host_threaded": False}).regions_additional_pragma
         [['map(tofrom: counter_N0) reduction(+: counter_N0) collapse(3)']]
         """
 
-        def additional_pragma(counter, pragma):
+        def additional_pragma(i, counter, pragma):
             construct = []
             if pragma.has_construct("target"):
+                if self.host_threaded:
+                    idx = self.running_index(i*self.unroll_factor)
                 if "memcopy" in self.test_type:
-                    dst_pragma = "from" if not self.host_threaded  else 'tofrom'
-                    if self.language == "cpp":
-                        construct += [f"map(to: pS[0:size]) map({dst_pragma}: pD[0:size])"]
-                    elif self.language == "fortran":
-                        construct += [f"map(to: src) map({dst_pragma}: dst)"]
+                    if not self.host_threaded:
+                        if self.language == "cpp":
+                            construct += [f"map(to: pS[0:size]) map(from: pD[0:size])"]
+                        elif self.language == "fortran":
+                            construct += [f"map(to: src) map(from: dst)"]
+                    else:
+                        size = self.host_chunk_size(i)
+                        if self.language == "cpp":
+                            size = size if size else '1'
+                            borns = f"({idx})*{size}:{size}"
+                            construct += [f"map(to: pS[{borns}]) map(from: pD[{borns}])"]
+                        elif self.language == "fortran":
+                            if size:
+                                borns = f"({idx})*{size}:({idx})*2*{size})"
+                            else:
+                                borns = f"{idx}:{idx}"
+                            construct += [f"map(to: src({borns}) map(from: dst({borns})"]
                 else:
                         construct += [f"map(tofrom: {counter})"]
+                if self.host_threaded:
+                    if self.language == "cpp":
+                        construct += [f"device(({idx})%omp_get_num_devices())"]
+                    elif self.language == "fortran":
+                        construct += [f"device(MOD({idx},omp_get_num_devices()))"]
+
             if "reduction" in self.test_type and pragma.can_be_reduced:
                 construct += [f"reduction(+: {counter})"]
             if self.collapse and pragma.has_construct("loop-associated"):
@@ -548,8 +576,8 @@ class HP: #^(;,;)^
             return " ".join(construct)
 
         l = []
-        for counter, region in zip(self.regions_counter, self.l_nested_constructs):
-            l.append( [additional_pragma(counter,pragma) for pragma in region] )
+        for i, (counter, region) in enumerate(zip(self.regions_counter, self.l_nested_constructs)):
+            l.append( [additional_pragma(i, counter,pragma) for pragma in region] )
         return l
 
     @cached_property
@@ -568,6 +596,25 @@ class HP: #^(;,;)^
 
         return "*".join(l.N for l in chain.from_iterable(self.regions_associated_loop))
 
+
+    def running_index(self,i):
+        def fma_idx(n, offset=0):
+            idx = f"i{n}-{offset}" if offset else f"i{n}"
+            if n == 0:
+                return idx
+            return f"{idx}+N{n}*({fma_idx(n-1,offset)})"
+
+        idx_loop = i - 1
+        if idx_loop < 0:
+            return None
+        elif self.language == "cpp":
+            return fma_idx(idx_loop)
+        else:
+            return f"{fma_idx(idx_loop,1)}+1"
+
+    def host_chunk_size(self,i):
+        return "*".join(l.N for l in chain.from_iterable(self.regions_associated_loop[i:]))
+
     @cached_property
     def inner_index(self):
         """
@@ -584,20 +631,7 @@ class HP: #^(;,;)^
         >>> HP(["for"], {"data_type": "REAL", "collapse": 2}).inner_index
         'i1-1+N1*(i0-1)+1'
         """
-
-        def fma_idx(n, offset=0):
-            idx = f"i{n}-{offset}" if offset else f"i{n}"
-            if n == 0:
-                return idx
-            return f"{idx}+N{n}*({fma_idx(n-1,offset)})"
-
-        idx_loop = self.associated_loops_number - 1 
-        if idx_loop < 0:
-            return None
-        elif self.language == "cpp":
-            return fma_idx(idx_loop)
-        else:
-            return f"{fma_idx(idx_loop,1)}+1"
+        return self.running_index(self.associated_loops_number)
 
 
     @cached_property
@@ -1067,9 +1101,7 @@ if __name__ == "__main__":
 
         if p.tiers[0] >= 2:
             d_hp["intermediate_result"] |= {True}
-            d_hp["collapse"] |= {
-                2,
-            }
+            d_hp["collapse"] |= { 2, }
             d_hp["host_threaded"] |= {True}
             d_hp["paired_pragmas"] |= {True}
 
