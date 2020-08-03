@@ -525,50 +525,57 @@ class HP: #^(;,;)^
         >>> HP(["target teams"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float","host_threaded": False}).regions_additional_pragma
         [['map(to: pS[0:size]) map(from: pD[0:size])']]
         >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float", "host_threaded": True}).regions_additional_pragma
-        [[''], ['map(to: pS[i0:N1]) map(from: pD[i0:N1]) device((i0)%omp_get_num_devices())']]
+        [[''], ['map(to: pS[(i0)*N1:N1]) map(from: pD[(i0)*N1:N1]) device((i0)%omp_get_num_devices())']]
         >>> HP(["parallel for", "target"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float", "host_threaded": True}).regions_additional_pragma
-        [[''], ['map(to: pS[i0:1]) map(from: pD[i0:1]) device((i0)%omp_get_num_devices())']]
+        [[''], ['map(to: pS[(i0)*1:1]) map(from: pD[(i0)*1:1]) device((i0)%omp_get_num_devices())']]
         >>> HP(["parallel for", "target"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "REAL", "host_threaded": True}).regions_additional_pragma
-        [[''], ['map(to: src(i0-1+1:i0-1+1) map(from: dst(i0-1+1:i0-1+1)) device((i0-1+1)%omp_get_num_devices())']]
+        [[''], ['map(to: src(i0-1+1:i0-1+1) map(from: dst(i0-1+1:i0-1+1) device(MOD(i0-1+1,omp_get_num_devices()))']]
         >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "REAL", "host_threaded": True}).regions_additional_pragma
-        [[''], ['map(to: src(i0-1+1:i0-1+1+N1) map(from: dst(i0-1+1:i0-1+1+N1)) device((i0-1+1)%omp_get_num_devices())']]
+        [[''], ['map(to: src((i0-1+1)*N1:(i0-1+1)*2*N1)) map(from: dst((i0-1+1)*N1:(i0-1+1)*2*N1)) device(MOD(i0-1+1,omp_get_num_devices()))']]
         >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 2, "data_type": "float", "host_threaded": True}).regions_additional_pragma
-        [['collapse(2)'], ['map(to: pS[i1+N1*(i0):N2*N3]) map(from: pD[i1+N1*(i0):N2*N3]) device((i1+N1*(i0))%omp_get_num_devices()) collapse(2)']]
+        [['collapse(2)'], ['map(to: pS[(i1+N1*(i0))*N2*N3:N2*N3]) map(from: pD[(i1+N1*(i0))*N2*N3:N2*N3]) device((i1+N1*(i0))%omp_get_num_devices()) collapse(2)']]
         >>> HP(["target teams distribute"], {"test_type": "reduction", "intermediate_result": False, "collapse": 3, "host_threaded": False}).regions_additional_pragma
         [['map(tofrom: counter_N0) reduction(+: counter_N0) collapse(3)']]
         """
+        def mapping_pragma(i,counter, pragma):
+            if not pragma.has_construct("target"):
+                return []
 
-        def additional_pragma(i, counter, pragma):
             construct = []
-            if pragma.has_construct("target"):
-                if self.host_threaded:
-                    idx = self.running_index(i*self.unroll_factor)
-                if "memcopy" in self.test_type:
+            if self.host_threaded:
+               idx = self.running_index(i*self.unroll_factor)
+            
+            if not "memcopy" in self.test_type:
+                construct = [f"map(tofrom: {counter})"]
+            
+            if "memcopy" in self.test_type:
                     if not self.host_threaded:
                         if self.language == "cpp":
-                            construct += [f"map(to: pS[0:size]) map(from: pD[0:size])"]
+                            borns = "[0:size]"
                         elif self.language == "fortran":
-                            construct += [f"map(to: src) map(from: dst)"]
+                            borns = ""
                     else:
                         size = self.host_chunk_size(i)
                         if self.language == "cpp":
                             size = size if size else '1'
-                            borns = f"({idx})*{size}:{size}"
-                            construct += [f"map(to: pS[{borns}]) map(from: pD[{borns}])"]
+                            borns = f"[({idx})*{size}:{size}]"
                         elif self.language == "fortran":
-                            if size:
-                                borns = f"({idx})*{size}:({idx})*2*{size})"
-                            else:
-                                borns = f"{idx}:{idx}"
-                            construct += [f"map(to: src({borns}) map(from: dst({borns})"]
-                else:
-                        construct += [f"map(tofrom: {counter})"]
-                if self.host_threaded:
+                            borns = f"(({idx})*{size}:({idx})*2*{size}))" if size else f"({idx}:{idx})"
+                            
                     if self.language == "cpp":
-                        construct += [f"device(({idx})%omp_get_num_devices())"]
+                        construct += [f"map(to: pS{borns}) map(from: pD{borns})"]
                     elif self.language == "fortran":
-                        construct += [f"device(MOD({idx},omp_get_num_devices()))"]
+                        construct += [f"map(to: src{borns} map(from: dst{borns}"]
+ 
+            if self.host_threaded:
+                     if self.language == "cpp":
+                         construct += [f"device(({idx})%omp_get_num_devices())"]
+                     elif self.language == "fortran":
+                         construct += [f"device(MOD({idx},omp_get_num_devices()))"]
+            return construct 
 
+        def additional_pragma(i, counter, pragma):
+            construct = mapping_pragma(i, counter, pragma)
             if "reduction" in self.test_type and pragma.can_be_reduced:
                 construct += [f"reduction(+: {counter})"]
             if self.collapse and pragma.has_construct("loop-associated"):
