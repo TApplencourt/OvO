@@ -529,7 +529,7 @@ class HP: #^(;,;)^
         >>> HP(["parallel for", "target"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float", "host_threaded": True}).regions_additional_pragma
         [[''], ['map(to: pS[(i0)*1:1]) map(from: pD[(i0)*1:1]) device((i0)%omp_get_num_devices())']]
         >>> HP(["parallel for", "target"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "REAL", "host_threaded": True}).regions_additional_pragma
-        [[''], ['map(to: src(i0-1+1:i0-1+1) map(from: dst(i0-1+1:i0-1+1) device(MOD(i0-1+1,omp_get_num_devices()))']]
+        [[''], ['map(to: src(i0-1+1:i0-1+1)) map(from: dst(i0-1+1:i0-1+1)) device(MOD(i0-1+1,omp_get_num_devices()))']]
         >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "REAL", "host_threaded": True}).regions_additional_pragma
         [[''], ['map(to: src((i0-1+1)*N1:(i0-1+1)*2*N1)) map(from: dst((i0-1+1)*N1:(i0-1+1)*2*N1)) device(MOD(i0-1+1,omp_get_num_devices()))']]
         >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 2, "data_type": "float", "host_threaded": True}).regions_additional_pragma
@@ -560,12 +560,12 @@ class HP: #^(;,;)^
                             size = size if size else '1'
                             borns = f"[({idx})*{size}:{size}]"
                         elif self.language == "fortran":
-                            borns = f"(({idx})*{size}:({idx})*2*{size}))" if size else f"({idx}:{idx})"
+                            borns = f"(({idx})*{size}:({idx})*2*{size})" if size else f"({idx}:{idx})"
                             
                     if self.language == "cpp":
                         construct += [f"map(to: pS{borns}) map(from: pD{borns})"]
                     elif self.language == "fortran":
-                        construct += [f"map(to: src{borns} map(from: dst{borns}"]
+                        construct += [f"map(to: src{borns}) map(from: dst{borns})"]
  
             if self.host_threaded:
                      if self.language == "cpp":
