@@ -8,7 +8,7 @@
 ```
 [![Build Status](https://travis-ci.org/TApplencourt/OvO.svg?branch=master)](https://travis-ci.org/TApplencourt/OvO)
 
-OvO containt a large set of tests OpenMP offloading of [C++](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp) and [FORTRAN](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran). More than 30k can be generated, and arround 1k are avalaible directly in this repo). 
+OvO containt a large set of tests OpenMP offloading of [C++](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp) and [FORTRAN](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran). More than 30k can be generated, and arround 1k are avalaible directly in this repo. 
 OvO is focused on testing extensively [hierarchical parallelism](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/) and [mathematical functions](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/mathematical_function/).
 Presentation we did on OvO are avalaible in the [documentation](https://github.com/TApplencourt/OvO/tree/master/documentation/) folder.
 
@@ -85,7 +85,7 @@ Two log files are also created one for the compilation (`compilation.log`), and 
 
 ## Requirement
   - python3
-  - OpenMP compiler (obviously). We recommand an OpenMP 5.0 spec-complied compiler. Some test map and reduce a variable in the same combined construct
+  - OpenMP compiler (obviously). We recommend an OpenMP 5.0 spec-complied compiler. Some test map and reduce a variable in the same combined construct
   - C++11 compiler
   - [jinja](https://jinja.palletsprojects.com/en/2.11.x/) (optional,  needed to generate more tests. See next section)
 ```
@@ -98,7 +98,7 @@ pip install requirements.txt
 
 ## List of tests available
 
-More than tests 18000 are available. For convenience, we bundle them in `tiers`. 
+More than 18,000 tests are available. For convenience, we bundle them in `tiers`. 
 By default, the `Tiers 1` test are saved in the `OvO` directory.
 
 ```
@@ -138,6 +138,6 @@ By default, the `Tiers 1` test are saved in the `OvO` directory.
 - Host threaded: Generate tests where the target region is enclosed in a host parallel for.
 
 
-To generate new tests, please use `ovo.sh gen`. But default it will generate `tiers 1` tests. But if you feel adventurous, you can type:
+To generate new tests, please use `ovo.sh gen`. By default, it will generate `tiers 1` tests. But if you feel adventurous, you can type:
 `ovo.sh tiers 3`.
 

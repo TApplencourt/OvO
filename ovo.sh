@@ -8,9 +8,11 @@ find_tests_folder() { find ${@:-test_src} -type f -name 'Makefile' -printf "%h\n
 fclean() { for dir in $(find_tests_folder $@); do make --silent -C "$dir" clean; done; }
 
 frun() {
+    SYNC=$(make -v | head -n1 |  awk '$NF >= 4 {print "--output-sync"}')
+    if [ -n "$SYNC" ]; then NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null); fi
+    export MAKEFLAGS="${MAKEFLAGS:--j${NPROC:-1} $SYNC}"
     local uuid=$(date +"%Y-%m-%d_%H-%M")
     local result="test_result/${uuid}_$(hostname)"
-
     for dir in $(find_tests_folder $@); do
         nresult=$result/${dir#*/}
         echo ">> Running $dir | Saving log in $nresult"
@@ -23,8 +25,6 @@ frun() {
             set +x
         } &> "$nresult"/env.log
         # Compile in parallel
-        NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
-        export MAKEFLAGS="${MAKEFLAGS:--j${NPROC:-1} --output-sync}"
         make --no-print-directory -C "$dir" exe |& tee "$nresult"/compilation.log
         # But Run serially
         make -j1 --no-print-directory -C "$dir" run |& tee "$nresult"/runtime.log
