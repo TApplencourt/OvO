@@ -8,8 +8,7 @@ find_tests_folder() { find ${@:-test_src} -type f -name 'Makefile' -printf "%h\n
 fclean() { for dir in $(find_tests_folder $@); do make --silent -C "$dir" clean; done; }
 
 frun() {
-    VERSOUT=$(make -v | grep "GNU Make .\.")
-    sync = ""; if [ VERSOUT -ge 4 ]; then sync="--output-sync"; fi
+    sync=$(make -v | head -n1 |  awk "$NF >= 4 {print "--output-sync"}")
     NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
     export MAKEFLAGS="${MAKEFLAGS:--j${NPROC:-1} sync}"
     local uuid=$(date +"%Y-%m-%d_%H-%M")
