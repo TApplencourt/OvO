@@ -98,7 +98,7 @@ pip install requirements.txt
 
 ## List of tests available
 
-More than tests 18000 are available. For convenience, we bundle them in `tiers`. 
+More than 18,000 tests are available. For convenience, we bundle them in `tiers`. 
 By default, the `Tiers 1` test are saved in the `OvO` directory.
 
 ```
@@ -138,6 +138,6 @@ By default, the `Tiers 1` test are saved in the `OvO` directory.
 - Host threaded: Generate tests where the target region is enclosed in a host parallel for.
 
 
-To generate new tests, please use `ovo.sh gen`. But default it will generate `tiers 1` tests. But if you feel adventurous, you can type:
+To generate new tests, please use `ovo.sh gen`. By default, it will generate `tiers 1` tests. But if you feel adventurous, you can type:
 `ovo.sh tiers 3`.
 

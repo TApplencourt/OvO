@@ -9,12 +9,9 @@ fclean() { for dir in $(find_tests_folder $@); do make --silent -C "$dir" clean;
 
 frun() {
     VERSOUT=$(make -v | grep "GNU Make .\.")
-        NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
-        if [ ${VERSOUT:9:1} -ge 4 ]; then
-            export MAKEFLAGS="${MAKEFLAGS:--j${NPROC:-1} --output-sync}"
-        else
-            export MAKEFLAGS="${MAKEFLAGS:--j${NPROC:-1}}"
-        fi
+    sync = ""; if [ VERSOUT -ge 4 ]; then sync="--output-sync"; fi
+    NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
+    export MAKEFLAGS="${MAKEFLAGS:--j${NPROC:-1} sync}"
     local uuid=$(date +"%Y-%m-%d_%H-%M")
     local result="test_result/${uuid}_$(hostname)"
     for dir in $(find_tests_folder $@); do
