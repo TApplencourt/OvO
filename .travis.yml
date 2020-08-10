@@ -87,7 +87,7 @@ jobs:
         - intel-oneapi-icc
         - python3
     install:
-    - source /opt/intel/inteloneapi/compiler/latest/env/vars.sh
+    - source /opt/intel/oneapi/setvars.sh
     script:
     - ./ovo.sh run test_src/cpp
     - ./ovo.sh report --failed || true
@@ -150,7 +150,7 @@ jobs:
         - intel-oneapi-ifort
         - python3
     install:
-    - source /opt/intel/inteloneapi/compiler/latest/env/vars.sh
+    - source /opt/intel/oneapi/setvars.sh
     script:
     - ./ovo.sh run test_src/fortran
     - ./ovo.sh report --failed || true
