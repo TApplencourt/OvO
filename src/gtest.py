@@ -37,10 +37,10 @@ except ImportError:
 
 
 def pairwise(iterable):
-    '''
+    """
     >>> list(pairwise(['a','b','c']))
     [('a', 'b'), ('b', 'c')]
-    '''
+    """
     a, b = tee(iterable)
     next(b, None)
     return zip(a, b)
@@ -54,10 +54,10 @@ def format_template(str_, language):
     """
 
     def split_fortran_line(line, max_width=100):
-        '''
+        """
         To be improved and cleaned.
         Don't work if we need to split line in more than one line
-        '''
+        """
         prefix = "&\n!$OMP&" if line.lstrip().startswith("!$OMP") else "&\n&"
         l_chunk = range(len(line) // max_width)
 
@@ -205,7 +205,7 @@ class Pragma(str):
     def __init__(self, pragma):
         self.pragma = pragma
 
-    def has_construct(self,str_):
+    def has_construct(self, str_):
         """
         >>> Pragma("target teams distribute").has_construct("loop-associated")
         True
@@ -237,7 +237,8 @@ class Pragma(str):
 # | | | (/_ | (_| | (_ | | | (_ (_| |   |  (_| | (_| | | (/_ | | _> | | |
 #
 
-class HP: #^(;,;)^
+
+class HP:  # ^(;,;)^
     def __init__(self, path_raw, d_arg):
         self.path_raw = path_raw
 
@@ -246,8 +247,7 @@ class HP: #^(;,;)^
         # d_args keys containt [data_type, test_type, no_user_defined_reduction, paired_pragmas, loop_pragma, collapse]
 
         # Put default value from some args. Easier for testing.
-        for k in ['intermediate_result', 'multiple_devices','host_threaded',
-                  'no_user_defined_reduction','paired_pragmas','loop_pragma']:
+        for k in ["intermediate_result", "multiple_devices", "host_threaded", "no_user_defined_reduction", "paired_pragmas", "loop_pragma"]:
             setattr(self, k, False)
 
         setattr(self, "collapse", 0)
@@ -280,8 +280,8 @@ class HP: #^(;,;)^
         # To facilitate the recursion. Loop are encoded as "loop_distribute" and "loop_for".
         def sanitize(combined_pragma):
             l_pragma = combined_pragma.split()
-            head = lambda p : p.split('_').pop(0)  
-            return Pragma(" ".join(map(head,l_pragma)))
+            head = lambda p: p.split("_").pop(0)
+            return Pragma(" ".join(map(head, l_pragma)))
 
         return [sanitize(p) for p in self.path_raw]
 
@@ -291,7 +291,7 @@ class HP: #^(;,;)^
         >>> HP(["parallel for", "simd"], {}).flatten_target_path
         [parallel, for, simd]
         """
-        l = list(map(Pragma,chain.from_iterable(map(str.split, self.path))))
+        l = list(map(Pragma, chain.from_iterable(map(str.split, self.path))))
         try:
             idx = l.index("target")
         except ValueError:
@@ -342,9 +342,8 @@ class HP: #^(;,;)^
         """
         return f"{self.name}.{self.ext}"
 
-
-    def single(self,p):
-        '''
+    def single(self, p):
+        """
         >>> HP(["teams", "distribute"], {}).single("teams")
         False
         >>> HP(["teams", "parallel", "loop"], {}).single("teams")
@@ -353,7 +352,7 @@ class HP: #^(;,;)^
         True
         >>> HP(["target teams", "parallel loop"], {}).single("parallel")
         False
-        '''
+        """
 
         if p == "teams":
             spouses = ("distribute", "loop")
@@ -371,11 +370,11 @@ class HP: #^(;,;)^
         >>> HP(["teams", "loop", "parallel"], {}).balenced
         False
         """
-        return not any(map(self.single,("teams","parallel")))
+        return not any(map(self.single, ("teams", "parallel")))
 
     @cached_property
     def unroll_factor(self):
-        return max(1,self.collapse)
+        return max(1, self.collapse)
 
     @cached_property
     def associated_loops_number(self):
@@ -418,7 +417,9 @@ class HP: #^(;,;)^
             head_j = Pragma(j.split()[0])
 
             l_tmp.append(i)
-            if (tail_i.has_construct("loop-associated") or (tail_i.has_construct("generator") and not head_j.has_construct("worksharing"))) or (tail_i.has_construct("target") and head_j == "sentinel"):
+            if (tail_i.has_construct("loop-associated") or (tail_i.has_construct("generator") and not head_j.has_construct("worksharing"))) or (
+                tail_i.has_construct("target") and head_j == "sentinel"
+            ):
                 l.append(l_tmp[:])
                 l_tmp = []
 
@@ -429,8 +430,8 @@ class HP: #^(;,;)^
         # This property will be used to generate the pragma.
         # In the case of on multiple_devices, we don't want so replace it with an empty region
         if self.multiple_devices and not self.host_threaded:
-            head, *tail =  self.l_nested_constructs
-            return [ [] ]*len(head) + tail
+            head, *tail = self.l_nested_constructs
+            return [[]] * len(head) + tail
         else:
             return self.l_nested_constructs
 
@@ -531,7 +532,7 @@ class HP: #^(;,;)^
                 j = None
             else:
                 raise ValueError(tail)
-            l.append(Inc(counter,counter_next,j))
+            l.append(Inc(counter, counter_next, j))
         return l
 
     @cached_property
@@ -554,20 +555,21 @@ class HP: #^(;,;)^
         >>> HP(["target teams distribute"], {"test_type": "reduction", "collapse": 3}).regions_additional_pragma
         [['map(tofrom: counter_N0) reduction(+: counter_N0) collapse(3)']]
         """
-        def device_directive(i,counter,pragma):
+
+        def device_directive(i, counter, pragma):
             if pragma.has_construct("target") and self.multiple_devices:
-                idx = self.running_index(i*self.unroll_factor)
+                idx = self.running_index(i * self.unroll_factor)
                 if self.language == "cpp":
                     yield f"device(({idx})%omp_get_num_devices())"
                 elif self.language == "fortran":
                     yield f"device(MOD({idx},omp_get_num_devices()))"
 
-        def mapping_directive(i,counter, pragma):
+        def mapping_directive(i, counter, pragma):
             if not pragma.has_construct("target"):
                 return
 
             if not "memcopy" in self.test_type:
-                yield  f"map(tofrom: {counter})"       
+                yield f"map(tofrom: {counter})"
             else:
                 if not (self.host_threaded or self.multiple_devices):
                     if self.language == "cpp":
@@ -576,13 +578,13 @@ class HP: #^(;,;)^
                         borns = ""
                 else:
                     size = self.host_chunk_size(i)
-                    idx = self.running_index(i*self.unroll_factor)
+                    idx = self.running_index(i * self.unroll_factor)
                     if self.language == "cpp":
-                        size = size if size else '1'
+                        size = size if size else "1"
                         borns = f"[({idx})*{size}:{size}]"
                     elif self.language == "fortran":
                         borns = f"(({idx})*{size}:({idx})*2*{size})" if size else f"({idx}:{idx})"
-                        
+
                 if self.language == "cpp":
                     yield f"map(to: pS{borns}) map(from: pD{borns})"
                 elif self.language == "fortran":
@@ -590,21 +592,18 @@ class HP: #^(;,;)^
 
         def reduction_directive(counter, pragma):
             if "reduction" in self.test_type and pragma.can_be_reduced:
-                yield  f"reduction(+: {counter})"
+                yield f"reduction(+: {counter})"
 
         def collapse_directive(pragma):
             if self.collapse and pragma.has_construct("loop-associated"):
                 yield f"collapse({self.collapse})"
 
         def additional_pragma(i, counter, pragma):
-            construct  = chain(mapping_directive(i, counter, pragma),
-                               device_directive(i,counter,pragma),
-                               reduction_directive(counter,pragma),
-                               collapse_directive(pragma))
+            construct = chain(mapping_directive(i, counter, pragma), device_directive(i, counter, pragma), reduction_directive(counter, pragma), collapse_directive(pragma))
             return " ".join(construct)
 
-        map_region = lambda i,c,r: [additional_pragma(i,c,pragma) for pragma in r]
-        return [map_region(i,c,r) for i,c,r in zip(count(), self.regions_counter, self.l_nested_constructs)]
+        map_region = lambda i, c, r: [additional_pragma(i, c, pragma) for pragma in r]
+        return [map_region(i, c, r) for i, c, r in zip(count(), self.regions_counter, self.l_nested_constructs)]
 
     @cached_property
     def tripcount(self):
@@ -622,8 +621,7 @@ class HP: #^(;,;)^
 
         return "*".join(l.N for l in chain.from_iterable(self.regions_associated_loop))
 
-
-    def running_index(self,i):
+    def running_index(self, i):
         def fma_idx(n, offset=0):
             idx = f"i{n}-{offset}" if offset else f"i{n}"
             if n == 0:
@@ -638,7 +636,7 @@ class HP: #^(;,;)^
         else:
             return f"{fma_idx(idx_loop,1)}+1"
 
-    def host_chunk_size(self,i):
+    def host_chunk_size(self, i):
         return "*".join(l.N for l in chain.from_iterable(self.regions_associated_loop[i:]))
 
     @cached_property
@@ -658,7 +656,6 @@ class HP: #^(;,;)^
         'i1-1+N1*(i0-1)+1'
         """
         return self.running_index(self.associated_loops_number)
-
 
     @cached_property
     def is_valid_test(self):
@@ -684,7 +681,7 @@ class HP: #^(;,;)^
         False
         """
 
-        # Based on section 2.23 -- Nesting of Regions of the openmp v5.0 specification 
+        # Based on section 2.23 -- Nesting of Regions of the openmp v5.0 specification
         # We also try to do duplicate tests.
 
         # If we don't ask for loop pragma we don't want to generate tests who doesn't containt omp loop construct
@@ -699,17 +696,17 @@ class HP: #^(;,;)^
         # Because when we do `host_threaded` we add only one region. The following hack is working
         elif self.intermediate_result and len(self.l_nested_constructs) < (2 + self.host_threaded):
             return False
-        
-        #>> A loop region corresponding to a loop construct may not contain calls to the OpenMP Runtime API
-        elif self.loop_pragma and not any([self.balenced,self.intermediate_result,self.single("parallel")]):
+
+        # >> A loop region corresponding to a loop construct may not contain calls to the OpenMP Runtime API
+        elif self.loop_pragma and not any([self.balenced, self.intermediate_result, self.single("parallel")]):
             return False
 
-        # >> distribute, distribute simd, distribute parallel worksharing-loop, 
+        # >> distribute, distribute simd, distribute parallel worksharing-loop,
         #    distribute parallel worksharing-loop SIMD, parallel regions, including any parallel regions arising from combined constructs,
-        #    omp_get_num_teams() regions, and omp_get_team_num() regions 
-        #    are the only OpenMP regions that may be strictly nested inside the teams region. 
+        #    omp_get_num_teams() regions, and omp_get_team_num() regions
+        #    are the only OpenMP regions that may be strictly nested inside the teams region.
         # That mean atomic cannot be stricly nested inside "teams"...
-        elif self.test_type == "atomic" and self.flatten_target_path[-1] == 'teams':
+        elif self.test_type == "atomic" and self.flatten_target_path[-1] == "teams":
             return False
 
         # need to have at least one loop and be balenced
@@ -732,6 +729,7 @@ class HP: #^(;,;)^
         if self.template_rendered:
             with open(os.path.join(folder, self.filename), "w") as f:
                 f.write(self.template_rendered)
+
 
 #                                                  _
 # |\/|  _. _|_ |_   _  ._ _   _. _|_ o  _  _. |   |_    ._   _ _|_ o  _  ._
@@ -955,12 +953,12 @@ def gen_hp(d_arg, omp_construct):
     if t.category == "complex" and d_arg["test_type"] == "atomic":
         return False
 
-    '''
+    """
     >> The only constructs that may be nested inside a loop region are the loop construct, the parallel construct, 
     the simd construct, and combined constructs for which the first construct is a parallel construct.
 
     That mean no atomic with loop
-    '''
+    """
     if d_arg["test_type"] == "atomic" and d_arg["loop_pragma"]:
         return False
 
@@ -976,7 +974,7 @@ def gen_hp(d_arg, omp_construct):
         f.write(templateEnv.get_template(f"Makefile.jinja2").render(ext="cpp" if t.language == "cpp" else "F90"))
 
     for path in omp_construct:
-        if (d_arg["host_threaded"] or d_arg["multiple_devices"]):
+        if d_arg["host_threaded"] or d_arg["multiple_devices"]:
             path = ["parallel for"] + path
         HP(path, d_arg).write_template_rendered(folder)
 
@@ -1046,17 +1044,19 @@ def EvalArg(v, msg="Boolean value expected."):
         raise argparse.ArgumentTypeError(msg)
 
 
-
-# ___        _                            
-#  | _  _|_ |_)_ ._._ _   _|_ _._|_o _ ._ 
+# ___        _
+#  | _  _|_ |_)_ ._._ _   _|_ _._|_o _ ._
 #  |(/_><|_ | (/_| | | ||_||_(_| |_|(_)| |
-#                                         
+#
+
 
 class hashabledict(dict):
     def __hash__(self):
         return hash(frozenset(self))
+
     def __missing__(self, key):
         return False
+
 
 def gen_all_permutation(d_args):
     """
@@ -1066,10 +1066,11 @@ def gen_all_permutation(d_args):
     >>> list(gen_all_permutation({"b":"intel","a":["x86","V100"]}))
     [{'b': 'intel', 'a': 'x86'}, {'b': 'intel', 'a': 'V100'}]
     """
-    to_iterable = lambda v: v if isinstance(v,(list,set)) else [v]
-    l_values = map(to_iterable,d_args.values())
+    to_iterable = lambda v: v if isinstance(v, (list, set)) else [v]
+    l_values = map(to_iterable, d_args.values())
     for p in product(*l_values):
-        yield hashabledict(zip(d_args.keys(),p))
+        yield hashabledict(zip(d_args.keys(), p))
+
 
 if __name__ == "__main__":
     with open(os.path.join(dirname, "template", "ovo_usage.txt")) as f:
@@ -1083,7 +1084,7 @@ if __name__ == "__main__":
     # tiers
     # ~
     tiers_parser = action_parsers.add_parser("tiers")
-    tiers_parser.add_argument("tiers", type=int, nargs="*")
+    tiers_parser.add_argument("tiers", type=int, nargs="?")
 
     # ~
     # hierarchical_parallelism
@@ -1120,21 +1121,22 @@ if __name__ == "__main__":
     # Tiers logic
     if p.command == "tiers":
         if p.tiers >= 1:
-            l_hp = [ {"data_type": {"REAL","float","complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy","atomic","reduction"} } ]
-            l_mf = [ {"standart": {"cpp11", "F77"}, "complex": {True, False} } ]
+            l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction"}}]
+            l_mf = [{"standart": {"cpp11", "F77"}, "complex": {True, False}}]
 
         if p.tiers >= 2:
-            l_hp += [ {"loop_pragma": True, "data_type": {"REAL","float"}, "test_type": "memcopy" },
-                      {"intermediate_result": True, "data_type": {"REAL","float"}, "test_type": "atomic" },
-                      {"host_threaded": True, "data_type": {"REAL","float"}, "test_type": "atomic" },
-                      {"multiple_devices": True, "data_type": {"REAL","float"}, "test_type": "reduction" },
-                      {"paired_pragmas": True, "data_type": {"REAL","float"}, "test_type": "memcopy" },
-                      {"collapse": {2, }, "data_type": {"REAL","float"}, "test_type": "memcopy" } ]
+            l_hp += [
+                {"loop_pragma": True, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
+                {"intermediate_result": True, "data_type": {"REAL", "float"}, "test_type": "atomic"},
+                {"host_threaded": True, "data_type": {"REAL", "float"}, "test_type": "atomic"},
+                {"multiple_devices": True, "data_type": {"REAL", "float"}, "test_type": "reduction"},
+                {"paired_pragmas": True, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
+                {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
+            ]
 
     # Overwrite the default with the user values
     elif p.command == "hierarchical_parallelism":
-        d_hp = { "test_type": {"atomic", "reduction", "memcopy"},
-                 "data_type": {"float", "REAL"} }
+        d_hp = {"test_type": {"atomic", "reduction", "memcopy"}, "data_type": {"float", "REAL"}}
 
         for k, v in vars(p).items():
             if v:
@@ -1158,9 +1160,7 @@ if __name__ == "__main__":
     with open(os.path.join(dirname, "config", "omp_struct.json"), "r") as f:
         omp_construct = combinations_construct(json.load(f))
 
-    for type_, l_args in [("hierarchical_parallelism",l_hp_unique),
-                          ("mathematical_function",l_mf_unique)]:
-
+    for type_, l_args in [("hierarchical_parallelism", l_hp_unique), ("mathematical_function", l_mf_unique)]:
 
         if not ("append" in vars(p) and vars(p)["append"]):
             print(f"Removing ./tests_src/{{cpp,fortran}}/{type_}")
