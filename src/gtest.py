@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import jinja2, json, os, shutil, sys, math
-from itertools import tee, zip_longest, product, chain, zip_longest
+from itertools import tee, product, chain, zip_longest, count
 from collections import namedtuple, defaultdict
 
 #
@@ -13,7 +13,6 @@ dirname = os.path.dirname(__file__)
 templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname, "template"))
 templateEnv = jinja2.Environment(loader=templateLoader)
 templateEnv.globals.update(zip=zip)
-templateEnv.globals.update(zip_longest=zip_longest)
 
 #
 # | | _|_ o |  _
@@ -244,7 +243,15 @@ class HP: #^(;,;)^
 
         # Explicit is better than implicit.
         # So this is ugly... But really usefull when testing
-        # d_args keys containt [data_type, test_type, avoid_user_defined_reduction, paired_pragmas, loop_pragma, collapse]
+        # d_args keys containt [data_type, test_type, no_user_defined_reduction, paired_pragmas, loop_pragma, collapse]
+
+        # Put default value from some args. Easier for testing.
+        for k in ['intermediate_result', 'multiple_devices','host_threaded',
+                  'no_user_defined_reduction','paired_pragmas','loop_pragma']:
+            setattr(self, k, False)
+
+        setattr(self, "collapse", 0)
+
         for k, v in d_arg.items():
             setattr(self, k, v)
 
@@ -418,13 +425,23 @@ class HP: #^(;,;)^
         return l
 
     @cached_property
+    def l_nested_constructs_ironed_out(self):
+        # This property will be used to generate the pragma.
+        # In the case of on multiple_devices, we don't want so replace it with an empty region
+        if self.multiple_devices and not self.host_threaded:
+            head, *tail =  self.l_nested_constructs
+            return [ [] ]*len(head) + tail
+        else:
+            return self.l_nested_constructs
+
+    @cached_property
     def regions_counter(self):
         """
-        >>> HP(["target teams distribute"], {"collapse": 0, "intermediate_result": False}).regions_counter
+        >>> HP(["target teams distribute"], {"collapse": 0}).regions_counter
         ['counter_N0']
-        >>> HP(["target"], {"collapse": 0, "intermediate_result": False}).regions_counter
+        >>> HP(["target"], {"collapse": 0,}).regions_counter
         ['counter_target']
-        >>> HP(["target teams"], {"collapse": 0, "intermediate_result": False}).regions_counter
+        >>> HP(["target teams"], {"collapse": 0}).regions_counter
         ['counter_teams']
         >>> HP(["target", "teams", "parallel"], {"collapse": 0, "intermediate_result": True}).regions_counter
         ['counter_teams', 'counter_parallel']
@@ -484,13 +501,13 @@ class HP: #^(;,;)^
     @cached_property
     def regions_increment(self):
         """
-        >>> HP(["target"], {"collapse": 0, "intermediate_result": False}).regions_increment
+        >>> HP(["target"], {"collapse": 0}).regions_increment
         [Inc(v='counter_target', i='1.', j=None)]
-        >>> HP(["target teams distribute"], {"collapse": 0, "intermediate_result": False}).regions_increment
+        >>> HP(["target teams distribute"], {"collapse": 0}).regions_increment
         [Inc(v='counter_N0', i='1.', j=None)]
         >>> HP(["target teams distribute", "parallel", "for"], {"collapse": 2, "intermediate_result": True}).regions_increment
         [Inc(v='counter_N0', i='counter_N2', j=None), Inc(v='counter_N2', i='1.', j=None)]
-        >>> HP(["target teams"], {"collapse": 0, "intermediate_result": False}).regions_increment
+        >>> HP(["target teams"], {"collapse": 0}).regions_increment
         [Inc(v='counter_teams', i='1.', j='omp_get_num_teams()')]
         """
 
@@ -520,72 +537,74 @@ class HP: #^(;,;)^
     @cached_property
     def regions_additional_pragma(self):
         """
-        >>> HP(["target teams"], {"test_type": "atomic", "intermediate_result": False, "collapse": 0, "host_threaded" : False}).regions_additional_pragma
+        >>> HP(["target teams"], {"test_type": "atomic", "collapse": 0}).regions_additional_pragma
         [['map(tofrom: counter_teams)']]
-        >>> HP(["target teams"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float","host_threaded": False}).regions_additional_pragma
+        >>> HP(["target teams"], {"test_type": "memcopy", "collapse": 0, "data_type": "float"}).regions_additional_pragma
         [['map(to: pS[0:size]) map(from: pD[0:size])']]
-        >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float", "host_threaded": True}).regions_additional_pragma
+        >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "collapse": 0, "data_type": "float", "multiple_devices": True}).regions_additional_pragma
         [[''], ['map(to: pS[(i0)*N1:N1]) map(from: pD[(i0)*N1:N1]) device((i0)%omp_get_num_devices())']]
-        >>> HP(["parallel for", "target"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "float", "host_threaded": True}).regions_additional_pragma
+        >>> HP(["parallel for", "target"], {"test_type": "memcopy", "collapse": 0, "data_type": "float", "multiple_devices": True}).regions_additional_pragma
         [[''], ['map(to: pS[(i0)*1:1]) map(from: pD[(i0)*1:1]) device((i0)%omp_get_num_devices())']]
-        >>> HP(["parallel for", "target"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "REAL", "host_threaded": True}).regions_additional_pragma
+        >>> HP(["parallel for", "target"], {"test_type": "memcopy", "collapse": 0, "data_type": "REAL", "multiple_devices": True}).regions_additional_pragma
         [[''], ['map(to: src(i0-1+1:i0-1+1)) map(from: dst(i0-1+1:i0-1+1)) device(MOD(i0-1+1,omp_get_num_devices()))']]
-        >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 0, "data_type": "REAL", "host_threaded": True}).regions_additional_pragma
+        >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "collapse": 0, "data_type": "REAL", "multiple_devices": True}).regions_additional_pragma
         [[''], ['map(to: src((i0-1+1)*N1:(i0-1+1)*2*N1)) map(from: dst((i0-1+1)*N1:(i0-1+1)*2*N1)) device(MOD(i0-1+1,omp_get_num_devices()))']]
-        >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "intermediate_result": False, "collapse": 2, "data_type": "float", "host_threaded": True}).regions_additional_pragma
+        >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "collapse": 2, "data_type": "float", "multiple_devices": True}).regions_additional_pragma
         [['collapse(2)'], ['map(to: pS[(i1+N1*(i0))*N2*N3:N2*N3]) map(from: pD[(i1+N1*(i0))*N2*N3:N2*N3]) device((i1+N1*(i0))%omp_get_num_devices()) collapse(2)']]
-        >>> HP(["target teams distribute"], {"test_type": "reduction", "intermediate_result": False, "collapse": 3, "host_threaded": False}).regions_additional_pragma
+        >>> HP(["target teams distribute"], {"test_type": "reduction", "collapse": 3}).regions_additional_pragma
         [['map(tofrom: counter_N0) reduction(+: counter_N0) collapse(3)']]
         """
-        def mapping_pragma(i,counter, pragma):
-            if not pragma.has_construct("target"):
-                return []
+        def device_directive(i,counter,pragma):
+            if pragma.has_construct("target") and self.multiple_devices:
+                idx = self.running_index(i*self.unroll_factor)
+                if self.language == "cpp":
+                    yield f"device(({idx})%omp_get_num_devices())"
+                elif self.language == "fortran":
+                    yield f"device(MOD({idx},omp_get_num_devices()))"
 
-            construct = []
-            if self.host_threaded:
-               idx = self.running_index(i*self.unroll_factor)
-            
+        def mapping_directive(i,counter, pragma):
+            if not pragma.has_construct("target"):
+                return
+
             if not "memcopy" in self.test_type:
-                construct = [f"map(tofrom: {counter})"]
-            
-            if "memcopy" in self.test_type:
-                    if not self.host_threaded:
-                        if self.language == "cpp":
-                            borns = "[0:size]"
-                        elif self.language == "fortran":
-                            borns = ""
-                    else:
-                        size = self.host_chunk_size(i)
-                        if self.language == "cpp":
-                            size = size if size else '1'
-                            borns = f"[({idx})*{size}:{size}]"
-                        elif self.language == "fortran":
-                            borns = f"(({idx})*{size}:({idx})*2*{size})" if size else f"({idx}:{idx})"
-                            
+                yield  f"map(tofrom: {counter})"       
+            else:
+                if not (self.host_threaded or self.multiple_devices):
                     if self.language == "cpp":
-                        construct += [f"map(to: pS{borns}) map(from: pD{borns})"]
+                        borns = "[0:size]"
                     elif self.language == "fortran":
-                        construct += [f"map(to: src{borns}) map(from: dst{borns})"]
- 
-            if self.host_threaded:
-                     if self.language == "cpp":
-                         construct += [f"device(({idx})%omp_get_num_devices())"]
-                     elif self.language == "fortran":
-                         construct += [f"device(MOD({idx},omp_get_num_devices()))"]
-            return construct 
+                        borns = ""
+                else:
+                    size = self.host_chunk_size(i)
+                    idx = self.running_index(i*self.unroll_factor)
+                    if self.language == "cpp":
+                        size = size if size else '1'
+                        borns = f"[({idx})*{size}:{size}]"
+                    elif self.language == "fortran":
+                        borns = f"(({idx})*{size}:({idx})*2*{size})" if size else f"({idx}:{idx})"
+                        
+                if self.language == "cpp":
+                    yield f"map(to: pS{borns}) map(from: pD{borns})"
+                elif self.language == "fortran":
+                    yield f"map(to: src{borns}) map(from: dst{borns})"
+
+        def reduction_directive(counter, pragma):
+            if "reduction" in self.test_type and pragma.can_be_reduced:
+                yield  f"reduction(+: {counter})"
+
+        def collapse_directive(pragma):
+            if self.collapse and pragma.has_construct("loop-associated"):
+                yield f"collapse({self.collapse})"
 
         def additional_pragma(i, counter, pragma):
-            construct = mapping_pragma(i, counter, pragma)
-            if "reduction" in self.test_type and pragma.can_be_reduced:
-                construct += [f"reduction(+: {counter})"]
-            if self.collapse and pragma.has_construct("loop-associated"):
-                construct += [f"collapse({self.collapse})"]
+            construct  = chain(mapping_directive(i, counter, pragma),
+                               device_directive(i,counter,pragma),
+                               reduction_directive(counter,pragma),
+                               collapse_directive(pragma))
             return " ".join(construct)
 
-        l = []
-        for i, (counter, region) in enumerate(zip(self.regions_counter, self.l_nested_constructs)):
-            l.append( [additional_pragma(i, counter,pragma) for pragma in region] )
-        return l
+        map_region = lambda i,c,r: [additional_pragma(i,c,pragma) for pragma in r]
+        return [map_region(i,c,r) for i,c,r in zip(count(), self.regions_counter, self.l_nested_constructs)]
 
     @cached_property
     def tripcount(self):
@@ -645,10 +664,7 @@ class HP: #^(;,;)^
     def is_valid_test(self):
         """
         >>> d = {"test_type":"atomic",
-        ...      "collapse": 0, 
-        ...      "loop_pragma": False, 
-        ...      "intermediate_result": False,
-        ...      "host_threaded": False}
+        ...      "collapse": 0 }
 
         >>> HP(["target for"], {**d, 'loop_pragma': True} ).is_valid_test
         False
@@ -925,10 +941,7 @@ def gen_mf(d_arg):
                     f.write(m.template_rendered)
 
 
-def gen_hp(d_arg, omp_construct, asked_combinaison):
-    if not asked_combinaison(d_arg):
-        return False
-
+def gen_hp(d_arg, omp_construct):
     t = TypeSystem(d_arg["data_type"])
     # Avoid the user reduction is only valid for cpp complex reduction code
     if d_arg["no_user_defined_reduction"] and (t.language != "cpp" or t.category != "complex" or d_arg["test_type"] != "reduction"):
@@ -941,7 +954,6 @@ def gen_hp(d_arg, omp_construct, asked_combinaison):
     # OpenMP doesn't support Complex Atomic
     if t.category == "complex" and d_arg["test_type"] == "atomic":
         return False
-
 
     '''
     >> The only constructs that may be nested inside a loop region are the loop construct, the parallel construct, 
@@ -964,7 +976,8 @@ def gen_hp(d_arg, omp_construct, asked_combinaison):
         f.write(templateEnv.get_template(f"Makefile.jinja2").render(ext="cpp" if t.language == "cpp" else "F90"))
 
     for path in omp_construct:
-        if d_arg["host_threaded"]: path = ["parallel for"] + path
+        if (d_arg["host_threaded"] or d_arg["multiple_devices"]):
+            path = ["parallel for"] + path
         HP(path, d_arg).write_template_rendered(folder)
 
 
@@ -1033,6 +1046,31 @@ def EvalArg(v, msg="Boolean value expected."):
         raise argparse.ArgumentTypeError(msg)
 
 
+
+# ___        _                            
+#  | _  _|_ |_)_ ._._ _   _|_ _._|_o _ ._ 
+#  |(/_><|_ | (/_| | | ||_||_(_| |_|(_)| |
+#                                         
+
+class hashabledict(dict):
+    def __hash__(self):
+        return hash(frozenset(self))
+    def __missing__(self, key):
+        return False
+
+def gen_all_permutation(d_args):
+    """
+    Trust me on this one...
+    >>> list(gen_all_permutation({"b":["nvdia","intel"],"a":["x86","V100"]}))
+    [{'b': 'nvdia', 'a': 'x86'}, {'b': 'nvdia', 'a': 'V100'}, {'b': 'intel', 'a': 'x86'}, {'b': 'intel', 'a': 'V100'}]
+    >>> list(gen_all_permutation({"b":"intel","a":["x86","V100"]}))
+    [{'b': 'intel', 'a': 'x86'}, {'b': 'intel', 'a': 'V100'}]
+    """
+    to_iterable = lambda v: v if isinstance(v,(list,set)) else [v]
+    l_values = map(to_iterable,d_args.values())
+    for p in product(*l_values):
+        yield hashabledict(zip(d_args.keys(),p))
+
 if __name__ == "__main__":
     with open(os.path.join(dirname, "template", "ovo_usage.txt")) as f:
         ovo_usage = f.read()
@@ -1045,7 +1083,7 @@ if __name__ == "__main__":
     # tiers
     # ~
     tiers_parser = action_parsers.add_parser("tiers")
-    tiers_parser.add_argument("tiers", type=int, nargs="+")
+    tiers_parser.add_argument("tiers", type=int, nargs="*")
 
     # ~
     # hierarchical_parallelism
@@ -1057,7 +1095,7 @@ if __name__ == "__main__":
     hp_parser.add_argument("--collapse", nargs="*", action=EmptyIsOne, type=lambda l: EvalArg(l, "integer value is expected"))
     hp_parser.add_argument("--append", action="store_true")
     # Boolean test
-    for opt in ("loop_pragma", "paired_pragmas", "no_user_defined_reduction", "host_threaded", "intermediate_result"):
+    for opt in ("loop_pragma", "paired_pragmas", "no_user_defined_reduction", "host_threaded", "multiple_devices", "intermediate_result"):
         hp_parser.add_argument(f"--{opt}", nargs="*", action=EmptyIsTrue, type=EvalArg)
 
     # ~
@@ -1071,94 +1109,66 @@ if __name__ == "__main__":
     mf_parser.add_argument("--append", action="store_true")
 
     # ~
-    # Default
-    # ~
-    d_hp = {
-        "test_type": {"atomic", "reduction", "memcopy"},
-        "data_type": {"float", "REAL"},
-        "loop_pragma": {False},
-        "paired_pragmas": {False},
-        "no_user_defined_reduction": {False},
-        "host_threaded": {False},
-        "intermediate_result": {False},
-        "collapse": {0},
-        "append": False,
-    }
-
-    d_mf = {"standart": {"cpp11", "F77"}, "complex": {True, False}, "long": {False}, "append": False}
-
-    # ~
     # Parsing logic
     # ~
     p = parser.parse_args()
-
     # By default we use 'tiers 1'
     if not p.command:
         p.command = "tiers"
-        p.tiers = [1]
-
-    # The asked_combinaison, is a function used to filter in the caraterion product of argument
-    # We use it in Tiers 2 to limite the number of product.
+        p.tiers = 1
 
     # Tiers logic
     if p.command == "tiers":
-        if p.tiers[0] >= 1:
-            d_hp["data_type"] |= {"complex<double>", "DOUBLE COMPLEX"}
-            asked_combinaison = lambda d: True
+        if p.tiers >= 1:
+            l_hp = [ {"data_type": {"REAL","float","complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy","atomic","reduction"} } ]
+            l_mf = [ {"standart": {"cpp11", "F77"}, "complex": {True, False} } ]
 
-        if p.tiers[0] >= 2:
-            d_hp["intermediate_result"] |= {True}
-            d_hp["collapse"] |= { 2, }
-            d_hp["host_threaded"] |= {True}
-            d_hp["paired_pragmas"] |= {True}
-
-            def asked_combinaison(d):
-                if d["intermediate_result"] and d["test_type"] != "atomic":
-                    return False
-                elif d["collapse"] and d["test_type"] != "memcopy":
-                    return False
-                elif d["host_threaded"] and (d["intermediate_result"] or d["collapse"]):
-                    return False
-                elif d["paired_pragmas"] and ( d["test_type"] != "reduction" or d["data_type"] != "REAL" or d["host_threaded"] ):
-                    return False
-                else:
-                    return True
-
-        if p.tiers[0] >= 3:
-            d_hp["loop_pragma"] |= {True}
-            d_hp["data_type"] |= {"double", "complex<float>", "DOUBLE PRECISION", "COMPLEX"}
-            d_mf["standart"] |= {"cpp17"}
-            asked_combinaison = lambda d: True
-
-        l_args = [("hierarchical_parallelism", d_hp), ("mathematical_function", d_mf)]
+        if p.tiers >= 2:
+            l_hp += [ {"loop_pragma": True, "data_type": {"REAL","float"}, "test_type": "memcopy" },
+                      {"intermediate_result": True, "data_type": {"REAL","float"}, "test_type": "atomic" },
+                      {"host_threaded": True, "data_type": {"REAL","float"}, "test_type": "atomic" },
+                      {"multiple_devices": True, "data_type": {"REAL","float"}, "test_type": "reduction" },
+                      {"paired_pragmas": True, "data_type": {"REAL","float"}, "test_type": "memcopy" },
+                      {"collapse": {2, }, "data_type": {"REAL","float"}, "test_type": "memcopy" } ]
 
     # Overwrite the default with the user values
-    elif p.command in ("hierarchical_parallelism", "mathematical_function"):
-        d = d_hp if p.command == "hierarchical_parallelism" else d_mf
+    elif p.command == "hierarchical_parallelism":
+        d_hp = { "test_type": {"atomic", "reduction", "memcopy"},
+                 "data_type": {"float", "REAL"} }
 
         for k, v in vars(p).items():
-            if k in d and v is not None:
-                d[k] = v
-        l_args = [(p.command, d)]
-        asked_combinaison = lambda d: True
+            if v:
+                d_hp[k] = v
+        l_hp = [d_hp]
+        l_mf = []
+    elif p.command == "mathematical_function":
+        d_mf = {"standart": {"cpp11", "F77"}, "complex": {True, False}}
 
+        for k, v in vars(p).items():
+            if v:
+                d_hp[k] = v
+        l_mf = [d_mf]
+        l_hp = []
+
+    l_hp_unique = set(chain.from_iterable(gen_all_permutation(d) for d in l_hp))
+    l_mf_unique = set(chain.from_iterable(gen_all_permutation(d) for d in l_mf))
     # ~
     # Generate tests for cartesian product of options
     # ~
     with open(os.path.join(dirname, "config", "omp_struct.json"), "r") as f:
         omp_construct = combinations_construct(json.load(f))
 
-    for type_, d_args in l_args:
+    for type_, l_args in [("hierarchical_parallelism",l_hp_unique),
+                          ("mathematical_function",l_mf_unique)]:
 
-        if not d_args.pop("append"):
-            print(f"Removing ./tests_src/{{cpp,fortram}}/{type_} tests ...")
+
+        if not ("append" in vars(p) and vars(p)["append"]):
+            print(f"Removing ./tests_src/{{cpp,fortran}}/{type_}")
             shutil.rmtree(f"./test_src/cpp/{type_}", ignore_errors=True)
             shutil.rmtree(f"./test_src/fortran/{type_}", ignore_errors=True)
 
-        k = d_args.keys()
-        for p in product(*d_args.values()):
-            d = {k: v for k, v in zip(k, p)}
+        for d_args in l_args:
             if type_ == "hierarchical_parallelism":
-                gen_hp(d, omp_construct, asked_combinaison)
+                gen_hp(d_args, omp_construct)
             else:
-                gen_mf(d)
+                gen_mf(d_args)

@@ -21,7 +21,7 @@ using std::complex;
 {# \_/ |_) (/_ | | |  | |     __) |_ |_| |_) _> #}
 {#     |                                        #}
 
-{% if not balenced or host_threaded %}
+{% if not balenced or multiple_devices %}
 #ifdef _OPENMP
 #include <omp.h>
 #else
@@ -31,7 +31,7 @@ int omp_get_num_teams() {return 1;}
    {% if single("parallel") %}
 int omp_get_num_threads() {return 1;}
    {% endif %}
-   {% if host_threaded %}
+   {% if multiple_devices %}
 int omp_get_num_devices() {return 1;}
    {% endif %}
 #endif
@@ -102,13 +102,13 @@ void test_{{name}}() {
 {# |   _   _  ._   _   |_) ._ _  |  _   _       _  #}
 {# |_ (_) (_) |_) _>   |   | (_) | (_) (_| |_| (/_ #}
 {#            |                         _|         #}
-{% for region, loop_constructs, region_additional_pragma, counter in zip(l_nested_constructs, regions_associated_loop, regions_additional_pragma,regions_counter) %}
+{% for region, loop_constructs, region_additional_pragma, counter in zip(l_nested_constructs_ironed_out, regions_associated_loop, regions_additional_pragma,regions_counter) %}
 {% filter indent(width=2*loop.index) %}
    {# In the case of 'local' test, we use only one counter in the outermost enclosing scope #} 
    {% if  test_type != 'memcopy' and (intermediate_result or loop.first) %}
 {{T}} {{counter}}{};
    {% endif %}
-   {% for pragma, additional_pragma in zip_longest(region, region_additional_pragma, fillvalue='') %}
+   {% for pragma, additional_pragma in zip(region, region_additional_pragma) %}
 #pragma omp {{pragma}} {{additional_pragma}}
    {% endfor %}
 
