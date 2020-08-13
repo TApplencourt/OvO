@@ -19,18 +19,18 @@ PROGRAM target_teams_distribute__parallel__do__simd
   CALL RANDOM_NUMBER(src_imag)
   src = CMPLX(src_real,src_imag)
   DEALLOCATE (src_real,src_imag)
-  !$OMP target teams distribute map(to: src) map(from: dst)
+  !$OMP TARGET TEAMS DISTRIBUTE map(to: src) map(from: dst)
   DO i0 = 1, N0
-    !$OMP parallel
-    !$OMP do
+    !$OMP PARALLEL
+    !$OMP DO
     DO i1 = 1, N1
-      !$OMP simd
+      !$OMP SIMD
       DO i2 = 1, N2
         idx = i2-1+N2*(i1-1+N1*(i0-1))+1
         dst(idx) = src(idx)
       END DO
     END DO
-    !$OMP END parallel
+    !$OMP END PARALLEL
   END DO
   IF (ANY(ABS(dst - src) > EPSILON(REAL(src)))) THEN
     WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'

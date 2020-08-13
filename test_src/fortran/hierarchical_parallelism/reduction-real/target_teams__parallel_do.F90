@@ -27,12 +27,12 @@ PROGRAM target_teams__parallel_do
   INTEGER :: expected_value
   expected_value = N0
   counter_teams = 0
-  !$OMP target teams map(tofrom: counter_teams) reduction(+: counter_teams)
-    !$OMP parallel do reduction(+: counter_teams)
+  !$OMP TARGET TEAMS map(tofrom: counter_teams) reduction(+: counter_teams)
+    !$OMP PARALLEL DO reduction(+: counter_teams)
     DO i0 = 1, N0
       counter_teams = counter_teams + 1.  / omp_get_num_teams() ;
     END DO
-  !$OMP END target teams
+  !$OMP END TARGET TEAMS
   IF ( .NOT.almost_equal(counter_teams,expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_teams
     STOP 112

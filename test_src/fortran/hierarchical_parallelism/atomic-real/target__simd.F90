@@ -15,13 +15,13 @@ PROGRAM target__simd
   INTEGER :: expected_value
   expected_value = N0
   counter_N0 = 0
-  !$OMP target map(tofrom: counter_N0)
-  !$OMP simd
+  !$OMP TARGET map(tofrom: counter_N0)
+  !$OMP SIMD
   DO i0 = 1, N0
     !$OMP atomic update
     counter_N0 = counter_N0 + 1.
   END DO
-  !$OMP END target
+  !$OMP END TARGET
   IF ( .NOT.almost_equal(counter_N0,expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_N0
     STOP 112

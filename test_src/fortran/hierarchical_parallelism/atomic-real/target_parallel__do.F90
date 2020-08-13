@@ -15,13 +15,13 @@ PROGRAM target_parallel__do
   INTEGER :: expected_value
   expected_value = N0
   counter_N0 = 0
-  !$OMP target parallel map(tofrom: counter_N0)
-  !$OMP do
+  !$OMP TARGET PARALLEL map(tofrom: counter_N0)
+  !$OMP DO
   DO i0 = 1, N0
     !$OMP atomic update
     counter_N0 = counter_N0 + 1.
   END DO
-  !$OMP END target parallel
+  !$OMP END TARGET PARALLEL
   IF ( .NOT.almost_equal(counter_N0,expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_N0
     STOP 112

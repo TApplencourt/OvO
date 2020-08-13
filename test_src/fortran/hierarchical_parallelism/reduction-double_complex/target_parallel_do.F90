@@ -15,7 +15,7 @@ PROGRAM target_parallel_do
   INTEGER :: expected_value
   expected_value = N0
   counter_N0 = 0
-  !$OMP target parallel do map(tofrom: counter_N0) reduction(+: counter_N0)
+  !$OMP TARGET PARALLEL DO map(tofrom: counter_N0) reduction(+: counter_N0)
   DO i0 = 1, N0
     counter_N0 = counter_N0 + 1.
   END DO

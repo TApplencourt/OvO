@@ -8,6 +8,7 @@ Usage:
                                                     REAL|COMPLEX|
                                                     'DOUBLE PRECISION'|'DOUBLE COMPLEX']... ]
                                       [--loop_pragma [True|False] ]
+                                      [--multi_devices [True|False] ]
                                       [--host_threaded [True|False] ]
                                       [--intermediate_result [True|False] ]
                                       [--paired_pragmas [True|False] ]
@@ -25,6 +26,10 @@ Usage:
   ovo.sh (-h | --help)
 
 Example:
-  - Generate only hierarchical_parallelism real Fortran test with loop construct
-     ./ovo.sh gen hierarchical_parallelism  --data_type REAL --loop_pragma True --test_type memcopy
+
+Generate hierarchical_parallelism memcopy test with REAL datatype with loop construct:
+  ./ovo.sh gen hierarchical_parallelism  --data_type REAL --loop_pragma True --test_type memcopy
+
+Generate hierarchical_parallelism reduction test with REAL, and complex<float> datatype with and without multi-devices support:
+  ./src/gtest.py hierarchical_parallelism  --data_type REAL "complex<float>" --multiple_devices True False --test_type reduction
 

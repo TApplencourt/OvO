@@ -17,15 +17,15 @@ PROGRAM target__teams_distribute_parallel_do__simd
   INTEGER :: expected_value
   expected_value = N0*N1
   counter_N0 = 0
-  !$OMP target map(tofrom: counter_N0)
-  !$OMP teams distribute parallel do reduction(+: counter_N0)
+  !$OMP TARGET map(tofrom: counter_N0)
+  !$OMP TEAMS DISTRIBUTE PARALLEL DO reduction(+: counter_N0)
   DO i0 = 1, N0
-    !$OMP simd reduction(+: counter_N0)
+    !$OMP SIMD reduction(+: counter_N0)
     DO i1 = 1, N1
       counter_N0 = counter_N0 + 1.
     END DO
   END DO
-  !$OMP END target
+  !$OMP END TARGET
   IF ( .NOT.almost_equal(counter_N0,expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_N0
     STOP 112

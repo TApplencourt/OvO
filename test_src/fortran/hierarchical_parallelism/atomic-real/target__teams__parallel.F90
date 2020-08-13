@@ -30,14 +30,14 @@ PROGRAM target__teams__parallel
   INTEGER :: expected_value
   expected_value = 1
   counter_teams = 0
-  !$OMP target map(tofrom: counter_teams)
-  !$OMP teams
-    !$OMP parallel
+  !$OMP TARGET map(tofrom: counter_teams)
+  !$OMP TEAMS
+    !$OMP PARALLEL
       !$OMP atomic update
       counter_teams = counter_teams + 1.  / ( omp_get_num_teams() * omp_get_num_threads() ) ;
-    !$OMP END parallel
-  !$OMP END teams
-  !$OMP END target
+    !$OMP END PARALLEL
+  !$OMP END TEAMS
+  !$OMP END TARGET
   IF ( .NOT.almost_equal(counter_teams,expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_teams
     STOP 112

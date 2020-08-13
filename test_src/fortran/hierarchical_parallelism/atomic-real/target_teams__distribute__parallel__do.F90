@@ -17,18 +17,18 @@ PROGRAM target_teams__distribute__parallel__do
   INTEGER :: expected_value
   expected_value = N0*N1
   counter_N0 = 0
-  !$OMP target teams map(tofrom: counter_N0)
-  !$OMP distribute
+  !$OMP TARGET TEAMS map(tofrom: counter_N0)
+  !$OMP DISTRIBUTE
   DO i0 = 1, N0
-    !$OMP parallel
-    !$OMP do
+    !$OMP PARALLEL
+    !$OMP DO
     DO i1 = 1, N1
       !$OMP atomic update
       counter_N0 = counter_N0 + 1.
     END DO
-    !$OMP END parallel
+    !$OMP END PARALLEL
   END DO
-  !$OMP END target teams
+  !$OMP END TARGET TEAMS
   IF ( .NOT.almost_equal(counter_N0,expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_N0
     STOP 112

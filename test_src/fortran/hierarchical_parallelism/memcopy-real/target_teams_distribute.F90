@@ -9,7 +9,7 @@ PROGRAM target_teams_distribute
   S = N0
   ALLOCATE(dst(S), src(S) )
   CALL RANDOM_NUMBER(src)
-  !$OMP target teams distribute map(to: src) map(from: dst)
+  !$OMP TARGET TEAMS DISTRIBUTE map(to: src) map(from: dst)
   DO i0 = 1, N0
     idx = i0-1+1
     dst(idx) = src(idx)

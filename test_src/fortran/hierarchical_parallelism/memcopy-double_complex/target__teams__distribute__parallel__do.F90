@@ -17,20 +17,20 @@ PROGRAM target__teams__distribute__parallel__do
   CALL RANDOM_NUMBER(src_imag)
   src = CMPLX(src_real,src_imag)
   DEALLOCATE (src_real,src_imag)
-  !$OMP target map(to: src) map(from: dst)
-  !$OMP teams
-  !$OMP distribute
+  !$OMP TARGET map(to: src) map(from: dst)
+  !$OMP TEAMS
+  !$OMP DISTRIBUTE
   DO i0 = 1, N0
-    !$OMP parallel
-    !$OMP do
+    !$OMP PARALLEL
+    !$OMP DO
     DO i1 = 1, N1
       idx = i1-1+N1*(i0-1)+1
       dst(idx) = src(idx)
     END DO
-    !$OMP END parallel
+    !$OMP END PARALLEL
   END DO
-  !$OMP END teams
-  !$OMP END target
+  !$OMP END TEAMS
+  !$OMP END TARGET
   IF (ANY(ABS(dst - src) > EPSILON(REAL(src)))) THEN
     WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
     errno = 112

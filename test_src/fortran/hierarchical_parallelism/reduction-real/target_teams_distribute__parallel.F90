@@ -27,11 +27,11 @@ PROGRAM target_teams_distribute__parallel
   INTEGER :: expected_value
   expected_value = N0
   counter_N0 = 0
-  !$OMP target teams distribute map(tofrom: counter_N0) reduction(+: counter_N0)
+  !$OMP TARGET TEAMS DISTRIBUTE map(tofrom: counter_N0) reduction(+: counter_N0)
   DO i0 = 1, N0
-    !$OMP parallel reduction(+: counter_N0)
+    !$OMP PARALLEL reduction(+: counter_N0)
       counter_N0 = counter_N0 + 1.  / omp_get_num_threads() ;
-    !$OMP END parallel
+    !$OMP END PARALLEL
   END DO
   IF ( .NOT.almost_equal(counter_N0,expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_N0

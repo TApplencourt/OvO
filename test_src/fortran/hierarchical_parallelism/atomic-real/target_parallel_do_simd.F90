@@ -15,7 +15,7 @@ PROGRAM target_parallel_do_simd
   INTEGER :: expected_value
   expected_value = N0
   counter_N0 = 0
-  !$OMP target parallel do simd map(tofrom: counter_N0)
+  !$OMP TARGET PARALLEL DO SIMD map(tofrom: counter_N0)
   DO i0 = 1, N0
     !$OMP atomic update
     counter_N0 = counter_N0 + 1.

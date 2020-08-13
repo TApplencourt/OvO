@@ -27,14 +27,14 @@ PROGRAM target__parallel__simd
   INTEGER :: expected_value
   expected_value = N0
   counter_parallel = 0
-  !$OMP target map(tofrom: counter_parallel)
-  !$OMP parallel reduction(+: counter_parallel)
-    !$OMP simd reduction(+: counter_parallel)
+  !$OMP TARGET map(tofrom: counter_parallel)
+  !$OMP PARALLEL reduction(+: counter_parallel)
+    !$OMP SIMD reduction(+: counter_parallel)
     DO i0 = 1, N0
       counter_parallel = counter_parallel + 1.  / omp_get_num_threads() ;
     END DO
-  !$OMP END parallel
-  !$OMP END target
+  !$OMP END PARALLEL
+  !$OMP END TARGET
   IF ( .NOT.almost_equal(counter_parallel,expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_parallel
     STOP 112

@@ -27,13 +27,13 @@ PROGRAM target_teams__parallel_do_simd
   INTEGER :: expected_value
   expected_value = N0
   counter_teams = 0
-  !$OMP target teams map(tofrom: counter_teams)
-    !$OMP parallel do simd
+  !$OMP TARGET TEAMS map(tofrom: counter_teams)
+    !$OMP PARALLEL DO SIMD
     DO i0 = 1, N0
       !$OMP atomic update
       counter_teams = counter_teams + 1.  / omp_get_num_teams() ;
     END DO
-  !$OMP END target teams
+  !$OMP END TARGET TEAMS
   IF ( .NOT.almost_equal(counter_teams,expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_teams
     STOP 112

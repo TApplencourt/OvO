@@ -15,7 +15,7 @@ PROGRAM target_teams_distribute_parallel_do_simd
   CALL RANDOM_NUMBER(src_imag)
   src = CMPLX(src_real,src_imag)
   DEALLOCATE (src_real,src_imag)
-  !$OMP target teams distribute parallel do simd map(to: src) map(from: dst)
+  !$OMP TARGET TEAMS DISTRIBUTE PARALLEL DO SIMD map(to: src) map(from: dst)
   DO i0 = 1, N0
     idx = i0-1+1
     dst(idx) = src(idx)

@@ -9,13 +9,13 @@ PROGRAM target__teams_distribute_parallel_do_simd
   S = N0
   ALLOCATE(dst(S), src(S) )
   CALL RANDOM_NUMBER(src)
-  !$OMP target map(to: src) map(from: dst)
-  !$OMP teams distribute parallel do simd
+  !$OMP TARGET map(to: src) map(from: dst)
+  !$OMP TEAMS DISTRIBUTE PARALLEL DO SIMD
   DO i0 = 1, N0
     idx = i0-1+1
     dst(idx) = src(idx)
   END DO
-  !$OMP END target
+  !$OMP END TARGET
   IF (ANY(ABS(dst - src) > EPSILON(src))) THEN
     WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
     errno = 112

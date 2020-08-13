@@ -15,13 +15,13 @@ PROGRAM target__parallel_do
   CALL RANDOM_NUMBER(src_imag)
   src = CMPLX(src_real,src_imag)
   DEALLOCATE (src_real,src_imag)
-  !$OMP target map(to: src) map(from: dst)
-  !$OMP parallel do
+  !$OMP TARGET map(to: src) map(from: dst)
+  !$OMP PARALLEL DO
   DO i0 = 1, N0
     idx = i0-1+1
     dst(idx) = src(idx)
   END DO
-  !$OMP END target
+  !$OMP END TARGET
   IF (ANY(ABS(dst - src) > EPSILON(REAL(src)))) THEN
     WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
     errno = 112

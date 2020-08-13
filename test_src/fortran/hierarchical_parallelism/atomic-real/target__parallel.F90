@@ -25,12 +25,12 @@ PROGRAM target__parallel
   INTEGER :: expected_value
   expected_value = 1
   counter_parallel = 0
-  !$OMP target map(tofrom: counter_parallel)
-  !$OMP parallel
+  !$OMP TARGET map(tofrom: counter_parallel)
+  !$OMP PARALLEL
     !$OMP atomic update
     counter_parallel = counter_parallel + 1.  / omp_get_num_threads() ;
-  !$OMP END parallel
-  !$OMP END target
+  !$OMP END PARALLEL
+  !$OMP END TARGET
   IF ( .NOT.almost_equal(counter_parallel,expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_parallel
     STOP 112

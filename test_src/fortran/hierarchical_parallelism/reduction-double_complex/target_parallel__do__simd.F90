@@ -17,15 +17,15 @@ PROGRAM target_parallel__do__simd
   INTEGER :: expected_value
   expected_value = N0*N1
   counter_N0 = 0
-  !$OMP target parallel map(tofrom: counter_N0) reduction(+: counter_N0)
-  !$OMP do
+  !$OMP TARGET PARALLEL map(tofrom: counter_N0) reduction(+: counter_N0)
+  !$OMP DO
   DO i0 = 1, N0
-    !$OMP simd reduction(+: counter_N0)
+    !$OMP SIMD reduction(+: counter_N0)
     DO i1 = 1, N1
       counter_N0 = counter_N0 + 1.
     END DO
   END DO
-  !$OMP END target parallel
+  !$OMP END TARGET PARALLEL
   IF ( .NOT.almost_equal(counter_N0,expected_value, 0.1) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_N0
     STOP 112
