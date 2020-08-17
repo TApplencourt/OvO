@@ -708,6 +708,8 @@ class HP:  # ^(;,;)^
         # That mean atomic cannot be stricly nested inside "teams"...
         elif self.test_type == "atomic" and self.flatten_target_path[-1] == "teams":
             return False
+        elif  self.test_type == "atomic" and self.intermediate_result and self.single("teams"):
+            return False
 
         # need to have at least one loop and be balenced
         elif self.test_type == "memcopy" and not (self.associated_loops_number and self.balenced):
