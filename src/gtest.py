@@ -674,7 +674,7 @@ class HP:  # ^(;,;)^
         >>> HP(["target teams", "parallel loop"], {**d, 'loop_pragma': True} ).is_valid_test
         False
         >>> HP(["target teams", "parallel loop"], {**d, 'loop_pragma': True, 'intermediate_result': True} ).is_valid_test
-        True
+        False
         >>> HP(["target teams"], d).is_valid_test
         False
         >>> HP(["target teams", "parallel"], {**d, 'test_type':'memcopy'} ).is_valid_test
@@ -682,13 +682,13 @@ class HP:  # ^(;,;)^
         """
 
         # Based on section 2.23 -- Nesting of Regions of the openmp v5.0 specification
-        # We also try to do duplicate tests.
+        # We also try to not duplicate tests.
 
         # If we don't ask for loop pragma we don't want to generate tests who doesn't containt omp loop construct
         if self.loop_pragma ^ any(p.has_construct("loop") for p in self.path):
             return False
 
-        # If people want collapse, we will generate only the test with loop
+        # If people want collapse, we will generate only the test with for/do loop
         elif self.collapse and not self.associated_loops_number:
             return False
 
@@ -708,7 +708,7 @@ class HP:  # ^(;,;)^
         # That mean atomic cannot be stricly nested inside "teams"...
         elif self.test_type == "atomic" and self.flatten_target_path[-1] == "teams":
             return False
-        elif  self.test_type == "atomic" and self.intermediate_result and self.single("teams"):
+        elif self.test_type == "atomic" and self.intermediate_result and self.single("teams"):
             return False
 
         # need to have at least one loop and be balenced
