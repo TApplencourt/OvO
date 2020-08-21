@@ -1,10 +1,10 @@
 PROGRAM target_teams__distribute__parallel_do__simd
   implicit none
-  INTEGER :: N0 = 64
+  INTEGER :: N0 = 32
   INTEGER :: i0
-  INTEGER :: N1 = 64
+  INTEGER :: N1 = 32
   INTEGER :: i1
-  INTEGER :: N2 = 64
+  INTEGER :: N2 = 32
   INTEGER :: i2
   INTEGER :: idx, S
   INTEGER :: errno = 0

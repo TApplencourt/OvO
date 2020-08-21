@@ -25,7 +25,7 @@ PROGRAM target_teams__parallel__simd
   INTEGER :: omp_get_num_teams
   INTEGER :: omp_get_num_threads
 #endif
-  INTEGER :: N0 = 262144
+  INTEGER :: N0 = 32768
   INTEGER :: i0
   LOGICAL :: almost_equal
   DOUBLE COMPLEX :: counter_teams

@@ -1,6 +1,6 @@
 PROGRAM target_teams_distribute
   implicit none
-  INTEGER :: N0 = 262144
+  INTEGER :: N0 = 32768
   INTEGER :: i0
   INTEGER :: idx, S
   INTEGER :: errno = 0

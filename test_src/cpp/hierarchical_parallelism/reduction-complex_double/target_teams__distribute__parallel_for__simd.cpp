@@ -8,9 +8,9 @@ bool almost_equal(complex<double> x, complex<double> gold, float tol) {
 }
 #pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
 void test_target_teams__distribute__parallel_for__simd() {
-  const int N0 { 64 };
-  const int N1 { 64 };
-  const int N2 { 64 };
+  const int N0 { 32 };
+  const int N1 { 32 };
+  const int N2 { 32 };
   const complex<double> expected_value { N0*N1*N2 };
   complex<double> counter_N0{};
   #pragma omp target teams map(tofrom: counter_N0) reduction(+: counter_N0)

@@ -10,7 +10,7 @@ bool almost_equal(complex<double> x, complex<double> y, int ulp) {
   return std::abs(x-y) <= std::numeric_limits<double>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<double>::min();
 }
 void test_target_teams__distribute() {
-  const int N0 { 262144 };
+  const int N0 { 32768 };
   const int size = N0;
   std::vector<complex<double>> dst(size), src(size);
   std::generate(src.begin(), src.end(), std::rand);

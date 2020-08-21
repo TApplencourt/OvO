@@ -8,9 +8,9 @@ FUNCTION almost_equal(x, gold, tol) RESULT(b)
 END FUNCTION almost_equal
 PROGRAM target_parallel_do__simd
   implicit none
-  INTEGER :: N0 = 512
+  INTEGER :: N0 = 182
   INTEGER :: i0
-  INTEGER :: N1 = 512
+  INTEGER :: N1 = 182
   INTEGER :: i1
   LOGICAL :: almost_equal
   REAL :: counter_N0

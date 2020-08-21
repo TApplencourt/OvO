@@ -20,7 +20,7 @@ PROGRAM target__teams__distribute__parallel
   implicit none
   INTEGER :: omp_get_num_threads
 #endif
-  INTEGER :: N0 = 262144
+  INTEGER :: N0 = 32768
   INTEGER :: i0
   LOGICAL :: almost_equal
   DOUBLE COMPLEX :: counter_N0

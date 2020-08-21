@@ -8,8 +8,8 @@ bool almost_equal(float x, float y, int ulp) {
   return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
 }
 void test_target__teams_distribute__parallel_for() {
-  const int N0 { 512 };
-  const int N1 { 512 };
+  const int N0 { 182 };
+  const int N1 { 182 };
   const int size = N0*N1;
   std::vector<float> dst(size), src(size);
   std::generate(src.begin(), src.end(), std::rand);

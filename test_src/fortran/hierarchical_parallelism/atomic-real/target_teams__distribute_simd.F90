@@ -8,7 +8,7 @@ FUNCTION almost_equal(x, gold, tol) RESULT(b)
 END FUNCTION almost_equal
 PROGRAM target_teams__distribute_simd
   implicit none
-  INTEGER :: N0 = 262144
+  INTEGER :: N0 = 32768
   INTEGER :: i0
   LOGICAL :: almost_equal
   REAL :: counter_N0

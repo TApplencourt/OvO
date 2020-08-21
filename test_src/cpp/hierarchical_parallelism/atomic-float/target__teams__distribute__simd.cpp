@@ -5,8 +5,8 @@ bool almost_equal(float x, float gold, float tol) {
   return gold * (1-tol) <= x && x <= gold * (1 + tol);
 }
 void test_target__teams__distribute__simd() {
-  const int N0 { 512 };
-  const int N1 { 512 };
+  const int N0 { 182 };
+  const int N1 { 182 };
   const float expected_value { N0*N1 };
   float counter_N0{};
   #pragma omp target map(tofrom: counter_N0)

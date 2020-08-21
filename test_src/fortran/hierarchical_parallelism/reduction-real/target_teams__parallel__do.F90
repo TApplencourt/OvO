@@ -20,7 +20,7 @@ PROGRAM target_teams__parallel__do
   implicit none
   INTEGER :: omp_get_num_teams
 #endif
-  INTEGER :: N0 = 262144
+  INTEGER :: N0 = 32768
   INTEGER :: i0
   LOGICAL :: almost_equal
   REAL :: counter_teams

@@ -1,8 +1,8 @@
 PROGRAM target_teams_distribute__parallel_do
   implicit none
-  INTEGER :: N0 = 512
+  INTEGER :: N0 = 182
   INTEGER :: i0
-  INTEGER :: N1 = 512
+  INTEGER :: N1 = 182
   INTEGER :: i1
   INTEGER :: idx, S
   INTEGER :: errno = 0

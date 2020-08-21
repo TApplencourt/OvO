@@ -20,9 +20,9 @@ PROGRAM target_teams__distribute__parallel__simd
   implicit none
   INTEGER :: omp_get_num_threads
 #endif
-  INTEGER :: N0 = 512
+  INTEGER :: N0 = 182
   INTEGER :: i0
-  INTEGER :: N1 = 512
+  INTEGER :: N1 = 182
   INTEGER :: i1
   LOGICAL :: almost_equal
   DOUBLE COMPLEX :: counter_N0

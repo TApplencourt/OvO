@@ -10,8 +10,8 @@ bool almost_equal(complex<double> x, complex<double> y, int ulp) {
   return std::abs(x-y) <= std::numeric_limits<double>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<double>::min();
 }
 void test_target_parallel__for__simd() {
-  const int N0 { 512 };
-  const int N1 { 512 };
+  const int N0 { 182 };
+  const int N1 { 182 };
   const int size = N0*N1;
   std::vector<complex<double>> dst(size), src(size);
   std::generate(src.begin(), src.end(), std::rand);

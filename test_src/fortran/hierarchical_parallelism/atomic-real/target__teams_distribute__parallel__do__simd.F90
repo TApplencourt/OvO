@@ -8,11 +8,11 @@ FUNCTION almost_equal(x, gold, tol) RESULT(b)
 END FUNCTION almost_equal
 PROGRAM target__teams_distribute__parallel__do__simd
   implicit none
-  INTEGER :: N0 = 64
+  INTEGER :: N0 = 32
   INTEGER :: i0
-  INTEGER :: N1 = 64
+  INTEGER :: N1 = 32
   INTEGER :: i1
-  INTEGER :: N2 = 64
+  INTEGER :: N2 = 32
   INTEGER :: i2
   LOGICAL :: almost_equal
   REAL :: counter_N0

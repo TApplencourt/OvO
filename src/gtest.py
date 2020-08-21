@@ -471,18 +471,18 @@ class HP:  # ^(;,;)^
     def regions_associated_loop(self):
         """
         >>> HP(["target teams distribute"], {"collapse": 0}).regions_associated_loop
-        [[Idx(i='i0', N='N0', v=262144)]]
+        [[Idx(i='i0', N='N0', v=32768)]]
         >>> HP(["target teams distribute", "parallel"], {"collapse": 0}).regions_associated_loop
-        [[Idx(i='i0', N='N0', v=262144)], []]
+        [[Idx(i='i0', N='N0', v=32768)], []]
         >>> HP(["target teams distribute", "parallel for"], {"collapse": 0}).regions_associated_loop
-        [[Idx(i='i0', N='N0', v=512)], [Idx(i='i1', N='N1', v=512)]]
+        [[Idx(i='i0', N='N0', v=182)], [Idx(i='i1', N='N1', v=182)]]
         >>> HP(["target teams distribute"], {"collapse": 2}).regions_associated_loop
-        [[Idx(i='i0', N='N0', v=512), Idx(i='i1', N='N1', v=512)]]
+        [[Idx(i='i0', N='N0', v=182), Idx(i='i1', N='N1', v=182)]]
         """
 
         # Try to event out the loop iteration number
         if self.associated_loops_number:
-            loop_tripcount = max(1, math.ceil(math.pow(64 * 64 * 64, 1.0 / self.associated_loops_number)))
+            loop_tripcount = max(1, math.ceil(math.pow(32 * 32 * 32, 1.0 / self.associated_loops_number)))
         else:
             loop_tripcount = None
 

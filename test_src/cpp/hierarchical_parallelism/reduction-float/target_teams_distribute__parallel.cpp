@@ -10,7 +10,7 @@ bool almost_equal(float x, float gold, float tol) {
   return gold * (1-tol) <= x && x <= gold * (1 + tol);
 }
 void test_target_teams_distribute__parallel() {
-  const int N0 { 262144 };
+  const int N0 { 32768 };
   const float expected_value { N0 };
   float counter_N0{};
   #pragma omp target teams distribute map(tofrom: counter_N0) reduction(+: counter_N0)
