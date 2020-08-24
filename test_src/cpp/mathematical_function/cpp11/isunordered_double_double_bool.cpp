@@ -5,10 +5,10 @@
 #include <cstdlib>
 using namespace std;
 void test_isunordered(){
-   double in0 {  0.42 };
-   double in1 {  0.42 };
-   bool out2_host;
-   bool out2_device;
+   double in0 { 0.42 };
+   double in1 { 0.42 };
+   bool out2_host  ;
+   bool out2_device  ;
     out2_host =  isunordered( in0, in1);
    #pragma omp target map(from: out2_device )
    {

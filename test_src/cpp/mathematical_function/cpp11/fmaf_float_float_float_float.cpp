@@ -6,13 +6,13 @@
 using namespace std;
 bool almost_equal(float x, float y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
-   }
+}
 void test_fmaf(){
-   float in0 {  0.42 };
-   float in1 {  0.42 };
-   float in2 {  0.42 };
-   float out3_host;
-   float out3_device;
+   float in0 { 0.42 };
+   float in1 { 0.42 };
+   float in2 { 0.42 };
+   float out3_host  ;
+   float out3_device  ;
     out3_host =  fmaf( in0, in1, in2);
    #pragma omp target map(from: out3_device )
    {

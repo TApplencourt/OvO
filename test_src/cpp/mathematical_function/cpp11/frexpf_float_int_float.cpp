@@ -6,13 +6,13 @@
 using namespace std;
 bool almost_equal(float x, float y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
-   }
+}
 void test_frexpf(){
-   float in0 {  0.42 };
-   int out1_host;
-   int out1_device;
-   float out2_host;
-   float out2_device;
+   float in0 { 0.42 };
+   int out1_host  ;
+   int out1_device  ;
+   float out2_host  ;
+   float out2_device  ;
     out2_host =  frexpf( in0, &out1_host);
    #pragma omp target map(from: out1_device, out2_device )
    {

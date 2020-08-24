@@ -5,9 +5,9 @@
 #include <cstdlib>
 using namespace std;
 void test_isinf(){
-   float in0 {  0.42 };
-   bool out1_host;
-   bool out1_device;
+   float in0 { 0.42 };
+   bool out1_host  ;
+   bool out1_device  ;
     out1_host =  isinf( in0);
    #pragma omp target map(from: out1_device )
    {

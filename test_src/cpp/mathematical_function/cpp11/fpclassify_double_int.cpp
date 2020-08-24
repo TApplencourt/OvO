@@ -5,9 +5,9 @@
 #include <cstdlib>
 using namespace std;
 void test_fpclassify(){
-   double in0 {  0.42 };
-   int out1_host;
-   int out1_device;
+   double in0 { 0.42 };
+   int out1_host  ;
+   int out1_device  ;
     out1_host =  fpclassify( in0);
    #pragma omp target map(from: out1_device )
    {

@@ -5,9 +5,9 @@
 #include <cstdlib>
 using namespace std;
 void test_ilogb(){
-   float x {  0.42 };
-   int o_host;
-   int o_device;
+   float x { 0.42 };
+   int o_host  ;
+   int o_device  ;
     o_host =  ilogb( x);
    #pragma omp target map(from: o_device )
    {

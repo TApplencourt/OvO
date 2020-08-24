@@ -1,25 +1,42 @@
+{% if size %}
+#define PROB_SIZE {{size}}
+{% endif %}
+
 program test_{{name}}
 
    {% set is_cmplx = ( scalar_output.T.category == "complex") %}
 
    implicit none
+   {%if size %}
+   INTEGER :: i
+   {%endif %}
 
    {% for input in l_argv | selectattr('is_input')  %}
-   {{input.T}} :: {{input.name}} = ( {{input.val}} )
+   {{input.T}} :: {{input.name}} {%if size %} ( PROB_SIZE ) {%endif %}= ( {{input.val}} )
    {% endfor %}
  
-   {{scalar_output.T}} :: o_host, o_device 
+   {{scalar_output.T}} :: o_host{%if size %}(PROB_SIZE){%endif %}, o_device{%if size %}(PROB_SIZE){%endif %}
 
     o_host = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name') }})
 
-    !$OMP target map(from:o_device)
-    o_device = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name') }})
-    !$OMP END TARGET
 
+    !$OMP target map(from:o_device) {%if size %} map(to: {{ l_argv | selectattr('is_input') | join(', ',attribute='name') }} ) {% endif %}
+    {% if not size %}
+    o_device = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name') }})
+    {% else %}
+    !$OMP simd
+    DO I=1,PROB_SIZE
+        o_device = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name_idx') }})
+    END DO
+    {% endif %}
+    !$OMP END TARGET
+    
     {% if scalar_output.T.category in ("integer","bool")  %}
     IF  ( o_host .ne. o_device)  THEN
-    {% else %}
+    {% elif not size %}
     IF ( ABS(o_host-o_device) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} o_host {% if is_cmplx %} ) {%endif%}  )*4 ) THEN
+    {% else %}
+    IF ( ANY(ABS(o_host-o_device) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} o_host {% if is_cmplx %} ) {%endif%}  )*4 )) THEN
     {% endif %}
         write(*,*)  'Expected ', o_host, ' Got ', o_device
         STOP 112

@@ -5,9 +5,9 @@
 #include <cstdlib>
 using namespace std;
 void test_isnan(){
-   float in0 {  0.42 };
-   bool out1_host;
-   bool out1_device;
+   float in0 { 0.42 };
+   bool out1_host  ;
+   bool out1_device  ;
     out1_host =  isnan( in0);
    #pragma omp target map(from: out1_device )
    {

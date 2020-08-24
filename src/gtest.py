@@ -13,6 +13,13 @@ dirname = os.path.dirname(__file__)
 templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname, "template"))
 templateEnv = jinja2.Environment(loader=templateLoader)
 templateEnv.globals.update(zip=zip)
+# Custom filter method
+def get_idx(s,idx, attribute=None):
+    if not attribute:
+        return f'{s}[{idx}]'
+    else:
+        return f'{getattr(s,attribute)}[{idx}]'
+templateEnv.filters.update(get_idx=get_idx)
 
 #
 # | | _|_ o |  _
@@ -747,11 +754,12 @@ class ccomplex(object):
 
 
 class Argv:
-    def __init__(self, t, attr, argv):
+    def __init__(self, t, attr, argv, simdize):
         self.T = TypeSystem(t)
         self.attr = attr
         self.name = argv
         self.val = None
+        self.simdize = simdize
 
     @cached_property
     def is_argv(self):
@@ -766,20 +774,64 @@ class Argv:
             raise NotImplemented(f"{self.name} is not yet implemented as parameters of function")
 
     @cached_property
+    def name_idx(self):
+        return f"{self.name}(i)"
+
+    @cached_property
     def name_host(self):
         return f"{self.name}_host"
+
+    @cached_property
+    def name_host_idx(self):
+        str_ = f"{self.name}_host"
+        if not self.simdize:
+            return str_
+        else:
+            return f"{str_}[i]"
 
     @cached_property
     def name_device(self):
         return f"{self.name}_device"
 
     @cached_property
+    def name_device_idx(self):
+        str_ = f"{self.name}_device"
+        if not self.simdize:
+            return str_
+        else:
+            return f"{str_}[i]"
+
+    @cached_property
+    def map_clause_from(self):
+        str_ = f"{self.name}_device"
+        if not self.simdize:
+            return str_
+        else:
+            return f"{str_}[0:PROB_SIZE]"
+
+    @cached_property
+    def map_clause_to(self):
+        str_ = f"{self.name}"
+        if not self.simdize:
+            return str_
+        else:
+            return f"{str_}[0:PROB_SIZE]"
+
+    @cached_property
     def argv_host(self):
-        return self.argv_name("host")
+        str_ = self.argv_name("host")
+        if not self.simdize:
+            return str_
+        else:
+            return f"{str_}[i]"
 
     @cached_property
     def argv_device(self):
-        return self.argv_name("device")
+        str_ = self.argv_name("device")
+        if not self.simdize:
+            return str_
+        else:
+            return f"{str_}[i]"
 
     @cached_property
     def is_output(self):
@@ -812,12 +864,13 @@ class Math:
         "const char*": [None],
     }
 
-    def __init__(self, name, T, attr, argv, domain, language="cpp"):
+    def __init__(self, name, T, attr, argv, domain, size, language="cpp"):
         self.name = name
         if not argv:
             argv = [f"{j}{i}" for i, j in enumerate(attr)]
         self.language = language
-        self.l = self.create_l(T, attr, argv, domain)
+        self.l = self.create_l(T, attr, argv, size != 0, domain)
+        self.size = size
 
     @cached_property
     def ext(self):
@@ -827,8 +880,8 @@ class Math:
             return "F90"
         return NotImplementedError
 
-    def create_l(self, T, attr, argv, domain):
-        l = [Argv(t, a, b) for t, a, b in zip(T, attr, argv)]
+    def create_l(self, T, attr, argv, simdsize, domain):
+        l = [Argv(t, a, b, simdsize) for t, a, b in zip(T, attr, argv)]
 
         l_input = [t for t in l if t.is_input]
         # Got all the possible value of the input
@@ -883,7 +936,7 @@ class Math:
 
         template = templateEnv.get_template(f"mathematical_function.{self.ext}.jinja2")
 
-        str_ = template.render(name=self.name, l_argv=self.l, scalar_output=self.scalar_output, have_complex=self.have_complex)
+        str_ = template.render(name=self.name, l_argv=self.l, scalar_output=self.scalar_output, have_complex=self.have_complex, size=self.size)
         return format_template(str_, self.language)
 
 
@@ -898,6 +951,7 @@ def gen_mf(d_arg):
 
     std = d_arg["standart"]
     cmplx = d_arg["complex"]
+    size = d_arg["simdize"]
 
     if std.startswith("cpp") or std == "gnu":
         language = "cpp"
@@ -915,7 +969,10 @@ def gen_mf(d_arg):
     if d_arg["long"] and language == "fortran":
         return False
 
-    name_folder = [std] + [k for k, v in d_arg.items() if v == True]
+    name_folder = [std] + sorted([k for k, v in d_arg.items() if v is True])
+    if d_arg["simdize"]:
+        name_folder += [f"simdize_{d_arg['simdize']}"]
+
     folder = os.path.join("test_src", language, "mathematical_function", "-".join(name_folder))
     print(f"Generating {folder}")
 
@@ -933,9 +990,8 @@ def gen_mf(d_arg):
         lT = Y["type"]
         largv = Y["name"] if "name" in Y else []
         ldomain = Y["domain"] if "domain" in Y else []
-
         for T, attr, argv, domain in zip_longest(lT, lattribute, largv, ldomain):
-            m = Math(name, T, attr, argv, domain, language)
+            m = Math(name, T, attr, argv, domain, size, language)
             if ((m.use_long and d_arg["long"]) or (not m.use_long and not d_arg["long"])) and m.template_rendered:
                 with open(os.path.join(folder, m.filename), "w") as f:
                     f.write(m.template_rendered)
@@ -1004,6 +1060,12 @@ class EmptyIsTrue(argparse.Action):
             values = [True]
         setattr(namespace, self.dest, values)
 
+class EmptyIs32(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if len(values) == 0:
+            values = [32]
+        setattr(namespace, self.dest, values)
+
 
 class EmptyIsAllTestType(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
@@ -1025,7 +1087,7 @@ class EmptyIsSinglePrecision(argparse.Action):
 
 class EmptyIsOldStandart(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
-        possible_values = ["cpp11", "cpp17", "cpp20", "F77"]
+        possible_values = ["gnu", "cpp11", "cpp17", "cpp20", "F77"]
         if len(values) == 0:
             values = ["cpp11", "F77"]
         check_validy_arguments(possible_values, values, "Standart")
@@ -1106,7 +1168,7 @@ if __name__ == "__main__":
     # ~
     mf_parser = action_parsers.add_parser("mathematical_function")
     mf_parser.add_argument("--standart", nargs="*", action=EmptyIsOldStandart)
-
+    mf_parser.add_argument("--simdize", nargs="*", action=EmptyIs32, type=EvalArg)
     mf_parser.add_argument("--complex", nargs="*", action=EmptyIsTrue, type=EvalArg)
     mf_parser.add_argument("--long", nargs="*", action=EmptyIsTrue, type=EvalArg)
     mf_parser.add_argument("--append", action="store_true")
@@ -1124,7 +1186,7 @@ if __name__ == "__main__":
     if p.command == "tiers":
         if p.tiers >= 1:
             l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction"}}]
-            l_mf = [{"standart": {"cpp11", "F77"}, "complex": {True, False}}]
+            l_mf = [{"standart": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0 }]
 
         if p.tiers >= 2:
             l_hp += [
@@ -1135,6 +1197,8 @@ if __name__ == "__main__":
                 {"paired_pragmas": True, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
                 {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
             ]
+
+            l_mf += [{"standart": {"cpp11", "F77", "gnu"}, "complex": {True, False}, "simdize": [0,32]} ]  
 
     # Overwrite the default with the user values
     elif p.command == "hierarchical_parallelism":
@@ -1147,10 +1211,9 @@ if __name__ == "__main__":
         l_mf = []
     elif p.command == "mathematical_function":
         d_mf = {"standart": {"cpp11", "F77"}, "complex": {True, False}}
-
         for k, v in vars(p).items():
             if v:
-                d_hp[k] = v
+                d_mf[k] = v
         l_mf = [d_mf]
         l_hp = []
 

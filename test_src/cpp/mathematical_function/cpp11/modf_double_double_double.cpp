@@ -6,13 +6,13 @@
 using namespace std;
 bool almost_equal(double x, double y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<double>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<double>::min();
-   }
+}
 void test_modf(){
-   double in0 {  0.42 };
-   double out1_host;
-   double out1_device;
-   double out2_host;
-   double out2_device;
+   double in0 { 0.42 };
+   double out1_host  ;
+   double out1_device  ;
+   double out2_host  ;
+   double out2_device  ;
     out2_host =  modf( in0, &out1_host);
    #pragma omp target map(from: out1_device, out2_device )
    {

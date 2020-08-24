@@ -5,10 +5,10 @@
 #include <cstdlib>
 using namespace std;
 void test_isgreater(){
-   float in0 {  0.42 };
-   float in1 {  0.42 };
-   bool out2_host;
-   bool out2_device;
+   float in0 { 0.42 };
+   float in1 { 0.42 };
+   bool out2_host  ;
+   bool out2_device  ;
     out2_host =  isgreater( in0, in1);
    #pragma omp target map(from: out2_device )
    {

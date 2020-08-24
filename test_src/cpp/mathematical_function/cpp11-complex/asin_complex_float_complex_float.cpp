@@ -7,11 +7,11 @@
 using namespace std;
 bool almost_equal(complex<float> x, complex<float> y, int ulp) {
     return std::abs(x-y) <= std::numeric_limits<float>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<float>::min();
-   }
+}
 void test_asin(){
-   complex<float> x {  0.42, 0.0 };
-   complex<float> o_host;
-   complex<float> o_device;
+   complex<float> x { 0.42, 0.0 };
+   complex<float> o_host  ;
+   complex<float> o_device  ;
     o_host =  asin( x);
    #pragma omp target map(from: o_device )
    {

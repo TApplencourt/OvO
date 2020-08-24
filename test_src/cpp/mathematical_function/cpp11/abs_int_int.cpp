@@ -5,9 +5,9 @@
 #include <cstdlib>
 using namespace std;
 void test_abs(){
-   int in0 {  1 };
-   int out1_host;
-   int out1_device;
+   int in0 { 1 };
+   int out1_host  ;
+   int out1_device  ;
     out1_host =  abs( in0);
    #pragma omp target map(from: out1_device )
    {
