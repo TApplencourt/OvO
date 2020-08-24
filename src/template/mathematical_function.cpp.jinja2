@@ -1,3 +1,7 @@
+{% if size %}
+#define PROB_SIZE {{size}}
+{% endif %}
+
 {% if have_complex %}
 #include <complex>
 {% endif %}
@@ -6,6 +10,10 @@
 #include <limits>
 #include <iostream>
 #include <cstdlib>
+{% if size %}
+#include <algorithm>
+{% endif %}
+
 using namespace std;
 
 {% for output in l_argv | selectattr('is_output') | unique(attribute='T.without_pointer') %} 
@@ -16,38 +24,62 @@ bool almost_equal({{output.T.without_pointer}} x, {{output.T.without_pointer}} y
       {% elif output.T.category == "complex" %}
     return std::abs(x-y) <= std::numeric_limits<{{output.T.internal}}>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<{{output.T.internal}}>::min();
       {% endif %}
-   }
+}
    {% endif %}
 {% endfor %}
 
 void test_{{name}}(){
    {% for input in l_argv | selectattr('is_input')  %}
-   {{input.T}} {{input.name}} {  {{input.val}} };
+      {% if not size %}
+   {{input.T}} {{input.name}} { {{input.val}} };
+      {% else %}
+   {{input.T}} {{input.name}}[PROB_SIZE];
+          {% set is_cmplx = ( input.T.category == "complex") %}
+   std::fill({{input.name}}, {{input.name}} + SIZE, {% if is_cmplx %} {{input.T}}( {% endif %} {{input.val}} {% if is_cmplx %} ) {% endif %} );
+      {% endif %}
    {% endfor %}
 
    {% for output in l_argv | selectattr('is_output') %}
-   {{output.T.without_pointer}} {{output.name_host}};
-   {{output.T.without_pointer}} {{output.name_device}};
+   {{output.T.without_pointer}} {{output.name_host}} {% if size %}[PROB_SIZE] {% endif %} ;
+   {{output.T.without_pointer}} {{output.name_device}} {% if size %}[PRON_SIZE] {% endif %} ;
    {% endfor %}
 
-   {%if scalar_output %} {{scalar_output.name_host}} = {% endif %} {{name}}( {{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_host') }});
+    {%if size %}
+    for (int i= 0;  i < PROB_SIZE ; i++)
+    {% endif %}
+    {%if scalar_output %}{{scalar_output.name_host_idx}} = {% endif %} {{name}}( {{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_host') }});
    
-   #pragma omp target map(from: {{ l_argv | selectattr('is_output') | join(', ', attribute='name_device')  }} )
+   #pragma omp target map(from: {{ l_argv | selectattr('is_output') | join(', ', attribute='map_clause_from')  }} )  {%if size %} map(to: {{ l_argv | selectattr('is_input') | join(', ', attribute='map_clause_to')  }} ) {% endif %}
+
    {
-    {%if scalar_output %} {{scalar_output.name_device}} = {% endif %} {{name}}( {{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
+    {%if size %}
+    #pragma omp simd
+    for (int i= 0;  i < PROB_SIZE; i++) 
+    {% endif %}
+    {%if scalar_output %} {{scalar_output.name_device_idx}} = {% endif %} {{name}}( {{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
    }
+
+   {%if size %}
+   for (int i= 0;  i < PROB_SIZE; i++) 
+   {
+   {% endif %}
 
    {% for output in l_argv | selectattr('is_output')  %}
       {% if output.T.category in ("integer","bool")  %}
-   if ( {{output.name_host}} != {{output.name_device}} ) {
+   if ( {{output.name_host_idx}} != {{output.name_device_idx}} ) {
       {% else %}
-   if ( !almost_equal({{output.name_host}},{{output.name_device}}, 4) ) {
+   if ( !almost_equal({{output.name_host_idx}},{{output.name_device_idx}}, 4) ) {
       {% endif %}
-        std::cerr << std::setprecision (std::numeric_limits<{{output.T.internal}}>::max_digits10 ) << "Host: " << {{output.name_host}} << " GPU: " << {{output.name_device}} << std::endl;
+        std::cerr << std::setprecision (std::numeric_limits<{{output.T.internal}}>::max_digits10 ){% if size %} << "Idx: " << i << " " {% endif %} << "Host: " << {{output.name_host_idx}} << " GPU: " << {{output.name_device_idx}} << std::endl;
         {# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
         std::exit(112);
     }
     {% endfor %}
+
+
+   {%if size %}
+   }
+   {% endif %}
 }
 
 int main()
