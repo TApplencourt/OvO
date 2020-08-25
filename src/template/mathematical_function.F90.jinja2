@@ -31,12 +31,10 @@ program test_{{name}}
     {% endif %}
     !$OMP END TARGET
     
-    {% if scalar_output.T.category in ("integer","bool")  %}
-    IF  ( o_host .ne. o_device)  THEN
-    {% elif not size %}
-    IF ( ABS(o_host-o_device) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} o_host {% if is_cmplx %} ) {%endif%}  )*4 ) THEN
+    {% if scalar_output.T.category in ("integer","bool") %}
+    IF  ( {% if size %} ANY( {%endif%} o_host .ne. o_device {% if size %} ) {%endif%} ) THEN
     {% else %}
-    IF ( ANY(ABS(o_host-o_device) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} o_host {% if is_cmplx %} ) {%endif%}  )*4 )) THEN
+    IF ( {% if size %} ANY( {%endif%} ABS(o_host-o_device) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} o_host {% if is_cmplx %} ) {%endif%}  )*4  {% if size %} ) {%endif%} ) THEN
     {% endif %}
         write(*,*)  'Expected ', o_host, ' Got ', o_device
         STOP 112

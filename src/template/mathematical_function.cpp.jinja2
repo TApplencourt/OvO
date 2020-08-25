@@ -35,13 +35,13 @@ void test_{{name}}(){
       {% else %}
    {{input.T}} {{input.name}}[PROB_SIZE];
           {% set is_cmplx = ( input.T.category == "complex") %}
-   std::fill({{input.name}}, {{input.name}} + SIZE, {% if is_cmplx %} {{input.T}}( {% endif %} {{input.val}} {% if is_cmplx %} ) {% endif %} );
+   std::fill({{input.name}}, {{input.name}} + PROB_SIZE, {% if is_cmplx %} {{input.T}}( {% endif %} {{input.val}} {% if is_cmplx %} ) {% endif %} );
       {% endif %}
    {% endfor %}
 
    {% for output in l_argv | selectattr('is_output') %}
    {{output.T.without_pointer}} {{output.name_host}} {% if size %}[PROB_SIZE] {% endif %} ;
-   {{output.T.without_pointer}} {{output.name_device}} {% if size %}[PRON_SIZE] {% endif %} ;
+   {{output.T.without_pointer}} {{output.name_device}} {% if size %}[PROB_SIZE] {% endif %} ;
    {% endfor %}
 
     {%if size %}
