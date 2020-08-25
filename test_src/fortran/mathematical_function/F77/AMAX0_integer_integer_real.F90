@@ -7,7 +7,7 @@ program test_AMAX0
     !$OMP target map(from:o_device)
     o_device = AMAX0( in0, in1)
     !$OMP END TARGET
-    IF ( ABS(o_host-o_device) > EPSILON(  o_host   )*4 ) THEN
+    IF (  ABS(o_host-o_device) > EPSILON(  o_host   )*4   ) THEN
         write(*,*)  'Expected ', o_host, ' Got ', o_device
         STOP 112
     ENDIF

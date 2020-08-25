@@ -6,7 +6,7 @@ program test_INT
     !$OMP target map(from:o_device)
     o_device = INT( in0)
     !$OMP END TARGET
-    IF  ( o_host .ne. o_device)  THEN
+    IF  (  o_host .ne. o_device  ) THEN
         write(*,*)  'Expected ', o_host, ' Got ', o_device
         STOP 112
     ENDIF
