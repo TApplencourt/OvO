@@ -14,11 +14,13 @@ templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname, "templ
 templateEnv = jinja2.Environment(loader=templateLoader)
 templateEnv.globals.update(zip=zip)
 # Custom filter method
-def get_idx(s,idx, attribute=None):
+def get_idx(s, idx, attribute=None):
     if not attribute:
-        return f'{s}[{idx}]'
+        return f"{s}[{idx}]"
     else:
-        return f'{getattr(s,attribute)}[{idx}]'
+        return f"{getattr(s,attribute)}[{idx}]"
+
+
 templateEnv.filters.update(get_idx=get_idx)
 
 #
@@ -251,10 +253,8 @@ class HP:  # ^(;,;)^
 
         # Explicit is better than implicit.
         # So this is ugly... But really usefull when testing
-        # d_args keys containt [data_type, test_type, no_user_defined_reduction, paired_pragmas, loop_pragma, collapse]
-
-        # Put default value from some args. Easier for testing.
-        for k in ["intermediate_result", "multiple_devices", "host_threaded", "no_user_defined_reduction", "paired_pragmas", "loop_pragma"]:
+        # hp_d_possible_value is a global variable who contain as a key all the possible option
+        for k in hp_d_possible_value:
             setattr(self, k, False)
 
         setattr(self, "collapse", 0)
@@ -1037,109 +1037,95 @@ def gen_hp(d_arg, omp_construct):
         HP(path, d_arg).write_template_rendered(folder)
 
 
-#
-# ___
-#  |  ._  ._     _|_   |   _   _  o  _
-# _|_ | | |_) |_| |_   |_ (_) (_| | (_
-#         |                    _|
-#
-def check_validy_arguments(possible_values, values, type_):
-    wrong_value = set(values) - set(possible_values)
-    if wrong_value:
-        print(ovo_usage)
-        print(f"{wrong_value} are not valid {type_}. Please choose in {possible_values}")
-        sys.exit()
-
-
-import argparse
-
-
-class EmptyIsTrue(argparse.Action):
-    def __call__(self, parser, namespace, values, option_string=None):
-        if len(values) == 0:
-            values = [True]
-        setattr(namespace, self.dest, values)
-
-class EmptyIs32(argparse.Action):
-    def __call__(self, parser, namespace, values, option_string=None):
-        if len(values) == 0:
-            values = [32]
-        setattr(namespace, self.dest, values)
-
-
-class EmptyIsAllTestType(argparse.Action):
-    def __call__(self, parser, namespace, values, option_string=None):
-        possible_values = ["atomic", "reduction", "memcopy"]
-        if len(values) == 0:
-            values = possible_values
-        check_validy_arguments(possible_values, values, "test type")
-        setattr(namespace, self.dest, values)
-
-
-class EmptyIsSinglePrecision(argparse.Action):
-    def __call__(self, parser, namespace, values, option_string=None):
-        possible_values = ["float", "complex<float>", "double", "complex<double>", "REAL", "COMPLEX", "DOUBLE PRECISION", "DOUBLE COMPLEX"]
-        if len(values) == 0:
-            values = ["float", "REAL"]
-        check_validy_arguments(possible_values, values, "data type")
-        setattr(namespace, self.dest, values)
-
-
-class EmptyIsOldStandart(argparse.Action):
-    def __call__(self, parser, namespace, values, option_string=None):
-        possible_values = ["gnu", "cpp11", "cpp17", "cpp20", "F77"]
-        if len(values) == 0:
-            values = ["cpp11", "F77"]
-        check_validy_arguments(possible_values, values, "Standart")
-        setattr(namespace, self.dest, values)
-
-
-class EmptyIsOne(argparse.Action):
-    def __call__(self, parser, namespace, values, option_string=None):
-        if not values:
-            values = [1]
-        setattr(namespace, self.dest, values)
-
-
-def EvalArg(v, msg="Boolean value expected."):
-    try:
-        return eval(v)
-    except:
-        raise argparse.ArgumentTypeError(msg)
-
-
 # ___        _
 #  | _  _|_ |_)_ ._._ _   _|_ _._|_o _ ._
 #  |(/_><|_ | (/_| | | ||_||_(_| |_|(_)| |
 #
-
-
-class hashabledict(dict):
-    def __hash__(self):
-        return hash(frozenset(self))
-
-    def __missing__(self, key):
-        return False
-
-
 def gen_all_permutation(d_args):
     """
     Trust me on this one...
+    Used to make the cartesian product of the list of options
     >>> list(gen_all_permutation({"b":["nvdia","intel"],"a":["x86","V100"]}))
     [{'b': 'nvdia', 'a': 'x86'}, {'b': 'nvdia', 'a': 'V100'}, {'b': 'intel', 'a': 'x86'}, {'b': 'intel', 'a': 'V100'}]
     >>> list(gen_all_permutation({"b":"intel","a":["x86","V100"]}))
     [{'b': 'intel', 'a': 'x86'}, {'b': 'intel', 'a': 'V100'}]
     """
+    class hashabledict(dict):
+        def __hash__(self):
+            return hash(frozenset(self))
+        def __missing__(self, key):
+            return False
+
     to_iterable = lambda v: v if isinstance(v, (list, set)) else [v]
     l_values = map(to_iterable, d_args.values())
     for p in product(*l_values):
         yield hashabledict(zip(d_args.keys(), p))
+
+#    _    ___    _                    
+#   /  |   |    |_) _. ._ _ o ._   _  
+#   \_ |_ _|_   |  (_| | _> | | | (_| 
+#                                  _| 
+
+hp_d_possible_value = {
+    "test_type": {"memcopy", "atomic", "reduction"},
+    "data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"},
+    "loop_pragma": bool,
+    "paired_pragmas": bool,
+    "no_user_defined_reduction": bool,
+    "host_threaded": bool,
+    "multiple_devices": bool,
+    "intermediate_result": bool,
+    "collapse": int,
+}
+
+hp_d_default_value = defaultdict(lambda: False)
+hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic", "reduction"}, "collapse": [0]})
+
+
+mf_d_possible_value = {"standart": {"gnu", "cpp11", "cpp17", "cpp20", "F77"}, "simdize": int, "complex": bool, "long": bool}
+
+mf_d_default_value = defaultdict(lambda: False)
+mf_d_default_value.update({"standart": {"cpp11", "F77"}, "complex": {True, False}})
+
+
+def update_opt(p, d, d_possible):
+    def error(k, i, footer):
+        print(ovo_usage)
+        print(f"Error: {i} is not a valid argument for --{k}")
+        print("       " + footer)
+        sys.exit(1)
+
+    for k, v in vars(p).items():
+        if v is None or k not in d_possible:
+            continue
+        f = d_possible[k]
+        for i in v:
+            if isinstance(f, set):
+                if not i in f:
+                    error(k, i, f"Please use one in {f}")
+                else:
+                    d[k] = i
+            elif f == int:
+                try:
+                    u = int(i)
+                except:
+                    error(k, i, "Please use a possitive sclar")
+                else:
+                    if u < 0:
+                        error(k, i, "Please use a possitive sclar")
+                    d[k] = u
+            elif f == bool:
+                if i.lower() not in ("true", "false", "0", "1"):
+                    error(k, i, "Please use a boolean (True, False, 0, 1)")
+                else:
+                    d[k] = bool(i.lower())
 
 
 if __name__ == "__main__":
     with open(os.path.join(dirname, "template", "ovo_usage.txt")) as f:
         ovo_usage = f.read()
 
+    import argparse
     parser = argparse.ArgumentParser(usage=ovo_usage)
 
     action_parsers = parser.add_subparsers(dest="command")
@@ -1154,41 +1140,35 @@ if __name__ == "__main__":
     # hierarchical_parallelism
     # ~
     hp_parser = action_parsers.add_parser("hierarchical_parallelism")
-
-    hp_parser.add_argument("--test_type", nargs="*", action=EmptyIsAllTestType)
-    hp_parser.add_argument("--data_type", nargs="*", action=EmptyIsSinglePrecision)
-    hp_parser.add_argument("--collapse", nargs="*", action=EmptyIsOne, type=lambda l: EvalArg(l, "integer value is expected"))
-    hp_parser.add_argument("--append", action="store_true")
-    # Boolean test
-    for opt in ("loop_pragma", "paired_pragmas", "no_user_defined_reduction", "host_threaded", "multiple_devices", "intermediate_result"):
-        hp_parser.add_argument(f"--{opt}", nargs="*", action=EmptyIsTrue, type=EvalArg)
+    for opt in hp_d_possible_value:
+        hp_parser.add_argument(f"--{opt}", nargs="*")
 
     # ~
     # mathematical_function
     # ~
     mf_parser = action_parsers.add_parser("mathematical_function")
-    mf_parser.add_argument("--standart", nargs="*", action=EmptyIsOldStandart)
-    mf_parser.add_argument("--simdize", nargs="*", action=EmptyIs32, type=EvalArg)
-    mf_parser.add_argument("--complex", nargs="*", action=EmptyIsTrue, type=EvalArg)
-    mf_parser.add_argument("--long", nargs="*", action=EmptyIsTrue, type=EvalArg)
-    mf_parser.add_argument("--append", action="store_true")
+    for opt in mf_d_possible_value:
+        mf_parser.add_argument(f"--{opt}", nargs="*")
 
     # ~
     # Parsing logic
     # ~
     p = parser.parse_args()
-    # By default we use 'tiers 1'
-    if not p.command:
-        p.command = "tiers"
-        p.tiers = 1
 
-    # Tiers logic
-    if p.command == "tiers":
-        if p.tiers >= 1:
+    # Now add the default, and check for validity
+    if p.command == "hierarchical_parallelism":
+        d = dict(hp_d_default_value)
+        update_opt(p, d, hp_d_possible_value)
+        l_hp = [d]; l_mf = []
+    elif p.command == "mathematical_function":
+        d = dict(mf_d_default_value)
+        update_opt(p, d, mf_d_possible_value)
+        l_mf = [d]; l_hp = []
+    else:
+        if not p.command or p.tiers == 1:
             l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction"}}]
-            l_mf = [{"standart": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0 }]
-
-        if p.tiers >= 2:
+            l_mf = [{"standart": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0}]
+        if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
                 {"loop_pragma": True, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
                 {"intermediate_result": True, "data_type": {"REAL", "float"}, "test_type": "atomic"},
@@ -1197,25 +1177,7 @@ if __name__ == "__main__":
                 {"paired_pragmas": True, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
                 {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
             ]
-
-            l_mf += [{"standart": {"cpp11", "F77", "gnu"}, "complex": {True, False}, "simdize": [0,32]} ]  
-
-    # Overwrite the default with the user values
-    elif p.command == "hierarchical_parallelism":
-        d_hp = {"test_type": {"atomic", "reduction", "memcopy"}, "data_type": {"float", "REAL"}}
-
-        for k, v in vars(p).items():
-            if v:
-                d_hp[k] = v
-        l_hp = [d_hp]
-        l_mf = []
-    elif p.command == "mathematical_function":
-        d_mf = {"standart": {"cpp11", "F77"}, "complex": {True, False}}
-        for k, v in vars(p).items():
-            if v:
-                d_mf[k] = v
-        l_mf = [d_mf]
-        l_hp = []
+            l_mf += [{"standart": {"cpp11", "F77", "gnu"}, "complex": {True, False}, "simdize": [0, 32]}]
 
     l_hp_unique = set(chain.from_iterable(gen_all_permutation(d) for d in l_hp))
     l_mf_unique = set(chain.from_iterable(gen_all_permutation(d) for d in l_mf))
