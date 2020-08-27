@@ -1165,7 +1165,7 @@ if __name__ == "__main__":
         update_opt(p, d, mf_d_possible_value)
         l_mf = [d]; l_hp = []
     else:
-        if not p.command or p.tiers == 1:
+        if not p.command or p.tiers >= 1:
             l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction"}}]
             l_mf = [{"standart": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0}]
         if p.command == "tiers" and p.tiers >= 2:
