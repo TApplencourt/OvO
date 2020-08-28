@@ -1068,7 +1068,7 @@ def gen_all_permutation(d_args):
 
 hp_d_possible_value = {
     "test_type": {"memcopy", "atomic", "reduction"},
-    "data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"},
+    "data_type": {"REAL", "DOUBLE PRECISION", "float", "double", "complex<float>", "complex<double>", "COMPLEX", "DOUBLE COMPLEX"},
     "loop_pragma": bool,
     "paired_pragmas": bool,
     "no_user_defined_reduction": bool,
@@ -1082,7 +1082,7 @@ hp_d_default_value = defaultdict(lambda: False)
 hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic", "reduction"}, "collapse": [0]})
 
 
-mf_d_possible_value = {"standart": {"gnu", "cpp11", "cpp17", "cpp20", "F77"}, "simdize": int, "complex": bool, "long": bool}
+mf_d_possible_value = {"standart": {"gnu", "cpp11", "cpp17", "cpp20", "F77","gnu"}, "simdize": int, "complex": bool, "long": bool}
 
 mf_d_default_value = defaultdict(lambda: False)
 mf_d_default_value.update({"standart": {"cpp11", "F77"}, "complex": {True, False}})
@@ -1142,13 +1142,14 @@ if __name__ == "__main__":
     hp_parser = action_parsers.add_parser("hierarchical_parallelism")
     for opt in hp_d_possible_value:
         hp_parser.add_argument(f"--{opt}", nargs="*")
-
+    hp_parser.add_argument('--append', action='store_true' )
     # ~
     # mathematical_function
     # ~
     mf_parser = action_parsers.add_parser("mathematical_function")
     for opt in mf_d_possible_value:
         mf_parser.add_argument(f"--{opt}", nargs="*")
+    mf_parser.add_argument('--append', action='store_true' )
 
     # ~
     # Parsing logic
@@ -1178,6 +1179,21 @@ if __name__ == "__main__":
                 {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
             ]
             l_mf += [{"standart": {"cpp11", "F77", "gnu"}, "complex": {True, False}, "simdize": [0, 32]}]
+        if p.command == "tiers" and p.tiers >= 2:
+             d1 = dict(hp_d_possible_value)
+             for k,v in d1.items():
+                 if v == bool:
+                     d1[k] = [True,False]
+             d1['collapse'] = [1,3,5]
+             l_hp = [d1]
+
+             d2 = dict(mf_d_possible_value)
+             for k,v in d2.items():
+                 if v == bool:
+                     d2[k] = [True,False]
+             d2['simdize'] = [1,32]
+             l_mf = [d2]
+
 
     l_hp_unique = set(chain.from_iterable(gen_all_permutation(d) for d in l_hp))
     l_mf_unique = set(chain.from_iterable(gen_all_permutation(d) for d in l_mf))

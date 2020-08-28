@@ -19,7 +19,9 @@ Usage:
   ovo.sh gen mathematical_function [--standart [cpp11|cpp17|cpp20|f77]... ]
                                    [--complex [True|False] ]
                                    [--long [True|False] ]
+                                   [--simdize [N] ...]
                                    [--append]
+
   ovo.sh run [<test_folder>...]
   ovo.sh report [ --summary | --failed | --passed ] [--tablefmt (github|tsv|jira)]  ] [<result_folder>...]
   ovo.sh clean
