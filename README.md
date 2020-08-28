@@ -15,10 +15,6 @@ OvO is a collection of OpenMP offloading tests for [C++](https://github.com/TApp
 OvO is focused on testing extensively [hierarchical parallelism](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/) and [mathematical functions](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/mathematical_function/).
 
 You can find the slides of some OvO presentations we did in the [documentation](https://github.com/TApplencourt/OvO/tree/master/documentation/) folder.
-
-Bug report and PR a more than welcome! The OpenMP specification can be tricky. Also
->Some people, when confronted with a problem, think "I know, I'll use ~~regular expressions~~ metaprogramming." Now they have two problems.
-
 ```
 $ ./ovo.sh -h
 OvO an OpenMP test generator.
@@ -49,8 +45,12 @@ Usage:
   ovo.sh report [ --summary | --failed | --passed ] [--tablefmt (github|tsv|jira)]  ] [<result_folder>...]
   ovo.sh clean
   ovo.sh (-h | --help)
-
 ```
+
+Bug report and PR a more than welcome! The OpenMP specification can be tricky. And we use metaprograming to generate the test so, to pastiche Jamie Zawinski: 
+>Some people, when confronted with a problem, think "I know, I'll use ~~regular expressions~~ metaprogramming." Now they have two problems.
+
+
 # Get me started
 
 ```
@@ -162,9 +162,7 @@ pip install requirements.txt
 
 More than 100,000 tests are available. For convenience, we bundle them in `tiers`. 
 
-To generate new tests, please use `ovo.sh gen`. By default, it will generate `tiers 1` tests. 
-But if you feel adventurous, you can use: `ovo.sh tiers 3`.
-
+To generate new tests, please use `ovo.sh gen`. By default, it will generate `tiers 1` tests.  But if you feel adventurous, you can use: `ovo.sh tiers 3`. See more section for more information.
 
 # To much information about flags
 ```
