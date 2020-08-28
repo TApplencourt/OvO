@@ -1179,7 +1179,7 @@ if __name__ == "__main__":
                 {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
             ]
             l_mf += [{"standart": {"cpp11", "F77", "gnu"}, "complex": {True, False}, "simdize": [0, 32]}]
-        if p.command == "tiers" and p.tiers >= 2:
+        if p.command == "tiers" and p.tiers >= 3:
              d1 = dict(hp_d_possible_value)
              for k,v in d1.items():
                  if v == bool:
