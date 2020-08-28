@@ -50,7 +50,20 @@ Usage:
 Bug report and PR a more than welcome! The OpenMP specification can be tricky. And we use metaprograming to generate the test so, to pastiche Jamie Zawinski: 
 >Some people, when confronted with a problem, think "I know, I'll use ~~regular expressions~~ metaprogramming." Now they have two problems.
 
-
+## Requirement
+  - python3
+  - OpenMP compiler (obviously). We recommend an OpenMP 5.0 spec-complied compiler. Some test map and reduce a variable in the same combined construct
+  - C++11 compiler
+  - [jinja](https://jinja.palletsprojects.com/en/2.11.x/) (optional, only needed if you are wanting to generate tests that are not in the in the repo)
+```
+conda install --file requirements.txt
+```
+or
+```
+pip install requirements.txt
+```
+  - make >4.0  Make 4.0 introduce the ` --output-sync` option to serialize make output. If you use a version of make older than 4.0, we will compile the tests serially.
+  
 # Get me started
 
 ```
@@ -145,18 +158,6 @@ Two log files are also created one for the compilation (`compilation.log`), and 
   - Error code `112` corresponds to an incorrect result. 
   - Error `124` or `137` corresponds to a test which was hanging and killed by `timeout`. 
 
-## Requirement
-  - python3
-  - OpenMP compiler (obviously). We recommend an OpenMP 5.0 spec-complied compiler. Some test map and reduce a variable in the same combined construct
-  - C++11 compiler
-  - [jinja](https://jinja.palletsprojects.com/en/2.11.x/) (optional,  needed to generate more tests. See next section)
-```
-conda install --file requirements.txt
-```
-or
-```
-pip install requirements.txt
-```
 
 ## List of tests available
 
