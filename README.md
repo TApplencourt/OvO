@@ -8,35 +8,97 @@
 ```
 [![Build Status](https://travis-ci.org/TApplencourt/OvO.svg?branch=master)](https://travis-ci.org/TApplencourt/OvO)
 
-OvO containt a large set of tests OpenMP offloading of [C++](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp) and [FORTRAN](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran). More than 30k can be generated, and arround 1k are avalaible directly in this repo. 
+OvO is a collection of OpenMP Offloading test functions for  C++ and Fortran.
+
+
+OvO is a collection of OpenMP offloading tests for [C++](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp) and [FORTRAN](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran). 
 OvO is focused on testing extensively [hierarchical parallelism](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/) and [mathematical functions](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/mathematical_function/).
-Presentation we did on OvO are avalaible in the [documentation](https://github.com/TApplencourt/OvO/tree/master/documentation/) folder.
 
-For hierarchical parallelism, we generate *all* possible OpenMP loop-nests containing any combination of `target, teams, distribute, parallel for`, including combined pragma.
+You can find the slides of some OvO presentations we did in the [documentation](https://github.com/TApplencourt/OvO/tree/master/documentation/) folder.
 
-All tests are checked for compilation and correctness. Bellow is a simple C++ hierarchical parallelism kernel present in this repo:
+Bug report and PR a more than welcome! The OpenMP specification can be tricky. Also
+>Some people, when confronted with a problem, think "I know, I'll use ~~regular expressions~~ metaprogramming." Now they have two problems.
+
+```
+$ ./ovo.sh -h
+OvO an OpenMP test generator.
+Usage:
+  ovo.sh gen
+  ovo.sh gen tiers [1|2|3]
+  ovo.sh gen hierarchical_parallelism [--test_type [atomic|reduction|memcopy]...]
+                                      [--data_type [float|'complex<float>'|
+                                                    double|'complex<double>'|
+                                                    REAL|COMPLEX|
+                                                    'DOUBLE PRECISION'|'DOUBLE COMPLEX']... ]
+                                      [--loop_pragma [True|False] ]
+                                      [--paired_pragmas [True|False] ]
+                                      [--multi_devices [True|False] ]
+                                      [--host_threaded [True|False] ]
+                                      [--intermediate_result [True|False] ]
+                                      [--no_user_defined_reduction [True|False] ]
+                                      [--collapse [N]...]
+                                      [--append]
+
+  ovo.sh gen mathematical_function [--standart [cpp11|cpp17|cpp20|gnu|f77]... ]
+                                   [--complex [True|False] ]
+                                   [--long [True|False] ]
+                                   [--simdize [N]...]
+                                   [--append]
+
+  ovo.sh run [<test_folder>...]
+  ovo.sh report [ --summary | --failed | --passed ] [--tablefmt (github|tsv|jira)]  ] [<result_folder>...]
+  ovo.sh clean
+  ovo.sh (-h | --help)
+
+```
+# Get me started
+
+```
+OMP_TARGET_OFFLOAD=mandatory CXX="g++" CXXFLAGS="-fopenmp" FC="gfortran" FFLAGS="-fopenmp"./ovo.sh run
+[...]
+./ovo.sh report
+>> Overall result test_result/1957-04-01_19-02_CDC6600.lanl.gov
+  pass rate(%)    test(#)    success(#)    compilation error(#)    runtime error(#)    wrong value(#)    hang(#)
+--------------  ---------  ------------  ----------------------  ------------------  ----------------  ---------
+          100%       7539          7539                       0                   0                 0          0
+```
+
+# <<Gentlemen you had my curiosity ... but now you have my attention>>
+
+## Hierarchical parallelism tests
+
+We generate 3 types of kernels: Kernel who perform a reduction using `atomic`, kernel who perform a reduction using the OpenMP `reduction` pragma, and memory copy kernel. For each type of kernel, we generate *all* possible OpenMP loop-nests containing any combination of `target, teams, distribute, parallel for`, including combined pragma.  Single precision and double precision complex datatype are used. More datatype s are available if needed.
+
+The code below is an example of a code OvO can generate. It's a kernel using 'atomic' to perform a float reduction.  Note the absence of `for` in the parallel section.
+
 ```cpp
+float counter_N0 {}
 #pragma omp target map(tofrom: counter_N0)
 #pragma omp teams distribute
 for (int i0 = 0 ; i0 < N0 ; i0++ )
 {
-  #pragma omp parallel for
-  for (int i1 = 0 ; i1 < N1 ; i1++ )
+  #pragma omp parallel
   {
      #pragma omp atomic update
-     counter_N0 = counter_N0 +  1. ;
+     counter_N0 = counter_N0 + 1./omp_get_num_theads();
    }
 }
-assert (counter_N0 != N0*N1);
+assert (counter_N0 != N0);
 ```
+The real code can be found [here](https://github.com/TApplencourt/OvO/blob/master/test_src/cpp/hierarchical_parallelism/atomic-float/target__teams_distribute__parallel.cpp)
+
+## Mathematical tests
+
+We test if all functions of a specified standard are able to be offloaded.  The Offloaded result should match the CPU result with 4 ulp preference. 
+
 
 ## Running 
 
 To run OvO simply type `./ovo.sh run`. Log files will be saved in the newly created `test_result` folder. 
 OvO will respect any usual environement provided by the user (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD`). 
-OvO will also respect the special `OVO_TIMEOUT` enviroment who control the timeout used to kill too-long running tests (by default `15s`).
+OvO will also respect the special `OVO_TIMEOUT` environment who controls the timeout used to kill too-long running tests (by default `15s`).
 
-You can find commonly used flags for various compiler in [/documentation/README.md](https://github.com/TApplencourt/OvO/tree/master/documentation/README.md). PR are welcomed, for new version of compilers. 
+You can find commonly used flags for various compilers in [/documentation/README.md](https://github.com/TApplencourt/OvO/tree/master/documentation/README.md). PR are welcomed, for new versions of compilers. 
 
 Bellow is a simple run using GCC compiler:
 ```
@@ -77,11 +139,11 @@ A summary of the result can be obtained with `./ovo.sh report`. Example of outpu
 
 You can also use `./ovo.sh report --failed` to get a list of tests that failed for more thoughtful investigation.
 
-All information on the execution of the tests is available in the subfolder of `test_result` corresponding to our run (for example `./test_result/1957-04-01_19-02_CDC6600.lanl.gov/cpp/hierarchical_parallelism/memcopy-real`).
+All information on the execution of the tests is available in the subfolder of `test_result` corresponding to our run (for example, `./test_result/1957-04-01_19-02_CDC6600.lanl.gov/cpp/hierarchical_parallelism/memcopy-real`).
 The environment used to tun the test is available in `env.log`. 
 Two log files are also created one for the compilation (`compilation.log`), and one for the runtime (`runtime.log`).
   - Error code `112` corresponds to an incorrect result. 
-  - Error `124` or `137` corresponds to a test that was hanging and was killed by `timeout`. 
+  - Error `124` or `137` corresponds to a test which was hanging and killed by `timeout`. 
 
 ## Requirement
   - python3
@@ -98,46 +160,87 @@ pip install requirements.txt
 
 ## List of tests available
 
-More than 18,000 tests are available. For convenience, we bundle them in `tiers`. 
-By default, the `Tiers 1` test are saved in the `OvO` directory.
+More than 100,000 tests are available. For convenience, we bundle them in `tiers`. 
 
+To generate new tests, please use `ovo.sh gen`. By default, it will generate `tiers 1` tests. 
+But if you feel adventurous, you can use: `ovo.sh tiers 3`.
+
+
+# To much information about flags
 ```
-|===========\
-|Tiers 1     \
-|-------------\
-|Test          \
-|  - Atomic     \
-|  - Memcopy     \
-|  - Reduction    \
-|Datatype          \
-|  - float, REAL    \
-|  - complex<double> \
-|  - DOUBLE COMPLEX   \
-|======================\
-|Tiers 2                \
-|------------------------\
-|  - Collapse + Memcopy   \
-|  - Intermidate result +  \
-|       Atomic              \ 
-|  - Host threaded +         \
-|       { Atomic, Memcopy,    \
-|         Reduction }          \
-|===============================\
-|Tiers 3                         \
-|---------------------------------\
-| - loop pragma                    \
-|DataType                           \
-| - double, complex<float>           \
-| - DOUBLE PRECISION, COMPLEX         \
-| Cartesian production of all options  \
+Explanation of `gen`:
+    gen              Generate tests correspond to tiers 1
+    gen tiers        Generate tests corresponding to different tiers.
+                     Tiers 1 list of tests:
+                        hierarchical_parallelism cpp:
+                            atomic-float,
+                            memcopy-complex_double, memcopy-float,
+                            reduction-complex_double, reduction-float
+                        hierarchical_parallelism fortran:
+                            atomic-real,
+                            memcopy-double_complex, memcopy-real,
+                            reduction-double_complex, reduction-real
+                        mathematical_function cpp
+                            cpp11, cpp11-complex
+                        mathematical_function fortran
+                            F77, F77-complex
+                     Tiers 2:
+                        hierarchical_parallelism cpp:
+                            atomic-float, atomic-float-host_threaded, atomic-float-intermediate_result,
+                            memcopy-complex_double, memcopy-float, memcopy-float-collapse_n2, memcopy-float-loop_pragma
+                            reduction-complex_double, reduction-float, reduction-float-multiple_devices
+                        hierarchical_parallelism fortran:
+                            atomic-real, atomic-real-host_threaded, atomic-real-intermediate_result
+                            memcopy-double_complex, memcopy-real, memcopy-real-collapse_n2, memcopy-real-loop_pragma
+                            memcopy-real-paired_pragmas, reduction-double_complex
+                            reduction-real, reduction-real-multiple_devices
+                    Tiers 3:
+                        All possible combinaison
+
+Argument explanations for hierarchical_parallelism:
+    --test_type      Choose the kind of tests you want to generate.
+                       - atomic tests will use OpenMP `atomic` construct to perform a reduction.
+                       - reduction tests will use OpenMP `reduction` construct to perform a reduction.
+                       - memcopy tests perform a memory copy.
+    --data_type      Trigger for which data type will be used in the tests. Uppercase type corresponds to Fortran datatype.
+    --loop_pragma    Trigger for use OpenMP 5.0 "loop" construct
+    --paired_pragmas Fortran Only. Will generate tests that use optional "$OMP END" constructs.
+    --multi_devices  Tests will be offloaded to all the GPU available.
+    --host_threaded  Tests will be offloaded by multiple host threaded
+    --intermediate_result
+                     Reduction and Atmoc tests will use intermediate results to perform their reduction.
+    --collapse
+                     All the loops will be duplicate N time, and `omp collapse` will be used.
+    --no_user_defined_reduction
+                     Only impact reduction with C++ complex datatype. Tests will not use `omp declare reduction` construct".
+
+Argument explanations for mathematical_function:
+    --standart       Correspond to with standart used to generate math function.
+    --complex        Triger for complex math functions
+    --long           Triger to use C++ long datatype if possible
+    --simdize        Triger to put math function inside a 'simd' region
+
+
+Explanation of `run`
+    <test_folder>    List of tests-folder. OvO will recurse on those folders to executes tests,
+
+Explanation of `report`
+    --summary        Print for each group of tests the pass rate
+    --failed         Print all the test which failed
+    --passed         Print all the test which passed
+    --tablefmt       Can be used to change for formating of the table (useful for copy/pasting in Excel for example)
+
+Example:
+
+  Generate the `tiers 2` set of tests:
+     ./ovo.sh gen tiers 2
+
+  Generate hierarchical_parallelism reduction tests with REAL (fortran) and complex<float>(c++) datatype with and without multi-devices support:
+    ./ovo.sh gen hierarchical_parallelism  --test_type reduction --data_type REAL "complex<float>" --multiple_devices True False
+
+  Run only the Fortran tests
+    ./ovo.sh run ./test_src/fortran
+
+  Print for each tests group a summary of the pass rate:
+    ./ovo.sh report --summary --failed
 ```
-
-- Intermidate result: Use temporary variables to store loop-nest partial results.
-- Collapse: Generate using with `collapse(2)` clause.
-- Loop pragma: Use the OpenMP 5.0 `loop` construct
-- Host threaded: Generate tests where the target region is enclosed in a host parallel for.
-
-
-To generate new tests, please use `ovo.sh gen`. By default, it will generate `tiers 1` tests. But if you feel adventurous, you can type:
-`ovo.sh tiers 3`.
-
