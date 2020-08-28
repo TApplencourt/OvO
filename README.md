@@ -52,7 +52,7 @@ Bug reports and PRs are more than welcome! The OpenMP specification can be trick
 
 ## Requirement
   - python3
-  - OpenMP compiler (obviously). We recommend an OpenMP 5.0 spec-compliant compiler. Some test map and reduce a variable in the same combined construct
+  - OpenMP compiler (obviously). We recommend an OpenMP 5.0 spec-compliant compiler. Some test `map` and `reduce` a variable in the same combined construct
   - C++11 compiler
   - [jinja](https://jinja.palletsprojects.com/en/2.11.x/) (optional, only needed if you want to generate tests that are not in the repo)
 ```
@@ -76,7 +76,7 @@ OMP_TARGET_OFFLOAD=mandatory CXX="g++" CXXFLAGS="-fopenmp" FC="gfortran" FFLAGS=
           100%       7539          7539                       0                   0                 0          0
 ```
 
-# <<Gentlemen you had my curiosity ... but now you have my attention>>
+# "Gentlemen you had my curiosity ... but now you have my attention"
 
 ## Hierarchical parallelism tests
 
@@ -116,7 +116,7 @@ You can find commonly used flags for various compilers in [/documentation/README
 Below is a simple run using the GCC compiler:
 ```
 $ OMP_TARGET_OFFLOAD=mandatory CXX="g++" CXXFLAGS="-fopenmp" FC="gfortran" FFLAGS="-fopenmp"./ovo.sh run
-Running tests_src/cpp/mathematical_function/math_cpp11 | Saving log in results/2020-04-06_17-01_travis-job-24888c4a-3841-4347-8ccd-6f1e8d034e30/cpp/mathematical_function/math_cpp11
+Running tests_src/cpp/mathematical_function/math_cpp11 | Saving log in results/1957-04-01_19-02_CDC6600.lanl.gov/cpp/mathematical_function/math_cpp11
 g++ -fopenmp isgreater_bool_float_float.cpp -o isgreater_bool_float_float.exe
 [...]
 ```
@@ -167,34 +167,6 @@ To generate new tests, please use `ovo.sh gen`. By default, it will generate `ti
 
 # Too much information about flags and arguments
 
-## For running tests
-```
-Usage:
-`ovo.sh run [test_folder]`:
-    [test_folder]    List of tests folder. OvO will recurse on those folders to execute tests. 
-                     By default all in test_src run, this lets you specify certain folders
-
-Example:
-
-    Run only the Fortran tests
-        ./ovo.sh run ./test_src/fortran
-```
-## For reporting results
-```
-Usage:
-`ovo.sh report`
-Options you can pass:
-    --summary        Print for each group of tests the pass rate
-    --failed         Print all the test which failed
-    --passed         Print all the test which passed
-    --tablefmt       Can be used to change for formating of the table 
-                     (useful for copy/pasting in Excel for example)
-    
-Example:
-
-    Print for each tests group a summary of the pass rate:
-        ./ovo.sh report --summary --failed
-```
 ## For generating more tests
 
 ```
@@ -259,4 +231,35 @@ Examples:
 
   Generate hierarchical_parallelism reduction tests with REAL (fortran) and complex<float>(c++) datatype with and without multi-devices support:
     ./ovo.sh gen hierarchical_parallelism  --test_type reduction --data_type REAL "complex<float>" --multiple_devices True False
+```
+
+
+## For running tests
+```
+Usage:
+`ovo.sh run [test_folder]`:
+    [test_folder]    List of tests folder. OvO will recurse on those folders to execute tests. 
+                     By default all in test_src run, this lets you specify certain folders
+
+Example:
+
+    Run only the Fortran tests
+        ./ovo.sh run ./test_src/fortran
+```
+
+## For reporting results
+```
+Usage:
+`ovo.sh report`
+Options you can pass:
+    --summary        Print for each group of tests the pass rate
+    --failed         Print all the test which failed
+    --passed         Print all the test which passed
+    --tablefmt       Can be used to change for formating of the table 
+                     (useful for copy/pasting in Excel for example)
+    
+Example:
+
+    Print for each tests group a summary of the pass rate:
+        ./ovo.sh report --summary --failed
 ```
