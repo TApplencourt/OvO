@@ -165,12 +165,45 @@ More than 100,000 tests are available. For convenience, we bundle them in `tiers
 
 To generate new tests, please use `ovo.sh gen`. By default, it will generate `tiers 1` tests.  But if you feel adventurous, you can use: `ovo.sh tiers 3`. See more section for more information.
 
-# Too much information about flags
+# Too much information about flags and arguments
+
+## For running tests
 ```
-Explanation of `gen` for `ovo.sh gen`:
+Usage:
+`ovo.sh run [test_folder]`:
+    [test_folder]    List of tests folder. OvO will recurse on those folders to execute tests. 
+                     By default all in test_src run, this lets you specify certain folders
+
+Example:
+
+    Run only the Fortran tests
+        ./ovo.sh run ./test_src/fortran
+```
+## For reporting results
+```
+Usage:
+`ovo.sh report`
+Options you can pass:
+    --summary        Print for each group of tests the pass rate
+    --failed         Print all the test which failed
+    --passed         Print all the test which passed
+    --tablefmt       Can be used to change for formating of the table 
+                     (useful for copy/pasting in Excel for example)
+    
+Example:
+
+    Print for each tests group a summary of the pass rate:
+        ./ovo.sh report --summary --failed
+```
+## For generating more tests
+
+```
+Usage:
+`ovo.sh gen`
+`ovo.sh gen tiers <1|2|3>`
     gen              Generate tests corresponding to tiers 1
     gen tiers        Generate tests corresponding to different tiers.
-                     Tiers 1 list of tests:
+                     Tiers 1 list of tests (`ovo.sh gen` or `ovo.sh gen tiers 1`):
                         hierarchical_parallelism cpp:
                             atomic-float,
                             memcopy-complex_double, memcopy-float,
@@ -183,7 +216,7 @@ Explanation of `gen` for `ovo.sh gen`:
                             cpp11, cpp11-complex
                         mathematical_function fortran
                             F77, F77-complex
-                     Tiers 2:
+                     Tiers 2 (`ovo.sh gen tiers 2`):
                         hierarchical_parallelism cpp:
                             atomic-float, atomic-float-host_threaded, atomic-float-intermediate_result,
                             memcopy-complex_double, memcopy-float, memcopy-float-collapse_n2, memcopy-float-loop_pragma
@@ -193,10 +226,10 @@ Explanation of `gen` for `ovo.sh gen`:
                             memcopy-double_complex, memcopy-real, memcopy-real-collapse_n2, memcopy-real-loop_pragma
                             memcopy-real-paired_pragmas, reduction-double_complex
                             reduction-real, reduction-real-multiple_devices
-                    Tiers 3:
-                        All possible combinaison
-
-Argument explanations for hierarchical_parallelism:
+                    Tiers 3 (`ovo.sh gen tiers 2`):
+                        All possible combination
+Options you can pass:
+   For hierarchical_parallelism:
     --test_type      Choose the kind of tests you want to generate.
                        - atomic tests will use OpenMP `atomic` construct to perform a reduction.
                        - reduction tests will use OpenMP `reduction` construct to perform a reduction.
@@ -213,21 +246,11 @@ Argument explanations for hierarchical_parallelism:
     --no_user_defined_reduction
                      Only impacts reduction with C++ complex datatype. Tests will not use `omp declare reduction` construct".
 
-Argument explanations for mathematical_function:
+   For mathematical_function:
     --standard       Corresponds to which standard (c++11, c++17, etc.) used to generate math functions.
     --complex        Trigger for complex math functions
     --long           Trigger to use C++ long datatype if possible
     --simdize        Trigger to put math function inside a 'simd' region
-
-
-Explanation of `run` for `ovo.sh run`
-    <test_folder>    List of tests-folder. OvO will recurse on those folders to execute tests
-
-Explanation of `report` for `ovo.sh report`
-    --summary        Print for each group of tests the pass rate
-    --failed         Print all the test which failed
-    --passed         Print all the test which passed
-    --tablefmt       Can be used to change for formating of the table (useful for copy/pasting in Excel for example)
 
 Examples:
 
@@ -236,10 +259,4 @@ Examples:
 
   Generate hierarchical_parallelism reduction tests with REAL (fortran) and complex<float>(c++) datatype with and without multi-devices support:
     ./ovo.sh gen hierarchical_parallelism  --test_type reduction --data_type REAL "complex<float>" --multiple_devices True False
-
-  Run only the Fortran tests
-    ./ovo.sh run ./test_src/fortran
-
-  Print for each tests group a summary of the pass rate:
-    ./ovo.sh report --summary --failed
 ```
