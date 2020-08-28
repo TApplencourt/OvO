@@ -170,7 +170,6 @@ To generate new tests, please use `ovo.sh gen`. By default, it will generate `ti
 ## For generating more tests
 
 ```
-Usage:
 `ovo.sh gen`
 `ovo.sh gen tiers <1|2|3>`
     gen              Generate tests corresponding to tiers 1
@@ -236,7 +235,6 @@ Examples:
 
 ## For running tests
 ```
-Usage:
 `ovo.sh run [test_folder]`:
     [test_folder]    List of tests folder. OvO will recurse on those folders to execute tests. 
                      By default all in test_src run, this lets you specify certain folders
@@ -249,7 +247,6 @@ Example:
 
 ## For reporting results
 ```
-Usage:
 `ovo.sh report`
 Options you can pass:
     --summary        Print for each group of tests the pass rate
