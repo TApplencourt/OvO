@@ -167,7 +167,7 @@ pD[idx] = pS[idx];
 {%if test_type == 'memcopy' %}
   for (int i = 0 ;  i < size ; i++)
     if ( !almost_equal(dst[i],src[i],1) ) {
-      std::cerr << "Expected: " << dst[i] << " Got: " << src[i] << std::endl;
+      std::cerr << "Expected: " << src[i] << " Got: " << dst[i] << std::endl;
       std::exit(112);
   }
 {% else %}
