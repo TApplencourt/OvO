@@ -21,7 +21,7 @@ OvO an OpenMP test generator.
 Usage:
   ovo.sh gen
   ovo.sh gen tiers [1|2|3]
-  ovo.sh gen hierarchical_parallelism [--test_type [atomic|reduction|memcopy]...]
+  ovo.sh gen hierarchical_parallelism [--test_type [atomic|reduction|memcopy|ordered]...]
                                       [--data_type [float|'complex<float>'|
                                                     double|'complex<double>'|
                                                     REAL|COMPLEX|
@@ -193,11 +193,11 @@ To generate new tests, please use `ovo.sh gen`. By default, it will generate `ti
                             F77, F77-complex
                      Tiers 2 (`ovo.sh gen tiers 2`):
                         hierarchical_parallelism cpp:
-                            atomic-float, atomic-float-host_threaded, atomic-float-intermediate_result,
+                            atomic-float, ordered_real, atomic-float-host_threaded, atomic-float-intermediate_result,
                             memcopy-complex_double, memcopy-float, memcopy-float-collapse_n2, memcopy-float-loop_pragma
                             reduction-complex_double, reduction-float, reduction-float-multiple_devices
                         hierarchical_parallelism fortran:
-                            atomic-real, atomic-real-host_threaded, atomic-real-intermediate_result
+                            atomic-real,  ordered_real, atomic-real-host_threaded, atomic-real-intermediate_result
                             memcopy-double_complex, memcopy-real, memcopy-real-collapse_n2, memcopy-real-loop_pragma
                             memcopy-real-paired_pragmas, reduction-double_complex
                             reduction-real, reduction-real-multiple_devices

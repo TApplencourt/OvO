@@ -2,7 +2,7 @@ OvO a OpenMP test generator.
 Usage:
   ovo.sh gen
   ovo.sh gen tiers [1|2|3]
-  ovo.sh gen hierarchical_parallelism [--test_type [atomic|reduction|memcopy]...]
+  ovo.sh gen hierarchical_parallelism [--test_type [atomic|reduction|memcopy|ordered]...]
                                       [--data_type [float|'complex<float>'|
                                                     double|'complex<double>'|
                                                     REAL|COMPLEX|
