@@ -132,6 +132,8 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
 
          {% if test_type == 'atomic' %}
 #pragma omp atomic update
+         {% elif test_type == 'ordered' %}
+#pragma omp ordered
          {% endif %}
           
          {% if T.is_complex and increments.j and increments.i != "1." %}

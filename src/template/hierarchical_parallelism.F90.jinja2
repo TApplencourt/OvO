@@ -166,6 +166,8 @@ DO {{loop_.i}} = 1, {{loop_.N}}
 
          {% if test_type =='atomic' %}
 !$OMP atomic update
+         {% elif test_type =='ordered' %}
+!$OMP ordered
          {% endif %}
 
          {% if increments.j %}

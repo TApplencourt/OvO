@@ -226,8 +226,10 @@ class Pragma(str):
 
         if str_ == "loop-associated":
             return any(p in self.pragma for p in ("distribute", "for", "loop", "simd"))
-        elif str_ == "worksharing":
+        elif str_ == "concurency-associated":
             return any(p in self.pragma for p in ("distribute", "for", "loop"))
+        elif str_ == "worksharing_or_simd":
+            return any(p in self.pragma for p in ("for", "simd"))
         elif str_ == "generator":
             return any(p in self.pragma for p in ("teams", "parallel"))
         else:
@@ -424,7 +426,7 @@ class HP:  # ^(;,;)^
             head_j = Pragma(j.split()[0])
 
             l_tmp.append(i)
-            if (tail_i.has_construct("loop-associated") or (tail_i.has_construct("generator") and not head_j.has_construct("worksharing"))) or (
+            if (tail_i.has_construct("loop-associated") or (tail_i.has_construct("generator") and not head_j.has_construct("concurency-associated"))) or (
                 tail_i.has_construct("target") and head_j == "sentinel"
             ):
                 l.append(l_tmp[:])
@@ -601,12 +603,16 @@ class HP:  # ^(;,;)^
             if "reduction" in self.test_type and pragma.can_be_reduced:
                 yield f"reduction(+: {counter})"
 
+        def ordered_directive(pragma):
+            if "ordered" in self.test_type and pragma.has_construct("worksharing_or_simd"):
+                yield "ordered"
+
         def collapse_directive(pragma):
             if self.collapse and pragma.has_construct("loop-associated"):
                 yield f"collapse({self.collapse})"
 
         def additional_pragma(i, counter, pragma):
-            construct = chain(mapping_directive(i, counter, pragma), device_directive(i, counter, pragma), reduction_directive(counter, pragma), collapse_directive(pragma))
+            construct = chain(mapping_directive(i, counter, pragma), device_directive(i, counter, pragma), reduction_directive(counter, pragma), ordered_directive(pragma), collapse_directive(pragma))
             return " ".join(construct)
 
         map_region = lambda i, c, r: [additional_pragma(i, c, pragma) for pragma in r]
@@ -717,7 +723,12 @@ class HP:  # ^(;,;)^
             return False
         elif self.test_type == "atomic" and self.intermediate_result and self.single("teams"):
             return False
-
+        
+        #Ordered need to have a worksharing or simd pragma in every region and be balenced
+        elif self.test_type == "ordered" and not self.intermediate_result and not (all(any(p.has_construct("worksharing_or_simd") for p in r) for r in self.l_nested_constructs) and self.balenced): 
+            return False
+        elif self.test_type == "ordered" and self.intermediate_result:
+            return False
         # need to have at least one loop and be balenced
         elif self.test_type == "memcopy" and not (self.associated_loops_number and self.balenced):
             return False
@@ -1067,7 +1078,7 @@ def gen_all_permutation(d_args):
 #                                  _| 
 
 hp_d_possible_value = {
-    "test_type": {"memcopy", "atomic", "reduction"},
+    "test_type": {"memcopy", "atomic", "reduction","ordered"},
     "data_type": {"REAL", "DOUBLE PRECISION", "float", "double", "complex<float>", "complex<double>", "COMPLEX", "DOUBLE COMPLEX"},
     "loop_pragma": bool,
     "paired_pragmas": bool,
@@ -1096,9 +1107,16 @@ def update_opt(p, d, d_possible):
         sys.exit(1)
 
     for k, v in vars(p).items():
+        # Filter default arguments or spurious one
         if v is None or k not in d_possible:
             continue
+       
         f = d_possible[k]
+        # If people passed --intermediate_result they want that to be True
+        if v == [] and f == bool:
+            d[k] = True
+            continue
+
         for i in v:
             if isinstance(f, set):
                 if not i in f:
@@ -1109,10 +1127,10 @@ def update_opt(p, d, d_possible):
                 try:
                     u = int(i)
                 except:
-                    error(k, i, "Please use a possitive sclar")
+                    error(k, i, "Please use a possitive scalar")
                 else:
                     if u < 0:
-                        error(k, i, "Please use a possitive sclar")
+                        error(k, i, "Please use a possitive scalar")
                     d[k] = u
             elif f == bool:
                 if i.lower() not in ("true", "false", "0", "1"):
@@ -1171,6 +1189,7 @@ if __name__ == "__main__":
             l_mf = [{"standart": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0}]
         if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
+                {"data_type": {"REAL", "float"}, "test_type": "ordered"},
                 {"loop_pragma": True, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
                 {"intermediate_result": True, "data_type": {"REAL", "float"}, "test_type": "atomic"},
                 {"host_threaded": True, "data_type": {"REAL", "float"}, "test_type": "atomic"},
