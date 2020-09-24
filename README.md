@@ -75,6 +75,10 @@ OMP_TARGET_OFFLOAD=mandatory CXX="g++" CXXFLAGS="-fopenmp" FC="gfortran" FFLAGS=
 --------------  ---------  ------------  ----------------------  ------------------  ----------------  ---------
           100%       7539          7539                       0                   0                 0          0
 ```
+# Related works
+
+- sollve_vv (https://github.com/SOLLVE/sollve_vv)
+- IBM OpenmpTest (https://github.com/clang-ykt/omptests)
 
 # "Gentlemen you had my curiosity ... but now you have my attention"
 
