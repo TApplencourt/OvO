@@ -1,4 +1,5 @@
 {# Check if timeout command exist exit #}
+
 TIMEOUT = $(shell command -v timeout 2> /dev/null)
 OVO_TIMEOUT ?= 10s
 ifdef TIMEOUT
@@ -15,13 +16,13 @@ run: $(addprefix run_, $(basename $(pEXE)))
 
 %.exe: %.{{ext}}
 {%-if ext == "F90" %}
-	-$(FC) $(FFLAGS) $< -o $@
+	-$(FC) $(FFLAGS) $(CURDIR)/$< -o $(CURDIR)/$@
 {%-elif ext == "cpp"%}
-	-$(CXX) $(CXXFLAGS) $< -o $@
+	-$(CXX) $(CXXFLAGS) $(CURDIR)/$< -o $(CURDIR)/$@
 {%endif%}
 
 run_%: %.exe
-	-$(TIMEOUT) ./$<
+	-$(TIMEOUT) $(CURDIR)/$<
 
 .PHONY: clean
 clean:

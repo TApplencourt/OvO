@@ -26,8 +26,8 @@ class DRegex(NamedTuple):
     error: str
 
 
-r_compilation = DRegex("\w+\.(?:cpp|F90) -o (\w+)\.exe$", "make.*?(\w+)\.exe\]\s+(.*)")
-r_runtime = DRegex("\./(\w+)\.exe$", "make.*?run_(\w+)\]\s+(.*)")
+r_compilation = DRegex("\.(?:cpp|F90) -o \S*?([^ /]+)\.exe$", "make.*?(\w+)\.exe\]\s+(.*)")
+r_runtime = DRegex("^\S*?([^ /]+)\.exe$", "make.*?run_(\w+)\]\s+(.*)")
 
 
 class TestCompilationLaunch(unittest.TestCase):
@@ -46,8 +46,13 @@ class TestCompilationLaunch(unittest.TestCase):
         m = re.findall(r_compilation.launch, str_).pop()
         self.assertEqual(m, "target_teams_distribute__parallel")
 
-    def test_launch02(self):
+    def test_launch03(self):
         str_ = "timeout 45s fortran target_teams_distribute__parallel.F90 -o target_teams_distribute__parallel.exe"
+        m = re.findall(r_compilation.launch, str_).pop()
+        self.assertEqual(m, "target_teams_distribute__parallel")
+
+    def test_launch04(self):
+        str_ = "timeout 45s fortran /foo/bar/target_teams_distribute__parallel.F90 -o /foo/bar/target_teams_distribute__parallel.exe"
         m = re.findall(r_compilation.launch, str_).pop()
         self.assertEqual(m, "target_teams_distribute__parallel")
 
@@ -96,6 +101,15 @@ class TestRutimeLaunch(unittest.TestCase):
         m = re.findall(r_runtime.launch, str_).pop()
         self.assertEqual(m, "trunc_long_double_long_double")
 
+    def test_launch01(self):
+        str_ = "/foo/bar/trunc_long_double_long_double.exe"
+        m = re.findall(r_runtime.launch, str_).pop()
+        self.assertEqual(m, "trunc_long_double_long_double")
+
+    def test_launch02(self):
+        str_ = "gcc target_teams_distribute__parallel.cpp -o target_teams_distribute__parallel.exe"
+        m = re.findall(r_runtime.launch, str_)
+        self.assertEqual(m, [])
 
 class TestRuntimeError(unittest.TestCase):
     def test_error00(self):
