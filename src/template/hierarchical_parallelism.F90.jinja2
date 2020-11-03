@@ -107,7 +107,7 @@ PROGRAM main
   {{T}} :: {{counter}}
     {% endfor %}
   INTEGER :: expected_value
-  expected_value = {{tripcount}}
+  expected_value = {{tripcounts}}
 {% else %}
   INTEGER :: idx, S
   INTEGER :: errno = 0
@@ -118,7 +118,7 @@ PROGRAM main
   REAL, ALLOCATABLE :: src_imag(:)
    {%endif%}
 
-  S = {{tripcount}}
+  S = {{tripcounts}}
   ALLOCATE(dst(S), src(S) )
 
    {% if T.category == "complex" %}

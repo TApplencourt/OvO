@@ -89,13 +89,13 @@ void test_{{name}}() {
 {% endfor %}
  
 {% if test_type == 'memcopy' %}  
-  const int size = {{tripcount}};
+  const int size = {{tripcounts}};
   std::vector<{{T}}> dst(size), src(size);
   std::generate(src.begin(), src.end(), std::rand);
   {{T}} *pS { src.data() };
   {{T}} *pD { dst.data() };
 {% else %}
-  const {{T}} expected_value { {{tripcount}} };
+  const {{T}} expected_value { {{tripcounts}} };
 {% endif %}
 
 {#                      _                          #}

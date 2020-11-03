@@ -488,10 +488,10 @@ class HP:  # ^(;,;)^
         >>> HP(["target teams distribute"], {"collapse": 2}).regions_associated_loop
         [[Idx(i='i0', N='N0', v=182), Idx(i='i1', N='N1', v=182)]]
         """
-
+        
         # Try to event out the loop iteration number
         if self.associated_loops_number:
-            loop_tripcount = max(1, math.ceil(math.pow(32 * 32 * 32, 1.0 / self.associated_loops_number)))
+            loop_tripcount = max(1, math.ceil(math.pow(self.tripcount, 1.0 / self.associated_loops_number)))
         else:
             loop_tripcount = None
 
@@ -619,13 +619,13 @@ class HP:  # ^(;,;)^
         return [map_region(i, c, r) for i, c, r in zip(count(), self.regions_counter, self.l_nested_constructs)]
 
     @cached_property
-    def tripcount(self):
+    def tripcounts(self):
         """
-        >>> HP(["teams", "distribute"], {"collapse": 0}).tripcount
+        >>> HP(["teams", "distribute"], {"collapse": 0}).tripcounts
         'N0'
-        >>> HP(["teams", "distribute"], {"collapse": 2}).tripcount
+        >>> HP(["teams", "distribute"], {"collapse": 2}).tripcounts
         'N0*N1'
-        >>> HP(["teams", "parallel"], {"collapse": 1}).tripcount
+        >>> HP(["teams", "parallel"], {"collapse": 1}).tripcounts
         '1'
         """
 
@@ -1087,10 +1087,11 @@ hp_d_possible_value = {
     "multiple_devices": bool,
     "intermediate_result": bool,
     "collapse": int,
+    "tripcount": int
 }
 
 hp_d_default_value = defaultdict(lambda: False)
-hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic", "reduction"}, "collapse": [0]})
+hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic", "reduction"}, "collapse": [0], "tripcount":[32*32*32]})
 
 
 mf_d_possible_value = {"standart": {"gnu", "cpp11", "cpp17", "cpp20", "F77","gnu"}, "simdize": int, "complex": bool, "long": bool}
@@ -1153,7 +1154,8 @@ if __name__ == "__main__":
     # ~
     tiers_parser = action_parsers.add_parser("tiers")
     tiers_parser.add_argument("tiers", type=int, nargs="?")
-
+    tiers_parser.add_argument("--tripcount",  nargs="?", default=32*32*32)
+    
     # ~
     # hierarchical_parallelism
     # ~
@@ -1173,7 +1175,6 @@ if __name__ == "__main__":
     # Parsing logic
     # ~
     p = parser.parse_args()
-
     # Now add the default, and check for validity
     if p.command == "hierarchical_parallelism":
         d = dict(hp_d_default_value)
@@ -1185,7 +1186,12 @@ if __name__ == "__main__":
         l_mf = [d]; l_hp = []
     else:
         if not p.command or p.tiers >= 1:
-            l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction"}}]
+            if not p.command or not p.tripcount:
+                t = 32*32*32
+            else:
+                t = int(p.tripcount)
+
+            l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction"}, "tripcount":{t}} ]
             l_mf = [{"standart": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0}]
         if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
