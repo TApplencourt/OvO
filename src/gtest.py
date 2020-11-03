@@ -488,7 +488,7 @@ class HP:  # ^(;,;)^
         >>> HP(["target teams distribute"], {"collapse": 2, 'tripcount':5}).regions_associated_loop
         [[Idx(i='i0', N='N0', v=3), Idx(i='i1', N='N1', v=3)]]
         """
-        
+
         # Try to event out the loop iteration number
         if self.associated_loops_number:
             loop_tripcount = max(1, math.ceil(math.pow(self.tripcount, 1.0 / self.associated_loops_number)))
@@ -723,9 +723,9 @@ class HP:  # ^(;,;)^
             return False
         elif self.test_type == "atomic" and self.intermediate_result and self.single("teams"):
             return False
-        
-        #Ordered need to have a worksharing or simd pragma in every region and be balenced
-        elif self.test_type == "ordered" and not self.intermediate_result and not (all(any(p.has_construct("worksharing_or_simd") for p in r) for r in self.l_nested_constructs) and self.balenced): 
+
+        # Ordered need to have a worksharing or simd pragma in every region and be balenced
+        elif self.test_type == "ordered" and not self.intermediate_result and not (all(any(p.has_construct("worksharing_or_simd") for p in r) for r in self.l_nested_constructs) and self.balenced):
             return False
         elif self.test_type == "ordered" and self.intermediate_result:
             return False
@@ -1061,9 +1061,11 @@ def gen_all_permutation(d_args):
     >>> list(gen_all_permutation({"b":"intel","a":["x86","V100"]}))
     [{'b': 'intel', 'a': 'x86'}, {'b': 'intel', 'a': 'V100'}]
     """
+
     class hashabledict(dict):
         def __hash__(self):
             return hash(frozenset(self))
+
         def __missing__(self, key):
             return False
 
@@ -1072,13 +1074,14 @@ def gen_all_permutation(d_args):
     for p in product(*l_values):
         yield hashabledict(zip(d_args.keys(), p))
 
-#    _    ___    _                    
-#   /  |   |    |_) _. ._ _ o ._   _  
-#   \_ |_ _|_   |  (_| | _> | | | (_| 
-#                                  _| 
+
+#    _    ___    _
+#   /  |   |    |_) _. ._ _ o ._   _
+#   \_ |_ _|_   |  (_| | _> | | | (_|
+#                                  _|
 
 hp_d_possible_value = {
-    "test_type": {"memcopy", "atomic", "reduction","ordered"},
+    "test_type": {"memcopy", "atomic", "reduction", "ordered"},
     "data_type": {"REAL", "DOUBLE PRECISION", "float", "double", "complex<float>", "complex<double>", "COMPLEX", "DOUBLE COMPLEX"},
     "loop_pragma": bool,
     "paired_pragmas": bool,
@@ -1087,14 +1090,14 @@ hp_d_possible_value = {
     "multiple_devices": bool,
     "intermediate_result": bool,
     "collapse": int,
-    "tripcount": int
+    "tripcount": int,
 }
 
 hp_d_default_value = defaultdict(lambda: False)
-hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic", "reduction"}, "collapse": [0], "tripcount":[32*32*32]})
+hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic", "reduction"}, "collapse": [0], "tripcount": [32 * 32 * 32]})
 
 
-mf_d_possible_value = {"standart": {"gnu", "cpp11", "cpp17", "cpp20", "F77","gnu"}, "simdize": int, "complex": bool, "long": bool}
+mf_d_possible_value = {"standart": {"gnu", "cpp11", "cpp17", "cpp20", "F77", "gnu"}, "simdize": int, "complex": bool, "long": bool}
 
 mf_d_default_value = defaultdict(lambda: False)
 mf_d_default_value.update({"standart": {"cpp11", "F77"}, "complex": {True, False}})
@@ -1111,7 +1114,7 @@ def update_opt(p, d, d_possible):
         # Filter default arguments or spurious one
         if v is None or k not in d_possible:
             continue
-       
+
         f = d_possible[k]
         # If people passed --intermediate_result they want that to be True
         if v == [] and f == bool:
@@ -1145,6 +1148,7 @@ if __name__ == "__main__":
         ovo_usage = f.read()
 
     import argparse
+
     parser = argparse.ArgumentParser(usage=ovo_usage)
 
     action_parsers = parser.add_subparsers(dest="command")
@@ -1154,22 +1158,22 @@ if __name__ == "__main__":
     # ~
     tiers_parser = action_parsers.add_parser("tiers")
     tiers_parser.add_argument("tiers", type=int, nargs="?")
-    tiers_parser.add_argument("--tripcount",  nargs="?", default=32*32*32)
-    
+    tiers_parser.add_argument("--tripcount", nargs="?", default=32 * 32 * 32)
+
     # ~
     # hierarchical_parallelism
     # ~
     hp_parser = action_parsers.add_parser("hierarchical_parallelism")
     for opt in hp_d_possible_value:
         hp_parser.add_argument(f"--{opt}", nargs="*")
-    hp_parser.add_argument('--append', action='store_true' )
+    hp_parser.add_argument("--append", action="store_true")
     # ~
     # mathematical_function
     # ~
     mf_parser = action_parsers.add_parser("mathematical_function")
     for opt in mf_d_possible_value:
         mf_parser.add_argument(f"--{opt}", nargs="*")
-    mf_parser.add_argument('--append', action='store_true' )
+    mf_parser.add_argument("--append", action="store_true")
 
     # ~
     # Parsing logic
@@ -1179,19 +1183,21 @@ if __name__ == "__main__":
     if p.command == "hierarchical_parallelism":
         d = dict(hp_d_default_value)
         update_opt(p, d, hp_d_possible_value)
-        l_hp = [d]; l_mf = []
+        l_hp = [d]
+        l_mf = []
     elif p.command == "mathematical_function":
         d = dict(mf_d_default_value)
         update_opt(p, d, mf_d_possible_value)
-        l_mf = [d]; l_hp = []
+        l_mf = [d]
+        l_hp = []
     else:
         if not p.command or p.tiers >= 1:
             if not p.command or not p.tripcount:
-                t = 32*32*32
+                t = 32 * 32 * 32
             else:
                 t = int(p.tripcount)
 
-            l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction"}, "tripcount":{t}} ]
+            l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction"}, "tripcount": {t}}]
             l_mf = [{"standart": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0}]
         if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
@@ -1205,20 +1211,19 @@ if __name__ == "__main__":
             ]
             l_mf += [{"standart": {"cpp11", "F77", "gnu"}, "complex": {True, False}, "simdize": [0, 32]}]
         if p.command == "tiers" and p.tiers >= 3:
-             d1 = dict(hp_d_possible_value)
-             for k,v in d1.items():
-                 if v == bool:
-                     d1[k] = [True,False]
-             d1['collapse'] = [1,3,5]
-             l_hp = [d1]
+            d1 = dict(hp_d_possible_value)
+            for k, v in d1.items():
+                if v == bool:
+                    d1[k] = [True, False]
+            d1["collapse"] = [1, 3, 5]
+            l_hp = [d1]
 
-             d2 = dict(mf_d_possible_value)
-             for k,v in d2.items():
-                 if v == bool:
-                     d2[k] = [True,False]
-             d2['simdize'] = [1,32]
-             l_mf = [d2]
-
+            d2 = dict(mf_d_possible_value)
+            for k, v in d2.items():
+                if v == bool:
+                    d2[k] = [True, False]
+            d2["simdize"] = [1, 32]
+            l_mf = [d2]
 
     l_hp_unique = set(chain.from_iterable(gen_all_permutation(d) for d in l_hp))
     l_mf_unique = set(chain.from_iterable(gen_all_permutation(d) for d in l_mf))
