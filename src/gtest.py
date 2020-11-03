@@ -479,14 +479,14 @@ class HP:  # ^(;,;)^
     @cached_property
     def regions_associated_loop(self):
         """
-        >>> HP(["target teams distribute"], {"collapse": 0}).regions_associated_loop
-        [[Idx(i='i0', N='N0', v=32768)]]
-        >>> HP(["target teams distribute", "parallel"], {"collapse": 0}).regions_associated_loop
-        [[Idx(i='i0', N='N0', v=32768)], []]
-        >>> HP(["target teams distribute", "parallel for"], {"collapse": 0}).regions_associated_loop
-        [[Idx(i='i0', N='N0', v=182)], [Idx(i='i1', N='N1', v=182)]]
-        >>> HP(["target teams distribute"], {"collapse": 2}).regions_associated_loop
-        [[Idx(i='i0', N='N0', v=182), Idx(i='i1', N='N1', v=182)]]
+        >>> HP(["target teams distribute"], {"collapse": 0, 'tripcount':4} ).regions_associated_loop
+        [[Idx(i='i0', N='N0', v=4)]]
+        >>> HP(["target teams distribute", "parallel"], {"collapse": 0, 'tripcount':1}).regions_associated_loop
+        [[Idx(i='i0', N='N0', v=1)], []]
+        >>> HP(["target teams distribute", "parallel for"], {"collapse": 0, 'tripcount':4}).regions_associated_loop
+        [[Idx(i='i0', N='N0', v=2)], [Idx(i='i1', N='N1', v=2)]]
+        >>> HP(["target teams distribute"], {"collapse": 2, 'tripcount':5}).regions_associated_loop
+        [[Idx(i='i0', N='N0', v=3), Idx(i='i1', N='N1', v=3)]]
         """
         
         # Try to event out the loop iteration number
