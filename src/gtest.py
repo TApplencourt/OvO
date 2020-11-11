@@ -1191,23 +1191,23 @@ if __name__ == "__main__":
         l_mf = [d]
         l_hp = []
     else:
-        if not p.command or p.tiers >= 1:
-            if not p.command or not p.tripcount:
-                t = 32 * 32 * 32
-            else:
-                t = int(p.tripcount)
+        if not p.command or not p.tripcount:
+            t = 32 * 32 * 32
+        else:
+            t = int(p.tripcount)
 
+        if not p.command or p.tiers >= 1:
             l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction"}, "tripcount": {t}}]
             l_mf = [{"standart": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0}]
         if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
-                {"data_type": {"REAL", "float"}, "test_type": "ordered"},
-                {"loop_pragma": True, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
-                {"intermediate_result": True, "data_type": {"REAL", "float"}, "test_type": "atomic"},
-                {"host_threaded": True, "data_type": {"REAL", "float"}, "test_type": "atomic"},
-                {"multiple_devices": True, "data_type": {"REAL", "float"}, "test_type": "reduction"},
-                {"paired_pragmas": True, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
-                {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy"},
+                {"data_type": {"REAL", "float"}, "test_type": "ordered","tripcount": {t}},
+                {"loop_pragma": True, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
+                {"intermediate_result": True, "data_type": {"REAL", "float"}, "test_type": "atomic","tripcount": {t}},
+                {"host_threaded": True, "data_type": {"REAL", "float"}, "test_type": "atomic","tripcount": {t}},
+                {"multiple_devices": True, "data_type": {"REAL", "float"}, "test_type": "reduction","tripcount": {t}},
+                {"paired_pragmas": True, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
+                {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
             ]
             l_mf += [{"standart": {"cpp11", "F77", "gnu"}, "complex": {True, False}, "simdize": [0, 32]}]
         if p.command == "tiers" and p.tiers >= 3:
@@ -1216,6 +1216,7 @@ if __name__ == "__main__":
                 if v == bool:
                     d1[k] = [True, False]
             d1["collapse"] = [1, 3, 5]
+            d1["tripcount"] = [t]
             l_hp = [d1]
 
             d2 = dict(mf_d_possible_value)
