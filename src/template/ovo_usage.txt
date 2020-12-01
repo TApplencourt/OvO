@@ -9,7 +9,7 @@ Usage:
                                                     REAL|COMPLEX|
                                                     'DOUBLE PRECISION'|'DOUBLE COMPLEX']... ]
                                       [--loop_pragma [True|False] ]
-                                      [--multi_devices [True|False] ]
+                                      [--multiple_devices [True|False] ]
                                       [--host_threaded [True|False] ]
                                       [--intermediate_result [True|False] ]
                                       [--paired_pragmas [True|False] ]
