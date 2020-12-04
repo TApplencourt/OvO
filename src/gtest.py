@@ -13,6 +13,7 @@ dirname = os.path.dirname(__file__)
 templateLoader = jinja2.FileSystemLoader(searchpath=os.path.join(dirname, "template"))
 templateEnv = jinja2.Environment(loader=templateLoader)
 templateEnv.globals.update(zip=zip)
+#templateEnv.filters.update(any=any)
 # Custom filter method
 def get_idx(s, idx, attribute=None):
     if not attribute:
@@ -20,8 +21,11 @@ def get_idx(s, idx, attribute=None):
     else:
         return f"{getattr(s,attribute)}[{idx}]"
 
-
-templateEnv.filters.update(get_idx=get_idx)
+def in_region(p,region):
+    return any(p in ps for ps in region)
+templateEnv.globals.update(in_region=in_region)
+templateEnv.filters['get_idx']=get_idx
+#templateEnv.filters['in_region']=in_region
 
 #
 # | | _|_ o |  _
@@ -228,8 +232,10 @@ class Pragma(str):
             return any(p in self.pragma for p in ("distribute", "for", "loop", "simd"))
         elif str_ == "concurency-associated":
             return any(p in self.pragma for p in ("distribute", "for", "loop"))
-        elif str_ == "worksharing_or_simd":
-            return any(p in self.pragma for p in ("for", "simd"))
+        elif str_ == "ordered":
+            # Only `!$omp distribute parallel do` and `!$omp distribute parallel do simd` cannot have  ordered
+            #!$omp team distribute parallel do` can
+            return "for" in self.pragma and ('teams' in self.pragma or not 'distribute' in self.pragma)
         elif str_ == "generator":
             return any(p in self.pragma for p in ("teams", "parallel"))
         else:
@@ -604,7 +610,7 @@ class HP:  # ^(;,;)^
                 yield f"reduction(+: {counter})"
 
         def ordered_directive(pragma):
-            if "ordered" in self.test_type and pragma.has_construct("worksharing_or_simd"):
+            if "ordered" in self.test_type and pragma.has_construct("ordered"):
                 yield "ordered"
 
         def collapse_directive(pragma):
@@ -725,7 +731,7 @@ class HP:  # ^(;,;)^
             return False
 
         # Ordered need to have a worksharing or simd pragma in every region and be balenced
-        elif self.test_type == "ordered" and not self.intermediate_result and not (all(any(p.has_construct("worksharing_or_simd") for p in r) for r in self.l_nested_constructs) and self.balenced):
+        elif self.test_type == "ordered" and not self.intermediate_result and not (all(any(p.has_construct("ordered") for p in r) for r in self.l_nested_constructs) and self.balenced):
             return False
         elif self.test_type == "ordered" and self.intermediate_result:
             return False

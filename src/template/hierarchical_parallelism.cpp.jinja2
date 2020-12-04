@@ -124,7 +124,7 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
 {# |_ (_) (_) |_) _>   |_ |_) | | (_) (_| |_| (/_ #}
 {#            |           |            _|         #}
 
-{% for increments in regions_increment | reverse %}
+{% for region, increments in zip(l_nested_constructs_ironed_out,regions_increment) | reverse %}
    {% filter indent(width=2*(loop.revindex+1)) %}
 
       {# In the case of 'local' test, we increment the counter only in the inner most enclosing scope #}
@@ -132,8 +132,10 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
 
          {% if test_type == 'atomic' %}
 #pragma omp atomic update
+         {% elif test_type == 'ordered' and in_region('simd',region) %}
+#pragma omp ordered simd
          {% elif test_type == 'ordered' %}
-#pragma omp ordered
+#pragma omp ordered {{region}}
          {% endif %}
           
          {% if T.is_complex and increments.j and increments.i != "1." %}
