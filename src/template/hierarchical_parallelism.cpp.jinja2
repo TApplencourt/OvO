@@ -135,7 +135,7 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
          {% elif test_type == 'ordered' and in_region('simd',region) %}
 #pragma omp ordered simd
          {% elif test_type == 'ordered' %}
-#pragma omp ordered {{region}}
+#pragma omp ordered
          {% endif %}
           
          {% if T.is_complex and increments.j and increments.i != "1." %}
