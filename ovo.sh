@@ -25,9 +25,9 @@ frun() {
             set +x
         } &> "$nresult"/env.log
         # Compile in parallel
-        make --no-print-directory -C "$dir" exe |& tee "$nresult"/compilation.log
+        make --no-print-directory -C "$dir" exe 2>&1 | tee "$nresult"/compilation.log
         # But Run serially
-        make -j1 --no-print-directory -C "$dir" run |& tee "$nresult"/runtime.log
+        make -j1 --no-print-directory -C "$dir" run 2>&1 | tee "$nresult"/runtime.log
     done
 }
 
