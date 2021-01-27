@@ -14,7 +14,7 @@ void test_target_parallel() {
   float counter_parallel{};
   #pragma omp target parallel map(tofrom: counter_parallel) reduction(+: counter_parallel)
   {
-    counter_parallel = counter_parallel + float { float { 1. } / omp_get_num_threads() };
+    counter_parallel = counter_parallel + float { float{ 1. } / omp_get_num_threads() };
   }
   if (!almost_equal(counter_parallel, expected_value, 0.1)) {
     std::cerr << "Expected: " << expected_value << " Got: " << counter_parallel << std::endl;

@@ -20,7 +20,7 @@ void test_target__teams__parallel__for() {
     #pragma omp for
     for (int i0 = 0 ; i0 < N0 ; i0++ )
     {
-      counter_teams = counter_teams + float { float { 1. } / omp_get_num_teams() };
+      counter_teams = counter_teams + float { float{ 1. } / omp_get_num_teams() };
     }
   }
   if (!almost_equal(counter_teams, expected_value, 0.1)) {

@@ -19,7 +19,7 @@ void test_target__parallel__simd() {
     #pragma omp simd reduction(+: counter_parallel)
     for (int i0 = 0 ; i0 < N0 ; i0++ )
     {
-      counter_parallel = counter_parallel + float { float { 1. } / omp_get_num_threads() };
+      counter_parallel = counter_parallel + float { float{ 1. } / omp_get_num_threads() };
     }
   }
   if (!almost_equal(counter_parallel, expected_value, 0.1)) {

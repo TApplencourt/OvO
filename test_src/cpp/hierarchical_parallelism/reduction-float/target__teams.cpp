@@ -15,7 +15,7 @@ void test_target__teams() {
   #pragma omp target map(tofrom: counter_teams)
   #pragma omp teams reduction(+: counter_teams)
   {
-    counter_teams = counter_teams + float { float { 1. } / omp_get_num_teams() };
+    counter_teams = counter_teams + float { float{ 1. } / omp_get_num_teams() };
   }
   if (!almost_equal(counter_teams, expected_value, 0.1)) {
     std::cerr << "Expected: " << expected_value << " Got: " << counter_teams << std::endl;

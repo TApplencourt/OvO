@@ -18,7 +18,7 @@ void test_target_teams_distribute__parallel() {
   {
     #pragma omp parallel reduction(+: counter_N0)
     {
-      counter_N0 = counter_N0 + float { float { 1. } / omp_get_num_threads() };
+      counter_N0 = counter_N0 + float { float{ 1. } / omp_get_num_threads() };
     }
   }
   if (!almost_equal(counter_N0, expected_value, 0.1)) {

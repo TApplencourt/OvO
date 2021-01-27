@@ -9,7 +9,7 @@ void test_target() {
   float counter_target{};
   #pragma omp target map(tofrom: counter_target)
   {
-    counter_target = counter_target +  1. ;
+    counter_target = counter_target + 1. ;
   }
   if (!almost_equal(counter_target, expected_value, 0.1)) {
     std::cerr << "Expected: " << expected_value << " Got: " << counter_target << std::endl;

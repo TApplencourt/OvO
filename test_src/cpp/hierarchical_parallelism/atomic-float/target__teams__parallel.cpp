@@ -19,7 +19,7 @@ void test_target__teams__parallel() {
     #pragma omp parallel
     {
       #pragma omp atomic update
-      counter_teams = counter_teams + float { float { 1. } / ( omp_get_num_teams() * omp_get_num_threads() ) };
+      counter_teams = counter_teams + float { float{ 1. } / ( omp_get_num_teams() * omp_get_num_threads() ) };
     }
   }
   if (!almost_equal(counter_teams, expected_value, 0.1)) {

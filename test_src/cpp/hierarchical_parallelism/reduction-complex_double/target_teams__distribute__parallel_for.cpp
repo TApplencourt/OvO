@@ -19,7 +19,7 @@ void test_target_teams__distribute__parallel_for() {
     #pragma omp parallel for reduction(+: counter_N0)
     for (int i1 = 0 ; i1 < N1 ; i1++ )
     {
-      counter_N0 = counter_N0 + complex<double> {  1. };
+      counter_N0 = counter_N0 + complex<double> { 1. };
     }
   }
   if (!almost_equal(counter_N0, expected_value, 0.1)) {

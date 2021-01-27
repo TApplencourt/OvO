@@ -25,7 +25,7 @@ void test_target__teams__parallel__for__simd() {
       for (int i1 = 0 ; i1 < N1 ; i1++ )
       {
         #pragma omp atomic update
-        counter_teams = counter_teams + float { float { 1. } / omp_get_num_teams() };
+        counter_teams = counter_teams + float { float{ 1. } / omp_get_num_teams() };
       }
     }
   }

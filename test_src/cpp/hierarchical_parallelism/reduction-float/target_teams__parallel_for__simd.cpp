@@ -22,7 +22,7 @@ void test_target_teams__parallel_for__simd() {
       #pragma omp simd reduction(+: counter_teams)
       for (int i1 = 0 ; i1 < N1 ; i1++ )
       {
-        counter_teams = counter_teams + float { float { 1. } / omp_get_num_teams() };
+        counter_teams = counter_teams + float { float{ 1. } / omp_get_num_teams() };
       }
     }
   }

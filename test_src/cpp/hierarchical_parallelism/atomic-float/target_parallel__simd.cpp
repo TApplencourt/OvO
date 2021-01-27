@@ -19,7 +19,7 @@ void test_target_parallel__simd() {
     for (int i0 = 0 ; i0 < N0 ; i0++ )
     {
       #pragma omp atomic update
-      counter_parallel = counter_parallel + float { float { 1. } / omp_get_num_threads() };
+      counter_parallel = counter_parallel + float { float{ 1. } / omp_get_num_threads() };
     }
   }
   if (!almost_equal(counter_parallel, expected_value, 0.1)) {

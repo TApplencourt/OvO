@@ -16,7 +16,7 @@ void test_target__parallel() {
   #pragma omp parallel
   {
     #pragma omp atomic update
-    counter_parallel = counter_parallel + float { float { 1. } / omp_get_num_threads() };
+    counter_parallel = counter_parallel + float { float{ 1. } / omp_get_num_threads() };
   }
   if (!almost_equal(counter_parallel, expected_value, 0.1)) {
     std::cerr << "Expected: " << expected_value << " Got: " << counter_parallel << std::endl;

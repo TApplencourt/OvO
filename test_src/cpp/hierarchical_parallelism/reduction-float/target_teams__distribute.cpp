@@ -12,7 +12,7 @@ void test_target_teams__distribute() {
   #pragma omp distribute
   for (int i0 = 0 ; i0 < N0 ; i0++ )
   {
-    counter_N0 = counter_N0 +  1. ;
+    counter_N0 = counter_N0 + 1. ;
   }
   if (!almost_equal(counter_N0, expected_value, 0.1)) {
     std::cerr << "Expected: " << expected_value << " Got: " << counter_N0 << std::endl;

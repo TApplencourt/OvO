@@ -21,7 +21,7 @@ void test_target_teams__parallel__simd() {
       #pragma omp simd reduction(+: counter_teams)
       for (int i0 = 0 ; i0 < N0 ; i0++ )
       {
-        counter_teams = counter_teams + float { float { 1. } / ( omp_get_num_teams() * omp_get_num_threads() ) };
+        counter_teams = counter_teams + float { float{ 1. } / ( omp_get_num_teams() * omp_get_num_threads() ) };
       }
     }
   }

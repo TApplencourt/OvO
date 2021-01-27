@@ -18,7 +18,7 @@ void test_target__teams__distribute__simd() {
     for (int i1 = 0 ; i1 < N1 ; i1++ )
     {
       #pragma omp atomic update
-      counter_N0 = counter_N0 +  1. ;
+      counter_N0 = counter_N0 + 1. ;
     }
   }
   if (!almost_equal(counter_N0, expected_value, 0.1)) {

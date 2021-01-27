@@ -138,14 +138,18 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
 #pragma omp ordered
          {% endif %}
           
+         {# Complex #}
          {% if T.is_complex and increments.j and increments.i != "1." %}
 {{increments.v}} = {{increments.v}} + {{T}} { {{increments.i}}.real() / {{increments.j}} };
-         {% elif increments.j and increments.i == "1." %}
-{{increments.v}} = {{increments.v}} + {{T}} { {{T.internal}} { {{increments.i}} } / {{increments.j}} };
-         {% elif T.is_complex and increments.i == "1." %}
-{{increments.v}} = {{increments.v}} + {{T}} {  {{increments.i}} };
-         {% else  %}
-{{increments.v}} = {{increments.v}} +  {{increments.i}} ;
+         {% elif T.is_complex and increments.j and increments.i == "1." %}
+{{increments.v}} = {{increments.v}} + {{T}} { {{T.internal}} { 1. } / {{increments.j}} }; {# Explicit cast, so compiler doesn't compline about lost of accuracy#}
+         {% elif T.is_complex  %}
+{{increments.v}} = {{increments.v}} + {{T}} { {{increments.i}} };
+         {# Real #}
+         {% elif increments.j %}
+{{increments.v}} = {{increments.v}} + {{T}} { {{T}}{ {{increments.i}} } / {{increments.j}} };
+         {% else %}
+{{increments.v}} = {{increments.v}} + {{increments.i}} ;
          {% endif %}
 
       {% elif test_type == 'memcopy' and loop.first %}
