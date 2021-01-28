@@ -11,8 +11,17 @@ frun() {
     SYNC=$(make -v | head -n1 |  awk '$NF >= 4 {print "--output-sync"}')
     if [ -n "$SYNC" ]; then NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null); fi
     export MAKEFLAGS="${MAKEFLAGS:--j${NPROC:-1} $SYNC}"
-    local uuid=$(date +"%Y-%m-%d_%H-%M")
-    local result="test_result/${uuid}_$(hostname)"
+
+    echo "All0" "$@"
+
+    # See if user passed -o as first argument
+    if [ "$1" == "-o" ]; then
+        shift; local result=$1; shift;
+    else
+        local uuid=$(date +"%Y-%m-%d_%H-%M")
+        local result="test_result/${uuid}_$(hostname)"
+    fi
+
     for dir in $(find_tests_folder $@); do
         nresult=$result/${dir#*/}
         echo ">> Running $dir | Saving log in $nresult"
