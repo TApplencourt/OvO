@@ -10,6 +10,20 @@
 
 OvO is a collection of OpenMP Offloading test functions for  C++ and Fortran.
 
+# Get me started
+
+```
+$ git clone git@github.com:TApplencourt/OvO.git ; cd OvO
+# Set your env and run 
+$ OMP_TARGET_OFFLOAD=mandatory CXX="g++" CXXFLAGS="-fopenmp" FC="gfortran" FFLAGS="-fopenmp"./ovo.sh run
+$ ./ovo.sh report
+>> Overall result test_result/1957-04-01_19-02_CDC6600.lanl.gov
+  pass rate(%)    test(#)    success(#)    compilation error(#)    runtime error(#)    wrong value(#)    hang(#)
+--------------  ---------  ------------  ----------------------  ------------------  ----------------  ---------
+           68%        310           212                       0                   0                96          2
+```
+
+# More
 
 OvO is a collection of OpenMP offloading tests for [C++](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp) and [FORTRAN](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran). 
 OvO is focused on testing extensively [hierarchical parallelism](https://github.com/TApplencourt/OvO/tree/master/test_src/fortran/hierarchical_parallelism/) and [mathematical functions](https://github.com/TApplencourt/OvO/tree/master/test_src/cpp/mathematical_function/).
@@ -64,17 +78,7 @@ pip install requirements.txt
 ```
   - make >4.0  Make 4.0 introduced the ` --output-sync` option to serialize make output. If you use a version of make older than 4.0, we will compile the tests serially.
   
-# Get me started
 
-```
-OMP_TARGET_OFFLOAD=mandatory CXX="g++" CXXFLAGS="-fopenmp" FC="gfortran" FFLAGS="-fopenmp"./ovo.sh run
-[...]
-./ovo.sh report
->> Overall result test_result/1957-04-01_19-02_CDC6600.lanl.gov
-  pass rate(%)    test(#)    success(#)    compilation error(#)    runtime error(#)    wrong value(#)    hang(#)
---------------  ---------  ------------  ----------------------  ------------------  ----------------  ---------
-          100%       7539          7539                       0                   0                 0          0
-```
 # Related works
 
 - sollve_vv (https://github.com/SOLLVE/sollve_vv)
