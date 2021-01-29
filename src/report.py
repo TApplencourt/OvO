@@ -173,7 +173,7 @@ def parse_folder(folder):
                     if l[0].lower() != "error":
                         error = "runtime error"
                     elif l[1] in ("124", "137"):
-                        error = "hang"
+                        error = "timeout"
                     elif l[1] in ("112",):
                         error = "wrong value"
                     else:
@@ -211,16 +211,16 @@ def summary_csv(d, folder=None):
 def print_result(l_d, tablefmt="simple", type_=None):
     """
     >>> print_result([Counter({'runtime error': 1, 'test': 1, 'pass rate': '0%'})],type_="no_folder")
-      language    category    name  pass rate(%)      test(#)    success(#)    compilation error(#)    runtime error(#)    wrong value(#)    hang(#)
-    ----------  ----------  ------  --------------  ---------  ------------  ----------------------  ------------------  ----------------  ---------
-             0           0       0  0%                      1             0                       0                   1                 0          0
+      language    category    name  pass rate(%)      test(#)    success(#)    compilation error(#)    runtime error(#)    wrong value(#)    timeout(#)
+    ----------  ----------  ------  --------------  ---------  ------------  ----------------------  ------------------  ----------------  ------------
+             0           0       0  0%                      1             0                       0                   1                 0             0
     >>> print_result([Counter({'runtime error': 23, 'test': 46, 'pass rate': '50%'})], type_="overall")
-    pass rate(%)      test(#)    success(#)    compilation error(#)    runtime error(#)    wrong value(#)    hang(#)
-    --------------  ---------  ------------  ----------------------  ------------------  ----------------  ---------
-    50%                    46             0                       0                  23                 0          0
+    pass rate(%)      test(#)    success(#)    compilation error(#)    runtime error(#)    wrong value(#)    timeout(#)
+    --------------  ---------  ------------  ----------------------  ------------------  ----------------  ------------
+    50%                    46             0                       0                  23                 0             0
     """
 
-    l_column = ["test_result", "language", "category", "name", "pass rate(%)", "test(#)", "success(#)", "compilation error(#)", "runtime error(#)", "wrong value(#)", "hang(#)"]
+    l_column = ["test_result", "language", "category", "name", "pass rate(%)", "test(#)", "success(#)", "compilation error(#)", "runtime error(#)", "wrong value(#)", "timeout(#)"]
 
     # The key are the column where we remove the unit
     l_key = [key.split("(")[0] for key in l_column]
@@ -249,7 +249,7 @@ from pathlib import Path
 import os
 
 
-class EmptyIsAllFolder(argparse.Action):
+class EmptyIsLastFolder(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         if len(values) == 0:
             try:
@@ -274,7 +274,7 @@ if __name__ == "__main__":
     group.add_argument("--passed", action="store_true")
     parser.add_argument("--tablefmt", default="simple")
     
-    parser.add_argument("result_folder", nargs="*", action=EmptyIsAllFolder)
+    parser.add_argument("result_folder", nargs="*", action=EmptyIsLastFolder)
     args = parser.parse_args()
 
     s_folder = set()
