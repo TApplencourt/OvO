@@ -49,7 +49,7 @@ Usage:
                                       [--collapse [N]...]
                                       [--append]
 
-  ovo.sh gen mathematical_function [--standart [cpp11|cpp17|cpp20|gnu|f77]... ]
+  ovo.sh gen mathematical_function [--standard [cpp11|cpp17|cpp20|gnu|f77]... ]
                                    [--complex [True|False] ]
                                    [--long [True|False] ]
                                    [--simdize [N]...]
@@ -81,8 +81,9 @@ pip install requirements.txt
 
 # Related works
 
-- sollve_vv (https://github.com/SOLLVE/sollve_vv)
+- DOE ECP SOLLVE_VV (https://github.com/SOLLVE/sollve_vv)
 - IBM OpenmpTest (https://github.com/clang-ykt/omptests)
+- LLVM Test Suite (https://github.com/llvm/llvm-test-suite)
 
 # "Gentlemen you had my curiosity ... but now you have my attention"
 
