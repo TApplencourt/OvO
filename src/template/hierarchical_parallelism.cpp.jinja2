@@ -142,7 +142,7 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
          {% if T.is_complex and increments.j and increments.i != "1." %}
 {{increments.v}} = {{increments.v}} + {{T}} { {{increments.i}}.real() / {{increments.j}} };
          {% elif T.is_complex and increments.j and increments.i == "1." %}
-{{increments.v}} = {{increments.v}} + {{T}} { {{T.internal}} { 1. } / {{increments.j}} }; {# Explicit cast, so compiler doesn't compline about lost of accuracy#}
+{{increments.v}} = {{increments.v}} + {{T}} { {{T.internal}} { 1. } / {{increments.j}} }; {# Explicit cast, so compiler doesn't complain about lost of accuracy#}
          {% elif T.is_complex  %}
 {{increments.v}} = {{increments.v}} + {{T}} { {{increments.i}} };
          {# Real #}
