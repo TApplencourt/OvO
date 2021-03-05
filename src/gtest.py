@@ -606,8 +606,12 @@ class HP:  # ^(;,;)^
                     yield f"map(to: src{borns}) map(from: dst{borns})"
 
         def reduction_directive(counter, pragma):
-            if "reduction" in self.test_type and pragma.can_be_reduced:
+            if "reduction_sum" in self.test_type and pragma.can_be_reduced:
                 yield f"reduction(+: {counter})"
+            elif "reduction_min" in self.test_type and pragma.can_be_reduced:
+                yield f"reduction(min: {counter})"
+            elif "reduction_max" in self.test_type and pragma.can_be_reduced:
+                yield f"reduction(max: {counter})"
 
         def ordered_directive(pragma):
             if "ordered" in self.test_type and pragma.has_construct("ordered"):
@@ -1087,7 +1091,7 @@ def gen_all_permutation(d_args):
 #                                  _|
 
 hp_d_possible_value = {
-    "test_type": {"memcopy", "atomic", "reduction", "ordered"},
+    "test_type": {"memcopy", "atomic", "reduction_sum", "reduction_min", "reduction_max", "ordered"},
     "data_type": {"REAL", "DOUBLE PRECISION", "float", "double", "complex<float>", "complex<double>", "COMPLEX", "DOUBLE COMPLEX"},
     "loop_pragma": bool,
     "paired_pragmas": bool,
@@ -1100,7 +1104,7 @@ hp_d_possible_value = {
 }
 
 hp_d_default_value = defaultdict(lambda: False)
-hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic", "reduction"}, "collapse": [0], "tripcount": [32 * 32 * 32]})
+hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic", "reduction_sum"}, "collapse": [0], "tripcount": [32 * 32 * 32]})
 
 
 mf_d_possible_value = {"standart": {"gnu", "cpp11", "cpp17", "cpp20", "F77", "gnu"}, "simdize": int, "complex": bool, "long": bool}
