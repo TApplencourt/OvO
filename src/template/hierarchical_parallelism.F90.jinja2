@@ -208,7 +208,7 @@ END DO
 {#                                   #}
 
 {# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
-{# To follow the standart we should use ERROR STOP. But it's a Fortran 2008 feature...#}
+{# To follow the standard we should use ERROR STOP. But it's a Fortran 2008 feature...#}
 {# That may cause portabilities issue #}
 
 {%if test_type == 'memcopy' %}
@@ -221,7 +221,7 @@ END DO
     errno = 112
   ENDIF
   DEALLOCATE(src, dst)
-  {# STOP can *ONLY* take a constant by the standart...#}
+  {# STOP can *ONLY* take a constant by the standard...#}
   IF (errno .EQ. 112) STOP 112
 {% else %}
   IF ( .NOT.almost_equal({{regions_counter | first }},expected_value, 0.1) ) THEN

@@ -966,7 +966,7 @@ class Math:
 
 def gen_mf(d_arg):
 
-    std = d_arg["standart"]
+    std = d_arg["standard"]
     cmplx = d_arg["complex"]
     size = d_arg["simdize"]
 
@@ -1103,10 +1103,10 @@ hp_d_default_value = defaultdict(lambda: False)
 hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic", "reduction"}, "collapse": [0], "tripcount": [32 * 32 * 32]})
 
 
-mf_d_possible_value = {"standart": {"gnu", "cpp11", "cpp17", "cpp20", "F77", "gnu"}, "simdize": int, "complex": bool, "long": bool}
+mf_d_possible_value = {"standard": {"gnu", "cpp11", "cpp17", "cpp20", "F77", "gnu"}, "simdize": int, "complex": bool, "long": bool}
 
 mf_d_default_value = defaultdict(lambda: False)
-mf_d_default_value.update({"standart": {"cpp11", "F77"}, "complex": {True, False}})
+mf_d_default_value.update({"standard": {"cpp11", "F77"}, "complex": {True, False}})
 
 
 def update_opt(p, d, d_possible):
@@ -1204,7 +1204,7 @@ if __name__ == "__main__":
 
         if not p.command or p.tiers >= 1:
             l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction"}, "tripcount": {t}}]
-            l_mf = [{"standart": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0}]
+            l_mf = [{"standard": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0}]
         if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
                 {"data_type": {"REAL", "float"}, "test_type": "ordered","tripcount": {t}},
@@ -1215,7 +1215,7 @@ if __name__ == "__main__":
                 {"paired_pragmas": True, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
                 {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
             ]
-            l_mf += [{"standart": {"cpp11", "F77", "gnu"}, "complex": {True, False}, "simdize": [0, 32]}]
+            l_mf += [{"standard": {"cpp11", "F77", "gnu"}, "complex": {True, False}, "simdize": [0, 32]}]
         if p.command == "tiers" and p.tiers >= 3:
             d1 = dict(hp_d_possible_value)
             for k, v in d1.items():
