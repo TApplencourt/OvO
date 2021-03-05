@@ -143,9 +143,15 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
          {% elif test_type == 'ordered' %}
 #pragma omp ordered
          {% endif %}
-          
+
+         {# Perform min and max using ternerary operators #}
+         {# Reductions are special case and need to be in the front #}
+         {% if test_type == 'reduction_min' %}
+{{increments.v}} = (({{increments.v}} < -({{inner_index}})) ? {{increments.v}} : -({{inner_index}}));
+         {% elif test_type == 'reduction_max' %}
+{{increments.v}} = (({{increments.v}} >  {{inner_index}}) ? {{increments.v}} : {{inner_index}});
          {# Complex #}
-         {% if T.is_complex and increments.j and increments.i != "1." %}
+         {% elif T.is_complex and increments.j and increments.i != "1." %}
 {{increments.v}} = {{increments.v}} + {{T}} { {{increments.i}}.real() / {{increments.j}} };
          {% elif T.is_complex and increments.j and increments.i == "1." %}
 {{increments.v}} = {{increments.v}} + {{T}} { {{T.internal}} { 1. } / {{increments.j}} }; {# Explicit cast, so compiler doesn't complain about lost of accuracy#}
