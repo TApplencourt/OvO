@@ -69,13 +69,13 @@ jobs:
     - ./ovo.sh report --failed || true
 
 #~
-# icx
+# icpx
 #~
 
   - name: icx [omp offload host]
-    compiler: icx
+    compiler: icpx
     env:
-      - CXX='icx'
+      - CXX='icpx'
       - CXXFLAGS='-Wall -Wextra -Werror -Wno-unknown-pragmas -fiopenmp -fopenmp-targets=x86_64-pc-linux-gnu -fopenmp-version=50'
       - OVO_TIMEOUT='3m'
     addons:
