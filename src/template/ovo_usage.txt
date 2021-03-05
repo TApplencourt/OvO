@@ -3,7 +3,7 @@ Usage:
   ovo.sh gen
   ovo.sh gen tiers [1|2|3] 
                    [--tripcount]
-  ovo.sh gen hierarchical_parallelism [--test_type [atomic|reduction|memcopy|ordered]...]
+  ovo.sh gen hierarchical_parallelism [--test_type [atomic|reduction_sum|reduction_min|reduction_max|memcopy|ordered]...]
                                       [--data_type [float|'complex<float>'|
                                                     double|'complex<double>'|
                                                     REAL|COMPLEX|
