@@ -53,6 +53,7 @@ bool almost_equal({{T}} x, {{T}} y, int ulp) {
    {% endif %}
 }
 {% else %}
+{# we need to enhance this function to support negative gold values for non complex type #}
 bool almost_equal({{T}} x, {{T}} gold, float tol) {
    {% if T.category == "float" %}
   return gold * (1-tol) <= x && x <= gold * (1 + tol);
