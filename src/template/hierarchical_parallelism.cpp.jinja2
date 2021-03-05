@@ -53,13 +53,14 @@ bool almost_equal({{T}} x, {{T}} y, int ulp) {
    {% endif %}
 }
 {% else %}
-{# we need to enhance this function to support negative gold values for non complex type as well as zero #}
+{# handles signed numbers, but doesn't check real and imagine components of complex data type seperately #}
 bool almost_equal({{T}} x, {{T}} gold, float tol) {
-   {% if T.category == "float" %}
-  return gold * (1-tol) <= x && x <= gold * (1 + tol);
-   {% elif T.category == "complex" %}
-  return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
-   {% endif %}
+   {# check for same sign #}
+  if ((x < 0) == (gold < 0)) {
+     return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
+} else {
+     return false;
+  }
 }
 {% endif%}
 
