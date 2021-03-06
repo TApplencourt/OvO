@@ -58,7 +58,8 @@ bool almost_equal({{T}} x, {{T}} gold, float tol) {
    {# check for same sign #}
   if ((x < 0) == (gold < 0)) {
      return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
-} else {
+  }
+  else {
      return false;
   }
 }
