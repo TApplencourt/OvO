@@ -678,7 +678,10 @@ class HP:  # ^(;,;)^
         >>> HP(["for"], {"data_type": "REAL", "collapse": 2}).inner_index
         'i1-1+N1*(i0-1)+1'
         """
-        return self.running_index(self.associated_loops_number)
+        if self.associated_loops_number:
+            return self.running_index(self.associated_loops_number)
+        else:
+            return '0'
 
     @cached_property
     def is_valid_test(self):
