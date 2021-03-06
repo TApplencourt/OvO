@@ -97,9 +97,9 @@ void test_{{name}}() {
   {{T}} *pS { src.data() };
   {{T}} *pD { dst.data() };
 {% elif test_type == 'reduction_min' %}
-  const {{T}} expected_value { -{{tripcount}} + 1};
+  const {{T}} expected_value { -{{tripcounts}} };
 {% elif test_type == 'reduction_max' %}
-  const {{T}} expected_value { {{tripcounts}} - 1};
+  const {{T}} expected_value { {{tripcounts}} };
 {% else %}
   const {{T}} expected_value { {{tripcounts}} };
 {% endif %}
@@ -147,9 +147,9 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
          {# Perform min and max using ternerary operators #}
          {# Reductions are special case and need to be in the front #}
          {% if test_type == 'reduction_min' %}
-{{increments.v}} = (({{increments.v}} < -({{inner_index}})) ? {{increments.v}} : -({{inner_index}}));
+{{increments.v}} = (({{increments.v}} < -({{inner_index}} + 1)) ? {{increments.v}} : -({{inner_index}} + 1));
          {% elif test_type == 'reduction_max' %}
-{{increments.v}} = (({{increments.v}} >  {{inner_index}}) ? {{increments.v}} : {{inner_index}});
+{{increments.v}} = (({{increments.v}} >  ({{inner_index}} + 1)) ? {{increments.v}} :  ({{inner_index}} + 1));
          {# Complex #}
          {% elif T.is_complex and increments.j and increments.i != "1." %}
 {{increments.v}} = {{increments.v}} + {{T}} { {{increments.i}}.real() / {{increments.j}} };
