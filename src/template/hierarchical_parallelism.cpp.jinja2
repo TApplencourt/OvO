@@ -78,8 +78,17 @@ bool almost_equal({{T}} x, {{T}} gold, float tol) {
 {#  \_/\___||___/\__| \_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|#}
 {#                                                            #}
 
-{% if test_type == 'reduction_sum' and T.is_complex and not no_user_defined_reduction%}
+{% if T.is_complex and not no_user_defined_reduction %}
+   {% if test_type == 'reduction_sum' %}
 #pragma omp declare reduction(+: {{T}}: omp_out += omp_in)
+   {% elif test_type == 'reduction_min' %}
+   {# reduction_min takes the sign and magnitude into of the complex number into account. #}
+   {# it is sufficient to take the sign of the real component. #}
+#pragma omp declare reduction(min: {{T}}: omp_out = (copysign(1.0, std::real(omp_in))*std::abs(omp_in) < copysign(1.0, std::real(omp_out))*std::abs(omp_out) ? omp_in : omp_out) )
+   {% elif test_type == 'reduction_max' %}
+   {# reduction_max is easier since the counter variable never goes negative #}
+#pragma omp declare reduction(max: {{T}}: omp_out = (std::abs(omp_in) > std::abs(omp_out) ? omp_in : omp_out) )
+   {% endif %}
 {% endif %}
 
 void test_{{name}}() {
