@@ -569,6 +569,10 @@ class HP:  # ^(;,;)^
         [['collapse(2)'], ['map(to: pS[(i1+N1*(i0))*N2*N3:N2*N3]) map(from: pD[(i1+N1*(i0))*N2*N3:N2*N3]) device((i1+N1*(i0))%omp_get_num_devices()) collapse(2)']]
         >>> HP(["target teams distribute"], {"test_type": "reduction_sum", "collapse": 3}).regions_additional_pragma
         [['map(tofrom: counter_N0) reduction(+: counter_N0) collapse(3)']]
+        >>> HP(["target teams distribute"], {"test_type": "reduction_min", "collapse": 3}).regions_additional_pragma
+        [['map(tofrom: counter_N0) reduction(min: counter_N0) collapse(3)']]
+        >>> HP(["target teams distribute"], {"test_type": "reduction_max", "collapse": 3}).regions_additional_pragma
+        [['map(tofrom: counter_N0) reduction(max: counter_N0) collapse(3)']]
         """
 
         def device_directive(i, counter, pragma):
