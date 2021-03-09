@@ -567,7 +567,7 @@ class HP:  # ^(;,;)^
         [[''], ['map(to: src((i0-1+1)*N1:(i0-1+1)*2*N1)) map(from: dst((i0-1+1)*N1:(i0-1+1)*2*N1)) device(MOD(i0-1+1,omp_get_num_devices()))']]
         >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "collapse": 2, "data_type": "float", "multiple_devices": True}).regions_additional_pragma
         [['collapse(2)'], ['map(to: pS[(i1+N1*(i0))*N2*N3:N2*N3]) map(from: pD[(i1+N1*(i0))*N2*N3:N2*N3]) device((i1+N1*(i0))%omp_get_num_devices()) collapse(2)']]
-        >>> HP(["target teams distribute"], {"test_type": "reduction", "collapse": 3}).regions_additional_pragma
+        >>> HP(["target teams distribute"], {"test_type": "reduction_sum", "collapse": 3}).regions_additional_pragma
         [['map(tofrom: counter_N0) reduction(+: counter_N0) collapse(3)']]
         """
 
