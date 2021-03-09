@@ -55,8 +55,12 @@ bool almost_equal({{T}} x, {{T}} y, int ulp) {
 {% else %}
 {# handles signed numbers, but doesn't check real and imagine components of complex data type seperately #}
 bool almost_equal({{T}} x, {{T}} gold, float tol) {
-   {# check for same sign #}
-  if ((x < 0) == (gold < 0)) {
+  {# check for same sign #}
+  {% if T.is_complex %}
+  if ( (std::signbit(std::real(x)) == std::signbit(std::real(gold)))  && (std::signbit(std::real(x)) == std::signbit(std::real(gold))) ) {
+  {% else %}
+  if ( std::signbit(x) == std::signbit(gold) ) {
+  {% endif %}
      return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
   }
   else {
@@ -148,9 +152,9 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
          {# Perform min and max using ternerary operators #}
          {# Reductions are special case and need to be in the front #}
          {% if test_type == 'reduction_min' %}
-{{increments.v}} = (({{increments.v}} < -({{inner_index}} + 1)) ? {{increments.v}} : -({{inner_index}} + 1));
+{{increments.v}} = ((std::abs({{increments.v}}) < (-1.0)*std::abs({{inner_index}} + 1)) ? {{increments.v}} : (-1.0)*({{inner_index}} + 1));
          {% elif test_type == 'reduction_max' %}
-{{increments.v}} = (({{increments.v}} >  ({{inner_index}} + 1)) ? {{increments.v}} :  ({{inner_index}} + 1));
+{{increments.v}} = ((std::abs({{increments.v}}) >  std::abs(({{inner_index}} + 1))) ? {{increments.v}} :  ({{inner_index}} + 1));
          {# Complex #}
          {% elif T.is_complex and increments.j and increments.i != "1." %}
 {{increments.v}} = {{increments.v}} + {{T}} { {{increments.i}}.real() / {{increments.j}} };
