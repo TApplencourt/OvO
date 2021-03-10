@@ -57,7 +57,7 @@ bool almost_equal({{T}} x, {{T}} y, int ulp) {
 bool almost_equal({{T}} x, {{T}} gold, float tol) {
   {# check for same sign #}
   {% if T.is_complex %}
-  if ( (std::signbit(std::real(x)) == std::signbit(std::real(gold)))  && (std::signbit(std::real(x)) == std::signbit(std::real(gold))) ) {
+  if ( (std::signbit(std::real(x)) == std::signbit(std::real(gold))) && (std::signbit(std::imag(x)) == std::signbit(std::imag(gold))) ) {
   {% else %}
   if ( std::signbit(x) == std::signbit(gold) ) {
   {% endif %}
