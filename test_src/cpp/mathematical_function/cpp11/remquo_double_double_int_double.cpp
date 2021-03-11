@@ -8,21 +8,19 @@ bool almost_equal(double x, double y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<double>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<double>::min();
 }
 void test_remquo(){
-    const int PROB_SIZE = 10;
    double in0 { 0.42 };
    double in1 { 0.42 };
    int out2_host {};
    int out2_device {};
    double out3_host {};
    double out3_device {};
-    for (int i= 0;  i < PROB_SIZE ; i++) {
-    out3_host +=  remquo( in0, in1, &out2_host);
+   {
+    out3_host =  remquo(in0, in1, &out2_host);
    }
-   #pragma omp target map(tofrom: out2_device, out3_device )    reduction(+: out2_device)  reduction(+: out3_device)
-    for (int i= 0;  i < PROB_SIZE; i++)
-    {
-     out3_device +=  remquo( in0, in1, &out2_device);
-    }
+   #pragma omp target map(tofrom: out2_device, out3_device )
+   {
+     out3_device =  remquo(in0, in1, &out2_device);
+   }
    if ( out2_host != out2_device ) {
         std::cerr << std::setprecision (std::numeric_limits<int>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         std::exit(112);
