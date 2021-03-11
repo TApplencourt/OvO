@@ -8,14 +8,18 @@ bool almost_equal(float x, float y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
 }
 void test_acosh(){
+    const int PROB_SIZE = 10;
    float x { 4.42 };
-   float o_host  ;
-   float o_device  ;
-    o_host =  acosh( x);
-   #pragma omp target map(from: o_device )
-   {
-     o_device =  acosh( x);
+   float o_host {};
+   float o_device {};
+    for (int i= 0;  i < PROB_SIZE ; i++) {
+    o_host +=  acosh( x);
    }
+   #pragma omp target map(tofrom: o_device )    reduction(+: o_device)
+    for (int i= 0;  i < PROB_SIZE; i++)
+    {
+     o_device +=  acosh( x);
+    }
    if ( !almost_equal(o_host,o_device, 4) ) {
         std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << o_host << " GPU: " << o_device << std::endl;
         std::exit(112);

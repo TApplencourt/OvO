@@ -2,14 +2,18 @@
 #include <cstdlib>
 #include <cmath>
 bool almost_equal(float x, float gold, float tol) {
-  return gold * (1-tol) <= x && x <= gold * (1 + tol);
+  if ( std::signbit(x) != std::signbit(gold) )
+  {
+    x = std::abs(gold) - std::abs(x);
+  }
+  return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
 }
 void test_target_teams__distribute_simd() {
   const int N0 { 32768 };
   const float expected_value { N0 };
   float counter_N0{};
-  #pragma omp target teams map(tofrom: counter_N0) reduction(+: counter_N0)
-  #pragma omp distribute simd reduction(+: counter_N0)
+  #pragma omp target teams map(tofrom: counter_N0)
+  #pragma omp distribute simd
   for (int i0 = 0 ; i0 < N0 ; i0++ )
   {
     counter_N0 = counter_N0 + 1. ;

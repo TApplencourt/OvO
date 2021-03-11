@@ -9,13 +9,16 @@ using std::complex;
 int omp_get_num_teams() {return 1;}
 #endif
 bool almost_equal(complex<double> x, complex<double> gold, float tol) {
+  if ( (std::signbit(std::real(x)) != std::signbit(std::real(gold))) or (std::signbit(std::imag(x)) != std::signbit(std::imag(gold))) )
+  {
+    x = std::abs(gold) - std::abs(x);
+  }
   return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
 }
-#pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
 void test_target_teams() {
   const complex<double> expected_value { 1 };
   complex<double> counter_teams{};
-  #pragma omp target teams map(tofrom: counter_teams) reduction(+: counter_teams)
+  #pragma omp target teams map(tofrom: counter_teams)
   {
     counter_teams = counter_teams + complex<double> { double { 1. } / omp_get_num_teams() };
   }

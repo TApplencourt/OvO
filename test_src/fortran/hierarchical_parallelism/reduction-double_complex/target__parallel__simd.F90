@@ -28,8 +28,8 @@ PROGRAM target__parallel__simd
   expected_value = N0
   counter_parallel = 0
   !$OMP TARGET map(tofrom: counter_parallel)
-  !$OMP PARALLEL reduction(+: counter_parallel)
-    !$OMP SIMD reduction(+: counter_parallel)
+  !$OMP PARALLEL
+    !$OMP SIMD
     DO i0 = 1, N0
       counter_parallel = counter_parallel + 1.  / omp_get_num_threads() ;
     END DO

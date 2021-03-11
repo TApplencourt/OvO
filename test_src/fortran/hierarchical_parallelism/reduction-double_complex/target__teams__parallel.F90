@@ -31,8 +31,8 @@ PROGRAM target__teams__parallel
   expected_value = 1
   counter_teams = 0
   !$OMP TARGET map(tofrom: counter_teams)
-  !$OMP TEAMS reduction(+: counter_teams)
-    !$OMP PARALLEL reduction(+: counter_teams)
+  !$OMP TEAMS
+    !$OMP PARALLEL
       counter_teams = counter_teams + 1.  / ( omp_get_num_teams() * omp_get_num_threads() ) ;
     !$OMP END PARALLEL
   !$OMP END TEAMS

@@ -29,6 +29,8 @@ bool almost_equal({{output.T.without_pointer}} x, {{output.T.without_pointer}} y
 {% endfor %}
 
 void test_{{name}}(){
+    const int PROB_SIZE = 10;
+
    {% for input in l_argv | selectattr('is_input')  %}
       {% if not size %}
    {{input.T}} {{input.name}} { {{input.val}} };
@@ -40,24 +42,20 @@ void test_{{name}}(){
    {% endfor %}
 
    {% for output in l_argv | selectattr('is_output') %}
-   {{output.T.without_pointer}} {{output.name_host}} {% if size %}[PROB_SIZE] {% endif %} ;
-   {{output.T.without_pointer}} {{output.name_device}} {% if size %}[PROB_SIZE] {% endif %} ;
+   {{output.T.without_pointer}} {{output.name_host}} {}; 
+   {{output.T.without_pointer}} {{output.name_device}} {};
    {% endfor %}
 
-    {%if size %}
-    for (int i= 0;  i < PROB_SIZE ; i++)
-    {% endif %}
-    {%if scalar_output %}{{scalar_output.name_host_idx}} = {% endif %} {{name}}( {{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_host') }});
-   
-   #pragma omp target map(from: {{ l_argv | selectattr('is_output') | join(', ', attribute='map_clause_from')  }} )  {%if size %} map(to: {{ l_argv | selectattr('is_input') | join(', ', attribute='map_clause_to')  }} ) {% endif %}
-
-   {
-    {%if size %}
-    #pragma omp simd
-    for (int i= 0;  i < PROB_SIZE; i++) 
-    {% endif %}
-    {%if scalar_output %} {{scalar_output.name_device_idx}} = {% endif %} {{name}}( {{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
+    for (int i= 0;  i < PROB_SIZE ; i++) {
+    {%if scalar_output %}{{scalar_output.name_host_idx}} += {% endif %} {{name}}( {{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_host') }});
    }
+
+   #pragma omp target map(tofrom: {{ l_argv | selectattr('is_output') | join(', ', attribute='map_clause_from')  }} )  {%if size %} map(to: {{ l_argv | selectattr('is_input') | join(', ', attribute='map_clause_to')  }} ) {% endif %} {% for output in l_argv | selectattr('is_output') %} reduction(+: {{output.name_device}}) {% endfor %}
+
+    for (int i= 0;  i < PROB_SIZE; i++)
+    { 
+    {%if scalar_output %} {{scalar_output.name_device_idx}} += {% endif %} {{name}}( {{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
+    }
 
    {%if size %}
    for (int i= 0;  i < PROB_SIZE; i++) 

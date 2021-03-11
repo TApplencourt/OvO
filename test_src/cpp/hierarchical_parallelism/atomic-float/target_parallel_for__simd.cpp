@@ -2,7 +2,11 @@
 #include <cstdlib>
 #include <cmath>
 bool almost_equal(float x, float gold, float tol) {
-  return gold * (1-tol) <= x && x <= gold * (1 + tol);
+  if ( std::signbit(x) != std::signbit(gold) )
+  {
+    x = std::abs(gold) - std::abs(x);
+  }
+  return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
 }
 void test_target_parallel_for__simd() {
   const int N0 { 182 };

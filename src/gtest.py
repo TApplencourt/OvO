@@ -1137,13 +1137,15 @@ def update_opt(p, d, d_possible):
         if v == [] and f == bool:
             d[k] = True
             continue
-
+        if isinstance(f, set):
+            d[k] = set()
+        
         for i in v:
             if isinstance(f, set):
                 if not i in f:
                     error(k, i, f"Please use one in {f}")
                 else:
-                    d[k] = i
+                    d[k].add(i)
             elif f == int:
                 try:
                     u = int(i)
@@ -1158,14 +1160,13 @@ def update_opt(p, d, d_possible):
                     error(k, i, "Please use a boolean (True, False, 0, 1)")
                 else:
                     d[k] = bool(i.lower())
-
+              
 
 if __name__ == "__main__":
     with open(os.path.join(dirname, "template", "ovo_usage.txt")) as f:
         ovo_usage = f.read()
 
     import argparse
-
     parser = argparse.ArgumentParser(usage=ovo_usage)
 
     action_parsers = parser.add_subparsers(dest="command")
@@ -1242,7 +1243,6 @@ if __name__ == "__main__":
                     d2[k] = [True, False]
             d2["simdize"] = [1, 32]
             l_mf = [d2]
-
     l_hp_unique = set(chain.from_iterable(gen_all_permutation(d) for d in l_hp))
     l_mf_unique = set(chain.from_iterable(gen_all_permutation(d) for d in l_mf))
     # ~

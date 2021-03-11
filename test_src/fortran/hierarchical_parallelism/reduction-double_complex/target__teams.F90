@@ -26,7 +26,7 @@ PROGRAM target__teams
   expected_value = 1
   counter_teams = 0
   !$OMP TARGET map(tofrom: counter_teams)
-  !$OMP TEAMS reduction(+: counter_teams)
+  !$OMP TEAMS
     counter_teams = counter_teams + 1.  / omp_get_num_teams() ;
   !$OMP END TEAMS
   !$OMP END TARGET

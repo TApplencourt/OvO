@@ -16,7 +16,7 @@ PROGRAM target__parallel__do
   expected_value = N0
   counter_N0 = 0
   !$OMP TARGET map(tofrom: counter_N0)
-  !$OMP PARALLEL reduction(+: counter_N0)
+  !$OMP PARALLEL
   !$OMP DO
   DO i0 = 1, N0
     counter_N0 = counter_N0 + 1.

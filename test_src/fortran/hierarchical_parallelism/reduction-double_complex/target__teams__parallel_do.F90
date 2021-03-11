@@ -28,8 +28,8 @@ PROGRAM target__teams__parallel_do
   expected_value = N0
   counter_teams = 0
   !$OMP TARGET map(tofrom: counter_teams)
-  !$OMP TEAMS reduction(+: counter_teams)
-    !$OMP PARALLEL DO reduction(+: counter_teams)
+  !$OMP TEAMS
+    !$OMP PARALLEL DO
     DO i0 = 1, N0
       counter_teams = counter_teams + 1.  / omp_get_num_teams() ;
     END DO

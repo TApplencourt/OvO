@@ -26,7 +26,7 @@ PROGRAM target__parallel
   expected_value = 1
   counter_parallel = 0
   !$OMP TARGET map(tofrom: counter_parallel)
-  !$OMP PARALLEL reduction(+: counter_parallel)
+  !$OMP PARALLEL
     counter_parallel = counter_parallel + 1.  / omp_get_num_threads() ;
   !$OMP END PARALLEL
   !$OMP END TARGET

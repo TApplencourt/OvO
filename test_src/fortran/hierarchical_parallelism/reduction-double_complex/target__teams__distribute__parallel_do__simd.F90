@@ -20,12 +20,12 @@ PROGRAM target__teams__distribute__parallel_do__simd
   expected_value = N0*N1*N2
   counter_N0 = 0
   !$OMP TARGET map(tofrom: counter_N0)
-  !$OMP TEAMS reduction(+: counter_N0)
+  !$OMP TEAMS
   !$OMP DISTRIBUTE
   DO i0 = 1, N0
-    !$OMP PARALLEL DO reduction(+: counter_N0)
+    !$OMP PARALLEL DO
     DO i1 = 1, N1
-      !$OMP SIMD reduction(+: counter_N0)
+      !$OMP SIMD
       DO i2 = 1, N2
         counter_N0 = counter_N0 + 1.
       END DO

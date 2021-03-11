@@ -28,10 +28,10 @@ PROGRAM target__teams__distribute__parallel
   expected_value = N0
   counter_N0 = 0
   !$OMP TARGET map(tofrom: counter_N0)
-  !$OMP TEAMS reduction(+: counter_N0)
+  !$OMP TEAMS
   !$OMP DISTRIBUTE
   DO i0 = 1, N0
-    !$OMP PARALLEL reduction(+: counter_N0)
+    !$OMP PARALLEL
       counter_N0 = counter_N0 + 1.  / omp_get_num_threads() ;
     !$OMP END PARALLEL
   END DO

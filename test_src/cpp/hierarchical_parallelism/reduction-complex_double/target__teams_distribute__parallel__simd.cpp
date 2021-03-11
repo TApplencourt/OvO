@@ -9,21 +9,24 @@ using std::complex;
 int omp_get_num_threads() {return 1;}
 #endif
 bool almost_equal(complex<double> x, complex<double> gold, float tol) {
+  if ( (std::signbit(std::real(x)) != std::signbit(std::real(gold))) or (std::signbit(std::imag(x)) != std::signbit(std::imag(gold))) )
+  {
+    x = std::abs(gold) - std::abs(x);
+  }
   return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
 }
-#pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
 void test_target__teams_distribute__parallel__simd() {
   const int N0 { 182 };
   const int N1 { 182 };
   const complex<double> expected_value { N0*N1 };
   complex<double> counter_N0{};
   #pragma omp target map(tofrom: counter_N0)
-  #pragma omp teams distribute reduction(+: counter_N0)
+  #pragma omp teams distribute
   for (int i0 = 0 ; i0 < N0 ; i0++ )
   {
-    #pragma omp parallel reduction(+: counter_N0)
+    #pragma omp parallel
     {
-      #pragma omp simd reduction(+: counter_N0)
+      #pragma omp simd
       for (int i1 = 0 ; i1 < N1 ; i1++ )
       {
         counter_N0 = counter_N0 + complex<double> { double { 1. } / omp_get_num_threads() };
