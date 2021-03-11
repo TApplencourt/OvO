@@ -3,7 +3,7 @@ Usage:
   ovo.sh gen
   ovo.sh gen tiers [1|2|3] 
                    [--tripcount]
-  ovo.sh gen hierarchical_parallelism [--test_type [atomic|reduction|memcopy|ordered]...]
+  ovo.sh gen hierarchical_parallelism [--test_type [atomic|reduction_sum|reduction_min|reduction_max|memcopy|ordered]...]
                                       [--data_type [float|'complex<float>'|
                                                     double|'complex<double>'|
                                                     REAL|COMPLEX|
@@ -35,5 +35,5 @@ Generate hierarchical_parallelism memcopy test with REAL datatype with loop cons
   ./ovo.sh gen hierarchical_parallelism  --data_type REAL --loop_pragma True --test_type memcopy
 
 Generate hierarchical_parallelism reduction test with REAL, and complex<float> datatype with and without multi-devices support:
-  ./src/gtest.py hierarchical_parallelism  --data_type REAL "complex<float>" --multiple_devices True False --test_type reduction
+  ./src/gtest.py hierarchical_parallelism  --data_type REAL "complex<float>" --multiple_devices True False --test_type reduction_sum
 

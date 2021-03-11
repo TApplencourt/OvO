@@ -567,8 +567,12 @@ class HP:  # ^(;,;)^
         [[''], ['map(to: src((i0-1+1)*N1:(i0-1+1)*2*N1)) map(from: dst((i0-1+1)*N1:(i0-1+1)*2*N1)) device(MOD(i0-1+1,omp_get_num_devices()))']]
         >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "collapse": 2, "data_type": "float", "multiple_devices": True}).regions_additional_pragma
         [['collapse(2)'], ['map(to: pS[(i1+N1*(i0))*N2*N3:N2*N3]) map(from: pD[(i1+N1*(i0))*N2*N3:N2*N3]) device((i1+N1*(i0))%omp_get_num_devices()) collapse(2)']]
-        >>> HP(["target teams distribute"], {"test_type": "reduction", "collapse": 3}).regions_additional_pragma
+        >>> HP(["target teams distribute"], {"test_type": "reduction_sum", "collapse": 3}).regions_additional_pragma
         [['map(tofrom: counter_N0) reduction(+: counter_N0) collapse(3)']]
+        >>> HP(["target teams distribute"], {"test_type": "reduction_min", "collapse": 3}).regions_additional_pragma
+        [['map(tofrom: counter_N0) reduction(min: counter_N0) collapse(3)']]
+        >>> HP(["target teams distribute"], {"test_type": "reduction_max", "collapse": 3}).regions_additional_pragma
+        [['map(tofrom: counter_N0) reduction(max: counter_N0) collapse(3)']]
         """
 
         def device_directive(i, counter, pragma):
@@ -606,8 +610,12 @@ class HP:  # ^(;,;)^
                     yield f"map(to: src{borns}) map(from: dst{borns})"
 
         def reduction_directive(counter, pragma):
-            if "reduction" in self.test_type and pragma.can_be_reduced:
+            if "reduction_sum" in self.test_type and pragma.can_be_reduced:
                 yield f"reduction(+: {counter})"
+            elif "reduction_min" in self.test_type and pragma.can_be_reduced:
+                yield f"reduction(min: {counter})"
+            elif "reduction_max" in self.test_type and pragma.can_be_reduced:
+                yield f"reduction(max: {counter})"
 
         def ordered_directive(pragma):
             if "ordered" in self.test_type and pragma.has_construct("ordered"):
@@ -674,7 +682,10 @@ class HP:  # ^(;,;)^
         >>> HP(["for"], {"data_type": "REAL", "collapse": 2}).inner_index
         'i1-1+N1*(i0-1)+1'
         """
-        return self.running_index(self.associated_loops_number)
+        if self.associated_loops_number:
+            return self.running_index(self.associated_loops_number)
+        else:
+            return '0'
 
     @cached_property
     def is_valid_test(self):
@@ -1087,7 +1098,7 @@ def gen_all_permutation(d_args):
 #                                  _|
 
 hp_d_possible_value = {
-    "test_type": {"memcopy", "atomic", "reduction", "ordered"},
+    "test_type": {"memcopy", "atomic", "reduction_sum", "reduction_min", "reduction_max", "ordered"},
     "data_type": {"REAL", "DOUBLE PRECISION", "float", "double", "complex<float>", "complex<double>", "COMPLEX", "DOUBLE COMPLEX"},
     "loop_pragma": bool,
     "paired_pragmas": bool,
@@ -1100,7 +1111,7 @@ hp_d_possible_value = {
 }
 
 hp_d_default_value = defaultdict(lambda: False)
-hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic", "reduction"}, "collapse": [0], "tripcount": [32 * 32 * 32]})
+hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic", "reduction_sum"}, "collapse": [0], "tripcount": [32 * 32 * 32]})
 
 
 mf_d_possible_value = {"standard": {"gnu", "cpp11", "cpp17", "cpp20", "F77", "gnu"}, "simdize": int, "complex": bool, "long": bool}
