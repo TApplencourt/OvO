@@ -41,7 +41,7 @@ FUNCTION almost_equal(x, gold, tol) RESULT(b)
   INTEGER,  intent(in) :: gold
   REAL,     intent(in) :: tol
   LOGICAL              :: b
-   {% if T.category =="complex" %}
+   {% if T.is_complex %}
   b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol) )
    {% else %}
   b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol) )
@@ -113,7 +113,7 @@ PROGRAM main
   INTEGER :: errno = 0
   {{T}}, ALLOCATABLE :: src(:)
   {{T}}, ALLOCATABLE :: dst(:)
-   {% if  T.category == "complex" %}
+   {% if  T.is_complex %}
   REAL, ALLOCATABLE :: src_real(:)
   REAL, ALLOCATABLE :: src_imag(:)
    {%endif%}
@@ -121,7 +121,7 @@ PROGRAM main
   S = {{tripcounts}}
   ALLOCATE(dst(S), src(S) )
 
-   {% if T.category == "complex" %}
+   {% if T.is_complex %}
   ALLOCATE(src_real(S),src_imag(S))
   CALL RANDOM_NUMBER(src_real)
   CALL RANDOM_NUMBER(src_imag)
@@ -212,7 +212,7 @@ END DO
 {# That may cause portabilities issue #}
 
 {%if test_type == 'memcopy' %}
-   {% if T.category == "complex" %}
+   {% if T.is_complex %}
   IF (ANY(ABS(dst - src) > EPSILON(REAL(src)))) THEN
    {% else %}
   IF (ANY(ABS(dst - src) > EPSILON(src))) THEN
