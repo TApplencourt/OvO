@@ -1027,8 +1027,8 @@ def gen_mf(d_arg):
 
 def gen_hp(d_arg, omp_construct):
     t = TypeSystem(d_arg["data_type"])
-    # Avoid the user reduction is only valid for cpp complex reduction code
-    if d_arg["no_user_defined_reduction"] and (t.language != "cpp" or t.category != "complex" or d_arg["test_type"] != "reduction"):
+    # Avoid 'user reduction' is only valid for cpp complex reduction code
+    if d_arg["no_user_defined_reduction"] and (t.language != "cpp" or t.category != "complex" or not "reduction" in d_arg["test_type"]):
         return False
 
     # Paired_pragmas only valid for fortran code
@@ -1215,7 +1215,7 @@ if __name__ == "__main__":
             t = int(p.tripcount)
 
         if not p.command or p.tiers >= 1:
-            l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction"}, "tripcount": {t}}]
+            l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction_sum"}, "tripcount": {t}}]
             l_mf = [{"standard": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0}]
         if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
@@ -1223,7 +1223,7 @@ if __name__ == "__main__":
                 {"loop_pragma": True, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
                 {"intermediate_result": True, "data_type": {"REAL", "float"}, "test_type": "atomic","tripcount": {t}},
                 {"host_threaded": True, "data_type": {"REAL", "float"}, "test_type": "atomic","tripcount": {t}},
-                {"multiple_devices": True, "data_type": {"REAL", "float"}, "test_type": "reduction","tripcount": {t}},
+                {"multiple_devices": True, "data_type": {"REAL", "float"}, "test_type": "reduction_sum","tripcount": {t}},
                 {"paired_pragmas": True, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
                 {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
             ]
