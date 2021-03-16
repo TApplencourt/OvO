@@ -116,7 +116,7 @@ PROGRAM main
    {% if  T.is_complex %}
   REAL, ALLOCATABLE :: src_real(:)
   REAL, ALLOCATABLE :: src_imag(:)
-   {%endif%}
+   {% endif %}
 
   S = {{tripcounts}}
   ALLOCATE(dst(S), src(S) )
