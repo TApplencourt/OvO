@@ -100,15 +100,7 @@ PROGRAM main
   INTEGER :: {{ loop_.i }}
 {% endfor %}
 {% endfor %}
-{% if test_type != 'memcopy' %}
-  LOGICAL :: almost_equal
-    {# We need unique in the case of non temporary result #}
-    {% for counter in regions_counter | unique %}
-  {{T}} :: {{counter}}
-    {% endfor %}
-  INTEGER :: expected_value
-  expected_value = {{tripcounts}}
-{% else %}
+{% if test_type == 'memcopy' %}
   INTEGER :: idx, S
   INTEGER :: errno = 0
   {{T}}, ALLOCATABLE :: src(:)
@@ -131,6 +123,20 @@ PROGRAM main
   CALL RANDOM_NUMBER(src)
    {% endif %}
 
+{% else %}
+  LOGICAL :: almost_equal
+    {# We need unique in the case of non temporary result #}
+    {% for counter in regions_counter | unique %}
+  {{T}} :: {{counter}}
+    {% endfor %}
+  INTEGER :: expected_value
+  {% if test_type == 'reduction_min' %}
+  expected_value = 0
+  {% elif test_type == 'reduction_max' %}
+  expected_value = {{tripcounts}} - 1
+  {% else %}
+  expected_value = {{tripcounts}}
+  {% endif %}
 {% endif %}
 
 {#                      _                          #}
