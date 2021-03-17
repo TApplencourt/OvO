@@ -26,7 +26,7 @@ program test_{{name}}
     {% else %}
     !$OMP simd
     DO I=1,PROB_SIZE
-        o_device = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name_idx') }})
+        o_device(i) = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name_idx') }})
     END DO
     {% endif %}
     !$OMP END TARGET

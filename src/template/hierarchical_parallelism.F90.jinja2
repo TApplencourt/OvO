@@ -41,7 +41,7 @@ FUNCTION almost_equal(x, gold, tol) RESULT(b)
   INTEGER,  intent(in) :: gold
   REAL,     intent(in) :: tol
   LOGICAL              :: b
-   {% if T.category =="complex" %}
+   {% if T.is_complex %}
   b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol) )
    {% else %}
   b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol) )
@@ -94,34 +94,34 @@ PROGRAM main
   implicit none
 {% endif %}
 
+{% if T.is_complex and not no_user_defined_reduction %}
+   {% if test_type == 'reduction_min' %}
+  !$OMP DECLARE REDUCTION(min: {{T}}: omp_out = MIN(ABS(omp_in), ABS(omp_out)))
+   {% elif test_type == 'reduction_max' %}
+!$OMP DECLARE REDUCTION(max: {{T}}: omp_out = MAX(ABS(omp_in), ABS(omp_out)))
+   {% endif %}
+{% endif %}
+
 {% for loop_constructs in regions_associated_loop %}
 {% for loop_  in loop_constructs %}
   INTEGER :: {{ loop_.N }} = {{ loop_.v }}
   INTEGER :: {{ loop_.i }}
 {% endfor %}
 {% endfor %}
-{% if test_type != 'memcopy' %}
-  LOGICAL :: almost_equal
-    {# We need unique in the case of non temporary result #}
-    {% for counter in regions_counter | unique %}
-  {{T}} :: {{counter}}
-    {% endfor %}
-  INTEGER :: expected_value
-  expected_value = {{tripcounts}}
-{% else %}
+{% if test_type == 'memcopy' %}
   INTEGER :: idx, S
   INTEGER :: errno = 0
   {{T}}, ALLOCATABLE :: src(:)
   {{T}}, ALLOCATABLE :: dst(:)
-   {% if  T.category == "complex" %}
+   {% if  T.is_complex %}
   REAL, ALLOCATABLE :: src_real(:)
   REAL, ALLOCATABLE :: src_imag(:)
-   {%endif%}
+   {% endif %}
 
   S = {{tripcounts}}
   ALLOCATE(dst(S), src(S) )
 
-   {% if T.category == "complex" %}
+   {% if T.is_complex %}
   ALLOCATE(src_real(S),src_imag(S))
   CALL RANDOM_NUMBER(src_real)
   CALL RANDOM_NUMBER(src_imag)
@@ -131,6 +131,20 @@ PROGRAM main
   CALL RANDOM_NUMBER(src)
    {% endif %}
 
+{% else %}
+  LOGICAL :: almost_equal
+    {# We need unique in the case of non temporary result #}
+    {% for counter in regions_counter | unique %}
+  {{T}} :: {{counter}}
+    {% endfor %}
+  INTEGER :: expected_value
+  {% if test_type == 'reduction_min' %}
+  expected_value = 0
+  {% elif test_type == 'reduction_max' %}
+  expected_value = {{tripcounts}} - 1
+  {% else %}
+  expected_value = {{tripcounts}}
+  {% endif %}
 {% endif %}
 
 {#                      _                          #}
@@ -172,7 +186,17 @@ DO {{loop_.i}} = 1, {{loop_.N}}
 !$OMP ordered
          {% endif %}
 
-         {% if increments.j %}
+         {# Perform min and max using Fortran intrinsic function. #}
+         {# Reductions are special case and need to be in the front. #}
+         {% if T.is_complex and test_type == 'reduction_min' %}
+{{increments.v}} = min(abs({{increments.v}}), REAL(abs({{inner_index}})))
+         {% elif test_type == 'reduction_min' %}
+{{increments.v}} = min({{increments.v}}, REAL({{inner_index}}))
+         {% elif T.is_complex and test_type == 'reduction_max' %}
+{{increments.v}} = max(abs({{increments.v}}), REAL(abs({{inner_index}})))
+         {% elif test_type == 'reduction_max' %}
+{{increments.v}} = max({{increments.v}}, REAL({{inner_index}}))
+         {% elif increments.j %}
 {{increments.v}} = {{increments.v}} + {{increments.i}}  / {{increments.j}} ;
          {% else %}
 {{increments.v}} = {{increments.v}} + {{increments.i}}
@@ -212,7 +236,7 @@ END DO
 {# That may cause portabilities issue #}
 
 {%if test_type == 'memcopy' %}
-   {% if T.category == "complex" %}
+   {% if T.is_complex %}
   IF (ANY(ABS(dst - src) > EPSILON(REAL(src)))) THEN
    {% else %}
   IF (ANY(ABS(dst - src) > EPSILON(src))) THEN

@@ -10,12 +10,14 @@ bool almost_equal(complex<float> x, complex<float> y, int ulp) {
 }
 void test_cos(){
    complex<float> in0 { 0.42, 0.0 };
-   complex<float> out1_host  ;
-   complex<float> out1_device  ;
-    out1_host =  cos( in0);
-   #pragma omp target map(from: out1_device )
+   complex<float> out1_host {};
+   complex<float> out1_device {};
    {
-     out1_device =  cos( in0);
+    out1_host =  cos(in0);
+   }
+   #pragma omp target map(tofrom: out1_device )
+   {
+     out1_device =  cos(in0);
    }
    if ( !almost_equal(out1_host,out1_device, 4) ) {
         std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;

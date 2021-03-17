@@ -9,12 +9,14 @@ bool almost_equal(float x, float y, int ulp) {
 }
 void test_tgammaf(){
    float x { 0.42 };
-   float o_host  ;
-   float o_device  ;
-    o_host =  tgammaf( x);
-   #pragma omp target map(from: o_device )
+   float o_host {};
+   float o_device {};
    {
-     o_device =  tgammaf( x);
+    o_host =  tgammaf(x);
+   }
+   #pragma omp target map(tofrom: o_device )
+   {
+     o_device =  tgammaf(x);
    }
    if ( !almost_equal(o_host,o_device, 4) ) {
         std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << o_host << " GPU: " << o_device << std::endl;

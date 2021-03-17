@@ -10,12 +10,14 @@ bool almost_equal(complex<float> x, complex<float> y, int ulp) {
 }
 void test_acosh(){
    complex<float> x { 4.42, 0.0 };
-   complex<float> o_host  ;
-   complex<float> o_device  ;
-    o_host =  acosh( x);
-   #pragma omp target map(from: o_device )
+   complex<float> o_host {};
+   complex<float> o_device {};
    {
-     o_device =  acosh( x);
+    o_host =  acosh(x);
+   }
+   #pragma omp target map(tofrom: o_device )
+   {
+     o_device =  acosh(x);
    }
    if ( !almost_equal(o_host,o_device, 4) ) {
         std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << o_host << " GPU: " << o_device << std::endl;
