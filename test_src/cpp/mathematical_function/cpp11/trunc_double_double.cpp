@@ -9,12 +9,14 @@ bool almost_equal(double x, double y, int ulp) {
 }
 void test_trunc(){
    double in0 { 0.42 };
-   double out1_host  ;
-   double out1_device  ;
-    out1_host =  trunc( in0);
-   #pragma omp target map(from: out1_device )
+   double out1_host {};
+   double out1_device {};
    {
-     out1_device =  trunc( in0);
+    out1_host =  trunc(in0);
+   }
+   #pragma omp target map(tofrom: out1_device )
+   {
+     out1_device =  trunc(in0);
    }
    if ( !almost_equal(out1_host,out1_device, 4) ) {
         std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;

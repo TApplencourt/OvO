@@ -10,12 +10,14 @@ bool almost_equal(complex<double> x, complex<double> y, int ulp) {
 }
 void test_log10(){
    complex<double> in0 { 0.42, 0.0 };
-   complex<double> out1_host  ;
-   complex<double> out1_device  ;
-    out1_host =  log10( in0);
-   #pragma omp target map(from: out1_device )
+   complex<double> out1_host {};
+   complex<double> out1_device {};
    {
-     out1_device =  log10( in0);
+    out1_host =  log10(in0);
+   }
+   #pragma omp target map(tofrom: out1_device )
+   {
+     out1_device =  log10(in0);
    }
    if ( !almost_equal(out1_host,out1_device, 4) ) {
         std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;

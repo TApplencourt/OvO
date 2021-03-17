@@ -38,22 +38,22 @@ base=$(dirname $0)
 while (( "$#" )); do
     case "$1" in
         gen)
-            shift; $base/src/gtest.py $@; exit
+            shift; $base/src/gtest.py "$@"; exit
             ;;
         clean)
             shift; fclean; exit
             ;;
         run)
             shift; 
-    	    # See if user passed -o as first argument
-	    # and set global baraible result used by frun
+        # See if user passed -o as first argument
+        # and set global baraible result used by frun
             if [ "$1" == "-o" ]; then
-        	shift; result="test_result/$1"; shift;
-    	    else
-        	uuid=$(date +"%Y-%m-%d_%H-%M")
-        	result="test_result/${uuid}_$(hostname)"
-    	    fi 
-	    fclean $@ && frun $@; exit
+               shift; result="test_result/$1"; shift;
+            else
+               uuid=$(date +"%Y-%m-%d_%H-%M")
+               result="test_result/${uuid}_$(hostname)"
+            fi 
+        fclean $@ && frun $@; exit
             ;;
         report)
             shift; $base/src/report.py $@; exit
