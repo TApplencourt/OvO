@@ -27,7 +27,7 @@ PROGRAM target_teams__parallel__do
   INTEGER :: expected_value
   expected_value = N0
   counter_teams = 0
-  !$OMP TARGET TEAMS map(tofrom: counter_teams) reduction(+: counter_teams)
+  !$OMP TARGET TEAMS reduction(+: counter_teams)
     !$OMP PARALLEL reduction(+: counter_teams)
     !$OMP DO
     DO i0 = 1, N0

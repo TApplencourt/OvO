@@ -16,7 +16,7 @@ bool almost_equal(float x, float gold, float tol) {
 void test_target__parallel() {
   const float expected_value { 1 };
   float counter_parallel{};
-  #pragma omp target map(tofrom: counter_parallel)
+  #pragma omp target
   #pragma omp parallel reduction(+: counter_parallel)
   {
     counter_parallel = counter_parallel + float { float{ 1. } / omp_get_num_threads() };

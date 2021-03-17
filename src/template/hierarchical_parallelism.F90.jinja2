@@ -94,6 +94,14 @@ PROGRAM main
   implicit none
 {% endif %}
 
+{% if T.is_complex and not no_user_defined_reduction %}
+   {% if test_type == 'reduction_min' %}
+  !$OMP DECLARE REDUCTION(min: {{T}}: omp_out = MIN(ABS(omp_in), ABS(omp_out)))
+   {% elif test_type == 'reduction_max' %}
+!$OMP DECLARE REDUCTION(max: {{T}}: omp_out = MAX(ABS(omp_in), ABS(omp_out)))
+   {% endif %}
+{% endif %}
+
 {% for loop_constructs in regions_associated_loop %}
 {% for loop_  in loop_constructs %}
   INTEGER :: {{ loop_.N }} = {{ loop_.v }}
@@ -178,20 +186,16 @@ DO {{loop_.i}} = 1, {{loop_.N}}
 !$OMP ordered
          {% endif %}
 
-	 {# Perform min and max using Fortran intrinsic function. #}
-	 {# Reductions are special case and need to be in the front. #}
-	 {% if T.is_complex and test_type == 'reduction_min' %}
+         {# Perform min and max using Fortran intrinsic function. #}
+         {# Reductions are special case and need to be in the front. #}
+         {% if T.is_complex and test_type == 'reduction_min' %}
 {{increments.v}} = min(abs({{increments.v}}), REAL(abs({{inner_index}})))
-
-	 {% elif test_type == 'reduction_min' %}
+         {% elif test_type == 'reduction_min' %}
 {{increments.v}} = min({{increments.v}}, REAL({{inner_index}}))
-
-	 {% elif T.is_complex and test_type == 'reduction_max' %}
+         {% elif T.is_complex and test_type == 'reduction_max' %}
 {{increments.v}} = max(abs({{increments.v}}), REAL(abs({{inner_index}})))
-
          {% elif test_type == 'reduction_max' %}
 {{increments.v}} = max({{increments.v}}, REAL({{inner_index}}))
-
          {% elif increments.j %}
 {{increments.v}} = {{increments.v}} + {{increments.i}}  / {{increments.j}} ;
          {% else %}

@@ -15,7 +15,7 @@ void test_target_teams_distribute() {
   const int N0 { 32768 };
   const complex<double> expected_value { N0 };
   complex<double> counter_N0{};
-  #pragma omp target teams distribute map(tofrom: counter_N0) reduction(+: counter_N0)
+  #pragma omp target teams distribute reduction(+: counter_N0)
   for (int i0 = 0 ; i0 < N0 ; i0++ )
   {
     counter_N0 = counter_N0 + complex<double> { 1. };

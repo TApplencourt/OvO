@@ -15,7 +15,7 @@ void test_target_parallel_for_simd() {
   const int N0 { 32768 };
   const complex<double> expected_value { N0 };
   complex<double> counter_N0{};
-  #pragma omp target parallel for simd map(tofrom: counter_N0) reduction(+: counter_N0)
+  #pragma omp target parallel for simd reduction(+: counter_N0)
   for (int i0 = 0 ; i0 < N0 ; i0++ )
   {
     counter_N0 = counter_N0 + complex<double> { 1. };

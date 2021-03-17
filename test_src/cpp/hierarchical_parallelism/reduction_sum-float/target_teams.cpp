@@ -16,7 +16,7 @@ bool almost_equal(float x, float gold, float tol) {
 void test_target_teams() {
   const float expected_value { 1 };
   float counter_teams{};
-  #pragma omp target teams map(tofrom: counter_teams) reduction(+: counter_teams)
+  #pragma omp target teams reduction(+: counter_teams)
   {
     counter_teams = counter_teams + float { float{ 1. } / omp_get_num_teams() };
   }

@@ -13,7 +13,7 @@ PROGRAM target
   INTEGER :: expected_value
   expected_value = 1
   counter_target = 0
-  !$OMP TARGET map(tofrom: counter_target)
+  !$OMP TARGET
     counter_target = counter_target + 1.
   !$OMP END TARGET
   IF ( .NOT.almost_equal(counter_target,expected_value, 0.1) ) THEN

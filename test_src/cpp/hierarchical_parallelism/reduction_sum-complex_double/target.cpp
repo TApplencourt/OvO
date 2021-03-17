@@ -14,7 +14,7 @@ bool almost_equal(complex<double> x, complex<double> gold, float tol) {
 void test_target() {
   const complex<double> expected_value { 1 };
   complex<double> counter_target{};
-  #pragma omp target map(tofrom: counter_target)
+  #pragma omp target
   {
     counter_target = counter_target + complex<double> { 1. };
   }

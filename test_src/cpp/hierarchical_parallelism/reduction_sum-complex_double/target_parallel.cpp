@@ -19,7 +19,7 @@ bool almost_equal(complex<double> x, complex<double> gold, float tol) {
 void test_target_parallel() {
   const complex<double> expected_value { 1 };
   complex<double> counter_parallel{};
-  #pragma omp target parallel map(tofrom: counter_parallel) reduction(+: counter_parallel)
+  #pragma omp target parallel reduction(+: counter_parallel)
   {
     counter_parallel = counter_parallel + complex<double> { double { 1. } / omp_get_num_threads() };
   }

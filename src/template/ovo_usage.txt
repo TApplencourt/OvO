@@ -14,6 +14,7 @@ Usage:
                                       [--intermediate_result [True|False] ]
                                       [--paired_pragmas [True|False] ]
                                       [--no_user_defined_reduction [True|False] ]
+                                      [--no_implicit_mapping [True|False] ]
                                       [--collapse [N]...]
                                       [--tripcount]
                                       [--append]

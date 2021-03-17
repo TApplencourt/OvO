@@ -32,7 +32,7 @@ PROGRAM target__teams__parallel__simd
   INTEGER :: expected_value
   expected_value = N0
   counter_teams = 0
-  !$OMP TARGET map(tofrom: counter_teams)
+  !$OMP TARGET
   !$OMP TEAMS reduction(+: counter_teams)
     !$OMP PARALLEL reduction(+: counter_teams)
       !$OMP SIMD reduction(+: counter_teams)

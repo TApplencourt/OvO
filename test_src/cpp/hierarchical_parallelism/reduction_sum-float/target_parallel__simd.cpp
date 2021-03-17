@@ -17,7 +17,7 @@ void test_target_parallel__simd() {
   const int N0 { 32768 };
   const float expected_value { N0 };
   float counter_parallel{};
-  #pragma omp target parallel map(tofrom: counter_parallel) reduction(+: counter_parallel)
+  #pragma omp target parallel reduction(+: counter_parallel)
   {
     #pragma omp simd reduction(+: counter_parallel)
     for (int i0 = 0 ; i0 < N0 ; i0++ )

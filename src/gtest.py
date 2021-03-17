@@ -555,6 +555,14 @@ class HP:  # ^(;,;)^
         """
         >>> HP(["target teams"], {"test_type": "atomic", "collapse": 0}).regions_additional_pragma
         [['map(tofrom: counter_teams)']]
+        >>> HP(["target teams"], {"test_type": "reduction_sum", "collapse": 0}).regions_additional_pragma
+        [['reduction(+: counter_teams)']]
+        >>> HP(["target teams distribute"], {"test_type": "reduction_min", "collapse": 0}).regions_additional_pragma
+        [['reduction(min: counter_N0)']]
+        >>> HP(["target teams distribute"], {"test_type": "reduction_max", "collapse": 0}).regions_additional_pragma
+        [['reduction(max: counter_N0)']]
+        >>> HP(["target teams"], {"test_type": "reduction_sum", "collapse": 0, "no_implicit_mapping": True}).regions_additional_pragma
+        [['map(tofrom: counter_teams) reduction(+: counter_teams)']]
         >>> HP(["target teams"], {"test_type": "memcopy", "collapse": 0, "data_type": "float"}).regions_additional_pragma
         [['map(to: pS[0:size]) map(from: pD[0:size])']]
         >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "collapse": 0, "data_type": "float", "multiple_devices": True}).regions_additional_pragma
@@ -568,11 +576,7 @@ class HP:  # ^(;,;)^
         >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "collapse": 2, "data_type": "float", "multiple_devices": True}).regions_additional_pragma
         [['collapse(2)'], ['map(to: pS[(i1+N1*(i0))*N2*N3:N2*N3]) map(from: pD[(i1+N1*(i0))*N2*N3:N2*N3]) device((i1+N1*(i0))%omp_get_num_devices()) collapse(2)']]
         >>> HP(["target teams distribute"], {"test_type": "reduction_sum", "collapse": 3}).regions_additional_pragma
-        [['map(tofrom: counter_N0) reduction(+: counter_N0) collapse(3)']]
-        >>> HP(["target teams distribute"], {"test_type": "reduction_min", "collapse": 3}).regions_additional_pragma
-        [['map(tofrom: counter_N0) reduction(min: counter_N0) collapse(3)']]
-        >>> HP(["target teams distribute"], {"test_type": "reduction_max", "collapse": 3}).regions_additional_pragma
-        [['map(tofrom: counter_N0) reduction(max: counter_N0) collapse(3)']]
+        [['reduction(+: counter_N0) collapse(3)']]
         """
 
         def device_directive(i, counter, pragma):
@@ -587,8 +591,11 @@ class HP:  # ^(;,;)^
             if not pragma.has_construct("target"):
                 return
 
-            if not "memcopy" in self.test_type:
+            if self.test_type == 'atomic':
                 yield f"map(tofrom: {counter})"
+            elif 'reduction' in self.test_type:
+                if self.no_implicit_mapping:
+                    yield f"map(tofrom: {counter})"
             else:
                 if not (self.host_threaded or self.multiple_devices):
                     if self.language == "cpp":
@@ -1103,6 +1110,7 @@ hp_d_possible_value = {
     "loop_pragma": bool,
     "paired_pragmas": bool,
     "no_user_defined_reduction": bool,
+    "no_implicit_mapping": bool,
     "host_threaded": bool,
     "multiple_devices": bool,
     "intermediate_result": bool,
@@ -1220,6 +1228,7 @@ if __name__ == "__main__":
         if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
                 {"data_type": {"REAL", "float"}, "test_type": "ordered","tripcount": {t}},
+                {"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"reduction_min","reduction_max"}, "tripcount": {t}},
                 {"loop_pragma": True, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
                 {"intermediate_result": True, "data_type": {"REAL", "float"}, "test_type": "atomic","tripcount": {t}},
                 {"host_threaded": True, "data_type": {"REAL", "float"}, "test_type": "atomic","tripcount": {t}},

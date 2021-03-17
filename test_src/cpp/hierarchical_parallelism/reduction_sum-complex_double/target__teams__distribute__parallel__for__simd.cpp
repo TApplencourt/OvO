@@ -17,7 +17,7 @@ void test_target__teams__distribute__parallel__for__simd() {
   const int N2 { 32 };
   const complex<double> expected_value { N0*N1*N2 };
   complex<double> counter_N0{};
-  #pragma omp target map(tofrom: counter_N0)
+  #pragma omp target
   #pragma omp teams reduction(+: counter_N0)
   #pragma omp distribute
   for (int i0 = 0 ; i0 < N0 ; i0++ )

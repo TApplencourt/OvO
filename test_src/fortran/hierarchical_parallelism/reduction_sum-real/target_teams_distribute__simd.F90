@@ -17,7 +17,7 @@ PROGRAM target_teams_distribute__simd
   INTEGER :: expected_value
   expected_value = N0*N1
   counter_N0 = 0
-  !$OMP TARGET TEAMS DISTRIBUTE map(tofrom: counter_N0) reduction(+: counter_N0)
+  !$OMP TARGET TEAMS DISTRIBUTE reduction(+: counter_N0)
   DO i0 = 1, N0
     !$OMP SIMD reduction(+: counter_N0)
     DO i1 = 1, N1

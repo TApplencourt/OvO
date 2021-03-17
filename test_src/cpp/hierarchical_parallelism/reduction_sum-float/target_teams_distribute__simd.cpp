@@ -13,7 +13,7 @@ void test_target_teams_distribute__simd() {
   const int N1 { 182 };
   const float expected_value { N0*N1 };
   float counter_N0{};
-  #pragma omp target teams distribute map(tofrom: counter_N0) reduction(+: counter_N0)
+  #pragma omp target teams distribute reduction(+: counter_N0)
   for (int i0 = 0 ; i0 < N0 ; i0++ )
   {
     #pragma omp simd reduction(+: counter_N0)

@@ -25,7 +25,7 @@ PROGRAM target_teams
   INTEGER :: expected_value
   expected_value = 1
   counter_teams = 0
-  !$OMP TARGET TEAMS map(tofrom: counter_teams) reduction(+: counter_teams)
+  !$OMP TARGET TEAMS reduction(+: counter_teams)
     counter_teams = counter_teams + 1.  / omp_get_num_teams() ;
   !$OMP END TARGET TEAMS
   IF ( .NOT.almost_equal(counter_teams,expected_value, 0.1) ) THEN
