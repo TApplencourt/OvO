@@ -3,15 +3,16 @@
 {# \_/ |_) (/_ | | |  | |     __) |_ |_| |_) _> #}
 {#     |                                        #}
 
-{% if not balenced or multiple_devices %}
+{% if openmp_api_call or multiple_devices %}
 #ifndef _OPENMP
-   {% if single("teams") %}
+{% endif %}
+   {% if openmp_api_call and single("teams") %}
 FUNCTION omp_get_num_teams() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_teams
    {% endif %}
-   {% if single("parallel") %}
+   {% if openmp_api_call and single("parallel") %}
 FUNCTION omp_get_num_threads() RESULT(i)
   INTEGER :: i
   i = 1
@@ -23,6 +24,8 @@ FUNCTION omp_get_num_devices() RESULT(i)
   i = 1
 END FUNCTION omp_get_num_devices
    {% endif %}
+
+{% if openmp_api_call or multiple_devices %}
 #endif
 {% endif %}
 
@@ -74,16 +77,16 @@ PROGRAM main
 {#  \/ (_| |  | (_| |_) | (/_   |_/ (/_ (_ | (_| | (_|  |_ | (_) | | #}
 {#                                                                   #}
 
-{% if not balenced or multiple_devices %}
+{% if openmp_api_call or multiple_devices %}
 #ifdef _OPENMP
   USE OMP_LIB
   implicit none
 #else
   implicit none
-   {% if single("teams") %}
+   {% if openmp_api_call and single("teams") %}
   INTEGER :: omp_get_num_teams
    {% endif %}
-   {% if single("parallel") %}
+   {% if openmp_api_call and single("parallel") %}
   INTEGER :: omp_get_num_threads
    {% endif %}
    {% if single("multiple_devices") %}
