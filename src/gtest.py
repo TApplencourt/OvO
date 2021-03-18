@@ -760,6 +760,10 @@ class HP:  # ^(;,;)^
         return True
 
     @cached_property
+    def openmp_api_call(self):
+        return (not self.balenced and  self.test_type not in ['reduction_min','reduction_map'])
+
+    @cached_property
     def template_rendered(self):
 
         if not self.is_valid_test:
