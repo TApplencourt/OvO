@@ -761,7 +761,15 @@ class HP:  # ^(;,;)^
 
     @cached_property
     def openmp_api_call(self):
-        return (not self.balenced and  self.test_type not in ['reduction_min','reduction_map'])
+        """
+        >>> HP(["target parallel"], {'test_type': 'reduction_add'}).openmp_api_call
+        True
+        >>> HP(["target parallel for"], {'test_type': 'reduction_add'}).openmp_api_call
+        False
+        >>> HP(["target parallel"], {'test_type': 'reduction_min'}).openmp_api_call
+        False
+        """
+        return not ( self.test_type in ['reduction_min','reduction_max'] or self.balenced)
 
     @cached_property
     def template_rendered(self):
