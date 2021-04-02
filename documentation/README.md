@@ -4,7 +4,7 @@
 
 # Compiler flags example
 
-## AMD GPU -- clang++ / flang++
+## AMD GPU -- clang++ / flang++ (AMD)
 
 ```bash
 export OMP_TARGET_OFFLOAD=MANDATORY
@@ -16,7 +16,7 @@ export FFLAGS=$COMMON_FLAGS
 ./ovo.sh run
 ```
 
-## NVIDIA GPU -- clang++
+## NVIDIA GPU -- clang++ (LLVM)
 
 ```bash
 export OMP_TARGET_OFFLOAD=MANDATORY
@@ -26,7 +26,7 @@ export CXXFLAGS="$COMMON_FLAGS -fopenmp-version=50"
 ./ovo.sh run ./test_src/cpp/
 ```
 
-## NVIDIA GPU -- xlC_r / xlf90_r
+## NVIDIA GPU -- xlC_r / xlf90_r (IBM)
 
 ```bash
 export OMP_TARGET_OFFLOAD=MANDATORY
@@ -38,7 +38,7 @@ export FFLAGS=$COMMON_FLAGS
 ./ovo.sh run
 ```
 
-## NVIDIA GPU -- g++ / gfortran
+## NVIDIA GPU -- g++ / gfortran (GNU)
 
 ```bash
 export OMP_TARGET_OFFLOAD=MANDATORY
@@ -72,4 +72,16 @@ export CXXFLAGS='-std=c++11 -fopenmp -fopenmp-targets=nvptx64 -Xopenmp-target -m
 export FFLAGS='-h omp'
 ./ovo.sh run
 ```
+
+## Intel GPU -- icx / ifx (Intel)
+
+```bash
+export OMP_TARGET_OFFLOAD=MANDATORY
+export CXX='icpx'
+export FC='ifx'
+export CXXFLAGS='-std=c++11 -fiopenmp -fopenmp-targets=spir64'
+export FFLAGS='-fiopenmp -fopenmp-targets=spir64'
+./ovo.sh run
+```
+
 
