@@ -73,6 +73,17 @@ export FFLAGS='-h omp'
 ./ovo.sh run
 ```
 
+## NVIDIA GPU -- nvc++/nvfortran (Nvidia)
+
+```bash
+export OMP_TARGET_OFFLOAD=MANDATORY
+export CXX='nvc++'
+export FC='nvfortran'
+export CXXFLAGS='-mp=gpu -gpu=cc70'
+export FFLAGS='-mp=gpu -gpu=cc70'
+./ovo.sh run
+```
+
 ## Intel GPU -- icx / ifx (Intel)
 
 ```bash
