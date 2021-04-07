@@ -10,6 +10,7 @@ bool almost_equal(complex<double> x, complex<double> gold, float tol) {
   }
   return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
 }
+#pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
 void test_target_teams_distribute_parallel_for__simd() {
   const int N0 { 182 };
   const int N1 { 182 };
