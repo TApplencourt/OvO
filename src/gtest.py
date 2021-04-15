@@ -553,7 +553,7 @@ class HP:  # ^(;,;)^
     @cached_property
     def regions_additional_pragma(self):
         """
-        >>> HP(["target teams"], {"test_type": "atomic", "collapse": 0}).regions_additional_pragma
+        >>> HP(["target teams"], {"test_type": "atomic_add", "collapse": 0}).regions_additional_pragma
         [['map(tofrom: counter_teams)']]
         >>> HP(["target teams"], {"test_type": "reduction_add", "collapse": 0}).regions_additional_pragma
         [['reduction(+: counter_teams)']]
@@ -591,7 +591,7 @@ class HP:  # ^(;,;)^
             if not pragma.has_construct("target"):
                 return
 
-            if self.test_type == 'atomic':
+            if self.test_type == 'atomic_add':
                 yield f"map(tofrom: {counter})"
             elif 'reduction' in self.test_type:
                 if self.no_implicit_mapping:
@@ -697,7 +697,7 @@ class HP:  # ^(;,;)^
     @cached_property
     def is_valid_test(self):
         """
-        >>> d = {"test_type":"atomic",
+        >>> d = {"test_type":"atomic_add",
         ...      "collapse": 0 }
 
         >>> HP(["target for"], {**d, 'loop_pragma': True} ).is_valid_test
@@ -743,9 +743,9 @@ class HP:  # ^(;,;)^
         #    omp_get_num_teams() regions, and omp_get_team_num() regions
         #    are the only OpenMP regions that may be strictly nested inside the teams region.
         # That mean atomic cannot be stricly nested inside "teams"...
-        elif self.test_type == "atomic" and self.flatten_target_path[-1] == "teams":
+        elif self.test_type == "atomic_add" and self.flatten_target_path[-1] == "teams":
             return False
-        elif self.test_type == "atomic" and self.intermediate_result and self.single("teams"):
+        elif self.test_type == "atomic_add" and self.intermediate_result and self.single("teams"):
             return False
 
         # Ordered need to have a worksharing or simd pragma in every region and be balenced
@@ -1055,7 +1055,7 @@ def gen_hp(d_arg, omp_construct):
         return False
 
     # OpenMP doesn't support Complex Atomic
-    if t.category == "complex" and d_arg["test_type"] == "atomic":
+    if t.category == "complex" and d_arg["test_type"] == "atomic_add":
         return False
 
     """
@@ -1064,7 +1064,7 @@ def gen_hp(d_arg, omp_construct):
 
     That mean no atomic with loop
     """
-    if d_arg["test_type"] == "atomic" and d_arg["loop_pragma"]:
+    if d_arg["test_type"] == "atomic_add" and d_arg["loop_pragma"]:
         return False
 
     name_folder = [d_arg["test_type"], t.serialized] + sorted([k for k, v in d_arg.items() if v is True])
@@ -1117,7 +1117,7 @@ def gen_all_permutation(d_args):
 #                                  _|
 
 hp_d_possible_value = {
-    "test_type": {"memcopy", "atomic", "reduction_add", "reduction_min", "reduction_max", "ordered"},
+    "test_type": {"memcopy", "atomic_add", "reduction_add", "reduction_min", "reduction_max", "ordered"},
     "data_type": {"REAL", "DOUBLE PRECISION", "float", "double", "complex<float>", "complex<double>", "COMPLEX", "DOUBLE COMPLEX"},
     "loop_pragma": bool,
     "paired_pragmas": bool,
@@ -1131,7 +1131,7 @@ hp_d_possible_value = {
 }
 
 hp_d_default_value = defaultdict(lambda: False)
-hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic", "reduction_add"}, "collapse": [0], "tripcount": [32 * 32 * 32]})
+hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic_add", "reduction_add"}, "collapse": [0], "tripcount": [32 * 32 * 32]})
 
 
 mf_d_possible_value = {"standard": {"gnu", "cpp11", "cpp17", "cpp20", "F77", "gnu"}, "simdize": int, "complex": bool, "long": bool}
@@ -1235,15 +1235,15 @@ if __name__ == "__main__":
             t = int(p.tripcount)
 
         if not p.command or p.tiers >= 1:
-            l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic", "reduction_add"}, "tripcount": {t}}]
+            l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic_add", "reduction_add"}, "tripcount": {t}}]
             l_mf = [{"standard": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0}]
         if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
                 {"data_type": {"REAL", "float"}, "test_type": "ordered","tripcount": {t}},
                 {"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"reduction_min","reduction_max"}, "tripcount": {t}},
                 {"loop_pragma": True, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
-                {"intermediate_result": True, "data_type": {"REAL", "float"}, "test_type": "atomic","tripcount": {t}},
-                {"host_threaded": True, "data_type": {"REAL", "float"}, "test_type": "atomic","tripcount": {t}},
+                {"intermediate_result": True, "data_type": {"REAL", "float"}, "test_type": "atomic_add","tripcount": {t}},
+                {"host_threaded": True, "data_type": {"REAL", "float"}, "test_type": "atomic_add","tripcount": {t}},
                 {"multiple_devices": True, "data_type": {"REAL", "float"}, "test_type": "reduction_add","tripcount": {t}},
                 {"paired_pragmas": True, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
                 {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
