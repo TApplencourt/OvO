@@ -20,6 +20,7 @@ void test_target_teams__distribute__parallel_for() {
     #pragma omp parallel for
     for (int i1 = 0 ; i1 < N1 ; i1++ )
     {
+      #pragma omp atomic update
       counter_N0 = counter_N0 + 1. ;
     }
   }

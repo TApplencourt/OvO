@@ -18,6 +18,7 @@ PROGRAM target__parallel_do
   !$OMP TARGET map(tofrom: counter_N0)
   !$OMP PARALLEL DO
   DO i0 = 1, N0
+    !$OMP atomic update
     counter_N0 = counter_N0 + 1.
   END DO
   !$OMP END TARGET

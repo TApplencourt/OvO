@@ -13,7 +13,7 @@ void test_target__teams__distribute__parallel__for() {
   const int N1 { 182 };
   const float expected_value { N0*N1 };
   float counter_N0{};
-  #pragma omp target
+  #pragma omp target map(tofrom: counter_N0)
   #pragma omp teams reduction(+: counter_N0)
   #pragma omp distribute
   for (int i0 = 0 ; i0 < N0 ; i0++ )

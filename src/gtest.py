@@ -555,8 +555,12 @@ class HP:  # ^(;,;)^
         """
         >>> HP(["target teams"], {"test_type": "atomic_add", "collapse": 0}).regions_additional_pragma
         [['map(tofrom: counter_teams)']]
+        >>> HP(["target teams distribute parallel for"], {"test_type": "ordered", "collapse": 0, "data_type": "float"}).regions_additional_pragma
+        [['map(tofrom: counter_N0) ordered']]
         >>> HP(["target teams"], {"test_type": "reduction_add", "collapse": 0}).regions_additional_pragma
         [['reduction(+: counter_teams)']]
+        >>> HP(["target","teams distribute"], {"test_type": "reduction_add", "collapse": 0}).regions_additional_pragma
+        [['map(tofrom: counter_N0)', 'reduction(+: counter_N0)']]
         >>> HP(["target teams distribute"], {"test_type": "reduction_min", "collapse": 0}).regions_additional_pragma
         [['reduction(min: counter_N0)']]
         >>> HP(["target teams distribute"], {"test_type": "reduction_max", "collapse": 0}).regions_additional_pragma
@@ -588,13 +592,15 @@ class HP:  # ^(;,;)^
                     yield f"device(MOD({idx},omp_get_num_devices()))"
 
         def mapping_directive(i, counter, pragma):
+            # If we use `target_data` we still map in target
+            # This is because of sclalar mapping who are first private by default.
             if not pragma.has_construct("target"):
                 return
 
-            if self.test_type == 'atomic_add':
+            if self.test_type.startswith('atomic') or self.test_type == 'ordered':
                 yield f"map(tofrom: {counter})"
             elif 'reduction' in self.test_type:
-                if self.no_implicit_mapping:
+                if pragma == 'target' or self.no_implicit_mapping:
                     yield f"map(tofrom: {counter})"
             else:
                 if not (self.host_threaded or self.multiple_devices):
@@ -743,9 +749,9 @@ class HP:  # ^(;,;)^
         #    omp_get_num_teams() regions, and omp_get_team_num() regions
         #    are the only OpenMP regions that may be strictly nested inside the teams region.
         # That mean atomic cannot be stricly nested inside "teams"...
-        elif self.test_type == "atomic_add" and self.flatten_target_path[-1] == "teams":
+        elif self.test_type.startswith("atomic") and self.flatten_target_path[-1] == "teams":
             return False
-        elif self.test_type == "atomic_add" and self.intermediate_result and self.single("teams"):
+        elif self.test_type.startswith("atomic") and self.intermediate_result and self.single("teams"):
             return False
 
         # Ordered need to have a worksharing or simd pragma in every region and be balenced
@@ -1055,7 +1061,7 @@ def gen_hp(d_arg, omp_construct):
         return False
 
     # OpenMP doesn't support Complex Atomic
-    if t.category == "complex" and d_arg["test_type"] == "atomic_add":
+    if t.category == "complex" and d_arg["test_type"].startswith("atomic"):
         return False
 
     """
@@ -1064,7 +1070,7 @@ def gen_hp(d_arg, omp_construct):
 
     That mean no atomic with loop
     """
-    if d_arg["test_type"] == "atomic_add" and d_arg["loop_pragma"]:
+    if d_arg["test_type"].startswith("atomic") and d_arg["loop_pragma"]:
         return False
 
     name_folder = [d_arg["test_type"], t.serialized] + sorted([k for k, v in d_arg.items() if v is True])
@@ -1128,6 +1134,7 @@ hp_d_possible_value = {
     "intermediate_result": bool,
     "collapse": int,
     "tripcount": int,
+    "target_data": bool
 }
 
 hp_d_default_value = defaultdict(lambda: False)
@@ -1240,10 +1247,10 @@ if __name__ == "__main__":
         if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
                 {"data_type": {"REAL", "float"}, "test_type": "ordered","tripcount": {t}},
-                {"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"reduction_min","reduction_max"}, "tripcount": {t}},
+                {"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"reduction_min","reduction_max","atomic_min","atomic_max"}, "tripcount": {t}},
                 {"loop_pragma": True, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
                 {"intermediate_result": True, "data_type": {"REAL", "float"}, "test_type": "atomic_add","tripcount": {t}},
-                {"host_threaded": True, "data_type": {"REAL", "float"}, "test_type": "atomic_add","tripcount": {t}},
+                {"host_threaded": True, "target_data": True, "data_type": {"REAL", "float"}, "test_type": "atomic_add","tripcount": {t}},
                 {"multiple_devices": True, "data_type": {"REAL", "float"}, "test_type": "reduction_add","tripcount": {t}},
                 {"paired_pragmas": True, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
                 {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},

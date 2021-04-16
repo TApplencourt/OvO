@@ -19,6 +19,7 @@ void test_target__parallel() {
   #pragma omp target map(tofrom: counter_parallel)
   #pragma omp parallel
   {
+    #pragma omp atomic update
     counter_parallel = counter_parallel + float { float{ 1. } / omp_get_num_threads() };
   }
   if (!almost_equal(counter_parallel, expected_value, 0.1)) {

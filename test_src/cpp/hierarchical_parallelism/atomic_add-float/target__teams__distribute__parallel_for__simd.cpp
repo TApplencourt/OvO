@@ -25,6 +25,7 @@ void test_target__teams__distribute__parallel_for__simd() {
       #pragma omp simd
       for (int i2 = 0 ; i2 < N2 ; i2++ )
       {
+        #pragma omp atomic update
         counter_N0 = counter_N0 + 1. ;
       }
     }

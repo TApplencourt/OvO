@@ -21,7 +21,7 @@ void test_target__teams__parallel__simd() {
   const int N0 { 32768 };
   const complex<double> expected_value { N0 };
   complex<double> counter_teams{};
-  #pragma omp target
+  #pragma omp target map(tofrom: counter_teams)
   #pragma omp teams reduction(+: counter_teams)
   {
     #pragma omp parallel reduction(+: counter_teams)

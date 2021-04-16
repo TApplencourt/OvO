@@ -13,6 +13,7 @@ void test_target() {
   float counter_target{};
   #pragma omp target map(tofrom: counter_target)
   {
+    #pragma omp atomic update
     counter_target = counter_target + 1. ;
   }
   if (!almost_equal(counter_target, expected_value, 0.1)) {

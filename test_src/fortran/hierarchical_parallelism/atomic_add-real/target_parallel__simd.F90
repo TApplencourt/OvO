@@ -30,6 +30,7 @@ PROGRAM target_parallel__simd
   !$OMP TARGET PARALLEL map(tofrom: counter_parallel)
     !$OMP SIMD
     DO i0 = 1, N0
+      !$OMP atomic update
       counter_parallel = counter_parallel + 1.  / omp_get_num_threads() ;
     END DO
   !$OMP END TARGET PARALLEL

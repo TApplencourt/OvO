@@ -141,9 +141,9 @@ PROGRAM main
   {{T}} :: {{counter}}
     {% endfor %}
   INTEGER :: expected_value
-  {% if test_type == 'reduction_min' %}
+  {% if test_type.endswith('_min') %}
   expected_value = 0
-  {% elif test_type == 'reduction_max' %}
+  {% elif test_type.endswith('_max') %}
   expected_value = {{tripcounts}} - 1
   {% else %}
   expected_value = {{tripcounts}}
@@ -180,8 +180,7 @@ DO {{loop_.i}} = 1, {{loop_.N}}
 
       {# In the case of 'local' test, we increment the counter only in the inner most enclosing scope #}
       {% if test_type != 'memcopy' and (intermediate_result or loop.first) %}
-
-         {% if test_type =='atomic' %}
+         {% if test_type.startswith('atomic') %}
 !$OMP atomic update
          {% elif test_type == 'ordered' and in_region('simd',region) %}
 !$OMP ordered simd
@@ -191,13 +190,13 @@ DO {{loop_.i}} = 1, {{loop_.N}}
 
          {# Perform min and max using Fortran intrinsic function. #}
          {# Reductions are special case and need to be in the front. #}
-         {% if T.is_complex and test_type == 'reduction_min' %}
+         {% if T.is_complex and test_type.endswith('_min') %}
 {{increments.v}} = min(abs({{increments.v}}), REAL(abs({{inner_index}})))
-         {% elif test_type == 'reduction_min' %}
+         {% elif test_type.endswith('_min') %}
 {{increments.v}} = min({{increments.v}}, REAL({{inner_index}}))
-         {% elif T.is_complex and test_type == 'reduction_max' %}
+         {% elif T.is_complex and test_type.endswith('_max') %}
 {{increments.v}} = max(abs({{increments.v}}), REAL(abs({{inner_index}})))
-         {% elif test_type == 'reduction_max' %}
+         {% elif test_type.endswith('_max') %}
 {{increments.v}} = max({{increments.v}}, REAL({{inner_index}}))
          {% elif increments.j %}
 {{increments.v}} = {{increments.v}} + {{increments.i}}  / {{increments.j}} ;

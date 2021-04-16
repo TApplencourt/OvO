@@ -26,6 +26,7 @@ PROGRAM target_parallel
   expected_value = 1
   counter_parallel = 0
   !$OMP TARGET PARALLEL map(tofrom: counter_parallel)
+    !$OMP atomic update
     counter_parallel = counter_parallel + 1.  / omp_get_num_threads() ;
   !$OMP END TARGET PARALLEL
   IF ( .NOT.almost_equal(counter_parallel,expected_value, 0.1) ) THEN

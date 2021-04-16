@@ -31,6 +31,7 @@ PROGRAM target__parallel__simd
   !$OMP PARALLEL
     !$OMP SIMD
     DO i0 = 1, N0
+      !$OMP atomic update
       counter_parallel = counter_parallel + 1.  / omp_get_num_threads() ;
     END DO
   !$OMP END PARALLEL

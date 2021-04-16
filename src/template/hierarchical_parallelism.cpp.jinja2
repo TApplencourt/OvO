@@ -107,9 +107,9 @@ void test_{{name}}() {
   std::generate(src.begin(), src.end(), std::rand);
   {{T}} *pS { src.data() };
   {{T}} *pD { dst.data() };
-{% elif test_type == 'reduction_min' %}
+{% elif test_type.endswith('_min') %}
   const {{T}} expected_value {};
-{% elif test_type == 'reduction_max' %}
+{% elif test_type.endswith('_max') %}
   const {{T}} expected_value { {{tripcounts}}-1 };
 {% else %}
   const {{T}} expected_value { {{tripcounts}} };
@@ -124,6 +124,9 @@ void test_{{name}}() {
    {# In the case of 'local' test, we use only one counter in the outermost enclosing scope #} 
    {% if  test_type != 'memcopy' and (intermediate_result or loop.first) %}
 {{T}} {{counter}}{};
+   {% endif %}
+   {% if  test_type != 'memcopy' and enter_data and loop.first %}
+#pragma omp target enter data map(to: {{counter}})
    {% endif %}
    {% for pragma, additional_pragma in zip(region, region_additional_pragma) %}
 #pragma omp {{pragma}} {{additional_pragma}}
@@ -146,9 +149,12 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
 
       {# In the case of 'local' test, we increment the counter only in the inner most enclosing scope #}
       {% if test_type != 'memcopy' and (intermediate_result or loop.first) %}
-
-         {% if test_type == 'atomic' %}
+          
+         {% if test_type == 'atomic_add' %}
 #pragma omp atomic update
+         {# Min / Max #}
+         {% elif test_type.startswith('atomic') %}
+#pragma omp atomic compare
          {% elif test_type == 'ordered' and in_region('simd',region) %}
 #pragma omp ordered simd
          {% elif test_type == 'ordered' %}
@@ -156,14 +162,14 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
          {% endif %}
 
          {# Perform min and max using ternerary operators #}
-         {# Reductions are special case and need to be in the front #}
-         {% if T.is_complex and test_type == 'reduction_min' %}
+         {# Reductions/Atomic are special case and need to be in the front #}
+         {% if T.is_complex and test_type.endswith('_min') %}
 {{increments.v}} = std::abs({{increments.v}}) < std::abs({{inner_index}}) ? {{increments.v}} : {{inner_index}};
-         {% elif test_type == 'reduction_min' %}
+         {% elif test_type.endswith('_min') %}
 {{increments.v}} = {{increments.v}} < {{inner_index}} ? {{increments.v}} : {{inner_index}};
          {% elif T.is_complex and test_type == 'reduction_max' %}
 {{increments.v}} = std::abs({{increments.v}}) > std::abs({{inner_index}}) ? {{increments.v}} : {{inner_index}};
-         {% elif test_type == 'reduction_max' %}
+         {% elif test_type.endswith('_max') %}
 {{increments.v}} = {{increments.v}} > {{inner_index}} ? {{increments.v}} : {{inner_index}};
          {# Complex #}
          {% elif T.is_complex and increments.j and increments.i != "1." %}
@@ -191,6 +197,10 @@ pD[idx] = pS[idx];
 }
    {% endfilter %}
 {% endfor %}
+
+{% if  test_type != 'memcopy' and enter_data %}
+  #pragma omp target exit data map(from: {{regions_counter[0]}})
+{% endif %}
 
 {#                                   #}
 {# \  / _. | o  _|  _. _|_ o  _  ._  #}
