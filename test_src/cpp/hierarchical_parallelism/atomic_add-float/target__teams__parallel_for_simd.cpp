@@ -23,6 +23,7 @@ void test_target__teams__parallel_for_simd() {
     #pragma omp parallel for simd
     for (int i0 = 0 ; i0 < N0 ; i0++ )
     {
+      #pragma omp atomic update
       counter_teams = counter_teams + float { float{ 1. } / omp_get_num_teams() };
     }
   }

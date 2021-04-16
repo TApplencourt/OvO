@@ -36,6 +36,7 @@ PROGRAM target__teams__distribute__parallel__simd
     !$OMP PARALLEL
       !$OMP SIMD
       DO i1 = 1, N1
+        !$OMP atomic update
         counter_N0 = counter_N0 + 1.  / omp_get_num_threads() ;
       END DO
     !$OMP END PARALLEL

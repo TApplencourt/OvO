@@ -23,6 +23,7 @@ void test_target__parallel__simd() {
     #pragma omp simd
     for (int i0 = 0 ; i0 < N0 ; i0++ )
     {
+      #pragma omp atomic update
       counter_parallel = counter_parallel + float { float{ 1. } / omp_get_num_threads() };
     }
   }

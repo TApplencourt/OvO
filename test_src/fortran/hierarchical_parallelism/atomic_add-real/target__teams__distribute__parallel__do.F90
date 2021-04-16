@@ -24,6 +24,7 @@ PROGRAM target__teams__distribute__parallel__do
     !$OMP PARALLEL
     !$OMP DO
     DO i1 = 1, N1
+      !$OMP atomic update
       counter_N0 = counter_N0 + 1.
     END DO
     !$OMP END PARALLEL

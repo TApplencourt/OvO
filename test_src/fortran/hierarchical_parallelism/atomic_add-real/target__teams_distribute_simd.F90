@@ -18,6 +18,7 @@ PROGRAM target__teams_distribute_simd
   !$OMP TARGET map(tofrom: counter_N0)
   !$OMP TEAMS DISTRIBUTE SIMD
   DO i0 = 1, N0
+    !$OMP atomic update
     counter_N0 = counter_N0 + 1.
   END DO
   !$OMP END TARGET

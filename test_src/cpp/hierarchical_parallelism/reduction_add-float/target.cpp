@@ -11,7 +11,7 @@ bool almost_equal(float x, float gold, float tol) {
 void test_target() {
   const float expected_value { 1 };
   float counter_target{};
-  #pragma omp target
+  #pragma omp target map(tofrom: counter_target)
   {
     counter_target = counter_target + 1. ;
   }

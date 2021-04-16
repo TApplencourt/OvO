@@ -15,7 +15,7 @@ void test_target__parallel__for() {
   const int N0 { 32768 };
   const complex<double> expected_value { N0 };
   complex<double> counter_N0{};
-  #pragma omp target
+  #pragma omp target map(tofrom: counter_N0)
   #pragma omp parallel reduction(+: counter_N0)
   #pragma omp for
   for (int i0 = 0 ; i0 < N0 ; i0++ )

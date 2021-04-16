@@ -34,6 +34,7 @@ PROGRAM target_teams__parallel_do__simd
     DO i0 = 1, N0
       !$OMP SIMD
       DO i1 = 1, N1
+        !$OMP atomic update
         counter_teams = counter_teams + 1.  / omp_get_num_teams() ;
       END DO
     END DO

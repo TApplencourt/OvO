@@ -22,6 +22,7 @@ void test_target_teams_distribute__parallel() {
   {
     #pragma omp parallel
     {
+      #pragma omp atomic update
       counter_N0 = counter_N0 + float { float{ 1. } / omp_get_num_threads() };
     }
   }

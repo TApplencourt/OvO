@@ -18,7 +18,7 @@ void test_target__teams__parallel_for__simd() {
   const int N1 { 182 };
   const float expected_value { N0*N1 };
   float counter_teams{};
-  #pragma omp target
+  #pragma omp target map(tofrom: counter_teams)
   #pragma omp teams reduction(+: counter_teams)
   {
     #pragma omp parallel for reduction(+: counter_teams)

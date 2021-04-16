@@ -23,6 +23,7 @@ void test_target_teams__parallel__for() {
     #pragma omp for
     for (int i0 = 0 ; i0 < N0 ; i0++ )
     {
+      #pragma omp atomic update
       counter_teams = counter_teams + float { float{ 1. } / omp_get_num_teams() };
     }
   }

@@ -27,7 +27,7 @@ PROGRAM target__parallel__simd
   INTEGER :: expected_value
   expected_value = N0
   counter_parallel = 0
-  !$OMP TARGET
+  !$OMP TARGET map(tofrom: counter_parallel)
   !$OMP PARALLEL reduction(+: counter_parallel)
     !$OMP SIMD reduction(+: counter_parallel)
     DO i0 = 1, N0

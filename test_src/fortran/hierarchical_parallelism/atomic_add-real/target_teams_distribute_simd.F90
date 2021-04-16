@@ -17,6 +17,7 @@ PROGRAM target_teams_distribute_simd
   counter_N0 = 0
   !$OMP TARGET TEAMS DISTRIBUTE SIMD map(tofrom: counter_N0)
   DO i0 = 1, N0
+    !$OMP atomic update
     counter_N0 = counter_N0 + 1.
   END DO
   IF ( .NOT.almost_equal(counter_N0,expected_value, 0.1) ) THEN
