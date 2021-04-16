@@ -775,7 +775,7 @@ class HP:  # ^(;,;)^
         >>> HP(["target parallel"], {'test_type': 'reduction_min'}).openmp_api_call
         False
         """
-        return not ( self.test_type in ['reduction_min','reduction_max'] or self.balenced)
+        return not ( self.test_type in ['reduction_min','reduction_max','atomic_max','atomic_min'] or self.balenced)
 
     @cached_property
     def template_rendered(self):
