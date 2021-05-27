@@ -1,4 +1,134 @@
 {
+    "F08": {
+        "ACOSH": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ]
+            ]
+        },
+        "ASINH": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ]
+            ]
+        },
+        "ATANH": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ]
+            ]
+        }
+    },
+    "F08_complex": {
+        "ACOS": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "ASIN": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "ATAN": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "ACOSH": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "ASINH": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        },
+        "ATANH": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "COMPLEX",
+                    "COMPLEX"
+                ]
+            ]
+        }
+    },
     "F77_complex": {
         "ABS": {
             "attribute": [
