@@ -42,7 +42,7 @@ int omp_get_num_devices() {return 1;}
 {# \_ (_) | | | |_) (_| | (_| | _> (_) | |   | |_| | | (_  |_ | (_) | | #}
 {#              |                                                       #}
 
-{# For memcopy we compare 'bitwise', for folder we compare relatively due to floating point arithmetic #}
+{# For memcopy we compare 'bitwise', for other  we compare relatively due to floating point arithmetic #}
 
 {% if test_type == 'memcopy' %}
 bool almost_equal({{T}} x, {{T}} y, int ulp) {
@@ -53,18 +53,9 @@ bool almost_equal({{T}} x, {{T}} y, int ulp) {
    {% endif %}
 }
 {% else %}
-{# handles signed numbers, but doesn't check real and imagine components of complex data type seperately #}
-bool almost_equal({{T}} x, {{T}} gold, float tol) {
-   {# check for same sign #}
-   {% if T.is_complex %}
-  if ( (std::signbit(std::real(x)) != std::signbit(std::real(gold))) or (std::signbit(std::imag(x)) != std::signbit(std::imag(gold))) )
-   {% else %}
-  if ( std::signbit(x) != std::signbit(gold) )
-   {% endif %}
-  {  
-    x = std::abs(gold) - std::abs(x);
-  }
-  return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
+{# This is not perfect for complex number, but we live in a non perfect world... #}
+bool almost_equal({{T}} x, {{T}} gold, {{T.internal}} rel_tol=1e-09, {{T.internal}} abs_tol=0.0) {
+  return std::abs(x-gold) <= std::max(rel_tol * std::max(std::abs(x), std::abs(gold)), abs_tol);
 }
 {% endif%}
 
