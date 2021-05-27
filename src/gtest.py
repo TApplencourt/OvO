@@ -1141,7 +1141,7 @@ hp_d_default_value = defaultdict(lambda: False)
 hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic_add", "reduction_add"}, "collapse": [0], "tripcount": [32 * 32 * 32]})
 
 
-mf_d_possible_value = {"standard": {"gnu", "cpp11", "cpp17", "cpp20", "F77", "gnu"}, "simdize": int, "complex": bool, "long": bool}
+mf_d_possible_value = {"standard": {"gnu", "cpp11", "cpp17", "cpp20", "F77", "gnu", "F08"}, "simdize": int, "complex": bool, "long": bool}
 
 mf_d_default_value = defaultdict(lambda: False)
 mf_d_default_value.update({"standard": {"cpp11", "F77"}, "complex": {True, False}})
@@ -1255,7 +1255,7 @@ if __name__ == "__main__":
                 {"paired_pragmas": True, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
                 {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
             ]
-            l_mf += [{"standard": {"cpp11", "F77", "gnu"}, "complex": {True, False}, "simdize": [0, 32]}]
+            l_mf += [{"standard": {"cpp11", "F77", "F08", "gnu"}, "complex": {True, False}, "simdize": [0, 32]}]
         if p.command == "tiers" and p.tiers >= 3:
             d1 = dict(hp_d_possible_value)
             for k, v in d1.items():
