@@ -3,12 +3,8 @@
 #include <cmath>
 #include <complex>
 using std::complex;
-bool almost_equal(complex<double> x, complex<double> gold, float tol) {
-  if ( (std::signbit(std::real(x)) != std::signbit(std::real(gold))) or (std::signbit(std::imag(x)) != std::signbit(std::imag(gold))) )
-  {
-    x = std::abs(gold) - std::abs(x);
-  }
-  return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
+bool almost_equal(complex<double> x, complex<double> gold, double rel_tol=1e-09, double abs_tol=0.0) {
+  return std::abs(x-gold) <= std::max(rel_tol * std::max(std::abs(x), std::abs(gold)), abs_tol);
 }
 #pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
 void test_target_teams_distribute__parallel_for__simd() {

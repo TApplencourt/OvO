@@ -6,12 +6,8 @@
 #else
 int omp_get_num_teams() {return 1;}
 #endif
-bool almost_equal(float x, float gold, float tol) {
-  if ( std::signbit(x) != std::signbit(gold) )
-  {
-    x = std::abs(gold) - std::abs(x);
-  }
-  return std::abs(gold) * (1-tol) <= std::abs(x) && std::abs(x) <= std::abs(gold) * (1 + tol);
+bool almost_equal(float x, float gold, float rel_tol=1e-09, float abs_tol=0.0) {
+  return std::abs(x-gold) <= std::max(rel_tol * std::max(std::abs(x), std::abs(gold)), abs_tol);
 }
 void test_target_teams__parallel__for__simd() {
   const int N0 { 182 };
