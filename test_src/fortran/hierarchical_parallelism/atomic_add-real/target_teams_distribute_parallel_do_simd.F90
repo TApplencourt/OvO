@@ -20,7 +20,7 @@ PROGRAM target_teams_distribute_parallel_do_simd
     !$OMP atomic update
     counter_N0 = counter_N0 + 1.
   END DO
-  IF ( .NOT.almost_equal(counter_N0,expected_value, 0.1) ) THEN
+  IF ( .NOT.almost_equal(counter_N0,expected_value, 0.01) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_N0
     STOP 112
   ENDIF

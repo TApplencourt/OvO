@@ -31,7 +31,7 @@ PROGRAM target__teams__distribute__parallel__do
   END DO
   !$OMP END TEAMS
   !$OMP END TARGET
-  IF ( .NOT.almost_equal(counter_N0,expected_value, 0.1) ) THEN
+  IF ( .NOT.almost_equal(counter_N0,expected_value, 0.01) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_N0
     STOP 112
   ENDIF

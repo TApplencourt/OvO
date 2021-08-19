@@ -14,7 +14,7 @@ void test_target() {
   {
     counter_target = counter_target + complex<double> { 1. };
   }
-  if (!almost_equal(counter_target, expected_value, 0.1)) {
+  if (!almost_equal(counter_target, expected_value, 0.01)) {
     std::cerr << "Expected: " << expected_value << " Got: " << counter_target << std::endl;
     std::exit(112);
   }

@@ -7,6 +7,7 @@ using std::complex;
 #include <omp.h>
 #else
 int omp_get_num_threads() {return 1;}
+void omp_set_teams_thread_limit(int i) {}
 #endif
 bool almost_equal(complex<double> x, complex<double> gold, double rel_tol=1e-09, double abs_tol=0.0) {
   return std::abs(x-gold) <= std::max(rel_tol * std::max(std::abs(x), std::abs(gold)), abs_tol);
@@ -14,13 +15,14 @@ bool almost_equal(complex<double> x, complex<double> gold, double rel_tol=1e-09,
 #pragma omp declare reduction(+: complex<double>: omp_out += omp_in)
 void test_target__parallel() {
   const complex<double> expected_value { 1 };
+  omp_set_teams_thread_limit(32768);
   complex<double> counter_parallel{};
   #pragma omp target map(tofrom: counter_parallel)
   #pragma omp parallel reduction(+: counter_parallel)
   {
     counter_parallel = counter_parallel + complex<double> { double { 1. } / omp_get_num_threads() };
   }
-  if (!almost_equal(counter_parallel, expected_value, 0.1)) {
+  if (!almost_equal(counter_parallel, expected_value, 0.01)) {
     std::cerr << "Expected: " << expected_value << " Got: " << counter_parallel << std::endl;
     std::exit(112);
   }

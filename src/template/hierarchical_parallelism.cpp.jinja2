@@ -27,9 +27,11 @@ using std::complex;
 #else
    {% if openmp_api_call and single("teams") %}
 int omp_get_num_teams() {return 1;}
+void omp_set_num_teams(int i) {}
    {% endif %}
    {% if openmp_api_call and single("parallel") %}
 int omp_get_num_threads() {return 1;}
+void omp_set_teams_thread_limit(int i) {}
    {% endif %}
    {% if multiple_devices %}
 int omp_get_num_devices() {return 1;}
@@ -104,6 +106,13 @@ void test_{{name}}() {
   const {{T}} expected_value { {{tripcounts}}-1 };
 {% else %}
   const {{T}} expected_value { {{tripcounts}} };
+{% endif %}
+
+{% if openmp_api_call and single("teams") %}
+  omp_set_num_teams({{loop_tripcount}});
+{% endif %}
+{% if openmp_api_call and single("parallel") %}
+  omp_set_teams_thread_limit({{loop_tripcount}});
 {% endif %}
 
 {#                      _                          #}
@@ -207,7 +216,7 @@ pD[idx] = pS[idx];
       std::exit(112);
   }
 {% else %}
-  if (!almost_equal({{regions_counter | first }}, expected_value, 0.1)) {
+  if (!almost_equal({{regions_counter | first }}, expected_value, 0.01)) {
     std::cerr << "Expected: " << expected_value << " Got: " << {{regions_counter | first }} << std::endl;
     std::exit(112);
   }
