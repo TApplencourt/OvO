@@ -63,7 +63,7 @@ def format_template(str_, language):
     """
     - Remove empty line.
     - Right strip
-    - Split Fortran line 
+    - Split Fortran line
     """
 
     def split_fortran_line(line, max_width=100):
@@ -92,8 +92,8 @@ def format_template(str_, language):
 # Need to refractor this one... Too ugly or too smart
 def combinations_construct(tree_config_path, path=["root"]):
     """
-    >>> combinations_construct({"root": ["target", "target teams"], 
-    ...                         "target": ["teams"], 
+    >>> combinations_construct({"root": ["target", "target teams"],
+    ...                         "target": ["teams"],
     ...                         "target teams": [], "teams": []})
     [['target'], ['target', 'teams'], ['target teams']]
     """
@@ -378,6 +378,26 @@ class HP:  # ^(;,;)^
         return any(i.has_construct(p) and not j in spouses for i, j in pairwise(self.flatten_target_path + [None]))
 
     @cached_property
+    def single_number(self):
+        """
+        >>> HP(["parallel", "for"], {}).single_number
+        0
+        >>> HP(["teams", "loop", "parallel"], {}).single_number
+        1
+        """
+        return sum(map(self.single, ("teams", "parallel")))
+
+    @cached_property
+    def balenced(self):
+        """
+        >>> HP(["parallel", "for"], {}).balenced
+        True
+        >>> HP(["teams", "loop", "parallel"], {}).balenced
+        False
+        """
+        return single_number == 0
+
+    @cached_property
     def balenced(self):
         """
         >>> HP(["parallel", "for"], {}).balenced
@@ -402,6 +422,18 @@ class HP:  # ^(;,;)^
         4
         """
         return sum(p.has_construct("loop-associated") for p in self.path) * self.unroll_factor
+
+    @cached_property
+    def total_loops_number(self):
+        """
+        >>> HP(["teams distribute parallel for"], {"collapse": 0}).total_loops_number
+        1
+        >>> HP(["teams", "parallel"], {"collapse": 0}).total_loops_number
+        2
+        >>> HP(["teams distribute", "parallel"], {"collapse": 2}).total_loops_number
+        3
+        """
+        return self.associated_loops_number + self.single_number
 
     @cached_property
     def l_nested_constructs(self):
@@ -483,6 +515,14 @@ class HP:  # ^(;,;)^
         return l
 
     @cached_property
+    def loop_tripcount(self):
+        if self.total_loops_number:
+            # The total tripcount depend of the number of thread and teams.
+            return max(1, math.ceil(math.pow(self.tripcount, 1.0 / self.total_loops_number)))
+        else:
+            return None
+
+    @cached_property
     def regions_associated_loop(self):
         """
         >>> HP(["target teams distribute"], {"collapse": 0, 'tripcount':4} ).regions_associated_loop
@@ -491,16 +531,11 @@ class HP:  # ^(;,;)^
         [[Idx(i='i0', N='N0', v=1)], []]
         >>> HP(["target teams distribute", "parallel for"], {"collapse": 0, 'tripcount':4}).regions_associated_loop
         [[Idx(i='i0', N='N0', v=2)], [Idx(i='i1', N='N1', v=2)]]
+        >>> HP(["target teams", "parallel for"], {"collapse": 0, 'tripcount':4}).regions_associated_loop
+        [[], [Idx(i='i0', N='N0', v=2)]]
         >>> HP(["target teams distribute"], {"collapse": 2, 'tripcount':5}).regions_associated_loop
         [[Idx(i='i0', N='N0', v=3), Idx(i='i1', N='N1', v=3)]]
         """
-
-        # Try to event out the loop iteration number
-        if self.associated_loops_number:
-            loop_tripcount = max(1, math.ceil(math.pow(self.tripcount, 1.0 / self.associated_loops_number)))
-        else:
-            loop_tripcount = None
-
         l, i = [], 0
         Idx = namedtuple("Idx", "i N v")
         for *_, tail in self.l_nested_constructs:
@@ -508,7 +543,7 @@ class HP:  # ^(;,;)^
             l_tmp = []
             if tail.has_construct("loop-associated"):
                 for j in range(self.unroll_factor):
-                    l_tmp.append(Idx(f"i{i}", f"N{i}", loop_tripcount))
+                    l_tmp.append(Idx(f"i{i}", f"N{i}", self.loop_tripcount))
                     i += 1
 
             l.append(l_tmp)
@@ -1065,7 +1100,7 @@ def gen_hp(d_arg, omp_construct):
         return False
 
     """
-    >> The only constructs that may be nested inside a loop region are the loop construct, the parallel construct, 
+    >> The only constructs that may be nested inside a loop region are the loop construct, the parallel construct,
     the simd construct, and combined constructs for which the first construct is a parallel construct.
 
     That mean no atomic with loop
@@ -1166,7 +1201,7 @@ def update_opt(p, d, d_possible):
             continue
         if isinstance(f, set):
             d[k] = set()
-        
+
         for i in v:
             if isinstance(f, set):
                 if not i in f:
@@ -1187,7 +1222,7 @@ def update_opt(p, d, d_possible):
                     error(k, i, "Please use a boolean (True, False, 0, 1)")
                 else:
                     d[k] = bool(i.lower())
-              
+
 
 if __name__ == "__main__":
     with open(os.path.join(dirname, "template", "ovo_usage.txt")) as f:

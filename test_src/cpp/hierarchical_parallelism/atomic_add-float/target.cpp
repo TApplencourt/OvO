@@ -12,7 +12,7 @@ void test_target() {
     #pragma omp atomic update
     counter_target = counter_target + 1. ;
   }
-  if (!almost_equal(counter_target, expected_value, 0.1)) {
+  if (!almost_equal(counter_target, expected_value, 0.01)) {
     std::cerr << "Expected: " << expected_value << " Got: " << counter_target << std::endl;
     std::exit(112);
   }

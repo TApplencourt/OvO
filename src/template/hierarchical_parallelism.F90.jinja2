@@ -11,12 +11,18 @@ FUNCTION omp_get_num_teams() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_teams
+SUBROUTINE omp_set_num_teams(i)
+    integer, intent(in) :: i
+END SUBROUTINE omp_set_num_teams
    {% endif %}
    {% if openmp_api_call and single("parallel") %}
 FUNCTION omp_get_num_threads() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_threads
+SUBROUTINE omp_set_teams_thread_limit(i)
+    integer, intent(in) :: i
+END SUBROUTINE omp_set_teams_thread_limit
    {% endif %}
    {% if multiple_devices %}
 FUNCTION omp_get_num_devices() RESULT(i)
@@ -99,7 +105,7 @@ PROGRAM main
 
 {% if T.is_complex and not no_user_defined_reduction %}
    {% if test_type == 'reduction_min' %}
-  !$OMP DECLARE REDUCTION(min: {{T}}: omp_out = MIN(ABS(omp_in), ABS(omp_out)))
+!$OMP DECLARE REDUCTION(min: {{T}}: omp_out = MIN(ABS(omp_in), ABS(omp_out)))
    {% elif test_type == 'reduction_max' %}
 !$OMP DECLARE REDUCTION(max: {{T}}: omp_out = MAX(ABS(omp_in), ABS(omp_out)))
    {% endif %}
@@ -149,6 +155,14 @@ PROGRAM main
   expected_value = {{tripcounts}}
   {% endif %}
 {% endif %}
+
+{% if openmp_api_call and single("teams") %}
+  CALL omp_set_num_teams({{loop_tripcount}});
+{% endif %}
+{% if openmp_api_call and single("parallel") %}
+  CALL omp_set_teams_thread_limit({{loop_tripcount}});
+{% endif %}
+
 
 {#                      _                          #}
 {# |   _   _  ._   _   |_) ._ _  |  _   _       _  #}
@@ -250,7 +264,7 @@ END DO
   {# STOP can *ONLY* take a constant by the standard...#}
   IF (errno .EQ. 112) STOP 112
 {% else %}
-  IF ( .NOT.almost_equal({{regions_counter | first }},expected_value, 0.1) ) THEN
+  IF ( .NOT.almost_equal({{regions_counter | first }},expected_value, 0.01) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', {{regions_counter | first }}
     STOP 112
   ENDIF

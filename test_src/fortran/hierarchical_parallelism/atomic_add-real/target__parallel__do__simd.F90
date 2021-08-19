@@ -29,7 +29,7 @@ PROGRAM target__parallel__do__simd
   END DO
   !$OMP END PARALLEL
   !$OMP END TARGET
-  IF ( .NOT.almost_equal(counter_N0,expected_value, 0.1) ) THEN
+  IF ( .NOT.almost_equal(counter_N0,expected_value, 0.01) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_N0
     STOP 112
   ENDIF

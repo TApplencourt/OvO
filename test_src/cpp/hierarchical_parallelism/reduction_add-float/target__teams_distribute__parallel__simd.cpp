@@ -5,14 +5,16 @@
 #include <omp.h>
 #else
 int omp_get_num_threads() {return 1;}
+void omp_set_teams_thread_limit(int i) {}
 #endif
 bool almost_equal(float x, float gold, float rel_tol=1e-09, float abs_tol=0.0) {
   return std::abs(x-gold) <= std::max(rel_tol * std::max(std::abs(x), std::abs(gold)), abs_tol);
 }
 void test_target__teams_distribute__parallel__simd() {
-  const int N0 { 182 };
-  const int N1 { 182 };
+  const int N0 { 32 };
+  const int N1 { 32 };
   const float expected_value { N0*N1 };
+  omp_set_teams_thread_limit(32);
   float counter_N0{};
   #pragma omp target map(tofrom: counter_N0)
   #pragma omp teams distribute reduction(+: counter_N0)
@@ -27,7 +29,7 @@ void test_target__teams_distribute__parallel__simd() {
       }
     }
   }
-  if (!almost_equal(counter_N0, expected_value, 0.1)) {
+  if (!almost_equal(counter_N0, expected_value, 0.01)) {
     std::cerr << "Expected: " << expected_value << " Got: " << counter_N0 << std::endl;
     std::exit(112);
   }

@@ -15,7 +15,7 @@ pEXE = $(wildcard *.exe)
 run: $(addprefix run_, $(basename $(pEXE)))
 
 %.exe: %.F90
-	-$(FC) $(FFLAGS) $(CURDIR)/$< -o $(CURDIR)/$@
+	-$(TIMEOUT) $(FC) $(FFLAGS) $(CURDIR)/$< -o $(CURDIR)/$@
 
 run_%: %.exe
 	-$(TIMEOUT) $(CURDIR)/$<

@@ -25,7 +25,7 @@ void test_target__teams_distribute__parallel_for__simd() {
       }
     }
   }
-  if (!almost_equal(counter_N0, expected_value, 0.1)) {
+  if (!almost_equal(counter_N0, expected_value, 0.01)) {
     std::cerr << "Expected: " << expected_value << " Got: " << counter_N0 << std::endl;
     std::exit(112);
   }

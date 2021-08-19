@@ -3,10 +3,16 @@ FUNCTION omp_get_num_teams() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_teams
+SUBROUTINE omp_set_num_teams(i)
+    integer, intent(in) :: i
+END SUBROUTINE omp_set_num_teams
 FUNCTION omp_get_num_threads() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_threads
+SUBROUTINE omp_set_teams_thread_limit(i)
+    integer, intent(in) :: i
+END SUBROUTINE omp_set_teams_thread_limit
 #endif
 FUNCTION almost_equal(x, gold, tol) RESULT(b)
   implicit none
@@ -29,6 +35,8 @@ PROGRAM target_teams__parallel
   REAL :: counter_teams
   INTEGER :: expected_value
   expected_value = 1
+  CALL omp_set_num_teams(182);
+  CALL omp_set_teams_thread_limit(182);
   counter_teams = 0
   !$OMP TARGET TEAMS map(tofrom: counter_teams)
     !$OMP PARALLEL
@@ -36,7 +44,7 @@ PROGRAM target_teams__parallel
       counter_teams = counter_teams + 1.  / ( omp_get_num_teams() * omp_get_num_threads() ) ;
     !$OMP END PARALLEL
   !$OMP END TARGET TEAMS
-  IF ( .NOT.almost_equal(counter_teams,expected_value, 0.1) ) THEN
+  IF ( .NOT.almost_equal(counter_teams,expected_value, 0.01) ) THEN
     WRITE(*,*)  'Expected', expected_value,  'Got', counter_teams
     STOP 112
   ENDIF

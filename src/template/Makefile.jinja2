@@ -16,9 +16,9 @@ run: $(addprefix run_, $(basename $(pEXE)))
 
 %.exe: %.{{ext}}
 {%-if ext == "F90" %}
-	-$(FC) $(FFLAGS) $(CURDIR)/$< -o $(CURDIR)/$@
+	-$(TIMEOUT) $(FC) $(FFLAGS) $(CURDIR)/$< -o $(CURDIR)/$@
 {%-elif ext == "cpp"%}
-	-$(CXX) $(CXXFLAGS) $(CURDIR)/$< -o $(CURDIR)/$@
+	-$(TIMEOUT) $(CXX) $(CXXFLAGS) $(CURDIR)/$< -o $(CURDIR)/$@
 {%endif%}
 
 run_%: %.exe
