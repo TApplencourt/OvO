@@ -19,7 +19,10 @@ R_E(N,M) & \le \frac{(N \cdot M-1) \cdot u \cdot f(N,M)}{N} \\
 
 # Maximun Relative Error
 
-![\max R_E(N,M) = \max N \cdot M \cdot u  =  N \cdot M_{max} \cdot u ](https://render.githubusercontent.com/render/math?math=%5Cdisplaystyle+%5Cmax+R_E%28N%2CM%29+%3D+%5Cmax+N+%5Ccdot+M+%5Ccdot+u++%3D++N+%5Ccdot+M_%7Bmax%7D+%5Ccdot+u+)
+![\begin{align*}
+\max_{M \in [1,M_{max}]} R_E(N,M) = & \max_{M \in [1,M_{max}]}  N \cdot M \cdot u \\
+= & N \cdot M_{max} \cdot u 
+\end{align*}](https://render.githubusercontent.com/render/math?math=%5Cdisplaystyle+%5Cbegin%7Balign%2A%7D%0A%5Cmax_%7BM+%5Cin+%5B1%2CM_%7Bmax%7D%5D%7D+R_E%28N%2CM%29+%3D+%26+%5Cmax_%7BM+%5Cin+%5B1%2CM_%7Bmax%7D%5D%7D++N+%5Ccdot+M+%5Ccdot+u+%5C%5C%0A%3D+%26+N+%5Ccdot+M_%7Bmax%7D+%5Ccdot+u+%0A%5Cend%7Balign%2A%7D)
 
 ### For FP32, maximun problem size to get less than 1%
 
