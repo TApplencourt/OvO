@@ -8,7 +8,7 @@ Where `N` is know and `M` in in ![[1,M_{max}]](https://render.githubusercontent.
 
 # Relative upper bound error
 The upper bound of the Relative error is given in "The Accuracy of Floating Point Summation" (2.6) from Nicholas J. Higham https://doi.org/10.1137/0914050. 
-Applied to your function it give:
+Applied to `f(N,M)` it give:
 
 ![\begin{align*}
 R_E(N,M) & \le \frac{(N \cdot M-1) \cdot u \cdot f(N,M)}{N} \\
