@@ -266,9 +266,11 @@ class HP:  # ^(;,;)^
             setattr(self, k, False)
 
         setattr(self, "collapse", 0)
+        setattr(self, "tripcount", 9)
 
         for k, v in d_arg.items():
             setattr(self, k, v)
+
 
     @cached_property
     def T(self):
@@ -589,11 +591,13 @@ class HP:  # ^(;,;)^
     def regions_additional_pragma(self):
         """
         >>> HP(["target teams"], {"test_type": "atomic_add", "collapse": 0}).regions_additional_pragma
-        [['map(tofrom: counter_teams)']]
+        [['num_teams(9) map(tofrom: counter_teams)']]
+        >>> HP(["target teams","parallel"], {"test_type": "atomic_add", "collapse": 0}).regions_additional_pragma
+        [['num_teams(3) map(tofrom: counter_teams)'], ['num_threads(3)']]
         >>> HP(["target teams distribute parallel for"], {"test_type": "ordered", "collapse": 0, "data_type": "float"}).regions_additional_pragma
         [['map(tofrom: counter_N0) ordered']]
         >>> HP(["target teams"], {"test_type": "reduction_add", "collapse": 0}).regions_additional_pragma
-        [['reduction(+: counter_teams)']]
+        [['num_teams(9) reduction(+: counter_teams)']]
         >>> HP(["target","teams distribute"], {"test_type": "reduction_add", "collapse": 0}).regions_additional_pragma
         [['map(tofrom: counter_N0)', 'reduction(+: counter_N0)']]
         >>> HP(["target teams distribute"], {"test_type": "reduction_min", "collapse": 0}).regions_additional_pragma
@@ -601,9 +605,9 @@ class HP:  # ^(;,;)^
         >>> HP(["target teams distribute"], {"test_type": "reduction_max", "collapse": 0}).regions_additional_pragma
         [['reduction(max: counter_N0)']]
         >>> HP(["target teams"], {"test_type": "reduction_add", "collapse": 0, "no_implicit_mapping": True}).regions_additional_pragma
-        [['map(tofrom: counter_teams) reduction(+: counter_teams)']]
+        [['num_teams(9) map(tofrom: counter_teams) reduction(+: counter_teams)']]
         >>> HP(["target teams"], {"test_type": "memcopy", "collapse": 0, "data_type": "float"}).regions_additional_pragma
-        [['map(to: pS[0:size]) map(from: pD[0:size])']]
+        [['num_teams(9) map(to: pS[0:size]) map(from: pD[0:size])']]
         >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "collapse": 0, "data_type": "float", "multiple_devices": True}).regions_additional_pragma
         [[''], ['map(to: pS[(i0)*N1:N1]) map(from: pD[(i0)*N1:N1]) device((i0)%omp_get_num_devices())']]
         >>> HP(["parallel for", "target"], {"test_type": "memcopy", "collapse": 0, "data_type": "float", "multiple_devices": True}).regions_additional_pragma
@@ -673,21 +677,28 @@ class HP:  # ^(;,;)^
             if self.collapse and pragma.has_construct("loop-associated"):
                 yield f"collapse({self.collapse})"
 
+        def limit_directive(pragma):
+            if self.single('teams') and 'teams' in pragma:
+                yield f"num_teams({self.loop_tripcount})"
+
+            if self.single('parallel') and 'parallel' in pragma:
+                yield f"num_threads({self.loop_tripcount})"
+
         def additional_pragma(i, counter, pragma):
-            construct = chain(mapping_directive(i, counter, pragma), device_directive(i, counter, pragma), reduction_directive(counter, pragma), ordered_directive(pragma), collapse_directive(pragma))
+            construct = chain(limit_directive(pragma), mapping_directive(i, counter, pragma), device_directive(i, counter, pragma), reduction_directive(counter, pragma), ordered_directive(pragma), collapse_directive(pragma))
             return " ".join(construct)
 
         map_region = lambda i, c, r: [additional_pragma(i, c, pragma) for pragma in r]
         return [map_region(i, c, r) for i, c, r in zip(count(), self.regions_counter, self.l_nested_constructs)]
 
     @cached_property
-    def tripcounts(self):
+    def expected_value(self):
         """
-        >>> HP(["teams", "distribute"], {"collapse": 0}).tripcounts
+        >>> HP(["teams", "distribute"], {"collapse": 0}).expected_value
         'N0'
-        >>> HP(["teams", "distribute"], {"collapse": 2}).tripcounts
+        >>> HP(["teams", "distribute"], {"collapse": 2}).expected_value
         'N0*N1'
-        >>> HP(["teams", "parallel"], {"collapse": 1}).tripcounts
+        >>> HP(["teams", "parallel"], {"collapse": 1}).expected_value
         '1'
         """
 

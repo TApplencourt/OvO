@@ -3,9 +3,6 @@ FUNCTION omp_get_num_threads() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_threads
-SUBROUTINE omp_set_teams_thread_limit(i)
-    integer, intent(in) :: i
-END SUBROUTINE omp_set_teams_thread_limit
 #endif
 FUNCTION almost_equal(x, gold, tol) RESULT(b)
   implicit none
@@ -31,13 +28,12 @@ PROGRAM target__teams__distribute__parallel__simd
   REAL :: counter_N0
   INTEGER :: expected_value
   expected_value = N0*N1
-  CALL omp_set_teams_thread_limit(32);
   counter_N0 = 0
   !$OMP TARGET map(tofrom: counter_N0)
   !$OMP TEAMS reduction(+: counter_N0)
   !$OMP DISTRIBUTE
   DO i0 = 1, N0
-    !$OMP PARALLEL reduction(+: counter_N0)
+    !$OMP PARALLEL num_threads(32) reduction(+: counter_N0)
       !$OMP SIMD reduction(+: counter_N0)
       DO i1 = 1, N1
         counter_N0 = counter_N0 + 1.  / omp_get_num_threads() ;

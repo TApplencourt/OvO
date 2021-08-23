@@ -5,16 +5,14 @@
 #include <omp.h>
 #else
 int omp_get_num_threads() {return 1;}
-void omp_set_teams_thread_limit(int i) {}
 #endif
 bool almost_equal(float x, float gold, float rel_tol=1e-09, float abs_tol=0.0) {
   return std::abs(x-gold) <= std::max(rel_tol * std::max(std::abs(x), std::abs(gold)), abs_tol);
 }
 void test_target_parallel() {
   const float expected_value { 1 };
-  omp_set_teams_thread_limit(32768);
   float counter_parallel{};
-  #pragma omp target parallel reduction(+: counter_parallel)
+  #pragma omp target parallel num_threads(32768) reduction(+: counter_parallel)
   {
     counter_parallel = counter_parallel + float { float{ 1. } / omp_get_num_threads() };
   }
