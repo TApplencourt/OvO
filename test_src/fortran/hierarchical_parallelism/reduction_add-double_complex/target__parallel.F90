@@ -3,9 +3,6 @@ FUNCTION omp_get_num_threads() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_threads
-SUBROUTINE omp_set_teams_thread_limit(i)
-    integer, intent(in) :: i
-END SUBROUTINE omp_set_teams_thread_limit
 #endif
 FUNCTION almost_equal(x, gold, tol) RESULT(b)
   implicit none
@@ -27,10 +24,9 @@ PROGRAM target__parallel
   DOUBLE COMPLEX :: counter_parallel
   INTEGER :: expected_value
   expected_value = 1
-  CALL omp_set_teams_thread_limit(32768);
   counter_parallel = 0
   !$OMP TARGET map(tofrom: counter_parallel)
-  !$OMP PARALLEL reduction(+: counter_parallel)
+  !$OMP PARALLEL num_threads(32768) reduction(+: counter_parallel)
     counter_parallel = counter_parallel + 1.  / omp_get_num_threads() ;
   !$OMP END PARALLEL
   !$OMP END TARGET

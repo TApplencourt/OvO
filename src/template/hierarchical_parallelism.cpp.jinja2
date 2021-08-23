@@ -27,11 +27,9 @@ using std::complex;
 #else
    {% if openmp_api_call and single("teams") %}
 int omp_get_num_teams() {return 1;}
-void omp_set_num_teams(int i) {}
    {% endif %}
    {% if openmp_api_call and single("parallel") %}
 int omp_get_num_threads() {return 1;}
-void omp_set_teams_thread_limit(int i) {}
    {% endif %}
    {% if multiple_devices %}
 int omp_get_num_devices() {return 1;}
@@ -95,7 +93,7 @@ void test_{{name}}() {
 {% endfor %}
  
 {% if test_type == 'memcopy' %}  
-  const int size = {{tripcounts}};
+  const int size = {{expected_value}};
   std::vector<{{T}}> dst(size), src(size);
   std::generate(src.begin(), src.end(), std::rand);
   {{T}} *pS { src.data() };
@@ -103,16 +101,9 @@ void test_{{name}}() {
 {% elif test_type.endswith('_min') %}
   const {{T}} expected_value {};
 {% elif test_type.endswith('_max') %}
-  const {{T}} expected_value { {{tripcounts}}-1 };
+  const {{T}} expected_value { {{expected_value}}-1 };
 {% else %}
-  const {{T}} expected_value { {{tripcounts}} };
-{% endif %}
-
-{% if openmp_api_call and single("teams") %}
-  omp_set_num_teams({{loop_tripcount}});
-{% endif %}
-{% if openmp_api_call and single("parallel") %}
-  omp_set_teams_thread_limit({{loop_tripcount}});
+  const {{T}} expected_value { {{expected_value}} };
 {% endif %}
 
 {#                      _                          #}
