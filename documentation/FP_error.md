@@ -7,7 +7,7 @@ The function we compute for atomic and reduction use case is
 Where `N` is know and `M` in in ![[1,M_{max}]](https://render.githubusercontent.com/render/math?math=%5Cdisplaystyle+%5B1%2CM_%7Bmax%7D%5D) and `u` is the machine epsilon
 
 # Relative upper bound error
-The upper bound of the Relative error is given in "The Accuracy of Floating Point Summation" from Nicholas J. Higham https://doi.org/10.1137/0914050. 
+The upper bound of the Relative error is given in "The Accuracy of Floating Point Summation" (2.6) from Nicholas J. Higham https://doi.org/10.1137/0914050. 
 Applied to your function it give:
 
 ![\begin{align*}
