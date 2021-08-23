@@ -17,7 +17,7 @@ R_E(N,M) & \le \frac{(N \cdot M-1) \cdot u \cdot f(N,M)}{N} \\
 \end{align*}
 ](https://render.githubusercontent.com/render/math?math=%5Cdisplaystyle+%5Cbegin%7Balign%2A%7D%0AR_E%28N%2CM%29+%26+%5Cle+%5Cfrac%7B%28N+%5Ccdot+M-1%29+%5Ccdot+u+%5Ccdot+f%28N%2CM%29%7D%7BN%7D+%5C%5C%0A%26+%5Cle+%5Cfrac%7B%28N+%5Ccdot+M-1%29+%5Ccdot+u+%5Ccdot+N%7D%7BN%7D+%5C%5C%0A%26+%5Cle+N+%5Ccdot+M+%5Ccdot+u%0A%5Cend%7Balign%2A%7D%0A)
 
-# Maximun Error
+# Maximun Relative Error
 
 ![\max R_E(N,M) = \max N \cdot M \cdot u  =  N \cdot M_{max} \cdot u ](https://render.githubusercontent.com/render/math?math=%5Cdisplaystyle+%5Cmax+R_E%28N%2CM%29+%3D+%5Cmax+N+%5Ccdot+M+%5Ccdot+u++%3D++N+%5Ccdot+M_%7Bmax%7D+%5Ccdot+u+)
 
