@@ -50,3 +50,5 @@ N, M_max = map(int,sys.argv[1:])
 m_error,m = max((sum_dec32(N,eps),eps) for eps in range(1,N_max+1))
 print (m, f"{m_error:.3%}".format(m_error))
 ```
+
+This give for `N = 55*55`  and `M = 55` a error of `0.187%`.  
