@@ -38,16 +38,16 @@ NM & \le \frac{1\%}{2^{-24}} \\
 import numpy as np
 import sys
 
-def sum_dec32(N,eps):
-	inc = np.float32(1) / np.float32(eps)
+def sum_dec32(N,M):
+	inc = np.float32(1) / np.float32(M)
 	s = np.float32(0)
-	for i in range(N*eps):
+	for i in range(N*M):
 		s += inc
 
 	return abs(N-s)/N
 
 N, M_max = map(int,sys.argv[1:])
-m_error,m = max((sum_dec32(N,eps),eps) for eps in range(1,N_max+1))
+m_error,m = max((sum_dec32(N,M),M) for M in range(1,N_max+1))
 print (m, f"{m_error:.3%}".format(m_error))
 ```
 
