@@ -31,3 +31,24 @@ NM & \le \frac{1\%}{2^{-24}} \\
         & \le 167772 \le 55 \cdot 55 \cdot 55
 \end{align*}
 ](https://render.githubusercontent.com/render/math?math=%5Cdisplaystyle+%5Cbegin%7Balign%2A%7D%0A1%5C%25+%26+%5Cge+NM+%5Ccdot+2%5E%7B-24%7D+%5C%5C%0ANM+%26+%5Cle+%5Cfrac%7B1%5C%25%7D%7B2%5E%7B-24%7D%7D+%5C%5C%0A++++++++%26+%5Cle+167772+%5Cle+55+%5Ccdot+55+%5Ccdot+55%0A%5Cend%7Balign%2A%7D%0A)
+
+# Empirical analysis
+
+```
+import numpy as np
+import sys
+
+def sum_dec32(N,M):
+	inc = np.float32(1) / np.float32(M)
+	s = np.float32(0)
+	for i in range(N*M):
+		s += inc
+
+	return abs(N-s)/N
+
+N, M_max = map(int,sys.argv[1:])
+m_error,m = max((sum_dec32(N,M),M) for M in range(1,N_max+1))
+print (m, f"{m_error:.3%}".format(m_error))
+```
+
+This give for `N = 55*55`  and `M = 55` a error of `0.187%`.  
