@@ -7,6 +7,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "COSH",
             "type": [
                 [
                     "REAL",
@@ -21,6 +22,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "SINH",
             "type": [
                 [
                     "REAL",
@@ -35,6 +37,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "TANH",
             "type": [
                 [
                     "REAL",
@@ -51,6 +54,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "COS",
             "type": [
                 [
                     "COMPLEX",
@@ -65,6 +69,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "SIN",
             "type": [
                 [
                     "COMPLEX",
@@ -79,6 +84,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "TAN",
             "type": [
                 [
                     "COMPLEX",
@@ -93,6 +99,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "COSH",
             "type": [
                 [
                     "COMPLEX",
@@ -107,6 +114,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "SINH",
             "type": [
                 [
                     "COMPLEX",
@@ -121,6 +129,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "TANH",
             "type": [
                 [
                     "COMPLEX",
@@ -331,6 +340,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "COS",
             "type": [
                 [
                     "REAL",
@@ -461,6 +471,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "SIN",
             "type": [
                 [
                     "REAL",
@@ -483,6 +494,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "TAN",
             "type": [
                 [
                     "REAL",
@@ -521,6 +533,28 @@
             ]
         },
         "CEILING": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "COS": {
             "attribute": [
                 [
                     "in",
@@ -995,6 +1029,28 @@
                 ],
                 [
                     "DOUBLE PRECISION",
+                    "DOUBLE PRECISION",
+                    "DOUBLE PRECISION"
+                ]
+            ]
+        },
+        "SIN": {
+            "attribute": [
+                [
+                    "in",
+                    "out"
+                ],
+                [
+                    "in",
+                    "out"
+                ]
+            ],
+            "type": [
+                [
+                    "REAL",
+                    "REAL"
+                ],
+                [
                     "DOUBLE PRECISION",
                     "DOUBLE PRECISION"
                 ]
