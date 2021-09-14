@@ -9,8 +9,8 @@ PROGRAM target__teams__distribute
   S = N0
   ALLOCATE(dst(S), src(S) )
   CALL RANDOM_NUMBER(src)
-  !$OMP TARGET map(to: src) map(from: dst)
-  !$OMP TEAMS
+  !$OMP TARGET map(to: src) map(from: dst) private(idx)
+  !$OMP TEAMS private(idx)
   !$OMP DISTRIBUTE
   DO i0 = 1, N0
     idx = i0-1+1
@@ -19,7 +19,7 @@ PROGRAM target__teams__distribute
   !$OMP END TEAMS
   !$OMP END TARGET
   IF (ANY(ABS(dst - src) > EPSILON(src))) THEN
-    WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
+    WRITE(*,*) 'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
     errno = 112
   ENDIF
   DEALLOCATE(src, dst)

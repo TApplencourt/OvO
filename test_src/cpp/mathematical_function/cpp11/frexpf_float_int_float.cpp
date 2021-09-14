@@ -5,7 +5,7 @@
 #include <cstdlib>
 using namespace std;
 bool almost_equal(float x, float y, int ulp) {
-     return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
+     return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp || std::fabs(x-y) < std::numeric_limits<float>::min();
 }
 void test_frexpf(){
    float in0 { 0.42 };
@@ -14,11 +14,11 @@ void test_frexpf(){
     float out2_host {};
    float out2_device {};
    {
-    out2_host =  frexpf(in0, &out1_host);
+    out2_host = frexpf(in0, &out1_host);
    }
    #pragma omp target map(tofrom: out1_device, out2_device )
    {
-    out2_device =  frexpf(in0, &out1_device);
+    out2_device = frexpf(in0, &out1_device);
    }
    if ( out1_host != out1_device ) {
         std::cerr << std::setprecision (std::numeric_limits<int>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;

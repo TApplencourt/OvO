@@ -9,13 +9,13 @@ PROGRAM target_parallel_do_simd
   S = N0
   ALLOCATE(dst(S), src(S) )
   CALL RANDOM_NUMBER(src)
-  !$OMP TARGET PARALLEL DO SIMD map(to: src) map(from: dst)
+  !$OMP TARGET PARALLEL DO SIMD map(to: src) map(from: dst) private(idx)
   DO i0 = 1, N0
     idx = i0-1+1
     dst(idx) = src(idx)
   END DO
   IF (ANY(ABS(dst - src) > EPSILON(src))) THEN
-    WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
+    WRITE(*,*) 'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
     errno = 112
   ENDIF
   DEALLOCATE(src, dst)

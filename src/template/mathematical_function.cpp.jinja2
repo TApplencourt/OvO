@@ -85,8 +85,8 @@ void test_{{name}}(){
 {% else %}
    {% set output_f = (l_argv | selectattr('is_output') | first).name_device_idx %}
    {% set input = (l_argv | selectattr('is_argv') | first) %}
-   if ( !almost_equal({{reciprocal}}({{output_f}}), {{input.name}}, 16) ) {
-            std::cerr << std::setprecision (std::numeric_limits<{{input.T.internal}}>::max_digits10 ){% if size %} << "Idx: " << i << " " {% endif %} << "Expected:" << {{input.name}} << " Got: "  << {{reciprocal}}({{output_f}}) << std::endl;
+   if ( !almost_equal({{reciprocal}}({{output_f}}), {{input.argv_host}}, 16) ) {
+            std::cerr << std::setprecision (std::numeric_limits<{{input.T.internal}}>::max_digits10 ){% if size %} << "Idx: " << i << " " {% endif %} << "Expected:" << {{input.argv_host}} << " Got: "  << {{reciprocal}}({{output_f}}) << std::endl;
             std::exit(112);
    }
 {% endif %}

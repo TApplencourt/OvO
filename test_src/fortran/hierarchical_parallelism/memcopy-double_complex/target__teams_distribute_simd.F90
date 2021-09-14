@@ -15,15 +15,15 @@ PROGRAM target__teams_distribute_simd
   CALL RANDOM_NUMBER(src_imag)
   src = CMPLX(src_real,src_imag)
   DEALLOCATE (src_real,src_imag)
-  !$OMP TARGET map(to: src) map(from: dst)
-  !$OMP TEAMS DISTRIBUTE SIMD
+  !$OMP TARGET map(to: src) map(from: dst) private(idx)
+  !$OMP TEAMS DISTRIBUTE SIMD private(idx)
   DO i0 = 1, N0
     idx = i0-1+1
     dst(idx) = src(idx)
   END DO
   !$OMP END TARGET
   IF (ANY(ABS(dst - src) > EPSILON(REAL(src)))) THEN
-    WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
+    WRITE(*,*) 'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
     errno = 112
   ENDIF
   DEALLOCATE(src, dst)

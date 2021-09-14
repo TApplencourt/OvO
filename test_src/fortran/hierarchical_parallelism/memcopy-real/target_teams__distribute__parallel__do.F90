@@ -11,10 +11,10 @@ PROGRAM target_teams__distribute__parallel__do
   S = N0*N1
   ALLOCATE(dst(S), src(S) )
   CALL RANDOM_NUMBER(src)
-  !$OMP TARGET TEAMS map(to: src) map(from: dst)
+  !$OMP TARGET TEAMS map(to: src) map(from: dst) private(idx)
   !$OMP DISTRIBUTE
   DO i0 = 1, N0
-    !$OMP PARALLEL
+    !$OMP PARALLEL private(idx)
     !$OMP DO
     DO i1 = 1, N1
       idx = i1-1+N1*(i0-1)+1
@@ -24,7 +24,7 @@ PROGRAM target_teams__distribute__parallel__do
   END DO
   !$OMP END TARGET TEAMS
   IF (ANY(ABS(dst - src) > EPSILON(src))) THEN
-    WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
+    WRITE(*,*) 'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
     errno = 112
   ENDIF
   DEALLOCATE(src, dst)

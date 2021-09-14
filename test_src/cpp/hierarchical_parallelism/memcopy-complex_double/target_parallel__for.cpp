@@ -7,7 +7,7 @@
 #include <complex>
 using std::complex;
 bool almost_equal(complex<double> x, complex<double> y, int ulp) {
-  return std::abs(x-y) <= std::numeric_limits<double>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<double>::min();
+  return std::abs(x-y) <= std::numeric_limits<double>::epsilon() * std::abs(x+y) * ulp || std::abs(x-y) < std::numeric_limits<double>::min();
 }
 void test_target_parallel__for() {
   const int N0 { 32768 };
@@ -23,7 +23,7 @@ void test_target_parallel__for() {
     const int idx = i0;
     pD[idx] = pS[idx];
   }
-  for (int i = 0 ;  i < size ; i++)
+  for (int i = 0 ; i < size ; i++)
     if ( !almost_equal(dst[i],src[i],1) ) {
       std::cerr << "Expected: " << src[i] << " Got: " << dst[i] << std::endl;
       std::exit(112);

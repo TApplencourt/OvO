@@ -19,11 +19,11 @@ PROGRAM target_teams_distribute__parallel_do__simd
   CALL RANDOM_NUMBER(src_imag)
   src = CMPLX(src_real,src_imag)
   DEALLOCATE (src_real,src_imag)
-  !$OMP TARGET TEAMS DISTRIBUTE map(to: src) map(from: dst)
+  !$OMP TARGET TEAMS DISTRIBUTE map(to: src) map(from: dst) private(idx)
   DO i0 = 1, N0
-    !$OMP PARALLEL DO
+    !$OMP PARALLEL DO private(idx)
     DO i1 = 1, N1
-      !$OMP SIMD
+      !$OMP SIMD private(idx)
       DO i2 = 1, N2
         idx = i2-1+N2*(i1-1+N1*(i0-1))+1
         dst(idx) = src(idx)
@@ -31,7 +31,7 @@ PROGRAM target_teams_distribute__parallel_do__simd
     END DO
   END DO
   IF (ANY(ABS(dst - src) > EPSILON(REAL(src)))) THEN
-    WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
+    WRITE(*,*) 'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
     errno = 112
   ENDIF
   DEALLOCATE(src, dst)
