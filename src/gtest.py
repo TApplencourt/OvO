@@ -64,7 +64,9 @@ def format_template(str_, language):
     - Remove empty line.
     - Right strip
     - Split Fortran line
+    - Remove double space
     """
+    import re
 
     def split_fortran_line(line, max_width=100):
         """
@@ -79,7 +81,9 @@ def format_template(str_, language):
             l.insert((i + 1) * max_width + 3 * i, prefix)
         return "".join(l)
 
+
     l_line = [line.rstrip() for line in str_.split("\n") if line.strip()]
+    l_line = [re.sub(r"(\S) {2,}",r"\1 ",line) for line in l_line]
     l_result = l_line if language == "cpp" else map(split_fortran_line, l_line)
     return "\n".join(l_result) + "\n"
 
@@ -244,6 +248,10 @@ class Pragma(str):
     @cached_property
     def can_be_reduced(self):
         return any(p in self.pragma for p in ("teams", "parallel", "simd"))
+
+    @cached_property
+    def can_be_privatized(self):
+        return any(p in self.pragma for p in ("target", "teams", "parallel", "simd"))
 
     def __repr__(self):
         return self.pragma

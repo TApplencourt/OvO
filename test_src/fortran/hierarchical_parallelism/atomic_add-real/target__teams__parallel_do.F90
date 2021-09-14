@@ -7,10 +7,10 @@ END FUNCTION omp_get_num_teams
 FUNCTION almost_equal(x, gold, tol) RESULT(b)
   implicit none
   REAL, intent(in) :: x
-  INTEGER,  intent(in) :: gold
-  REAL,     intent(in) :: tol
-  LOGICAL              :: b
-  b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol) )
+  INTEGER, intent(in) :: gold
+  REAL, intent(in) :: tol
+  LOGICAL :: b
+  b = ( gold * (1 - tol) <= x ).AND.( x <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target__teams__parallel_do
 #ifdef _OPENMP
@@ -32,12 +32,12 @@ PROGRAM target__teams__parallel_do
     !$OMP PARALLEL DO
     DO i0 = 1, N0
       !$OMP atomic update
-      counter_teams = counter_teams + 1.  / omp_get_num_teams() ;
+      counter_teams = counter_teams + 1. / omp_get_num_teams() ;
     END DO
   !$OMP END TEAMS
   !$OMP END TARGET
   IF ( .NOT.almost_equal(counter_teams,expected_value, 0.01) ) THEN
-    WRITE(*,*)  'Expected', expected_value,  'Got', counter_teams
+    WRITE(*,*) 'Expected', expected_value, 'Got', counter_teams
     STOP 112
   ENDIF
 END PROGRAM target__teams__parallel_do

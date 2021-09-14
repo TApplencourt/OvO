@@ -7,10 +7,10 @@ END FUNCTION omp_get_num_threads
 FUNCTION almost_equal(x, gold, tol) RESULT(b)
   implicit none
   DOUBLE COMPLEX, intent(in) :: x
-  INTEGER,  intent(in) :: gold
-  REAL,     intent(in) :: tol
-  LOGICAL              :: b
-  b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol) )
+  INTEGER, intent(in) :: gold
+  REAL, intent(in) :: tol
+  LOGICAL :: b
+  b = ( gold * (1 - tol) <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target_teams__distribute__parallel__simd
 #ifdef _OPENMP
@@ -35,13 +35,13 @@ PROGRAM target_teams__distribute__parallel__simd
     !$OMP PARALLEL num_threads(32) reduction(+: counter_N0)
       !$OMP SIMD reduction(+: counter_N0)
       DO i1 = 1, N1
-        counter_N0 = counter_N0 + 1.  / omp_get_num_threads() ;
+        counter_N0 = counter_N0 + 1. / omp_get_num_threads() ;
       END DO
     !$OMP END PARALLEL
   END DO
   !$OMP END TARGET TEAMS
   IF ( .NOT.almost_equal(counter_N0,expected_value, 0.01) ) THEN
-    WRITE(*,*)  'Expected', expected_value,  'Got', counter_N0
+    WRITE(*,*) 'Expected', expected_value, 'Got', counter_N0
     STOP 112
   ENDIF
 END PROGRAM target_teams__distribute__parallel__simd

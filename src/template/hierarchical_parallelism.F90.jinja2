@@ -163,7 +163,7 @@ PROGRAM main
 {{counter}} = 0
    {% endif %}
    {% for pragma, additional_pragma in zip(region, region_additional_pragma) %}
-!$OMP {{pragma | replace("for","do") | upper() }} {{additional_pragma}}
+!$OMP {{pragma | replace("for","do") | upper() }} {{additional_pragma}} {% if test_type == 'memcopy' and pragma.can_be_privatized %}private(idx) {% endif %}
    {% endfor %}
 
    {% for loop_  in loop_constructs %}

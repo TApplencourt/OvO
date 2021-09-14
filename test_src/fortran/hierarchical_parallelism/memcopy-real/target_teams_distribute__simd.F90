@@ -11,16 +11,16 @@ PROGRAM target_teams_distribute__simd
   S = N0*N1
   ALLOCATE(dst(S), src(S) )
   CALL RANDOM_NUMBER(src)
-  !$OMP TARGET TEAMS DISTRIBUTE map(to: src) map(from: dst)
+  !$OMP TARGET TEAMS DISTRIBUTE map(to: src) map(from: dst) private(idx)
   DO i0 = 1, N0
-    !$OMP SIMD
+    !$OMP SIMD private(idx)
     DO i1 = 1, N1
       idx = i1-1+N1*(i0-1)+1
       dst(idx) = src(idx)
     END DO
   END DO
   IF (ANY(ABS(dst - src) > EPSILON(src))) THEN
-    WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
+    WRITE(*,*) 'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
     errno = 112
   ENDIF
   DEALLOCATE(src, dst)

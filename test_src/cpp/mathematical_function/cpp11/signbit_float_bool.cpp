@@ -9,11 +9,11 @@ void test_signbit(){
     bool out1_host {};
    bool out1_device {};
    {
-    out1_host =  signbit(in0);
+    out1_host = signbit(in0);
    }
    #pragma omp target map(tofrom: out1_device )
    {
-    out1_device =  signbit(in0);
+    out1_device = signbit(in0);
    }
    if ( out1_host != out1_device ) {
         std::cerr << std::setprecision (std::numeric_limits<bool>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;

@@ -17,10 +17,10 @@ PROGRAM target_parallel__do__simd
   CALL RANDOM_NUMBER(src_imag)
   src = CMPLX(src_real,src_imag)
   DEALLOCATE (src_real,src_imag)
-  !$OMP TARGET PARALLEL map(to: src) map(from: dst)
+  !$OMP TARGET PARALLEL map(to: src) map(from: dst) private(idx)
   !$OMP DO
   DO i0 = 1, N0
-    !$OMP SIMD
+    !$OMP SIMD private(idx)
     DO i1 = 1, N1
       idx = i1-1+N1*(i0-1)+1
       dst(idx) = src(idx)
@@ -28,7 +28,7 @@ PROGRAM target_parallel__do__simd
   END DO
   !$OMP END TARGET PARALLEL
   IF (ANY(ABS(dst - src) > EPSILON(REAL(src)))) THEN
-    WRITE(*,*)  'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
+    WRITE(*,*) 'Wrong value', MAXVAL(ABS(DST-SRC)), 'max difference'
     errno = 112
   ENDIF
   DEALLOCATE(src, dst)

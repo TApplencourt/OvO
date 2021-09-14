@@ -1,10 +1,10 @@
 FUNCTION almost_equal(x, gold, tol) RESULT(b)
   implicit none
   DOUBLE COMPLEX, intent(in) :: x
-  INTEGER,  intent(in) :: gold
-  REAL,     intent(in) :: tol
-  LOGICAL              :: b
-  b = ( gold * (1 - tol)  <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol) )
+  INTEGER, intent(in) :: gold
+  REAL, intent(in) :: tol
+  LOGICAL :: b
+  b = ( gold * (1 - tol) <= ABS(x) ).AND.( ABS(x) <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target__teams_distribute_parallel_do_simd
   implicit none
@@ -22,7 +22,7 @@ PROGRAM target__teams_distribute_parallel_do_simd
   END DO
   !$OMP END TARGET
   IF ( .NOT.almost_equal(counter_N0,expected_value, 0.01) ) THEN
-    WRITE(*,*)  'Expected', expected_value,  'Got', counter_N0
+    WRITE(*,*) 'Expected', expected_value, 'Got', counter_N0
     STOP 112
   ENDIF
 END PROGRAM target__teams_distribute_parallel_do_simd

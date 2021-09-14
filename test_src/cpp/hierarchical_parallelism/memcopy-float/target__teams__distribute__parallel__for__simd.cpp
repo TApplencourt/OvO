@@ -5,7 +5,7 @@
 #include <vector>
 #include <algorithm>
 bool almost_equal(float x, float y, int ulp) {
-  return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<float>::min();
+  return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp || std::fabs(x-y) < std::numeric_limits<float>::min();
 }
 void test_target__teams__distribute__parallel__for__simd() {
   const int N0 { 32 };
@@ -33,7 +33,7 @@ void test_target__teams__distribute__parallel__for__simd() {
       }
     }
   }
-  for (int i = 0 ;  i < size ; i++)
+  for (int i = 0 ; i < size ; i++)
     if ( !almost_equal(dst[i],src[i],1) ) {
       std::cerr << "Expected: " << src[i] << " Got: " << dst[i] << std::endl;
       std::exit(112);

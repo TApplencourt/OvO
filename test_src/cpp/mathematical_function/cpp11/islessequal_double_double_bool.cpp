@@ -10,11 +10,11 @@ void test_islessequal(){
     bool out2_host {};
    bool out2_device {};
    {
-    out2_host =  islessequal(in0, in1);
+    out2_host = islessequal(in0, in1);
    }
    #pragma omp target map(tofrom: out2_device )
    {
-    out2_device =  islessequal(in0, in1);
+    out2_device = islessequal(in0, in1);
    }
    if ( out2_host != out2_device ) {
         std::cerr << std::setprecision (std::numeric_limits<bool>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;

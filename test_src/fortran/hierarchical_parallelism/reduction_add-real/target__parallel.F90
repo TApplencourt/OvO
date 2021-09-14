@@ -7,10 +7,10 @@ END FUNCTION omp_get_num_threads
 FUNCTION almost_equal(x, gold, tol) RESULT(b)
   implicit none
   REAL, intent(in) :: x
-  INTEGER,  intent(in) :: gold
-  REAL,     intent(in) :: tol
-  LOGICAL              :: b
-  b = ( gold * (1 - tol)  <= x ).AND.( x <= gold * (1+tol) )
+  INTEGER, intent(in) :: gold
+  REAL, intent(in) :: tol
+  LOGICAL :: b
+  b = ( gold * (1 - tol) <= x ).AND.( x <= gold * (1+tol) )
 END FUNCTION almost_equal
 PROGRAM target__parallel
 #ifdef _OPENMP
@@ -27,11 +27,11 @@ PROGRAM target__parallel
   counter_parallel = 0
   !$OMP TARGET map(tofrom: counter_parallel)
   !$OMP PARALLEL num_threads(32768) reduction(+: counter_parallel)
-    counter_parallel = counter_parallel + 1.  / omp_get_num_threads() ;
+    counter_parallel = counter_parallel + 1. / omp_get_num_threads() ;
   !$OMP END PARALLEL
   !$OMP END TARGET
   IF ( .NOT.almost_equal(counter_parallel,expected_value, 0.01) ) THEN
-    WRITE(*,*)  'Expected', expected_value,  'Got', counter_parallel
+    WRITE(*,*) 'Expected', expected_value, 'Got', counter_parallel
     STOP 112
   ENDIF
 END PROGRAM target__parallel
