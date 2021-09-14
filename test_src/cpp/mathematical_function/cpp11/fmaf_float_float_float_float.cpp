@@ -11,14 +11,14 @@ void test_fmaf(){
    float in0 { 0.42 };
    float in1 { 0.42 };
    float in2 { 0.42 };
-   float out3_host {};
+    float out3_host {};
    float out3_device {};
    {
     out3_host =  fmaf(in0, in1, in2);
    }
    #pragma omp target map(tofrom: out3_device )
    {
-     out3_device =  fmaf(in0, in1, in2);
+    out3_device =  fmaf(in0, in1, in2);
    }
    if ( !almost_equal(out3_host,out3_device, 4) ) {
         std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out3_host << " GPU: " << out3_device << std::endl;

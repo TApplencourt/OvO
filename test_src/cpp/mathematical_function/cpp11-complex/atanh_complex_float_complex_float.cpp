@@ -10,14 +10,14 @@ bool almost_equal(complex<float> x, complex<float> y, int ulp) {
 }
 void test_atanh(){
    complex<float> in0 { 0.42, 0.0 };
-   complex<float> out1_host {};
+    complex<float> out1_host {};
    complex<float> out1_device {};
    {
     out1_host =  atanh(in0);
    }
    #pragma omp target map(tofrom: out1_device )
    {
-     out1_device =  atanh(in0);
+    out1_device =  atanh(in0);
    }
    if ( !almost_equal(out1_host,out1_device, 4) ) {
         std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;

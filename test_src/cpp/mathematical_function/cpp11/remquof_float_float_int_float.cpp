@@ -10,16 +10,16 @@ bool almost_equal(float x, float y, int ulp) {
 void test_remquof(){
    float in0 { 0.42 };
    float in1 { 0.42 };
-   int out2_host {};
+    int out2_host {};
    int out2_device {};
-   float out3_host {};
+    float out3_host {};
    float out3_device {};
    {
     out3_host =  remquof(in0, in1, &out2_host);
    }
    #pragma omp target map(tofrom: out2_device, out3_device )
    {
-     out3_device =  remquof(in0, in1, &out2_device);
+    out3_device =  remquof(in0, in1, &out2_device);
    }
    if ( out2_host != out2_device ) {
         std::cerr << std::setprecision (std::numeric_limits<int>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;

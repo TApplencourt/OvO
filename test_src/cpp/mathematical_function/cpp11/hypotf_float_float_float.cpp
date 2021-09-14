@@ -10,14 +10,14 @@ bool almost_equal(float x, float y, int ulp) {
 void test_hypotf(){
    float in0 { 0.42 };
    float in1 { 0.42 };
-   float out2_host {};
+    float out2_host {};
    float out2_device {};
    {
     out2_host =  hypotf(in0, in1);
    }
    #pragma omp target map(tofrom: out2_device )
    {
-     out2_device =  hypotf(in0, in1);
+    out2_device =  hypotf(in0, in1);
    }
    if ( !almost_equal(out2_host,out2_device, 4) ) {
         std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
