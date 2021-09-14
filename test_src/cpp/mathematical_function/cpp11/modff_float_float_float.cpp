@@ -9,16 +9,16 @@ bool almost_equal(float x, float y, int ulp) {
 }
 void test_modff(){
    float in0 { 0.42 };
-   float out1_host {};
+    float out1_host {};
    float out1_device {};
-   float out2_host {};
+    float out2_host {};
    float out2_device {};
    {
     out2_host =  modff(in0, &out1_host);
    }
    #pragma omp target map(tofrom: out1_device, out2_device )
    {
-     out2_device =  modff(in0, &out1_device);
+    out2_device =  modff(in0, &out1_device);
    }
    if ( !almost_equal(out1_host,out1_device, 4) ) {
         std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;

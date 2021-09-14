@@ -9,14 +9,14 @@ bool almost_equal(float x, float y, int ulp) {
 }
 void test_erff(){
    float in0 { 0.42 };
-   float out1_host {};
+    float out1_host {};
    float out1_device {};
    {
     out1_host =  erff(in0);
    }
    #pragma omp target map(tofrom: out1_device )
    {
-     out1_device =  erff(in0);
+    out1_device =  erff(in0);
    }
    if ( !almost_equal(out1_host,out1_device, 4) ) {
         std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;

@@ -41,28 +41,29 @@ void test_{{name}}(){
 
 {% for output in l_argv | selectattr('is_output') %}
    {% if not size %}
-   {{output.T.without_pointer}} {{output.name_host}} {}; 
+   {% if not reciprocal %} {{output.T.without_pointer}} {{output.name_host}} {}; {% endif %} 
    {{output.T.without_pointer}} {{output.name_device}} {};
    {% else %}
-   {{output.T.without_pointer}} {{output.name_host}}[PROB_SIZE];
+   {% if not reciprocal %} {{output.T.without_pointer}} {{output.name_host}}[PROB_SIZE]; {% endif %}
    {{output.T.without_pointer}} {{output.name_device}}[PROB_SIZE];
    {% endif %}
 {% endfor %}
 
-{%if size %}
+{% if not reciprocal %} 
+  {%if size %}
    for (int i= 0;  i < PROB_SIZE ; i++) 
-{% endif %}
+  {% endif %}
    {
     {%if scalar_output %}{{scalar_output.name_host_idx}} = {% endif %} {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_host') }});
    }
-
+{% endif %}
  
    #pragma omp target map(tofrom: {{ l_argv | selectattr('is_output') | join(', ', attribute='map_clause_from')  }} )  {%if size %} map(to: {{ l_argv | selectattr('is_input') | join(', ', attribute='map_clause_to')  }}) {%endif %} 
 {%if size %}
    for (int i= 0;  i < PROB_SIZE; i++) 
 {% endif %}
    {
-    {%if scalar_output %} {{scalar_output.name_device_idx}} = {% endif %} {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
+    {%if scalar_output %}{{scalar_output.name_device_idx}} = {% endif %} {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
    }
 
 {%if size %}
