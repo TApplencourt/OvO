@@ -9,19 +9,15 @@ bool almost_equal(float x, float y, int ulp) {
 }
 void test_asinf(){
    float x { 0.42 };
-    float o_host {};
    float o_device {};
-   {
-    o_host =  asinf(x);
-   }
    #pragma omp target map(tofrom: o_device )
    {
     o_device =  asinf(x);
    }
-   if ( !almost_equal(o_host,o_device, 4) ) {
-        std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << o_host << " GPU: " << o_device << std::endl;
-        std::exit(112);
-    }
+   if ( !almost_equal(sinf(o_device), x, 16) ) {
+            std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Expected:" << x << " Got: "  << sinf(o_device) << std::endl;
+            std::exit(112);
+   }
 }
 int main()
 {

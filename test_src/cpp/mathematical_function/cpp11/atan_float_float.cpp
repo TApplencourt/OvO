@@ -9,19 +9,15 @@ bool almost_equal(float x, float y, int ulp) {
 }
 void test_atan(){
    float in0 { 0.42 };
-    float out1_host {};
    float out1_device {};
-   {
-    out1_host =  atan(in0);
-   }
    #pragma omp target map(tofrom: out1_device )
    {
     out1_device =  atan(in0);
    }
-   if ( !almost_equal(out1_host,out1_device, 4) ) {
-        std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
-        std::exit(112);
-    }
+   if ( !almost_equal(tan(out1_device), in0, 16) ) {
+            std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Expected:" << in0 << " Got: "  << tan(out1_device) << std::endl;
+            std::exit(112);
+   }
 }
 int main()
 {

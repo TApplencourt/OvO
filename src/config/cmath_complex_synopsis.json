@@ -20,6 +20,7 @@
                 "-1 > x.real and  x.real > 1",
                 "-1 > x.real and  x.real > 1"
             ],
+            "reciprocal": "cos",
             "name": [
                 [
                     "x",
@@ -69,6 +70,7 @@
                 "x.real >= 1",
                 "x.real >= 1"
             ],
+            "reciprocal": "cosh",
             "name": [
                 [
                     "x",
@@ -118,6 +120,7 @@
                 "-1 <= x.real and x.real <= 1",
                 "-1 <= x.real and x.real <= 1"
             ],
+            "reciprocal": "sin",
             "name": [
                 [
                     "x",
@@ -162,6 +165,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "sinh",
             "type": [
                 [
                     "complex<float>",
@@ -192,6 +196,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "tan",
             "type": [
                 [
                     "complex<float>",
@@ -222,6 +227,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "tanh",
             "type": [
                 [
                     "complex<float>",
@@ -342,6 +348,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "exp",
             "type": [
                 [
                     "complex<float>",
