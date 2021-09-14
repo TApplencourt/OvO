@@ -125,6 +125,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "cosf",
             "domain": [
                 "-1 <= x and  x <= 1"
             ],
@@ -156,6 +157,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "cosh",
             "domain": [
                 "x >= 1",
                 "x >= 1",
@@ -197,6 +199,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "coshf",
             "domain": [
                 "x >= 1"
             ],
@@ -223,6 +226,7 @@
             "domain": [
                 "x >= 1"
             ],
+            "reciprocal": "coshl",
             "name": [
                 [
                     "x",
@@ -246,6 +250,7 @@
             "domain": [
                 "-1 <= x and  x <= 1"
             ],
+            "reciprocal": "cosl",
             "name": [
                 [
                     "x",
@@ -279,6 +284,7 @@
                 "-1 <= x and x <= 1",
                 "-1 <= x and x <= 1"
             ],
+            "reciprocal": "sin",
             "name": [
                 [
                     "x",
@@ -318,6 +324,7 @@
             "domain": [
                 "-1 <= x and x <= 1"
             ],
+            "reciprocal": "sinf",
             "name": [
                 [
                     "x",
@@ -351,6 +358,7 @@
                 "-1 <= x and x <= 1",
                 "-1 <= x and x <= 1"
             ],
+            "reciprocal": "sinh",
             "name": [
                 [
                     "x",
@@ -390,6 +398,7 @@
             "domain": [
                 "-1 <= x and x <= 1"
             ],
+            "reciprocal": "sinhf",
             "name": [
                 [
                     "x",
@@ -413,6 +422,7 @@
             "domain": [
                 "-1 <= x and x <= 1"
             ],
+            "reciprocal": "sinhl",
             "name": [
                 [
                     "x",
@@ -436,6 +446,7 @@
             "domain": [
                 "-1 <= x and x <= 1"
             ],
+            "reciprocal": "sinl",
             "name": [
                 [
                     "x",
@@ -464,6 +475,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "tan",
             "type": [
                 [
                     "float",
@@ -640,6 +652,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "tanhf",
             "type": [
                 [
                     "float",
@@ -654,6 +667,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "tanhl",
             "type": [
                 [
                     "long double",
@@ -668,6 +682,7 @@
                     "out"
                 ]
             ],
+            "reciprocal": "tanl",
             "type": [
                 [
                     "long double",
@@ -2649,6 +2664,7 @@
                 "x >= 0",
                 "x >= 0"
             ],
+            "reciprocal": "exp",
             "name": [
                 [
                     "x",

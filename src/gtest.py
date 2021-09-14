@@ -963,13 +963,14 @@ class Math:
         "const char*": [None],
     }
 
-    def __init__(self, name, T, attr, argv, domain, size, language="cpp"):
+    def __init__(self, name, T, attr, argv, domain, size, reciprocal, language="cpp"):
         self.name = name
         if not argv:
             argv = [f"{j}{i}" for i, j in enumerate(attr)]
         self.language = language
         self.l = self.create_l(T, attr, argv, size != 0, domain)
         self.size = size
+        self.reciprocal = reciprocal
 
     @cached_property
     def ext(self):
@@ -1035,7 +1036,7 @@ class Math:
 
         template = templateEnv.get_template(f"mathematical_function.{self.ext}.jinja2")
 
-        str_ = template.render(name=self.name, l_argv=self.l, scalar_output=self.scalar_output, have_complex=self.have_complex, size=self.size)
+        str_ = template.render(name=self.name, l_argv=self.l, scalar_output=self.scalar_output, have_complex=self.have_complex, size=self.size, reciprocal=self.reciprocal)
         return format_template(str_, self.language)
 
 
@@ -1051,7 +1052,7 @@ def gen_mf(d_arg):
     std = d_arg["standard"]
     cmplx = d_arg["complex"]
     size = d_arg["simdize"]
-
+ 
     if std.startswith("cpp") or std == "gnu":
         language = "cpp"
         if cmplx:
@@ -1088,9 +1089,10 @@ def gen_mf(d_arg):
         lattribute = Y["attribute"]
         lT = Y["type"]
         largv = Y["name"] if "name" in Y else []
+        reciprocal = Y["reciprocal"] if "reciprocal" in Y else False
         ldomain = Y["domain"] if "domain" in Y else []
         for T, attr, argv, domain in zip_longest(lT, lattribute, largv, ldomain):
-            m = Math(name, T, attr, argv, domain, size, language)
+            m = Math(name, T, attr, argv, domain, size, reciprocal, language)
             if ((m.use_long and d_arg["long"]) or (not m.use_long and not d_arg["long"])) and m.template_rendered:
                 with open(os.path.join(folder, m.filename), "w") as f:
                     f.write(m.template_rendered)

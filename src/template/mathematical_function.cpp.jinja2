@@ -49,7 +49,7 @@ void test_{{name}}(){
    {% endif %}
 {% endfor %}
 
-{% if not reciprocal %} 
+{% if not reciprocal %}
   {%if size %}
    for (int i= 0;  i < PROB_SIZE ; i++) 
   {% endif %}
@@ -70,6 +70,7 @@ void test_{{name}}(){
    for (int i= 0;  i < PROB_SIZE; i++) {
 {% endif %}
 
+{% if not reciprocal %}
 {% for output in l_argv | selectattr('is_output')  %}
    {% if output.T.category in ("integer","bool")  %}
    if ( {{output.name_host_idx}} != {{output.name_device_idx}} ) {
@@ -81,6 +82,14 @@ void test_{{name}}(){
         std::exit(112);
     }
 {% endfor %}
+{% else %}
+   {% set output_f = (l_argv | selectattr('is_output') | first).name_device_idx %}
+   {% set input = (l_argv | selectattr('is_argv') | first) %}
+   if ( !almost_equal({{reciprocal}}({{output_f}}), {{input.name}}, 16) ) {
+            std::cerr << std::setprecision (std::numeric_limits<{{input.T.internal}}>::max_digits10 ){% if size %} << "Idx: " << i << " " {% endif %} << "Expected:" << {{input.name}} << " Got: "  << {{reciprocal}}({{output_f}}) << std::endl;
+            std::exit(112);
+   }
+{% endif %}
 
 {%if size %}
    }

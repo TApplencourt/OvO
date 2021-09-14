@@ -9,19 +9,15 @@ bool almost_equal(double x, double y, int ulp) {
 }
 void test_log(){
    double x { 0.42 };
-    double o_host {};
    double o_device {};
-   {
-    o_host =  log(x);
-   }
    #pragma omp target map(tofrom: o_device )
    {
     o_device =  log(x);
    }
-   if ( !almost_equal(o_host,o_device, 4) ) {
-        std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Host: " << o_host << " GPU: " << o_device << std::endl;
-        std::exit(112);
-    }
+   if ( !almost_equal(exp(o_device), x, 16) ) {
+            std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Expected:" << x << " Got: "  << exp(o_device) << std::endl;
+            std::exit(112);
+   }
 }
 int main()
 {
