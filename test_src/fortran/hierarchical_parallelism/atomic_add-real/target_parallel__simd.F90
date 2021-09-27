@@ -31,7 +31,7 @@ PROGRAM target_parallel__simd
     !$OMP SIMD
     DO i0 = 1, N0
       !$OMP atomic update
-      counter_parallel = counter_parallel + 1. / omp_get_num_threads() ;
+      counter_parallel = counter_parallel + 1. / omp_get_num_threads()
     END DO
   !$OMP END TARGET PARALLEL
   IF ( .NOT.almost_equal(counter_parallel,expected_value, 0.01) ) THEN

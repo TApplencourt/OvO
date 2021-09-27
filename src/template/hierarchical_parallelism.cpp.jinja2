@@ -27,6 +27,8 @@ using std::complex;
 #else
    {% if openmp_api_call and single("teams") %}
 int omp_get_num_teams() {return 1;}
+   {% endif %}
+{% if single("teams") %}
 void omp_set_num_teams(int _) {}
    {% endif %}
    {% if openmp_api_call and single("parallel") %}
@@ -107,7 +109,7 @@ void test_{{name}}() {
   const {{T}} expected_value { {{expected_value}} };
 {% endif %}
 
-{% if openmp_api_call and single("teams") %}
+{% if single("teams") %}
   omp_set_num_teams({{loop_tripcount}});
 {% endif %}
 

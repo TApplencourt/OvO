@@ -31,7 +31,7 @@ PROGRAM target__teams__parallel__do__simd
   DOUBLE COMPLEX :: counter_teams
   INTEGER :: expected_value
   expected_value = N0*N1
-  CALL omp_set_num_teams(32);
+  CALL omp_set_num_teams(32)
   counter_teams = 0
   !$OMP TARGET map(tofrom: counter_teams)
   !$OMP TEAMS reduction(+: counter_teams)
@@ -40,7 +40,7 @@ PROGRAM target__teams__parallel__do__simd
     DO i0 = 1, N0
       !$OMP SIMD reduction(+: counter_teams)
       DO i1 = 1, N1
-        counter_teams = counter_teams + 1. / omp_get_num_teams() ;
+        counter_teams = counter_teams + 1. / omp_get_num_teams()
       END DO
     END DO
     !$OMP END PARALLEL

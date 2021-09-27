@@ -27,7 +27,7 @@ PROGRAM target__parallel
   counter_parallel = 0
   !$OMP TARGET map(tofrom: counter_parallel)
   !$OMP PARALLEL num_threads(32768) reduction(+: counter_parallel)
-    counter_parallel = counter_parallel + 1. / omp_get_num_threads() ;
+    counter_parallel = counter_parallel + 1. / omp_get_num_threads()
   !$OMP END PARALLEL
   !$OMP END TARGET
   IF ( .NOT.almost_equal(counter_parallel,expected_value, 0.01) ) THEN

@@ -34,7 +34,7 @@ PROGRAM target__teams__parallel__simd
   REAL :: counter_teams
   INTEGER :: expected_value
   expected_value = N0
-  CALL omp_set_num_teams(32);
+  CALL omp_set_num_teams(32)
   counter_teams = 0
   !$OMP TARGET map(tofrom: counter_teams)
   !$OMP TEAMS
@@ -42,7 +42,7 @@ PROGRAM target__teams__parallel__simd
       !$OMP SIMD
       DO i0 = 1, N0
         !$OMP atomic update
-        counter_teams = counter_teams + 1. / ( omp_get_num_teams() * omp_get_num_threads() ) ;
+        counter_teams = counter_teams + 1. / ( omp_get_num_teams() * omp_get_num_threads() )
       END DO
     !$OMP END PARALLEL
   !$OMP END TEAMS

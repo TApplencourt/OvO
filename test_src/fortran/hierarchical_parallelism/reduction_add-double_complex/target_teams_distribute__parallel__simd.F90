@@ -34,7 +34,7 @@ PROGRAM target_teams_distribute__parallel__simd
     !$OMP PARALLEL num_threads(32) reduction(+: counter_N0)
       !$OMP SIMD reduction(+: counter_N0)
       DO i1 = 1, N1
-        counter_N0 = counter_N0 + 1. / omp_get_num_threads() ;
+        counter_N0 = counter_N0 + 1. / omp_get_num_threads()
       END DO
     !$OMP END PARALLEL
   END DO

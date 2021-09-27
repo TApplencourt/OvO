@@ -31,7 +31,7 @@ PROGRAM target__parallel__simd
   !$OMP PARALLEL num_threads(182) reduction(+: counter_parallel)
     !$OMP SIMD reduction(+: counter_parallel)
     DO i0 = 1, N0
-      counter_parallel = counter_parallel + 1. / omp_get_num_threads() ;
+      counter_parallel = counter_parallel + 1. / omp_get_num_threads()
     END DO
   !$OMP END PARALLEL
   !$OMP END TARGET

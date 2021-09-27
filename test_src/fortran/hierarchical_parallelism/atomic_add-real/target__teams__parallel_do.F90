@@ -29,14 +29,14 @@ PROGRAM target__teams__parallel_do
   REAL :: counter_teams
   INTEGER :: expected_value
   expected_value = N0
-  CALL omp_set_num_teams(182);
+  CALL omp_set_num_teams(182)
   counter_teams = 0
   !$OMP TARGET map(tofrom: counter_teams)
   !$OMP TEAMS
     !$OMP PARALLEL DO
     DO i0 = 1, N0
       !$OMP atomic update
-      counter_teams = counter_teams + 1. / omp_get_num_teams() ;
+      counter_teams = counter_teams + 1. / omp_get_num_teams()
     END DO
   !$OMP END TEAMS
   !$OMP END TARGET

@@ -32,12 +32,12 @@ PROGRAM target_teams__parallel
   REAL :: counter_teams
   INTEGER :: expected_value
   expected_value = 1
-  CALL omp_set_num_teams(182);
+  CALL omp_set_num_teams(182)
   counter_teams = 0
   !$OMP TARGET TEAMS map(tofrom: counter_teams)
     !$OMP PARALLEL num_threads(182)
       !$OMP atomic update
-      counter_teams = counter_teams + 1. / ( omp_get_num_teams() * omp_get_num_threads() ) ;
+      counter_teams = counter_teams + 1. / ( omp_get_num_teams() * omp_get_num_threads() )
     !$OMP END PARALLEL
   !$OMP END TARGET TEAMS
   IF ( .NOT.almost_equal(counter_teams,expected_value, 0.01) ) THEN

@@ -31,7 +31,7 @@ PROGRAM target__teams_distribute__parallel
   !$OMP TEAMS DISTRIBUTE reduction(+: counter_N0)
   DO i0 = 1, N0
     !$OMP PARALLEL num_threads(182) reduction(+: counter_N0)
-      counter_N0 = counter_N0 + 1. / omp_get_num_threads() ;
+      counter_N0 = counter_N0 + 1. / omp_get_num_threads()
     !$OMP END PARALLEL
   END DO
   !$OMP END TARGET

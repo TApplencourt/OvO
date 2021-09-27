@@ -6,28 +6,33 @@
 {% if openmp_api_call or multiple_devices %}
 #ifndef _OPENMP
 {% endif %}
-   {% if openmp_api_call and single("teams") %}
+
+{% if openmp_api_call and single("teams") %}
 FUNCTION omp_get_num_teams() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_teams
+{% endif %}
 
+{% if single("teams") %}
 SUBROUTINE omp_set_num_teams(i)
     integer, intent(in) :: i
 END SUBROUTINE omp_set_num_teams
-   {% endif %}
-   {% if openmp_api_call and single("parallel") %}
+{% endif %}
+
+{% if openmp_api_call and single("parallel") %}
 FUNCTION omp_get_num_threads() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_threads
-   {% endif %}
-   {% if multiple_devices %}
+{% endif %}
+
+{% if multiple_devices %}
 FUNCTION omp_get_num_devices() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_devices
-   {% endif %}
+{% endif %}
 
 {% if openmp_api_call or multiple_devices %}
 #endif
@@ -137,7 +142,6 @@ PROGRAM main
    {% else %}
   CALL RANDOM_NUMBER(src)
    {% endif %}
-
 {% else %}
   LOGICAL :: almost_equal
     {# We need unique in the case of non temporary result #}
@@ -154,8 +158,8 @@ PROGRAM main
   {% endif %}
 {% endif %}
 
-{% if openmp_api_call and single("teams") %}
-  CALL omp_set_num_teams({{loop_tripcount}});
+{% if single("teams") %}
+  CALL omp_set_num_teams({{loop_tripcount}})
 {% endif %}
 
 {#                      _                          #}
@@ -207,11 +211,11 @@ DO {{loop_.i}} = 1, {{loop_.N}}
          {% elif test_type.endswith('_max') %}
 {{increments.v}} = max({{increments.v}}, REAL({{inner_index}}))
          {% elif increments.j %}
-{{increments.v}} = {{increments.v}} + {{increments.i}}  / {{increments.j}} ;
+{{increments.v}} = {{increments.v}} + {{increments.i}}  / {{increments.j}}
          {% else %}
 {{increments.v}} = {{increments.v}} + {{increments.i}}
          {% endif %}
-      
+
       {% elif test_type == 'memcopy' and loop.first %}
 idx = {{inner_index}}
 dst(idx) = src(idx)

@@ -29,13 +29,13 @@ PROGRAM target_teams__parallel__do
   REAL :: counter_teams
   INTEGER :: expected_value
   expected_value = N0
-  CALL omp_set_num_teams(182);
+  CALL omp_set_num_teams(182)
   counter_teams = 0
   !$OMP TARGET TEAMS reduction(+: counter_teams)
     !$OMP PARALLEL reduction(+: counter_teams)
     !$OMP DO
     DO i0 = 1, N0
-      counter_teams = counter_teams + 1. / omp_get_num_teams() ;
+      counter_teams = counter_teams + 1. / omp_get_num_teams()
     END DO
     !$OMP END PARALLEL
   !$OMP END TARGET TEAMS

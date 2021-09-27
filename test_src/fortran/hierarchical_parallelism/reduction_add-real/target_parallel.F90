@@ -26,7 +26,7 @@ PROGRAM target_parallel
   expected_value = 1
   counter_parallel = 0
   !$OMP TARGET PARALLEL num_threads(32768) reduction(+: counter_parallel)
-    counter_parallel = counter_parallel + 1. / omp_get_num_threads() ;
+    counter_parallel = counter_parallel + 1. / omp_get_num_threads()
   !$OMP END TARGET PARALLEL
   IF ( .NOT.almost_equal(counter_parallel,expected_value, 0.01) ) THEN
     WRITE(*,*) 'Expected', expected_value, 'Got', counter_parallel

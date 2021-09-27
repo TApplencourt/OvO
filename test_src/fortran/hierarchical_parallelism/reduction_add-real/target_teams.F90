@@ -27,10 +27,10 @@ PROGRAM target_teams
   REAL :: counter_teams
   INTEGER :: expected_value
   expected_value = 1
-  CALL omp_set_num_teams(32768);
+  CALL omp_set_num_teams(32768)
   counter_teams = 0
   !$OMP TARGET TEAMS reduction(+: counter_teams)
-    counter_teams = counter_teams + 1. / omp_get_num_teams() ;
+    counter_teams = counter_teams + 1. / omp_get_num_teams()
   !$OMP END TARGET TEAMS
   IF ( .NOT.almost_equal(counter_teams,expected_value, 0.01) ) THEN
     WRITE(*,*) 'Expected', expected_value, 'Got', counter_teams

@@ -30,7 +30,7 @@ PROGRAM target_parallel__simd
   !$OMP TARGET PARALLEL num_threads(182) reduction(+: counter_parallel)
     !$OMP SIMD reduction(+: counter_parallel)
     DO i0 = 1, N0
-      counter_parallel = counter_parallel + 1. / omp_get_num_threads() ;
+      counter_parallel = counter_parallel + 1. / omp_get_num_threads()
     END DO
   !$OMP END TARGET PARALLEL
   IF ( .NOT.almost_equal(counter_parallel,expected_value, 0.01) ) THEN
