@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iomanip>
+#include <stdlib.h>
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -8,6 +9,8 @@ bool almost_equal(float x, float y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp || std::fabs(x-y) < std::numeric_limits<float>::min();
 }
 void test_frexpf(){
+   const char* usr_precision = getenv("OVO_TOL_ULP");
+   const int precision = usr_precision ? atoi(usr_precision) : 4;
    float in0 { 0.42 };
     int out1_host {};
    int out1_device {};
@@ -24,7 +27,7 @@ void test_frexpf(){
         std::cerr << std::setprecision (std::numeric_limits<int>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         std::exit(112);
     }
-   if ( !almost_equal(out2_host,out2_device, 4) ) {
+   if ( !almost_equal(out2_host,out2_device, precision) ) {
         std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         std::exit(112);
     }

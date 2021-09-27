@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iomanip>
+#include <stdlib.h>
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -8,6 +9,8 @@ bool almost_equal(float x, float y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp || std::fabs(x-y) < std::numeric_limits<float>::min();
 }
 void test_sqrtf(){
+   const char* usr_precision = getenv("OVO_TOL_ULP");
+   const int precision = usr_precision ? atoi(usr_precision) : 4;
    float x { 0.42 };
     float o_host {};
    float o_device {};
@@ -18,7 +21,7 @@ void test_sqrtf(){
    {
     o_device = sqrtf(x);
    }
-   if ( !almost_equal(o_host,o_device, 4) ) {
+   if ( !almost_equal(o_host,o_device, precision) ) {
         std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << o_host << " GPU: " << o_device << std::endl;
         std::exit(112);
     }

@@ -1,10 +1,13 @@
 #include <cmath>
 #include <iomanip>
+#include <stdlib.h>
 #include <limits>
 #include <iostream>
 #include <cstdlib>
 using namespace std;
 void test_ilogb(){
+   const char* usr_precision = getenv("OVO_TOL_ULP");
+   const int precision = usr_precision ? atoi(usr_precision) : 4;
    double x { 0.42 };
     int o_host {};
    int o_device {};

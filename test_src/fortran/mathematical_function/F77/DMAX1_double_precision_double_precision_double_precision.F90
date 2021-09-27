@@ -1,13 +1,20 @@
 program test_DMAX1
    implicit none
+   CHARACTER(len=255) :: usr_precision
+   INTEGER :: precision = 4
+   INTEGER :: stat
    DOUBLE PRECISION :: in0 = ( 0.42 )
    DOUBLE PRECISION :: in1 = ( 0.42 )
    DOUBLE PRECISION :: o_host, o_device
+    CALL GET_ENVIRONMENT_VARIABLE("OVO_TOL_ULP",usr_precision, status=stat)
+    IF (stat == 0) THEN
+        read(usr_precision, *, iostat=stat) precision
+    ENDIF
     o_host = DMAX1( in0, in1)
     !$OMP target map(from:o_device)
     o_device = DMAX1( in0, in1)
     !$OMP END TARGET
-    IF ( ABS(o_host-o_device) > EPSILON( o_host )*4 ) THEN
+    IF ( ABS(o_host-o_device) > EPSILON( o_host )*precision ) THEN
         write(*,*) 'Expected ', o_host, ' Got ', o_device
         STOP 112
     ENDIF

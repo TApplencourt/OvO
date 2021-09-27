@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iomanip>
+#include <stdlib.h>
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -8,6 +9,8 @@ bool almost_equal(double x, double y, int ulp) {
      return std::fabs(x-y) <= std::numeric_limits<double>::epsilon() * std::fabs(x+y) * ulp || std::fabs(x-y) < std::numeric_limits<double>::min();
 }
 void test_logb(){
+   const char* usr_precision = getenv("OVO_TOL_ULP");
+   const int precision = usr_precision ? atoi(usr_precision) : 4;
    double x { 0.42 };
     double o_host {};
    double o_device {};
@@ -18,7 +21,7 @@ void test_logb(){
    {
     o_device = logb(x);
    }
-   if ( !almost_equal(o_host,o_device, 4) ) {
+   if ( !almost_equal(o_host,o_device, precision) ) {
         std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Host: " << o_host << " GPU: " << o_device << std::endl;
         std::exit(112);
     }
