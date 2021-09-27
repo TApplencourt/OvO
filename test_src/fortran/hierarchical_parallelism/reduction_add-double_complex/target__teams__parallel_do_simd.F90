@@ -3,6 +3,9 @@ FUNCTION omp_get_num_teams() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_teams
+SUBROUTINE omp_set_num_teams(i)
+    integer, intent(in) :: i
+END SUBROUTINE omp_set_num_teams
 #endif
 FUNCTION almost_equal(x, gold, tol) RESULT(b)
   implicit none
@@ -26,9 +29,10 @@ PROGRAM target__teams__parallel_do_simd
   DOUBLE COMPLEX :: counter_teams
   INTEGER :: expected_value
   expected_value = N0
+  CALL omp_set_num_teams(182);
   counter_teams = 0
   !$OMP TARGET map(tofrom: counter_teams)
-  !$OMP TEAMS num_teams(182) reduction(+: counter_teams)
+  !$OMP TEAMS reduction(+: counter_teams)
     !$OMP PARALLEL DO SIMD reduction(+: counter_teams)
     DO i0 = 1, N0
       counter_teams = counter_teams + 1. / omp_get_num_teams() ;

@@ -7,6 +7,7 @@ using std::complex;
 #include <omp.h>
 #else
 int omp_get_num_teams() {return 1;}
+void omp_set_num_teams(int _) {}
 int omp_get_num_threads() {return 1;}
 #endif
 bool almost_equal(complex<double> x, complex<double> gold, double rel_tol=1e-09, double abs_tol=0.0) {
@@ -16,9 +17,10 @@ bool almost_equal(complex<double> x, complex<double> gold, double rel_tol=1e-09,
 void test_target__teams__parallel__simd() {
   const int N0 { 32 };
   const complex<double> expected_value { N0 };
+  omp_set_num_teams(32);
   complex<double> counter_teams{};
   #pragma omp target map(tofrom: counter_teams)
-  #pragma omp teams num_teams(32) reduction(+: counter_teams)
+  #pragma omp teams reduction(+: counter_teams)
   {
     #pragma omp parallel num_threads(32) reduction(+: counter_teams)
     {

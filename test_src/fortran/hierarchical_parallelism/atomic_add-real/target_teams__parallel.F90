@@ -3,6 +3,9 @@ FUNCTION omp_get_num_teams() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_teams
+SUBROUTINE omp_set_num_teams(i)
+    integer, intent(in) :: i
+END SUBROUTINE omp_set_num_teams
 FUNCTION omp_get_num_threads() RESULT(i)
   INTEGER :: i
   i = 1
@@ -29,8 +32,9 @@ PROGRAM target_teams__parallel
   REAL :: counter_teams
   INTEGER :: expected_value
   expected_value = 1
+  CALL omp_set_num_teams(182);
   counter_teams = 0
-  !$OMP TARGET TEAMS num_teams(182) map(tofrom: counter_teams)
+  !$OMP TARGET TEAMS map(tofrom: counter_teams)
     !$OMP PARALLEL num_threads(182)
       !$OMP atomic update
       counter_teams = counter_teams + 1. / ( omp_get_num_teams() * omp_get_num_threads() ) ;

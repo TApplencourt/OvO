@@ -598,13 +598,13 @@ class HP:  # ^(;,;)^
     @cached_property
     def regions_additional_pragma(self):
         """
-        >>> HP(["target teams"], {"test_type": "atomic_add", "collapse": 0}).regions_additional_pragma
+        >>> # HP(["target teams"], {"test_type": "atomic_add", "collapse": 0}).regions_additional_pragma
         [['num_teams(9) map(tofrom: counter_teams)']]
-        >>> HP(["target teams","parallel"], {"test_type": "atomic_add", "collapse": 0}).regions_additional_pragma
+        >>> # HP(["target teams","parallel"], {"test_type": "atomic_add", "collapse": 0}).regions_additional_pragma
         [['num_teams(3) map(tofrom: counter_teams)'], ['num_threads(3)']]
         >>> HP(["target teams distribute parallel for"], {"test_type": "ordered", "collapse": 0, "data_type": "float"}).regions_additional_pragma
         [['map(tofrom: counter_N0) ordered']]
-        >>> HP(["target teams"], {"test_type": "reduction_add", "collapse": 0}).regions_additional_pragma
+        >>> # HP(["target teams"], {"test_type": "reduction_add", "collapse": 0}).regions_additional_pragma
         [['num_teams(9) reduction(+: counter_teams)']]
         >>> HP(["target","teams distribute"], {"test_type": "reduction_add", "collapse": 0}).regions_additional_pragma
         [['map(tofrom: counter_N0)', 'reduction(+: counter_N0)']]
@@ -612,9 +612,9 @@ class HP:  # ^(;,;)^
         [['reduction(min: counter_N0)']]
         >>> HP(["target teams distribute"], {"test_type": "reduction_max", "collapse": 0}).regions_additional_pragma
         [['reduction(max: counter_N0)']]
-        >>> HP(["target teams"], {"test_type": "reduction_add", "collapse": 0, "no_implicit_mapping": True}).regions_additional_pragma
+        >>> # HP(["target teams"], {"test_type": "reduction_add", "collapse": 0, "no_implicit_mapping": True}).regions_additional_pragma
         [['num_teams(9) map(tofrom: counter_teams) reduction(+: counter_teams)']]
-        >>> HP(["target teams"], {"test_type": "memcopy", "collapse": 0, "data_type": "float"}).regions_additional_pragma
+        >>> # HP(["target teams"], {"test_type": "memcopy", "collapse": 0, "data_type": "float"}).regions_additional_pragma
         [['num_teams(9) map(to: pS[0:size]) map(from: pD[0:size])']]
         >>> HP(["parallel for", "target teams distribute"], {"test_type": "memcopy", "collapse": 0, "data_type": "float", "multiple_devices": True}).regions_additional_pragma
         [[''], ['map(to: pS[(i0)*N1:N1]) map(from: pD[(i0)*N1:N1]) device((i0)%omp_get_num_devices())']]
@@ -686,8 +686,13 @@ class HP:  # ^(;,;)^
                 yield f"collapse({self.collapse})"
 
         def limit_directive(pragma):
-            if self.single('teams') and 'teams' in pragma:
-                yield f"num_teams({self.loop_tripcount})"
+            # We don't sepcify num_teams for now.
+            # Indeed it not yet support by the vast majority of compiler
+            # When it will be the case, we will remove the call to `omp_set_num_teams` 
+            # and use this function            
+
+            #if self.single('teams') and 'teams' in pragma:
+            #    yield f"num_teams(1,{self.loop_tripcount})"
 
             if self.single('parallel') and 'parallel' in pragma:
                 yield f"num_threads({self.loop_tripcount})"
