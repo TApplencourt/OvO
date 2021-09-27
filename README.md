@@ -117,8 +117,10 @@ We test if all functions of a specified standard are able to be offloaded.  The 
 ## Running 
 
 To run OvO simply type `./ovo.sh run`. Log files will be saved in the newly created `test_result` folder. 
-OvO will respect any usual environment variables provided by the user (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD`). 
-OvO will also respect the special `OVO_TIMEOUT` environment variable which controls the timeout used to kill too-long running tests (by default `15s`).
+
+- OvO will respect any usual environment variables provided by the user (e.g. `CXX` / `CXXFLAGS` / `FC` / `FFLAGS` / `OMP_TARGET_OFFLOAD`). 
+- OvO will also respect the special `OVO_TIMEOUT` environment variable which controls the timeout used to kill too-long running tests (by default `15s`).
+- You can use `OVO_TOL_ULP` to control the ULP tolerance of the mathematical tests (by default we use 4 ulp tolerance, who correspond to "low-accucary" in MKL) 
 
 You can find commonly used flags for various compilers in [/documentation/README.md](https://github.com/TApplencourt/OvO/tree/master/documentation/README.md). PR are welcomed, for new versions of compilers. 
 

@@ -1,6 +1,7 @@
 #include <complex>
 #include <cmath>
 #include <iomanip>
+#include <stdlib.h>
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -9,13 +10,15 @@ bool almost_equal(complex<double> x, complex<double> y, int ulp) {
     return std::abs(x-y) <= std::numeric_limits<double>::epsilon() * std::abs(x+y) * ulp || std::abs(x-y) < std::numeric_limits<double>::min();
 }
 void test_asin(){
+   const char* usr_precision = getenv("OVO_TOL_ULP");
+   const int precision = usr_precision ? atoi(usr_precision) : 4;
    complex<double> x { 0.42, 0.0 };
    complex<double> o_device {};
    #pragma omp target map(tofrom: o_device )
    {
     o_device = asin(x);
    }
-   if ( !almost_equal(sin(o_device), x, 16) ) {
+   if ( !almost_equal(sin(o_device), x, 2*precision) ) {
             std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Expected:" << x << " Got: " << sin(o_device) << std::endl;
             std::exit(112);
    }

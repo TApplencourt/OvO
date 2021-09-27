@@ -1,10 +1,13 @@
 #include <cmath>
 #include <iomanip>
+#include <stdlib.h>
 #include <limits>
 #include <iostream>
 #include <cstdlib>
 using namespace std;
 void test_fpclassify(){
+   const char* usr_precision = getenv("OVO_TOL_ULP");
+   const int precision = usr_precision ? atoi(usr_precision) : 4;
    float in0 { 0.42 };
     int out1_host {};
    int out1_device {};

@@ -10,12 +10,20 @@ program test_{{name}}
    {%if size %}
    INTEGER :: i
    {%endif %}
+   CHARACTER(len=255) :: usr_precision
+   INTEGER :: precision = 4
+   INTEGER :: stat
 
    {% for input in l_argv | selectattr('is_input')  %}
    {{input.T}} :: {{input.name}} {%if size %} ( PROB_SIZE ) {%endif %}= ( {{input.val}} )
    {% endfor %}
 
    {{scalar_output.T}} :: o_host{%if size %}(PROB_SIZE){%endif %}, o_device{%if size %}(PROB_SIZE){% endif %}
+ 
+    CALL GET_ENVIRONMENT_VARIABLE("OVO_TOL_ULP",usr_precision, status=stat) 
+    IF (stat == 0) THEN
+        read(usr_precision, *, iostat=stat) precision
+    ENDIF
 {% if not reciprocal %}
     o_host = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name') }})
 {% endif %}
@@ -35,14 +43,14 @@ program test_{{name}}
     {% if scalar_output.T.category in ("integer","bool") %}
     IF  ( {% if size %} ANY( {%endif%} o_host .ne. o_device {% if size %} ) {%endif%} ) THEN
     {% else %}
-    IF ( {% if size %} ANY( {%endif%} ABS(o_host-o_device) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} o_host {% if is_cmplx %} ) {%endif%}  )*4  {% if size %} ) {%endif%} ) THEN
+    IF ( {% if size %} ANY( {%endif%} ABS(o_host-o_device) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} o_host {% if is_cmplx %} ) {%endif%}  )*precision  {% if size %} ) {%endif%} ) THEN
     {% endif %}
         write(*,*)  'Expected ', o_host, ' Got ', o_device
         STOP 112
     ENDIF
 {% else %}
     {% set input = (l_argv | selectattr('is_input') | first).name %}
-    IF ( {% if size %} ANY( {%endif%} ABS({{reciprocal}}(o_device) - {{input}}) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} {{input}} {% if is_cmplx %} ) {%endif%}  )*16  {% if size %} ) {%endif%} ) THEN
+    IF ( {% if size %} ANY( {%endif%} ABS({{reciprocal}}(o_device) - {{input}}) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} {{input}} {% if is_cmplx %} ) {%endif%}  )*2*precision  {% if size %} ) {%endif%} ) THEN
             write(*,*)  'Expected ', {{input}}, ' Got ', {{reciprocal}}(o_device)
             STOP 112
     ENDIF

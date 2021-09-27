@@ -3,6 +3,7 @@
 {% endif %}
 #include <cmath>
 #include <iomanip> {# setprecision #}
+#include <stdlib.h> {# atoi #}
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -28,6 +29,9 @@ void test_{{name}}(){
 {% if size %}
    const int PROB_SIZE = {{size}};
 {% endif %}
+
+   const char* usr_precision = getenv("OVO_TOL_ULP");
+   const int precision =  usr_precision ? atoi(usr_precision) : 4;
 
 {% for input in l_argv | selectattr('is_input')  %}
       {% if not size %}
@@ -75,7 +79,7 @@ void test_{{name}}(){
    {% if output.T.category in ("integer","bool")  %}
    if ( {{output.name_host_idx}} != {{output.name_device_idx}} ) {
    {% else %}
-   if ( !almost_equal({{output.name_host_idx}},{{output.name_device_idx}}, 4) ) {
+   if ( !almost_equal({{output.name_host_idx}},{{output.name_device_idx}}, precision) ) {
    {% endif %}
         std::cerr << std::setprecision (std::numeric_limits<{{output.T.internal}}>::max_digits10 ){% if size %} << "Idx: " << i << " " {% endif %} << "Host: " << {{output.name_host_idx}} << " GPU: " << {{output.name_device_idx}} << std::endl;
         {# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
@@ -85,7 +89,7 @@ void test_{{name}}(){
 {% else %}
    {% set output_f = (l_argv | selectattr('is_output') | first).name_device_idx %}
    {% set input = (l_argv | selectattr('is_argv') | first) %}
-   if ( !almost_equal({{reciprocal}}({{output_f}}), {{input.argv_host}}, 16) ) {
+   if ( !almost_equal({{reciprocal}}({{output_f}}), {{input.argv_host}}, 2*precision) ) {
             std::cerr << std::setprecision (std::numeric_limits<{{input.T.internal}}>::max_digits10 ){% if size %} << "Idx: " << i << " " {% endif %} << "Expected:" << {{input.argv_host}} << " Got: "  << {{reciprocal}}({{output_f}}) << std::endl;
             std::exit(112);
    }

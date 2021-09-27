@@ -1,6 +1,7 @@
 #include <complex>
 #include <cmath>
 #include <iomanip>
+#include <stdlib.h>
 #include <limits>
 #include <iostream>
 #include <cstdlib>
@@ -9,13 +10,15 @@ bool almost_equal(complex<float> x, complex<float> y, int ulp) {
     return std::abs(x-y) <= std::numeric_limits<float>::epsilon() * std::abs(x+y) * ulp || std::abs(x-y) < std::numeric_limits<float>::min();
 }
 void test_atanh(){
+   const char* usr_precision = getenv("OVO_TOL_ULP");
+   const int precision = usr_precision ? atoi(usr_precision) : 4;
    complex<float> in0 { 0.42, 0.0 };
    complex<float> out1_device {};
    #pragma omp target map(tofrom: out1_device )
    {
     out1_device = atanh(in0);
    }
-   if ( !almost_equal(tanh(out1_device), in0, 16) ) {
+   if ( !almost_equal(tanh(out1_device), in0, 2*precision) ) {
             std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Expected:" << in0 << " Got: " << tanh(out1_device) << std::endl;
             std::exit(112);
    }
