@@ -95,4 +95,15 @@ export FFLAGS='-fiopenmp -fopenmp-targets=spir64'
 ./ovo.sh run
 ```
 
+# GCC
+
+```bash
+export OMP_TARGET_OFFLOAD=MANDATORY
+export CXX='g++'
+export FC='gfortran'
+export CXXFLAGS='-std=c++11 -fopenmp'
+export FFLAGS='-fopenmp
+./ovo.sh run
+```
+
 
