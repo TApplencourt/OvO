@@ -32,7 +32,7 @@ program test_{{name}}
     {% if not size %}
     o_device = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name') }})
     {% else %}
-    !$OMP simd
+    !$OMP teams distribute parallel do simd simd
     DO I=1,PROB_SIZE
         o_device(i) = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name_idx') }})
     END DO
