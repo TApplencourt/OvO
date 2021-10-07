@@ -981,7 +981,7 @@ class Math:
         if not argv:
             argv = [f"{j}{i}" for i, j in enumerate(attr)]
         self.language = language
-        self.l = self.create_l(T, attr, argv, size != 0, domain)
+        self.l_argv = self.create_l(T, attr, argv, size != 0, domain)
         self.size = size
         self.reciprocal = reciprocal
 
@@ -1020,36 +1020,35 @@ class Math:
 
     @cached_property
     def filename(self):
-        n = "_".join([self.name] + [t.T.serialized for t in self.l])
+        n = "_".join([self.name] + [t.T.serialized for t in self.l_argv])
         return f"{n}.{self.ext}"
 
     @cached_property
     def scalar_output(self):
-        os = [l for l in self.l if l.is_output and not l.T.is_pointer]
+        os = [l for l in self.l_argv if l.is_output and not l.T.is_pointer]
         if os:
             assert len(os) == 1
-            return [l for l in self.l if l.is_output and not l.T.is_pointer].pop()
+            return [l for l in self.l_argv if l.is_output and not l.T.is_pointer].pop()
         else:
             return None
 
     @cached_property
     def use_long(self):
-        return any(t.T.is_long for t in self.l)
+        return any(t.T.is_long for t in self.l_argv)
 
     @cached_property
     def have_complex(self):
-        return any(t.T.category == "complex" for t in self.l)
+        return any(t.T.category == "complex" for t in self.l_argv)
 
     @cached_property
     def template_rendered(self):
 
         # We don't handle in pointer
-        if any(t.T.is_pointer and t.is_input for t in self.l):
+        if any(t.T.is_pointer and t.is_input for t in self.l_argv):
             return None
 
         template = templateEnv.get_template(f"mathematical_function.{self.ext}.jinja2")
-
-        str_ = template.render(name=self.name, l_argv=self.l, scalar_output=self.scalar_output, have_complex=self.have_complex, size=self.size, reciprocal=self.reciprocal)
+        str_ = template.render(**{p: getattr(self, p) for p in dir(self) if p != "template_rendered"})
         return format_template(str_, self.language)
 
 
