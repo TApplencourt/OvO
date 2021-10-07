@@ -20,6 +20,7 @@ void test_frexp(){
     out2_host = frexp(in0, &out1_host);
    }
    #pragma omp target map(tofrom: out1_device, out2_device )
+   #pragma omp simd
    {
     out2_device = frexp(in0, &out1_device);
    }

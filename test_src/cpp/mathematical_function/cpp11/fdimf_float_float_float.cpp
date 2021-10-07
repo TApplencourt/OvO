@@ -19,6 +19,7 @@ void test_fdimf(){
     out2_host = fdimf(in0, in1);
    }
    #pragma omp target map(tofrom: out2_device )
+   #pragma omp simd
    {
     out2_device = fdimf(in0, in1);
    }

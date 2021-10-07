@@ -16,6 +16,7 @@ void test_isgreaterequal(){
     out2_host = isgreaterequal(in0, in1);
    }
    #pragma omp target map(tofrom: out2_device )
+   #pragma omp simd
    {
     out2_device = isgreaterequal(in0, in1);
    }

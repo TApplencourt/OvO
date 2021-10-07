@@ -18,6 +18,7 @@ void test_tanh(){
     out1_host = tanh(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = tanh(in0);
    }

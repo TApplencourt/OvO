@@ -18,6 +18,7 @@ void test_fabs(){
     out1_host = fabs(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = fabs(in0);
    }

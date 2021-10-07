@@ -18,6 +18,7 @@ void test_cosh(){
     out1_host = cosh(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = cosh(in0);
    }

@@ -20,6 +20,7 @@ void test_fmaf(){
     out3_host = fmaf(in0, in1, in2);
    }
    #pragma omp target map(tofrom: out3_device )
+   #pragma omp simd
    {
     out3_device = fmaf(in0, in1, in2);
    }

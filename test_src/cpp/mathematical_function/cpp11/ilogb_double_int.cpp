@@ -15,6 +15,7 @@ void test_ilogb(){
     o_host = ilogb(x);
    }
    #pragma omp target map(tofrom: o_device )
+   #pragma omp simd
    {
     o_device = ilogb(x);
    }

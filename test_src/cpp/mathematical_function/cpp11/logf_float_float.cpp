@@ -18,6 +18,7 @@ void test_logf(){
     o_host = logf(x);
    }
    #pragma omp target map(tofrom: o_device )
+   #pragma omp simd
    {
     o_device = logf(x);
    }

@@ -14,6 +14,7 @@ void test_acosh(){
    double x { 4.42 };
    double o_device {};
    #pragma omp target map(tofrom: o_device )
+   #pragma omp simd
    {
     o_device = acosh(x);
    }

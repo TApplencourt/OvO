@@ -15,6 +15,7 @@ void test_abs(){
     out1_host = abs(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = abs(in0);
    }

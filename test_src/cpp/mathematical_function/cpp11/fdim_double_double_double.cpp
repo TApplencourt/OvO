@@ -19,6 +19,7 @@ void test_fdim(){
     out2_host = fdim(in0, in1);
    }
    #pragma omp target map(tofrom: out2_device )
+   #pragma omp simd
    {
     out2_device = fdim(in0, in1);
    }

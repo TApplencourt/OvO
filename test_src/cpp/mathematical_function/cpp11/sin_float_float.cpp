@@ -18,6 +18,7 @@ void test_sin(){
     out1_host = sin(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = sin(in0);
    }

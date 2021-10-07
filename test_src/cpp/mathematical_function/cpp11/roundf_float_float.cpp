@@ -18,6 +18,7 @@ void test_roundf(){
     out1_host = roundf(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = roundf(in0);
    }

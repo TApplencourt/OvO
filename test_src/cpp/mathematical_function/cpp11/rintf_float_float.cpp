@@ -18,6 +18,7 @@ void test_rintf(){
     out1_host = rintf(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = rintf(in0);
    }

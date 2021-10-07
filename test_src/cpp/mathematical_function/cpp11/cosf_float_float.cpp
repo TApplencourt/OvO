@@ -18,6 +18,7 @@ void test_cosf(){
     out1_host = cosf(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = cosf(in0);
    }

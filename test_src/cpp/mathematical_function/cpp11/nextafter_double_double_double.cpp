@@ -19,6 +19,7 @@ void test_nextafter(){
     out2_host = nextafter(in0, in1);
    }
    #pragma omp target map(tofrom: out2_device )
+   #pragma omp simd
    {
     out2_device = nextafter(in0, in1);
    }

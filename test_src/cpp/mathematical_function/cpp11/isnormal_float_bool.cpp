@@ -15,6 +15,7 @@ void test_isnormal(){
     out1_host = isnormal(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = isnormal(in0);
    }

@@ -18,6 +18,7 @@ void test_atanf(){
     out1_host = atanf(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = atanf(in0);
    }

@@ -14,6 +14,7 @@ void test_asin(){
    float x { 0.42 };
    float o_device {};
    #pragma omp target map(tofrom: o_device )
+   #pragma omp simd
    {
     o_device = asin(x);
    }

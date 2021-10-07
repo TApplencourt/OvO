@@ -20,6 +20,7 @@ void test_modf(){
     out2_host = modf(in0, &out1_host);
    }
    #pragma omp target map(tofrom: out1_device, out2_device )
+   #pragma omp simd
    {
     out2_device = modf(in0, &out1_device);
    }

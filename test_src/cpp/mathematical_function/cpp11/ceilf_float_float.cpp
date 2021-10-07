@@ -18,6 +18,7 @@ void test_ceilf(){
     out1_host = ceilf(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = ceilf(in0);
    }

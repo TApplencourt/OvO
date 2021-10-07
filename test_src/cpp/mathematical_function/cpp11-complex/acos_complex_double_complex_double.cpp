@@ -15,6 +15,7 @@ void test_acos(){
    complex<double> x { 4.42, 0.0 };
    complex<double> o_device {};
    #pragma omp target map(tofrom: o_device )
+   #pragma omp simd
    {
     o_device = acos(x);
    }

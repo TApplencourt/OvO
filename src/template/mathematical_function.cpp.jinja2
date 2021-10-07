@@ -66,6 +66,7 @@ void test_{{name}}(){
 {%if size %}
    for (int i= 0;  i < PROB_SIZE; i++) 
 {% endif %}
+   #pragma omp simd
    {
     {%if scalar_output %}{{scalar_output.name_device_idx}} = {% endif %} {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
    }

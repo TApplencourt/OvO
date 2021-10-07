@@ -19,6 +19,7 @@ void test_powf(){
     o_host = powf(x, y);
    }
    #pragma omp target map(tofrom: o_device )
+   #pragma omp simd
    {
     o_device = powf(x, y);
    }

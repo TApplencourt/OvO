@@ -18,6 +18,7 @@ void test_nearbyint(){
     out1_host = nearbyint(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = nearbyint(in0);
    }

@@ -15,6 +15,7 @@ void test_fpclassify(){
     out1_host = fpclassify(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = fpclassify(in0);
    }

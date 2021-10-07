@@ -19,6 +19,7 @@ void test_sqrt(){
     out1_host = sqrt(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = sqrt(in0);
    }

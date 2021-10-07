@@ -18,6 +18,7 @@ void test_lgammaf(){
     o_host = lgammaf(x);
    }
    #pragma omp target map(tofrom: o_device )
+   #pragma omp simd
    {
     o_device = lgammaf(x);
    }

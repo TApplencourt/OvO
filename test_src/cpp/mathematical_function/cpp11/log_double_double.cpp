@@ -14,6 +14,7 @@ void test_log(){
    double x { 0.42 };
    double o_device {};
    #pragma omp target map(tofrom: o_device )
+   #pragma omp simd
    {
     o_device = log(x);
    }

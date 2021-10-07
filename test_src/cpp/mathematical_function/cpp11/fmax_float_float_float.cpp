@@ -19,6 +19,7 @@ void test_fmax(){
     out2_host = fmax(in0, in1);
    }
    #pragma omp target map(tofrom: out2_device )
+   #pragma omp simd
    {
     out2_device = fmax(in0, in1);
    }

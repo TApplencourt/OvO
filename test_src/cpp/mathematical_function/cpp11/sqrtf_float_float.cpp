@@ -18,6 +18,7 @@ void test_sqrtf(){
     o_host = sqrtf(x);
    }
    #pragma omp target map(tofrom: o_device )
+   #pragma omp simd
    {
     o_device = sqrtf(x);
    }

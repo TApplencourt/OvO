@@ -19,6 +19,7 @@ void test_log10(){
     out1_host = log10(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = log10(in0);
    }

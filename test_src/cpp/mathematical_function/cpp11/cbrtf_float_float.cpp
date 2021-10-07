@@ -18,6 +18,7 @@ void test_cbrtf(){
     out1_host = cbrtf(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = cbrtf(in0);
    }

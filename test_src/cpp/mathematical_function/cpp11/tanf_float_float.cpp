@@ -18,6 +18,7 @@ void test_tanf(){
     out1_host = tanf(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = tanf(in0);
    }

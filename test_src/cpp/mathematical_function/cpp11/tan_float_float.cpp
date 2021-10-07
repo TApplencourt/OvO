@@ -18,6 +18,7 @@ void test_tan(){
     out1_host = tan(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = tan(in0);
    }

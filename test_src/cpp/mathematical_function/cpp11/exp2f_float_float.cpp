@@ -18,6 +18,7 @@ void test_exp2f(){
     out1_host = exp2f(in0);
    }
    #pragma omp target map(tofrom: out1_device )
+   #pragma omp simd
    {
     out1_device = exp2f(in0);
    }
