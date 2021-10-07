@@ -976,7 +976,7 @@ class Math:
         "const char*": [None],
     }
 
-    def __init__(self, name, T, attr, argv, domain, size, reciprocal, language="cpp"):
+    def __init__(self, name, T, attr, argv, domain, size, reciprocal, language="cpp", path_raw=['target']):
         self.name = name
         if not argv:
             argv = [f"{j}{i}" for i, j in enumerate(attr)]
@@ -1051,6 +1051,7 @@ class Math:
         str_ = template.render(**{p: getattr(self, p) for p in dir(self) if p != "template_rendered"})
         return format_template(str_, self.language)
 
+    def regions_associated_loop(self)
 
 #  -
 # /   _   _|  _     _   _  ._   _  ._ _. _|_ o  _  ._
