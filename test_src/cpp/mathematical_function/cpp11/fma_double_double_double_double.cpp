@@ -16,17 +16,17 @@ void test_fma(){
    double in2 { 0.42 };
     double out3_host {};
    double out3_device {};
-   {
+{
     out3_host = fma(in0, in1, in2);
-   }
-   #pragma omp target map(tofrom: out3_device )
-   {
+}
+  #pragma omp target map(tofrom: out3_device)
+  {
     out3_device = fma(in0, in1, in2);
-   }
-   if ( !almost_equal(out3_host,out3_device, precision) ) {
-        std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
+  }
+           if ( !almost_equal(out3_host,out3_device, precision) ) {
+             std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
         std::exit(112);
-    }
+           }
 }
 int main()
 {

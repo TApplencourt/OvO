@@ -17,21 +17,21 @@ void test_remquof(){
    int out2_device {};
     float out3_host {};
    float out3_device {};
-   {
+{
     out3_host = remquof(in0, in1, &out2_host);
-   }
-   #pragma omp target map(tofrom: out2_device, out3_device )
-   {
+}
+  #pragma omp target map(tofrom: out2_device, out3_device)
+  {
     out3_device = remquof(in0, in1, &out2_device);
-   }
-   if ( out2_host != out2_device ) {
-        std::cerr << std::setprecision (std::numeric_limits<int>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
+  }
+           if ( out2_host != out2_device ) {
+             std::cerr << std::setprecision (std::numeric_limits<int>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         std::exit(112);
-    }
-   if ( !almost_equal(out3_host,out3_device, precision) ) {
-        std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
+           }
+           if ( !almost_equal(out3_host,out3_device, precision) ) {
+             std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out3_host << " GPU: " << out3_device << std::endl;
         std::exit(112);
-    }
+           }
 }
 int main()
 {

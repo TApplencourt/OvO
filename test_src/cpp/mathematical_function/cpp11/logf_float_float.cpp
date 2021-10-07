@@ -14,17 +14,17 @@ void test_logf(){
    float x { 0.42 };
     float o_host {};
    float o_device {};
-   {
+{
     o_host = logf(x);
-   }
-   #pragma omp target map(tofrom: o_device )
-   {
+}
+  #pragma omp target map(tofrom: o_device)
+  {
     o_device = logf(x);
-   }
-   if ( !almost_equal(o_host,o_device, precision) ) {
-        std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << o_host << " GPU: " << o_device << std::endl;
+  }
+           if ( !almost_equal(o_host,o_device, precision) ) {
+             std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << o_host << " GPU: " << o_device << std::endl;
         std::exit(112);
-    }
+           }
 }
 int main()
 {

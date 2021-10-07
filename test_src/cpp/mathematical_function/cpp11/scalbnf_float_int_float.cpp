@@ -15,17 +15,17 @@ void test_scalbnf(){
    int in1 { 1 };
     float out2_host {};
    float out2_device {};
-   {
+{
     out2_host = scalbnf(in0, in1);
-   }
-   #pragma omp target map(tofrom: out2_device )
-   {
+}
+  #pragma omp target map(tofrom: out2_device)
+  {
     out2_device = scalbnf(in0, in1);
-   }
-   if ( !almost_equal(out2_host,out2_device, precision) ) {
-        std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
+  }
+           if ( !almost_equal(out2_host,out2_device, precision) ) {
+             std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         std::exit(112);
-    }
+           }
 }
 int main()
 {

@@ -15,17 +15,17 @@ void test_nextafter(){
    float in1 { 0.42 };
     float out2_host {};
    float out2_device {};
-   {
+{
     out2_host = nextafter(in0, in1);
-   }
-   #pragma omp target map(tofrom: out2_device )
-   {
+}
+  #pragma omp target map(tofrom: out2_device)
+  {
     out2_device = nextafter(in0, in1);
-   }
-   if ( !almost_equal(out2_host,out2_device, precision) ) {
-        std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
+  }
+           if ( !almost_equal(out2_host,out2_device, precision) ) {
+             std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Host: " << out2_host << " GPU: " << out2_device << std::endl;
         std::exit(112);
-    }
+           }
 }
 int main()
 {

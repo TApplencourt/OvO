@@ -13,14 +13,14 @@ void test_asinhf(){
    const int precision = usr_precision ? atoi(usr_precision) : 4;
    float x { 0.42 };
    float o_device {};
-   #pragma omp target map(tofrom: o_device )
-   {
+  #pragma omp target map(tofrom: o_device)
+  {
     o_device = asinhf(x);
-   }
-   if ( !almost_equal(sinhf(o_device), x, 2*precision) ) {
+  }
+     if ( !almost_equal(sinhf(o_device), x, 2*precision) ) {
             std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Expected:" << x << " Got: " << sinhf(o_device) << std::endl;
             std::exit(112);
-   }
+     }
 }
 int main()
 {

@@ -14,17 +14,17 @@ void test_erfc(){
    double in0 { 0.42 };
     double out1_host {};
    double out1_device {};
-   {
+{
     out1_host = erfc(in0);
-   }
-   #pragma omp target map(tofrom: out1_device )
-   {
+}
+  #pragma omp target map(tofrom: out1_device)
+  {
     out1_device = erfc(in0);
-   }
-   if ( !almost_equal(out1_host,out1_device, precision) ) {
-        std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
+  }
+           if ( !almost_equal(out1_host,out1_device, precision) ) {
+             std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Host: " << out1_host << " GPU: " << out1_device << std::endl;
         std::exit(112);
-    }
+           }
 }
 int main()
 {

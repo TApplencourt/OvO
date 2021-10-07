@@ -13,14 +13,14 @@ void test_asinf(){
    const int precision = usr_precision ? atoi(usr_precision) : 4;
    float x { 0.42 };
    float o_device {};
-   #pragma omp target map(tofrom: o_device )
-   {
+  #pragma omp target map(tofrom: o_device)
+  {
     o_device = asinf(x);
-   }
-   if ( !almost_equal(sinf(o_device), x, 2*precision) ) {
+  }
+     if ( !almost_equal(sinf(o_device), x, 2*precision) ) {
             std::cerr << std::setprecision (std::numeric_limits<float>::max_digits10 ) << "Expected:" << x << " Got: " << sinf(o_device) << std::endl;
             std::exit(112);
-   }
+     }
 }
 int main()
 {

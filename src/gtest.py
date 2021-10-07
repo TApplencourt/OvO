@@ -919,7 +919,7 @@ class Argv:
         if not self.simdize:
             return str_
         else:
-            return f"{str_}[0:PROB_SIZE]"
+            return f"{str_}[0:size]"
 
     @cached_property
     def map_clause_to(self):
@@ -927,7 +927,7 @@ class Argv:
         if not self.simdize:
             return str_
         else:
-            return f"{str_}[0:PROB_SIZE]"
+            return f"{str_}[0:size]"
 
     @cached_property
     def argv_host(self):
@@ -984,6 +984,7 @@ class Math:
         self.l_argv = self.create_l(T, attr, argv, size != 0, domain)
         self.size = size
         self.reciprocal = reciprocal
+        self.path_raw = path_raw
 
     @cached_property
     def ext(self):
@@ -1051,8 +1052,35 @@ class Math:
         str_ = template.render(**{p: getattr(self, p) for p in dir(self) if p != "template_rendered"})
         return format_template(str_, self.language)
 
-    def regions_associated_loop(self)
 
+    @cached_property
+    def regions_associated_loop(self):
+        return HP(self.path_raw, {}).regions_associated_loop
+
+    @cached_property
+    def inner_index(self):
+        return HP(self.path_raw, {"language": self.language}).inner_index
+
+    @cached_property
+    def l_nested_constructs_ironed_out(self):
+        # Pragma only in the first elements. Then empty
+        return HP(self.path_raw, {} ).l_nested_constructs_ironed_out        
+
+    @cached_property
+    def expected_value(self):
+        return  HP(self.path_raw, {} ).expected_value
+
+    @cached_property            
+    def regions_additional_pragma(self):
+        l_output = [argv.map_clause_from for argv in self.l_argv if argv.is_output]
+        l_input = [argv.map_clause_to for argv in self.l_argv if argv.is_output]
+        str_ = f"map(tofrom: {', '.join(l_output)})"
+        if self.size:
+            str_ += f" map(tofrom: {', '.join(l_input)})"
+        #We put only pragma on target 
+        l = [ ['']*len(i) for i in self.l_nested_constructs_ironed_out ]
+        l[0][0] = str_ 
+        return l
 #  -
 # /   _   _|  _     _   _  ._   _  ._ _. _|_ o  _  ._
 # \_ (_) (_| (/_   (_| (/_ | | (/_ | (_|  |_ | (_) | |

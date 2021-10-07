@@ -13,14 +13,14 @@ void test_atanh(){
    const int precision = usr_precision ? atoi(usr_precision) : 4;
    double in0 { 0.42 };
    double out1_device {};
-   #pragma omp target map(tofrom: out1_device )
-   {
+  #pragma omp target map(tofrom: out1_device)
+  {
     out1_device = atanh(in0);
-   }
-   if ( !almost_equal(tanh(out1_device), in0, 2*precision) ) {
+  }
+     if ( !almost_equal(tanh(out1_device), in0, 2*precision) ) {
             std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Expected:" << in0 << " Got: " << tanh(out1_device) << std::endl;
             std::exit(112);
-   }
+     }
 }
 int main()
 {

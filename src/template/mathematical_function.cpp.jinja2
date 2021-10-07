@@ -26,20 +26,27 @@ bool almost_equal({{output.T.without_pointer}} x, {{output.T.without_pointer}} y
 {% endfor %}
 
 void test_{{name}}(){
-{% if size %}
-   const int PROB_SIZE = {{size}};
-{% endif %}
 
    const char* usr_precision = getenv("OVO_TOL_ULP");
    const int precision =  usr_precision ? atoi(usr_precision) : 4;
+
+{% for loop_constructs in regions_associated_loop %}
+    {% for loop_  in loop_constructs %}
+  const int {{ loop_.N }} { {{ loop_.v }} };
+    {% endfor %}
+{% endfor %}
+
+{% if size %}
+  const int size = {{expected_value}};
+{% endif %}
 
 {% for input in l_argv | selectattr('is_input')  %}
       {% if not size %}
    {{input.T}} {{input.name}} { {{input.val}} };
       {% else %}
-   {{input.T}} {{input.name}}[PROB_SIZE];
+   {{input.T}} {{input.name}}[size];
    {% set is_cmplx = ( input.T.category == "complex") %}
-   std::fill({{input.name}}, {{input.name}} + PROB_SIZE, {% if is_cmplx %} {{input.T}}( {% endif %} {{input.val}} {% if is_cmplx %} ) {% endif %} );
+   std::fill({{input.name}}, {{input.name}} + size, {% if is_cmplx %} {{input.T}}( {% endif %} {{input.val}} {% if is_cmplx %} ) {% endif %} );
       {% endif %}
 {% endfor %}
 
@@ -48,54 +55,69 @@ void test_{{name}}(){
    {% if not reciprocal %} {{output.T.without_pointer}} {{output.name_host}} {}; {% endif %} 
    {{output.T.without_pointer}} {{output.name_device}} {};
    {% else %}
-   {% if not reciprocal %} {{output.T.without_pointer}} {{output.name_host}}[PROB_SIZE]; {% endif %}
-   {{output.T.without_pointer}} {{output.name_device}}[PROB_SIZE];
+   {% if not reciprocal %} {{output.T.without_pointer}} {{output.name_host}}[size]; {% endif %}
+   {{output.T.without_pointer}} {{output.name_device}}[size];
    {% endif %}
 {% endfor %}
 
+{# Run on Host #}
 {% if not reciprocal %}
-  {%if size %}
-   for (int i= 0;  i < PROB_SIZE ; i++) 
-  {% endif %}
-   {
+    {% if size %}
+for (int i=0; i < size; i++ ) 
+     {% endif %}
+{
     {%if scalar_output %}{{scalar_output.name_host_idx}} = {% endif %} {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_host') }});
-   }
+}
 {% endif %}
- 
-   #pragma omp target map(tofrom: {{ l_argv | selectattr('is_output') | join(', ', attribute='map_clause_from')  }} )  {%if size %} map(to: {{ l_argv | selectattr('is_input') | join(', ', attribute='map_clause_to')  }}) {%endif %} 
-{%if size %}
-   #pragma omp teams distribute parallel for simd
-   for (int i= 0;  i < PROB_SIZE; i++) 
-{% endif %}
-   {
+
+{# Run on accelearator #}
+{% for region, loop_constructs, regions_additional_pragma in zip(l_nested_constructs_ironed_out, regions_associated_loop, regions_additional_pragma)%}
+{% filter indent(width=2*loop.index) %}
+
+   {% for pragma, additional_pragma in zip(region,regions_additional_pragma) %}
+#pragma omp {{pragma}} {{additional_pragma}}
+   {% endfor %}
+   {% for loop_  in loop_constructs %}
+for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
+   {% endfor %}
+{
+{% endfilter %}
+{% endfor %}
+{%if size %} const int i = {{inner_index}}; {%endif %}
     {%if scalar_output %}{{scalar_output.name_device_idx}} = {% endif %} {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
-   }
 
-{%if size %}
-   for (int i= 0;  i < PROB_SIZE; i++) {
+{% for region in l_nested_constructs_ironed_out %}
+   {# The closing braket are indented by one less level #}
+   {% filter indent(width=2*loop.revindex) %}
+}
+   {% endfilter %}
+{% endfor %}
+
+{% if size %}
+for (int i=0; i < size; i++ ) {
 {% endif %}
 
-{% if not reciprocal %}
-{% for output in l_argv | selectattr('is_output')  %}
-   {% if output.T.category in ("integer","bool")  %}
-   if ( {{output.name_host_idx}} != {{output.name_device_idx}} ) {
-   {% else %}
-   if ( !almost_equal({{output.name_host_idx}},{{output.name_device_idx}}, precision) ) {
-   {% endif %}
-        std::cerr << std::setprecision (std::numeric_limits<{{output.T.internal}}>::max_digits10 ){% if size %} << "Idx: " << i << " " {% endif %} << "Host: " << {{output.name_host_idx}} << " GPU: " << {{output.name_device_idx}} << std::endl;
+  {% if not reciprocal %}
+   {% for output in l_argv | selectattr('is_output')  %}
+      {% if output.T.category in ("integer","bool")  %}
+           if ( {{output.name_host_idx}} != {{output.name_device_idx}} ) {
+       {% else %}
+           if ( !almost_equal({{output.name_host_idx}},{{output.name_device_idx}}, precision) ) {
+       {% endif %}
+             std::cerr << std::setprecision (std::numeric_limits<{{output.T.internal}}>::max_digits10 ){% if size %} << "Idx: " << i << " " {% endif %} << "Host: " << {{output.name_host_idx}} << " GPU: " << {{output.name_device_idx}} << std::endl;
         {# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
         std::exit(112);
-    }
-{% endfor %}
-{% else %}
-   {% set output_f = (l_argv | selectattr('is_output') | first).name_device_idx %}
-   {% set input = (l_argv | selectattr('is_argv') | first) %}
-   if ( !almost_equal({{reciprocal}}({{output_f}}), {{input.argv_host}}, 2*precision) ) {
+           }
+
+   {% endfor %}
+  {% else %}
+     {% set output_f = (l_argv | selectattr('is_output') | first).name_device_idx %}
+     {% set input = (l_argv | selectattr('is_argv') | first) %}
+     if ( !almost_equal({{reciprocal}}({{output_f}}), {{input.argv_host}}, 2*precision) ) {
             std::cerr << std::setprecision (std::numeric_limits<{{input.T.internal}}>::max_digits10 ){% if size %} << "Idx: " << i << " " {% endif %} << "Expected:" << {{input.argv_host}} << " Got: "  << {{reciprocal}}({{output_f}}) << std::endl;
             std::exit(112);
-   }
-{% endif %}
-
+     }
+  {% endif %}
 {%if size %}
    }
 {% endif %}

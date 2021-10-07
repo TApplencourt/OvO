@@ -14,14 +14,14 @@ void test_asin(){
    const int precision = usr_precision ? atoi(usr_precision) : 4;
    complex<double> x { 0.42, 0.0 };
    complex<double> o_device {};
-   #pragma omp target map(tofrom: o_device )
-   {
+  #pragma omp target map(tofrom: o_device)
+  {
     o_device = asin(x);
-   }
-   if ( !almost_equal(sin(o_device), x, 2*precision) ) {
+  }
+     if ( !almost_equal(sin(o_device), x, 2*precision) ) {
             std::cerr << std::setprecision (std::numeric_limits<double>::max_digits10 ) << "Expected:" << x << " Got: " << sin(o_device) << std::endl;
             std::exit(112);
-   }
+     }
 }
 int main()
 {
