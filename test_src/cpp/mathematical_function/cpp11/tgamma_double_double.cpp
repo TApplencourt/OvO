@@ -18,7 +18,6 @@ void test_tgamma(){
     o_host = tgamma(x);
    }
    #pragma omp target map(tofrom: o_device )
-   #pragma omp simd
    {
     o_device = tgamma(x);
    }

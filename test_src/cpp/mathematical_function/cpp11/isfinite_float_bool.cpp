@@ -15,7 +15,6 @@ void test_isfinite(){
     out1_host = isfinite(in0);
    }
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = isfinite(in0);
    }

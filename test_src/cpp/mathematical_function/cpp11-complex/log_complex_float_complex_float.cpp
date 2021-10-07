@@ -15,7 +15,6 @@ void test_log(){
    complex<float> in0 { 0.42, 0.0 };
    complex<float> out1_device {};
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = log(in0);
    }

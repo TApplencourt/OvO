@@ -21,7 +21,6 @@ void test_remquof(){
     out3_host = remquof(in0, in1, &out2_host);
    }
    #pragma omp target map(tofrom: out2_device, out3_device )
-   #pragma omp simd
    {
     out3_device = remquof(in0, in1, &out2_device);
    }

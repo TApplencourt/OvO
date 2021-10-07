@@ -19,7 +19,6 @@ void test_sinh(){
     out1_host = sinh(in0);
    }
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = sinh(in0);
    }

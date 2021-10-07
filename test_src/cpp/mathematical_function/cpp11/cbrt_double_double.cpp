@@ -18,7 +18,6 @@ void test_cbrt(){
     out1_host = cbrt(in0);
    }
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = cbrt(in0);
    }

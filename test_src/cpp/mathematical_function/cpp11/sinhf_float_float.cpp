@@ -18,7 +18,6 @@ void test_sinhf(){
     out1_host = sinhf(in0);
    }
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = sinhf(in0);
    }

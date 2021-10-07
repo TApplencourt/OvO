@@ -14,7 +14,6 @@ void test_atan(){
    float in0 { 0.42 };
    float out1_device {};
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = atan(in0);
    }

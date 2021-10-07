@@ -15,7 +15,6 @@ void test_asin(){
    complex<double> x { 0.42, 0.0 };
    complex<double> o_device {};
    #pragma omp target map(tofrom: o_device )
-   #pragma omp simd
    {
     o_device = asin(x);
    }

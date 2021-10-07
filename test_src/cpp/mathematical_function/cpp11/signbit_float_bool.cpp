@@ -15,7 +15,6 @@ void test_signbit(){
     out1_host = signbit(in0);
    }
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = signbit(in0);
    }

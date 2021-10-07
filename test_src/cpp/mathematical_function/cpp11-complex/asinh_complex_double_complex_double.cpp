@@ -15,7 +15,6 @@ void test_asinh(){
    complex<double> in0 { 0.42, 0.0 };
    complex<double> out1_device {};
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = asinh(in0);
    }

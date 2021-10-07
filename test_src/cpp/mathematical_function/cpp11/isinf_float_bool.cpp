@@ -15,7 +15,6 @@ void test_isinf(){
     out1_host = isinf(in0);
    }
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = isinf(in0);
    }

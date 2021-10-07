@@ -19,7 +19,6 @@ void test_fmod(){
     o_host = fmod(x, y);
    }
    #pragma omp target map(tofrom: o_device )
-   #pragma omp simd
    {
     o_device = fmod(x, y);
    }

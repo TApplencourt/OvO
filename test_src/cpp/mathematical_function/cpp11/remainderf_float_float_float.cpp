@@ -19,7 +19,6 @@ void test_remainderf(){
     o_host = remainderf(x, y);
    }
    #pragma omp target map(tofrom: o_device )
-   #pragma omp simd
    {
     o_device = remainderf(x, y);
    }

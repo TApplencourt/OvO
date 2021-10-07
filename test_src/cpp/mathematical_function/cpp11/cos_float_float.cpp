@@ -18,7 +18,6 @@ void test_cos(){
     out1_host = cos(in0);
    }
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = cos(in0);
    }

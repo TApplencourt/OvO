@@ -16,7 +16,6 @@ void test_isless(){
     out2_host = isless(in0, in1);
    }
    #pragma omp target map(tofrom: out2_device )
-   #pragma omp simd
    {
     out2_device = isless(in0, in1);
    }

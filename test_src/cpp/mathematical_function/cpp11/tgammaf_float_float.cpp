@@ -18,7 +18,6 @@ void test_tgammaf(){
     o_host = tgammaf(x);
    }
    #pragma omp target map(tofrom: o_device )
-   #pragma omp simd
    {
     o_device = tgammaf(x);
    }

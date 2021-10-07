@@ -18,7 +18,6 @@ void test_erfc(){
     out1_host = erfc(in0);
    }
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = erfc(in0);
    }

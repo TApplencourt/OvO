@@ -19,7 +19,6 @@ void test_scalbn(){
     out2_host = scalbn(in0, in1);
    }
    #pragma omp target map(tofrom: out2_device )
-   #pragma omp simd
    {
     out2_device = scalbn(in0, in1);
    }

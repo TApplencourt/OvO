@@ -19,7 +19,6 @@ void test_atan2(){
     o_host = atan2(y, x);
    }
    #pragma omp target map(tofrom: o_device )
-   #pragma omp simd
    {
     o_device = atan2(y, x);
    }

@@ -15,7 +15,6 @@ void test_atan(){
    complex<double> in0 { 0.42, 0.0 };
    complex<double> out1_device {};
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = atan(in0);
    }

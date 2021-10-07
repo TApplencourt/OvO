@@ -18,7 +18,6 @@ void test_trunc(){
     out1_host = trunc(in0);
    }
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = trunc(in0);
    }

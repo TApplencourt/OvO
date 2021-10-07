@@ -64,9 +64,9 @@ void test_{{name}}(){
  
    #pragma omp target map(tofrom: {{ l_argv | selectattr('is_output') | join(', ', attribute='map_clause_from')  }} )  {%if size %} map(to: {{ l_argv | selectattr('is_input') | join(', ', attribute='map_clause_to')  }}) {%endif %} 
 {%if size %}
+   #pragma omp teams distribute parallel for simd
    for (int i= 0;  i < PROB_SIZE; i++) 
 {% endif %}
-   #pragma omp simd
    {
     {%if scalar_output %}{{scalar_output.name_device_idx}} = {% endif %} {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
    }

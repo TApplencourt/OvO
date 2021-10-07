@@ -19,7 +19,6 @@ void test_pow(){
     o_host = pow(x, y);
    }
    #pragma omp target map(tofrom: o_device )
-   #pragma omp simd
    {
     o_device = pow(x, y);
    }

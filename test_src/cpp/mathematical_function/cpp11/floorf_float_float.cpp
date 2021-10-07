@@ -18,7 +18,6 @@ void test_floorf(){
     out1_host = floorf(in0);
    }
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = floorf(in0);
    }

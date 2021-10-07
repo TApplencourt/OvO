@@ -18,7 +18,6 @@ void test_ceil(){
     out1_host = ceil(in0);
    }
    #pragma omp target map(tofrom: out1_device )
-   #pragma omp simd
    {
     out1_device = ceil(in0);
    }
