@@ -7,7 +7,7 @@
 #include <limits>
 #include <iostream>
 #include <cstdlib>
-{% if size %}
+{% if is_loop %}
 #include <algorithm>
 {% endif %}
 
@@ -17,9 +17,9 @@ using namespace std;
    {% if not output.T.category in ("integer","bool") %}
 bool almost_equal({{output.T.without_pointer}} x, {{output.T.without_pointer}} y, int ulp) {
       {% if output.T.category == "float" %}
-     return std::fabs(x-y) <= std::numeric_limits<{{output.T.internal}}>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<{{output.T.internal}}>::min();
+   return std::fabs(x-y) <= std::numeric_limits<{{output.T.internal}}>::epsilon() * std::fabs(x+y) * ulp ||  std::fabs(x-y) < std::numeric_limits<{{output.T.internal}}>::min();
       {% elif output.T.category == "complex" %}
-    return std::abs(x-y) <= std::numeric_limits<{{output.T.internal}}>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<{{output.T.internal}}>::min();
+   return std::abs(x-y) <= std::numeric_limits<{{output.T.internal}}>::epsilon() * std::abs(x+y) * ulp ||  std::abs(x-y) < std::numeric_limits<{{output.T.internal}}>::min();
       {% endif %}
 }
    {% endif %}
@@ -32,16 +32,16 @@ void test_{{name}}(){
 
 {% for loop_constructs in regions_associated_loop %}
     {% for loop_  in loop_constructs %}
-  const int {{ loop_.N }} { {{ loop_.v }} };
+   const int {{ loop_.N }} { {{ loop_.v }} };
     {% endfor %}
 {% endfor %}
 
-{% if size %}
-  const int size = {{expected_value}};
+{% if is_loop %}
+   const int size = {{expected_value}};
 {% endif %}
 
 {% for input in l_argv | selectattr('is_input')  %}
-      {% if not size %}
+      {% if not is_loop %}
    {{input.T}} {{input.name}} { {{input.val}} };
       {% else %}
    {{input.T}} {{input.name}}[size];
@@ -51,28 +51,32 @@ void test_{{name}}(){
 {% endfor %}
 
 {% for output in l_argv | selectattr('is_output') %}
-   {% if not size %}
-   {% if not reciprocal %} {{output.T.without_pointer}} {{output.name_host}} {}; {% endif %} 
+ {% if not is_loop %}
+   {% if not reciprocal %}{{output.T.without_pointer}} {{output.name_host}} {}; {% endif %} 
    {{output.T.without_pointer}} {{output.name_device}} {};
-   {% else %}
-   {% if not reciprocal %} {{output.T.without_pointer}} {{output.name_host}}[size]; {% endif %}
+ {% else %}
+   {% if not reciprocal %}{{output.T.without_pointer}} {{output.name_host}}[size]; {% endif %}
    {{output.T.without_pointer}} {{output.name_device}}[size];
-   {% endif %}
+ {% endif %}
 {% endfor %}
 
 {# Run on Host #}
 {% if not reciprocal %}
-    {% if size %}
-for (int i=0; i < size; i++ ) 
+ {% if is_loop %}
+   for (int i=0; i < size; i++ ) 
      {% endif %}
-{
-    {%if scalar_output %}{{scalar_output.name_host_idx}} = {% endif %} {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_host') }});
-}
-{% endif %}
+   {
+    {%if scalar_output %}
+      {{scalar_output.name_host_idx}} = {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_host') }});
+    {%else%}
+      {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_host') }});
+    {%endif%}
+   }
+ {% endif %}
 
 {# Run on accelearator #}
 {% for region, loop_constructs, regions_additional_pragma in zip(l_nested_constructs_ironed_out, regions_associated_loop, regions_additional_pragma)%}
-{% filter indent(width=2*loop.index) %}
+{% filter indent(width=3*loop.index) %}
 
    {% for pragma, additional_pragma in zip(region,regions_additional_pragma) %}
 #pragma omp {{pragma}} {{additional_pragma}}
@@ -83,44 +87,52 @@ for (int {{loop_.i}} = 0 ; {{loop_.i}} < {{loop_.N}} ; {{loop_.i}}++ )
 {
 {% endfilter %}
 {% endfor %}
-{%if size %} const int i = {{inner_index}}; {%endif %}
-    {%if scalar_output %}{{scalar_output.name_device_idx}} = {% endif %} {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
+
+{% filter indent(width=3* regions_associated_loop | length) %}
+{%if is_loop %} 
+   const int i = {{inner_index}}; 
+{%endif %}
+    {%if scalar_output %}
+   {{scalar_output.name_device_idx}} = {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
+    {%else%}
+   {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
+    {%endif%}
+{% endfilter %}
 
 {% for region in l_nested_constructs_ironed_out %}
    {# The closing braket are indented by one less level #}
-   {% filter indent(width=2*loop.revindex) %}
+   {% filter indent(width=3*loop.revindex) %}
 }
    {% endfilter %}
 {% endfor %}
 
-{% if size %}
-for (int i=0; i < size; i++ ) {
+{% if is_loop %}
+   for (int i=0; i < size; i++ )
 {% endif %}
-
+   {
   {% if not reciprocal %}
    {% for output in l_argv | selectattr('is_output')  %}
       {% if output.T.category in ("integer","bool")  %}
-           if ( {{output.name_host_idx}} != {{output.name_device_idx}} ) {
+      if ( {{output.name_host_idx}} != {{output.name_device_idx}} ) {
        {% else %}
-           if ( !almost_equal({{output.name_host_idx}},{{output.name_device_idx}}, precision) ) {
+      if ( !almost_equal({{output.name_host_idx}},{{output.name_device_idx}}, precision) ) {
        {% endif %}
-             std::cerr << std::setprecision (std::numeric_limits<{{output.T.internal}}>::max_digits10 ){% if size %} << "Idx: " << i << " " {% endif %} << "Host: " << {{output.name_host_idx}} << " GPU: " << {{output.name_device_idx}} << std::endl;
-        {# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
-        std::exit(112);
-           }
-
+          std::cerr << std::setprecision (std::numeric_limits<{{output.T.internal}}>::max_digits10 ){% if is_loop %} << "Idx: " << i << " " {% endif %} 
+                    << "Host: " << {{output.name_host_idx}} << " GPU: " << {{output.name_device_idx}} << std::endl;
+          {# https://tldp.org/LDP/abs/html/exitcodes.html, we choose 112 #}
+          std::exit(112);
+      }
    {% endfor %}
   {% else %}
      {% set output_f = (l_argv | selectattr('is_output') | first).name_device_idx %}
      {% set input = (l_argv | selectattr('is_argv') | first) %}
      if ( !almost_equal({{reciprocal}}({{output_f}}), {{input.argv_host}}, 2*precision) ) {
-            std::cerr << std::setprecision (std::numeric_limits<{{input.T.internal}}>::max_digits10 ){% if size %} << "Idx: " << i << " " {% endif %} << "Expected:" << {{input.argv_host}} << " Got: "  << {{reciprocal}}({{output_f}}) << std::endl;
-            std::exit(112);
+          std::cerr << std::setprecision (std::numeric_limits<{{input.T.internal}}>::max_digits10 ){% if is_loop %} << "Idx: " << i << " " {% endif %} 
+                    << "Expected:" << {{input.argv_host}} << " Got: "  << {{reciprocal}}({{output_f}}) << std::endl;
+          std::exit(112);
      }
   {% endif %}
-{%if size %}
    }
-{% endif %}
 }
 
 int main()

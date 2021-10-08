@@ -866,12 +866,13 @@ class ccomplex(object):
 
 
 class Argv:
-    def __init__(self, t, attr, argv, simdize):
+    def __init__(self, t, attr, argv, simdize, language):
         self.T = TypeSystem(t)
         self.attr = attr
         self.name = argv
         self.val = None
         self.simdize = simdize
+        self.language = language
 
     @cached_property
     def is_argv(self):
@@ -893,13 +894,32 @@ class Argv:
     def name_host(self):
         return f"{self.name}_host"
 
+    
+    def access(self,str_):
+        if self.language == 'cpp':
+            return f"[{str_}]"
+        elif self.language == 'fortran':
+            return f"({str_})"
+        else:
+            raise NotImplementedError
+
+    @cached_property
+    def map_section(self):
+        if self.language == 'cpp':
+            return f"[0:size]"
+        elif self.language == 'fortran':
+            return f""
+        else:
+            raise NotImplementedError
+
+
     @cached_property
     def name_host_idx(self):
         str_ = f"{self.name}_host"
         if not self.simdize:
             return str_
         else:
-            return f"{str_}[i]"
+            return f"{str_}{self.access('i')}"
 
     @cached_property
     def name_device(self):
@@ -911,7 +931,7 @@ class Argv:
         if not self.simdize:
             return str_
         else:
-            return f"{str_}[i]"
+            return f"{str_}{self.access('i')}"
 
     @cached_property
     def map_clause_from(self):
@@ -919,7 +939,7 @@ class Argv:
         if not self.simdize:
             return str_
         else:
-            return f"{str_}[0:size]"
+            return f"{str_}{self.map_section}"
 
     @cached_property
     def map_clause_to(self):
@@ -927,7 +947,7 @@ class Argv:
         if not self.simdize:
             return str_
         else:
-            return f"{str_}[0:size]"
+            return f"{str_}{self.map_section}"
 
     @cached_property
     def argv_host(self):
@@ -935,7 +955,7 @@ class Argv:
         if not self.simdize:
             return str_
         else:
-            return f"{str_}[i]"
+            return f"{str_}{self.access('i')}"
 
     @cached_property
     def argv_device(self):
@@ -943,7 +963,7 @@ class Argv:
         if not self.simdize:
             return str_
         else:
-            return f"{str_}[i]"
+            return f"{str_}{self.access('i')}"
 
     @cached_property
     def is_output(self):
@@ -976,15 +996,17 @@ class Math:
         "const char*": [None],
     }
 
-    def __init__(self, name, T, attr, argv, domain, size, reciprocal, language="cpp", path_raw=['target']):
+    def __init__(self, name, T, attr, argv, domain, path_raw_str, tripcount, reciprocal, language):
         self.name = name
         if not argv:
             argv = [f"{j}{i}" for i, j in enumerate(attr)]
         self.language = language
-        self.l_argv = self.create_l(T, attr, argv, size != 0, domain)
-        self.size = size
+        self.is_loop = path_raw_str != 'target'
+        self.l_argv = self.create_l(T, attr, argv, self.is_loop, domain)
+        self.tripcount = tripcount
         self.reciprocal = reciprocal
-        self.path_raw = path_raw
+        self.path_raw_str = path_raw_str
+        self.path_raw = [' '.join(p.split('_')) for p in path_raw_str.split('__') ]
 
     @cached_property
     def ext(self):
@@ -995,7 +1017,7 @@ class Math:
         return NotImplementedError
 
     def create_l(self, T, attr, argv, simdsize, domain):
-        l = [Argv(t, a, b, simdsize) for t, a, b in zip(T, attr, argv)]
+        l = [Argv(t, a, b, simdsize, self.language) for t, a, b in zip(T, attr, argv)]
 
         l_input = [t for t in l if t.is_input]
         # Got all the possible value of the input
@@ -1055,7 +1077,7 @@ class Math:
 
     @cached_property
     def regions_associated_loop(self):
-        return HP(self.path_raw, {}).regions_associated_loop
+        return HP(self.path_raw, {'tripcount':self.tripcount, "language": self.language}).regions_associated_loop
 
     @cached_property
     def inner_index(self):
@@ -1064,19 +1086,19 @@ class Math:
     @cached_property
     def l_nested_constructs_ironed_out(self):
         # Pragma only in the first elements. Then empty
-        return HP(self.path_raw, {} ).l_nested_constructs_ironed_out        
+        return HP(self.path_raw, {"language": self.language} ).l_nested_constructs_ironed_out        
 
     @cached_property
     def expected_value(self):
-        return  HP(self.path_raw, {} ).expected_value
+        return  HP(self.path_raw, {"language": self.language} ).expected_value
 
     @cached_property            
     def regions_additional_pragma(self):
         l_output = [argv.map_clause_from for argv in self.l_argv if argv.is_output]
-        l_input = [argv.map_clause_to for argv in self.l_argv if argv.is_output]
-        str_ = f"map(tofrom: {', '.join(l_output)})"
-        if self.size:
-            str_ += f" map(tofrom: {', '.join(l_input)})"
+        l_input = [argv.map_clause_to for argv in self.l_argv if argv.is_input]
+        str_ = f"map(from: {', '.join(l_output)})"
+        if self.is_loop:
+            str_ += f" map(to: {', '.join(l_input)})"
         #We put only pragma on target 
         l = [ ['']*len(i) for i in self.l_nested_constructs_ironed_out ]
         l[0][0] = str_ 
@@ -1092,7 +1114,7 @@ def gen_mf(d_arg):
 
     std = d_arg["standard"]
     cmplx = d_arg["complex"]
-    size = d_arg["simdize"]
+    hp = d_arg["hp"]
  
     if std.startswith("cpp") or std == "gnu":
         language = "cpp"
@@ -1110,10 +1132,7 @@ def gen_mf(d_arg):
     if d_arg["long"] and language == "fortran":
         return False
 
-    name_folder = [std] + sorted([k for k, v in d_arg.items() if v is True])
-    if d_arg["simdize"]:
-        name_folder += [f"simdize_{d_arg['simdize']}"]
-
+    name_folder = [std,hp] + sorted([k for k, v in d_arg.items() if v is True])
     folder = os.path.join("test_src", language, "mathematical_function", "-".join(name_folder))
     print(f"Generating {folder}")
 
@@ -1133,7 +1152,7 @@ def gen_mf(d_arg):
         reciprocal = Y["reciprocal"] if "reciprocal" in Y else False
         ldomain = Y["domain"] if "domain" in Y else []
         for T, attr, argv, domain in zip_longest(lT, lattribute, largv, ldomain):
-            m = Math(name, T, attr, argv, domain, size, reciprocal, language)
+            m = Math(name, T, attr, argv, domain, hp, d_arg["tripcount"], reciprocal, language)
             if ((m.use_long and d_arg["long"]) or (not m.use_long and not d_arg["long"])) and m.template_rendered:
                 with open(os.path.join(folder, m.filename), "w") as f:
                     f.write(m.template_rendered)
@@ -1230,10 +1249,14 @@ hp_d_default_value = defaultdict(lambda: False)
 hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic_add", "reduction_add"}, "collapse": [0], "tripcount": [32 * 32 * 32]})
 
 
-mf_d_possible_value = {"standard": {"gnu", "cpp11", "cpp17", "cpp20", "F77", "gnu", "F08"}, "simdize": int, "complex": bool, "long": bool}
+mf_d_possible_value = {"standard": {"cpp11", "cpp17", "cpp20", "F77", "gnu", "F08"}, 
+                       "hp": [],
+                       "complex": bool, 
+                       "long": bool, 
+                       "tripcount": int}
 
 mf_d_default_value = defaultdict(lambda: False)
-mf_d_default_value.update({"standard": {"cpp11", "F77"}, "complex": {True, False}})
+mf_d_default_value.update({"standard": {"cpp11", "F77"}, "complex": {True, False}, 'hp':['target'], 'tripcount':[16*16*16]})
 
 
 def update_opt(p, d, d_possible):
@@ -1255,6 +1278,8 @@ def update_opt(p, d, d_possible):
             continue
         if isinstance(f, set):
             d[k] = set()
+        if isinstance(f, list):
+            d[k] = []
 
         for i in v:
             if isinstance(f, set):
@@ -1276,7 +1301,10 @@ def update_opt(p, d, d_possible):
                     error(k, i, "Please use a boolean (True, False, 0, 1)")
                 else:
                     d[k] = bool(i.lower())
-
+            elif isinstance(f, list):
+                d[k].append(i)
+            else:
+                raise NotImplementedError(f)
 
 if __name__ == "__main__":
     with open(os.path.join(dirname, "template", "ovo_usage.txt")) as f:
@@ -1332,7 +1360,7 @@ if __name__ == "__main__":
 
         if not p.command or p.tiers >= 1:
             l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic_add", "reduction_add"}, "tripcount": {t}}]
-            l_mf = [{"standard": {"cpp11", "F77"}, "complex": {True, False}, "simdize": 0}]
+            l_mf = [{"standard": {"cpp11", "F77"}, "complex": {True, False}, "hp": {"target",} }]
         if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
                 {"data_type": {"REAL", "float"}, "test_type": "ordered","tripcount": {t}},
@@ -1344,7 +1372,7 @@ if __name__ == "__main__":
                 {"paired_pragmas": True, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
                 {"collapse": {2,}, "data_type": {"REAL", "float"}, "test_type": "memcopy","tripcount": {t}},
             ]
-            l_mf += [{"standard": {"cpp11", "F77", "F08", "gnu"}, "complex": {True, False}, "simdize": [0, 32]}]
+            l_mf += [{"standard": {"cpp11", "F77", "F08", "gnu"}, "complex": {True, False}, "hp":{"target","target_teams_distribute__parallel_for__simd"} }]
         if p.command == "tiers" and p.tiers >= 3:
             d1 = dict(hp_d_possible_value)
             for k, v in d1.items():

@@ -14,44 +14,117 @@ program test_{{name}}
    INTEGER :: precision = 4
    INTEGER :: stat
 
-   {% for input in l_argv | selectattr('is_input')  %}
-   {{input.T}} :: {{input.name}} {%if size %} ( PROB_SIZE ) {%endif %}= ( {{input.val}} )
-   {% endfor %}
+{% for loop_constructs in regions_associated_loop %}
+    {% for loop_  in loop_constructs %}
+   INTEGER :: {{ loop_.N }} = {{ loop_.v }}
+   INTEGER :: {{ loop_.i }}
+    {% endfor %}
+{% endfor %}
 
-   {{scalar_output.T}} :: o_host{%if size %}(PROB_SIZE){%endif %}, o_device{%if size %}(PROB_SIZE){% endif %}
- 
-    CALL GET_ENVIRONMENT_VARIABLE("OVO_TOL_ULP",usr_precision, status=stat) 
-    IF (stat == 0) THEN
-        read(usr_precision, *, iostat=stat) precision
-    ENDIF
-{% if not reciprocal %}
-    o_host = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name') }})
+{% if is_loop %}
+   INTEGER :: size, i
 {% endif %}
 
-    !$OMP target map(from:o_device) {%if size %} map(to: {{ l_argv | selectattr('is_input') | join(', ',attribute='name') }} ) {% endif %}
-    {% if not size %}
-    o_device = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name') }})
-    {% else %}
-    !$OMP teams distribute parallel do simd simd
-    DO I=1,PROB_SIZE
-        o_device(i) = {{name}}( {{ l_argv | selectattr('is_input') | join(', ',attribute='name_idx') }})
-    END DO
-    {% endif %}
-    !$OMP END TARGET
+{% for input in l_argv | selectattr('is_input') %}
+ {%if is_loop %}
+   {{input.T}}, ALLOCATABLE :: {{input.name}}(:)
+  {%else%}
+   {{input.T}} :: {{input.name}}
+ {%endif%}
+{% endfor %}
+
+{% for output in l_argv | selectattr('is_output') %}
+ {%if is_loop %}
+   {{output.T}}, ALLOCATABLE :: {{output.name_device}}(:)
+   {% if not reciprocal %}{{output.T}}, ALLOCATABLE :: {{output.name_host}}(:) {% endif %}
+  {%else%}
+   {{output.T}} :: {{output.name_device}}
+   {% if not reciprocal %}{{output.T}} :: {{output.name_host}} {% endif %}
+ {%endif%}
+{% endfor %}
+
+   CALL GET_ENVIRONMENT_VARIABLE("OVO_TOL_ULP",usr_precision, status=stat)
+   IF (stat == 0) THEN
+      read(usr_precision, *, iostat=stat) precision
+   ENDIF
+
+{% if is_loop %}
+   size = {{expected_value}};
+{% endif %}
+
+{%if is_loop %}
+  {% for input in l_argv  | selectattr('is_input') %}
+   ALLOCATE({{input.name}}(size))
+   {{input.name}} =  ( {{input.val}} )
+  {% endfor %}
+  {% for output in l_argv  | selectattr('is_output') %}
+   ALLOCATE({{output.name_device}}(size))
+   {% if not reciprocal %}ALLOCATE({{output.name_host}}(size)) {% endif %}
+  {% endfor %}
+{% else %}
+  {% for input in l_argv  | selectattr('is_input') %}
+   {{input.name}} = ( {{input.val}} ) 
+  {% endfor %}
+{%endif%}
+
+{# Run on Host #} 
+{% if not reciprocal %}
+   {{scalar_output.name_host}} = {{name}}({{ l_argv | selectattr('is_input') | join(', ',attribute='name') }})
+{% endif %}
+
+{# Run on accelearator #}
+{% for region, loop_constructs, regions_additional_pragma in zip(l_nested_constructs_ironed_out, regions_associated_loop, regions_additional_pragma)%}
+{% filter indent(width=3*loop.index) %}
+
+   {% for pragma, additional_pragma in zip(region,regions_additional_pragma) %}
+!$OMP {{pragma  | replace("for","do") | upper() }} {{additional_pragma}}
+   {% endfor %}
+
+   {% for loop_  in loop_constructs %}
+DO {{loop_.i}} = 1, {{loop_.N}}
+   {% endfor %}
+{% endfilter %}
+{% endfor %}
+
+{% filter indent(width=3* regions_associated_loop | length) %}
+{%if is_loop %}
+    i = {{inner_index}};
+{%endif %}
+  {%if scalar_output %}
+    {{scalar_output.name_device_idx}} = {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
+  {%else%}
+    {{name}}({{ l_argv | selectattr('is_argv') | join(', ',attribute='argv_device') }});
+  {%endif%}
+{% endfilter %}
+
+{% for region, loop_constructs in zip(l_nested_constructs_ironed_out, regions_associated_loop) | reverse %}
+   {# The closing braket are indented by one less level #}
+   {% filter indent(width=3*loop.revindex) %}
+      {% for loop_  in loop_constructs %}
+END DO
+      {% endfor %}
+   {% endfilter %}
+
+   {% filter indent(width=3*loop.revindex) %}
+         {% for pragma in region | reverse %}
+!$OMP END {{pragma | replace("for","do") | upper}}
+         {% endfor %}
+   {% endfilter %}
+{% endfor %}
 
 {% if not reciprocal %}
     {% if scalar_output.T.category in ("integer","bool") %}
-    IF  ( {% if size %} ANY( {%endif%} o_host .ne. o_device {% if size %} ) {%endif%} ) THEN
+    IF  ( {% if is_loop %} ANY( {%endif%} {{scalar_output.name_host}}.ne.{{scalar_output.name_device}} {% if is_loop %} ) {%endif%} ) THEN
     {% else %}
-    IF ( {% if size %} ANY( {%endif%} ABS(o_host-o_device) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} o_host {% if is_cmplx %} ) {%endif%}  )*precision  {% if size %} ) {%endif%} ) THEN
+    IF ( {% if is_loop %} ANY( {%endif%} ABS({{scalar_output.name_host}}-{{scalar_output.name_device}}) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} {{scalar_output.name_host}} {% if is_cmplx %} ) {%endif%}  )*precision  {% if is_loop %} ) {%endif%} ) THEN
     {% endif %}
-        write(*,*)  'Expected ', o_host, ' Got ', o_device
+        write(*,*)  'Expected ', {{scalar_output.name_host}}, ' Got ', {{scalar_output.name_device}}
         STOP 112
     ENDIF
 {% else %}
     {% set input = (l_argv | selectattr('is_input') | first).name %}
-    IF ( {% if size %} ANY( {%endif%} ABS({{reciprocal}}(o_device) - {{input}}) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} {{input}} {% if is_cmplx %} ) {%endif%}  )*2*precision  {% if size %} ) {%endif%} ) THEN
-            write(*,*)  'Expected ', {{input}}, ' Got ', {{reciprocal}}(o_device)
+    IF ( {% if is_loop %} ANY( {%endif%} ABS({{reciprocal}}({{scalar_output.name_device}}) - {{input}}) > EPSILON( {% if is_cmplx %} REAL ( {%endif%} {{input}} {% if is_cmplx %} ) {%endif%}  )*2*precision  {% if is_loop %} ) {%endif%} ) THEN
+            write(*,*)  'Expected ', {{input}}, ' Got ', {{reciprocal}}({{scalar_output.name_device}})
             STOP 112
     ENDIF
 {% endif %}
