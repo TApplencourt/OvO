@@ -669,6 +669,29 @@ class HP:  # ^(;,;)^
                 elif self.language == "fortran":
                     yield f"map(to: src{borns}) map(from: dst{borns})"
 
+        def sharing_attribute(i, counter, pragma):
+            if not self.intermediate_result:
+                return
+
+            if self.language != "fortran":
+                return
+
+            if not any(t in self.test_type for t  in ("atomic","reduction")):
+                return
+
+            if pragma == "target":
+                return
+
+            if not pragma.can_be_privatized:
+                return
+
+            if "atomic" in self.test_type:
+                yield f"shared({counter})"
+
+            for counter_ in self.regions_counter[i+1:]:
+                yield f"private({counter_})"
+
+
         def reduction_directive(counter, pragma):
             if "reduction_add" in self.test_type and pragma.can_be_reduced:
                 yield f"reduction(+: {counter})"
@@ -688,8 +711,8 @@ class HP:  # ^(;,;)^
         def limit_directive(pragma):
             # We don't sepcify num_teams for now.
             # Indeed it not yet support by the vast majority of compiler
-            # When it will be the case, we will remove the call to `omp_set_num_teams` 
-            # and use this function            
+            # When it will be the case, we will remove the call to `omp_set_num_teams`
+            # and use this function
 
             #if self.single('teams') and 'teams' in pragma:
             #    yield f"num_teams(1,{self.loop_tripcount})"
@@ -698,8 +721,10 @@ class HP:  # ^(;,;)^
                 yield f"num_threads({self.loop_tripcount})"
 
         def additional_pragma(i, counter, pragma):
-            construct = chain(limit_directive(pragma), mapping_directive(i, counter, pragma), device_directive(i, counter, pragma), reduction_directive(counter, pragma), ordered_directive(pragma), collapse_directive(pragma))
+            construct = chain(limit_directive(pragma), mapping_directive(i, counter, pragma), device_directive(i, counter, pragma),
+                              reduction_directive(counter, pragma), ordered_directive(pragma), collapse_directive(pragma), sharing_attribute(i,counter,pragma))
             return " ".join(construct)
+
 
         map_region = lambda i, c, r: [additional_pragma(i, c, pragma) for pragma in r]
         return [map_region(i, c, r) for i, c, r in zip(count(), self.regions_counter, self.l_nested_constructs)]
@@ -894,7 +919,7 @@ class Argv:
     def name_host(self):
         return f"{self.name}_host"
 
-    
+
     def access(self,str_):
         if self.language == 'cpp':
             return f"[{str_}]"
@@ -1086,22 +1111,22 @@ class Math:
     @cached_property
     def l_nested_constructs_ironed_out(self):
         # Pragma only in the first elements. Then empty
-        return HP(self.path_raw, {"language": self.language} ).l_nested_constructs_ironed_out        
+        return HP(self.path_raw, {"language": self.language} ).l_nested_constructs_ironed_out
 
     @cached_property
     def expected_value(self):
         return  HP(self.path_raw, {"language": self.language} ).expected_value
 
-    @cached_property            
+    @cached_property
     def regions_additional_pragma(self):
         l_output = [argv.map_clause_from for argv in self.l_argv if argv.is_output]
         l_input = [argv.map_clause_to for argv in self.l_argv if argv.is_input]
         str_ = f"map(from: {', '.join(l_output)})"
         if self.is_loop:
             str_ += f" map(to: {', '.join(l_input)})"
-        #We put only pragma on target 
+        #We put only pragma on target
         l = [ ['']*len(i) for i in self.l_nested_constructs_ironed_out ]
-        l[0][0] = str_ 
+        l[0][0] = str_
         return l
 #  -
 # /   _   _|  _     _   _  ._   _  ._ _. _|_ o  _  ._
@@ -1115,7 +1140,7 @@ def gen_mf(d_arg):
     std = d_arg["standard"]
     cmplx = d_arg["complex"]
     hp = d_arg["hp"]
- 
+
     if std.startswith("cpp") or std == "gnu":
         language = "cpp"
         if cmplx:
@@ -1249,10 +1274,10 @@ hp_d_default_value = defaultdict(lambda: False)
 hp_d_default_value.update({"data_type": {"REAL", "float"}, "test_type": {"memcopy", "atomic_add", "reduction_add"}, "collapse": [0], "tripcount": [32 * 32 * 32]})
 
 
-mf_d_possible_value = {"standard": {"cpp11", "cpp17", "cpp20", "F77", "gnu", "F08"}, 
+mf_d_possible_value = {"standard": {"cpp11", "cpp17", "cpp20", "F77", "gnu", "F08"},
                        "hp": [],
-                       "complex": bool, 
-                       "long": bool, 
+                       "complex": bool,
+                       "long": bool,
                        "tripcount": int}
 
 mf_d_default_value = defaultdict(lambda: False)
