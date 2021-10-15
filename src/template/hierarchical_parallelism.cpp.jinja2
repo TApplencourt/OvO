@@ -21,17 +21,17 @@ using std::complex;
 {# \_/ |_) (/_ | | |  | |     __) |_ |_| |_) _> #}
 {#     |                                        #}
 
-{% if openmp_api_call or multiple_devices %}
+{% if single("teams") or single("parallel") or multiple_devices %}
 #ifdef _OPENMP
 #include <omp.h>
 #else
 
-{% if openmp_api_call and single("teams") %}
+{% if single("teams") %}
 int omp_get_num_teams() {return 1;}
 void omp_set_num_teams(int _) {}
 {% endif %}
 
-{% if openmp_api_call and single("parallel") %}
+{% if single("parallel") %}
 int omp_get_num_threads() {return 1;}
 {% endif %}
 

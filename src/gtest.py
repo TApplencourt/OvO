@@ -74,7 +74,7 @@ def format_template(str_, language):
         Don't work if we need to split line in more than one line
         """
         prefix = "&\n!$OMP&" if line.lstrip().startswith("!$OMP") else "&\n&"
-        l_chunk = range(len(line) // max_width)
+        l_chunk = range(len(line) // (max_width+1))
 
         l = list(line)
         for i in l_chunk:
@@ -685,7 +685,7 @@ class HP:  # ^(;,;)^
             if not pragma.can_be_privatized:
                 return
 
-            if "atomic" in self.test_type:
+            if "atomic" in self.test_type and pragma != 'simd':
                 yield f"shared({counter})"
 
             for counter_ in self.regions_counter[i+1:]:
