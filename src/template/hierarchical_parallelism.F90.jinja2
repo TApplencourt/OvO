@@ -151,8 +151,6 @@ PROGRAM main
   INTEGER :: expected_value
   {% if test_type.endswith('_min') %}
   expected_value = 0
-  {% elif test_type.endswith('_max') %}
-  expected_value = {{expected_value}} - 1
   {% else %}
   expected_value = {{expected_value}}
   {% endif %}
@@ -171,7 +169,7 @@ PROGRAM main
 {% filter indent(width=2*loop.index) %}
    {# In the case of 'local' test, we use only one counter in the outermost enclosing scope #}
    {% if  test_type != 'memcopy' and (intermediate_result or loop.first) %}
-{{counter}} = 0
+{{counter}} = {%if test_type.endswith('_max') %} 1 {%else%} 0 {%endif%} 
    {% endif %}
    {% for pragma, additional_pragma in zip(region, region_additional_pragma) %}
 !$OMP {{pragma | replace("for","do") | upper() }} {{additional_pragma}} 
