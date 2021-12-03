@@ -1,9 +1,8 @@
 #include <iostream>
 #include <cstdlib>
-#include <cmath>
+#include <algorithm>
 #include <limits>
 #include <vector>
-#include <algorithm>
 #include <complex>
 using std::complex;
 bool almost_equal(complex<double> x, complex<double> y, int ulp) {

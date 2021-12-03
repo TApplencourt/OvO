@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include <cmath>
+#include <algorithm>
 #ifdef _OPENMP
 #include <omp.h>
 #else

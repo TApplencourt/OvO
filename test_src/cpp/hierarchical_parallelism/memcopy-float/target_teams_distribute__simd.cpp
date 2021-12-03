@@ -1,11 +1,10 @@
 #include <iostream>
 #include <cstdlib>
-#include <cmath>
+#include <algorithm>
 #include <limits>
 #include <vector>
-#include <algorithm>
 bool almost_equal(float x, float y, int ulp) {
-  return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp || std::fabs(x-y) < std::numeric_limits<float>::min();
+  return std::abs(x-y) <= std::numeric_limits<float>::epsilon() * std::abs(x+y) * ulp || std::abs(x-y) < std::numeric_limits<float>::min();
 }
 void test_target_teams_distribute__simd() {
   const int N0 { 182 };

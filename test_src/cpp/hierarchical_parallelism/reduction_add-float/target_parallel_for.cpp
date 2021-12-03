@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include <cmath>
+#include <algorithm>
 bool almost_equal(float x, float gold, float rel_tol=1e-09, float abs_tol=0.0) {
   return std::abs(x-gold) <= std::max(rel_tol * std::max(std::abs(x), std::abs(gold)), abs_tol);
 }

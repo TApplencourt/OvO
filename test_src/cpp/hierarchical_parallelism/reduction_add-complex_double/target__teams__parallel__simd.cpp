@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include <cmath>
+#include <algorithm>
 #include <complex>
 using std::complex;
 #ifdef _OPENMP

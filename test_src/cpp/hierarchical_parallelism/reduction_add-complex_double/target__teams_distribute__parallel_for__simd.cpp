@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include <cmath>
+#include <algorithm>
 #include <complex>
 using std::complex;
 bool almost_equal(complex<double> x, complex<double> gold, double rel_tol=1e-09, double abs_tol=0.0) {
