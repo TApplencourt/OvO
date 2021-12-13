@@ -42,7 +42,7 @@ jobs:
       CXX: ${{matrix.CXX}}
       CXXFLAGS: -Wall -Wextra -Werror -Wno-unknown-pragmas ${{matrix.CXXFLAGS}}
       FC: ${{matrix.FC}}
-      FFLAGS: -Wall -Wextra -Werror -Wno-unknown-pragmas ${{matrix.FFLAGS}}
+      FFLAGS: -Wall -Wextra -Werror ${{matrix.FFLAGS}}
 
     defaults:
       run:
