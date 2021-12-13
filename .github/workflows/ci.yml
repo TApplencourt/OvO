@@ -43,7 +43,6 @@ jobs:
       CXXFLAGS: -Wall -Wextra -Werror -Wno-unknown-pragmas ${{matrix.CXXFLAGS}}
       FC: ${{matrix.FC}}
       FFLAGS: -Wall -Wextra -Werror -Wno-unknown-pragmas ${{matrix.FFLAGS}}
-      OVO_TIMEOUT: ${{matrix.OVO_TIMEOUT}}
 
     defaults:
       run:
@@ -89,6 +88,7 @@ jobs:
         run: ./ovo.sh gen tiers 2
 
       - name: run test_src ${{matrix.language}}
+        timeout-minutes: 10
         run: ./ovo.sh run test_src/${{matrix.language}}
 
       - name: report no-omp
