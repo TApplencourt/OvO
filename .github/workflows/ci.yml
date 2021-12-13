@@ -10,7 +10,6 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest]
         compiler: [gnu-10,intel-llvm]
         language: [cpp,fortran]
         case: [no-omp,no-omp-tier-2,omp]
@@ -36,8 +35,8 @@ jobs:
             case: omp
             CXXFLAGS: -fopenmp -foffload=disable
 
-    runs-on: ${{matrix.os}}
-    name: ${{matrix.name}}
+    runs-on: ubuntu-latest
+    name: ${{matrix.compiler}} ${{matrix.language}} ${{matrix.case}}
 
     env:
       CXX: ${{matrix.CXX}}
