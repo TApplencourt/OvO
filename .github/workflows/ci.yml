@@ -9,30 +9,32 @@ on:
 jobs:
   build:
     strategy:
-    matrix:
-      os: [ubuntu-latest]
-      compiler: [gnu-10,intel-llvm]
-      language: [cpp,fortran]
-      case: [no-omp,no-omp-tier-2,omp]
-      exclude:
-        - compiler: intel-llvm
-          case: [no-omp,no-omp-tiers-2]
-      include:
-        - compiler: gnu-10
+      matrix:
+        os: [ubuntu-latest]
+        compiler: [gnu-10,intel-llvm]
+        language: [cpp,fortran]
+        case: [no-omp,no-omp-tier-2,omp]
+        exclude:
+          - compiler: intel-llvm
+            case: no-omp
+          - compiler: intel-llvm
+            case: no-omp-tiers-2
+        include:
+          - compiler: 'gnu-10'
             CXX: g++-10
-            FC: gfortran-10
-        - compiler: intel-llvm
+            FC: "gfortran-10"
+          - compiler: intel-llvm
             CXX: icpx
             FC: ifx
             CXXFLAGS: -fopenmp-targets=x86_64-pc-linux-gnu -fopenmp-version=50
             FFLAGS: -fopenmp-targets=x86_64-pc-linux-gnu -fopenmp-version=50
             OVO_TIMEOUT: "3m"
-        - compiler: gnu-10
-          case: no-omp-tiers-2
-          CXXFLAGS: -std=c++17
-        - compiler: gnu-10
-          case: omp
-          CXXFLAGS: -fopenmp -foffload=disable
+          - compiler: gnu-10
+            case: no-omp-tiers-2
+            CXXFLAGS: -std=c++17
+          - compiler: gnu-10
+            case: omp
+            CXXFLAGS: -fopenmp -foffload=disable
 
     runs-on: ${{matrix.os}}
     name: ${{matrix.name}}
@@ -57,7 +59,7 @@ jobs:
           sudo apt install python3
 
       - name:  install pip requirements
-        if ${{matrix.compiler == 'gnu-10'}}
+        if: ${{matrix.compiler == 'gnu-10'}}
         run: pip install -r requirements.txt
 
       - name: add oneAPI to apt
