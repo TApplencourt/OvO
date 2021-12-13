@@ -12,7 +12,7 @@ jobs:
       matrix:
         compiler: [gnu-10,intel-llvm]
         language: [cpp,fortran]
-        case: [no-omp,no-omp-tier-2,omp]
+        case: [no-omp,no-omp-tiers-2,omp]
         exclude:
           - compiler: intel-llvm
             case: no-omp
