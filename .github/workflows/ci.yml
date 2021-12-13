@@ -1,0 +1,109 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        compiler: [gnu-10,intel-llvm]
+        language: [cpp,fortran]
+        case: [no-omp,no-omp-tiers-2,omp]
+        exclude:
+          - compiler: intel-llvm
+            case: no-omp
+          - compiler: intel-llvm
+            case: no-omp-tiers-2
+        include:
+          - compiler: 'gnu-10'
+            CXX: g++-10
+            FC: "gfortran-10"
+          - compiler: intel-llvm
+            CXX: icpx
+            FC: ifx
+            CXXFLAGS: -fopenmp-targets=x86_64-pc-linux-gnu -fopenmp-version=50
+            FFLAGS: -fopenmp-targets=x86_64-pc-linux-gnu -fopenmp-version=50
+            OVO_TIMEOUT: "3m"
+          - compiler: gnu-10
+            case: no-omp-tiers-2
+            CXXFLAGS: -std=c++17
+          - compiler: gnu-10
+            case: omp
+            CXXFLAGS: -fopenmp -foffload=disable
+
+    runs-on: ubuntu-latest
+    name: ${{matrix.compiler}} ${{matrix.language}} ${{matrix.case}}
+
+    env:
+      CXX: ${{matrix.CXX}}
+      CXXFLAGS: -Wall -Wextra -Werror -Wno-unknown-pragmas ${{matrix.CXXFLAGS}}
+      FC: ${{matrix.FC}}
+      FFLAGS: -Wall -Wextra -Werror ${{matrix.FFLAGS}}
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install python3
+        run: |
+          sudo apt update
+          sudo apt install python3
+
+      - name:  install pip requirements
+        if: ${{matrix.compiler == 'gnu-10'}}
+        run: pip install -r requirements.txt
+
+      - name: add oneAPI to apt
+        if: ${{matrix.compiler == 'intel-llvm'}}
+        run: |
+          cd /tmp
+          wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+          sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+          rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+          sudo add-apt-repository "deb https://apt.repos.intel.com/oneapi all main"
+      
+      - name: install Intel icpx compiler
+        if: ${{env.CXX == 'icpx' && matrix.language == 'cpp'}}
+        run: |
+          sudo apt update
+          sudo apt install intel-oneapi-compiler-dpcpp-cpp
+          sudo apt install intel-oneapi-openmp
+
+      - name: install Intel ifx compiler
+        if: ${{env.CXX == 'ifx' && matrix.language == 'fortran'}}
+        run: |
+          sudo apt update
+          sudo apt install intel-oneapi-compiler-fortran
+          sudo apt install intel-oneapi-openmp
+
+      - name: run gen tiers 2
+        if: ${{matrix.case == 'no-omp-tiers-2'}}
+        run: ./ovo.sh gen tiers 2
+
+      - name: run test_src ${{matrix.language}}
+        timeout-minutes: 10
+        run: ./ovo.sh run test_src/${{matrix.language}}
+
+      - name: report no-omp
+        if: ${{matrix.case != 'omp'}}
+        run: ./ovo.sh report --failed
+
+      - name: report omp
+        if: ${{matrix.case == 'omp'}}
+        run: ./ovo.sh report --failed || true
+
+      - name: unittest
+        run: |
+          python3 -m unittest src/report.py
+          python3 -m doctest src/report.py
+          python3 -m doctest src/gtest.py
+
+
+        
