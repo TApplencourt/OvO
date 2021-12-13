@@ -6,7 +6,7 @@
 <  .  >
 --"-"---
 ```
-![Build Status]](https://github.com/TApplencourt/OvO/workflows/CI/badge.svg)
+![Build Status](https://github.com/TApplencourt/OvO/workflows/CI/badge.svg)
 
 OvO is a collection of OpenMP Offloading test functions for  C++ and Fortran.
 
