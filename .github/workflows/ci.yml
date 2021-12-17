@@ -75,7 +75,6 @@ jobs:
           sudo apt update
           sudo apt install intel-oneapi-compiler-dpcpp-cpp
           sudo apt install intel-oneapi-openmp
-          source /opt/intel/oneapi/setvars.sh
 
       - name: install Intel ifx compiler
         if: ${{env.FC == 'ifx' && matrix.language == 'fortran'}}
@@ -83,7 +82,6 @@ jobs:
           sudo apt update
           sudo apt install intel-oneapi-compiler-fortran
           sudo apt install intel-oneapi-openmp
-          source /opt/intel/oneapi/setvars.sh
 
       - name: run gen tiers 2
         if: ${{matrix.case == 'no-omp-tiers-2'}}
