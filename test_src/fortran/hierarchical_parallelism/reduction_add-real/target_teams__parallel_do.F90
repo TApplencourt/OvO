@@ -5,6 +5,7 @@ FUNCTION omp_get_num_teams() RESULT(i)
 END FUNCTION omp_get_num_teams
 SUBROUTINE omp_set_num_teams(i)
     integer, intent(in) :: i
+    IF (i /= 0) CONTINUE
 END SUBROUTINE omp_set_num_teams
 #endif
 FUNCTION almost_equal(x, gold, tol) RESULT(b)
