@@ -6,8 +6,6 @@
 #include <cstdlib>
 using namespace std;
 void test_abs(){
-   const char* usr_precision = getenv("OVO_TOL_ULP");
-   const int precision = usr_precision ? atoi(usr_precision) : 4;
    int in0 { 1 };
    int out1_host {};
    int out1_device {};

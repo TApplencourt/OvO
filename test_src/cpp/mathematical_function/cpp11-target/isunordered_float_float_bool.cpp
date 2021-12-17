@@ -6,8 +6,6 @@
 #include <cstdlib>
 using namespace std;
 void test_isunordered(){
-   const char* usr_precision = getenv("OVO_TOL_ULP");
-   const int precision = usr_precision ? atoi(usr_precision) : 4;
    float in0 { 0.42 };
    float in1 { 0.42 };
    bool out2_host {};

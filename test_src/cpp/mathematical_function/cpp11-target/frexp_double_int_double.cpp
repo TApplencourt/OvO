@@ -9,8 +9,6 @@ bool almost_equal(double x, double y, int ulp) {
    return std::fabs(x-y) <= std::numeric_limits<double>::epsilon() * std::fabs(x+y) * ulp || std::fabs(x-y) < std::numeric_limits<double>::min();
 }
 void test_frexp(){
-   const char* usr_precision = getenv("OVO_TOL_ULP");
-   const int precision = usr_precision ? atoi(usr_precision) : 4;
    double in0 { 0.42 };
    int out1_host {};
    int out1_device {};

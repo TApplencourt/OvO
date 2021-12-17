@@ -9,8 +9,6 @@ bool almost_equal(float x, float y, int ulp) {
    return std::fabs(x-y) <= std::numeric_limits<float>::epsilon() * std::fabs(x+y) * ulp || std::fabs(x-y) < std::numeric_limits<float>::min();
 }
 void test_remquo(){
-   const char* usr_precision = getenv("OVO_TOL_ULP");
-   const int precision = usr_precision ? atoi(usr_precision) : 4;
    float in0 { 0.42 };
    float in1 { 0.42 };
    int out2_host {};

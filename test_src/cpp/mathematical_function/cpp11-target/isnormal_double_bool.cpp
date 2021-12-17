@@ -6,8 +6,6 @@
 #include <cstdlib>
 using namespace std;
 void test_isnormal(){
-   const char* usr_precision = getenv("OVO_TOL_ULP");
-   const int precision = usr_precision ? atoi(usr_precision) : 4;
    double in0 { 0.42 };
    bool out1_host {};
    bool out1_device {};

@@ -26,9 +26,10 @@ bool almost_equal({{output.T.without_pointer}} x, {{output.T.without_pointer}} y
 {% endfor %}
 
 void test_{{name}}(){
-
+{% if all_output_fp %}
    const char* usr_precision = getenv("OVO_TOL_ULP");
    const int precision =  usr_precision ? atoi(usr_precision) : 4;
+{% endif %}
 
 {% for loop_constructs in regions_associated_loop %}
     {% for loop_  in loop_constructs %}

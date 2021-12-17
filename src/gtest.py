@@ -1088,6 +1088,11 @@ class Math:
     def have_complex(self):
         return any(t.T.category == "complex" for t in self.l_argv)
 
+
+    @cached_property
+    def all_output_fp(self):
+        return all(l.T.category not in ("integer","bool") for l in self.l_argv if l.is_output)
+
     @cached_property
     def template_rendered(self):
 
