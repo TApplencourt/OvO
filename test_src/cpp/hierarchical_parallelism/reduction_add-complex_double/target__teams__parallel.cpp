@@ -7,7 +7,7 @@ using std::complex;
 #include <omp.h>
 #else
 int omp_get_num_teams() {return 1;}
-void omp_set_num_teams(int _) {}
+void omp_set_num_teams(int _) { (void)_;}
 int omp_get_num_threads() {return 1;}
 #endif
 bool almost_equal(complex<double> x, complex<double> gold, double rel_tol=1e-09, double abs_tol=0.0) {

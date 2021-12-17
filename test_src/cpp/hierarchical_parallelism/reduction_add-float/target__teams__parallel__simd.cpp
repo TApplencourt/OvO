@@ -5,7 +5,7 @@
 #include <omp.h>
 #else
 int omp_get_num_teams() {return 1;}
-void omp_set_num_teams(int _) {}
+void omp_set_num_teams(int _) { (void)_;}
 int omp_get_num_threads() {return 1;}
 #endif
 bool almost_equal(float x, float gold, float rel_tol=1e-09, float abs_tol=0.0) {

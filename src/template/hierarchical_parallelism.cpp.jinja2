@@ -27,7 +27,7 @@ using std::complex;
 
 {% if single("teams") %}
 int omp_get_num_teams() {return 1;}
-void omp_set_num_teams(int _) {}
+void omp_set_num_teams(int _) { (void)_;}
 {% endif %}
 
 {% if single("parallel") %}

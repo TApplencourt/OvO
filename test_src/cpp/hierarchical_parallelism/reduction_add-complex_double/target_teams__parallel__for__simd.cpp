@@ -7,7 +7,7 @@ using std::complex;
 #include <omp.h>
 #else
 int omp_get_num_teams() {return 1;}
-void omp_set_num_teams(int _) {}
+void omp_set_num_teams(int _) { (void)_;}
 #endif
 bool almost_equal(complex<double> x, complex<double> gold, double rel_tol=1e-09, double abs_tol=0.0) {
   return std::abs(x-gold) <= std::max(rel_tol * std::max(std::abs(x), std::abs(gold)), abs_tol);
