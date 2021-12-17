@@ -1090,8 +1090,8 @@ class Math:
 
 
     @cached_property
-    def all_output_fp(self):
-        return all(l.T.category not in ("integer","bool") for l in self.l_argv if l.is_output)
+    def any_output_fp(self):
+        return any(l.T.category not in ("integer","bool") for l in self.l_argv if l.is_output)
 
     @cached_property
     def template_rendered(self):
