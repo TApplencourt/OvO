@@ -1351,6 +1351,7 @@ if __name__ == "__main__":
     tiers_parser = action_parsers.add_parser("tiers")
     tiers_parser.add_argument("tiers", type=int, nargs="?")
     tiers_parser.add_argument("--tripcount", nargs="?", default=32 * 32 * 32)
+    tiers_parser.add_argument("--no_user_defined_reduction", nargs="*")
 
     # ~
     # hierarchical_parallelism
@@ -1387,9 +1388,10 @@ if __name__ == "__main__":
             t = 32 * 32 * 32
         else:
             t = int(p.tripcount)
-
+    
         if not p.command or p.tiers >= 1:
-            l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic_add", "reduction_add"}, "tripcount": {t}}]
+            l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic_add", "reduction_add"}, 
+                    "tripcount": {t}, "no_user_defined_reduction": {p.no_user_defined_reduction != None}}]
             l_mf = [{"standard": {"cpp11", "F77"}, "complex": {True, False}, "hp": {"target",} }]
         if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
@@ -1418,6 +1420,7 @@ if __name__ == "__main__":
                     d2[k] = [True, False]
             d2["simdize"] = [1, 32]
             l_mf = [d2]
+
     l_hp_unique = set(chain.from_iterable(gen_all_permutation(d) for d in l_hp))
     l_mf_unique = set(chain.from_iterable(gen_all_permutation(d) for d in l_mf))
     # ~
