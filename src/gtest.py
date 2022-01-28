@@ -1391,7 +1391,7 @@ if __name__ == "__main__":
     
         if not p.command or p.tiers >= 1:
             l_hp = [{"data_type": {"REAL", "float", "complex<double>", "DOUBLE COMPLEX"}, "test_type": {"memcopy", "atomic_add", "reduction_add"}, 
-                    "tripcount": {t}, "no_user_defined_reduction": {p.no_user_defined_reduction != None}}]
+                    "tripcount": {t}, "no_user_defined_reduction": {False,}} ] #{p.no_user_defined_reduction != None}}]
             l_mf = [{"standard": {"cpp11", "F77"}, "complex": {True, False}, "hp": {"target",} }]
         if p.command == "tiers" and p.tiers >= 2:
             l_hp += [
