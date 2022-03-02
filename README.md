@@ -15,7 +15,7 @@ OvO is a collection of OpenMP Offloading test functions for  C++ and Fortran.
 ```
 $ git clone git@github.com:TApplencourt/OvO.git ; cd OvO
 # Set your env and run 
-$ OMP_TARGET_OFFLOAD=mandatory CXX="g++" CXXFLAGS="-fopenmp" FC="gfortran" FFLAGS="-fopenmp"./ovo.sh run
+$ OMP_TARGET_OFFLOAD=mandatory CXX="g++" CXXFLAGS="-fopenmp" FC="gfortran" FFLAGS="-fopenmp" ./ovo.sh run
 $ ./ovo.sh report
 >> Overall result test_result/1957-04-01_19-02_CDC6600.lanl.gov
   pass rate(%)    test(#)    success(#)    compilation error(#)    runtime error(#)    wrong value(#)    hang(#)
