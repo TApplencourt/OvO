@@ -251,7 +251,7 @@ class Pragma(str):
 
     @cached_property
     def can_be_privatized(self):
-        return any(p in self.pragma for p in ("target", "teams", "parallel", "simd"))
+        return any(p in self.pragma for p in ("target", "teams", "parallel", "simd","loop"))
 
     def __repr__(self):
         return self.pragma
