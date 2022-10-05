@@ -107,8 +107,8 @@ PROGRAM main
   implicit none
 {% endif %}
 
-{% if T.is_complex and not no_user_defined_reduction %}
-   {% if test_type == 'reduction_min' %}
+{% if T.is_complex %}
+   {% if T.is_complex and test_type == 'reduction_min' %}
 !$OMP DECLARE REDUCTION(min: {{T}}: omp_out = MIN(ABS(omp_in), ABS(omp_out)))
    {% elif test_type == 'reduction_max' %}
 !$OMP DECLARE REDUCTION(max: {{T}}: omp_out = MAX(ABS(omp_in), ABS(omp_out)))
