@@ -27,7 +27,6 @@ using std::complex;
 
 {% if single("teams") %}
 int omp_get_num_teams() {return 1;}
-void omp_set_num_teams(int _) { (void)_;}
 {% endif %}
 
 {% if single("parallel") %}
@@ -103,10 +102,6 @@ void test_{{name}}() {
   const {{T}} expected_value { {{expected_value}}-1 };
 {% else %}
   const {{T}} expected_value { {{expected_value}} };
-{% endif %}
-
-{% if single("teams") %}
-  omp_set_num_teams({{loop_tripcount}});
 {% endif %}
 
 {#                      _                          #}

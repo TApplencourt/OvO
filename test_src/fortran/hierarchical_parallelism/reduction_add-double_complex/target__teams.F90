@@ -3,10 +3,6 @@ FUNCTION omp_get_num_teams() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_teams
-SUBROUTINE omp_set_num_teams(i)
-    integer, intent(in) :: i
-    IF (i /= 0) CONTINUE
-END SUBROUTINE omp_set_num_teams
 #endif
 FUNCTION almost_equal(x, gold, tol) RESULT(b)
   implicit none
@@ -28,10 +24,9 @@ PROGRAM target__teams
   DOUBLE COMPLEX :: counter_teams
   INTEGER :: expected_value
   expected_value = 1
-  CALL omp_set_num_teams(32768)
   counter_teams = 0
   !$OMP TARGET map(tofrom: counter_teams)
-  !$OMP TEAMS reduction(+: counter_teams)
+  !$OMP TEAMS num_teams(32768) reduction(+: counter_teams)
     counter_teams = counter_teams + 1. / omp_get_num_teams()
   !$OMP END TEAMS
   !$OMP END TARGET

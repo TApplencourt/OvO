@@ -3,10 +3,6 @@ FUNCTION omp_get_num_teams() RESULT(i)
   INTEGER :: i
   i = 1
 END FUNCTION omp_get_num_teams
-SUBROUTINE omp_set_num_teams(i)
-    integer, intent(in) :: i
-    IF (i /= 0) CONTINUE
-END SUBROUTINE omp_set_num_teams
 FUNCTION omp_get_num_threads() RESULT(i)
   INTEGER :: i
   i = 1
@@ -33,9 +29,8 @@ PROGRAM target_teams__parallel
   REAL :: counter_teams
   INTEGER :: expected_value
   expected_value = 1
-  CALL omp_set_num_teams(182)
   counter_teams = 0
-  !$OMP TARGET TEAMS reduction(+: counter_teams)
+  !$OMP TARGET TEAMS num_teams(182) reduction(+: counter_teams)
     !$OMP PARALLEL num_threads(182) reduction(+: counter_teams)
       counter_teams = counter_teams + 1. / ( omp_get_num_teams() * omp_get_num_threads() )
     !$OMP END PARALLEL

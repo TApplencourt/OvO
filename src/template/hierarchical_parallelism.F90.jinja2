@@ -14,13 +14,6 @@ FUNCTION omp_get_num_teams() RESULT(i)
 END FUNCTION omp_get_num_teams
 {% endif %}
 
-{% if single("teams") %}
-SUBROUTINE omp_set_num_teams(i)
-    integer, intent(in) :: i
-    IF (i /= 0) CONTINUE
-END SUBROUTINE omp_set_num_teams
-{% endif %}
-
 {% if openmp_api_call and single("parallel") %}
 FUNCTION omp_get_num_threads() RESULT(i)
   INTEGER :: i
@@ -155,10 +148,6 @@ PROGRAM main
   {% else %}
   expected_value = {{expected_value}}
   {% endif %}
-{% endif %}
-
-{% if single("teams") %}
-  CALL omp_set_num_teams({{loop_tripcount}})
 {% endif %}
 
 {#                      _                          #}

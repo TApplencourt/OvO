@@ -709,13 +709,8 @@ class HP:  # ^(;,;)^
                 yield f"collapse({self.collapse})"
 
         def limit_directive(pragma):
-            # We don't sepcify num_teams for now.
-            # Indeed it not yet support by the vast majority of compiler
-            # When it will be the case, we will remove the call to `omp_set_num_teams`
-            # and use this function
-
-            #if self.single('teams') and 'teams' in pragma:
-            #    yield f"num_teams(1,{self.loop_tripcount})"
+            if self.single('teams') and 'teams' in pragma:
+                yield f"num_teams({self.loop_tripcount})"
 
             if self.single('parallel') and 'parallel' in pragma:
                 yield f"num_threads({self.loop_tripcount})"

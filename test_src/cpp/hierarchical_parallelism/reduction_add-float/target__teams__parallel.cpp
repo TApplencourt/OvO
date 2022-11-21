@@ -5,7 +5,6 @@
 #include <omp.h>
 #else
 int omp_get_num_teams() {return 1;}
-void omp_set_num_teams(int _) { (void)_;}
 int omp_get_num_threads() {return 1;}
 #endif
 bool almost_equal(float x, float gold, float rel_tol=1e-09, float abs_tol=0.0) {
@@ -13,10 +12,9 @@ bool almost_equal(float x, float gold, float rel_tol=1e-09, float abs_tol=0.0) {
 }
 void test_target__teams__parallel() {
   const float expected_value { 1 };
-  omp_set_num_teams(182);
   float counter_teams{};
   #pragma omp target map(tofrom: counter_teams)
-  #pragma omp teams reduction(+: counter_teams)
+  #pragma omp teams num_teams(182) reduction(+: counter_teams)
   {
     #pragma omp parallel num_threads(182) reduction(+: counter_teams)
     {
