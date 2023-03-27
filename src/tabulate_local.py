@@ -1,5 +1,5 @@
 """
-Copyright (c) 2011-2013 Sergey Astanin
+Copyright (c) 2011-2020 Sergey Astanin and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
