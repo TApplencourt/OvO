@@ -11,7 +11,11 @@ try:
     from tabulate import tabulate
 except ImportError:
     sys.path.append(dirname)
-    from tabulate_local import tabulate
+    try:
+        from tabulate_local import tabulate
+    #  New version of tabulate require `dataclass` who is python 3.6+
+    except ModuleNotFoundError:
+        from tabulate_local_pre36 import tabulate
 
 #  _
 # |_) _. ._ _ o ._   _
