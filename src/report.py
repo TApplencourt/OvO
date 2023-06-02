@@ -241,7 +241,7 @@ def print_result(l_d, tablefmt="simple", type_=None):
     elif type_ == "no_folder":
         data = [row[1:] for row in data]
 
-    print(tabulate(data, headers="firstrow",tablefmt=tablefmt,floatfmt=".0%"))
+    print(tabulate(data, headers="firstrow",tablefmt=tablefmt,floatfmt=".1%"))
 
 #
 # |\/|  _. o ._
